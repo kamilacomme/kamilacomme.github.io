@@ -1,0 +1,99 @@
+/* ============================================================
+   COLOR — Kamila Comme
+   Three-layer model: Primitive → Semantic → Component.
+   Values are the exact ramps confirmed in the brand strategy doc
+   (не округлять, не подгонять под сетку — copy exact).
+   Principle "рама и стена": the frame (UI) stays neutral + one
+   accent; the wall (case-study previews) carries the real color.
+   ============================================================ */
+
+:root {
+  /* ---------- PRIMITIVE — Pink (Primary) ---------- */
+  --pink-100: #FFF5FE;
+  --pink-200: #FFEBFD;
+  --pink-300: #FFDCFB;
+  --pink-400: #FECDF9;
+  --pink-500: #FDB4F5;
+  --pink-600: #F589EA;
+  --pink-700: #E44ED5;
+  --pink-800: #821C78;
+  --pink-900: #330F2F;
+
+  /* ---------- PRIMITIVE — Blue (Secondary) ---------- */
+  --blue-100: #F5FCFF;
+  --blue-200: #E1F5FF;
+  --blue-300: #B0E5FD;
+  --blue-400: #80D4F9;
+  --blue-500: #3ABAF3;
+  --blue-600: #1992C8;
+  --blue-700: #1C6D92;
+  --blue-800: #184559;
+  --blue-900: #112731;
+
+  /* ---------- PRIMITIVE — Lemon (Accent) ---------- */
+  --lemon-100: #FCFFF5;
+  --lemon-200: #F8FEE7;
+  --lemon-300: #F1FBD0;
+  --lemon-400: #E1F3A5;
+  --lemon-500: #CAE56C;
+  --lemon-600: #B1C832;
+  --lemon-700: #687E15;
+  --lemon-800: #4E5926;
+  --lemon-900: #272B17;
+
+  /* ---------- PRIMITIVE — Neutral ---------- */
+  --neutral-100: #FDFCFD;
+  --neutral-200: #F6F4F6;
+  --neutral-300: #F2EEF2;
+  --neutral-400: #E6E0E6;
+  --neutral-500: #D6D1D6;
+  --neutral-600: #BDB7BD;
+  --neutral-700: #9E9A9E;
+  --neutral-800: #5C575C;
+  --neutral-900: #222022;
+
+  /* ---------- PRIMITIVE — base ---------- */
+  --white: #FFFFFF;
+  --black: #222022;          /* = neutral-900, the default dark */
+  --bg-light: #FFFAFE;       /* off-white brand background */
+
+  /* ============================================================
+     SEMANTIC — roles
+     Primary=Pink, Secondary=Blue, Accent=Lemon (rare, high-energy),
+     Neutral = workhorse of text + surfaces.
+     ============================================================ */
+  --primary: var(--pink-500);
+  --primary-deep: var(--pink-800);   /* pink text on white (8.80:1) */
+  --primary-dark: var(--pink-900);   /* dark surface / hero cover */
+  --secondary: var(--blue-500);
+  --secondary-deep: var(--blue-700);
+  --accent: var(--lemon-500);
+  --accent-deep: var(--lemon-700);   /* the one bridge dot (4.58:1) */
+
+  /* ============================================================
+     COMPONENT — tokens by element (verified on test mock)
+     ============================================================ */
+  /* surfaces */
+  --surface-page: var(--white);
+  --surface-page-warm: var(--bg-light);
+  --surface-card: var(--white);
+  --surface-dark: var(--pink-900);      /* hero / section cover */
+  --surface-muted: var(--neutral-200);
+
+  /* text — never use neutral-500/600/700 for text */
+  --text-default: var(--neutral-900);   /* 16.18:1 on white */
+  --text-muted: var(--neutral-800);     /* 7.06:1 — lightest allowed for text */
+  --text-on-dark: var(--white);         /* 16.80:1 on pink-900 */
+  --text-on-primary: var(--neutral-900);/* black on pink-500 fill, 10.04:1 */
+
+  /* borders + dividers */
+  --border-functional: var(--neutral-800); /* 7.06:1 — inputs, ghost btn */
+  --border-subtle: var(--neutral-400);
+  --divider: var(--neutral-300);
+
+  /* the single accent — "available for work" dot, status marks */
+  --accent-dot: var(--lemon-700);
+
+  /* links / interactive text — colour NEVER changes (weight is the signal) */
+  --link: var(--neutral-900);
+}

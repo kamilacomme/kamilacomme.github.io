@@ -1,0 +1,43 @@
+/* ============================================================
+   SPACING & LAYOUT — Kamila Comme
+   Base module 8px (4px micro-module lives only in typography).
+   Grid: 12 desktop columns, 32px margin, 1584px max ("Max" token).
+   Two gutter modes: Wide (24px) default, Condensed (0–8px) as the
+   one deliberate dense moment (contact-sheet / filmstrip).
+   ============================================================ */
+
+:root {
+  /* base module = 8px */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-10: 80px;
+  --space-12: 96px;
+  --space-16: 128px;
+
+  /* micro (typography only) */
+  --space-half: 4px;
+
+  /* grid */
+  --grid-columns: 12;          /* @kind other */
+  --grid-margin: 32px;         /* desktop outer field */
+  --grid-margin-tablet: 24px;
+  --grid-margin-mobile: 16px;
+  --gutter-wide: 24px;         /* default editorial gutter */
+  --gutter-condensed: 4px;     /* deliberate dense moment */
+  --layout-max: 1584px;        /* content stops growing above this */
+
+  /* radius — single 4px radius everywhere (cards, buttons, fields, tags) */
+  --radius: 4px;
+}
+
+/* container helper: passe-partout "canvas in frame" — equal field all 4 sides */
+.kc-container {
+  max-width: var(--layout-max);
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
+}

@@ -1,0 +1,15 @@
+/* ============================================================
+   FONTS — Kamila Comme
+   Figtree (display/headings) + Inter (body/label/emphasis).
+   These ARE the brand's real typefaces (per strategy doc), both
+   available on Google Fonts. Served via Google Fonts here because
+   the original binaries were not provided — swap to self-hosted
+   @font-face if/when the .woff2 files are supplied.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,600&display=swap');
+
+:root {
+  --font-display: 'Figtree', system-ui, sans-serif; /* Bold 700 only */
+  --font-body: 'Inter', system-ui, sans-serif;      /* 400 / 500 / 600 */
+}

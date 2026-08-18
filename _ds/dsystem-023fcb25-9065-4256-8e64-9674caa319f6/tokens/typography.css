@@ -1,0 +1,78 @@
+/* ============================================================
+   TYPOGRAPHY — Kamila Comme
+   Binary hierarchy: display is 10–20× the label, little middle.
+   Two step sizes, not one ratio: conservative Label→Body,
+   two big jumps Body→Heading→Display ("few steps, drama between").
+   Tracking rule: tighten large text, never tighten small text.
+   ============================================================ */
+
+:root {
+  /* roles */
+  --font-display: 'Figtree', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* weights */
+  --fw-display: 700;   /* @kind font */ /* Figtree Bold — structural units only */
+  --fw-emphasis: 600;  /* @kind font */ /* Inter SemiBold — in-line accent + links */
+  --fw-label: 500;     /* @kind font */ /* Inter Medium — labels, tags, nav */
+  --fw-body: 400;      /* @kind font */ /* Inter Regular — running text */
+
+  /* ---------- Display ---------- */
+  --display-size: 5.5rem;      /* 88px */
+  --display-line: 1.1;         /* @kind font */ /* 96px */
+  --display-track: -0.03em;
+
+  /* ---------- Heading ---------- */
+  --heading-size: 2.5rem;      /* 40px */
+  --heading-line: 1.2;         /* @kind font */ /* 48px */
+  --heading-track: -0.02em;
+
+  /* ---------- Body ---------- */
+  --body-size: 1rem;           /* 16px */
+  --body-line: 1.5;            /* @kind font */ /* 24px */
+  --body-track: -0.01em;
+
+  /* ---------- Emphasis (= body, weight changes only) ---------- */
+  --emphasis-size: 1rem;
+  --emphasis-line: 1.5;        /* @kind font */
+  --emphasis-track: -0.01em;
+
+  /* ---------- Label ---------- */
+  --label-size: 0.75rem;       /* 12px */
+  --label-line: 1.67;          /* @kind font */ /* 20px */
+  --label-track: 0.04em;       /* + UPPERCASE */
+}
+
+/* ---------- Utility text classes (optional helpers) ---------- */
+.kc-display {
+  font-family: var(--font-display);
+  font-weight: var(--fw-display);
+  font-size: var(--display-size);
+  line-height: var(--display-line);
+  letter-spacing: var(--display-track);
+}
+.kc-heading {
+  font-family: var(--font-display);
+  font-weight: var(--fw-display);
+  font-size: var(--heading-size);
+  line-height: var(--heading-line);
+  letter-spacing: var(--heading-track);
+}
+.kc-body {
+  font-family: var(--font-body);
+  font-weight: var(--fw-body);
+  font-size: var(--body-size);
+  line-height: var(--body-line);
+  letter-spacing: var(--body-track);
+}
+.kc-emphasis {
+  font-weight: var(--fw-emphasis);
+}
+.kc-label {
+  font-family: var(--font-body);
+  font-weight: var(--fw-label);
+  font-size: var(--label-size);
+  line-height: var(--label-line);
+  letter-spacing: var(--label-track);
+  text-transform: uppercase;
+}

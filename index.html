@@ -2982,13 +2982,19 @@ class Component extends DCLogic {
     let hit = null;
     if (!this.touch && this._px != null) {
       const x = this._px, y = this._py;
-      cards.forEach((el) => {
-        if (el.offsetParent === null) return;
-        const r = el.getBoundingClientRect();
-        if (x < r.left || x > r.right || y < r.top || y > r.bottom) return;
-        // the card nearest the front of the arc wins an overlap
-        if (!hit || Math.abs(el._p || 0) < Math.abs(hit._p || 0)) hit = el;
-      });
+      // the rectangles alone are not enough: the About panel scrolls OVER the sticky projects
+      // section, so ask the document what is actually on top at the pointer first
+      const top = document.elementFromPoint(x, y);
+      const overCards = !!top && !!top.closest && !!top.closest("#projets");
+      if (overCards) {
+        cards.forEach((el) => {
+          if (el.offsetParent === null) return;
+          const r = el.getBoundingClientRect();
+          if (x < r.left || x > r.right || y < r.top || y > r.bottom) return;
+          // the card nearest the front of the arc wins an overlap
+          if (!hit || Math.abs(el._p || 0) < Math.abs(hit._p || 0)) hit = el;
+        });
+      }
     }
     cards.forEach((el) => {
       const on = el === hit;

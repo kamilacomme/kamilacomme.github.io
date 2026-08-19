@@ -8,9 +8,15 @@ import * as THREE from "https://esm.sh/three@0.160.0";
 // phones get a coarser weave: the Verlet solve is O(SEGX*SEGY*ITER) per frame and was
 // the single biggest cost of the footer on mobile
 const MOBILE = typeof matchMedia !== "undefined" && matchMedia("(max-width: 700px)").matches;
-const SEGX = MOBILE ? 20 : 34;
-const SEGY = MOBILE ? 13 : 22;
-const ITER = MOBILE ? 3 : 6;
+// Safari's JS engine runs this per-frame Verlet solve noticeably slower than
+// Chrome/Firefox even on desktop hardware, so it gets the coarser mobile-tier
+// weave too rather than only being split on screen width
+const SAFARI = typeof navigator !== "undefined" &&
+  /^((?!chrome|android|crios|fxios|edg).)*safari/i.test(navigator.userAgent);
+const LITE = MOBILE || SAFARI;
+const SEGX = LITE ? 20 : 34;
+const SEGY = LITE ? 13 : 22;
+const ITER = LITE ? 3 : 6;
 const DAMP = 0.945;
 const GRAVITY = 0.0017;
 // sewn fullness: the panel holds ~1.9x more cloth than its rail span, so the
@@ -117,14 +123,17 @@ class Panel {
     if (!a.pin) { a.x += ox; a.y += oy; a.z += oz; }
     if (!b.pin) { b.x -= ox; b.y -= oy; b.z -= oz; }
   }
-  sync() {
+  sync(updateNormals) {
     const pos = this.geo.attributes.position;
     for (let i = 0; i < this.pts.length; i++) {
       const pt = this.pts[i];
       pos.setXYZ(i, pt.x, pt.y, pt.z);
     }
     pos.needsUpdate = true;
-    this.geo.computeVertexNormals();
+    // normals only need to track shading, not exact geometry — the cloth moves
+    // smoothly enough that recomputing every 3rd frame is visually identical
+    // and cuts a full per-vertex pass (this was the priciest call in sync())
+    if (updateNormals) this.geo.computeVertexNormals();
   }
 }
 
@@ -136,7 +145,9 @@ class CurtainCloth extends HTMLElement {
     this.style.position = "absolute";
     this.style.inset = "0";
 
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    // antialias off: at devicePixelRatio >= 1.25 the supersampling already smooths
+    // edges, and MSAA is disproportionately expensive on Safari's WebGL/Metal path
+    this.renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
     this.renderer.setPixelRatio(Math.min(devicePixelRatio, MOBILE ? 1.25 : 2));
     this.appendChild(this.renderer.domElement);
     Object.assign(this.renderer.domElement.style, {
@@ -233,8 +244,10 @@ class CurtainCloth extends HTMLElement {
     this.right.setPins(this.p);
     this.left.step(this.mouse);
     this.right.step(this.mouse);
-    this.left.sync();
-    this.right.sync();
+    this._frame = (this._frame || 0) + 1;
+    const updateNormals = this._frame % 3 === 0;
+    this.left.sync(updateNormals);
+    this.right.sync(updateNormals);
     this.renderer.render(this.scene, this.camera);
     this.raf = requestAnimationFrame(this.tick);
   }

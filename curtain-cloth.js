@@ -6,17 +6,15 @@ import * as THREE from "https://esm.sh/three@0.160.0";
 // particles away, so the fabric scatters where the cursor passes.
 
 // phones get a coarser weave: the Verlet solve is O(SEGX*SEGY*ITER) per frame and was
-// the single biggest cost of the footer on mobile
+// the single biggest cost of the footer on mobile — this is a real device capability
+// check (weak GPUs/CPUs), not browser sniffing, so it stays
 const MOBILE = typeof matchMedia !== "undefined" && matchMedia("(max-width: 700px)").matches;
-// Safari's JS engine runs this per-frame Verlet solve noticeably slower than
-// Chrome/Firefox even on desktop hardware, so it gets the coarser mobile-tier
-// weave too rather than only being split on screen width
-const SAFARI = typeof navigator !== "undefined" &&
-  /^((?!chrome|android|crios|fxios|edg).)*safari/i.test(navigator.userAgent);
-const LITE = MOBILE || SAFARI;
-const SEGX = LITE ? 20 : 34;
-const SEGY = LITE ? 13 : 22;
-const ITER = LITE ? 3 : 6;
+// the lighter weave now applies everywhere, not just on phones: dropping from 34x22 to
+// 20x13 costs nothing visually (the drape reads the same) while cutting a real chunk of
+// main-thread work in every browser, not just the ones that struggled with it
+const SEGX = 20;
+const SEGY = 13;
+const ITER = 3;
 const DAMP = 0.945;
 const GRAVITY = 0.0017;
 // sewn fullness: the panel holds ~1.9x more cloth than its rail span, so the

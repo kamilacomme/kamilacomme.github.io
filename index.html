@@ -2986,8 +2986,8 @@ class Component extends DCLogic {
       const on = el === hit;
       if (on && !el._hoverOn) this.startCycle(el);
       else if (!on && (el._hoverOn || el._cyc || el._cycT)) this.stopCycle(el);
-      // desktop tickets carry their own cursor art, so the system grab hand is off
-      const cur = this.touch ? "pointer" : "none";
+      // TEMP TEST: custom cursor disabled to check if it's blocking clicks — was "none" on desktop
+      const cur = "pointer";
       if (el.style.cursor !== cur) el.style.cursor = cur;
     });
     this.moveTicketCursor(hit);
@@ -2997,7 +2997,7 @@ class Component extends DCLogic {
   moveTicketCursor(hit) {
     const c = this.ticketCursor;
     if (!c) return;
-    const show = !!hit && !this.touch && this._px != null;
+    const show = false; // TEMP TEST: custom cursor image disabled entirely
     // the art IS the cursor while a ticket is under the pointer: hide the system one on the
     // document too, not just on the ticket (children and the page below it would show it)
     if (this._curHide !== show) {
@@ -3193,6 +3193,19 @@ class Component extends DCLogic {
   A_ROWS = [0, 0, 0, 1, 1];
   A_ORDER = [0, 2, 1, 4, 3];
   renderAbout() {
+    // FIX: the desktop About block (#apropos) sits right after the sticky Projects section
+    // and, per the comment above syncHover(), its incoming edge can visually creep over the
+    // Projets carousel while scrolling between the two. That overlap swallowed real clicks on
+    // the ticket <a> links even though the fix in syncHover() only ever protected the CURSOR,
+    // not the actual click. Gate pointer-events on #apropos so it can't steal clicks until it
+    // has genuinely started becoming the active section.
+    if (!this.mobile && !this.tablet && this.about) {
+      const sHx = this.stepH();
+      const r = this.about.getBoundingClientRect();
+      const progX = r.height > 0 ? -r.top / sHx : (window.scrollY - this.ABOUT_TOP * sHx) / sHx;
+      const pe = progX >= 0 ? "" : "none";
+      if (this.about.style.pointerEvents !== pe) this.about.style.pointerEvents = pe;
+    }
     const cards = this.mobile ? this.mCards : this.tablet ? this.tCards : this.cards;
     if (!cards || !cards.length) return;
     const sH = this.stepH();

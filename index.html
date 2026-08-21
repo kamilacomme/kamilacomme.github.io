@@ -2986,8 +2986,8 @@ class Component extends DCLogic {
       const on = el === hit;
       if (on && !el._hoverOn) this.startCycle(el);
       else if (!on && (el._hoverOn || el._cyc || el._cycT)) this.stopCycle(el);
-      // TEMP TEST: custom cursor disabled to check if it's blocking clicks — was "none" on desktop
-      const cur = "pointer";
+      // desktop tickets carry their own cursor art, so the system grab hand is off
+      const cur = this.touch ? "pointer" : "none";
       if (el.style.cursor !== cur) el.style.cursor = cur;
     });
     this.moveTicketCursor(hit);
@@ -2997,7 +2997,7 @@ class Component extends DCLogic {
   moveTicketCursor(hit) {
     const c = this.ticketCursor;
     if (!c) return;
-    const show = false; // TEMP TEST: custom cursor image disabled entirely
+    const show = !!hit && !this.touch && this._px != null;
     // the art IS the cursor while a ticket is under the pointer: hide the system one on the
     // document too, not just on the ticket (children and the page below it would show it)
     if (this._curHide !== show) {
@@ -3069,8 +3069,8 @@ class Component extends DCLogic {
     this.cRail = el;
     el.addEventListener("pointerdown", (e) => {
       if (e.button) return;
-      this.cDrag = { last: e.clientX };
-      this.cMoved = 0; this.cVel = 0;
+      this.cDrag = { last: e.clientX, startX: e.clientX };
+      this.cMoved = 0; this.cMovedRaw = 0; this.cVel = 0;
       try { el.setPointerCapture(e.pointerId); } catch (err) {}
     });
     el.addEventListener("pointermove", (e) => {
@@ -3078,15 +3078,22 @@ class Component extends DCLogic {
       const dx = (e.clientX - this.cDrag.last) / (this.ps || this.s || 1);
       this.cDrag.last = e.clientX;
       this.cMoved += Math.abs(dx);
+      // FIX: net, unscaled pixel distance from the actual pointerdown — used only to
+      // decide click-vs-drag. The old check (cMoved, a scaled sum of every jitter step)
+      // hit its "6" threshold after just a few REAL pixels on any screen narrower than
+      // the 1440 design width (scale < 1), so ordinary mouse/trackpad jitter during a
+      // plain click was silently read as a drag and the click was cancelled every time.
+      this.cMovedRaw = Math.abs(e.clientX - this.cDrag.startX);
       this.cOffset -= dx;
       this.cVel = -dx * 0.55;
     });
     const end = () => { this.cDrag = null; };
     el.addEventListener("pointerup", end);
     el.addEventListener("pointercancel", end);
-    // a drag must never fire the ticket's link
+    // a drag must never fire the ticket's link — now gated on real pixels moved
     el.addEventListener("click", (e) => {
-      if (this.cMoved > 6) { e.stopPropagation(); e.preventDefault(); this.cMoved = 0; }
+      if ((this.cMovedRaw || 0) > 10) { e.stopPropagation(); e.preventDefault(); }
+      this.cMoved = 0; this.cMovedRaw = 0;
     }, true);
     el.addEventListener("dragstart", (e) => e.preventDefault());
   }

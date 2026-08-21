@@ -3069,9 +3069,8 @@ class Component extends DCLogic {
     this.cRail = el;
     el.addEventListener("pointerdown", (e) => {
       if (e.button) return;
-      this.cDrag = { last: e.clientX, startX: e.clientX };
+      this.cDrag = { last: e.clientX, startX: e.clientX, id: e.pointerId, captured: false };
       this.cMoved = 0; this.cMovedRaw = 0; this.cVel = 0;
-      try { el.setPointerCapture(e.pointerId); } catch (err) {}
     });
     el.addEventListener("pointermove", (e) => {
       if (!this.cDrag) return;
@@ -3084,6 +3083,16 @@ class Component extends DCLogic {
       // the 1440 design width (scale < 1), so ordinary mouse/trackpad jitter during a
       // plain click was silently read as a drag and the click was cancelled every time.
       this.cMovedRaw = Math.abs(e.clientX - this.cDrag.startX);
+      // ROOT FIX: setPointerCapture used to fire on every pointerdown, immediately —
+      // that redirects the browser's later "click" event target to THIS rail element
+      // instead of the ticket <a> underneath, so the anchor's own href navigation
+      // never runs (it just looks/feels like the whole carousel absorbs every click).
+      // Only capture once we've confirmed it's an actual drag past the same threshold
+      // used above — a plain click never captures, so its native click reaches the <a>.
+      if (!this.cDrag.captured && this.cMovedRaw > 10) {
+        this.cDrag.captured = true;
+        try { el.setPointerCapture(this.cDrag.id); } catch (err) {}
+      }
       this.cOffset -= dx;
       this.cVel = -dx * 0.55;
     });

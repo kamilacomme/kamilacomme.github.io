@@ -42,7 +42,15 @@
     'ad_storage': 'granted'
   });
 </script>
-
+<script>
+  // Если зайти с ключом ?admin, аналитика выключится
+  if (window.location.search.includes('admin')) {
+    localStorage.setItem('ignore_ga', 'true');
+  }
+  if (localStorage.getItem('ignore_ga') === 'true') {
+    window['ga-disable-G-NEB5X3SCNX'] = true;
+  }
+</script>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEB5X3SCNX"></script>
 <script>

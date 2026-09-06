@@ -3470,9 +3470,27 @@ class Component extends DCLogic {
         // mix-blend-mode: screen over the plate forces an unaccelerated blend layer on iOS
         this.heroCanvas.style.display = "none";
       }
-      this.renderProjets();
-      this.renderAbout();
-      this.renderFooter();
+      // this used to call the three lines below unconditionally, every frame, forever —
+      // even though _onScroll (above, in the setup code) already calls the same three
+      // functions on every actual scroll event. Re-running them here too, every single rAF
+      // tick regardless of whether scrollY moved, is exactly the redundant forced-layout
+      // read the Safari profile showed firing constantly: each one reads
+      // getBoundingClientRect for its section, which forces a layout flush of whatever
+      // style/DOM writes are pending elsewhere on the page — cheap when nothing else wrote
+      // anything, expensive when something did (e.g. the carousel's per-card transform
+      // writes right as its section is in view). Gating this on "did scrollY actually
+      // change since last frame" keeps the original safety net (it still runs from the
+      // frame loop, so it's still correct even if a scroll event gets missed while a rAF is
+      // suspended) without paying for it on the — overwhelming majority of — frames where
+      // the page hasn't moved at all, e.g. while you're just sitting there watching the
+      // carousel spin.
+      const sy = window.pageYOffset || (document.documentElement && document.documentElement.scrollTop) || 0;
+      if (sy !== this._lastFrameScrollY) {
+        this._lastFrameScrollY = sy;
+        this.renderProjets();
+        this.renderAbout();
+        this.renderFooter();
+      }
     } catch (err) {
       if (!this._warned) { this._warned = true; console.error("frame work failed", err); }
     }

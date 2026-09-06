@@ -744,10 +744,10 @@ class Component extends DCLogic {
     const id = this.RESOURCE_MAP[u];
     return (id && window.__resources && window.__resources[id]) || u;
   }
-  bgs = []; tickets = []; pSlides = {}; pSlideIdx = {};
+  pSlides = {}; pSlideIdx = {};
   tBgs = []; tTickets = []; tCards = [];
   mBgs = []; mTickets = []; mCards = [];
-  HOLD = 0.12; N = 6; BANDS = 11; TH = 416; OFF = 800;
+  N = 6; TH = 416;
   cards = []; CARD_H = 326; SPACING = 620;
   // section layout, in viewport heights
   PROJ_TOP = 1; PROJ_H = 6; ABOUT_TOP = 7;
@@ -1899,11 +1899,6 @@ class Component extends DCLogic {
     return "linear-gradient(to " + (horizontal ? "right" : "bottom") + ", " + stops.join(",") + ")";
   }
   ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-  curtainMask(e, th) {
-    const band = (th || this.TH) / this.BANDS;
-    const cover = e * band;
-    return "repeating-linear-gradient(to bottom, #000 0, #000 " + cover.toFixed(2) + "px, transparent " + cover.toFixed(2) + "px, transparent " + band.toFixed(2) + "px)";
-  }
   // desktop, tablet and phone each carry their own copy of the ticket deck, so all six
   // YouTube players used to boot at once — on a phone that alone eats the frame budget.
   // Only the embeds inside the layout actually on screen keep a src.
@@ -2794,21 +2789,6 @@ class Component extends DCLogic {
       if (this.tCount.textContent !== txt) this.tCount.textContent = txt;
     }
   }
-  showTicket(el, op, z, mask, y) {
-    if (!el) return;
-    // every write here is a style recalc; the loop runs 6x per frame, so only touch a
-    // property when it actually changed (this is what made phone scrolling stutter)
-    const base = el._cy ? "translateY(-50%)" : "";
-    const t = (y == null) ? (base || "none") : (base + " translateY(" + y.toFixed(1) + "px)").trim();
-    const m = mask || "none";
-    const pe = op > 0.5 && !mask ? "auto" : "none";
-    const c = el._st || (el._st = {});
-    if (c.t !== t) { c.t = t; el.style.transform = t; }
-    if (c.op !== op) { c.op = op; el.style.opacity = op; }
-    if (c.z !== z) { c.z = z; el.style.zIndex = z; }
-    if (c.m !== m) { c.m = m; el.style.webkitMaskImage = m; el.style.maskImage = m; }
-    if (c.pe !== pe) { c.pe = pe; el.style.pointerEvents = pe; }
-  }
   syncSnap() {
     // desktop no longer scroll-snaps: the projets block is one screen with a carousel
     if (!this.mobile) {
@@ -3168,42 +3148,10 @@ class Component extends DCLogic {
     if (this.mobile) { this.renderMobileRail(); return; }
     this.syncSnap();
     if (this.tablet) { this.tRail(); return; } // tablet drives its own drag deck
-    const set = this.mobile ? { bgs: this.mBgs, tk: this.mTickets, th: 620 }
-      : this.tablet ? { bgs: this.tBgs, tk: this.tTickets, th: 720 }
-      : { bgs: this.bgs, tk: this.tickets, th: this.TH };
-    if (!set.tk || !set.tk.length) return;
-    const sH = this.stepH();
-    const local = (window.scrollY - this.PROJ_TOP * sH) / sH;
-    const p = Math.max(0, Math.min(this.N - 1, local));
-    let idx = Math.floor(p);
-    if (idx > this.N - 1) idx = this.N - 1;
-    const l = p - idx;
-    let e = 0;
-    if (l > this.HOLD) e = this.ease((l - this.HOLD) / (1 - this.HOLD));
-    const from = idx, to = Math.min(idx + 1, this.N - 1);
-    set.bgs.forEach((el, i) => {
-      if (!el) return;
-      if (from === to) el.style.opacity = i === from ? 1 : 0;
-      else if (i === to) el.style.opacity = e;
-      else if (i === from) el.style.opacity = 1;
-      else el.style.opacity = 0;
-    });
-    const slide = true;
-    // the travel has to clear the whole frame, otherwise two tickets sit on screen
-    // together mid-transition on tall windows
-    const OFF = this.mobile ? 900 : this.tablet ? Math.max(1200, this.tFrameH || 0) : Math.max(this.OFF, (this.frameH || 844) + 60);
-    set.tk.forEach((el, i) => {
-      if (from === to) { this.showTicket(el, i === from ? 1 : 0, i === from ? 3 : 0, null, i === from ? 0 : OFF); return; }
-      if (slide) {
-        if (i === from) this.showTicket(el, 1, 2, null, -OFF * e);
-        else if (i === to) this.showTicket(el, 1, 3, null, OFF * (1 - e));
-        else this.showTicket(el, 0, 0, null, OFF);
-      } else {
-        if (i === from) this.showTicket(el, 1, 2, null);
-        else if (i === to) this.showTicket(el, 1, 3, this.curtainMask(e, set.th));
-        else this.showTicket(el, 0, 0, null);
-      }
-    });
+    // desktop has no scroll-driven ticket swap of its own — that was an earlier design
+    // (fed by the now-removed bgRef/ticketRef), and the markup that used to populate it is
+    // gone. The desktop "carousel" you actually see is the auto-drifting row driven
+    // entirely by carTick(); nothing else for this function to do here.
   }
 
   // ===================== ABOUT + FOOTER =====================
@@ -3551,14 +3499,6 @@ class Component extends DCLogic {
       heroLeave: () => { this.ti = 0; },
       // projets
       pStageRef: (el) => { this.pStage = el; if (this.fit) this.fit(); },
-      bgRef: (el) => { if (!el) return; if (!this.bgs) this.bgs = []; this.bgs[+el.dataset.i] = el; },
-      ticketRef: (el) => {
-        if (!el) return;
-        if (!this.tickets) this.tickets = [];
-        this.tickets[+el.dataset.i] = el;
-        this.wireTicket(el);
-        this.renderProjets();
-      },
       cRailRef: (el) => { this.cRail = el; this.wireRail(el); },
       pWordRef: (el) => { this.pWord = el; if (this.fit) this.fit(); },
       pWordSvgRef: (el) => { this.pWordSvg = el; if (this.fit) this.fit(); },

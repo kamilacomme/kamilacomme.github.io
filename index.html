@@ -896,28 +896,8 @@ class Component extends DCLogic {
     this.C_SPACING = 356;
     this.cOffset = 0; this.cVel = 0; this.cPaused = false; this.cDrag = null; this.cMoved = 0;
     this.reduce = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-    // Safari (desktop and iOS) tends to be busiest at exactly the moment this section first
-    // scrolls in — competing with video/image decode from the sections just above — which
-    // turned the initial "boost then ease back" flourish into a stutter instead of a kick.
-    // Rather than fight Safari's scheduling, just skip the boost there; the carousel still
-    // starts at its normal idle drift, it simply never gets the extra push.
-    this.isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent || "");
     if (this._carId) cancelAnimationFrame(this._carId);
-    this._carLastT = null;
-    this.carTick = (nowT) => {
-      // frame-rate independent motion: Safari on ProMotion/other-Hz displays (and any
-      // browser under real load) doesn't fire requestAnimationFrame at a fixed 60/s, so a
-      // constant per-call increment made the carousel run at a different real-world speed
-      // per browser. dt60 normalizes every step to "how many 60fps-equivalent frames
-      // actually elapsed" — capped low (2 frames) rather than generously, because a big cap
-      // just turns a stalled frame into a visible snap-forward once it catches up. Safari is
-      // busiest decoding the page's videos/images in exactly the first second or two this
-      // section is on screen, so main-thread stalls there are common; capped low, a stall
-      // just makes the carousel sit still for a beat instead of jumping ahead.
-      const t = typeof nowT === "number" ? nowT : (window.performance ? performance.now() : Date.now());
-      const rawDt = this._carLastT == null ? 16.6667 : (t - this._carLastT);
-      this._carLastT = t;
-      const dt60 = Math.max(0, Math.min(rawDt, 34)) / 16.6667;
+    this.carTick = () => {
       const cards = (this.cCards || []).filter(Boolean);
       if (cards.length && this.dRoot && this.dRoot.style.display !== "none") {
         const CW = 323, GAP = 16, SP = CW + GAP, R = 980;
@@ -928,16 +908,16 @@ class Component extends DCLogic {
           if (this._cBoost === undefined) {
             const sec = this.pStage && this.pStage.parentElement;
             const r = sec && sec.getBoundingClientRect();
-            if (r && r.top < this.vhNow() * 0.55 && r.bottom > 0) this._cBoost = (this.reduce || this.isSafari) ? 0 : 2.6;
+            if (r && r.top < this.vhNow() * 0.55 && r.bottom > 0) this._cBoost = this.reduce ? 0 : 2.6;
           }
           if (this._cBoost > 0) {
-            this._cBoost *= Math.pow(0.985, dt60);
+            this._cBoost *= 0.985;
             if (this._cBoost < 0.02) this._cBoost = 0;
           }
-          if (!this.cPaused && !this.reduce) this.cOffset += 0.6 * dt60;
-          this.cOffset += (this._cBoost || 0) * dt60;
-          this.cOffset += this.cVel * dt60;
-          this.cVel *= Math.pow(0.94, dt60);
+          if (!this.cPaused && !this.reduce) this.cOffset += 0.6;
+          this.cOffset += this._cBoost || 0;
+          this.cOffset += this.cVel;
+          this.cVel *= 0.94;
           if (Math.abs(this.cVel) < 0.02) this.cVel = 0;
         }
         const off = ((this.cOffset % total) + total) % total;
@@ -1571,14 +1551,6 @@ class Component extends DCLogic {
     this._onScroll = () => {
       if (this._gen !== window.__kcGen) return;
       try { this.renderProjets(); this.renderAbout(); this.renderFooter(); } catch (e) {}
-      // cheap-ish here (scroll events fire far less than every rAF frame, and this batches
-      // with the getBoundingClientRect reads renderProjets/renderAbout/renderFooter already
-      // do) — this is what frame() reads to decide whether the hero beam needs repainting.
-      if (this.heroContainer) {
-        const hr = this.heroContainer.getBoundingClientRect();
-        const hvh = this.vhNow ? this.vhNow() : (window.innerHeight || 0);
-        this._heroFar = !(hr.bottom > -hvh && hr.top < 2 * hvh);
-      }
       // tablet: decoders are handed to whichever section you are actually looking at
       if (this.tablet) {
         clearTimeout(this._pruneS);
@@ -1750,6 +1722,7 @@ class Component extends DCLogic {
     if (this.raf) cancelAnimationFrame(this.raf);
     if (this.heroTimer) clearInterval(this.heroTimer);
     if (this.pSlideTimer) clearInterval(this.pSlideTimer);
+    if (this._heroObs) this._heroObs.disconnect();
     window.removeEventListener("resize", this.fit);
   }
 
@@ -3519,7 +3492,22 @@ class Component extends DCLogic {
       // hero
       heroTopRef: (el) => { this.heroTop = el; if (this.fit) this.fit(); },
       heroBottomRef: (el) => { this.heroBottom = el; if (this.fit) this.fit(); },
-      heroContainerRef: (el) => { this.heroContainer = el; },
+      heroContainerRef: (el) => {
+        this.heroContainer = el;
+        // IntersectionObserver instead of a manual getBoundingClientRect check: it's async,
+        // browser-scheduled, and never forces a synchronous layout — the two earlier
+        // attempts at this both cost more than the beam repaint they were trying to save,
+        // once on every frame and once on every scroll event. This one costs nothing until
+        // the hero actually crosses the rootMargin boundary, at which point the browser
+        // itself calls back — nothing in the render loop or scroll handler pays for it.
+        if (el && "IntersectionObserver" in window) {
+          if (this._heroObs) this._heroObs.disconnect();
+          this._heroObs = new IntersectionObserver((entries) => {
+            this._heroFar = !entries[entries.length - 1].isIntersecting;
+          }, { rootMargin: "100% 0px 100% 0px" });
+          this._heroObs.observe(el);
+        }
+      },
       heroSlideRef: (el) => { if (!this.heroSlides) this.heroSlides = []; if (el && !this.heroSlides.includes(el)) this.heroSlides.push(el); },
       tHeroSlideRef: (el) => { if (!this.tHeroSlides) this.tHeroSlides = []; if (el && !this.tHeroSlides.includes(el)) this.tHeroSlides.push(el); },
       beamBlurRef: (el) => { this.beamBlur = el; },

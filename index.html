@@ -1571,6 +1571,14 @@ class Component extends DCLogic {
     this._onScroll = () => {
       if (this._gen !== window.__kcGen) return;
       try { this.renderProjets(); this.renderAbout(); this.renderFooter(); } catch (e) {}
+      // cheap-ish here (scroll events fire far less than every rAF frame, and this batches
+      // with the getBoundingClientRect reads renderProjets/renderAbout/renderFooter already
+      // do) — this is what frame() reads to decide whether the hero beam needs repainting.
+      if (this.heroContainer) {
+        const hr = this.heroContainer.getBoundingClientRect();
+        const hvh = this.vhNow ? this.vhNow() : (window.innerHeight || 0);
+        this._heroFar = !(hr.bottom > -hvh && hr.top < 2 * hvh);
+      }
       // tablet: decoders are handed to whichever section you are actually looking at
       if (this.tablet) {
         clearTimeout(this._pruneS);
@@ -1578,6 +1586,7 @@ class Component extends DCLogic {
       }
     };
     window.addEventListener("scroll", this._onScroll, { passive: true });
+    this._onScroll();
   }
   fitFooter(tablet) {
     if (!this.footer) return;
@@ -3441,16 +3450,14 @@ class Component extends DCLogic {
     // the beam runs at full frame rate everywhere: the half-rate update this used to do on
     // tablets is exactly what read as stepping. The frame budget comes from dropping the
     // dust canvas there instead (see below) — a flourish, not the beam itself.
-    // this used to run every frame no matter how far the hero had scrolled away — nothing
-    // on screen changes once it's out of view, so it was just burning frame budget that the
-    // carousel further down the page needed. This is very likely *the* explanation for
-    // "smooth once I've scrolled far enough": the hero was still repainting right up until
-    // it was a couple of screens behind you.
-    if (!this.heroContainer || (() => {
-      const hr = this.heroContainer.getBoundingClientRect();
-      const hvh = this.vhNow ? this.vhNow() : (window.innerHeight || 0);
-      return hr.bottom > -hvh && hr.top < 2 * hvh;
-    })()) this.heroApply();
+    // skipped once the hero has scrolled well out of view — nothing on screen changes while
+    // it's away, so repainting it was pure waste. IMPORTANT: the distance check itself must
+    // NOT live here — getBoundingClientRect() forces a synchronous layout, and this function
+    // runs every single animation frame. Calling it here made that reflow permanent instead
+    // of occasional, which is why the previous version of this fix made things worse
+    // everywhere rather than better anywhere. The check lives in _onScroll instead (see
+    // this._heroFar below), which runs at scroll-event rate, not frame rate.
+    if (!this._heroFar) this.heroApply();
     if (this.touch || this.tablet || this.mobile) {
       // no hover on touch: the projector walks the room on its own
       const HHw = this.heroH || 813;

@@ -1722,7 +1722,6 @@ class Component extends DCLogic {
     if (this.raf) cancelAnimationFrame(this.raf);
     if (this.heroTimer) clearInterval(this.heroTimer);
     if (this.pSlideTimer) clearInterval(this.pSlideTimer);
-    if (this._heroObs) this._heroObs.disconnect();
     window.removeEventListener("resize", this.fit);
   }
 
@@ -3423,14 +3422,7 @@ class Component extends DCLogic {
     // the beam runs at full frame rate everywhere: the half-rate update this used to do on
     // tablets is exactly what read as stepping. The frame budget comes from dropping the
     // dust canvas there instead (see below) — a flourish, not the beam itself.
-    // skipped once the hero has scrolled well out of view — nothing on screen changes while
-    // it's away, so repainting it was pure waste. IMPORTANT: the distance check itself must
-    // NOT live here — getBoundingClientRect() forces a synchronous layout, and this function
-    // runs every single animation frame. Calling it here made that reflow permanent instead
-    // of occasional, which is why the previous version of this fix made things worse
-    // everywhere rather than better anywhere. The check lives in _onScroll instead (see
-    // this._heroFar below), which runs at scroll-event rate, not frame rate.
-    if (!this._heroFar) this.heroApply();
+    this.heroApply();
     if (this.touch || this.tablet || this.mobile) {
       // no hover on touch: the projector walks the room on its own
       const HHw = this.heroH || 813;
@@ -3492,22 +3484,7 @@ class Component extends DCLogic {
       // hero
       heroTopRef: (el) => { this.heroTop = el; if (this.fit) this.fit(); },
       heroBottomRef: (el) => { this.heroBottom = el; if (this.fit) this.fit(); },
-      heroContainerRef: (el) => {
-        this.heroContainer = el;
-        // IntersectionObserver instead of a manual getBoundingClientRect check: it's async,
-        // browser-scheduled, and never forces a synchronous layout — the two earlier
-        // attempts at this both cost more than the beam repaint they were trying to save,
-        // once on every frame and once on every scroll event. This one costs nothing until
-        // the hero actually crosses the rootMargin boundary, at which point the browser
-        // itself calls back — nothing in the render loop or scroll handler pays for it.
-        if (el && "IntersectionObserver" in window) {
-          if (this._heroObs) this._heroObs.disconnect();
-          this._heroObs = new IntersectionObserver((entries) => {
-            this._heroFar = !entries[entries.length - 1].isIntersecting;
-          }, { rootMargin: "100% 0px 100% 0px" });
-          this._heroObs.observe(el);
-        }
-      },
+      heroContainerRef: (el) => { this.heroContainer = el; },
       heroSlideRef: (el) => { if (!this.heroSlides) this.heroSlides = []; if (el && !this.heroSlides.includes(el)) this.heroSlides.push(el); },
       tHeroSlideRef: (el) => { if (!this.tHeroSlides) this.tHeroSlides = []; if (el && !this.tHeroSlides.includes(el)) this.tHeroSlides.push(el); },
       beamBlurRef: (el) => { this.beamBlur = el; },

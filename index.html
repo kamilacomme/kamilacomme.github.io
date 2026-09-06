@@ -3441,7 +3441,16 @@ class Component extends DCLogic {
     // the beam runs at full frame rate everywhere: the half-rate update this used to do on
     // tablets is exactly what read as stepping. The frame budget comes from dropping the
     // dust canvas there instead (see below) — a flourish, not the beam itself.
-    this.heroApply();
+    // this used to run every frame no matter how far the hero had scrolled away — nothing
+    // on screen changes once it's out of view, so it was just burning frame budget that the
+    // carousel further down the page needed. This is very likely *the* explanation for
+    // "smooth once I've scrolled far enough": the hero was still repainting right up until
+    // it was a couple of screens behind you.
+    if (!this.heroContainer || (() => {
+      const hr = this.heroContainer.getBoundingClientRect();
+      const hvh = this.vhNow ? this.vhNow() : (window.innerHeight || 0);
+      return hr.bottom > -hvh && hr.top < 2 * hvh;
+    })()) this.heroApply();
     if (this.touch || this.tablet || this.mobile) {
       // no hover on touch: the projector walks the room on its own
       const HHw = this.heroH || 813;

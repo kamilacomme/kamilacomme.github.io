@@ -905,10 +905,15 @@ class Component extends DCLogic {
         if (!this.cDrag) {
           // first time the block comes into view the row runs on and eases back to its
           // idle drift — the movement itself tells you the tickets can be pushed
+          // this used to read sec.getBoundingClientRect() + a live vhNow() every single
+          // frame for as long as _cBoost stayed undefined — i.e. on every frame from page
+          // load until the section scrolled up past the trigger line. PROJ_TOP is the same
+          // cached "where this section starts, in screens" value renderProjets() already
+          // trusts for the real position math, so the arithmetic below is exactly
+          // equivalent to the old live read, just without forcing a layout to get it.
           if (this._cBoost === undefined) {
-            const sec = this.pStage && this.pStage.parentElement;
-            const r = sec && sec.getBoundingClientRect();
-            if (r && r.top < this.vhNow() * 0.55 && r.bottom > 0) this._cBoost = this.reduce ? 0 : 2.6;
+            const stepv = this.vh || this.vhNow();
+            if (window.scrollY > stepv * (this.PROJ_TOP - 0.55)) this._cBoost = this.reduce ? 0 : 2.6;
           }
           if (this._cBoost > 0) {
             this._cBoost *= 0.985;

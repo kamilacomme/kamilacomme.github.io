@@ -909,11 +909,15 @@ class Component extends DCLogic {
       // browser under real load) doesn't fire requestAnimationFrame at a fixed 60/s, so a
       // constant per-call increment made the carousel run at a different real-world speed
       // per browser. dt60 normalizes every step to "how many 60fps-equivalent frames
-      // actually elapsed", clamped so a backgrounded tab / dropped frames doesn't cause a jump.
+      // actually elapsed" — capped low (2 frames) rather than generously, because a big cap
+      // just turns a stalled frame into a visible snap-forward once it catches up. Safari is
+      // busiest decoding the page's videos/images in exactly the first second or two this
+      // section is on screen, so main-thread stalls there are common; capped low, a stall
+      // just makes the carousel sit still for a beat instead of jumping ahead.
       const t = typeof nowT === "number" ? nowT : (window.performance ? performance.now() : Date.now());
       const rawDt = this._carLastT == null ? 16.6667 : (t - this._carLastT);
       this._carLastT = t;
-      const dt60 = Math.max(0, Math.min(rawDt, 100)) / 16.6667;
+      const dt60 = Math.max(0, Math.min(rawDt, 34)) / 16.6667;
       const cards = (this.cCards || []).filter(Boolean);
       if (cards.length && this.dRoot && this.dRoot.style.display !== "none") {
         const CW = 323, GAP = 16, SP = CW + GAP, R = 980;

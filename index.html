@@ -186,7 +186,7 @@
 
 <div ref="{{ dRootRef }}">
 <!-- 2. PROJETS -->
-<div id="projets" ref="{{ dProjRef }}" style="position: sticky; top: 0; width: 100%; height: 100svh; overflow: hidden; background: #08080a; z-index: 2; contain: layout paint style;">
+<div id="projets" ref="{{ dProjRef }}" style="position: sticky; top: 0; width: 100%; height: 100svh; overflow: hidden; background: #08080a; z-index: 2;">
   <div ref="{{ pStageRef }}" style="position: absolute; left: 50%; top: 50%; width: 1440px; height: 813px; overflow: hidden; transform-origin: center; transform: translate(-50%,-50%);">
 
 
@@ -1745,7 +1745,6 @@ class Component extends DCLogic {
     if (this.raf) cancelAnimationFrame(this.raf);
     if (this.heroTimer) clearInterval(this.heroTimer);
     if (this.pSlideTimer) clearInterval(this.pSlideTimer);
-    if (this._heroObs) this._heroObs.disconnect();
     window.removeEventListener("resize", this.fit);
   }
 
@@ -3394,13 +3393,7 @@ class Component extends DCLogic {
     // the beam runs at full frame rate everywhere: the half-rate update this used to do on
     // tablets is exactly what read as stepping. The frame budget comes from dropping the
     // dust canvas there instead (see below) — a flourish, not the beam itself.
-    // ISOLATED EXPERIMENT: skip the beam (and, below, the dust canvas) once the hero has
-    // scrolled out of view. _heroFar is set by an IntersectionObserver in heroContainerRef —
-    // async, browser-scheduled, no getBoundingClientRect anywhere — so unlike the two
-    // earlier attempts at this, checking it here costs nothing. This is the ONLY change in
-    // this pass, on purpose, so a test actually tells us whether hero's continued repaint
-    // is the reason the carousel eases up only once you're several screens past it.
-    if (!this._heroFar) this.heroApply();
+    this.heroApply();
     if (this.touch || this.tablet || this.mobile) {
       // no hover on touch: the projector walks the room on its own
       const HHw = this.heroH || 813;
@@ -3438,7 +3431,7 @@ class Component extends DCLogic {
     // what made the ticket scroll stutter. Dust is a desktop-only flourish, and the
     // scroll-driven sections only need work while the page is actually moving.
     try {
-      if (!this.touch && !this.mobile && !this.tablet && !this._heroFar) {
+      if (!this.touch && !this.mobile && !this.tablet) {
         if (this._dustOff && this.heroCanvas) this.heroCanvas.style.display = "block";
         this._dustOff = false; this.drawDust();
       } else if (!this._dustOff && this.heroCanvas) {
@@ -3472,18 +3465,7 @@ class Component extends DCLogic {
       // hero
       heroTopRef: (el) => { this.heroTop = el; if (this.fit) this.fit(); },
       heroBottomRef: (el) => { this.heroBottom = el; if (this.fit) this.fit(); },
-      heroContainerRef: (el) => {
-        this.heroContainer = el;
-        // async, browser-scheduled, zero cost until the hero actually crosses the
-        // boundary — nothing here runs on a per-frame or per-scroll basis
-        if (el && "IntersectionObserver" in window) {
-          if (this._heroObs) this._heroObs.disconnect();
-          this._heroObs = new IntersectionObserver((entries) => {
-            this._heroFar = !entries[entries.length - 1].isIntersecting;
-          }, { threshold: 0 });
-          this._heroObs.observe(el);
-        }
-      },
+      heroContainerRef: (el) => { this.heroContainer = el; },
       heroSlideRef: (el) => { if (!this.heroSlides) this.heroSlides = []; if (el && !this.heroSlides.includes(el)) this.heroSlides.push(el); },
       tHeroSlideRef: (el) => { if (!this.tHeroSlides) this.tHeroSlides = []; if (el && !this.tHeroSlides.includes(el)) this.tHeroSlides.push(el); },
       beamBlurRef: (el) => { this.beamBlur = el; },

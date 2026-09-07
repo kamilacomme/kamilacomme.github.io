@@ -1,6 +1,8 @@
 import * as THREE from "https://esm.sh/three@0.160.0";
 
 const MOBILE = typeof matchMedia !== "undefined" && matchMedia("(max-width: 700px)").matches;
+const IS_SAFARI = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 const SEGX = 20;
 const SEGY = 13;
 const ITER = 5;
@@ -21,25 +23,28 @@ class Panel {
     this.dy = 2 / SEGY;
     this.pts = [];
 
-    // Создаем точки сразу с учетом того, что штора сложена у края
-    const gathered = aspect * 0.22;
+    // Запас захлёста за края экрана для Safari (overhang = 0.2)
+    const extra = 0.2;
+    const gathered = (aspect + extra) * 0.22;
+
     for (let y = 0; y <= SEGY; y++) {
       for (let x = 0; x <= SEGX; x++) {
         const t = x / SEGX;
         let wx;
         if (this.side < 0) {
-          // Левая штора: x=0 строго на левом краю (-aspect)
-          wx = -aspect + t * gathered;
+          // Выдвигаем левый край ЗА видимую границу (-aspect - extra)
+          wx = (-aspect - extra) + t * gathered;
         } else {
-          // Правая штора: x=SEGX строго на правом краю (+aspect)
-          wx = aspect - (1 - t) * gathered;
+          // Выдвигаем правый край ЗА видимую границу (+aspect + extra)
+          wx = (aspect + extra) - (1 - t) * gathered;
         }
         const wy = 1 - y * this.dy;
         this.pts.push({ x: wx, y: wy, z: 0, px: wx, py: wy, pz: 0, pin: y === 0 });
       }
     }
 
-    this.geo = new THREE.PlaneGeometry(aspect, 2, SEGX, SEGY);
+    // Геометрия делается чуть шире для запаса в Safari
+    this.geo = new THREE.PlaneGeometry(aspect + extra, 2, SEGX, SEGY);
     if (this.mesh) {
       this.mesh.geometry.dispose();
       this.mesh.geometry = this.geo;
@@ -48,6 +53,7 @@ class Panel {
         map: texture,
         color: 0x8f8f8f,
         side: THREE.DoubleSide,
+        transparent: false, // Отключаем прозрачность материала, чтобы Safari не срезал альфа-канал
       });
       this.mesh = new THREE.Mesh(this.geo, this.mat);
     }
@@ -57,18 +63,20 @@ class Panel {
 
   setPins(p) {
     const a = this.aspect;
-    const gathered = a * 0.22; // Ширина сложенной шторы
+    const extra = 0.2; // Гарантированный заступ за границы
+    const gathered = (a + extra) * 0.22;
+
     for (let x = 0; x <= SEGX; x++) {
       const t = x / SEGX;
       let closedX, openX;
       if (this.side < 0) {
-        closedX = -a + t * a;
-        // КЛЮЧЕВОЙ ФИКС: Левый край (t=0) всегда намертво привязан к -a
-        openX = -a + t * gathered;
+        closedX = (-a - extra) + t * (a + extra);
+        // Жесткая фиксация левого верхнего угла ГЛУБОКО за экраном
+        openX = (-a - extra) + t * gathered;
       } else {
-        closedX = t * a;
-        // Правый край (t=1) всегда намертво привязан к +a
-        openX = a - (1 - t) * gathered;
+        closedX = t * (a + extra);
+        // Жесткая фиксация правого верхнего угла ГЛУБОКО за экраном
+        openX = (a + extra) - (1 - t) * gathered;
       }
       const pt = this.pts[this.idx(x, 0)];
       pt.x = openX + (closedX - openX) * p;
@@ -163,8 +171,18 @@ class CurtainCloth extends HTMLElement {
     this.style.position = "absolute";
     this.style.inset = "0";
 
-    this.renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
-    this.renderer.setPixelRatio(Math.min(devicePixelRatio, MOBILE ? 1.25 : 1.5));
+    // Настройки рендера под специфику Safari
+    this.renderer = new THREE.WebGLRenderer({ 
+      antialias: false, 
+      alpha: true,
+      premultipliedAlpha: false, // Отключает баг с темным/срезанным краем в Safari WebGL
+      powerPreference: "high-performance"
+    });
+    
+    // В Safari держим DPR строго 1.25-1.5, чтобы избежать подёргивания сетки
+    const maxDpr = IS_SAFARI ? 1.25 : (MOBILE ? 1.25 : 1.5);
+    this.renderer.setPixelRatio(Math.min(devicePixelRatio, maxDpr));
+    
     this.appendChild(this.renderer.domElement);
     Object.assign(this.renderer.domElement.style, {
       position: "absolute", inset: "0", width: "100%", height: "100%",
@@ -180,7 +198,11 @@ class CurtainCloth extends HTMLElement {
     this.scene.add(rim);
 
     const src = this.getAttribute("texture") || "";
-    const tex = new THREE.TextureLoader().load(src);
+    const tex = new THREE.TextureLoader().load(src, () => {
+      // Когда текстура загрузится в Safari, принудительно пересчитываем нормали
+      if (this.left) this.left.sync(true);
+      if (this.right) this.right.sync(true);
+    });
     tex.colorSpace = THREE.SRGBColorSpace;
     tex.wrapS = tex.wrapT = THREE.ClampToEdgeWrapping;
 
@@ -211,7 +233,7 @@ class CurtainCloth extends HTMLElement {
     
     this.resize();
 
-    // Прогреваем физику на 40 кадров
+    // Прогрев симуляции
     for (let i = 0; i < 40; i++) {
       this.left.setPins(this.p);
       this.right.setPins(this.p);
@@ -235,11 +257,15 @@ class CurtainCloth extends HTMLElement {
     const h = this.clientHeight || innerHeight;
     this.aspect = w / h;
     this.renderer.setSize(w, h, false);
-    this.camera.left = -this.aspect;
-    this.camera.right = this.aspect;
+    
+    // В Камере делаем небольшой заступ за пределы (-aspect - 0.2), чтобы Safari физически не мог подрезать край
+    const extra = 0.2;
+    this.camera.left = -this.aspect - extra;
+    this.camera.right = this.aspect + extra;
     this.camera.top = 1;
     this.camera.bottom = -1;
     this.camera.updateProjectionMatrix();
+
     const tex = this.left.mat.map;
     this.left.build(this.aspect, tex);
     this.right.build(this.aspect, tex);

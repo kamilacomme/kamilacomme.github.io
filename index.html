@@ -1575,17 +1575,11 @@ class Component extends DCLogic {
     this._gen = (window.__kcGen = (window.__kcGen || 0) + 1);
     this.raf = requestAnimationFrame(this.tick);
     // animation frames are suspended while the document is hidden (background tab, an
-    // offscreen preview frame), so a scroll landing while hidden (e.g. sessionStorage
-    // restoring scroll position, or a scroll driven by something other than the user's
-    // own frame) would otherwise sit unrendered until tick() resumes. Only take the
-    // render hit here when that's actually the case — while the RAF loop is running it
-    // already calls the same three renders every frame, so doing it again per scroll
-    // event was pure duplicate work on every normal scroll.
+    // offscreen preview frame). The scroll-linked sections must not depend on that: place
+    // them straight from the scroll event too, so they are always correct on arrival.
     this._onScroll = () => {
       if (this._gen !== window.__kcGen) return;
-      if (document.hidden) {
-        try { this.renderProjets(); this.renderAbout(); this.renderFooter(); } catch (e) {}
-      }
+      try { this.renderProjets(); this.renderAbout(); this.renderFooter(); } catch (e) {}
       // tablet: decoders are handed to whichever section you are actually looking at
       if (this.tablet) {
         clearTimeout(this._pruneS);
@@ -3450,13 +3444,27 @@ class Component extends DCLogic {
       // lamp take three times as long to come up as it does on desktop, which read as a hang
       this.ci += (this.ti - this.ci) * (1 - Math.exp(-6 * dtF));
     }
+    // the projector (SVG mask geometry + the dust canvas) only matters while Hero is
+    // actually on screen. Past PROJ_TOP the plate is scrolled away and nothing under it
+    // is visible, so keeping heroApply()/drawDust() running every frame was pure wasted
+    // work while looking at Projets/About/Footer. Hysteresis (0.15 screens of slack)
+    // stops it flapping on/off right at the boundary from a single frame's scroll jitter.
+    const stepv = this.vh || this.vhNow();
+    const heroLine = stepv * this.PROJ_TOP;
+    if (this._heroActive === undefined) this._heroActive = true;
+    if (this._heroActive) {
+      if (window.scrollY > heroLine + stepv * 0.15) this._heroActive = false;
+    } else if (window.scrollY < heroLine - stepv * 0.15) {
+      this._heroActive = true;
+    }
     // the projector plate is the most expensive thing on the page (two blurred SVG masks
      // over a full-screen image). On a tablet it walks at half rate so each frame lands
      // whole instead of tearing — the motion itself is time-based, so the speed is the same.
     // the beam runs at full frame rate everywhere: the half-rate update this used to do on
     // tablets is exactly what read as stepping. The frame budget comes from dropping the
     // dust canvas there instead (see below) — a flourish, not the beam itself.
-    this.heroApply();
+    if (this._heroActive) this.heroApply();
+    else if (this.heroImg && this.heroImg.style.opacity !== "0") this.heroImg.style.opacity = "0";
     if (this.touch || this.tablet || this.mobile) {
       // no hover on touch: the projector walks the room on its own
       const HHw = this.heroH || 813;
@@ -3494,7 +3502,16 @@ class Component extends DCLogic {
     // what made the ticket scroll stutter. Dust is a desktop-only flourish, and the
     // scroll-driven sections only need work while the page is actually moving.
     try {
-      if (!this.touch && !this.mobile && !this.tablet) {
+      if (!this._heroActive) {
+        // just crossed out of Hero: clear the dust canvas once so the last frame's
+        // particles don't sit there frozen, then skip the canvas work entirely
+        if (!this._dustOff && this.heroCanvas) {
+          this._dustOff = true;
+          const c = this.hctx || (this.hctx = this.heroCanvas.getContext("2d"));
+          c.clearRect(0, 0, 1440, this.heroH || 813);
+          this.heroCanvas.style.display = "none";
+        }
+      } else if (!this.touch && !this.mobile && !this.tablet) {
         if (this._dustOff && this.heroCanvas) this.heroCanvas.style.display = "block";
         this._dustOff = false; this.drawDust();
       } else if (!this._dustOff && this.heroCanvas) {

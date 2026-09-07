@@ -1,24 +1,11 @@
 import * as THREE from "https://esm.sh/three@0.160.0";
 
-// Verlet cloth curtains. Two panels pinned along the top; the pin row slides
-// from "gathered at the side" to "spread across half the stage" as the page
-// scrolls, and the cloth below drapes/folds on its own. The pointer pushes
-// particles away, so the fabric scatters where the cursor passes.
-
-// phones get a coarser weave: the Verlet solve is O(SEGX*SEGY*ITER) per frame and was
-// the single biggest cost of the footer on mobile — this is a real device capability
-// check (weak GPUs/CPUs), not browser sniffing, so it stays
 const MOBILE = typeof matchMedia !== "undefined" && matchMedia("(max-width: 700px)").matches;
-// the lighter weave now applies everywhere, not just on phones: dropping from 34x22 to
-// 20x13 costs nothing visually (the drape reads the same) while cutting a real chunk of
-// main-thread work in every browser, not just the ones that struggled with it
 const SEGX = 20;
 const SEGY = 13;
-const ITER = 3;
-const DAMP = 0.945;
-const GRAVITY = 0.0017;
-// sewn fullness: the panel holds ~1.9x more cloth than its rail span, so the
-// pleats never flatten out — this is what makes a real theatre curtain read.
+const ITER = 5; // Увеличено с 3 до 5 для лучшей стабильности связей
+const DAMP = 0.91; // Усилено затухание (было 0.945) для предотвращения эффекта "желе"
+const GRAVITY = 0.0014;
 const FULLNESS = 1.9;
 
 class Panel {
@@ -55,7 +42,6 @@ class Panel {
   idx(x, y) { return y * (SEGX + 1) + x; }
 
   setPins(p) {
-    // p: 0 = fully open (gathered off to the side), 1 = closed (covers its half)
     const a = this.aspect;
     const gathered = a * 0.13;
     for (let x = 0; x <= SEGX; x++) {
@@ -70,39 +56,63 @@ class Panel {
       }
       const pt = this.pts[this.idx(x, 0)];
       pt.x = openX + (closedX - openX) * p;
-      // pleat depth at the rail: always present, much deeper while bunched
       pt.z = Math.sin(x * 1.15) * (0.055 + (1 - p) * 0.16);
       pt.y = 1;
       pt.px = pt.x; pt.py = pt.y; pt.pz = pt.z;
     }
   }
+
   step(mouse) {
     const pts = this.pts;
+    const MAX_VEL = 0.035; // Жёсткое ограничение максимальной скорости точки за кадр
+
     for (let i = 0; i < pts.length; i++) {
       const pt = pts[i];
       if (pt.pin) continue;
+
+      // 1. Вычисляем текущую скорость с затуханием DAMP
       let vx = (pt.x - pt.px) * DAMP;
       let vy = (pt.y - pt.py) * DAMP;
       let vz = (pt.z - pt.pz) * DAMP;
-      pt.px = pt.x; pt.py = pt.y; pt.pz = pt.z;
+
+      // 2. Ограничиваем максимальную скорость (prevent blowout)
+      const speed = Math.hypot(vx, vy, vz);
+      if (speed > MAX_VEL) {
+        const factor = MAX_VEL / speed;
+        vx *= factor;
+        vy *= factor;
+        vz *= factor;
+      }
+
+      pt.px = pt.x; 
+      pt.py = pt.y; 
+      pt.pz = pt.z;
+
       pt.x += vx;
       pt.y += vy - GRAVITY;
       pt.z += vz;
+
+      // 3. Плавная и естественная реакция на мышь (Hover)
       if (mouse.active) {
         const ddx = pt.x - mouse.x;
         const ddy = pt.y - mouse.y;
         const d = Math.hypot(ddx, ddy);
-        const r = 0.1;
+        const r = 0.18; // Слегка увеличен радиус мягкого взаимодействия
+
         if (d < r) {
           const fall = 1 - d / r;
           const f = fall * fall * mouse.force;
           const n = d || 0.0001;
-          pt.x += (ddx / n) * f * 0.013;
-          pt.y += (ddy / n) * f * 0.005;
-          pt.z += f * 0.026;
+
+          // Ослаблены и сбалансированы коэффициенты импульса
+          pt.x += (ddx / n) * f * 0.004;
+          pt.y += (ddy / n) * f * 0.002;
+          pt.z += f * 0.006; // Уменьшен вылет вперед по Z
         }
       }
     }
+
+    // 4. Релаксация связей (Constraint Solver)
     for (let k = 0; k < ITER; k++) {
       for (let y = 0; y <= SEGY; y++) {
         for (let x = 0; x <= SEGX; x++) {
@@ -112,15 +122,17 @@ class Panel {
       }
     }
   }
+
   constrain(ia, ib, rest) {
     const a = this.pts[ia], b = this.pts[ib];
     const dx = b.x - a.x, dy = b.y - a.y, dz = b.z - a.z;
     const d = Math.sqrt(dx * dx + dy * dy + dz * dz) || 0.0001;
-    const diff = (d - rest) / d * 0.5;
+    const diff = (d - rest) / d * 0.48; // Небольшое ослабление коррекции для мягкости складок
     const ox = dx * diff, oy = dy * diff, oz = dz * diff;
     if (!a.pin) { a.x += ox; a.y += oy; a.z += oz; }
     if (!b.pin) { b.x -= ox; b.y -= oy; b.z -= oz; }
   }
+
   sync(updateNormals) {
     const pos = this.geo.attributes.position;
     for (let i = 0; i < this.pts.length; i++) {
@@ -128,9 +140,6 @@ class Panel {
       pos.setXYZ(i, pt.x, pt.y, pt.z);
     }
     pos.needsUpdate = true;
-    // normals only need to track shading, not exact geometry — the cloth moves
-    // smoothly enough that recomputing every 3rd frame is visually identical
-    // and cuts a full per-vertex pass (this was the priciest call in sync())
     if (updateNormals) this.geo.computeVertexNormals();
   }
 }
@@ -143,14 +152,7 @@ class CurtainCloth extends HTMLElement {
     this.style.position = "absolute";
     this.style.inset = "0";
 
-    // antialias off: at devicePixelRatio >= 1.25 the supersampling already smooths
-    // edges, and MSAA is disproportionately expensive on Safari's WebGL/Metal path
     this.renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
-    // desktop windows are both wider AND getting up to 2x devicePixelRatio, so this canvas
-    // was shading a lot more real pixels per frame than the mobile cap ever asked for — the
-    // cloth geometry is already the same light weave on both, so this fill-rate gap is the
-    // actual reason desktop stutters and mobile doesn't. 1.5 is still sharp on a retina
-    // display for a soft background effect, just not paying for the full 2x.
     this.renderer.setPixelRatio(Math.min(devicePixelRatio, MOBILE ? 1.25 : 1.5));
     this.appendChild(this.renderer.domElement);
     Object.assign(this.renderer.domElement.style, {
@@ -186,10 +188,12 @@ class CurtainCloth extends HTMLElement {
       const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
       const ny = 1 - ((e.clientY - r.top) / r.height) * 2;
       const mx = nx * this.aspect;
-      const d = Math.hypot(mx - this.mouse.x, ny - this.mouse.y);
-      this.mouse.x = mx; this.mouse.y = ny;
+      this.mouse.x = mx; 
+      this.mouse.y = ny;
       this.mouse.active = true;
-      this.mouse.force = Math.min(1, this.mouse.force + d * 3.5 + 0.25);
+      
+      // Сглажено накопление силы мыши (было d * 3.5 + 0.25)
+      this.mouse.force = Math.min(0.6, this.mouse.force + 0.12);
     };
     this.onLeave = () => { this.mouse.active = false; };
     window.addEventListener("resize", this.onResize);
@@ -222,33 +226,30 @@ class CurtainCloth extends HTMLElement {
   }
   set progress(v) { this.target = Math.max(0, Math.min(1, v)); }
   get progress() { return this.p; }
+
   tick() {
     if (this.target === undefined) this.target = 0;
-    // travel is measured in SECONDS, not frames: a phone running at 20fps used to close
-    // the curtain three times slower than a desktop
     const now = performance.now();
     const dt = Math.min(0.05, (now - (this._last || now)) / 1000);
     this._last = now;
-    // nothing to draw while the footer is still below the fold
+
     const r = this.getBoundingClientRect();
     if (r.bottom <= 0 || r.top >= innerHeight) { this.raf = requestAnimationFrame(this.tick); return; }
-    // the curtain is scroll-driven: it must sit where the scroll puts it, so the follow
-    // is stiff and the speed cap only takes the edge off a jump (full travel ~0.8s)
-    let d = (this.target - this.p) * 1.9 * dt;
-    // a hard cap on travel per second: without it a fast flick hands the cloth a step big
-    // enough to outrun its own spring, which reads as the curtain snapping shut and the
-    // pleats flying apart before they settle
-    const MAX_STEP = 0.2 * dt;
+
+    let d = (this.target - this.p) * 1.6 * dt; // Чуть более плавная подтяжка progress (1.6 вместо 1.9)
+    const MAX_STEP = 0.15 * dt; // Мягче максимальный шаг смещения шторы
     if (d > MAX_STEP) d = MAX_STEP;
     if (d < -MAX_STEP) d = -MAX_STEP;
     this.p += d;
-    this.mouse.force *= 0.9;
+
+    this.mouse.force *= 0.85; // Быстрое затухание силы мыши
     this.left.setPins(this.p);
     this.right.setPins(this.p);
     this.left.step(this.mouse);
     this.right.step(this.mouse);
+    
     this._frame = (this._frame || 0) + 1;
-    const updateNormals = this._frame % 3 === 0;
+    const updateNormals = this._frame % 2 === 0; // Нормали обновляются чаще (каждый 2-й кадр) для гладкости теней
     this.left.sync(updateNormals);
     this.right.sync(updateNormals);
     this.renderer.render(this.scene, this.camera);

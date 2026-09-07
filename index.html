@@ -651,7 +651,7 @@
     <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(255,255,255); white-space: nowrap;">Paris, France</span>
   </div>
 
-  <div ref="{{ creditRef }}" data-c="3" style="position: absolute; left: 1358px; bottom: 27px; width: 48px; height: 48px; z-index: 2; border-radius: 4px; overflow: hidden; background: #111013;"><video ref="{{ vidRef }}" preload="auto" data-src="assets/about/footer-walk.mp4" data-eager="1" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
+  <div ref="{{ creditRef }}" data-c="3" style="position: absolute; left: 1358px; bottom: 27px; width: 48px; height: 48px; z-index: 2; border-radius: 4px; overflow: hidden; background: #111013;"><video ref="{{ vidRef }}" preload="metadata" data-src="assets/about/footer-walk.mp4" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
 
   <div ref="{{ creditRef }}" data-c="4" style="position: absolute; left: 583px; bottom: 22px; z-index: 2; display: flex; flex-direction: row; align-items: flex-start; gap: 32px;">
     <div style="display: flex; flex-direction: row; gap: 32px; align-items: flex-start; flex: 0 0 auto;">
@@ -1588,10 +1588,8 @@ class Component extends DCLogic {
     this._onScroll = () => {
       if (this._gen !== window.__kcGen) return;
       try { this.renderProjets(); this.renderAbout(); this.renderFooter(); } catch (e) {}
-      // mobile needs this on scroll just as much as tablet does: without it, anything
-      // gated by nearness (like the footer walk clip) only ever gets checked at page load,
-      // long before the user has scrolled anywhere near it, and never again after that.
-      if (this.tablet || this.mobile) {
+      // tablet: decoders are handed to whichever section you are actually looking at
+      if (this.tablet) {
         clearTimeout(this._pruneS);
         this._pruneS = setTimeout(() => this.pruneEmbeds(), 250);
       }
@@ -1946,17 +1944,8 @@ class Component extends DCLogic {
       // the multi-second blank gap it otherwise leaves the first time that section is seen
       const eager = v.dataset.eager === "1";
       const live = v.offsetParent !== null && (eager || !near || near(v));
-      // the mobile ticket rail (Napoli/TDP/Longread/Inside Out/Celimax) is simultaneously
-      // being translated every RAF frame by renderMobileRail()'s own scroll-driven reveal —
-      // a card can be visually on screen while its rect transiently reads as "not near"
-      // mid-transform. Fully evicting src (falling back to data-src + load()) on every such
-      // dip repeatedly restarted the same handful of small clips, which is what showed as
-      // grey placeholders and swapped-looking thumbnails. They're cheap enough to just pause
-      // instead of unloading; eviction still matters for the larger carousel clips.
-      const isMobileTicket = !!v.dataset.poster && !v.dataset.hover && !v.dataset.gate;
       if (!live) {
         if (!v.paused) v.pause();
-        if (isMobileTicket) return;
         if (v.getAttribute("src")) { v.dataset.src = v.getAttribute("src"); v.removeAttribute("src"); v.load(); }
         return;
       }
@@ -3675,19 +3664,6 @@ class Component extends DCLogic {
         // hover clips stay parked on frame one: decoding six streams behind hidden layers
         // is what made playback stutter, so they only run while the card is hovered
         if (el.dataset.hover) {
-          // this hover-clip copy only exists for the desktop carousel (display:none on
-          // mobile/tablet) — warming it up there too meant 6 concurrent decode requests
-          // for the 3 files that also have a mobile-ticket copy (Pilates/Longread/Inside
-          // Out), competing for iOS's limited hardware video decoders. That contention is
-          // what showed as a grey placeholder and swapped-looking thumbnails, and only on
-          // those three cards — the ones without a hover-clip counterpart were unaffected.
-          // this.mobile/this.tablet are set by fit(), which may not have run yet the very
-          // first time a ref callback fires — fall back to a direct width check so this is
-          // never wrong on the very first render pass, not just after fit() has run once
-          const smallScreen = this.mobile || this.tablet
-            || (typeof matchMedia !== "undefined" && matchMedia("(max-width: 1366px)").matches);
-          if (smallScreen) return;
-          if (!el.getAttribute("src") && el.dataset.src) el.src = this.resolveRes(el.dataset.src);
           el.preload = "auto";
           el.load();
           // a dropped request leaves the element in a permanent error state, so retry the
@@ -3709,13 +3685,6 @@ class Component extends DCLogic {
           };
           if (el.readyState >= 2) warm(); else el.addEventListener("loadeddata", warm, { once: true });
           return;
-        }
-        const isMobileTicketVideo = !!el.dataset.poster && !el.dataset.hover && !el.dataset.gate;
-        if ((el.dataset.eager === "1" || isMobileTicketVideo) && !el.getAttribute("src") && el.dataset.src) {
-          el.src = this.resolveRes(el.dataset.src);
-        }
-        if (!el.getAttribute("poster") && el.dataset.poster) {
-          el.poster = this.resolveRes(el.dataset.poster);
         }
         el.addEventListener("ended", () => { el.currentTime = 0; go(); });
         // gated clips (the tablet deck) must stay paused when they are not the middle card,

@@ -1588,8 +1588,10 @@ class Component extends DCLogic {
     this._onScroll = () => {
       if (this._gen !== window.__kcGen) return;
       try { this.renderProjets(); this.renderAbout(); this.renderFooter(); } catch (e) {}
-      // tablet: decoders are handed to whichever section you are actually looking at
-      if (this.tablet) {
+      // mobile needs this on scroll just as much as tablet does: without it, anything
+      // gated by nearness (like the footer walk clip) only ever gets checked at page load,
+      // long before the user has scrolled anywhere near it, and never again after that.
+      if (this.tablet || this.mobile) {
         clearTimeout(this._pruneS);
         this._pruneS = setTimeout(() => this.pruneEmbeds(), 250);
       }
@@ -3327,7 +3329,11 @@ class Component extends DCLogic {
       // five arrivals, tighter and starting before the section fully pins
       const span = this.ABOUT_RANGE || 5;
       const step = span * 0.72 / 5;
-      let e = (prog - span * 0.06 - i * step) / (step * 1.15);
+      // the transition itself (not the stagger between cards) was too short: on an
+      // ordinary swipe the card animation completed almost instantly, reading as a jump
+      // rather than a reveal. Widening this only stretches each card's own arrival — the
+      // stagger between cards (step) is untouched, so the sequence timing is unchanged.
+      let e = (prog - span * 0.06 - i * step) / (step * 1.8);
       e = e < 0 ? 0 : e > 1 ? 1 : e;
       e = this.ease ? this.ease(e) : e;
       const top = start + (TOP + i * HEAD - start) * e;
@@ -3660,6 +3666,7 @@ class Component extends DCLogic {
         // hover clips stay parked on frame one: decoding six streams behind hidden layers
         // is what made playback stutter, so they only run while the card is hovered
         if (el.dataset.hover) {
+          if (!el.getAttribute("src") && el.dataset.src) el.src = this.resolveRes(el.dataset.src);
           el.preload = "auto";
           el.load();
           // a dropped request leaves the element in a permanent error state, so retry the

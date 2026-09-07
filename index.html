@@ -949,8 +949,7 @@ class Component extends DCLogic {
         });
         // touch has no pointer, so the card at the front of the arc plays by itself. On
         // desktop the hover listeners below own this instead — the mouse picks the ticket.
-        // desktop diagnostic: completely disable hover hit-testing
-        // if (!this.touch) this.syncHover();
+        if (!this.touch) this.syncHover();
         let front = this.touch ? null : undefined;
         if (this.touch) {
         cards.forEach((el) => { if (!front || Math.abs(el._p) < Math.abs(front._p)) front = el; });

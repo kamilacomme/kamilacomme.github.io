@@ -3675,6 +3675,18 @@ class Component extends DCLogic {
         // hover clips stay parked on frame one: decoding six streams behind hidden layers
         // is what made playback stutter, so they only run while the card is hovered
         if (el.dataset.hover) {
+          // this hover-clip copy only exists for the desktop carousel (display:none on
+          // mobile/tablet) — warming it up there too meant 6 concurrent decode requests
+          // for the 3 files that also have a mobile-ticket copy (Pilates/Longread/Inside
+          // Out), competing for iOS's limited hardware video decoders. That contention is
+          // what showed as a grey placeholder and swapped-looking thumbnails, and only on
+          // those three cards — the ones without a hover-clip counterpart were unaffected.
+          // this.mobile/this.tablet are set by fit(), which may not have run yet the very
+          // first time a ref callback fires — fall back to a direct width check so this is
+          // never wrong on the very first render pass, not just after fit() has run once
+          const smallScreen = this.mobile || this.tablet
+            || (typeof matchMedia !== "undefined" && matchMedia("(max-width: 1366px)").matches);
+          if (smallScreen) return;
           if (!el.getAttribute("src") && el.dataset.src) el.src = this.resolveRes(el.dataset.src);
           el.preload = "auto";
           el.load();

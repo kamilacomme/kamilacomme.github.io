@@ -146,12 +146,7 @@ class CurtainCloth extends HTMLElement {
     // antialias off: at devicePixelRatio >= 1.25 the supersampling already smooths
     // edges, and MSAA is disproportionately expensive on Safari's WebGL/Metal path
     this.renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
-    // desktop windows are both wider AND getting up to 2x devicePixelRatio, so this canvas
-    // was shading a lot more real pixels per frame than the mobile cap ever asked for — the
-    // cloth geometry is already the same light weave on both, so this fill-rate gap is the
-    // actual reason desktop stutters and mobile doesn't. 1.5 is still sharp on a retina
-    // display for a soft background effect, just not paying for the full 2x.
-    this.renderer.setPixelRatio(Math.min(devicePixelRatio, MOBILE ? 1.25 : 1.5));
+    this.renderer.setPixelRatio(Math.min(devicePixelRatio, MOBILE ? 1.25 : 2));
     this.appendChild(this.renderer.domElement);
     Object.assign(this.renderer.domElement.style, {
       position: "absolute", inset: "0", width: "100%", height: "100%",

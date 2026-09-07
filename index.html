@@ -1473,9 +1473,9 @@ class Component extends DCLogic {
       this._tabletMode = tablet;
       if (!tablet) this.showTGrid(1, force);
       this.fitFooter(tablet);
-      // cache footer/nav geometry here (resize-time only) so renderFooter() can do pure
-      // arithmetic every frame instead of getBoundingClientRect() every frame — see the
-      // note above _measureAbout for why. nav.left is also used below for fitFooter().
+      // cache footer/nav geometry here (resize-time only) so renderFooter() and
+      // surfaceIsLight() can do pure arithmetic every frame instead of
+      // getBoundingClientRect() every frame — see the note above _measureAbout for why.
       if (this.footer) {
         const fr = this.footer.getBoundingClientRect();
         this._footerTopDoc = fr.top + window.scrollY;
@@ -1575,11 +1575,17 @@ class Component extends DCLogic {
     this._gen = (window.__kcGen = (window.__kcGen || 0) + 1);
     this.raf = requestAnimationFrame(this.tick);
     // animation frames are suspended while the document is hidden (background tab, an
-    // offscreen preview frame). The scroll-linked sections must not depend on that: place
-    // them straight from the scroll event too, so they are always correct on arrival.
+    // offscreen preview frame), so a scroll landing while hidden (e.g. sessionStorage
+    // restoring scroll position, or a scroll driven by something other than the user's
+    // own frame) would otherwise sit unrendered until tick() resumes. Only take the
+    // render hit here when that's actually the case — while the RAF loop is running it
+    // already calls the same three renders every frame, so doing it again per scroll
+    // event was pure duplicate work on every normal scroll.
     this._onScroll = () => {
       if (this._gen !== window.__kcGen) return;
-      try { this.renderProjets(); this.renderAbout(); this.renderFooter(); } catch (e) {}
+      if (document.hidden) {
+        try { this.renderProjets(); this.renderAbout(); this.renderFooter(); } catch (e) {}
+      }
       // tablet: decoders are handed to whichever section you are actually looking at
       if (this.tablet) {
         clearTimeout(this._pruneS);
@@ -3353,16 +3359,44 @@ class Component extends DCLogic {
     // are in: sample the surface at a few points along the strip and flip on luminance
     this.setNavInk(this.surfaceIsLight() ? "rgb(34,32,34)" : "rgb(255,255,255)");
   }
-  // whether the surface under the navbar is light. This used to sample live pixels every
-  // frame (elementsFromPoint + getComputedStyle at 5 points) to handle arbitrary photo /
-  // video / gradient content under the bar. On desktop/tablet the only place the surface
-  // actually flips light is the About section, and that boundary is exactly ABOUT_TOP —
-  // the same value the scroll-progress code above already computes arithmetically from
-  // window.scrollY and stepH(). Mobile has no light About panel under the bar, so it's
-  // always dark there. No live DOM read needed in the render loop.
+  // luminance of whatever sits under the navbar. Any photo / video / gradient under a
+  // sample point counts as dark, since the scrim is what keeps white text legible there.
   surfaceIsLight() {
-    if (this.mobile || this.tablet) return false;
-    return window.scrollY >= this.ABOUT_TOP * this.stepH();
+    if (!this._navRect) return false;
+    const r = this._navRect;
+    const y = Math.max(2, Math.min((this.vh || this.vhNow()) - 2, r.top + r.height * 0.55));
+    // on a phone preview the surrounding letterbox still shows the window-wide white
+    // About panel, so sample across the phone box rather than across the window
+    const bw = this.mobile ? (this.devW || window.innerWidth) * (this.kFit || 1) : window.innerWidth;
+    const bl = (window.innerWidth - bw) / 2;
+    const xs = [0.08, 0.3, 0.5, 0.7, 0.92].map((f) => Math.round(bl + bw * f));
+    let lum = 0, n = 0;
+    for (const x of xs) {
+      const v = this.pointLum(x, y);
+      if (v === null) continue;
+      lum += v; n++;
+    }
+    if (!n) return false;
+    return lum / n > 0.62;
+  }
+  pointLum(x, y) {
+    const stack = document.elementsFromPoint(x, y);
+    for (const el of stack) {
+      if (this.nav && this.nav.contains(el)) continue;
+      if (this.navScrim === el) continue;
+      const cs = getComputedStyle(el);
+      if (cs.visibility === "hidden" || +cs.opacity === 0) continue;
+      const tag = el.tagName;
+      if (tag === "IMG" || tag === "VIDEO" || tag === "CANVAS" || tag === "IFRAME") return 0;
+      if (cs.backgroundImage && cs.backgroundImage !== "none") return 0;
+      const m = cs.backgroundColor.match(/[\d.]+/g);
+      if (!m) continue;
+      const a = m.length > 3 ? +m[3] : 1;
+      if (a < 0.55) continue;
+      const [rr, gg, bb] = m.map(Number);
+      return (0.2126 * rr + 0.7152 * gg + 0.0722 * bb) / 255;
+    }
+    return 1; // nothing painted: the page background is white
   }
   setNavInk(color) {
     if (!this.nav || this._navInk === color) return;

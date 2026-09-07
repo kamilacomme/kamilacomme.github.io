@@ -754,6 +754,13 @@ class Component extends DCLogic {
   cards = []; CARD_H = 326; SPACING = 620;
   // section layout, in viewport heights
   PROJ_TOP = 1; PROJ_H = 6; ABOUT_TOP = 7;
+  // DIAGNOSTIC TEST A (Safari compositor lag investigation): set true to strip the
+  // carousel's 3D transform (perspective + translate3d/rotateY) down to a flat 2D
+  // equivalent — same arc math, no z-depth, no rotation. Not a design change; flip back
+  // to false once the test is done. If the lag mostly disappears with this on, the
+  // compositor (3D layers from perspective/rotateY stacking with the mix-blend-mode /
+  // filter layers elsewhere on the page) is the culprit, not the JS work itself.
+  FLAT_CAROUSEL_TEST = true;
 
   componentDidMount() {
     // Figtree arrives over the network. Every measured headline (the big MES PROJETS above
@@ -936,7 +943,16 @@ class Component extends DCLogic {
           const x = R * Math.sin(th);
           const z = R * (Math.cos(th) - 1);
           const deg = th * (180 / Math.PI);
-          const t = "translate(-50%,-50%) translate3d(" + x.toFixed(3) + "px,0," + z.toFixed(3) + "px) rotateY(" + deg.toFixed(3) + "deg)";
+          let t;
+          if (this.FLAT_CAROUSEL_TEST) {
+            // 2D diagnostic version: same x placement the 3D version arrives at, but no
+            // z-depth and no rotateY — just a flat scale standing in for "further away"
+            // so cards still shrink/order roughly like the real arc did
+            const sc = (1 + z / R * 0.35).toFixed(3);
+            t = "translate(-50%,-50%) translate(" + x.toFixed(3) + "px,0) scale(" + sc + ")";
+          } else {
+            t = "translate(-50%,-50%) translate3d(" + x.toFixed(3) + "px,0," + z.toFixed(3) + "px) rotateY(" + deg.toFixed(3) + "deg)";
+          }
           if (el._t !== t) { el._t = t; el.style.transform = t; }
           const z2 = String(10 + Math.round(Math.cos(th) * 20));
           if (el._z !== z2) { el._z = z2; el.style.zIndex = z2; }
@@ -3444,27 +3460,13 @@ class Component extends DCLogic {
       // lamp take three times as long to come up as it does on desktop, which read as a hang
       this.ci += (this.ti - this.ci) * (1 - Math.exp(-6 * dtF));
     }
-    // the projector (SVG mask geometry + the dust canvas) only matters while Hero is
-    // actually on screen. Past PROJ_TOP the plate is scrolled away and nothing under it
-    // is visible, so keeping heroApply()/drawDust() running every frame was pure wasted
-    // work while looking at Projets/About/Footer. Hysteresis (0.15 screens of slack)
-    // stops it flapping on/off right at the boundary from a single frame's scroll jitter.
-    const stepv = this.vh || this.vhNow();
-    const heroLine = stepv * this.PROJ_TOP;
-    if (this._heroActive === undefined) this._heroActive = true;
-    if (this._heroActive) {
-      if (window.scrollY > heroLine + stepv * 0.15) this._heroActive = false;
-    } else if (window.scrollY < heroLine - stepv * 0.15) {
-      this._heroActive = true;
-    }
     // the projector plate is the most expensive thing on the page (two blurred SVG masks
      // over a full-screen image). On a tablet it walks at half rate so each frame lands
      // whole instead of tearing — the motion itself is time-based, so the speed is the same.
     // the beam runs at full frame rate everywhere: the half-rate update this used to do on
     // tablets is exactly what read as stepping. The frame budget comes from dropping the
     // dust canvas there instead (see below) — a flourish, not the beam itself.
-    if (this._heroActive) this.heroApply();
-    else if (this.heroImg && this.heroImg.style.opacity !== "0") this.heroImg.style.opacity = "0";
+    this.heroApply();
     if (this.touch || this.tablet || this.mobile) {
       // no hover on touch: the projector walks the room on its own
       const HHw = this.heroH || 813;
@@ -3502,16 +3504,7 @@ class Component extends DCLogic {
     // what made the ticket scroll stutter. Dust is a desktop-only flourish, and the
     // scroll-driven sections only need work while the page is actually moving.
     try {
-      if (!this._heroActive) {
-        // just crossed out of Hero: clear the dust canvas once so the last frame's
-        // particles don't sit there frozen, then skip the canvas work entirely
-        if (!this._dustOff && this.heroCanvas) {
-          this._dustOff = true;
-          const c = this.hctx || (this.hctx = this.heroCanvas.getContext("2d"));
-          c.clearRect(0, 0, 1440, this.heroH || 813);
-          this.heroCanvas.style.display = "none";
-        }
-      } else if (!this.touch && !this.mobile && !this.tablet) {
+      if (!this.touch && !this.mobile && !this.tablet) {
         if (this._dustOff && this.heroCanvas) this.heroCanvas.style.display = "block";
         this._dustOff = false; this.drawDust();
       } else if (!this._dustOff && this.heroCanvas) {
@@ -3559,7 +3552,15 @@ class Component extends DCLogic {
         this.wireTicket(el);
         this.renderProjets();
       },
-      cRailRef: (el) => { this.cRail = el; this.wireRail(el); },
+      cRailRef: (el) => {
+        this.cRail = el;
+        // DIAGNOSTIC TEST A: perspective itself (not just rotateY/translate3d values) is
+        // what WebKit treats as a 3D-transform trigger for layer promotion, so the flat
+        // test has to remove this too or the compositor layer stays regardless of what
+        // the per-card transform looks like.
+        if (this.FLAT_CAROUSEL_TEST && el) el.style.perspective = "none";
+        this.wireRail(el);
+      },
       pWordRef: (el) => { this.pWord = el; if (this.fit) this.fit(); },
       pWordSvgRef: (el) => { this.pWordSvg = el; if (this.fit) this.fit(); },
       pWordTextRef: (el) => { this.pWordText = el; if (this.fit) this.fit(); },

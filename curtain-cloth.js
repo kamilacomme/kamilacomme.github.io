@@ -6,7 +6,7 @@ const IS_SAFARI = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 const SEGX = 20;
 const SEGY = 13;
 const ITER = 5;
-const DAMP = 0.91;
+const DAMP = 0.935;
 const GRAVITY = 0.0014;
 const FULLNESS = 1.9;
 
@@ -118,7 +118,7 @@ class Panel {
         const ddx = pt.x - mouse.x;
         const ddy = pt.y - mouse.y;
         const d = Math.hypot(ddx, ddy);
-        const r = 0.18;
+        const r = 0.11;
 
         if (d < r) {
           const fall = 1 - d / r;
@@ -217,14 +217,23 @@ class CurtainCloth extends HTMLElement {
 
     this.onResize = () => this.resize();
     this.onMove = (e) => {
+      // a scroll swipe on iOS Safari also fires pointermove for the touch pointer, so
+      // without this check every upward scroll registered as the user dragging a finger
+      // across the cloth — that's what was reading as the curtain "flying apart" on scroll
+      if (e.pointerType === "touch") return;
       const r = this.getBoundingClientRect();
       const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
       const ny = 1 - ((e.clientY - r.top) / r.height) * 2;
       const mx = nx * this.aspect;
+      // force scales with how far the pointer actually moved this frame, not with how many
+      // pointermove events fired — a fixed per-event increment lets a burst of events (fast
+      // swipe, high-polling-rate mouse) pump force to max almost instantly regardless of
+      // whether anything actually moved
+      const d = Math.hypot(mx - this.mouse.x, ny - this.mouse.y);
       this.mouse.x = mx;
       this.mouse.y = ny;
       this.mouse.active = true;
-      this.mouse.force = Math.min(0.6, this.mouse.force + 0.12);
+      this.mouse.force = Math.min(0.6, this.mouse.force + d * 3.5 + 0.25);
     };
     this.onLeave = () => { this.mouse.active = false; };
     window.addEventListener("resize", this.onResize);

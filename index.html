@@ -186,7 +186,7 @@
 
 <div ref="{{ dRootRef }}">
 <!-- 2. PROJETS -->
-<div id="projets" ref="{{ dProjRef }}" style="position: sticky; top: 0; width: 100%; height: 100svh; overflow: hidden; background: #08080a; z-index: 2; will-change: transform;">
+<div id="projets" ref="{{ dProjRef }}" style="position: sticky; top: 0; width: 100%; height: 100svh; overflow: hidden; background: #08080a; z-index: 2;">
   <div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none;">
     <div style="position: absolute; left: 50%; top: 50%; width: 100lvh; height: 100vw; transform: translate(-50%,-50%) rotate(90deg); background: url(assets/projets/film-texture.webp) center / cover no-repeat; opacity: 0.5; mix-blend-mode: screen; filter: brightness(0.1) contrast(1.05);"></div>
   </div>
@@ -859,6 +859,9 @@ class Component extends DCLogic {
     // --- projets ---
     this._bc = this.buildBarcode();
     this.pSlideTimer = setInterval(() => {
+      // was running forever regardless of whether #projets was ever on screen — pause the
+      // whole thing (18 elements' worth of opacity transitions) while it isn't
+      if (this.dProj && this.dProj.offsetParent === null) return;
       Object.keys(this.pSlides).forEach((k) => {
         const arr = this.pSlides[k];
         if (!arr || arr.length < 2) return;

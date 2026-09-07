@@ -905,10 +905,15 @@ class Component extends DCLogic {
         if (!this.cDrag) {
           // first time the block comes into view the row runs on and eases back to its
           // idle drift — the movement itself tells you the tickets can be pushed
+          // this used to read sec.getBoundingClientRect() + a live vhNow() every single
+          // frame for as long as _cBoost stayed undefined — i.e. on every frame from page
+          // load until the section scrolled up past the trigger line. PROJ_TOP is the same
+          // cached "where this section starts, in screens" value renderProjets() already
+          // trusts for the real position math, so the arithmetic below is exactly
+          // equivalent to the old live read, just without forcing a layout to get it.
           if (this._cBoost === undefined) {
-            const sec = this.pStage && this.pStage.parentElement;
-            const r = sec && sec.getBoundingClientRect();
-            if (r && r.top < this.vhNow() * 0.55 && r.bottom > 0) this._cBoost = this.reduce ? 0 : 2.6;
+            const stepv = this.vh || this.vhNow();
+            if (window.scrollY > stepv * (this.PROJ_TOP - 0.55)) this._cBoost = this.reduce ? 0 : 2.6;
           }
           if (this._cBoost > 0) {
             this._cBoost *= 0.985;
@@ -982,6 +987,11 @@ class Component extends DCLogic {
         this.heroH = H;
         this.heroContainer.style.height = H + "px";
         this.heroContainer.style.transform = "translate(-50%,-50%) scale(" + sh + ")";
+        // the container's own layout width is fixed at 1440 by design (only its height and
+        // its transform:scale change) — cache it here so heroApply() doesn't need a live
+        // offsetWidth read on every single animation frame just to get back the same 1440
+        // it always was.
+        this._heroW = this.heroContainer.offsetWidth || 1440;
         if (this.heroSvg) this.heroSvg.setAttribute("viewBox", "0 0 1440 " + H);
         if (this.beamBlur) {
           const sd = (24 * Math.max(1, H / 813)).toFixed(1);
@@ -1460,6 +1470,22 @@ class Component extends DCLogic {
       this._tabletMode = tablet;
       if (!tablet) this.showTGrid(1, force);
       this.fitFooter(tablet);
+      // cache footer/nav geometry here (resize-time only) so renderFooter() and
+      // surfaceIsLight() can do pure arithmetic every frame instead of
+      // getBoundingClientRect() every frame — see the note above _measureAbout for why.
+      if (this.footer) {
+        const fr = this.footer.getBoundingClientRect();
+        this._footerTopDoc = fr.top + window.scrollY;
+        this._footerHeight = fr.height;
+      }
+      if (this.nav) {
+        const nr = this.nav.getBoundingClientRect();
+        // the nav is position:fixed, so unlike the footer its rect does not move with
+        // scroll at all — caching it here is exact, not an approximation
+        this._navRect = { left: nr.left, top: nr.top, height: nr.height };
+        const nl = Math.round(nr.left);
+        if (nl !== this._navL) { this._navL = nl; this.fitFooter(this.tablet); }
+      }
       // the deck caption only rides the tablet frame; on desktop it keeps its original
       // grid position (32px margins, 32px off the section bottom)
       if (tablet) {
@@ -1778,7 +1804,7 @@ class Component extends DCLogic {
   heroApply() {
     if (!this.heroImg) return;
     const a = Math.max(0, Math.min(1, this.ci));
-    const w = this.heroContainer ? this.heroContainer.offsetWidth : 1440;
+    const w = this._heroW || 1440;
     const shape = (this.props && this.props.beamShape) || "cone";
     // the phone shows the same 1440-wide projector plate cropped to 390 — the beam has
     // to shrink with it, otherwise it floods the whole screen. But the plate's HEIGHT
@@ -3193,22 +3219,21 @@ class Component extends DCLogic {
     // the ticket <a> links even though the fix in syncHover() only ever protected the CURSOR,
     // not the actual click. Gate pointer-events on #apropos so it can't steal clicks until it
     // has genuinely started becoming the active section.
+    // both branches below used to read a live getBoundingClientRect() every frame; the
+    // "else" formula here is mathematically the same value (ABOUT_TOP is exactly that
+    // rect's top, in screens, cached by _measureAbout() at resize time) so it can just be
+    // the only formula — no live read needed at all in the render loop.
     if (!this.mobile && !this.tablet && this.about) {
       const sHx = this.stepH();
-      const r = this.about.getBoundingClientRect();
-      const progX = r.height > 0 ? -r.top / sHx : (window.scrollY - this.ABOUT_TOP * sHx) / sHx;
+      const progX = (window.scrollY - this.ABOUT_TOP * sHx) / sHx;
       const pe = progX >= 0 ? "" : "none";
       if (this.about.style.pointerEvents !== pe) this.about.style.pointerEvents = pe;
     }
     const cards = this.mobile ? this.mCards : this.tablet ? this.tCards : this.cards;
     if (!cards || !cards.length) return;
     const sH = this.stepH();
-    const sec = this._aboutSec && this._aboutSec();
-    const secR = sec && sec.getBoundingClientRect();
     // how far the section has travelled past the top of the viewport, in screens
-    const prog = secR && secR.height > 0
-      ? -secR.top / sH
-      : (window.scrollY - this.ABOUT_TOP * sH) / sH;
+    const prog = (window.scrollY - this.ABOUT_TOP * sH) / sH;
     if (!this.mobile && !this.tablet) {
       // TEST (desktop about): the cards are not parked — they scroll straight up past the
       // statement and leave the frame, while nav, avatar and statement stay put
@@ -3300,16 +3325,17 @@ class Component extends DCLogic {
     });
   }
   renderFooter() {
-    if (this.nav) {
-      const nl = Math.round(this.nav.getBoundingClientRect().left);
-      if (nl !== this._navL) { this._navL = nl; this.fitFooter(this.tablet); }
-    }
-    const H = this.vhNow();
+    // both reads below used to be getBoundingClientRect() on every single frame — the nav
+    // is position:fixed (its rect never moves with scroll, only resize, and that's already
+    // re-cached in fit()) and the footer's document position only needs an arithmetic
+    // scrollY subtraction from the value fit() already cached. Neither needs a live DOM read
+    // in the render loop.
+    const H = this.vh || this.vhNow();
     // how much of the footer block has entered the viewport, 0 -> 1
     let t = 0;
-    if (this.footer) {
-      const r = this.footer.getBoundingClientRect();
-      t = (H - r.top) / Math.max(1, r.height);
+    if (this._footerHeight) {
+      const top = this._footerTopDoc - window.scrollY;
+      t = (H - top) / Math.max(1, this._footerHeight);
       t = t < 0 ? 0 : t > 1 ? 1 : t;
     }
     // the footer IS the end of the page, so the track can't ask for more scroll: the
@@ -3327,9 +3353,9 @@ class Component extends DCLogic {
   // luminance of whatever sits under the navbar. Any photo / video / gradient under a
   // sample point counts as dark, since the scrim is what keeps white text legible there.
   surfaceIsLight() {
-    if (!this.nav) return false;
-    const r = this.nav.getBoundingClientRect();
-    const y = Math.max(2, Math.min(this.vhNow() - 2, r.top + r.height * 0.55));
+    if (!this._navRect) return false;
+    const r = this._navRect;
+    const y = Math.max(2, Math.min((this.vh || this.vhNow()) - 2, r.top + r.height * 0.55));
     // on a phone preview the surrounding letterbox still shows the window-wide white
     // About panel, so sample across the phone box rather than across the window
     const bw = this.mobile ? (this.devW || window.innerWidth) * (this.kFit || 1) : window.innerWidth;

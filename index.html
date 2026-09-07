@@ -33,20 +33,14 @@
 </template>
      <!-- Временно скрываем баннер куки -->
 <style>
-  header a:hover,
-nav a:hover,
-a:hover {
-  background-color: var(--lemon-500) !important;
-  background: var(--lemon-500) !important;
-  color: var(--neutral-900) !important;
-  opacity: 1 !important;
-  filter: none !important;
-  mix-blend-mode: normal !important;
-}
-  color: var(--text-default) !important;
-  opacity: 1 !important;
-  filter: none !important;
-}
+  a[data-dc-tpl="575"]:hover,
+  a[data-dc-tpl="575"]:hover span {
+    background-color: var(--lemon-500) !important;
+    color: var(--neutral-900) !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
   [data-cookie] { display: none !important; }
 </style>
      <!-- Google Consent Mode v2 -->

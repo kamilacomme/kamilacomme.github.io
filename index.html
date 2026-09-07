@@ -1953,7 +1953,7 @@ class Component extends DCLogic {
       // dip repeatedly restarted the same handful of small clips, which is what showed as
       // grey placeholders and swapped-looking thumbnails. They're cheap enough to just pause
       // instead of unloading; eviction still matters for the larger carousel clips.
-      const isMobileTicket = !!v.closest("[data-hit]") && !v.dataset.hover && !v.dataset.gate;
+      const isMobileTicket = !!v.dataset.poster && !v.dataset.hover && !v.dataset.gate;
       if (!live) {
         if (!v.paused) v.pause();
         if (isMobileTicket) return;
@@ -3698,8 +3698,12 @@ class Component extends DCLogic {
           if (el.readyState >= 2) warm(); else el.addEventListener("loadeddata", warm, { once: true });
           return;
         }
-        if (el.dataset.eager === "1" && !el.getAttribute("src") && el.dataset.src) {
+        const isMobileTicketVideo = !!el.dataset.poster && !el.dataset.hover && !el.dataset.gate;
+        if ((el.dataset.eager === "1" || isMobileTicketVideo) && !el.getAttribute("src") && el.dataset.src) {
           el.src = this.resolveRes(el.dataset.src);
+        }
+        if (!el.getAttribute("poster") && el.dataset.poster) {
+          el.poster = this.resolveRes(el.dataset.poster);
         }
         el.addEventListener("ended", () => { el.currentTime = 0; go(); });
         // gated clips (the tablet deck) must stay paused when they are not the middle card,

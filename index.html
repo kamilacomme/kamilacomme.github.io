@@ -651,7 +651,7 @@
     <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(255,255,255); white-space: nowrap;">Paris, France</span>
   </div>
 
-  <div ref="{{ creditRef }}" data-c="3" style="position: absolute; left: 1358px; bottom: 27px; width: 48px; height: 48px; z-index: 2; border-radius: 4px; overflow: hidden; background: #111013;"><video ref="{{ vidRef }}" preload="metadata" data-src="assets/about/footer-walk.mp4" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
+  <div ref="{{ creditRef }}" data-c="3" style="position: absolute; left: 1358px; bottom: 27px; width: 48px; height: 48px; z-index: 2; border-radius: 4px; overflow: hidden; background: #111013;"><video ref="{{ vidRef }}" preload="auto" data-src="assets/about/footer-walk.mp4" data-eager="1" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
 
   <div ref="{{ creditRef }}" data-c="4" style="position: absolute; left: 583px; bottom: 22px; z-index: 2; display: flex; flex-direction: row; align-items: flex-start; gap: 32px;">
     <div style="display: flex; flex-direction: row; gap: 32px; align-items: flex-start; flex: 0 0 auto;">
@@ -1946,8 +1946,17 @@ class Component extends DCLogic {
       // the multi-second blank gap it otherwise leaves the first time that section is seen
       const eager = v.dataset.eager === "1";
       const live = v.offsetParent !== null && (eager || !near || near(v));
+      // the mobile ticket rail (Napoli/TDP/Longread/Inside Out/Celimax) is simultaneously
+      // being translated every RAF frame by renderMobileRail()'s own scroll-driven reveal —
+      // a card can be visually on screen while its rect transiently reads as "not near"
+      // mid-transform. Fully evicting src (falling back to data-src + load()) on every such
+      // dip repeatedly restarted the same handful of small clips, which is what showed as
+      // grey placeholders and swapped-looking thumbnails. They're cheap enough to just pause
+      // instead of unloading; eviction still matters for the larger carousel clips.
+      const isMobileTicket = !!v.closest("[data-hit]") && !v.dataset.hover && !v.dataset.gate;
       if (!live) {
         if (!v.paused) v.pause();
+        if (isMobileTicket) return;
         if (v.getAttribute("src")) { v.dataset.src = v.getAttribute("src"); v.removeAttribute("src"); v.load(); }
         return;
       }
@@ -3688,6 +3697,9 @@ class Component extends DCLogic {
           };
           if (el.readyState >= 2) warm(); else el.addEventListener("loadeddata", warm, { once: true });
           return;
+        }
+        if (el.dataset.eager === "1" && !el.getAttribute("src") && el.dataset.src) {
+          el.src = this.resolveRes(el.dataset.src);
         }
         el.addEventListener("ended", () => { el.currentTime = 0; go(); });
         // gated clips (the tablet deck) must stay paused when they are not the middle card,

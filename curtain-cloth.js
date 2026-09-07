@@ -215,7 +215,10 @@ class CurtainCloth extends HTMLElement {
     this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.01, 100);
     this.camera.position.z = 4;
 
-    this.onResize = () => this.resize();
+    this.onResize = () => {
+      clearTimeout(this._resizeT);
+      this._resizeT = setTimeout(() => this.resize(), 80);
+    };
     this.onMove = (e) => {
       // a scroll swipe on iOS Safari also fires pointermove for the touch pointer, so
       // without this check every upward scroll registered as the user dragging a finger
@@ -258,13 +261,28 @@ class CurtainCloth extends HTMLElement {
 
   disconnectedCallback() {
     cancelAnimationFrame(this.raf);
+    clearTimeout(this._resizeT);
     window.removeEventListener("resize", this.onResize);
   }
 
   resize() {
     const w = this.clientWidth || innerWidth;
     const h = this.clientHeight || innerHeight;
-    this.aspect = w / h;
+    const aspect = w / h;
+
+    // iOS Safari fires window "resize" when the address bar shows/hides during an
+    // ordinary scroll, not just on a real size change — the width never moves and the
+    // height only shifts by the bar's height. Panel.build() below fully re-seeds every
+    // point's position (and its previous position, with no velocity carried over), so
+    // running it on every one of these false resizes was teleporting the cloth's geometry
+    // several times a second — the Verlet solver then reads the jump between the old and
+    // freshly-reset point positions as a massive one-frame velocity, which is exactly the
+    // "flying apart" burst. A real orientation change or window resize moves aspect by a
+    // lot; an address-bar wobble moves it by a fraction of a percent — skip the rebuild
+    // for the latter and just resize the renderer/camera.
+    const aspectChanged = !this._lastAspect || Math.abs(aspect - this._lastAspect) > 0.02;
+    this._lastAspect = aspect;
+    this.aspect = aspect;
     this.renderer.setSize(w, h, false);
     
     // В Камере делаем небольшой заступ за пределы (-aspect - 0.2), чтобы Safari физически не мог подрезать край
@@ -274,6 +292,8 @@ class CurtainCloth extends HTMLElement {
     this.camera.top = 1;
     this.camera.bottom = -1;
     this.camera.updateProjectionMatrix();
+
+    if (!aspectChanged) return;
 
     const tex = this.left.mat.map;
     this.left.build(this.aspect, tex);

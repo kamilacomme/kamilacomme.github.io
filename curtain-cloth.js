@@ -3,8 +3,8 @@ import * as THREE from "https://esm.sh/three@0.160.0";
 const MOBILE = typeof matchMedia !== "undefined" && matchMedia("(max-width: 700px)").matches;
 const SEGX = 20;
 const SEGY = 13;
-const ITER = 5; // Увеличено с 3 до 5 для лучшей стабильности связей
-const DAMP = 0.91; // Усилено затухание (было 0.945) для предотвращения эффекта "желе"
+const ITER = 5;
+const DAMP = 0.91;
 const GRAVITY = 0.0014;
 const FULLNESS = 1.9;
 
@@ -13,19 +13,32 @@ class Panel {
     this.side = side; // -1 left, +1 right
     this.build(aspect, texture);
   }
+
   build(aspect, texture) {
     this.aspect = aspect;
     this.dx = (aspect * FULLNESS) / SEGX;
     this.railDx = aspect / SEGX;
     this.dy = 2 / SEGY;
     this.pts = [];
+
+    // Создаем точки сразу с учетом того, что штора сложена у края
+    const gathered = aspect * 0.22;
     for (let y = 0; y <= SEGY; y++) {
       for (let x = 0; x <= SEGX; x++) {
-        const wx = this.side < 0 ? -aspect + x * (aspect / SEGX) : x * (aspect / SEGX);
+        const t = x / SEGX;
+        let wx;
+        if (this.side < 0) {
+          // Левая штора: x=0 строго на левом краю (-aspect)
+          wx = -aspect + t * gathered;
+        } else {
+          // Правая штора: x=SEGX строго на правом краю (+aspect)
+          wx = aspect - (1 - t) * gathered;
+        }
         const wy = 1 - y * this.dy;
         this.pts.push({ x: wx, y: wy, z: 0, px: wx, py: wy, pz: 0, pin: y === 0 });
       }
     }
+
     this.geo = new THREE.PlaneGeometry(aspect, 2, SEGX, SEGY);
     if (this.mesh) {
       this.mesh.geometry.dispose();
@@ -39,20 +52,23 @@ class Panel {
       this.mesh = new THREE.Mesh(this.geo, this.mat);
     }
   }
+
   idx(x, y) { return y * (SEGX + 1) + x; }
 
   setPins(p) {
     const a = this.aspect;
-    const gathered = a * 0.13;
+    const gathered = a * 0.22; // Ширина сложенной шторы
     for (let x = 0; x <= SEGX; x++) {
       const t = x / SEGX;
       let closedX, openX;
       if (this.side < 0) {
         closedX = -a + t * a;
-        openX = -a - 0.05 + t * gathered;
+        // КЛЮЧЕВОЙ ФИКС: Левый край (t=0) всегда намертво привязан к -a
+        openX = -a + t * gathered;
       } else {
         closedX = t * a;
-        openX = a + 0.05 - (1 - t) * gathered;
+        // Правый край (t=1) всегда намертво привязан к +a
+        openX = a - (1 - t) * gathered;
       }
       const pt = this.pts[this.idx(x, 0)];
       pt.x = openX + (closedX - openX) * p;
@@ -64,18 +80,16 @@ class Panel {
 
   step(mouse) {
     const pts = this.pts;
-    const MAX_VEL = 0.035; // Жёсткое ограничение максимальной скорости точки за кадр
+    const MAX_VEL = 0.035;
 
     for (let i = 0; i < pts.length; i++) {
       const pt = pts[i];
       if (pt.pin) continue;
 
-      // 1. Вычисляем текущую скорость с затуханием DAMP
       let vx = (pt.x - pt.px) * DAMP;
       let vy = (pt.y - pt.py) * DAMP;
       let vz = (pt.z - pt.pz) * DAMP;
 
-      // 2. Ограничиваем максимальную скорость (prevent blowout)
       const speed = Math.hypot(vx, vy, vz);
       if (speed > MAX_VEL) {
         const factor = MAX_VEL / speed;
@@ -84,35 +98,32 @@ class Panel {
         vz *= factor;
       }
 
-      pt.px = pt.x; 
-      pt.py = pt.y; 
+      pt.px = pt.x;
+      pt.py = pt.y;
       pt.pz = pt.z;
 
       pt.x += vx;
       pt.y += vy - GRAVITY;
       pt.z += vz;
 
-      // 3. Плавная и естественная реакция на мышь (Hover)
-      if (mouse.active) {
+      if (mouse && mouse.active) {
         const ddx = pt.x - mouse.x;
         const ddy = pt.y - mouse.y;
         const d = Math.hypot(ddx, ddy);
-        const r = 0.18; // Слегка увеличен радиус мягкого взаимодействия
+        const r = 0.18;
 
         if (d < r) {
           const fall = 1 - d / r;
           const f = fall * fall * mouse.force;
           const n = d || 0.0001;
 
-          // Ослаблены и сбалансированы коэффициенты импульса
           pt.x += (ddx / n) * f * 0.004;
           pt.y += (ddy / n) * f * 0.002;
-          pt.z += f * 0.006; // Уменьшен вылет вперед по Z
+          pt.z += f * 0.006;
         }
       }
     }
 
-    // 4. Релаксация связей (Constraint Solver)
     for (let k = 0; k < ITER; k++) {
       for (let y = 0; y <= SEGY; y++) {
         for (let x = 0; x <= SEGX; x++) {
@@ -127,7 +138,7 @@ class Panel {
     const a = this.pts[ia], b = this.pts[ib];
     const dx = b.x - a.x, dy = b.y - a.y, dz = b.z - a.z;
     const d = Math.sqrt(dx * dx + dy * dy + dz * dz) || 0.0001;
-    const diff = (d - rest) / d * 0.48; // Небольшое ослабление коррекции для мягкости складок
+    const diff = (d - rest) / d * 0.48;
     const ox = dx * diff, oy = dy * diff, oz = dz * diff;
     if (!a.pin) { a.x += ox; a.y += oy; a.z += oz; }
     if (!b.pin) { b.x -= ox; b.y -= oy; b.z -= oz; }
@@ -188,26 +199,37 @@ class CurtainCloth extends HTMLElement {
       const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
       const ny = 1 - ((e.clientY - r.top) / r.height) * 2;
       const mx = nx * this.aspect;
-      this.mouse.x = mx; 
+      this.mouse.x = mx;
       this.mouse.y = ny;
       this.mouse.active = true;
-      
-      // Сглажено накопление силы мыши (было d * 3.5 + 0.25)
       this.mouse.force = Math.min(0.6, this.mouse.force + 0.12);
     };
     this.onLeave = () => { this.mouse.active = false; };
     window.addEventListener("resize", this.onResize);
     this.addEventListener("pointermove", this.onMove);
     this.addEventListener("pointerleave", this.onLeave);
+    
     this.resize();
+
+    // Прогреваем физику на 40 кадров
+    for (let i = 0; i < 40; i++) {
+      this.left.setPins(this.p);
+      this.right.setPins(this.p);
+      this.left.step({ active: false });
+      this.right.step({ active: false });
+    }
+    this.left.sync(true);
+    this.right.sync(true);
 
     this.tick = this.tick.bind(this);
     this.raf = requestAnimationFrame(this.tick);
   }
+
   disconnectedCallback() {
     cancelAnimationFrame(this.raf);
     window.removeEventListener("resize", this.onResize);
   }
+
   resize() {
     const w = this.clientWidth || innerWidth;
     const h = this.clientHeight || innerHeight;
@@ -224,6 +246,7 @@ class CurtainCloth extends HTMLElement {
     this.left.setPins(this.p);
     this.right.setPins(this.p);
   }
+
   set progress(v) { this.target = Math.max(0, Math.min(1, v)); }
   get progress() { return this.p; }
 
@@ -236,20 +259,20 @@ class CurtainCloth extends HTMLElement {
     const r = this.getBoundingClientRect();
     if (r.bottom <= 0 || r.top >= innerHeight) { this.raf = requestAnimationFrame(this.tick); return; }
 
-    let d = (this.target - this.p) * 1.6 * dt; // Чуть более плавная подтяжка progress (1.6 вместо 1.9)
-    const MAX_STEP = 0.15 * dt; // Мягче максимальный шаг смещения шторы
+    let d = (this.target - this.p) * 1.6 * dt;
+    const MAX_STEP = 0.15 * dt;
     if (d > MAX_STEP) d = MAX_STEP;
     if (d < -MAX_STEP) d = -MAX_STEP;
     this.p += d;
 
-    this.mouse.force *= 0.85; // Быстрое затухание силы мыши
+    this.mouse.force *= 0.85;
     this.left.setPins(this.p);
     this.right.setPins(this.p);
     this.left.step(this.mouse);
     this.right.step(this.mouse);
-    
+
     this._frame = (this._frame || 0) + 1;
-    const updateNormals = this._frame % 2 === 0; // Нормали обновляются чаще (каждый 2-й кадр) для гладкости теней
+    const updateNormals = this._frame % 2 === 0;
     this.left.sync(updateNormals);
     this.right.sync(updateNormals);
     this.renderer.render(this.scene, this.camera);

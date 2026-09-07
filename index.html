@@ -3351,7 +3351,9 @@ class Component extends DCLogic {
     if (this.clothEl) this.clothEl.progress = p * p * (3 - 2 * p);
     // navbar ink follows what is actually painted under the bar, not which section we
     // are in: sample the surface at a few points along the strip and flip on luminance
-    this.setNavInk(this.surfaceIsLight() ? "rgb(34,32,34)" : "rgb(255,255,255)");
+    this.setNavInk(window.scrollY >= (this.ABOUT_TOP || 2.35) * (this.vh || this.vhNow())
+  ? "rgb(34,32,34)"
+  : "rgb(255,255,255)");
   }
   // luminance of whatever sits under the navbar. Any photo / video / gradient under a
   // sample point counts as dark, since the scrim is what keeps white text legible there.

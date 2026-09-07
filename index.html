@@ -33,10 +33,14 @@
 </template>
      <!-- Временно скрываем баннер куки -->
 <style>
-     a[href="#statut"]:hover {
+  header a:hover,
+nav a:hover,
+.p-btn:hover,
+[href*="statut"]:hover {
   background-color: var(--lemon-500) !important;
   color: var(--text-default) !important;
   opacity: 1 !important;
+  filter: none !important;
 }
   [data-cookie] { display: none !important; }
 </style>

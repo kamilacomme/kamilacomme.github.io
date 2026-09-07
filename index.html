@@ -34,6 +34,11 @@
      <!-- Временно скрываем баннер куки -->
 <style>
   [data-cookie] { display: none !important; }
+  /* DIAGNOSTIC TEST B (Safari compositor lag investigation): forces #projets out of
+     position: sticky. This deliberately breaks the pin-and-carousel mechanics — it's
+     only here to see whether removing the sticky compositing layer changes the lag.
+     Remove this block once the test is done, it is not a real fix. */
+  #projets { position: relative !important; }
 </style>
      <!-- Google Consent Mode v2 -->
 <script>
@@ -754,13 +759,6 @@ class Component extends DCLogic {
   cards = []; CARD_H = 326; SPACING = 620;
   // section layout, in viewport heights
   PROJ_TOP = 1; PROJ_H = 6; ABOUT_TOP = 7;
-  // DIAGNOSTIC TEST A (Safari compositor lag investigation): set true to strip the
-  // carousel's 3D transform (perspective + translate3d/rotateY) down to a flat 2D
-  // equivalent — same arc math, no z-depth, no rotation. Not a design change; flip back
-  // to false once the test is done. If the lag mostly disappears with this on, the
-  // compositor (3D layers from perspective/rotateY stacking with the mix-blend-mode /
-  // filter layers elsewhere on the page) is the culprit, not the JS work itself.
-  FLAT_CAROUSEL_TEST = true;
 
   componentDidMount() {
     // Figtree arrives over the network. Every measured headline (the big MES PROJETS above
@@ -943,16 +941,7 @@ class Component extends DCLogic {
           const x = R * Math.sin(th);
           const z = R * (Math.cos(th) - 1);
           const deg = th * (180 / Math.PI);
-          let t;
-          if (this.FLAT_CAROUSEL_TEST) {
-            // 2D diagnostic version: same x placement the 3D version arrives at, but no
-            // z-depth and no rotateY — just a flat scale standing in for "further away"
-            // so cards still shrink/order roughly like the real arc did
-            const sc = (1 + z / R * 0.35).toFixed(3);
-            t = "translate(-50%,-50%) translate(" + x.toFixed(3) + "px,0) scale(" + sc + ")";
-          } else {
-            t = "translate(-50%,-50%) translate3d(" + x.toFixed(3) + "px,0," + z.toFixed(3) + "px) rotateY(" + deg.toFixed(3) + "deg)";
-          }
+          const t = "translate(-50%,-50%) translate3d(" + x.toFixed(3) + "px,0," + z.toFixed(3) + "px) rotateY(" + deg.toFixed(3) + "deg)";
           if (el._t !== t) { el._t = t; el.style.transform = t; }
           const z2 = String(10 + Math.round(Math.cos(th) * 20));
           if (el._z !== z2) { el._z = z2; el.style.zIndex = z2; }
@@ -3552,15 +3541,7 @@ class Component extends DCLogic {
         this.wireTicket(el);
         this.renderProjets();
       },
-      cRailRef: (el) => {
-        this.cRail = el;
-        // DIAGNOSTIC TEST A: perspective itself (not just rotateY/translate3d values) is
-        // what WebKit treats as a 3D-transform trigger for layer promotion, so the flat
-        // test has to remove this too or the compositor layer stays regardless of what
-        // the per-card transform looks like.
-        if (this.FLAT_CAROUSEL_TEST && el) el.style.perspective = "none";
-        this.wireRail(el);
-      },
+      cRailRef: (el) => { this.cRail = el; this.wireRail(el); },
       pWordRef: (el) => { this.pWord = el; if (this.fit) this.fit(); },
       pWordSvgRef: (el) => { this.pWordSvg = el; if (this.fit) this.fit(); },
       pWordTextRef: (el) => { this.pWordText = el; if (this.fit) this.fit(); },

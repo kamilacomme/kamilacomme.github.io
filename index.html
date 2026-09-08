@@ -2671,7 +2671,11 @@ class Component extends DCLogic {
   tMaxOff() {
     const n = this.N - 1;
     const sp = this._tSpacing || 356, w = this._tTicketW || 323;
-    const W = (this.tFrameW || 834) * (this.st || 1);
+    // tFrameW is already expressed in tPStage's own design-unit space (it's set from
+    // window.innerWidth / st, and tPStage itself gets scale(st) applied via CSS transform),
+    // the same space left/w/sp live in — so no extra *st here, or W gets shrunk twice and
+    // the max offset overshoots past the point where the last ticket lines up with the margin.
+    const W = this.tFrameW || 834;
     return Math.max(0, Math.min(n, n - (W - 64 - w) / sp));
   }
   // each ticket opens its project, same targets as the desktop cards. A tap, not a drag:

@@ -2960,17 +2960,27 @@ class Component extends DCLogic {
     // how far the section has travelled past the top of the viewport, in screens
     const prog = (window.scrollY - this.ABOUT_TOP * sH) / sH;
     if (!this.mobile && !this.tablet) {
-      // Desktop About: cards pass upward in sequence with the previous timing.
-      const H = this.CARD_H, GAP = 24, frameH = this.frameH || 844;
-      const START = frameH + 80, END = -(H + 80);
-      const LEAD = 0.1, endAt = Math.max(1.2, (this.ABOUT_RANGE || 7) - 0.05);
-      const OVERLAP = 0.35, TAIL = 0.75;
-      const RUN = (endAt - LEAD) / (4 * OVERLAP + TAIL), STEP = RUN * OVERLAP;
+      // Desktop sticky-card experiment. Keep the approved 326px cards,
+      // grid positions, type styles, and host scale; change only vertical motion.
+      // Screenshot's final arrangement: Mastère / 450k / Behance on the
+      // upper row, 3 langues / Greenly on the lower row.
+      const frameH = this.frameH || 844;
+      const H = this.CARD_H;
+      const gap = 24;
+      const gridHeight = 2 * H + gap;
+      const firstRow = Math.max(24, (frameH - gridHeight) / 2);
+      const targetTops = [firstRow, firstRow + H + gap, firstRow,
+                          firstRow, firstRow + H + gap];
+      const entryY = frameH + 60;
+      // Each card rises, parks at its destination, and stays parked.
+      // Leave a short uncluttered introduction and a settled final hold.
+      const firstArrival = 0.48, stagger = 1.05, travelScreens = 0.82;
       cards.forEach((el, i) => {
         if (!el) return;
-        let e = (prog - LEAD - this.A_ORDER[i] * STEP) / RUN;
-        e = e < 0 ? 0 : e > 1 ? 1 : e;
-        const top = START + (END - START) * e;
+        let e = (prog - firstArrival - i * stagger) / travelScreens;
+        e = Math.max(0, Math.min(1, e));
+        e = e * e * (3 - 2 * e);
+        const top = entryY + (targetTops[i] - entryY) * e;
         const t = "translateY(" + top.toFixed(1) + "px)";
         if (el._t !== t) { el._t = t; el.style.transform = t; }
       });

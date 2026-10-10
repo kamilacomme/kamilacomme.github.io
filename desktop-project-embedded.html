@@ -39,19 +39,23 @@
        if(Number.isFinite(actual))targetLeft=actual;
      }
    }
-   stage.style.left=`${targetLeft-32*scale}px`;
+   const stageLeft=targetLeft-margin*scale;
+   stage.style.left=`${stageLeft}px`;
    stage.querySelector('.heading').style.left='32px';
    rail.style.left='32px';
+   // Use the measured Hero margin symmetrically on the right.
+   // Toolbar right edge matches the Me recruter button's page-edge grid.
+   const toolbar=stage.querySelector('.toolbar');
+   toolbar.style.right=`${(stageLeft+frameWidth*scale-(vw-targetLeft))/scale}px`;
    // Keep all text in the stage on the same scale, without overrides.
    stage.querySelector('.heading').style.removeProperty('font-size');
    stage.querySelector('.toolbar small').style.removeProperty('font-size');
-   // Both edges use the 32px design-grid inset from the centered frame.
-   // The bottom ticket margin equals the physical left edge margin.
-   const physicalMargin=offset+margin*scale;
-   rail.style.top=`${(vh-physicalMargin)/scale-393.453}px`;
-   // The last ticket ends on the symmetric right grid edge.
+   // Bottom edge matches the same physical margin as the measured Hero left edge.
+   rail.style.top=`${(vh-targetLeft)/scale-393.453}px`;
+   // At the end of scrolling, Napoli's right edge matches Explorer's right edge.
    const railWidth=rail.scrollWidth;
-   maxTravel=Math.max(0,rail.offsetLeft+railWidth+margin-frameWidth);
+   const railEnd=stageLeft+(rail.offsetLeft+railWidth)*scale;
+   maxTravel=Math.max(0,(railEnd-(vw-targetLeft))/scale);
    scrollable=maxTravel*scale;
    section.style.height=`${vh+scrollable}px`;
    if(outer)standalone.style.height=`${vh}px`;

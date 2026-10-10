@@ -881,7 +881,11 @@ class Component extends DCLogic {
         const aboutCardD = 326;
         (this.cards || []).forEach((el) => {
           if (!el) return;
-          el.style.left = figmaCardLeft[el.dataset.i] + "px";
+          // Behance belongs to the rightmost grid column. The desktop stage
+          // expands to Wd, so anchor its right edge to that stage's 32px inset.
+          // Other card positions stay as previously approved.
+          const left = el.dataset.i === "3" ? Wd - 32 - aboutCardD : figmaCardLeft[el.dataset.i];
+          el.style.left = left.toFixed(1) + "px";
           el.style.width = aboutCardD + "px";
           el.style.height = aboutCardD + "px";
         });

@@ -28,12 +28,19 @@
    stage.style.height=`${vh/scale}px`;
    // Match the centered 1440px reference frame used by the other blocks.
    const offset=(vw-frameWidth*scale)/2;
-   stage.style.left=`${offset}px`;
-   // Align the Projects heading and first ticket with the Hero's left grid
-   // line (32 design px multiplied by the host's common desktop scale).
-   // Both elements already have left:32px in the 1440px reference frame.
-   const heading=stage.querySelector('.heading');
-   heading.style.left='32px';
+   // Read the actual Hero headline position in the parent page. Its rendered
+   // position is the grid reference; an arithmetic 1440-frame estimate alone
+   // can disagree with the host's responsive layout.
+   let targetLeft=offset+32*scale;
+   if(outer){
+     const hero=scrollWindow.document.querySelector('h1');
+     if(hero){
+       const actual=hero.getBoundingClientRect().left;
+       if(Number.isFinite(actual))targetLeft=actual;
+     }
+   }
+   stage.style.left=`${targetLeft-32*scale}px`;
+   stage.querySelector('.heading').style.left='32px';
    rail.style.left='32px';
    // Keep all text in the stage on the same scale, without overrides.
    stage.querySelector('.heading').style.removeProperty('font-size');

@@ -336,7 +336,7 @@
 
   <div ref="{{ clothRef }}" style="position: absolute; left: 0; top: 0; width: 100vw; height: 100svh; z-index: 1; pointer-events: auto;"></div>
 
-  <div ref="{{ creditRef }}" data-c="0" style="position: absolute; left: 32px; top: 118px; z-index: 2; font-family: 'Figtree', sans-serif; font-weight: 400; font-style: italic; font-size: 64px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(255,255,255);">
+  <div ref="{{ creditRef }}" data-c="0" style="position: absolute; left: 32px; top: 118px; z-index: 2; font-family: 'Figtree', sans-serif; font-weight: 400; font-style: italic; font-size: 56px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(255,255,255);">
     <span style="display: block;">Un CDI ? Écrivez-moi.</span>
     <a href="mailto:comme.kamila@gmail.com?subject=Un%20CDI%20chez%20nous%20%3F" aria-label="M’écrire à comme.kamila@gmail.com" style="display: block; color: rgb(255,255,255); text-decoration: none; font-style: normal; font-weight: 700;">comme.kamila<wbr>@gmail.com</a>
   </div>
@@ -1407,7 +1407,7 @@ class Component extends DCLogic {
     const head = q("[data-c='0']"), info = q("[data-c='1']"), gif = q("[data-c='3']"), legal = q("[data-c='4']");
     const X = (v) => (edgeL + (v - 33) * sc).toFixed(1) + "px";
     if (head) Object.assign(head.style, { left: edgeL.toFixed(1) + "px", right: "auto", bottom: "auto",
-      top: px(tablet ? 128 : 118), fontSize: px(tablet ? 48 : 64), width: "auto" });
+      top: px(tablet ? 128 : 118), fontSize: px(tablet ? 48 : 56), width: "auto" });
     if (info) {
       Object.assign(info.style, { left: edgeL.toFixed(1) + "px", right: "auto", top: "auto",
         bottom: px(21), alignItems: "flex-start", gap: px(8) });

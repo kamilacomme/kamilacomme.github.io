@@ -3432,7 +3432,16 @@ class Component extends DCLogic {
   }
 }
 </script>
-<script id="kc-project-interactions">(()=>{ 
+<script id="kc-project-interactions">(()=>{
+let attached=null;
+function mountProjects(){
+ const desktop=document.getElementById('projets');
+ const tablet=document.getElementById('kc-t-stage');
+ const mobile=document.getElementById('kc-m-canvas');
+ if(!desktop||!tablet||!mobile||!desktop.querySelectorAll('.ticket').length) return false;
+ if(attached===desktop) return true;
+ attached=desktop;
+(()=>{ 
 (()=>{
  const section=document.getElementById('projets'),stage=document.getElementById('kc-d-stage'),rail=document.getElementById('kc-d-rail');
  let maxTravel=0,scrollable=0,start=0,scale=1,scheduled=false;
@@ -3441,6 +3450,8 @@ class Component extends DCLogic {
    scale=window.innerWidth/frameWidth;
    stage.style.transform=`scale(${scale})`;
    stage.style.height=`${window.innerHeight/scale}px`;
+   const explorer=section.querySelector('.toolbar');
+   if(explorer){explorer.style.right='32px';explorer.style.left='auto';}
    // Align bottom of tickets to the same 32-unit grid margin as the left edge.
    rail.style.top=`${window.innerHeight/scale-margin-393.453}px`;
    maxTravel=Math.max(0,rail.offsetLeft+rail.scrollWidth+margin-frameWidth);
@@ -3502,5 +3513,13 @@ const viewport=document.getElementById('kc-m-viewport'),canvas=document.getEleme
 const vids=Array.from(document.querySelectorAll('#kc-mobile-projets video.motion'));
 const observer=new IntersectionObserver(entries=>{for(const e of entries){const v=e.target;const ticket=v.closest('.project');if(e.isIntersecting&&e.intersectionRatio>=0.32){if(!v.src){v.src=v.dataset.src;v.load()}const p=v.play();if(p&&p.catch)p.catch(()=>{});ticket.classList.add('playing')}else{v.pause();ticket.classList.remove('playing')}}},{threshold:[0,.32,.6]});vids.forEach(v=>observer.observe(v));document.addEventListener('visibilitychange',()=>{if(document.hidden)vids.forEach(v=>v.pause());else vids.forEach(v=>{if(v.closest('.project').classList.contains('playing'))v.play().catch(()=>{})})});
 
+})();
+return true;
+}
+if(!mountProjects()){
+ const observer=new MutationObserver(()=>{if(mountProjects())observer.disconnect()});
+ observer.observe(document.documentElement,{subtree:true,childList:true});
+ window.addEventListener('load',mountProjects,{once:true});
+}
 })();</script></body>
 </html>

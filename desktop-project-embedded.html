@@ -43,29 +43,20 @@
    stage.style.left=`${stageLeft}px`;
    stage.querySelector('.heading').style.left='32px';
    rail.style.left='32px';
-   // Align the right-hand elements with the *actual* Me recruter button,
-   // not a guessed symmetrical margin from the Hero.
-   let targetRight=vw-targetLeft;
-   if(outer){
-     const hire=scrollWindow.document.querySelector('a[href^="mailto:comme.kamila@gmail.com?subject="]');
-     if(hire){
-       const rect=hire.getBoundingClientRect();
-       if(rect.width>0&&Number.isFinite(rect.right))targetRight=rect.right;
-     }
-   }
+   // Adjust only the right edge, using the same stage coordinates as before.
    const toolbar=stage.querySelector('.toolbar');
-   toolbar.style.right=`${(stageLeft+frameWidth*scale-targetRight)/scale}px`;
+   const rightInset=targetLeft+16;
+   toolbar.style.right=`${(stageLeft+frameWidth*scale-(vw-rightInset))/scale}px`;
    // Keep all text in the stage on the same scale, without overrides.
    stage.querySelector('.heading').style.removeProperty('font-size');
    stage.querySelector('.toolbar small').style.removeProperty('font-size');
    // Bottom edge matches the same physical margin as the measured Hero left edge.
    rail.style.top=`${(vh-targetLeft)/scale-393.453}px`;
-   // The exact last ticket edge is more reliable than rail.scrollWidth,
-   // which can include overflow and produce an overshoot at the end.
-   const lastTicket=rail.querySelector('.ticket:last-child');
-   const lastEdge=rail.offsetLeft+(lastTicket?lastTicket.offsetLeft+lastTicket.offsetWidth:rail.scrollWidth);
-   const railEnd=stageLeft+lastEdge*scale;
-   maxTravel=Math.max(0,(railEnd-targetRight)/scale);
+   // Keep the previously working rail-scroll calculation, with the same
+   // small right inset as Explorer.
+   const railWidth=rail.scrollWidth;
+   const railEnd=stageLeft+(rail.offsetLeft+railWidth)*scale;
+   maxTravel=Math.max(0,(railEnd-(vw-rightInset))/scale);
    scrollable=maxTravel*scale;
    section.style.height=`${vh+scrollable}px`;
    if(outer)standalone.style.height=`${vh}px`;

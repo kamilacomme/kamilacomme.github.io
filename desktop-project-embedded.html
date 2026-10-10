@@ -16,7 +16,7 @@
  if(embed){try{outer=window.parent.document.getElementById('projets')}catch(e){outer=null}}
  const section=outer||standalone;
  const scrollWindow=outer?window.parent:window;
- let maxTravel=0,scrollable=0,start=0,scale=1,scheduled=false;
+ let maxTravel=0,scrollable=0,start=0,scale=1,scheduled=false,introHold=0;
  const frameWidth=1440,margin=32;
  function measure(){
    const host=outer?scrollWindow:window;
@@ -58,12 +58,15 @@
    const railEnd=stageLeft+(rail.offsetLeft+railWidth)*scale;
    maxTravel=Math.max(0,(railEnd-(vw-rightInset))/scale);
    scrollable=maxTravel*scale;
-   section.style.height=`${vh+scrollable}px`;
+   // A short vertical-scroll hold lets the first Pilates ticket settle
+   // before the horizontal journey starts.
+   introHold=Math.min(120,Math.round(vh*0.14));
+   section.style.height=`${vh+introHold+scrollable}px`;
    if(outer)standalone.style.height=`${vh}px`;
    start=section.getBoundingClientRect().top+scrollWindow.scrollY;
    update();
  }
- function update(){scheduled=false;let progress=Math.max(0,Math.min(scrollable,scrollWindow.scrollY-start));rail.style.transform=`translate3d(${-progress/scale}px,0,0)`}
+ function update(){scheduled=false;let progress=Math.max(0,Math.min(scrollable,scrollWindow.scrollY-start-introHold));rail.style.transform=`translate3d(${-progress/scale}px,0,0)`}
  function onScroll(){if(!scheduled){scheduled=true;requestAnimationFrame(update)}}
  scrollWindow.addEventListener('scroll',onScroll,{passive:true});
  window.addEventListener('resize',measure);

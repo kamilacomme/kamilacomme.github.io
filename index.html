@@ -2975,9 +2975,11 @@ class Component extends DCLogic {
       // Each card rises, parks at its destination, and stays parked.
       // Leave a short uncluttered introduction and a settled final hold.
       const firstArrival = 0.48, stagger = 1.05, travelScreens = 0.82;
+      // Arrival sequence: Mastère, 450k, Behance, 3 langues, Greenly.
+      const arrivalOrder = [0, 4, 1, 2, 3];
       cards.forEach((el, i) => {
         if (!el) return;
-        let e = (prog - firstArrival - i * stagger) / travelScreens;
+        let e = (prog - firstArrival - arrivalOrder[i] * stagger) / travelScreens;
         e = Math.max(0, Math.min(1, e));
         e = e * e * (3 - 2 * e);
         const top = entryY + (targetTops[i] - entryY) * e;

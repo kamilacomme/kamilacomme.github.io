@@ -29,6 +29,12 @@
    // Match the centered 1440px reference frame used by the other blocks.
    const offset=(vw-frameWidth*scale)/2;
    stage.style.left=`${offset}px`;
+   // Align the Projects heading and first ticket with the Hero's left grid
+   // line (32 design px multiplied by the host's common desktop scale).
+   // Both elements already have left:32px in the 1440px reference frame.
+   const heading=stage.querySelector('.heading');
+   heading.style.left='32px';
+   rail.style.left='32px';
    // Keep all text in the stage on the same scale, without overrides.
    stage.querySelector('.heading').style.removeProperty('font-size');
    stage.querySelector('.toolbar small').style.removeProperty('font-size');

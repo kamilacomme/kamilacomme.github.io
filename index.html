@@ -395,6 +395,7 @@
 </div>
 <!-- Nav scrim: keeps white nav text legible over light project photos -->
 <div ref="{{ navScrimRef }}" style="position: fixed; left: 0; top: 0; width: 100vw; height: 128px; z-index: 499; pointer-events: none; background: linear-gradient(to bottom, rgba(8,8,10,0.62) 0%, rgba(8,8,10,0.34) 45%, rgba(8,8,10,0) 100%); transition: opacity 0.25s ease;"></div>
+<style id="kc-no-nav-gradient">[ref="{{ navScrimRef }}"]{display:none!important} #kc-no-nav-gradient-marker{display:none}</style>
 <!-- Shared navbar: one grid, one type scale, sits above every section -->
 <div ref="{{ navRef }}" role="navigation" aria-label="Navigation principale" style="position: fixed; left: 50%; top: 0; width: 1440px; height: 72px; z-index: 500; transform-origin: top center; transform: translateX(-50%); box-sizing: border-box; padding: 15px 32px; display: flex; flex-direction: row; justify-content: space-between; align-items: center; pointer-events: none;">
   <span style="display: inline-flex; align-items: flex-start; gap: 3px; font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 20px; white-space: nowrap; line-height: 1.2; letter-spacing: -0.02em; color: rgb(255,255,255); pointer-events: auto;">Kamila Comme<span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 9px; line-height: 1.4; letter-spacing: 0;">®</span></span>
@@ -1132,6 +1133,7 @@ class Component extends DCLogic {
       // the scrim has to ride the phone frame too, otherwise the white wordmark sits
       // on bare photo and disappears over the light project shots
       if (this.navScrim) {
+        this.navScrim.style.display = "none";
         if (mobile) {
           const bw = (this.devW || window.innerWidth) * kFit;
           const bh = (this.devH || this.lvhNow()) * kFit;
@@ -3122,7 +3124,7 @@ class Component extends DCLogic {
   setNavInk(color) {
     if (!this.nav || this._navInk === color) return;
     this._navInk = color;
-    if (this.navScrim) this.navScrim.style.opacity = color === "rgb(255,255,255)" ? 1 : 0;
+    if (this.navScrim) { this.navScrim.style.opacity = "0"; this.navScrim.style.display = "none"; }
     this.nav.querySelectorAll("span, a").forEach((el) => {
       if (el.closest("[data-fixed-ink]")) return;
       el.style.color = color;

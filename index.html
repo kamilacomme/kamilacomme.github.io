@@ -3074,6 +3074,16 @@ class Component extends DCLogic {
   // sample point counts as dark, since the scrim is what keeps white text legible there.
   surfaceIsLight() {
     if (!this._navRect) return false;
+    // The approved projects surface is white. A cross-document iframe is opaque
+    // to elementsFromPoint(), which otherwise incorrectly classifies it as dark.
+    // Use the current layout's section bounds instead of sampling inside the iframe.
+    const projectId = this.mobile ? "projets-m" : this.tablet ? "projets-t" : "projets";
+    const projectSection = document.getElementById(projectId);
+    if (projectSection) {
+      const rect = projectSection.getBoundingClientRect();
+      const navY = this._navRect.top + this._navRect.height * 0.55;
+      if (rect.top <= navY && rect.bottom > navY) return true;
+    }
     const r = this._navRect;
     const y = Math.max(2, Math.min((this.vh || this.vhNow()) - 2, r.top + r.height * 0.55));
     // on a phone preview the surrounding letterbox still shows the window-wide white

@@ -342,8 +342,8 @@
   </div>
 
   <div ref="{{ creditRef }}" data-c="1" style="position: absolute; left: 32px; bottom: 21px; z-index: 2; display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-    <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(255,255,255); white-space: nowrap;">+33 (0) 7 45 67 03 83</span>
-    <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(255,255,255); white-space: nowrap;">Paris, France</span>
+    <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(255,255,255); white-space: nowrap;">+33 (0) 7 45 67 03 83</span>
+    <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(255,255,255); white-space: nowrap;">Paris, France</span>
   </div>
 
   <div ref="{{ creditRef }}" data-c="3" style="position: absolute; left: 1358px; bottom: 27px; width: 48px; height: 48px; z-index: 2; border-radius: 4px; overflow: hidden; background: #111013;"><video ref="{{ vidRef }}" preload="auto" data-src="assets/about/footer-walk.mp4" data-eager="1" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
@@ -1411,7 +1411,7 @@ class Component extends DCLogic {
     if (info) {
       Object.assign(info.style, { left: edgeL.toFixed(1) + "px", right: "auto", top: "auto",
         bottom: px(21), alignItems: "flex-start", gap: px(8) });
-      info.querySelectorAll("span").forEach((el) => { el.style.fontSize = px(16); el.style.textAlign = "left"; });
+      info.querySelectorAll("span").forEach((el) => { el.style.fontSize = px(tablet ? 16 : 14); el.style.textAlign = "left"; });
     }
     // the gif's right edge is taken from the Hire me pill itself, not recomputed from the
     // margin: whatever the bar's own edge is, the corner element lands on it exactly.

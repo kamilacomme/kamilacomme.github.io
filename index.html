@@ -874,15 +874,14 @@ class Component extends DCLogic {
         const GAPd = 24;
         const colD = (Wd - 64 - 11 * GAPd) / 12;
         const cardD = 3 * colD + 2 * GAPd;
-        const stepD = 3 * (colD + GAPd);
-        const SLOT = { "0": 0, "1": 2, "2": 1, "3": 3, "4": 0 };
-        // About cards are fixed 326px squares in Figma. Do not let the
-        // responsive 12-column slot width enlarge them on wide/short screens.
-        // Only their stage (and therefore their visible size) uses site scaling.
+        // The five About cards follow Figma's fixed 1440px composition grid.
+        // The host stage still uses its existing desktop scale, but column
+        // offsets must not expand with Wd while card widths remain 326px.
+        const figmaCardLeft = { "0": 29.523, "1": 846.523, "2": 379.523, "3": 1082, "4": 32.5 };
         const aboutCardD = 326;
         (this.cards || []).forEach((el) => {
           if (!el) return;
-          el.style.left = (32 + (SLOT[el.dataset.i] || 0) * stepD).toFixed(1) + "px";
+          el.style.left = figmaCardLeft[el.dataset.i] + "px";
           el.style.width = aboutCardD + "px";
           el.style.height = aboutCardD + "px";
         });

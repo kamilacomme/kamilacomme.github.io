@@ -213,7 +213,7 @@
     <div ref="{{ aStageRef }}" style="position: absolute; left: 50%; top: 50%; width: 1440px; height: 844px; overflow: hidden; transform-origin: center; transform: translate(-50%,-50%);">
 
       <!-- Fixed statement block (grid, vertically centered) -->
-      <div style="position: absolute; left: 32px; top: 50%; transform: translateY(-50%); width: 1336px; z-index: 1;">
+      <div style="position: absolute; left: 32px; top: 64px; width: 1336px; z-index: 1;">
         <p style="margin: 0; text-indent: 0; font-family: 'Figtree', sans-serif; font-size: 56px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34); text-wrap: pretty;"><span style="display: inline-block; vertical-align: baseline; width: 48px; height: 48px; margin-right: 68.67px; border-radius: 4px; overflow: hidden;"><video ref="{{ vidRef }}" preload="metadata" data-src="assets/about/avatar.mp4" data-eager="1" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></span><span style="font-weight: 700; font-style: normal;">Je suis Kamila Comme, </span><span style="font-weight: 400; font-style: italic;">designer Brand&nbsp;&amp;&nbsp;Digital </span><span style="font-weight: 700; font-style: normal;">avec un Mastère en Direction Artistique et </span><span style="font-weight: 400; font-style: italic;">5 ans d’expérience. </span><span style="font-weight: 700; font-style: normal;">Je transforme une idée en marque qui marche sur plusieurs supports. </span><span style="font-weight: 400; font-style: italic;">En recherche d’un CDI pour 2026.</span></p>
       </div>
 
@@ -2953,23 +2953,18 @@ class Component extends DCLogic {
     // how far the section has travelled past the top of the viewport, in screens
     const prog = (window.scrollY - this.ABOUT_TOP * sH) / sH;
     if (!this.mobile && !this.tablet) {
-      // TEST (desktop about): the cards are not parked — they scroll straight up past the
-      // statement and leave the frame, while nav, avatar and statement stay put
-      const H = this.CARD_H, GAP = 24, frameH = this.frameH || 844;
-      const START = frameH + 80, END = -(H + 80);
-      // the whole run has to be over before the footer's top edge appears, so the schedule
-      // is derived from the section's own scroll range: five equal passes, one after another
-      // the next card leaves as soon as the one before it is past mid-screen: each pass
-      // starts at 35% of the previous one, so two cards share the frame briefly
-      // the footer starts arriving once the last card is 75% up its run
-      const LEAD = 0.1, endAt = Math.max(1.2, (this.ABOUT_RANGE || 7) - 0.05);
-      const OVERLAP = 0.35, TAIL = 0.75;
-      const RUN = (endAt - LEAD) / (4 * OVERLAP + TAIL), STEP = RUN * OVERLAP;
+      // Figma 301:114: recreate the long, staggered card composition while
+      // retaining the site's existing sticky container, typography and scale.
+      // The 1440px design positions become the cards' scroll-driven Y positions.
+      const H = this.CARD_H;
+      const figmaTops = [483.129, 898.051, 1345.129, 1790.129, 2159.129];
+      const endAt = Math.max(1.2, (this.ABOUT_RANGE || 7) - 0.05);
+      // Travel just past the final card, so the section is clear before footer.
+      const travel = figmaTops[4] + H + 80;
+      const offsetY = Math.max(0, Math.min(1, prog / endAt)) * travel;
       cards.forEach((el, i) => {
         if (!el) return;
-        let e = (prog - LEAD - this.A_ORDER[i] * STEP) / RUN;
-        e = e < 0 ? 0 : e > 1 ? 1 : e;
-        const top = START + (END - START) * e;
+        const top = figmaTops[i] - offsetY;
         const t = "translateY(" + top.toFixed(1) + "px)";
         if (el._t !== t) { el._t = t; el.style.transform = t; }
       });

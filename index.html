@@ -3438,7 +3438,7 @@ function mountProjects(){
  const desktop=document.getElementById('projets');
  const tablet=document.getElementById('kc-t-stage');
  const mobile=document.getElementById('kc-m-canvas');
- if(!desktop||!tablet||!mobile||!desktop.querySelectorAll('.ticket').length) return false;
+ if(!desktop||!tablet||!mobile||desktop.querySelectorAll('.ticket').length!==6||document.querySelectorAll('#kc-tablet-projets .ticket').length!==6||document.querySelectorAll('#kc-mobile-projets .project').length!==6) return false;
  if(attached===desktop) return true;
  attached=desktop;
 (()=>{ 
@@ -3454,7 +3454,7 @@ function mountProjects(){
    if(explorer){explorer.style.right='32px';explorer.style.left='auto';}
    // Align bottom of tickets to the same 32-unit grid margin as the left edge.
    rail.style.top=`${window.innerHeight/scale-margin-393.453}px`;
-   maxTravel=Math.max(0,rail.offsetLeft+rail.scrollWidth+margin-frameWidth);
+   maxTravel=Math.max(0,32+(6*1142+5*25)+margin-frameWidth);
    scrollable=maxTravel*scale;
    section.style.height=`${window.innerHeight+scrollable}px`;
    start=section.getBoundingClientRect().top+window.scrollY;
@@ -3464,7 +3464,7 @@ function mountProjects(){
  function onScroll(){if(!scheduled){scheduled=true;requestAnimationFrame(update)}}
  window.addEventListener('scroll',onScroll,{passive:true});
  window.addEventListener('resize',measure);
- document.fonts?.ready.then(measure);measure();
+ document.fonts?.ready.then(measure);measure();requestAnimationFrame(measure);window.addEventListener('load',measure,{once:true});
 })();
 
 (()=>{

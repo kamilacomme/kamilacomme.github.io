@@ -33,12 +33,17 @@
 </template>
      <!-- Временно скрываем баннер куки -->
 <style>
-  a[data-dc-tpl="575"]:hover,
-  a[data-dc-tpl="575"]:hover span {
-    background-color: var(--lemon-500) !important;
-    color: var(--neutral-900) !important;
+  /* Desktop hire button: keep the normal pink, use lemon-500 on hover. */
+  a[aria-label="M’écrire à comme.kamila@gmail.com"][data-fixed-ink="1"]:hover,
+  a[aria-label="M’écrire à comme.kamila@gmail.com"][data-fixed-ink="1"]:focus-visible {
+    background-color: #cae56c !important;
     opacity: 1 !important;
     filter: none !important;
+  }
+  a[aria-label="M’écrire à comme.kamila@gmail.com"][data-fixed-ink="1"]:hover span,
+  a[aria-label="M’écrire à comme.kamila@gmail.com"][data-fixed-ink="1"]:focus-visible span {
+    color: #222022 !important;
+    opacity: 1 !important;
   }
 
   [data-cookie] { display: none !important; }
@@ -58,7 +63,20 @@
   gtag('js', new Date());
   gtag('config', 'G-NEB5X3SCNX');
 </script>
-</head>
+<style id="kc-new-project-css">#kc-desktop-projets .portfolio{position:relative;background:#fff}#kc-desktop-projets .sticky{height:100svh;position:sticky;top:0;overflow:hidden}#kc-desktop-projets .stage{position:absolute;left:0;top:0;width:1440px;height:813px;transform-origin:top left;}#kc-desktop-projets .heading{position:absolute;left:32px;top:93px;width:760px;font:700 56px/1 Figtree,Arial,sans-serif;letter-spacing:-1.68px;margin:0}#kc-desktop-projets .heading em{font-weight:400}#kc-desktop-projets .toolbar{position:absolute;right:32px;top:192px;display:flex;gap:20px;align-items:center}#kc-desktop-projets .toolbar small{font-size:12px;letter-spacing:.48px;text-transform:uppercase;color:#777}#kc-desktop-projets .toolbar button{background:white;border:1px solid #ddd;border-radius:50%;width:36px;height:36px;cursor:pointer}#kc-desktop-projets .toolbar button:hover{background:#eee}#kc-desktop-projets .rail{display:flex;gap:25px;position:absolute;left:32px;top:387.547px;width:max-content;overflow:visible;will-change:transform}#kc-desktop-projets .ticket{width:1142px;height:393.453px;flex:none;position:relative;border-radius:8px;overflow:hidden;background:#ddd;text-decoration:none;color:inherit;isolation:isolate}#kc-desktop-projets .ticket:before{content:"";position:absolute;inset:0;background:var(--poster) center/cover no-repeat}#kc-desktop-projets .ticket:after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.08)}#kc-desktop-projets .ticket-panel{position:absolute;z-index:1;left:117px;top:58.97px;width:908px;height:274px;padding:20px;border-radius:4px;background:#fff;display:flex;gap:23.85px;align-items:stretch}#kc-desktop-projets .ticket-image{width:422px;flex:none;border-radius:2px;background:var(--poster) center/cover no-repeat}#kc-desktop-projets .ticket-info{width:326px;flex:none;display:flex;flex-direction:column;justify-content:space-between}#kc-desktop-projets .ticket-info h2{font:700 40px/1 Figtree,Arial,sans-serif;letter-spacing:-1.2px;margin:0 0 8px}#kc-desktop-projets .ticket-info p{font-size:14px;line-height:1.5;letter-spacing:-.14px;color:#5c575c;margin:0}#kc-desktop-projets .tags{display:flex;flex-direction:column;gap:8px;font-size:10px;font-weight:500;line-height:1.667;letter-spacing:.4px;text-transform:uppercase}#kc-desktop-projets .barcode{width:72px;height:234px;flex:none;display:block;fill:#2b3b37;overflow:visible}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}} #kc-desktop-projets .next-section{min-height:100svh;background:#08080a;color:white;display:flex;align-items:center;justify-content:center;font:700 clamp(36px,5vw,72px)/1 Figtree,Arial,sans-serif}#kc-desktop-projets .next-section span{opacity:.75} #kc-desktop-projets .ticket:focus-visible{outline:4px solid #7c4ff6;outline-offset:-4px} 
+#kc-desktop-projets .ticket-image{position:relative;overflow:hidden;isolation:isolate}#kc-desktop-projets .ticket-image .media-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .32s ease;background-size:cover;background-position:center;pointer-events:none}#kc-desktop-projets .ticket-image .media-layer.active{opacity:1}#kc-desktop-projets .ticket-image video{display:block}#kc-desktop-projets .ticket:before{background-position:center}#kc-desktop-projets .ticket-panel{background:#fff}@media(prefers-reduced-motion:reduce){#kc-desktop-projets .ticket-image .media-layer{transition:none}}#kc-tablet-projets .stage{width:610px;min-height:1896px;transform-origin:top left;position:relative;background:#fff}#kc-tablet-projets h1{position:absolute;top:85px;left:18px;width:475px;margin:0;font:700 48px/1 Figtree,Arial,sans-serif;letter-spacing:-.03em}#kc-tablet-projets h1 em{font-weight:400}#kc-tablet-projets .tickets{position:absolute;left:18px;top:213px;width:574px;display:flex;flex-direction:column;gap:18px}#kc-tablet-projets .ticket{width:574px;height:180px;flex:none;padding:14px;border-radius:8px;display:flex;align-items:center;gap:14.432px;text-decoration:none;color:inherit;overflow:hidden}#kc-tablet-projets .media{width:201.177px;height:152px;flex:none;position:relative;overflow:hidden;border-radius:4px;background:#dedade}#kc-tablet-projets .media img,#kc-tablet-projets .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}#kc-tablet-projets .motion{opacity:0;transition:opacity .2s}#kc-tablet-projets .ticket.playing .motion{opacity:1}#kc-tablet-projets .info{width:247.391px;height:152px;flex:none;display:flex;flex-direction:column;justify-content:space-between}#kc-tablet-projets .info h2{font:700 24px/1 Figtree,Arial,sans-serif;letter-spacing:-.03em;margin:0 0 4.81px}#kc-tablet-projets .info p{font:400 12px/1.5 Inter,Arial,sans-serif;letter-spacing:-.01em;color:#5c575c;margin:0}#kc-tablet-projets .tags{display:flex;flex-direction:column;gap:4px;font:500 10px/1.7 Inter,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}#kc-tablet-projets .barcode{margin-left:auto;flex:none;width:40.937px;height:152px;fill:#2b3b37;display:block}#kc-tablet-projets .ticket:focus-visible{outline:2px solid #222;outline-offset:2px}@media(prefers-reduced-motion:reduce){#kc-tablet-projets .motion{transition:none}}#kc-mobile-projets #viewport{position:relative;width:100%;overflow:hidden}#kc-mobile-projets #canvas{width:393px;height:3563px;position:absolute;left:0;top:0;transform-origin:top left;background:#fff}#kc-mobile-projets h1{position:absolute;left:16.449px;top:39.784px;width:303.736px;margin:0;font:700 32px/1 Figtree,Arial,sans-serif;letter-spacing:-.03em}#kc-mobile-projets .project{position:absolute;color:inherit;text-decoration:none;display:block}#kc-mobile-projets .project:focus-visible{outline:2px solid #222;outline-offset:4px}#kc-mobile-projets .visual{width:100%;position:relative;overflow:hidden;border-radius:2px;background:#f2eef2}#kc-mobile-projets .poster,#kc-mobile-projets .motion{width:100%;height:100%;position:absolute;inset:0;display:block;object-fit:cover}#kc-mobile-projets .motion{opacity:0;transition:opacity .2s}#kc-mobile-projets .project.playing .motion{opacity:1}#kc-mobile-projets .project h2{position:absolute;left:0;width:100%;font:700 24px/1 Figtree,Arial,sans-serif;letter-spacing:-.03em;margin:0}#kc-mobile-projets .description{position:absolute;left:0;width:100%;font:400 14px/1.5 Inter,Arial,sans-serif;letter-spacing:-.01em;margin:0;color:#5c575c}#kc-mobile-projets .categories{position:absolute;left:0;display:flex;flex-direction:column;gap:8px;font:500 11px/18px Inter,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}#kc-mobile-projets .barcode{position:absolute;left:0;fill:#2b3b37;display:block}#kc-mobile-projets .project:hover{text-decoration:none}@media(prefers-reduced-motion:reduce){#kc-mobile-projets .motion{transition:none}}
+#kc-desktop-projets,#kc-tablet-projets,#kc-mobile-projets{background:white;color:#222022;font-family:Inter,Arial,sans-serif}#kc-desktop-projets .ticket:hover,#kc-tablet-projets .ticket:hover,#kc-mobile-projets .project:hover{opacity:1}#kc-desktop-projets .portfolio{position:relative}#kc-tablet-projets #kc-t-viewport,#kc-mobile-projets #kc-m-viewport{position:relative;width:100%;overflow:hidden}
+/* Integration guardrails: use the approved standalone layouts without inherited card geometry. */
+#kc-desktop-projets,#kc-tablet-projets,#kc-mobile-projets{display:block;position:relative;width:100%;box-sizing:border-box;isolation:isolate}
+#kc-desktop-projets *,#kc-tablet-projets *,#kc-mobile-projets *{box-sizing:border-box}
+#kc-desktop-projets .stage{transform-origin:top left!important}
+#kc-desktop-projets .ticket{box-sizing:border-box;flex-shrink:0}
+#kc-desktop-projets .ticket-panel{box-sizing:border-box}
+#kc-desktop-projets .ticket-image .media-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .32s ease}
+#kc-desktop-projets .ticket-image .media-layer.active{opacity:1}
+#kc-desktop-projets .toolbar{right:32px}
+#kc-desktop-projets .toolbar small{display:block;white-space:nowrap}
+</style></head>
 <body>
 <x-dc>
 <helmet>
@@ -143,7 +161,7 @@
   <!-- top group: pinned to the top edge, on the 1440 grid -->
   <div ref="{{ heroTopRef }}" style="position: absolute; left: 50%; top: 0; width: 1440px; height: 430px; pointer-events: none; transform-origin: top center; transform: translateX(-50%); font-family: 'Inter', sans-serif;">
 
-    <h1 style="position: absolute; left: 32px; top: 130px; width: 900px; margin: 0; font-family: 'Figtree', sans-serif; font-size: 64px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(255,255,255);"><span style="display: block; font-weight: 700; font-style: normal; white-space: nowrap; margin-left: -3.3px;">Hello, je suis Kamila,</span><span style="display: block; font-weight: 400; font-style: italic; white-space: nowrap; margin-left: -1.8px;">Brand &amp; Digital designer.</span></h1>
+    <h1 style="position: absolute; left: 32px; top: 130px; width: 900px; margin: 0; font-family: 'Figtree', sans-serif; font-size: 56px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(255,255,255);"><span style="display: block; font-weight: 700; font-style: normal; white-space: nowrap; margin-left: -3.3px;">Hello, je suis Kamila,</span><span style="display: block; font-weight: 400; font-style: italic; white-space: nowrap; margin-left: -1.8px;">Brand &amp; Digital designer.</span></h1>
   </div>
   <!-- bottom group: pinned to the bottom edge, on the same 1440 grid -->
   <div ref="{{ heroBottomRef }}" style="position: absolute; left: 50%; bottom: 0; width: 1440px; height: 353px; overflow: visible; pointer-events: none; transform-origin: bottom center; transform: translateX(-50%); font-family: 'Inter', sans-serif;">
@@ -193,146 +211,7 @@
 </div>
 
 <div ref="{{ dRootRef }}">
-<!-- 2. PROJETS -->
-<div id="projets" ref="{{ dProjRef }}" style="position: sticky; top: 0; width: 100%; height: 100svh; overflow: hidden; background: #08080a; z-index: 2;">
-  <div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none;">
-    <div style="position: absolute; left: 50%; top: 50%; width: 100lvh; height: 100vw; transform: translate(-50%,-50%) rotate(90deg); background: url(assets/projets/film-texture.webp) center / cover no-repeat; opacity: 0.5; mix-blend-mode: screen; filter: brightness(0.1) contrast(1.05);"></div>
-  </div>
-  <div ref="{{ pStageRef }}" style="position: absolute; left: 50%; top: 50%; width: 1440px; height: 813px; overflow: hidden; transform-origin: center; transform: translate(-50%,-50%);">
-
-
-    <div ref="{{ cRailRef }}" style="position: absolute; left: 0; top: 0; width: 1440px; height: 100%; touch-action: pan-y; user-select: none; perspective: 1500px; perspective-origin: 50% 50%;">
-
-      <a ref="{{ cCardRef }}" data-i="0" href="https://www.behance.net/gallery/255872777/Climax-3D-product-website" target="_blank" rel="noopener noreferrer" aria-label="Voir le projet celimax" style="position: absolute; left: 50%; top: 46%; width: 323px; height: 494.366px; box-sizing: border-box; padding: 24px; border-radius: 8px; background: rgb(255,220,251); display: flex; flex-direction: column; gap: 24px; align-items: flex-start; transform-origin: center center; transform: translate(-50%,-50%); will-change: transform; text-decoration: none;">
-        <div style="position: relative; width: 275px; height: 157px; border-radius: 4px; overflow: hidden; background: #ddd; flex-shrink: 0;">
-          <div ref="{{ cMediaRef }}" data-i="0" style="position: absolute; inset: 0;">
-            <div ref="{{ cSlideRef }}" data-i="0" style="position: absolute; inset: 0; opacity: 1; transition: opacity 0.3s linear; background: url(assets/projets/opt/p6-bg.webp) center / cover no-repeat;"></div>
-            <div ref="{{ cSlideRef }}" data-i="0" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s linear; background: url(assets/projets/opt/p6-b.webp) center / cover no-repeat;"></div>
-            <div ref="{{ cSlideRef }}" data-i="0" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s linear; background: url(assets/projets/opt/p6-c.webp) center / cover no-repeat;"></div>
-          </div>
-        </div>
-        <div style="width: 275px; height: 128px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0;">
-          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">celimax</span>
-          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Un pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j’adore.</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0;">
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">branding</span>
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">ux/ui</span>
-        </div>
-        <div ref="{{ cBarcodeRef }}" style="margin-top: auto; width: 275px; height: 41.366px; flex-shrink: 0;"></div>
-      </a>
-
-      <a ref="{{ cCardRef }}" data-i="1" href="https://www.youtube.com/watch?v=NG0HM9ApyP8&time_continue=1&source_ve_path=MjM4NTE&embeds_referring_euri=https%3A%2F%2Freadymag.website%2F&embeds_referring_origin=https%3A%2F%2Freadymag.website" target="_blank" rel="noopener noreferrer" aria-label="Voir le projet inside out" style="position: absolute; left: 50%; top: 46%; width: 323px; height: 494.366px; box-sizing: border-box; padding: 24px; border-radius: 8px; background: rgb(246,244,246); display: flex; flex-direction: column; gap: 24px; align-items: flex-start; transform-origin: center center; transform: translate(-50%,-50%); will-change: transform; text-decoration: none;">
-        <div style="position: relative; width: 275px; height: 157px; border-radius: 4px; overflow: hidden; background: #ddd; flex-shrink: 0;">
-          <div ref="{{ cMediaRef }}" data-i="1" style="position: absolute; inset: 0;">
-            <div ref="{{ cSlideRef }}" data-i="1" style="position: absolute; inset: 0; opacity: 1; transition: opacity 0.3s linear; background: url(assets/projets/opt/p5-bg.webp) center / cover no-repeat;"></div>
-            <div ref="{{ cSlideRef }}" data-i="1" data-vid="1" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s linear; overflow: hidden; background: #000;"><video ref="{{ vidRef }}" data-hover="1" preload="auto" data-src="assets/projets/inside-out.mp4" aria-hidden="true" tabindex="-1" muted loop playsinline onEnded="{{ loopVideo }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
-          </div>
-        </div>
-        <div style="width: 275px; height: 128px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0;">
-          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">inside out</span>
-          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Un motion sur la santé mentale : l’anxiété sociale et le sentiment d’être submergé.</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0;">
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">creative direction</span>
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">motion design</span>
-        </div>
-        <div ref="{{ cBarcodeRef }}" style="margin-top: auto; width: 275px; height: 41.366px; flex-shrink: 0;"></div>
-      </a>
-
-      <a ref="{{ cCardRef }}" data-i="2" href="https://readymag.website/u699831270/4855504/napolicaffe/" target="_blank" rel="noopener noreferrer" aria-label="Voir le projet napoli" style="position: absolute; left: 50%; top: 46%; width: 323px; height: 494.366px; box-sizing: border-box; padding: 24px; border-radius: 8px; background: rgb(176,229,253); display: flex; flex-direction: column; gap: 24px; align-items: flex-start; transform-origin: center center; transform: translate(-50%,-50%); will-change: transform; text-decoration: none;">
-        <div style="position: relative; width: 275px; height: 157px; border-radius: 4px; overflow: hidden; background: #ddd; flex-shrink: 0;">
-          <div ref="{{ cMediaRef }}" data-i="2" style="position: absolute; inset: 0;">
-            <div ref="{{ cSlideRef }}" data-i="2" style="position: absolute; inset: 0; opacity: 1; transition: opacity 0.3s linear; background: url(assets/projets/opt/p2-a.webp) center / cover no-repeat;"></div>
-            <div ref="{{ cSlideRef }}" data-i="2" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s linear; background: url(assets/projets/opt/p2-b.webp) center / cover no-repeat;"></div>
-          </div>
-        </div>
-        <div style="width: 275px; height: 128px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0;">
-          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">napoli</span>
-          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Un vrai bout d’Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0;">
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">full brand identity</span>
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">web design</span>
-        </div>
-        <div ref="{{ cBarcodeRef }}" style="margin-top: auto; width: 275px; height: 41.366px; flex-shrink: 0;"></div>
-      </a>
-
-      <a ref="{{ cCardRef }}" data-i="3" href="https://readymag.website/u1448912666/perfectionism/" target="_blank" rel="noopener noreferrer" aria-label="Voir le projet longread" style="position: absolute; left: 50%; top: 46%; width: 323px; height: 494.366px; box-sizing: border-box; padding: 24px; border-radius: 8px; background: rgb(244,243,244); display: flex; flex-direction: column; gap: 24px; align-items: flex-start; transform-origin: center center; transform: translate(-50%,-50%); will-change: transform; text-decoration: none;">
-        <div style="position: relative; width: 275px; height: 157px; border-radius: 4px; overflow: hidden; background: #ddd; flex-shrink: 0;">
-          <div ref="{{ cMediaRef }}" data-i="3" style="position: absolute; inset: 0;">
-            <div ref="{{ cSlideRef }}" data-i="3" style="position: absolute; inset: 0; opacity: 1; transition: opacity 0.3s linear; background: url(assets/projets/opt/p4-bg.webp) center / cover no-repeat;"></div>
-            <div ref="{{ cSlideRef }}" data-i="3" data-vid="1" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s linear; overflow: hidden; background: #000;"><video ref="{{ vidRef }}" data-hover="1" preload="auto" data-src="assets/projets/longread.mp4" aria-hidden="true" tabindex="-1" muted loop playsinline onEnded="{{ loopVideo }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
-            <div ref="{{ cSlideRef }}" data-i="3" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s linear; background: url(assets/projets/opt/p4-ticket.webp) center / cover no-repeat;"></div>
-          </div>
-        </div>
-        <div style="width: 275px; height: 128px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0;">
-          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">longread</span>
-          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Pourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ?</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0;">
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">web design</span>
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">readymag animation</span>
-        </div>
-        <div ref="{{ cBarcodeRef }}" style="margin-top: auto; width: 275px; height: 41.366px; flex-shrink: 0;"></div>
-      </a>
-
-      <a ref="{{ cCardRef }}" data-i="4" href="https://www.behance.net/gallery/254618097/Tour-de-parole-Negotiation-school-for-GenZ" target="_blank" rel="noopener noreferrer" aria-label="Voir le projet TDP" style="position: absolute; left: 50%; top: 46%; width: 323px; height: 494.366px; box-sizing: border-box; padding: 24px; border-radius: 8px; background: rgb(255,220,251); display: flex; flex-direction: column; gap: 24px; align-items: flex-start; transform-origin: center center; transform: translate(-50%,-50%); will-change: transform; text-decoration: none;">
-        <div style="position: relative; width: 275px; height: 157px; border-radius: 4px; overflow: hidden; background: #ddd; flex-shrink: 0;">
-          <div ref="{{ cMediaRef }}" data-i="4" style="position: absolute; inset: 0;">
-            <div ref="{{ cSlideRef }}" data-i="4" style="position: absolute; inset: 0; opacity: 1; transition: opacity 0.3s linear; background: url(assets/projets/opt/p3-bg.webp) center / cover no-repeat;"></div>
-            <div ref="{{ cSlideRef }}" data-i="4" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s linear; background: url(assets/projets/opt/p3-b.webp) center / cover no-repeat;"></div>
-            <div ref="{{ cSlideRef }}" data-i="4" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s linear; background: url(assets/projets/opt/p3-c.webp) center / cover no-repeat;"></div>
-          </div>
-        </div>
-        <div style="width: 275px; height: 128px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0;">
-          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">TDP</span>
-          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Une école en ligne enseigne aux jeunes à négocier : salaire, tarif, entretien de manière ludique.</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0;">
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">full brand identity</span>
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">app &amp; web design</span>
-        </div>
-        <div ref="{{ cBarcodeRef }}" style="margin-top: auto; width: 275px; height: 41.366px; flex-shrink: 0;"></div>
-      </a>
-
-      <a ref="{{ cCardRef }}" data-i="5" href="https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men" target="_blank" rel="noopener noreferrer" aria-label="Voir le projet pilates" style="position: absolute; left: 50%; top: 46%; width: 323px; height: 494.366px; box-sizing: border-box; padding: 24px; border-radius: 8px; background: rgb(246,244,246); display: flex; flex-direction: column; gap: 24px; align-items: flex-start; transform-origin: center center; transform: translate(-50%,-50%); will-change: transform; text-decoration: none;">
-        <div style="position: relative; width: 275px; height: 157px; border-radius: 4px; overflow: hidden; background: #ddd; flex-shrink: 0;">
-          <div ref="{{ cMediaRef }}" data-i="5" style="position: absolute; inset: 0;">
-            <div ref="{{ cSlideRef }}" data-i="5" style="position: absolute; inset: 0; opacity: 1; transition: opacity 0.3s linear; background: url(assets/projets/opt/p1-bg.webp) center / cover no-repeat;"></div>
-            <div ref="{{ cSlideRef }}" data-i="5" data-vid="1" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s linear; overflow: hidden; background: #000;"><video ref="{{ vidRef }}" data-hover="1" preload="auto" data-src="assets/projets/pilates.mp4" aria-hidden="true" tabindex="-1" muted loop playsinline onEnded="{{ loopVideo }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
-            <div ref="{{ cSlideRef }}" data-i="5" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s linear; background: url(assets/projets/opt/p1-a.webp) center / cover no-repeat;"></div>
-            <div ref="{{ cSlideRef }}" data-i="5" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s linear; background: url(assets/projets/opt/p1-c.webp) center / cover no-repeat;"></div>
-          </div>
-        </div>
-        <div style="width: 275px; height: 128px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0;">
-          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">pilates</span>
-          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Pilates pour les hommes 28-50 ans, pas la cible habituelle. Construire le corps comme un architecte.</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; flex-shrink: 0;">
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">web design</span>
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">illustration</span>
-        </div>
-        <div ref="{{ cBarcodeRef }}" style="margin-top: auto; width: 275px; height: 41.366px; flex-shrink: 0;"></div>
-      </a>
-    </div>
-
-
-
-  </div>
-
-  <div ref="{{ pLabelsRef }}" style="position: absolute; left: 32px; right: 32px; bottom: 14px; display: flex; flex-direction: row; justify-content: space-between; align-items: center; z-index: 40;">
-    <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); text-transform: uppercase; white-space: nowrap;">Faire glisser →</span>
-    <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); text-transform: uppercase; white-space: nowrap;">01 — 06</span>
-  </div>
-  <span ref="{{ pWordRef }}" style="position: absolute; left: 0; bottom: 0; opacity: 0.06; mix-blend-mode: screen; font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 358.164px; line-height: 1; letter-spacing: -0.04em; color: rgb(255,255,255); white-space: nowrap; text-transform: uppercase; pointer-events: none;">mes projets</span>
-  <svg ref="{{ pWordSvgRef }}" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="position: absolute; left: 0px; bottom: 0px; width: 100%; height: 200px; display: none; opacity: 0.11; mix-blend-mode: screen; pointer-events: none; overflow: visible;"><text ref="{{ pWordTextRef }}" x="0" y="0" style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 200px; letter-spacing: -0.04em; fill: rgb(255,255,255);">MES PROJETS</text></svg>
-</div>
-
-<!-- projects hold for one more screen: the sticky section stays pinned through this
-     spacer, so the row isn’t covered the moment you finish reading it -->
-<div aria-hidden="true" style="position: relative; width: 100%; height: 35svh; z-index: 1; pointer-events: none;"></div>
-
+<div id="kc-desktop-projets"><section id="projets" style="position:relative;width:100%;background:#fff"><iframe title="Projets récents – défilement horizontal" src="desktop-project-embedded.html" loading="eager" scrolling="no" style="position:sticky;top:0;width:100%;height:100svh;border:0;display:block;background:#fff" id="kc-desktop-project-frame"></iframe></section></div>
 <!-- 3. ABOUT + FOOTER -->
 <div id="apropos" ref="{{ aboutRef }}" style="position: relative; width: 100%; height: 800svh; background: #ffffff; z-index: 3;">
   <div style="position: sticky; top: 0; height: 100svh; overflow: hidden; background: #ffffff;">
@@ -340,33 +219,33 @@
 
       <!-- Fixed statement block (grid, vertically centered) -->
       <div style="position: absolute; left: 32px; top: 50%; transform: translateY(-50%); width: 1336px; z-index: 1;">
-        <p style="margin: 0; text-indent: 0; font-family: 'Figtree', sans-serif; font-size: 64px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34); text-wrap: pretty;"><span style="display: inline-block; vertical-align: baseline; width: 48px; height: 48px; margin-right: 68.67px; border-radius: 4px; overflow: hidden;"><video ref="{{ vidRef }}" preload="metadata" data-src="assets/about/avatar.mp4" data-eager="1" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></span><span style="font-weight: 700; font-style: normal;">Je suis Kamila Comme, </span><span style="font-weight: 400; font-style: italic;">designer Brand&nbsp;&amp;&nbsp;Digital </span><span style="font-weight: 700; font-style: normal;">avec un Mastère en Direction Artistique et </span><span style="font-weight: 400; font-style: italic;">5 ans d’expérience. </span><span style="font-weight: 700; font-style: normal;">Je transforme une idée en marque qui marche sur plusieurs supports. </span><span style="font-weight: 400; font-style: italic;">En recherche d’un CDI pour 2026.</span></p>
+        <p style="margin: 0; text-indent: 0; font-family: 'Figtree', sans-serif; font-size: 56px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34); text-wrap: pretty;"><span style="display: inline-block; vertical-align: baseline; width: 48px; height: 48px; margin-right: 68.67px; border-radius: 4px; overflow: hidden;"><video ref="{{ vidRef }}" preload="metadata" data-src="assets/about/avatar.mp4" data-eager="1" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></span><span style="font-weight: 700; font-style: normal;">Je suis Kamila Comme, </span><span style="font-weight: 400; font-style: italic;">designer Brand&nbsp;&amp;&nbsp;Digital </span><span style="font-weight: 700; font-style: normal;">avec un Mastère en Direction Artistique et </span><span style="font-weight: 400; font-style: italic;">5 ans d’expérience. </span><span style="font-weight: 700; font-style: normal;">Je transforme une idée en marque qui marche sur plusieurs supports. </span><span style="font-weight: 400; font-style: italic;">En recherche d’un CDI pour 2026.</span></p>
       </div>
 
       <!-- Scrolling fact cards -->
       <div ref="{{ cardRef }}" data-i="0" style="position: absolute; left: 32px; top: 0; width: 326px; height: 326px; border-radius: 4px; background: rgb(246,244,246); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 3; transform: translateY(920px);">
-        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">Mastère</span>
-        <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Direction Artistique, 2026. Avant : Bachelor Designer Print &amp; Digital, 2024</span>
+        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">Mastère</span>
+        <span style="display: block; width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Direction Artistique, 2026. Avant : Bachelor Designer Print &amp; Digital, 2024</span>
       </div>
 
       <div ref="{{ cardRef }}" data-i="1" style="position: absolute; left: 848px; top: 0; width: 326px; height: 326px; border-radius: 4px; background: rgb(241,251,208); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 3; transform: translateY(920px);">
-        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">Greenly</span>
-        <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Ma dernière entreprise, de 2024 à 2026. Avant, j’étais chez Bene Bono, de 2023 à 2024.</span>
+        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">Greenly</span>
+        <span style="display: block; width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Ma dernière entreprise, de 2024 à 2026. Avant, j’étais chez Bene Bono, de 2023 à 2024.</span>
       </div>
 
       <div ref="{{ cardRef }}" data-i="2" style="position: absolute; left: 382px; top: 0; width: 326px; height: 326px; border-radius: 4px; background: rgb(254,205,249); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 3; transform: translateY(920px);">
-        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">450k</span>
-        <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">vues sur TikTok, pour une vidéo sur mon portfolio sur Readymag.</span>
+        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">450k</span>
+        <span style="display: block; width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">vues sur TikTok, pour une vidéo sur mon portfolio sur Readymag.</span>
       </div>
 
       <div ref="{{ cardRef }}" data-i="3" style="position: absolute; left: 1082px; top: 0; width: 326px; height: 326px; border-radius: 4px; background: rgb(246,244,246); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 3; transform: translateY(920px); overflow: hidden;">
-        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">Behance</span>
-        <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">2 sélections Behance (Illustration et Packaging) pour mon projet Chocolate Mallow Lab.</span>
+        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">Behance</span>
+        <span style="display: block; width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">2 sélections Behance (Illustration et Packaging) pour mon projet Chocolate Mallow Lab.</span>
       </div>
 
       <div ref="{{ cardRef }}" data-i="4" style="position: absolute; left: 32px; top: 0; width: 326px; height: 326px; border-radius: 4px; background: rgb(176,229,253); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 3; transform: translateY(920px);">
-        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">3 langues</span>
-        <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Je parle français, anglais et russe couramment.</span>
+        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">3 langues</span>
+        <span style="display: block; width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Je parle français, anglais et russe couramment.</span>
       </div>
 
     </div>
@@ -380,97 +259,8 @@
 <!-- ============ TABLET LAYOUT (834 x 1112 frame) ============ -->
 <div ref="{{ tRootRef }}" style="display: none;">
 
-  <!-- T2. PROJETS -->
-  <!-- one screen, no sticky, no scroll-snap, no z-index: the same contract as the tablet
-       hero. The deck is browsed by dragging sideways, so the section never has to hold a
-       pinned layer across a Safari tab restore. -->
-  <div id="projets-t" ref="{{ tProjRef }}" style="position: relative; width: 100%; height: 100svh; overflow: hidden; background: #08080a;">
-    <div ref="{{ tDragRef }}" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; background: #08080a; touch-action: pan-y; user-select: none;">
-      <div ref="{{ tBgRef }}" data-i="3" style="position: absolute; inset: 0; background: url(assets/projets/bg/napoli.webp) center / cover no-repeat; opacity: 1;"></div>
-      <div ref="{{ tBgRef }}" data-i="0" style="position: absolute; inset: 0; background: url(assets/projets/bg/pilates.webp) center / cover no-repeat; opacity: 0;"></div>
-      <div ref="{{ tBgRef }}" data-i="1" style="position: absolute; inset: 0; background: url(assets/projets/bg/tdp.webp) center / cover no-repeat; opacity: 0;"></div>
-      <div ref="{{ tBgRef }}" data-i="2" style="position: absolute; inset: 0; background: url(assets/projets/bg/longread.webp) center / cover no-repeat; opacity: 0;"></div>
-      <div ref="{{ tBgRef }}" data-i="5" style="position: absolute; inset: 0; background: url(assets/projets/bg/celimax.webp) center / cover no-repeat; opacity: 0;"></div>
-      <div ref="{{ tBgRef }}" data-i="4" style="position: absolute; inset: 0; background: url(assets/projets/bg/insideout.webp) center / cover no-repeat; opacity: 0;"></div>
-
-      <span ref="{{ tWordmarkRef }}" style="position: absolute; left: 50%; top: 120px; transform-origin: top center; transform: translateX(-50%); mix-blend-mode: soft-light; font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 112px; white-space: nowrap; line-height: 1; letter-spacing: -0.03em; color: rgb(255,255,255); text-transform: uppercase; pointer-events: none;">mes projets</span>
-
-      <div ref="{{ tPStageRef }}" style="position: absolute; left: 50%; top: 50%; width: 834px; height: 1112px; overflow: visible; transform-origin: center; transform: translate(-50%,-50%);">
-        <div ref="{{ tLabelsRef }}" style="position: absolute; left: 32px; right: 32px; bottom: 24px; display: flex; flex-direction: row; justify-content: space-between; align-items: center; pointer-events: none; z-index: 5;">
-          <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); text-transform: uppercase; white-space: nowrap;">faire glisser →</span>
-          <span ref="{{ tCountRef }}" style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; line-height: 1.6667; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); text-transform: uppercase; white-space: nowrap;">01 — 06</span>
-        </div>
-                <a ref="{{ tTicketRef }}" data-i="0" href="https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men" target="_blank" rel="noopener noreferrer" draggable="false" aria-label="Voir le projet pilates" style="position: absolute; left: 137px; top: 192px; width: 560px; border-radius: 8px; overflow: hidden; box-sizing: border-box; padding: 32px; display: flex; flex-direction: column; gap: 24px; align-items: stretch; background: rgb(246,244,246); transform: translate(584px,0) rotate(-1.20deg) scale(0.940); opacity: 0.9;">
-          <div data-tmedia="1" style="position: relative; width: 496px; height: 292px; border-radius: 4px; overflow: hidden; background: #ddd; flex: 0 0 auto;"><div data-still="1" style="position: absolute; inset: 0; background: url(assets/projets/opt/p5-bg.webp) center / cover no-repeat;"></div><video data-gate="1" ref="{{ vidRef }}" preload="metadata" data-src="assets/projets/pilates.mp4" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
-          <div data-ttext="1" style="box-sizing: border-box; flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-              <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">pilates</span>
-              <span style="max-width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Pensée pour les hommes 28-50 ans, pas la cible habituelle du pilates. Construire le corps comme un architecte.</span>
-            </div>
-            <div style="margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; gap: 4px; align-items: flex-start;"><span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; white-space: nowrap; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">web design</span><span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; white-space: nowrap; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">illustration</span></div>
-            <div ref="{{ tBarcodeRef }}" style="margin-top: 24px; width: 100%; height: 42px; background-size: 100% 100%;"></div>
-          </div>
-        </a>
-        <a ref="{{ tTicketRef }}" data-i="3" href="https://readymag.website/u699831270/4855504/napolicaffe/" target="_blank" rel="noopener noreferrer" draggable="false" aria-label="Voir le projet napoli" style="position: absolute; left: 137px; top: 192px; width: 560px; border-radius: 8px; overflow: hidden; box-sizing: border-box; padding: 32px; display: flex; flex-direction: column; gap: 24px; align-items: stretch; background: rgb(176,229,253); transform: translate(0px,0) rotate(0.00deg) scale(1.000); opacity: 1;">
-          <div data-tmedia="1" style="position: relative; width: 496px; height: 292px; border-radius: 4px; overflow: hidden; background: #ddd; flex: 0 0 auto;"><div ref="{{ pSlideRef }}" data-panel="t1" style="position: absolute; inset: 0; opacity: 1; background: url(assets/projets/opt/p2-a.webp) center / cover no-repeat;"></div><div ref="{{ pSlideRef }}" data-panel="t1" style="position: absolute; inset: 0; opacity: 0; background: url(assets/projets/opt/p2-b.webp) center / cover no-repeat;"></div><div ref="{{ pSlideRef }}" data-panel="t1" style="position: absolute; inset: 0; opacity: 0; background: url(assets/projets/opt/p2-bg.webp) center / cover no-repeat;"></div></div>
-          <div data-ttext="1" style="box-sizing: border-box; flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-              <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">napoli</span>
-              <span style="max-width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Un vrai bout d’Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain. Pensé pour un public mixte : artistes, familles, amateurs de café.</span>
-            </div>
-            <div style="margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; gap: 4px; align-items: flex-start;"><span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; white-space: nowrap; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">full brand identity</span><span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; white-space: nowrap; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">web design</span></div>
-            <div ref="{{ tBarcodeRef }}" style="margin-top: 24px; width: 100%; height: 42px; background-size: 100% 100%;"></div>
-          </div>
-        </a>
-        <a ref="{{ tTicketRef }}" data-i="1" href="https://www.behance.net/gallery/254618097/Tour-de-parole-Negotiation-school-for-GenZ" target="_blank" rel="noopener noreferrer" draggable="false" aria-label="Voir le projet TDP" style="position: absolute; left: 137px; top: 192px; width: 560px; border-radius: 8px; overflow: hidden; box-sizing: border-box; padding: 32px; display: flex; flex-direction: column; gap: 24px; align-items: stretch; background: rgb(255,220,251); transform: translate(1168px,0) rotate(-2.40deg) scale(0.880); opacity: 0.2;">
-          <div data-tmedia="1" style="position: relative; width: 496px; height: 292px; border-radius: 4px; overflow: hidden; background: #ddd; flex: 0 0 auto;"><div ref="{{ pSlideRef }}" data-panel="t2" style="position: absolute; inset: 0; opacity: 1; background: url(assets/projets/opt/p3-bg.webp) center / cover no-repeat;"></div><div ref="{{ pSlideRef }}" data-panel="t2" style="position: absolute; inset: 0; opacity: 0; background: url(assets/projets/opt/p3-b.webp) center / cover no-repeat;"></div><div ref="{{ pSlideRef }}" data-panel="t2" style="position: absolute; inset: 0; opacity: 0; background: url(assets/projets/opt/p3-c.webp) center / cover no-repeat;"></div></div>
-          <div data-ttext="1" style="box-sizing: border-box; flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-              <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">TDP</span>
-              <span style="max-width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Une école en ligne enseigne aux jeunes à négocier — salaire, tarif, entretien — de manière ludique, sans stress.</span>
-            </div>
-            <div style="margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; gap: 4px; align-items: flex-start;"><span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; white-space: nowrap; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">full brand identity</span><span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; white-space: nowrap; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">app &amp; web design</span></div>
-            <div ref="{{ tBarcodeRef }}" style="margin-top: 24px; width: 100%; height: 42px; background-size: 100% 100%;"></div>
-          </div>
-        </a>
-        <a ref="{{ tTicketRef }}" data-i="2" href="https://readymag.website/u1448912666/perfectionism/" target="_blank" rel="noopener noreferrer" draggable="false" aria-label="Voir le projet longread" style="position: absolute; left: 137px; top: 192px; width: 560px; border-radius: 8px; overflow: hidden; box-sizing: border-box; padding: 32px; display: flex; flex-direction: column; gap: 24px; align-items: stretch; background: rgb(255,255,255); transform: translate(1752px,0) rotate(-3.60deg) scale(0.820); opacity: 0;">
-          <div data-tmedia="1" style="position: relative; width: 496px; height: 292px; border-radius: 4px; overflow: hidden; background: #ddd; flex: 0 0 auto;"><div data-still="1" style="position: absolute; inset: 0; background: url(assets/projets/opt/p4-bg.webp) center / cover no-repeat;"></div><video data-gate="1" ref="{{ vidRef }}" preload="metadata" data-src="assets/projets/longread.mp4" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
-          <div data-ttext="1" style="box-sizing: border-box; flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-              <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">longread</span>
-              <span style="max-width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Pourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ? Une exploration du perfectionnisme, avec des animations sur-mesure.</span>
-            </div>
-            <div style="margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; gap: 4px; align-items: flex-start;"><span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; white-space: nowrap; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">web design</span><span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; white-space: nowrap; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">readymag animation</span></div>
-            <div ref="{{ tBarcodeRef }}" style="margin-top: 24px; width: 100%; height: 42px; background-size: 100% 100%;"></div>
-          </div>
-        </a>
-        <a ref="{{ tTicketRef }}" data-i="4" href="https://www.youtube.com/watch?v=NG0HM9ApyP8&time_continue=1&source_ve_path=MjM4NTE&embeds_referring_euri=https%3A%2F%2Freadymag.website%2F&embeds_referring_origin=https%3A%2F%2Freadymag.website" target="_blank" rel="noopener noreferrer" draggable="false" aria-label="Voir le projet inside out" style="position: absolute; left: 137px; top: 192px; width: 560px; border-radius: 8px; overflow: hidden; box-sizing: border-box; padding: 32px; display: flex; flex-direction: column; gap: 24px; align-items: stretch; background: rgb(255,255,255); transform: translate(2920px,0) rotate(-6.00deg) scale(0.820); opacity: 0;">
-          <div data-tmedia="1" style="position: relative; width: 496px; height: 292px; border-radius: 4px; overflow: hidden; background: #ddd; flex: 0 0 auto;"><div data-still="1" style="position: absolute; inset: 0; background: url(assets/projets/opt/p1-bg.webp) center / cover no-repeat;"></div><video data-gate="1" ref="{{ vidRef }}" preload="metadata" data-src="assets/projets/inside-out.mp4" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
-          <div data-ttext="1" style="box-sizing: border-box; flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-              <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">inside out</span>
-              <span style="max-width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Un motion sur la santé mentale : l’anxiété sociale et le sentiment d’être submergé — raconté uniquement en mouvement, en 8 jours.</span>
-            </div>
-            <div style="margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; gap: 4px; align-items: flex-start;"><span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; white-space: nowrap; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">creative direction</span><span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; white-space: nowrap; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">motion design</span></div>
-            <div ref="{{ tBarcodeRef }}" style="margin-top: 24px; width: 100%; height: 42px; background-size: 100% 100%;"></div>
-          </div>
-        </a>
-        <a ref="{{ tTicketRef }}" data-i="5" href="https://www.behance.net/gallery/255872777/Climax-3D-product-website" target="_blank" rel="noopener noreferrer" draggable="false" aria-label="Voir le projet celimax" style="position: absolute; left: 137px; top: 192px; width: 560px; border-radius: 8px; overflow: hidden; box-sizing: border-box; padding: 32px; display: flex; flex-direction: column; gap: 24px; align-items: stretch; background: rgb(255,220,251); transform: translate(2336px,0) rotate(-4.80deg) scale(0.820); opacity: 0;">
-          <div data-tmedia="1" style="position: relative; width: 496px; height: 292px; border-radius: 4px; overflow: hidden; background: #ddd; flex: 0 0 auto;"><div ref="{{ pSlideRef }}" data-panel="t5" style="position: absolute; inset: 0; opacity: 1; background: url(assets/projets/opt/p6-bg.webp) center / cover no-repeat;"></div><div ref="{{ pSlideRef }}" data-panel="t5" style="position: absolute; inset: 0; opacity: 0; background: url(assets/projets/opt/p6-b.webp) center / cover no-repeat;"></div><div ref="{{ pSlideRef }}" data-panel="t5" style="position: absolute; inset: 0; opacity: 0; background: url(assets/projets/opt/p6-c.webp) center / cover no-repeat;"></div></div>
-          <div data-ttext="1" style="box-sizing: border-box; flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-              <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">celimax</span>
-              <span style="max-width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Un pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j’adore. L’idée : lier le soin de la peau à la musique, pour une collection limitée.</span>
-            </div>
-            <div style="margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; gap: 4px; align-items: flex-start;"><span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; white-space: nowrap; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">branding</span><span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; white-space: nowrap; line-height: 1.6667; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">ux/ui</span></div>
-            <div ref="{{ tBarcodeRef }}" style="margin-top: 24px; width: 100%; height: 42px; background-size: 100% 100%;"></div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- T3. ABOUT -->
+  <div id="kc-tablet-projets"><div id="projets-t"><div id="kc-t-viewport"><main class="stage" id="kc-t-stage"><h1>Une sélection de mes <em>projets </em>récents.</h1><section class="tickets" aria-label="Projets"><a class="ticket" href="https://kamilacomme.github.io/celimax/" target="_blank" rel="noopener noreferrer" style="background:#ffdcfb"><div class="media"><img src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p6-bg.webp" alt="" loading="lazy"></div><div class="info"><div><h2>Celimax</h2><p>Un pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j’adore.</p></div><div class="tags"><span>branding</span><span>UX/UI</span></div></div><svg class="barcode" viewBox="0 0 40.937 152" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="40.937" height="2.837"/><rect x="0" y="4.864" width="40.937" height="7.296"/><rect x="0" y="14.186" width="40.937" height="3.243"/><rect x="0" y="19.455" width="40.937" height="2.027"/><rect x="0" y="22.294" width="40.937" height="1.216"/><rect x="0" y="25.536" width="40.937" height="2.837"/><rect x="0" y="30.399" width="40.937" height="7.296"/><rect x="0" y="39.723" width="40.937" height="3.243"/><rect x="0" y="44.992" width="40.937" height="2.027"/><rect x="0" y="47.829" width="40.937" height="1.216"/><rect x="0" y="49.857" width="40.937" height="5.675"/><rect x="0" y="56.437" width="40.937" height="1.385"/><rect x="0" y="58.169" width="40.937" height="2.770"/><rect x="0" y="61.977" width="40.937" height="7.618"/><rect x="0" y="70.633" width="40.937" height="4.501"/><rect x="0" y="77.824" width="40.937" height="6.485"/><rect x="0" y="87.957" width="40.937" height="4.053"/><rect x="0" y="93.632" width="40.937" height="2.432"/><rect x="0" y="98.090" width="40.937" height="2.837"/><rect x="0" y="102.549" width="40.937" height="6.485"/><rect x="0" y="111.061" width="40.937" height="3.243"/><rect x="0" y="115.925" width="40.937" height="1.621"/><rect x="0" y="118.357" width="40.937" height="1.216"/><rect x="0" y="121.194" width="40.937" height="4.053"/><rect x="0" y="127.680" width="40.937" height="9.323"/><rect x="0" y="139.841" width="40.937" height="4.459"/><rect x="0" y="146.731" width="40.937" height="2.432"/><rect x="0" y="150.379" width="40.937" height="1.621"/></svg></a><a class="ticket" href="https://www.youtube.com/watch?v=NG0HM9ApyP8" target="_blank" rel="noopener noreferrer" style="background:#f2eef2"><div class="media"><img src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p5-bg.webp" alt="" loading="lazy"><video class="motion" muted loop playsinline preload="none" data-src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/inside-out.mp4" aria-hidden="true"></video></div><div class="info"><div><h2>Inside out</h2><p>Un motion sur la santé mentale : l’anxiété sociale et le sentiment d’être submergé par les émotions.</p></div><div class="tags"><span>creative direction</span><span>motion design</span></div></div><svg class="barcode" viewBox="0 0 40.937 152" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="40.937" height="2.837"/><rect x="0" y="4.864" width="40.937" height="7.296"/><rect x="0" y="14.186" width="40.937" height="3.243"/><rect x="0" y="19.455" width="40.937" height="2.027"/><rect x="0" y="22.294" width="40.937" height="1.216"/><rect x="0" y="25.536" width="40.937" height="2.837"/><rect x="0" y="30.399" width="40.937" height="7.296"/><rect x="0" y="39.723" width="40.937" height="3.243"/><rect x="0" y="44.992" width="40.937" height="2.027"/><rect x="0" y="47.829" width="40.937" height="1.216"/><rect x="0" y="49.857" width="40.937" height="5.675"/><rect x="0" y="56.437" width="40.937" height="1.385"/><rect x="0" y="58.169" width="40.937" height="2.770"/><rect x="0" y="61.977" width="40.937" height="7.618"/><rect x="0" y="70.633" width="40.937" height="4.501"/><rect x="0" y="77.824" width="40.937" height="6.485"/><rect x="0" y="87.957" width="40.937" height="4.053"/><rect x="0" y="93.632" width="40.937" height="2.432"/><rect x="0" y="98.090" width="40.937" height="2.837"/><rect x="0" y="102.549" width="40.937" height="6.485"/><rect x="0" y="111.061" width="40.937" height="3.243"/><rect x="0" y="115.925" width="40.937" height="1.621"/><rect x="0" y="118.357" width="40.937" height="1.216"/><rect x="0" y="121.194" width="40.937" height="4.053"/><rect x="0" y="127.680" width="40.937" height="9.323"/><rect x="0" y="139.841" width="40.937" height="4.459"/><rect x="0" y="146.731" width="40.937" height="2.432"/><rect x="0" y="150.379" width="40.937" height="1.621"/></svg></a><a class="ticket" href="https://readymag.website/u699831270/4855504/napolicaffe/" target="_blank" rel="noopener noreferrer" style="background:#b0e5fd"><div class="media"><img src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p2-a.webp" alt="" loading="lazy"></div><div class="info"><div><h2>Napoli</h2><p>Un vrai bout d’Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.</p></div><div class="tags"><span>full brand identity</span><span>Web design</span></div></div><svg class="barcode" viewBox="0 0 40.937 152" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="40.937" height="2.837"/><rect x="0" y="4.864" width="40.937" height="7.296"/><rect x="0" y="14.186" width="40.937" height="3.243"/><rect x="0" y="19.455" width="40.937" height="2.027"/><rect x="0" y="22.294" width="40.937" height="1.216"/><rect x="0" y="25.536" width="40.937" height="2.837"/><rect x="0" y="30.399" width="40.937" height="7.296"/><rect x="0" y="39.723" width="40.937" height="3.243"/><rect x="0" y="44.992" width="40.937" height="2.027"/><rect x="0" y="47.829" width="40.937" height="1.216"/><rect x="0" y="49.857" width="40.937" height="5.675"/><rect x="0" y="56.437" width="40.937" height="1.385"/><rect x="0" y="58.169" width="40.937" height="2.770"/><rect x="0" y="61.977" width="40.937" height="7.618"/><rect x="0" y="70.633" width="40.937" height="4.501"/><rect x="0" y="77.824" width="40.937" height="6.485"/><rect x="0" y="87.957" width="40.937" height="4.053"/><rect x="0" y="93.632" width="40.937" height="2.432"/><rect x="0" y="98.090" width="40.937" height="2.837"/><rect x="0" y="102.549" width="40.937" height="6.485"/><rect x="0" y="111.061" width="40.937" height="3.243"/><rect x="0" y="115.925" width="40.937" height="1.621"/><rect x="0" y="118.357" width="40.937" height="1.216"/><rect x="0" y="121.194" width="40.937" height="4.053"/><rect x="0" y="127.680" width="40.937" height="9.323"/><rect x="0" y="139.841" width="40.937" height="4.459"/><rect x="0" y="146.731" width="40.937" height="2.432"/><rect x="0" y="150.379" width="40.937" height="1.621"/></svg></a><a class="ticket" href="https://readymag.website/u1448912666/perfectionism/" target="_blank" rel="noopener noreferrer" style="background:#f4f3f4"><div class="media"><img src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p4-bg.webp" alt="" loading="lazy"><video class="motion" muted loop playsinline preload="none" data-src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/longread.mp4" aria-hidden="true"></video></div><div class="info"><div><h2>Longread</h2><p>Pourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ?</p></div><div class="tags"><span>Web design</span><span>readymag animation</span></div></div><svg class="barcode" viewBox="0 0 40.937 152" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="40.937" height="2.837"/><rect x="0" y="4.864" width="40.937" height="7.296"/><rect x="0" y="14.186" width="40.937" height="3.243"/><rect x="0" y="19.455" width="40.937" height="2.027"/><rect x="0" y="22.294" width="40.937" height="1.216"/><rect x="0" y="25.536" width="40.937" height="2.837"/><rect x="0" y="30.399" width="40.937" height="7.296"/><rect x="0" y="39.723" width="40.937" height="3.243"/><rect x="0" y="44.992" width="40.937" height="2.027"/><rect x="0" y="47.829" width="40.937" height="1.216"/><rect x="0" y="49.857" width="40.937" height="5.675"/><rect x="0" y="56.437" width="40.937" height="1.385"/><rect x="0" y="58.169" width="40.937" height="2.770"/><rect x="0" y="61.977" width="40.937" height="7.618"/><rect x="0" y="70.633" width="40.937" height="4.501"/><rect x="0" y="77.824" width="40.937" height="6.485"/><rect x="0" y="87.957" width="40.937" height="4.053"/><rect x="0" y="93.632" width="40.937" height="2.432"/><rect x="0" y="98.090" width="40.937" height="2.837"/><rect x="0" y="102.549" width="40.937" height="6.485"/><rect x="0" y="111.061" width="40.937" height="3.243"/><rect x="0" y="115.925" width="40.937" height="1.621"/><rect x="0" y="118.357" width="40.937" height="1.216"/><rect x="0" y="121.194" width="40.937" height="4.053"/><rect x="0" y="127.680" width="40.937" height="9.323"/><rect x="0" y="139.841" width="40.937" height="4.459"/><rect x="0" y="146.731" width="40.937" height="2.432"/><rect x="0" y="150.379" width="40.937" height="1.621"/></svg></a><a class="ticket" href="https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ" target="_blank" rel="noopener noreferrer" style="background:#ffdcfb"><div class="media"><img src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p3-bg.webp" alt="" loading="lazy"></div><div class="info"><div><h2>Tour de parole</h2><p>Une école en ligne enseigne aux jeunes à négocier : salaire, tarif, entretien de manière ludique.</p></div><div class="tags"><span>full brand identity</span><span>app &amp; web design</span></div></div><svg class="barcode" viewBox="0 0 40.937 152" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="40.937" height="2.837"/><rect x="0" y="4.864" width="40.937" height="7.296"/><rect x="0" y="14.186" width="40.937" height="3.243"/><rect x="0" y="19.455" width="40.937" height="2.027"/><rect x="0" y="22.294" width="40.937" height="1.216"/><rect x="0" y="25.536" width="40.937" height="2.837"/><rect x="0" y="30.399" width="40.937" height="7.296"/><rect x="0" y="39.723" width="40.937" height="3.243"/><rect x="0" y="44.992" width="40.937" height="2.027"/><rect x="0" y="47.829" width="40.937" height="1.216"/><rect x="0" y="49.857" width="40.937" height="5.675"/><rect x="0" y="56.437" width="40.937" height="1.385"/><rect x="0" y="58.169" width="40.937" height="2.770"/><rect x="0" y="61.977" width="40.937" height="7.618"/><rect x="0" y="70.633" width="40.937" height="4.501"/><rect x="0" y="77.824" width="40.937" height="6.485"/><rect x="0" y="87.957" width="40.937" height="4.053"/><rect x="0" y="93.632" width="40.937" height="2.432"/><rect x="0" y="98.090" width="40.937" height="2.837"/><rect x="0" y="102.549" width="40.937" height="6.485"/><rect x="0" y="111.061" width="40.937" height="3.243"/><rect x="0" y="115.925" width="40.937" height="1.621"/><rect x="0" y="118.357" width="40.937" height="1.216"/><rect x="0" y="121.194" width="40.937" height="4.053"/><rect x="0" y="127.680" width="40.937" height="9.323"/><rect x="0" y="139.841" width="40.937" height="4.459"/><rect x="0" y="146.731" width="40.937" height="2.432"/><rect x="0" y="150.379" width="40.937" height="1.621"/></svg></a><a class="ticket" href="https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men" target="_blank" rel="noopener noreferrer" style="background:#f6f4f6"><div class="media"><img src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p1-bg.webp" alt="" loading="lazy"><video class="motion" muted loop playsinline preload="none" data-src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/pilates.mp4" aria-hidden="true"></video></div><div class="info"><div><h2>Pilates</h2><p>Pilates pour les hommes 28-50 ans, pas la cible habituelle. Construire le corps comme un architecte.</p></div><div class="tags"><span>web design</span><span>illustration</span></div></div><svg class="barcode" viewBox="0 0 40.937 152" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0.000" width="40.937" height="2.837"/><rect x="0" y="4.864" width="40.937" height="7.296"/><rect x="0" y="14.186" width="40.937" height="3.243"/><rect x="0" y="19.455" width="40.937" height="2.027"/><rect x="0" y="22.294" width="40.937" height="1.216"/><rect x="0" y="25.536" width="40.937" height="2.837"/><rect x="0" y="30.399" width="40.937" height="7.296"/><rect x="0" y="39.723" width="40.937" height="3.243"/><rect x="0" y="44.992" width="40.937" height="2.027"/><rect x="0" y="47.829" width="40.937" height="1.216"/><rect x="0" y="49.857" width="40.937" height="5.675"/><rect x="0" y="56.437" width="40.937" height="1.385"/><rect x="0" y="58.169" width="40.937" height="2.770"/><rect x="0" y="61.977" width="40.937" height="7.618"/><rect x="0" y="70.633" width="40.937" height="4.501"/><rect x="0" y="77.824" width="40.937" height="6.485"/><rect x="0" y="87.957" width="40.937" height="4.053"/><rect x="0" y="93.632" width="40.937" height="2.432"/><rect x="0" y="98.090" width="40.937" height="2.837"/><rect x="0" y="102.549" width="40.937" height="6.485"/><rect x="0" y="111.061" width="40.937" height="3.243"/><rect x="0" y="115.925" width="40.937" height="1.621"/><rect x="0" y="118.357" width="40.937" height="1.216"/><rect x="0" y="121.194" width="40.937" height="4.053"/><rect x="0" y="127.680" width="40.937" height="9.323"/><rect x="0" y="139.841" width="40.937" height="4.459"/><rect x="0" y="146.731" width="40.937" height="2.432"/><rect x="0" y="150.379" width="40.937" height="1.621"/></svg></a></section></main></div></div></div>
+<!-- T3. ABOUT -->
   <div id="apropos-t" style="position: relative; width: 100%; height: 300svh; background: #ffffff; z-index: 3;">
     <div style="position: sticky; top: 0; height: 100svh; overflow: hidden; background: #ffffff;">
       <div ref="{{ tAStageRef }}" style="position: absolute; left: 50%; top: 50%; width: 834px; height: 1112px; overflow: hidden; transform-origin: center; transform: translate(-50%,-50%);">
@@ -506,103 +296,8 @@
 <!-- ============ MOBILE LAYOUT (390 x 844 frame) ============ -->
 <div id="kc-mobile-root" ref="{{ mRootRef }}" style="display: none;">
 
-  <!-- T2. PROJETS -->
-  <div id="projets-m" ref="{{ mProjRef }}" style="position: relative; width: 100%; height: 600lvh; background: #08080a; z-index: 2;">
-  <div style="position: absolute; left: 0; top: 0; width: 1px; height: 100%; pointer-events: none;">
-    <div style="position: absolute; top: 0vh; height: 1px; scroll-snap-align: start; scroll-snap-stop: always;"></div>
-    <div style="position: absolute; top: 100lvh; height: 1px; scroll-snap-align: start; scroll-snap-stop: always;"></div>
-    <div style="position: absolute; top: 200lvh; height: 1px; scroll-snap-align: start; scroll-snap-stop: always;"></div>
-    <div style="position: absolute; top: 300lvh; height: 1px; scroll-snap-align: start; scroll-snap-stop: always;"></div>
-    <div style="position: absolute; top: 400lvh; height: 1px; scroll-snap-align: start; scroll-snap-stop: always;"></div>
-    <div style="position: absolute; top: 500lvh; height: 1px; scroll-snap-align: start; scroll-snap-stop: always;"></div>
-  </div>
-    <div style="position: sticky; top: 0; height: 100lvh; overflow: hidden; background: #08080a;">
-      <div ref="{{ mBgRef }}" data-i="3" style="position: absolute; inset: 0; background: url(assets/projets/bg/napoli.webp) center / cover no-repeat; opacity: 0;"></div>
-      <div ref="{{ mBgRef }}" data-i="0" style="position: absolute; inset: 0; background: url(assets/projets/bg/pilates.webp) center / cover no-repeat; opacity: 0;"></div>
-      <div ref="{{ mBgRef }}" data-i="1" style="position: absolute; inset: 0; background: url(assets/projets/bg/tdp.webp) center / cover no-repeat; opacity: 0;"></div>
-      <div ref="{{ mBgRef }}" data-i="2" style="position: absolute; inset: 0; background: url(assets/projets/bg/longread.webp) center / cover no-repeat; opacity: 0;"></div>
-      <div ref="{{ mBgRef }}" data-i="5" style="position: absolute; inset: 0; background: url(assets/projets/bg/celimax.webp) center / cover no-repeat; opacity: 0;"></div>
-      <div ref="{{ mBgRef }}" data-i="4" style="position: absolute; inset: 0; background: url(assets/projets/bg/insideout.webp) center / cover no-repeat; opacity: 0;"></div>
-
-      <span ref="{{ mWordmarkRef }}" style="position: absolute; left: 50%; bottom: 11px; transform-origin: bottom center; transform: translateX(-50%); mix-blend-mode: soft-light; font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 88px; white-space: nowrap; line-height: 1; letter-spacing: -0.03em; color: rgb(255,255,255); text-transform: uppercase; pointer-events: none;">mes projets</span>
-
-      <div ref="{{ mRailCapRef }}" style="position: absolute; left: 16px; right: 16px; bottom: 20px; z-index: 40; display: flex; flex-direction: row; justify-content: space-between; align-items: center; pointer-events: none;">
-        <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 11px; line-height: 1.2; letter-spacing: 0.04em; color: rgba(255,255,255,0.6); text-transform: uppercase;">faire glisser →</span>
-        <span ref="{{ mCountRef }}" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 11px; line-height: 1.2; letter-spacing: 0.04em; color: rgba(255,255,255,0.6); text-transform: uppercase;">01-06</span>
-      </div>
-      <div ref="{{ mPStageRef }}" style="position: absolute; left: 50%; top: 50%; width: 390px; height: 844px; overflow: hidden; transform-origin: center; transform: translate(-50%,-50%);">
-                <div ref="{{ mTicketRef }}" data-i="0" style="position: absolute; left: 16px; top: 312px; width: 326px; height: 468px; border-radius: 4px; overflow: hidden; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; background: rgb(246,244,246); will-change: transform, opacity; transform: translateY(900px); opacity: 0;"><a data-hit="1" href="https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1" style="position: absolute; inset: 0; z-index: 5; display: block; -webkit-tap-highlight-color: transparent;"></a>
-          <div style="position: relative; width: 278px; height: 164px; border-radius: 4px; overflow: hidden; background: #ddd; flex: 0 0 auto;"><video ref="{{ vidRef }}" preload="metadata" data-src="assets/projets/pilates.mp4" data-poster="assets/projets/opt/p5-bg.webp" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
-          <div style="padding-top: 16px; box-sizing: border-box; flex: 1 1 auto; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-              <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">pilates</span>
-              <span style="max-width: 278px; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Pensée pour les hommes 28-50 ans, pas la cible habituelle du pilates. Construire le corps comme un architecte.</span>
-            </div>
-            <div style="margin-top: auto; padding-top: 16px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">web design</span><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">illustration</span></div>
-            <div ref="{{ mBarcodeRef }}" style="margin-top: 16px; width: 278px; height: 40px;"></div>
-          </div>
-        </div>
-        <div ref="{{ mTicketRef }}" data-i="3" style="position: absolute; left: 16px; top: 312px; width: 326px; height: 468px; border-radius: 4px; overflow: hidden; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; background: rgb(176,229,253); will-change: transform, opacity; transform: translateY(900px); opacity: 0;"><a data-hit="1" href="https://readymag.website/u699831270/4855504/napolicaffe/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1" style="position: absolute; inset: 0; z-index: 5; display: block; -webkit-tap-highlight-color: transparent;"></a>
-          <div style="position: relative; width: 278px; height: 164px; border-radius: 4px; overflow: hidden; background: #ddd; flex: 0 0 auto;"><div ref="{{ pSlideRef }}" data-panel="m1" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 1; background: url(assets/projets/opt/p2-a.webp) center / cover no-repeat;"></div><div ref="{{ pSlideRef }}" data-panel="m1" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; background: url(assets/projets/opt/p2-b.webp) center / cover no-repeat;"></div><div ref="{{ pSlideRef }}" data-panel="m1" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; background: url(assets/projets/opt/p2-bg.webp) center / cover no-repeat;"></div></div>
-          <div style="padding-top: 16px; box-sizing: border-box; flex: 1 1 auto; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-              <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">napoli</span>
-              <span style="max-width: 278px; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Un vrai bout d’Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.</span>
-            </div>
-            <div style="margin-top: auto; padding-top: 16px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">full brand identity</span><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">web design</span></div>
-            <div ref="{{ mBarcodeRef }}" style="margin-top: 16px; width: 278px; height: 40px;"></div>
-          </div>
-        </div>
-        <div ref="{{ mTicketRef }}" data-i="1" style="position: absolute; left: 16px; top: 312px; width: 326px; height: 468px; border-radius: 4px; overflow: hidden; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; background: rgb(255,220,251); will-change: transform, opacity; transform: translateY(900px); opacity: 0;"><a data-hit="1" href="https://www.behance.net/gallery/254618097/Tour-de-parole-Negotiation-school-for-GenZ" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1" style="position: absolute; inset: 0; z-index: 5; display: block; -webkit-tap-highlight-color: transparent;"></a>
-          <div style="position: relative; width: 278px; height: 164px; border-radius: 4px; overflow: hidden; background: #ddd; flex: 0 0 auto;"><div ref="{{ pSlideRef }}" data-panel="m2" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 1; background: url(assets/projets/opt/p3-bg.webp) center / cover no-repeat;"></div><div ref="{{ pSlideRef }}" data-panel="m2" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; background: url(assets/projets/opt/p3-b.webp) center / cover no-repeat;"></div><div ref="{{ pSlideRef }}" data-panel="m2" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; background: url(assets/projets/opt/p3-c.webp) center / cover no-repeat;"></div></div>
-          <div style="padding-top: 16px; box-sizing: border-box; flex: 1 1 auto; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-              <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">TDP</span>
-              <span style="max-width: 278px; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Une école en ligne enseigne aux jeunes à négocier — salaire, tarif, entretien — de manière ludique, sans stress.</span>
-            </div>
-            <div style="margin-top: auto; padding-top: 16px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">full brand identity</span><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">ux/ui</span><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">app &amp; web design</span></div>
-            <div ref="{{ mBarcodeRef }}" style="margin-top: 16px; width: 278px; height: 40px;"></div>
-          </div>
-        </div>
-        <div ref="{{ mTicketRef }}" data-i="2" style="position: absolute; left: 16px; top: 312px; width: 326px; height: 468px; border-radius: 4px; overflow: hidden; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; background: rgb(255,255,255); will-change: transform, opacity; transform: translateY(900px); opacity: 0;"><a data-hit="1" href="https://readymag.website/u1448912666/perfectionism/" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1" style="position: absolute; inset: 0; z-index: 5; display: block; -webkit-tap-highlight-color: transparent;"></a>
-          <div style="position: relative; width: 278px; height: 164px; border-radius: 4px; overflow: hidden; background: #ddd; flex: 0 0 auto;"><video ref="{{ vidRef }}" preload="metadata" data-src="assets/projets/longread.mp4" data-poster="assets/projets/opt/p4-bg.webp" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
-          <div style="padding-top: 16px; box-sizing: border-box; flex: 1 1 auto; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-              <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">longread</span>
-              <span style="max-width: 278px; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Pourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ?</span>
-            </div>
-            <div style="margin-top: auto; padding-top: 16px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">web design</span><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">readymag integration</span><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">animation</span></div>
-            <div ref="{{ mBarcodeRef }}" style="margin-top: 16px; width: 278px; height: 40px;"></div>
-          </div>
-        </div>
-        <div ref="{{ mTicketRef }}" data-i="4" style="position: absolute; left: 16px; top: 312px; width: 326px; height: 468px; border-radius: 4px; overflow: hidden; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; background: rgb(255,255,255); will-change: transform, opacity; transform: translateY(900px); opacity: 0;"><a data-hit="1" href="https://www.youtube.com/watch?v=NG0HM9ApyP8&time_continue=1&source_ve_path=MjM4NTE&embeds_referring_euri=https%3A%2F%2Freadymag.website%2F&embeds_referring_origin=https%3A%2F%2Freadymag.website" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1" style="position: absolute; inset: 0; z-index: 5; display: block; -webkit-tap-highlight-color: transparent;"></a>
-          <div style="position: relative; width: 278px; height: 164px; border-radius: 4px; overflow: hidden; background: #ddd; flex: 0 0 auto;"><video ref="{{ vidRef }}" preload="metadata" data-src="assets/projets/inside-out.mp4" data-poster="assets/projets/opt/p1-bg.webp" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
-          <div style="padding-top: 16px; box-sizing: border-box; flex: 1 1 auto; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-              <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">inside out</span>
-              <span style="max-width: 278px; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Un motion sur la santé mentale : l’anxiété sociale et le sentiment d’être submergé — raconté uniquement en mouvement, en 8 jours.</span>
-            </div>
-            <div style="margin-top: auto; padding-top: 16px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">creative direction</span><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">motion design</span></div>
-            <div ref="{{ mBarcodeRef }}" style="margin-top: 16px; width: 278px; height: 40px;"></div>
-          </div>
-        </div>
-        <div ref="{{ mTicketRef }}" data-i="5" style="position: absolute; left: 16px; top: 312px; width: 326px; height: 468px; border-radius: 4px; overflow: hidden; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; background: rgb(255,220,251); will-change: transform, opacity; transform: translateY(900px); opacity: 0;"><a data-hit="1" href="https://www.behance.net/gallery/255872777/Climax-3D-product-website" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1" style="position: absolute; inset: 0; z-index: 5; display: block; -webkit-tap-highlight-color: transparent;"></a>
-          <div style="position: relative; width: 278px; height: 164px; border-radius: 4px; overflow: hidden; background: #ddd; flex: 0 0 auto;"><div ref="{{ pSlideRef }}" data-panel="m5" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 1; background: url(assets/projets/opt/p6-bg.webp) center / cover no-repeat;"></div><div ref="{{ pSlideRef }}" data-panel="m5" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; background: url(assets/projets/opt/p6-b.webp) center / cover no-repeat;"></div><div ref="{{ pSlideRef }}" data-panel="m5" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; background: url(assets/projets/opt/p6-c.webp) center / cover no-repeat;"></div></div>
-          <div style="padding-top: 16px; box-sizing: border-box; flex: 1 1 auto; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-              <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34); text-transform: uppercase; white-space: nowrap;">celimax</span>
-              <span style="max-width: 278px; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Un pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j’adore.</span>
-            </div>
-            <div style="margin-top: auto; padding-top: 16px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start;"><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">3d modeling/blender</span><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">gemini &amp; nano banana</span><span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(34,32,34); text-transform: uppercase;">web design</span></div>
-            <div ref="{{ mBarcodeRef }}" style="margin-top: 16px; width: 278px; height: 40px;"></div>
-          </div>
-        </div>
-    <div ref="{{ mGridRef }}" style="position: absolute; inset: 0; z-index: 60; pointer-events: none; display: none; box-sizing: border-box; padding: 0 16px; flex-direction: row; gap: 16px;"><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- T3. ABOUT -->
+  <div id="kc-mobile-projets"><div id="projets-m"><div id="kc-m-viewport"><main id="kc-m-canvas"><h1>Une sélection de<br>mes <em>projets </em>récents.</h1><a class="project" href="https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men" target="_blank" rel="noopener noreferrer" style="left:16.0791px;top:135.784px;width:360.879px;height:517.732px" aria-label="Voir le projet Pilates"><div class="visual" style="height:245px"><img class="poster" src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p1-bg.webp" alt="" loading="lazy" /><video class="motion" muted loop playsinline preload="none" poster="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p1-bg.webp" data-src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/pilates.mp4" aria-hidden="true"></video></div><h2 style="top:269px">Pilates</h2><p class="description" style="top:301px">Pilates pour les hommes 28-50 ans, pas la cible habituelle. Construire le corps comme un architecte.</p><div class="categories" style="top:367px"><span>web design</span><span>illustration</span></div><svg class="barcode" style="top:436.366px" viewBox="0 0 360.879 41.366" width="360.879" height="41.366" aria-hidden="true" preserveAspectRatio="none"><rect x="0.0000" y="0" width="6.7364" height="41.366"/><rect x="11.5481" y="0" width="17.3222" height="41.366"/><rect x="33.6805" y="0" width="7.6988" height="41.366"/><rect x="46.1910" y="0" width="4.8117" height="41.366"/><rect x="52.9305" y="0" width="2.8870" height="41.366"/><rect x="60.6277" y="0" width="6.7364" height="41.366"/><rect x="72.1743" y="0" width="17.3222" height="41.366"/><rect x="94.3097" y="0" width="7.6988" height="41.366"/><rect x="106.8202" y="0" width="4.8117" height="41.366"/><rect x="113.5566" y="0" width="2.8870" height="41.366"/><rect x="118.3699" y="0" width="13.4728" height="41.366"/><rect x="133.9941" y="0" width="3.2880" height="41.366"/><rect x="138.1041" y="0" width="6.5760" height="41.366"/><rect x="147.1461" y="0" width="18.0856" height="41.366"/><rect x="167.6977" y="0" width="10.6860" height="41.366"/><rect x="184.7700" y="0" width="15.3975" height="41.366"/><rect x="208.8286" y="0" width="9.6234" height="41.366"/><rect x="222.3015" y="0" width="5.7741" height="41.366"/><rect x="232.8857" y="0" width="6.7364" height="41.366"/><rect x="243.4730" y="0" width="15.3975" height="41.366"/><rect x="263.6807" y="0" width="7.6988" height="41.366"/><rect x="275.2304" y="0" width="3.8494" height="41.366"/><rect x="281.0029" y="0" width="2.8870" height="41.366"/><rect x="287.7393" y="0" width="9.6234" height="41.366"/><rect x="303.1384" y="0" width="22.1339" height="41.366"/><rect x="332.0102" y="0" width="10.5858" height="41.366"/><rect x="348.3685" y="0" width="5.7741" height="41.366"/><rect x="357.0296" y="0" width="3.8494" height="41.366"/></svg></a><a class="project" href="https://readymag.website/u1448912666/perfectionism/" target="_blank" rel="noopener noreferrer" style="left:16.0791px;top:732.150px;width:275px;height:450.732px" aria-label="Voir le projet Longread"><div class="visual" style="height:157px"><img class="poster" src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p4-bg.webp" alt="" loading="lazy" /><video class="motion" muted loop playsinline preload="none" poster="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p4-bg.webp" data-src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/longread.mp4" aria-hidden="true"></video></div><h2 style="top:181px">Longread</h2><p class="description" style="top:213px">Pourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ?</p><div class="categories" style="top:300px"><span>web design</span><span>readymag animation</span></div><svg class="barcode" style="top:369.366px" viewBox="0 0 275.000 41.366" width="275.000" height="41.366" aria-hidden="true" preserveAspectRatio="none"><rect x="0.0000" y="0" width="5.1333" height="41.366"/><rect x="8.8000" y="0" width="13.2000" height="41.366"/><rect x="25.6655" y="0" width="5.8667" height="41.366"/><rect x="35.1988" y="0" width="3.6667" height="41.366"/><rect x="40.3345" y="0" width="2.2000" height="41.366"/><rect x="46.2000" y="0" width="5.1333" height="41.366"/><rect x="54.9988" y="0" width="13.2000" height="41.366"/><rect x="71.8667" y="0" width="5.8667" height="41.366"/><rect x="81.4000" y="0" width="3.6667" height="41.366"/><rect x="86.5333" y="0" width="2.2000" height="41.366"/><rect x="90.2012" y="0" width="10.2667" height="41.366"/><rect x="102.1073" y="0" width="2.5056" height="41.366"/><rect x="105.2392" y="0" width="5.0111" height="41.366"/><rect x="112.1295" y="0" width="13.7817" height="41.366"/><rect x="127.7904" y="0" width="8.1431" height="41.366"/><rect x="140.8000" y="0" width="11.7333" height="41.366"/><rect x="159.1333" y="0" width="7.3333" height="41.366"/><rect x="169.4000" y="0" width="4.4000" height="41.366"/><rect x="177.4655" y="0" width="5.1333" height="41.366"/><rect x="185.5333" y="0" width="11.7333" height="41.366"/><rect x="200.9322" y="0" width="5.8667" height="41.366"/><rect x="209.7333" y="0" width="2.9333" height="41.366"/><rect x="214.1322" y="0" width="2.2000" height="41.366"/><rect x="219.2655" y="0" width="7.3333" height="41.366"/><rect x="231.0000" y="0" width="16.8667" height="41.366"/><rect x="253.0012" y="0" width="8.0667" height="41.366"/><rect x="265.4667" y="0" width="4.4000" height="41.366"/><rect x="272.0667" y="0" width="2.9333" height="41.366"/></svg></a><a class="project" href="https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ" target="_blank" rel="noopener noreferrer" style="left:16.0791px;top:1261.516px;width:360.879px;height:669.091px" aria-label="Voir le projet Tour de parole"><div class="visual" style="height:396.359px"><img class="poster" src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p3-bg.webp" alt="" loading="lazy" /></div><h2 style="top:420.359px">Tour de parole</h2><p class="description" style="top:452.359px">Une école en ligne enseigne aux jeunes à négocier : salaire, tarif, entretien de manière ludique.</p><div class="categories" style="top:518.359px"><span>full brand identity</span><span>app &amp; web design</span></div><svg class="barcode" style="top:587.725px" viewBox="0 0 360.879 41.366" width="360.879" height="41.366" aria-hidden="true" preserveAspectRatio="none"><rect x="0.0000" y="0" width="6.7364" height="41.366"/><rect x="11.5481" y="0" width="17.3222" height="41.366"/><rect x="33.6805" y="0" width="7.6988" height="41.366"/><rect x="46.1910" y="0" width="4.8117" height="41.366"/><rect x="52.9305" y="0" width="2.8870" height="41.366"/><rect x="60.6277" y="0" width="6.7364" height="41.366"/><rect x="72.1743" y="0" width="17.3222" height="41.366"/><rect x="94.3097" y="0" width="7.6988" height="41.366"/><rect x="106.8202" y="0" width="4.8117" height="41.366"/><rect x="113.5566" y="0" width="2.8870" height="41.366"/><rect x="118.3699" y="0" width="13.4728" height="41.366"/><rect x="133.9941" y="0" width="3.2880" height="41.366"/><rect x="138.1041" y="0" width="6.5760" height="41.366"/><rect x="147.1461" y="0" width="18.0856" height="41.366"/><rect x="167.6977" y="0" width="10.6860" height="41.366"/><rect x="184.7700" y="0" width="15.3975" height="41.366"/><rect x="208.8286" y="0" width="9.6234" height="41.366"/><rect x="222.3015" y="0" width="5.7741" height="41.366"/><rect x="232.8857" y="0" width="6.7364" height="41.366"/><rect x="243.4730" y="0" width="15.3975" height="41.366"/><rect x="263.6807" y="0" width="7.6988" height="41.366"/><rect x="275.2304" y="0" width="3.8494" height="41.366"/><rect x="281.0029" y="0" width="2.8870" height="41.366"/><rect x="287.7393" y="0" width="9.6234" height="41.366"/><rect x="303.1384" y="0" width="22.1339" height="41.366"/><rect x="332.0102" y="0" width="10.5858" height="41.366"/><rect x="348.3685" y="0" width="5.7741" height="41.366"/><rect x="357.0296" y="0" width="3.8494" height="41.366"/></svg></a><a class="project" href="https://www.youtube.com/watch?v=NG0HM9ApyP8" target="_blank" rel="noopener noreferrer" style="left:110.2676px;top:2009.242px;width:275px;height:429.732px" aria-label="Voir le projet Inside out"><div class="visual" style="height:157px"><img class="poster" src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p5-bg.webp" alt="" loading="lazy" /><video class="motion" muted loop playsinline preload="none" poster="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p5-bg.webp" data-src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/inside-out.mp4" aria-hidden="true"></video></div><h2 style="top:181px">Inside out</h2><p class="description" style="top:213px">Un motion sur la santé mentale : l&#x27;anxiété sociale et le sentiment d&#x27;être submergé.</p><div class="categories" style="top:279px"><span>creative direction</span><span>motion design</span></div><svg class="barcode" style="top:348.366px" viewBox="0 0 275.000 41.366" width="275.000" height="41.366" aria-hidden="true" preserveAspectRatio="none"><rect x="0.0000" y="0" width="5.1333" height="41.366"/><rect x="8.8000" y="0" width="13.2000" height="41.366"/><rect x="25.6655" y="0" width="5.8667" height="41.366"/><rect x="35.1988" y="0" width="3.6667" height="41.366"/><rect x="40.3345" y="0" width="2.2000" height="41.366"/><rect x="46.2000" y="0" width="5.1333" height="41.366"/><rect x="54.9988" y="0" width="13.2000" height="41.366"/><rect x="71.8667" y="0" width="5.8667" height="41.366"/><rect x="81.4000" y="0" width="3.6667" height="41.366"/><rect x="86.5333" y="0" width="2.2000" height="41.366"/><rect x="90.2012" y="0" width="10.2667" height="41.366"/><rect x="102.1073" y="0" width="2.5056" height="41.366"/><rect x="105.2392" y="0" width="5.0111" height="41.366"/><rect x="112.1295" y="0" width="13.7817" height="41.366"/><rect x="127.7904" y="0" width="8.1431" height="41.366"/><rect x="140.8000" y="0" width="11.7333" height="41.366"/><rect x="159.1333" y="0" width="7.3333" height="41.366"/><rect x="169.4000" y="0" width="4.4000" height="41.366"/><rect x="177.4655" y="0" width="5.1333" height="41.366"/><rect x="185.5333" y="0" width="11.7333" height="41.366"/><rect x="200.9322" y="0" width="5.8667" height="41.366"/><rect x="209.7333" y="0" width="2.9333" height="41.366"/><rect x="214.1322" y="0" width="2.2000" height="41.366"/><rect x="219.2655" y="0" width="7.3333" height="41.366"/><rect x="231.0000" y="0" width="16.8667" height="41.366"/><rect x="253.0012" y="0" width="8.0667" height="41.366"/><rect x="265.4667" y="0" width="4.4000" height="41.366"/><rect x="272.0667" y="0" width="2.9333" height="41.366"/></svg></a><a class="project" href="https://kamilacomme.github.io/celimax/" target="_blank" rel="noopener noreferrer" style="left:16.0791px;top:2517.608px;width:360.879px;height:517.732px" aria-label="Voir le projet Celimax"><div class="visual" style="height:245px"><img class="poster" src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p6-bg.webp" alt="" loading="lazy" /></div><h2 style="top:269px">Celimax</h2><p class="description" style="top:301px">Un pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j&#x27;adore.</p><div class="categories" style="top:367px"><span>3d modeling</span><span>landing page</span></div><svg class="barcode" style="top:436.366px" viewBox="0 0 360.879 41.366" width="360.879" height="41.366" aria-hidden="true" preserveAspectRatio="none"><rect x="0.0000" y="0" width="6.7364" height="41.366"/><rect x="11.5481" y="0" width="17.3222" height="41.366"/><rect x="33.6805" y="0" width="7.6988" height="41.366"/><rect x="46.1910" y="0" width="4.8117" height="41.366"/><rect x="52.9305" y="0" width="2.8870" height="41.366"/><rect x="60.6277" y="0" width="6.7364" height="41.366"/><rect x="72.1743" y="0" width="17.3222" height="41.366"/><rect x="94.3097" y="0" width="7.6988" height="41.366"/><rect x="106.8202" y="0" width="4.8117" height="41.366"/><rect x="113.5566" y="0" width="2.8870" height="41.366"/><rect x="118.3699" y="0" width="13.4728" height="41.366"/><rect x="133.9941" y="0" width="3.2880" height="41.366"/><rect x="138.1041" y="0" width="6.5760" height="41.366"/><rect x="147.1461" y="0" width="18.0856" height="41.366"/><rect x="167.6977" y="0" width="10.6860" height="41.366"/><rect x="184.7700" y="0" width="15.3975" height="41.366"/><rect x="208.8286" y="0" width="9.6234" height="41.366"/><rect x="222.3015" y="0" width="5.7741" height="41.366"/><rect x="232.8857" y="0" width="6.7364" height="41.366"/><rect x="243.4730" y="0" width="15.3975" height="41.366"/><rect x="263.6807" y="0" width="7.6988" height="41.366"/><rect x="275.2304" y="0" width="3.8494" height="41.366"/><rect x="281.0029" y="0" width="2.8870" height="41.366"/><rect x="287.7393" y="0" width="9.6234" height="41.366"/><rect x="303.1384" y="0" width="22.1339" height="41.366"/><rect x="332.0102" y="0" width="10.5858" height="41.366"/><rect x="348.3685" y="0" width="5.7741" height="41.366"/><rect x="357.0296" y="0" width="3.8494" height="41.366"/></svg></a><a class="project" href="https://readymag.website/u699831270/4855504/napolicaffe/" target="_blank" rel="noopener noreferrer" style="left:16.0791px;top:3113.974px;width:275px;height:450.732px" aria-label="Voir le projet Napoli"><div class="visual" style="height:157px"><img class="poster" src="https://raw.githubusercontent.com/kamilacomme/kamilacomme.github.io/main/assets/projets/opt/p2-a.webp" alt="" loading="lazy" /></div><h2 style="top:181px">Napoli</h2><p class="description" style="top:213px">Un vrai bout d&#x27;Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.</p><div class="categories" style="top:300px"><span>brand identity</span><span>web design</span></div><svg class="barcode" style="top:369.366px" viewBox="0 0 275.000 41.366" width="275.000" height="41.366" aria-hidden="true" preserveAspectRatio="none"><rect x="0.0000" y="0" width="5.1333" height="41.366"/><rect x="8.8000" y="0" width="13.2000" height="41.366"/><rect x="25.6655" y="0" width="5.8667" height="41.366"/><rect x="35.1988" y="0" width="3.6667" height="41.366"/><rect x="40.3345" y="0" width="2.2000" height="41.366"/><rect x="46.2000" y="0" width="5.1333" height="41.366"/><rect x="54.9988" y="0" width="13.2000" height="41.366"/><rect x="71.8667" y="0" width="5.8667" height="41.366"/><rect x="81.4000" y="0" width="3.6667" height="41.366"/><rect x="86.5333" y="0" width="2.2000" height="41.366"/><rect x="90.2012" y="0" width="10.2667" height="41.366"/><rect x="102.1073" y="0" width="2.5056" height="41.366"/><rect x="105.2392" y="0" width="5.0111" height="41.366"/><rect x="112.1295" y="0" width="13.7817" height="41.366"/><rect x="127.7904" y="0" width="8.1431" height="41.366"/><rect x="140.8000" y="0" width="11.7333" height="41.366"/><rect x="159.1333" y="0" width="7.3333" height="41.366"/><rect x="169.4000" y="0" width="4.4000" height="41.366"/><rect x="177.4655" y="0" width="5.1333" height="41.366"/><rect x="185.5333" y="0" width="11.7333" height="41.366"/><rect x="200.9322" y="0" width="5.8667" height="41.366"/><rect x="209.7333" y="0" width="2.9333" height="41.366"/><rect x="214.1322" y="0" width="2.2000" height="41.366"/><rect x="219.2655" y="0" width="7.3333" height="41.366"/><rect x="231.0000" y="0" width="16.8667" height="41.366"/><rect x="253.0012" y="0" width="8.0667" height="41.366"/><rect x="265.4667" y="0" width="4.4000" height="41.366"/><rect x="272.0667" y="0" width="2.9333" height="41.366"/></svg></a></main></div></div></div>
+<!-- T3. ABOUT -->
   <div id="apropos-m" style="position: relative; width: 100%; height: 430lvh; background: #ffffff; z-index: 3;">
     <div style="position: sticky; top: 0; height: 100lvh; overflow: hidden; background: #ffffff;">
       <div ref="{{ mAStageRef }}" style="position: absolute; left: 50%; top: 50%; width: 390px; height: 844px; overflow: hidden; transform-origin: center; transform: translate(-50%,-50%);">
@@ -641,14 +336,14 @@
 
   <div ref="{{ clothRef }}" style="position: absolute; left: 0; top: 0; width: 100vw; height: 100svh; z-index: 1; pointer-events: auto;"></div>
 
-  <div ref="{{ creditRef }}" data-c="0" style="position: absolute; left: 32px; top: 118px; z-index: 2; font-family: 'Figtree', sans-serif; font-weight: 400; font-style: italic; font-size: 64px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(255,255,255);">
+  <div ref="{{ creditRef }}" data-c="0" style="position: absolute; left: 32px; top: 118px; z-index: 2; font-family: 'Figtree', sans-serif; font-weight: 400; font-style: italic; font-size: 56px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(255,255,255);">
     <span style="display: block;">Un CDI ? Écrivez-moi.</span>
     <a href="mailto:comme.kamila@gmail.com?subject=Un%20CDI%20chez%20nous%20%3F" aria-label="M’écrire à comme.kamila@gmail.com" style="display: block; color: rgb(255,255,255); text-decoration: none; font-style: normal; font-weight: 700;">comme.kamila<wbr>@gmail.com</a>
   </div>
 
   <div ref="{{ creditRef }}" data-c="1" style="position: absolute; left: 32px; bottom: 21px; z-index: 2; display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-    <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(255,255,255); white-space: nowrap;">+33 (0) 7 45 67 03 83</span>
-    <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(255,255,255); white-space: nowrap;">Paris, France</span>
+    <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(255,255,255); white-space: nowrap;">+33 (0) 7 45 67 03 83</span>
+    <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(255,255,255); white-space: nowrap;">Paris, France</span>
   </div>
 
   <div ref="{{ creditRef }}" data-c="3" style="position: absolute; left: 1358px; bottom: 27px; width: 48px; height: 48px; z-index: 2; border-radius: 4px; overflow: hidden; background: #111013;"><video ref="{{ vidRef }}" preload="auto" data-src="assets/about/footer-walk.mp4" data-eager="1" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
@@ -705,6 +400,7 @@
 </div>
 <!-- Nav scrim: keeps white nav text legible over light project photos -->
 <div ref="{{ navScrimRef }}" style="position: fixed; left: 0; top: 0; width: 100vw; height: 128px; z-index: 499; pointer-events: none; background: linear-gradient(to bottom, rgba(8,8,10,0.62) 0%, rgba(8,8,10,0.34) 45%, rgba(8,8,10,0) 100%); transition: opacity 0.25s ease;"></div>
+<style id="kc-no-nav-gradient">[ref="{{ navScrimRef }}"]{display:none!important} #kc-no-nav-gradient-marker{display:none}</style>
 <!-- Shared navbar: one grid, one type scale, sits above every section -->
 <div ref="{{ navRef }}" role="navigation" aria-label="Navigation principale" style="position: fixed; left: 50%; top: 0; width: 1440px; height: 72px; z-index: 500; transform-origin: top center; transform: translateX(-50%); box-sizing: border-box; padding: 15px 32px; display: flex; flex-direction: row; justify-content: space-between; align-items: center; pointer-events: none;">
   <span style="display: inline-flex; align-items: flex-start; gap: 3px; font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 20px; white-space: nowrap; line-height: 1.2; letter-spacing: -0.02em; color: rgb(255,255,255); pointer-events: auto;">Kamila Comme<span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 9px; line-height: 1.4; letter-spacing: 0;">®</span></span>
@@ -866,7 +562,7 @@ class Component extends DCLogic {
     }, 350);
     // --- projets ---
     this._bc = this.buildBarcode();
-    this.pSlideTimer = setInterval(() => {
+    this.pSlideTimer = null; /* disabled old project slideshow */ if (false) {
       // was running forever regardless of whether #projets was ever on screen — pause the
       // whole thing (18 elements' worth of opacity transitions) while it isn't
       if (this.dProj && this.dProj.offsetParent === null) return;
@@ -892,16 +588,16 @@ class Component extends DCLogic {
         if (arr[nx]) arr[nx].style.opacity = 1;
         this.pSlideIdx[k] = nx;
       });
-    }, 1400);
+    }
 
     // TABLET DECK — the cards take turns: 1, then 2, then 3... Only ever one clip running, so
     // iPadOS never runs out of video decoders and no card is left with an empty plate.
     this._tSeqI = 0;
-    this.tSeqTimer = setInterval(() => {
+    this.tSeqTimer = null; /* disabled old tablet carousel */ if (false) {
       if (!this.tablet || document.hidden) return;
       this._tSeqI = (this._tSeqI + 1) % this.N;
       this.tRail();
-    }, 3000);
+    }
 
     // --- projets carousel (desktop) ---
     this.C_SPACING = 356;
@@ -1183,15 +879,22 @@ class Component extends DCLogic {
         const GAPd = 24;
         const colD = (Wd - 64 - 11 * GAPd) / 12;
         const cardD = 3 * colD + 2 * GAPd;
-        const stepD = 3 * (colD + GAPd);
-        const SLOT = { "0": 0, "1": 2, "2": 1, "3": 3, "4": 0 };
+        // The five About cards follow Figma's fixed 1440px composition grid.
+        // The host stage still uses its existing desktop scale, but column
+        // offsets must not expand with Wd while card widths remain 326px.
+        const figmaCardLeft = { "0": 29.523, "1": 846.523, "2": 379.523, "3": 1082, "4": 32.5 };
+        const aboutCardD = 326;
         (this.cards || []).forEach((el) => {
           if (!el) return;
-          el.style.left = (32 + (SLOT[el.dataset.i] || 0) * stepD).toFixed(1) + "px";
-          el.style.width = cardD.toFixed(1) + "px";
-          el.style.height = cardD.toFixed(1) + "px";
+          // Behance belongs to the rightmost grid column. The desktop stage
+          // expands to Wd, so anchor its right edge to that stage's 32px inset.
+          // Other card positions stay as previously approved.
+          const left = el.dataset.i === "3" ? Wd - 32 - aboutCardD : figmaCardLeft[el.dataset.i];
+          el.style.left = left.toFixed(1) + "px";
+          el.style.width = aboutCardD + "px";
+          el.style.height = aboutCardD + "px";
         });
-        this.CARD_H = cardD;
+        this.CARD_H = aboutCardD;
         // hero preview plate: exactly three columns, its 314x196 proportion kept
         const hPlate = this.heroBottom && this.heroBottom.querySelector("[data-hplate]");
         if (hPlate) {
@@ -1442,6 +1145,7 @@ class Component extends DCLogic {
       // the scrim has to ride the phone frame too, otherwise the white wordmark sits
       // on bare photo and disappears over the light project shots
       if (this.navScrim) {
+        this.navScrim.style.display = "none";
         if (mobile) {
           const bw = (this.devW || window.innerWidth) * kFit;
           const bh = (this.devH || this.lvhNow()) * kFit;
@@ -1506,12 +1210,12 @@ class Component extends DCLogic {
         // portrait: the rail's vertical position is distributed by fitProjLabels (equal air
         // above and below), so only landscape sets a share here
         const tTop = portrait ? null : "44%";
-        (this.cCards || []).forEach((el) => { if (el) { if (tTop) el.style.top = tTop; const t = el.querySelector("span"); if (t) t.style.fontSize = "48px";
+        (this.cCards || []).forEach((el) => { if (el) { if (tTop) el.style.top = tTop; const t = el.querySelector("span"); if (t) t.style.fontSize = "40px";
           const sp2 = el.querySelectorAll("span");
           sp2.forEach((sp, i) => { if (i === 0) return; sp.style.fontSize = sp.style.fontWeight === "400" ? "16px" : "12px"; }); } });
       } else if (!mobile && this.pLabels) {
         if (this.dProj) Object.assign(this.dProj.style, { top: "0px", height: "100svh", width: "100%", marginLeft: "0px", marginTop: "0px" });
-        (this.cCards || []).forEach((el) => { if (el) { el.style.top = "46%"; const t = el.querySelector("span"); if (t) t.style.fontSize = "48px";
+        (this.cCards || []).forEach((el) => { if (el) { el.style.top = "46%"; const t = el.querySelector("span"); if (t) t.style.fontSize = "40px";
           const sp2 = el.querySelectorAll("span");
           sp2.forEach((sp, i) => { if (i === 0) return; sp.style.fontSize = sp.style.fontWeight === "400" ? "16px" : "12px"; }); } });
         this._labB = null;
@@ -1703,11 +1407,11 @@ class Component extends DCLogic {
     const head = q("[data-c='0']"), info = q("[data-c='1']"), gif = q("[data-c='3']"), legal = q("[data-c='4']");
     const X = (v) => (edgeL + (v - 33) * sc).toFixed(1) + "px";
     if (head) Object.assign(head.style, { left: edgeL.toFixed(1) + "px", right: "auto", bottom: "auto",
-      top: px(tablet ? 128 : 118), fontSize: px(tablet ? 48 : 64), width: "auto" });
+      top: px(tablet ? 128 : 118), fontSize: px(tablet ? 48 : 56), width: "auto" });
     if (info) {
       Object.assign(info.style, { left: edgeL.toFixed(1) + "px", right: "auto", top: "auto",
         bottom: px(21), alignItems: "flex-start", gap: px(8) });
-      info.querySelectorAll("span").forEach((el) => { el.style.fontSize = px(16); el.style.textAlign = "left"; });
+      info.querySelectorAll("span").forEach((el) => { el.style.fontSize = px(tablet ? 16 : 14); el.style.textAlign = "left"; });
     }
     // the gif's right edge is taken from the Hire me pill itself, not recomputed from the
     // margin: whatever the bar's own edge is, the corner element lands on it exactly.
@@ -3191,7 +2895,7 @@ class Component extends DCLogic {
     max = Math.round(max * (factor || 1));
     els.forEach((el) => { el.style.height = max + "px"; });
   }
-  renderProjets() {
+  renderProjets() { return; // New responsive portfolio projects use independent controllers.
     if (this.mobile) { this.renderMobileRail(); return; }
     this.syncSnap();
     if (this.tablet) { this.tRail(); return; } // tablet drives its own drag deck
@@ -3261,23 +2965,29 @@ class Component extends DCLogic {
     // how far the section has travelled past the top of the viewport, in screens
     const prog = (window.scrollY - this.ABOUT_TOP * sH) / sH;
     if (!this.mobile && !this.tablet) {
-      // TEST (desktop about): the cards are not parked — they scroll straight up past the
-      // statement and leave the frame, while nav, avatar and statement stay put
-      const H = this.CARD_H, GAP = 24, frameH = this.frameH || 844;
-      const START = frameH + 80, END = -(H + 80);
-      // the whole run has to be over before the footer's top edge appears, so the schedule
-      // is derived from the section's own scroll range: five equal passes, one after another
-      // the next card leaves as soon as the one before it is past mid-screen: each pass
-      // starts at 35% of the previous one, so two cards share the frame briefly
-      // the footer starts arriving once the last card is 75% up its run
-      const LEAD = 0.1, endAt = Math.max(1.2, (this.ABOUT_RANGE || 7) - 0.05);
-      const OVERLAP = 0.35, TAIL = 0.75;
-      const RUN = (endAt - LEAD) / (4 * OVERLAP + TAIL), STEP = RUN * OVERLAP;
+      // Desktop sticky-card experiment. Keep the approved 326px cards,
+      // grid positions, type styles, and host scale; change only vertical motion.
+      // Screenshot's final arrangement: Mastère / 450k / Behance on the
+      // upper row, 3 langues / Greenly on the lower row.
+      const frameH = this.frameH || 844;
+      const H = this.CARD_H;
+      const gap = 24;
+      const gridHeight = 2 * H + gap;
+      const firstRow = Math.max(24, (frameH - gridHeight) / 2);
+      const targetTops = [firstRow, firstRow + H + gap, firstRow,
+                          firstRow, firstRow + H + gap];
+      const entryY = frameH + 60;
+      // Each card rises, parks at its destination, and stays parked.
+      // Leave a short uncluttered introduction and a settled final hold.
+      const firstArrival = 0.48, stagger = 1.05, travelScreens = 0.82;
+      // Arrival sequence: Mastère, 450k, Behance, 3 langues, Greenly.
+      const arrivalOrder = [0, 4, 1, 2, 3];
       cards.forEach((el, i) => {
         if (!el) return;
-        let e = (prog - LEAD - this.A_ORDER[i] * STEP) / RUN;
-        e = e < 0 ? 0 : e > 1 ? 1 : e;
-        const top = START + (END - START) * e;
+        let e = (prog - firstArrival - arrivalOrder[i] * stagger) / travelScreens;
+        e = Math.max(0, Math.min(1, e));
+        e = e * e * (3 - 2 * e);
+        const top = entryY + (targetTops[i] - entryY) * e;
         const t = "translateY(" + top.toFixed(1) + "px)";
         if (el._t !== t) { el._t = t; el.style.transform = t; }
       });
@@ -3384,6 +3094,16 @@ class Component extends DCLogic {
   // sample point counts as dark, since the scrim is what keeps white text legible there.
   surfaceIsLight() {
     if (!this._navRect) return false;
+    // The approved projects surface is white. A cross-document iframe is opaque
+    // to elementsFromPoint(), which otherwise incorrectly classifies it as dark.
+    // Use the current layout's section bounds instead of sampling inside the iframe.
+    const projectId = this.mobile ? "projets-m" : this.tablet ? "projets-t" : "projets";
+    const projectSection = document.getElementById(projectId);
+    if (projectSection) {
+      const rect = projectSection.getBoundingClientRect();
+      const navY = this._navRect.top + this._navRect.height * 0.55;
+      if (rect.top <= navY && rect.bottom > navY) return true;
+    }
     const r = this._navRect;
     const y = Math.max(2, Math.min((this.vh || this.vhNow()) - 2, r.top + r.height * 0.55));
     // on a phone preview the surrounding letterbox still shows the window-wide white
@@ -3422,7 +3142,7 @@ class Component extends DCLogic {
   setNavInk(color) {
     if (!this.nav || this._navInk === color) return;
     this._navInk = color;
-    if (this.navScrim) this.navScrim.style.opacity = color === "rgb(255,255,255)" ? 1 : 0;
+    if (this.navScrim) { this.navScrim.style.opacity = "0"; this.navScrim.style.display = "none"; }
     this.nav.querySelectorAll("span, a").forEach((el) => {
       if (el.closest("[data-fixed-ink]")) return;
       el.style.color = color;
@@ -3737,5 +3457,24 @@ class Component extends DCLogic {
   }
 }
 </script>
-</body>
+<script id="kc-project-interactions">
+(()=>{
+ let attached=false;
+ function attach(){
+  if(attached)return;
+  if(!document.getElementById('kc-t-stage')||!document.getElementById('kc-m-canvas')||document.querySelectorAll('#kc-tablet-projets .ticket').length!==6||document.querySelectorAll('#kc-mobile-projets .project').length!==6)return;
+  attached=true;
+  (()=>{ const viewport=document.querySelector('#kc-t-viewport'),stage=document.querySelector('#kc-t-stage');function fit(){const s=Math.min(window.innerWidth/610,2);stage.style.transform=`scale(${s})`;viewport.style.height=`${1896*s}px`;viewport.style.width='100%'}fit();addEventListener('resize',fit,{passive:true});const videos=[...document.querySelectorAll('#kc-tablet-projets video.motion')];const observer=new IntersectionObserver(entries=>{entries.forEach(({target:v,isIntersecting,intersectionRatio})=>{const t=v.closest('.ticket');if(isIntersecting&&intersectionRatio>=.4){if(!v.src){v.src=v.dataset.src;v.load()}v.play().catch(()=>{});t.classList.add('playing')}else{v.pause();t.classList.remove('playing')}})},{threshold:[0,.4,.7]});videos.forEach(v=>observer.observe(v));
+})();
+(()=>{ 
+const viewport=document.getElementById('kc-m-viewport'),canvas=document.getElementById('kc-m-canvas');function fit(){const s=window.innerWidth/393;canvas.style.transform=`scale(${s})`;viewport.style.height=`${3563*s}px`;}fit();window.addEventListener('resize',fit,{passive:true});
+const vids=Array.from(document.querySelectorAll('#kc-mobile-projets video.motion'));
+const observer=new IntersectionObserver(entries=>{for(const e of entries){const v=e.target;const ticket=v.closest('.project');if(e.isIntersecting&&e.intersectionRatio>=0.32){if(!v.src){v.src=v.dataset.src;v.load()}const p=v.play();if(p&&p.catch)p.catch(()=>{});ticket.classList.add('playing')}else{v.pause();ticket.classList.remove('playing')}}},{threshold:[0,.32,.6]});vids.forEach(v=>observer.observe(v));document.addEventListener('visibilitychange',()=>{if(document.hidden)vids.forEach(v=>v.pause());else vids.forEach(v=>{if(v.closest('.project').classList.contains('playing'))v.play().catch(()=>{})})});
+
+})();
+ }
+ const observer=new MutationObserver(()=>{attach();if(attached)observer.disconnect()});
+ observer.observe(document.documentElement,{childList:true,subtree:true});
+ attach();window.addEventListener('load',attach,{once:true});
+})();</script></body>
 </html>

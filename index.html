@@ -3573,6 +3573,25 @@ const startMotion=()=>{
   });
 };
 window.__kcStartTabletMotion=startMotion;
+// Safari can refuse automatic play until its first real user gesture.
+// Unlock all three muted loops from that gesture; afterward they run freely.
+// This does not respond to scrolling or hovering over individual tickets.
+const unlockTabletMotion=()=>{
+  const root=document.querySelector('#kc-tablet-projets');
+  if(!root||!root.getClientRects().length)return;
+  startMotion();
+};
+document.addEventListener('touchstart',unlockTabletMotion,{once:true,passive:true});
+document.addEventListener('pointerdown',unlockTabletMotion,{once:true,passive:true});
+videos.forEach(v=>{
+  v.addEventListener('ended',()=>{
+    // Only restart after the media truly ended; never seek mid-play.
+    if(!v.ended)return;
+    try{v.currentTime=0;}catch(e){}
+    const p=v.play();if(p&&p.catch)p.catch(()=>{});
+  });
+});
+
 // The diagnostic showed the videos fully loaded and several seconds into
 // playback, then PAUSED (no media error). Keep the three loops running if
 // another browser/page lifecycle action pauses them later.

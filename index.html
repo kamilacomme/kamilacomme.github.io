@@ -3516,7 +3516,33 @@ class Component extends DCLogic {
       projectTitle.style.fontSize=(48*ratio).toFixed(3)+'px';
     }
   }
-}window.__kcTabletProjectFit=fit;fit();const videos=[...document.querySelectorAll('#kc-tablet-projets video.motion')];const observer=new IntersectionObserver(entries=>{entries.forEach(({target:v,isIntersecting,intersectionRatio})=>{const t=v.closest('.ticket');if(isIntersecting&&intersectionRatio>=.4){if(!v.src){v.src=v.dataset.src;v.load()}v.play().catch(()=>{});t.classList.add('playing')}else{v.pause();t.classList.remove('playing')}})},{threshold:[0,.4,.7]});videos.forEach(v=>observer.observe(v));
+}window.__kcTabletProjectFit=fit;fit();const videos=[...document.querySelectorAll('#kc-tablet-projets video.motion')];
+const inView=new WeakMap();
+const activate=(v)=>{
+  if(document.hidden)return;
+  if(!v.getAttribute('src')&&v.dataset.src){v.src=v.dataset.src;v.load()}
+  const play=v.play();if(play&&play.catch)play.catch(()=>{});
+  v.closest('.ticket').classList.add('playing');
+};
+const deactivate=(v)=>{
+  v.pause();v.closest('.ticket').classList.remove('playing');
+};
+const observer=new IntersectionObserver(entries=>{
+  for(const entry of entries){
+    const v=entry.target,visible=entry.isIntersecting&&entry.intersectionRatio>=.32;
+    inView.set(v,visible);
+    if(visible)activate(v);else deactivate(v);
+  }
+},{threshold:[0,.32,.6]});
+videos.forEach(v=>{
+  observer.observe(v);
+  const ticket=v.closest('.ticket');
+  ticket.addEventListener('pointerenter',()=>activate(v));
+  ticket.addEventListener('pointerleave',()=>{if(!inView.get(v))deactivate(v)});
+});
+document.addEventListener('visibilitychange',()=>{
+  videos.forEach(v=>{if(document.hidden)deactivate(v);else if(inView.get(v))activate(v)});
+});
 })();
 (()=>{ 
 const viewport=document.getElementById('kc-m-viewport'),canvas=document.getElementById('kc-m-canvas');function fit(){const s=window.innerWidth/393;canvas.style.transform=`scale(${s})`;viewport.style.height=`${3563*s}px`;}fit();window.addEventListener('resize',fit,{passive:true});

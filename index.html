@@ -3527,6 +3527,8 @@ const observer=new IntersectionObserver(entries=>{
     const ticket=v.closest('.ticket');
     if(isIntersecting&&intersectionRatio>=.4){
       if(!v.getAttribute('src')){v.src=v.dataset.src;v.load();}
+      // Preserve the native continuous loop used by the working tablet draft.
+      v.loop=true;
       v.play().catch(()=>{});
       ticket.classList.add('playing');
     }else{

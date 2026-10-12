@@ -3572,6 +3572,16 @@ const startMotion=()=>{
     if(result&&result.catch)result.catch(()=>{});
   });
 };
+// Explicitly restart at the end: Safari can fire ended despite loop=true
+// after another playback controller has touched the element.
+videos.forEach(v=>{
+  v.loop=true;
+  v.setAttribute('loop','');
+  v.addEventListener('ended',()=>{
+    v.currentTime=0;
+    const p=v.play();if(p&&p.catch)p.catch(()=>{});
+  });
+});
 window.__kcStartTabletMotion=startMotion;
 // The diagnostic showed the videos fully loaded and several seconds into
 // playback, then PAUSED (no media error). Keep the three loops running if

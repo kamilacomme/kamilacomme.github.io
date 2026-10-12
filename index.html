@@ -72,6 +72,8 @@
 #kc-tablet-projets .info h2{font-size:30px}
 #kc-tablet-projets .info p{font-size:10.25px}
 #kc-tablet-projets .tags{font-size:9px}
+/* Preserve the original ticket content while letting the tablet stage follow the last card. */
+#kc-tablet-projets .stage{min-height:0}
 /* Active tablet portfolio: full-width 32px page grid, independent of the
    obsolete 610px-scaled ticket column. The entire ticket fills its row. */
 #kc-tablet-projets .stage{width:100%;transform:none!important}
@@ -3485,7 +3487,7 @@ class Component extends DCLogic {
   if(attached)return;
   if(!document.getElementById('kc-t-stage')||!document.getElementById('kc-m-canvas')||document.querySelectorAll('#kc-tablet-projets .ticket').length!==6||document.querySelectorAll('#kc-mobile-projets .project').length!==6)return;
   attached=true;
-  (()=>{ const viewport=document.querySelector('#kc-t-viewport'),stage=document.querySelector('#kc-t-stage');function fit(){stage.style.transform='none';stage.style.width='100%';viewport.style.width='100%';viewport.style.height=`${Math.max(1896,stage.scrollHeight)}px`}fit();addEventListener('resize',fit,{passive:true});const videos=[...document.querySelectorAll('#kc-tablet-projets video.motion')];const observer=new IntersectionObserver(entries=>{entries.forEach(({target:v,isIntersecting,intersectionRatio})=>{const t=v.closest('.ticket');if(isIntersecting&&intersectionRatio>=.4){if(!v.src){v.src=v.dataset.src;v.load()}v.play().catch(()=>{});t.classList.add('playing')}else{v.pause();t.classList.remove('playing')}})},{threshold:[0,.4,.7]});videos.forEach(v=>observer.observe(v));
+  (()=>{ const viewport=document.querySelector('#kc-t-viewport'),stage=document.querySelector('#kc-t-stage');function fit(){stage.style.transform='none';stage.style.width='100%';viewport.style.width='100%';const list=stage.querySelector('.tickets');const last=list&&list.lastElementChild;const bottom=list&&last ? list.offsetTop+last.offsetTop+last.offsetHeight+32 : 1896;const height=Math.max(1,Math.ceil(bottom));stage.style.height=`${height}px`;viewport.style.height=`${height}px`}fit();addEventListener('resize',fit,{passive:true});const videos=[...document.querySelectorAll('#kc-tablet-projets video.motion')];const observer=new IntersectionObserver(entries=>{entries.forEach(({target:v,isIntersecting,intersectionRatio})=>{const t=v.closest('.ticket');if(isIntersecting&&intersectionRatio>=.4){if(!v.src){v.src=v.dataset.src;v.load()}v.play().catch(()=>{});t.classList.add('playing')}else{v.pause();t.classList.remove('playing')}})},{threshold:[0,.4,.7]});videos.forEach(v=>observer.observe(v));
 })();
 (()=>{ 
 const viewport=document.getElementById('kc-m-viewport'),canvas=document.getElementById('kc-m-canvas');function fit(){const s=window.innerWidth/393;canvas.style.transform=`scale(${s})`;viewport.style.height=`${3563*s}px`;}fit();window.addEventListener('resize',fit,{passive:true});

@@ -3573,6 +3573,18 @@ const startMotion=()=>{
   });
 };
 window.__kcStartTabletMotion=startMotion;
+// The diagnostic showed the videos fully loaded and several seconds into
+// playback, then PAUSED (no media error). Keep the three loops running if
+// another browser/page lifecycle action pauses them later.
+setInterval(()=>{
+  const root=document.querySelector('#kc-tablet-projets');
+  if(!root||!root.getClientRects().length||document.hidden)return;
+  videos.forEach(v=>{
+    if(v.paused&&v.readyState>=2){
+      const result=v.play();if(result&&result.catch)result.catch(()=>{});
+    }
+  });
+},900);
 // Main layout calls this after the tablet root becomes visible. If this script
 // initializes later, perform the same check here; no scroll or hover events.
 if(document.querySelector('[ref]') || videos.length) {

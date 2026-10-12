@@ -77,7 +77,7 @@
 #kc-tablet-projets .stage{min-height:0;height:1655px}
 /* Active tablet portfolio: full-width 32px page grid, independent of the
    obsolete 610px-scaled ticket column. The entire ticket fills its row. */
-#kc-tablet-projets .stage{width:100%;transform:none!important}
+#kc-tablet-projets .stage{width:100%;transform-origin:top left!important}
 #kc-tablet-projets h1{left:32px;width:calc(100% - 64px)}
 #kc-tablet-projets .tickets{left:32px;width:calc(100% - 64px)}
 #kc-tablet-projets .ticket{width:100%;gap:clamp(14px,2.3vw,24px)}
@@ -1038,6 +1038,9 @@ class Component extends DCLogic {
       let st = Math.min(ST_MAX, window.innerWidth / 834, Math.max(0.62, this.vhNow() / 900));
       if (force !== "auto" && this.devW) st = Math.min(ST_MAX, this.devW / 834, Math.max(0.62, this.devH / 900));
       this.st = st;
+      // Shared tablet design-to-screen scale for the active portfolio block.
+      window.__kcTabletScale = st;
+      if (window.__kcTabletProjectFit) window.__kcTabletProjectFit();
       // the tablet stage height follows the window too, so the ticket is centred on the
       // SCREEN rather than inside a 1112 frame that may be taller than the viewport
       const tFrameH = Math.max(200, Math.round(this.vhNow() / st));
@@ -3488,7 +3491,7 @@ class Component extends DCLogic {
   if(attached)return;
   if(!document.getElementById('kc-t-stage')||!document.getElementById('kc-m-canvas')||document.querySelectorAll('#kc-tablet-projets .ticket').length!==6||document.querySelectorAll('#kc-mobile-projets .project').length!==6)return;
   attached=true;
-  (()=>{ const viewport=document.querySelector('#kc-t-viewport'),stage=document.querySelector('#kc-t-stage');function fit(){stage.style.transform='none';stage.style.width='100%';viewport.style.width='100%';stage.style.height='1655px';viewport.style.height='1655px'}fit();addEventListener('resize',fit,{passive:true});const videos=[...document.querySelectorAll('#kc-tablet-projets video.motion')];const observer=new IntersectionObserver(entries=>{entries.forEach(({target:v,isIntersecting,intersectionRatio})=>{const t=v.closest('.ticket');if(isIntersecting&&intersectionRatio>=.4){if(!v.src){v.src=v.dataset.src;v.load()}v.play().catch(()=>{});t.classList.add('playing')}else{v.pause();t.classList.remove('playing')}})},{threshold:[0,.4,.7]});videos.forEach(v=>observer.observe(v));
+  (()=>{ const viewport=document.querySelector('#kc-t-viewport'),stage=document.querySelector('#kc-t-stage');function fit(){const st=window.__kcTabletScale||Math.min(1,window.innerWidth/834,Math.max(.62,window.innerHeight/900));stage.style.width=(window.innerWidth/st)+'px';stage.style.transform='scale('+st+')';stage.style.height='1655px';viewport.style.width='100%';viewport.style.height=(1655*st)+'px'}window.__kcTabletProjectFit=fit;fit();addEventListener('resize',fit,{passive:true});const videos=[...document.querySelectorAll('#kc-tablet-projets video.motion')];const observer=new IntersectionObserver(entries=>{entries.forEach(({target:v,isIntersecting,intersectionRatio})=>{const t=v.closest('.ticket');if(isIntersecting&&intersectionRatio>=.4){if(!v.src){v.src=v.dataset.src;v.load()}v.play().catch(()=>{});t.classList.add('playing')}else{v.pause();t.classList.remove('playing')}})},{threshold:[0,.4,.7]});videos.forEach(v=>observer.observe(v));
 })();
 (()=>{ 
 const viewport=document.getElementById('kc-m-viewport'),canvas=document.getElementById('kc-m-canvas');function fit(){const s=window.innerWidth/393;canvas.style.transform=`scale(${s})`;viewport.style.height=`${3563*s}px`;}fit();window.addEventListener('resize',fit,{passive:true});

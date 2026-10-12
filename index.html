@@ -3534,87 +3534,38 @@ class Component extends DCLogic {
     }
   }
 }window.__kcTabletProjectFit=fit;fit();const videos=[...document.querySelectorAll('#kc-tablet-projets video.motion')];
-// Optional on-device diagnostics: only visible when ?tabletVideoDebug=1 is used.
-const motionDebug=new URLSearchParams(location.search).has('tabletVideoDebug');
-if(motionDebug){
-  const panel=document.createElement('div');
-  panel.style.cssText='position:fixed;right:8px;bottom:8px;z-index:2147483647;background:#171717;color:white;padding:12px;font:12px/1.5 monospace;max-width:92vw;box-shadow:0 2px 10px #0008;white-space:pre-wrap;pointer-events:auto';
-  const btn=document.createElement('button');btn.textContent='Test play';btn.style.cssText='display:block;margin-top:8px;background:#cae56c;color:#222;border:0;padding:8px;font:12px sans-serif';
-  const info=document.createElement('div');panel.append(info,btn);document.body.append(panel);
-  const refresh=()=>{
-    const rows=[...document.querySelectorAll('#kc-tablet-projets video.motion')].map((v,i)=>{
-      const t=v.closest('.ticket'),name=t?.querySelector('h2')?.textContent||i;
-      return name+': '+(v.paused?'PAUSED':'PLAYING')+' | ready '+v.readyState+' | t '+v.currentTime.toFixed(1)+' | '+(v.error?'ERR '+v.error.code:'no error')+' | '+(v._playError||'');
-    });
-    info.textContent='Tablet videos ('+rows.length+')\\n'+rows.join('\\n');
-    if(panel.isConnected)requestAnimationFrame(refresh);
-  };
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('#kc-tablet-projets video.motion').forEach(v=>{
-      const pr=v.play();if(pr?.catch)pr.catch(e=>{v._playError=e.name+': '+e.message});
-    });
-  });
-  refresh();
-}
-
+// Match the working mobile media model: native muted inline autoplay + loop.
+// Do not seek on 'ended', run recurring play() requests, or gate on scroll.
 const startMotion=()=>{
   videos.forEach(v=>{
-    v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;
+    v.muted=true;
+    v.defaultMuted=true;
     v.autoplay=true;
+    v.loop=true;
+    v.playsInline=true;
     v.setAttribute('muted','');
-    v.setAttribute('playsinline','');
     v.setAttribute('autoplay','');
-    v.setAttribute('preload','auto');
+    v.setAttribute('loop','');
+    v.setAttribute('playsinline','');
     if(!v.getAttribute('src')&&v.dataset.src)v.src=v.dataset.src;
     v.closest('.ticket').classList.add('playing');
-    if(v.readyState===0)v.load();
-    const result=v.play();
-    if(result&&result.catch)result.catch(()=>{});
+    const attempt=v.play();
+    if(attempt&&attempt.catch)attempt.catch(()=>{});
   });
 };
 window.__kcStartTabletMotion=startMotion;
-// Safari can refuse automatic play until its first real user gesture.
-// Unlock all three muted loops from that gesture; afterward they run freely.
-// This does not respond to scrolling or hovering over individual tickets.
-const unlockTabletMotion=()=>{
-  const root=document.querySelector('#kc-tablet-projets');
-  if(!root||!root.getClientRects().length)return;
-  startMotion();
-};
-document.addEventListener('touchstart',unlockTabletMotion,{once:true,passive:true});
-document.addEventListener('pointerdown',unlockTabletMotion,{once:true,passive:true});
-videos.forEach(v=>{
-  v.addEventListener('ended',()=>{
-    // Only restart after the media truly ended; never seek mid-play.
-    if(!v.ended)return;
-    try{v.currentTime=0;}catch(e){}
-    const p=v.play();if(p&&p.catch)p.catch(()=>{});
-  });
-});
-
-// The diagnostic showed the videos fully loaded and several seconds into
-// playback, then PAUSED (no media error). Keep the three loops running if
-// another browser/page lifecycle action pauses them later.
-setInterval(()=>{
-  const root=document.querySelector('#kc-tablet-projets');
-  if(!root||!root.getClientRects().length||document.hidden)return;
-  videos.forEach(v=>{
-    // Never seek while playing: that interrupted the clips near their end.
-    // Native loop handles normal repeats. Only recover if playback stopped.
-    if(v.paused&&v.readyState>=2){
-      if(v.ended){try{v.currentTime=0;}catch(e){}}
-      const result=v.play();if(result&&result.catch)result.catch(()=>{});
-    }
-  });
-},900);
-// Main layout calls this after the tablet root becomes visible. If this script
-// initializes later, perform the same check here; no scroll or hover events.
-if(document.querySelector('[ref]') || videos.length) {
-  const root=document.querySelector('#kc-tablet-projets');
-  if(root&&root.getClientRects().length){
-    requestAnimationFrame(startMotion);
-  }
-}
+// Run once when the tablet layout appears; the layout's existing hook calls
+// startMotion after it unhides the tablet root.
+const root=document.getElementById('kc-tablet-projets');
+if(root&&root.getClientRects().length)requestAnimationFrame(startMotion);
+// A user gesture also unlocks playback when Safari blocks muted autoplay.
+// There are no per-ticket hover or scroll controls.
+document.addEventListener('pointerdown',()=>{
+  if(root&&root.getClientRects().length)startMotion();
+},{once:true,passive:true});
+document.addEventListener('touchstart',()=>{
+  if(root&&root.getClientRects().length)startMotion();
+},{once:true,passive:true});
 })();
 (()=>{ 
 const viewport=document.getElementById('kc-m-viewport'),canvas=document.getElementById('kc-m-canvas');function fit(){const s=window.innerWidth/393;canvas.style.transform=`scale(${s})`;viewport.style.height=`${3563*s}px`;}fit();window.addEventListener('resize',fit,{passive:true});

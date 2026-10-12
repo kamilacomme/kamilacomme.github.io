@@ -1670,6 +1670,10 @@ class Component extends DCLogic {
       return r.bottom > -0.5 * vh && r.top < 1.5 * vh && r.right > -0.5 * vw && r.left < 1.5 * vw;
     } : null;
     this.root.querySelectorAll("video").forEach((v) => {
+      // The three active tablet portfolio clips have their own unconditional
+      // looping player; the general near-viewport manager must not pause,
+      // unload, or restart them (including while the tablet root is hidden).
+      if (v.matches("#kc-tablet-projets video.motion")) return;
       // the tiny About avatar clip is marked data-eager: it's small enough that starting
       // its download right away (instead of waiting for the section to scroll near) removes
       // the multi-second blank gap it otherwise leaves the first time that section is seen
@@ -3520,14 +3524,21 @@ class Component extends DCLogic {
 // The three authored motion tickets (Inside Out, Longread, Pilates) loop
 // continuously. No scroll observer, hover trigger, or playback gating.
 videos.forEach(v=>{
-  if(v.dataset.src&&!v.getAttribute('src')){v.src=v.dataset.src;v.load()}
   v.autoplay=true;
   v.muted=true;
+  v.defaultMuted=true;
   v.loop=true;
   v.playsInline=true;
+  v.setAttribute('autoplay','');
+  v.setAttribute('muted','');
+  v.setAttribute('playsinline','');
+  if(v.dataset.src&&!v.getAttribute('src'))v.src=v.dataset.src;
+  const play=()=>{const p=v.play();if(p&&p.catch)p.catch(()=>{});};
+  v.addEventListener('loadeddata',play);
+  v.addEventListener('canplay',play);
   v.closest('.ticket').classList.add('playing');
-  const play=v.play();
-  if(play&&play.catch)play.catch(()=>{});
+  v.load();
+  play();
 });
 })();
 (()=>{ 

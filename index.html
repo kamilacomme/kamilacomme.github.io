@@ -3538,6 +3538,22 @@ const observer=new IntersectionObserver(entries=>{
   });
 },{threshold:[0,.4,.7]});
 videos.forEach(v=>observer.observe(v));
+// The standalone draft starts on visibility. In the integrated page, iPad
+// Safari sometimes blocks that programmatic play; the diagnostic Test play
+// confirmed the exact same media starts on a direct touch action.
+const playOnFirstTouch=()=>{
+  if(!document.querySelector('#kc-tablet-projets')?.getClientRects().length)return;
+  videos.forEach(v=>{
+    if(!v.getAttribute('src')&&v.dataset.src){v.src=v.dataset.src;v.load();}
+    v.muted=true;v.loop=true;v.playsInline=true;
+    const p=v.play();if(p&&p.catch)p.catch(()=>{});
+    v.closest('.ticket').classList.add('playing');
+  });
+  document.removeEventListener('touchstart',playOnFirstTouch,true);
+  document.removeEventListener('pointerdown',playOnFirstTouch,true);
+};
+document.addEventListener('touchstart',playOnFirstTouch,{capture:true,passive:true});
+document.addEventListener('pointerdown',playOnFirstTouch,{capture:true,passive:true});
 })();
 (()=>{ 
 const viewport=document.getElementById('kc-m-viewport'),canvas=document.getElementById('kc-m-canvas');function fit(){const s=window.innerWidth/393;canvas.style.transform=`scale(${s})`;viewport.style.height=`${3563*s}px`;}fit();window.addEventListener('resize',fit,{passive:true});

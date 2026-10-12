@@ -102,13 +102,14 @@
 #kc-mobile-projets h1 em{font-style:italic!important;font-weight:400}
 
 
-/* Mobile About: normal scrolling layout; desktop/tablet remain unchanged. */
+/* Mobile About: native scroll, original square card proportions and side gutters. */
 @media (max-width: 499px) {
-  #apropos-m { height: auto !important; min-height: 0 !important; padding: 0 16px 64px !important; }
-  #apropos-m > div { position: relative !important; top: auto !important; height: auto !important; overflow: visible !important; }
-  #apropos-m > div > div { position: relative !important; left: auto !important; top: auto !important; width: 100% !important; height: auto !important; overflow: visible !important; transform: none !important; display: flex !important; flex-direction: column; gap: 16px; }
-  #apropos-m > div > div > div:first-child { position: relative !important; left: auto !important; top: auto !important; width: 100% !important; transform: none !important; padding-top: 120px; padding-bottom: 24px; box-sizing: border-box; }
-  #apropos-m > div > div > div[data-i] { position: relative !important; left: auto !important; top: auto !important; width: 100% !important; height: 220px !important; transform: none !important; flex-shrink: 0; }
+  #apropos-m { height: auto !important; min-height: 0 !important; margin: 0 !important; padding: 0 16px 64px !important; background: #fff !important; overflow: visible !important; }
+  #apropos-m > div { position: relative !important; inset: auto !important; width: 100% !important; height: auto !important; margin: 0 !important; overflow: visible !important; background: #fff !important; }
+  #apropos-m > div > div { position: relative !important; inset: auto !important; left: auto !important; top: auto !important; width: 100% !important; height: auto !important; margin: 0 !important; transform: none !important; overflow: visible !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 16px !important; box-sizing: border-box; }
+  #apropos-m > div > div > div:first-child { position: relative !important; inset: auto !important; left: auto !important; top: auto !important; width: 100% !important; margin: 0 0 16px !important; padding: 0 !important; transform: none !important; align-self: stretch !important; box-sizing: border-box; }
+  #apropos-m > div > div > div[data-i] { position: relative !important; inset: auto !important; left: auto !important; top: auto !important; width: 100% !important; max-width: 358px !important; height: auto !important; aspect-ratio: 1 / 1 !important; margin: 0 !important; padding: 24px !important; transform: none !important; flex: none !important; box-sizing: border-box !important; }
+  #apropos-m > div > div > div[style*="pointer-events: none"] { display: none !important; }
 }
 </style></head>
 <body>

@@ -1160,7 +1160,7 @@ class Component extends DCLogic {
         // "Me recruter" is body copy, not a label, so it follows the layout's body size:
         // 16 on the tablet (where descriptions are 16), 14 on the phone
         const cta = this.nav.querySelector("a[href^='mailto'] > span");
-        if (cta) cta.style.fontSize = "12px";
+        if (cta) cta.style.fontSize = tablet ? "12px" : "14px";
       }
       // the scrim has to ride the phone frame too, otherwise the white wordmark sits
       // on bare photo and disappears over the light project shots

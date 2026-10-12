@@ -929,6 +929,17 @@ class Component extends DCLogic {
       }
       if (this.tHero) this.tHero.style.display = tablet ? "block" : "none";
       if (this.tRoot) this.tRoot.style.display = tablet ? "block" : "none";
+      // Begin tablet motion only once the actual tablet DOM is unhidden.
+      // A muted play() request while display:none is unreliable on iPad Safari.
+      if (tablet && this.tRoot && !this._tabletMotionStarted) {
+        this._tabletMotionStarted = true;
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (window.__kcStartTabletMotion) window.__kcStartTabletMotion();
+          });
+        });
+      }
+
       if (this.mHero) this.mHero.style.display = mobile ? "block" : "none";
       if (this.mRoot) this.mRoot.style.display = mobile ? "block" : "none";
       // no floor here: short phone viewports (browser chrome eats ~200px) must still
@@ -3523,32 +3534,29 @@ class Component extends DCLogic {
     }
   }
 }window.__kcTabletProjectFit=fit;fit();const videos=[...document.querySelectorAll('#kc-tablet-projets video.motion')];
-// Permanent muted loops. Safari can decline autoplay while tRoot is display:none
-// on initial hydration; retry on first visible render and on a user gesture.
-// Visibility is used ONLY to start the video, never to pause or gate animation.
-const startMotion=(v)=>{
-  if(!v.src&&v.dataset.src)v.src=v.dataset.src;
-  v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;
-  v.setAttribute('muted','');v.setAttribute('playsinline','');v.setAttribute('autoplay','');
-  const promise=v.play();
-  if(promise&&promise.catch)promise.catch(()=>{});
+const startMotion=()=>{
+  videos.forEach(v=>{
+    v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;
+    v.autoplay=true;
+    v.setAttribute('muted','');
+    v.setAttribute('playsinline','');
+    v.setAttribute('autoplay','');
+    v.setAttribute('preload','auto');
+    if(!v.getAttribute('src')&&v.dataset.src)v.src=v.dataset.src;
+    v.closest('.ticket').classList.add('playing');
+    if(v.readyState===0)v.load();
+    const result=v.play();
+    if(result&&result.catch)result.catch(()=>{});
+  });
 };
-videos.forEach(v=>{
-  const ticket=v.closest('.ticket');
-  ticket.classList.add('playing');
-  v.addEventListener('canplay',()=>startMotion(v));
-  v.addEventListener('loadeddata',()=>startMotion(v));
-  startMotion(v);
-});
-const startWhenVisible=new IntersectionObserver(entries=>{
-  for(const e of entries)if(e.isIntersecting){
-    startMotion(e.target);
-    startWhenVisible.unobserve(e.target);
+window.__kcStartTabletMotion=startMotion;
+// Main layout calls this after the tablet root becomes visible. If this script
+// initializes later, perform the same check here; no scroll or hover events.
+if(document.querySelector('[ref]') || videos.length) {
+  const root=document.querySelector('#kc-tablet-projets');
+  if(root&&root.getClientRects().length){
+    requestAnimationFrame(startMotion);
   }
-},{threshold:0});
-videos.forEach(v=>startWhenVisible.observe(v));
-for(const evt of ['touchstart','pointerdown']){
-  document.addEventListener(evt,()=>videos.forEach(startMotion),{once:true,passive:true});
 }
 })();
 (()=>{ 

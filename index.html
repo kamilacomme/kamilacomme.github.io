@@ -2255,25 +2255,31 @@ class Component extends DCLogic {
   }
   layoutTablet(fh) {
     const land = this.isLand();
-    if (this._tLand !== land) {
-      this._tLand = land;
-      (this.tTickets || []).forEach((el) => {
-        if (!el) return;
-        const media = el.querySelector("[data-tmedia]");
-        const text = el.querySelector("[data-ttext]");
-        if (!media || !text) return;
-        // landscape: the approved composition — the same narrow card as the desktop deck
-        // (media on top, name, description, tags, barcode), several of them in a row
-        el.style.width = "323px";
-        el.style.flexDirection = "column";
-        el.style.gap = "24px";
-        el.style.padding = "24px";
-        media.style.width = "275px";
-        media.style.height = "157px";
-        text.style.width = "275px";
-        el._st = {};
-      });
-    }
+    // One tablet scale (this.st) serves Hero, Projects and About. Ticket
+    // geometry lives in the same unscaled frame units: do not scale twice.
+    const fw = this.tFrameW || 834;
+    const usable = Math.max(240, fw - 64);
+    // Portrait presents a substantial single card; landscape leaves part of
+    // the next card visible so the horizontal swipe interaction stays obvious.
+    const w = Math.round(Math.min(usable, usable * (land ? 0.56 : 0.74)));
+    const inner = w - 48; // approved 24px padding on both sides
+    const mediaHeight = Math.round(inner * 157 / 275);
+    this._tLand = land;
+    (this.tTickets || []).forEach((el) => {
+      if (!el) return;
+      const media = el.querySelector("[data-tmedia]");
+      const text = el.querySelector("[data-ttext]");
+      el.style.width = w + "px";
+      el.style.flexDirection = "column";
+      el.style.gap = "24px";
+      el.style.padding = "24px";
+      if (media) {
+        media.style.width = inner + "px";
+        media.style.height = mediaHeight + "px";
+      }
+      if (text) text.style.width = inner + "px";
+      el._st = {};
+    });
     if (this.tWordmark) {
       const w = this.tWordmark.style;
       if (land) {
@@ -2325,12 +2331,10 @@ class Component extends DCLogic {
     }
     // centring is layout-driven (top 50% + a -50% in the transform showTicket writes), so
     // it never depends on measuring a height mid-reflow
-    const w = 323;
     // the rail centres each ticket in the FRAME, whose width follows the window — so the
     // deck reads centred on an iPad in either orientation
-    const fw = this.tFrameW || 834;
     this._tTicketW = w;
-    this._tSpacing = 356;
+    this._tSpacing = w + 24;
     this._tLandNow = land;
     // landscape: the deck STARTS on the grid — the first ticket's left edge lines up with the
     // K of the wordmark in the navbar, like every other block

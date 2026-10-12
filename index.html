@@ -3517,31 +3517,17 @@ class Component extends DCLogic {
     }
   }
 }window.__kcTabletProjectFit=fit;fit();const videos=[...document.querySelectorAll('#kc-tablet-projets video.motion')];
-const inView=new WeakMap();
-const activate=(v)=>{
-  if(document.hidden)return;
-  if(!v.getAttribute('src')&&v.dataset.src){v.src=v.dataset.src;v.load()}
-  const play=v.play();if(play&&play.catch)play.catch(()=>{});
-  v.closest('.ticket').classList.add('playing');
-};
-const deactivate=(v)=>{
-  v.pause();v.closest('.ticket').classList.remove('playing');
-};
-const observer=new IntersectionObserver(entries=>{
-  for(const entry of entries){
-    const v=entry.target,visible=entry.isIntersecting&&entry.intersectionRatio>=.32;
-    inView.set(v,visible);
-    if(visible)activate(v);else deactivate(v);
-  }
-},{threshold:[0,.32,.6]});
+// The three authored motion tickets (Inside Out, Longread, Pilates) loop
+// continuously. No scroll observer, hover trigger, or playback gating.
 videos.forEach(v=>{
-  observer.observe(v);
-  const ticket=v.closest('.ticket');
-  ticket.addEventListener('pointerenter',()=>activate(v));
-  ticket.addEventListener('pointerleave',()=>{if(!inView.get(v))deactivate(v)});
-});
-document.addEventListener('visibilitychange',()=>{
-  videos.forEach(v=>{if(document.hidden)deactivate(v);else if(inView.get(v))activate(v)});
+  if(v.dataset.src&&!v.getAttribute('src')){v.src=v.dataset.src;v.load()}
+  v.autoplay=true;
+  v.muted=true;
+  v.loop=true;
+  v.playsInline=true;
+  v.closest('.ticket').classList.add('playing');
+  const play=v.play();
+  if(play&&play.catch)play.catch(()=>{});
 });
 })();
 (()=>{ 

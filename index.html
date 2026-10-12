@@ -3534,6 +3534,29 @@ class Component extends DCLogic {
     }
   }
 }window.__kcTabletProjectFit=fit;fit();const videos=[...document.querySelectorAll('#kc-tablet-projets video.motion')];
+// Optional on-device diagnostics: only visible when ?tabletVideoDebug=1 is used.
+const motionDebug=new URLSearchParams(location.search).has('tabletVideoDebug');
+if(motionDebug){
+  const panel=document.createElement('div');
+  panel.style.cssText='position:fixed;right:8px;bottom:8px;z-index:2147483647;background:#171717;color:white;padding:12px;font:12px/1.5 monospace;max-width:92vw;box-shadow:0 2px 10px #0008;white-space:pre-wrap;pointer-events:auto';
+  const btn=document.createElement('button');btn.textContent='Test play';btn.style.cssText='display:block;margin-top:8px;background:#cae56c;color:#222;border:0;padding:8px;font:12px sans-serif';
+  const info=document.createElement('div');panel.append(info,btn);document.body.append(panel);
+  const refresh=()=>{
+    const rows=[...document.querySelectorAll('#kc-tablet-projets video.motion')].map((v,i)=>{
+      const t=v.closest('.ticket'),name=t?.querySelector('h2')?.textContent||i;
+      return name+': '+(v.paused?'PAUSED':'PLAYING')+' | ready '+v.readyState+' | t '+v.currentTime.toFixed(1)+' | '+(v.error?'ERR '+v.error.code:'no error')+' | '+(v._playError||'');
+    });
+    info.textContent='Tablet videos ('+rows.length+')\\n'+rows.join('\\n');
+    if(panel.isConnected)requestAnimationFrame(refresh);
+  };
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#kc-tablet-projets video.motion').forEach(v=>{
+      const pr=v.play();if(pr?.catch)pr.catch(e=>{v._playError=e.name+': '+e.message});
+    });
+  });
+  refresh();
+}
+
 const startMotion=()=>{
   videos.forEach(v=>{
     v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;

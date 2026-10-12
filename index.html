@@ -3580,15 +3580,11 @@ setInterval(()=>{
   const root=document.querySelector('#kc-tablet-projets');
   if(!root||!root.getClientRects().length||document.hidden)return;
   videos.forEach(v=>{
-    if(v.readyState>=2){
-      // A finished clip can stay paused at its last frame on Safari:
-      // seeking to zero before the existing resume call restarts the loop.
-      if(v.ended || (Number.isFinite(v.duration)&&v.duration>0&&v.currentTime>=v.duration-.08)){
-        try{v.currentTime=0;}catch(e){}
-      }
-      if(v.paused){
-        const result=v.play();if(result&&result.catch)result.catch(()=>{});
-      }
+    // Never seek while playing: that interrupted the clips near their end.
+    // Native loop handles normal repeats. Only recover if playback stopped.
+    if(v.paused&&v.readyState>=2){
+      if(v.ended){try{v.currentTime=0;}catch(e){}}
+      const result=v.play();if(result&&result.catch)result.catch(()=>{});
     }
   });
 },900);

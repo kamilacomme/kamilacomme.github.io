@@ -3572,16 +3572,6 @@ const startMotion=()=>{
     if(result&&result.catch)result.catch(()=>{});
   });
 };
-// Explicitly restart at the end: Safari can fire ended despite loop=true
-// after another playback controller has touched the element.
-videos.forEach(v=>{
-  v.loop=true;
-  v.setAttribute('loop','');
-  v.addEventListener('ended',()=>{
-    v.currentTime=0;
-    const p=v.play();if(p&&p.catch)p.catch(()=>{});
-  });
-});
 window.__kcStartTabletMotion=startMotion;
 // The diagnostic showed the videos fully loaded and several seconds into
 // playback, then PAUSED (no media error). Keep the three loops running if
@@ -3590,8 +3580,15 @@ setInterval(()=>{
   const root=document.querySelector('#kc-tablet-projets');
   if(!root||!root.getClientRects().length||document.hidden)return;
   videos.forEach(v=>{
-    if(v.paused&&v.readyState>=2){
-      const result=v.play();if(result&&result.catch)result.catch(()=>{});
+    if(v.readyState>=2){
+      // A finished clip can stay paused at its last frame on Safari:
+      // seeking to zero before the existing resume call restarts the loop.
+      if(v.ended || (Number.isFinite(v.duration)&&v.duration>0&&v.currentTime>=v.duration-.08)){
+        try{v.currentTime=0;}catch(e){}
+      }
+      if(v.paused){
+        const result=v.play();if(result&&result.catch)result.catch(()=>{});
+      }
     }
   });
 },900);

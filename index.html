@@ -101,6 +101,15 @@
 
 #kc-mobile-projets h1 em{font-style:italic!important;font-weight:400}
 
+
+/* Mobile About: normal scrolling layout; desktop/tablet remain unchanged. */
+@media (max-width: 499px) {
+  #apropos-m { height: auto !important; min-height: 0 !important; padding: 0 16px 64px !important; }
+  #apropos-m > div { position: relative !important; top: auto !important; height: auto !important; overflow: visible !important; }
+  #apropos-m > div > div { position: relative !important; left: auto !important; top: auto !important; width: 100% !important; height: auto !important; overflow: visible !important; transform: none !important; display: flex !important; flex-direction: column; gap: 16px; }
+  #apropos-m > div > div > div:first-child { position: relative !important; left: auto !important; top: auto !important; width: 100% !important; transform: none !important; padding-top: 120px; padding-bottom: 24px; box-sizing: border-box; }
+  #apropos-m > div > div > div[data-i] { position: relative !important; left: auto !important; top: auto !important; width: 100% !important; height: 220px !important; transform: none !important; flex-shrink: 0; }
+}
 </style></head>
 <body>
 <x-dc>

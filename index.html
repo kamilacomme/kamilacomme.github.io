@@ -3580,7 +3580,7 @@ document.addEventListener('touchstart',playOnFirstTouch,{capture:true,passive:tr
 document.addEventListener('pointerdown',playOnFirstTouch,{capture:true,passive:true});
 })();
 (()=>{ 
-const viewport=document.getElementById('kc-m-viewport'),canvas=document.getElementById('kc-m-canvas');function fit(){const w=document.documentElement.clientWidth||window.innerWidth;const s=w/393;viewport.style.width=`${w}px`;canvas.style.transform=`scale(${s})`;viewport.style.height=`${3589*s}px`;}fit();window.addEventListener('resize',fit,{passive:true});
+// Mobile Projects geometry is managed by the independent layout observer below.
 const vids=Array.from(document.querySelectorAll('#kc-mobile-projets video.motion'));
 const observer=new IntersectionObserver(entries=>{for(const e of entries){const v=e.target;const ticket=v.closest('.project');if(e.isIntersecting&&e.intersectionRatio>=0.32){if(!v.src){v.src=v.dataset.src;v.load()}const p=v.play();if(p&&p.catch)p.catch(()=>{});ticket.classList.add('playing')}else{v.pause();ticket.classList.remove('playing')}}},{threshold:[0,.32,.6]});vids.forEach(v=>observer.observe(v));document.addEventListener('visibilitychange',()=>{if(document.hidden)vids.forEach(v=>v.pause());else vids.forEach(v=>{if(v.closest('.project').classList.contains('playing'))v.play().catch(()=>{})})});
 
@@ -3590,23 +3590,37 @@ const observer=new IntersectionObserver(entries=>{for(const e of entries){const 
  observer.observe(document.documentElement,{childList:true,subtree:true});
  attach();window.addEventListener('load',attach,{once:true});
 })();</script><script>
-/* Independent mobile Projects sizing: runs after the DOM, not inside the component attach callback. */
+/* Apply the 393px Figma canvas scaling whenever the rendered component is mounted or resized. */
 (function () {
+  let observedViewport = null;
+  let resizeObserver = null;
   function fitMobileProjects() {
     const viewport = document.getElementById('kc-m-viewport');
     const canvas = document.getElementById('kc-m-canvas');
     if (!viewport || !canvas) return;
-    const screenWidth = document.documentElement.clientWidth || window.innerWidth;
-    const scale = screenWidth / 393;
-    viewport.style.width = screenWidth + 'px';
+    const width = document.documentElement.clientWidth || window.innerWidth;
+    const scale = width / 393;
+    viewport.style.width = width + 'px';
     viewport.style.height = (3589 * scale) + 'px';
     canvas.style.transformOrigin = 'top left';
     canvas.style.transform = 'scale(' + scale + ')';
+    if (viewport !== observedViewport) {
+      if (resizeObserver) resizeObserver.disconnect();
+      observedViewport = viewport;
+      if (typeof ResizeObserver !== 'undefined') {
+        resizeObserver = new ResizeObserver(fitMobileProjects);
+        resizeObserver.observe(document.documentElement);
+      }
+    }
   }
+  const mountObserver = new MutationObserver(function () {
+    if (document.getElementById('kc-m-canvas') !== observedViewport?.querySelector('#kc-m-canvas')) fitMobileProjects();
+  });
+  mountObserver.observe(document.documentElement, {childList:true,subtree:true});
+  document.addEventListener('DOMContentLoaded',fitMobileProjects,{once:true});
+  window.addEventListener('resize',fitMobileProjects,{passive:true});
+  window.addEventListener('pageshow',fitMobileProjects);
   fitMobileProjects();
-  window.addEventListener('resize', fitMobileProjects, { passive: true });
-  window.addEventListener('pageshow', fitMobileProjects);
-  document.addEventListener('DOMContentLoaded', fitMobileProjects, { once: true });
 })();
 </script>
 </body>

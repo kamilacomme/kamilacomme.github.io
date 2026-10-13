@@ -113,6 +113,12 @@
 @media (max-width: 499px) {
   #kc-mobile-projets .project .barcode { width: 100%; max-width: 100%; }
 }
+/* Mobile typography hierarchy: H1 32 / H2 24 / body 14 / labels 11. */
+@media (max-width: 499px) {
+  #apropos-m > div > div > div:first-child > p { font-size: 32px !important; line-height: 1.1 !important; letter-spacing: -0.03em !important; }
+  #apropos-m > div > div > div[data-i] > span:first-child { font-size: 24px !important; font-weight: 700 !important; line-height: 1.1 !important; letter-spacing: -0.03em !important; }
+  #apropos-m > div > div > div[data-i] > span:last-child { font-size: 14px !important; font-weight: 400 !important; line-height: 1.5 !important; letter-spacing: -0.01em !important; }
+}
 /* Mobile About: native scroll, original square card proportions and side gutters. */
 @media (max-width: 499px) {
   #apropos-m { height: auto !important; min-height: 0 !important; margin: 0 !important; padding: 0 16px 64px !important; background: #fff !important; overflow: visible !important; }
@@ -236,7 +242,7 @@
     </div>
     <h1 style="position: absolute; left: 16px; top: 152px; width: 358px; margin: 0; font-family: 'Figtree', sans-serif; font-size: 32px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(255,255,255);"><span style="display: block; font-weight: 700; font-style: normal; white-space: nowrap; margin-left: -1.7px;">Hello, je suis Kamila,</span><span style="display: block; font-weight: 400; font-style: italic; white-space: nowrap; margin-left: -0.9px;">Brand &amp; Digital designer.</span></h1>
     <div style="position: absolute; left: 16px; top: 88px; width: 48px; height: 48px; border-radius: 4px; overflow: hidden; background: url(assets/portrait.webp) center / cover no-repeat;"></div>
-    <span style="position: absolute; left: 16px; bottom: 24px; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); text-transform: uppercase;">Scroll down ↓</span>
+    <span style="position: absolute; left: 16px; bottom: 24px; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 11px; line-height: 1; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); text-transform: uppercase;">Scroll down ↓</span>
     <div ref="{{ mGridRef }}" style="position: absolute; inset: 0; z-index: 60; pointer-events: none; display: none; box-sizing: border-box; padding: 0 16px; flex-direction: row; gap: 16px;"><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div></div>
   </div>
   <div ref="{{ tHeroRef }}" style="position: absolute; left: 50%; top: 50%; width: 834px; height: 1112px; transform-origin: center; transform: translate(-50%,-50%);">
@@ -1427,7 +1433,7 @@ class Component extends DCLogic {
         if (cr) cr.style.display = "none";
         const row = legal.querySelector(":scope > div");
         if (row) { row.style.flex = "0 0 auto"; row.style.flexDirection = "row"; row.style.justifyContent = "flex-start"; row.style.alignItems = "flex-end"; row.style.gap = px(16); }
-        legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = Math.max(11, 12 * sc).toFixed(1) + "px"; });
+        legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = px(11); });
       }
       if (info) {
         Object.assign(info.style, { left: L, right: "auto", top: "auto",

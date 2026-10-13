@@ -3580,7 +3580,7 @@ document.addEventListener('touchstart',playOnFirstTouch,{capture:true,passive:tr
 document.addEventListener('pointerdown',playOnFirstTouch,{capture:true,passive:true});
 })();
 (()=>{ 
-const viewport=document.getElementById('kc-m-viewport'),canvas=document.getElementById('kc-m-canvas');function fit(){const w=viewport.clientWidth||document.documentElement.clientWidth;const s=w/393;canvas.style.transform=`scale(${s})`;viewport.style.height=`${3589*s}px`;}fit();window.addEventListener('resize',fit,{passive:true});
+const viewport=document.getElementById('kc-m-viewport'),canvas=document.getElementById('kc-m-canvas');function fit(){const w=document.documentElement.clientWidth||window.innerWidth;const s=w/393;viewport.style.width=`${w}px`;canvas.style.transform=`scale(${s})`;viewport.style.height=`${3589*s}px`;}fit();window.addEventListener('resize',fit,{passive:true});
 const vids=Array.from(document.querySelectorAll('#kc-mobile-projets video.motion'));
 const observer=new IntersectionObserver(entries=>{for(const e of entries){const v=e.target;const ticket=v.closest('.project');if(e.isIntersecting&&e.intersectionRatio>=0.32){if(!v.src){v.src=v.dataset.src;v.load()}const p=v.play();if(p&&p.catch)p.catch(()=>{});ticket.classList.add('playing')}else{v.pause();ticket.classList.remove('playing')}}},{threshold:[0,.32,.6]});vids.forEach(v=>observer.observe(v));document.addEventListener('visibilitychange',()=>{if(document.hidden)vids.forEach(v=>v.pause());else vids.forEach(v=>{if(v.closest('.project').classList.contains('playing'))v.play().catch(()=>{})})});
 

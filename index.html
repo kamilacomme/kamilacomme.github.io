@@ -102,6 +102,13 @@
 #kc-mobile-projets h1 em{font-style:italic!important;font-weight:400}
 
 
+/* Prevent iOS Safari from panning outside the mobile page while keeping vertical scrolling. */
+@media (max-width: 499px) {
+  html { width: 100%; max-width: 100%; overflow-x: clip !important; }
+  body { width: 100%; max-width: 100%; overflow-x: clip !important; }
+  x-dc { display: block; width: 100%; max-width: 100%; overflow-x: clip; }
+  #kc-mobile-root, #kc-mobile-projets, #projets-m, #apropos-m { max-width: 100%; }
+}
 /* Mobile About: native scroll, original square card proportions and side gutters. */
 @media (max-width: 499px) {
   #apropos-m { height: auto !important; min-height: 0 !important; margin: 0 !important; padding: 0 16px 64px !important; background: #fff !important; overflow: visible !important; }

@@ -3615,5 +3615,25 @@ if (new URLSearchParams(location.search).get('kc_debug') === '1') {
   measure();window.addEventListener('resize',measure);
   window.addEventListener('scroll',measure,{passive:true});
 }
-</script></body>
+</script><script>
+/* Independent mobile Projects sizing: runs after the DOM, not inside the component attach callback. */
+(function () {
+  function fitMobileProjects() {
+    const viewport = document.getElementById('kc-m-viewport');
+    const canvas = document.getElementById('kc-m-canvas');
+    if (!viewport || !canvas) return;
+    const screenWidth = document.documentElement.clientWidth || window.innerWidth;
+    const scale = screenWidth / 393;
+    viewport.style.width = screenWidth + 'px';
+    viewport.style.height = (3589 * scale) + 'px';
+    canvas.style.transformOrigin = 'top left';
+    canvas.style.transform = 'scale(' + scale + ')';
+  }
+  fitMobileProjects();
+  window.addEventListener('resize', fitMobileProjects, { passive: true });
+  window.addEventListener('pageshow', fitMobileProjects);
+  document.addEventListener('DOMContentLoaded', fitMobileProjects, { once: true });
+})();
+</script>
+</body>
 </html>

@@ -3589,5 +3589,31 @@ const observer=new IntersectionObserver(entries=>{for(const e of entries){const 
  const observer=new MutationObserver(()=>{attach();if(attached)observer.disconnect()});
  observer.observe(document.documentElement,{childList:true,subtree:true});
  attach();window.addEventListener('load',attach,{once:true});
-})();</script></body>
+})();</script><script>
+/* Optional, read-only mobile geometry diagnostics; enabled with ?kc_debug=1. */
+if (new URLSearchParams(location.search).get('kc_debug') === '1') {
+  const pane = document.createElement('pre');
+  pane.setAttribute('aria-label','Mobile layout measurements');
+  Object.assign(pane.style,{position:'fixed',left:'6px',right:'6px',bottom:'8px',zIndex:'99999',background:'rgba(0,0,0,.92)',color:'#fff',padding:'9px',font:'11px/1.35 monospace',whiteSpace:'pre-wrap',maxHeight:'36vh',overflow:'auto',pointerEvents:'none',borderRadius:'5px'});
+  document.body.appendChild(pane);
+  const rect = el => { if(!el)return null; const r=el.getBoundingClientRect();return [r.left,r.right,r.width].map(n=>Math.round(n*10)/10); };
+  function measure() {
+    const $=s=>document.querySelector(s);
+    const canvas=$('#kc-m-canvas'),vp=$('#kc-m-viewport');
+    const inside=$('[aria-label="Voir le projet Inside out"]');
+    const tour=$('[aria-label="Voir le projet Tour de parole"]');
+    const fig=rect(inside),full=rect(tour),width=window.innerWidth;
+    pane.textContent='screen: '+width+' / doc: '+document.documentElement.clientWidth+
+     '\\nviewport L/R/W: '+JSON.stringify(rect(vp))+
+     '\\ncanvas L/R/W: '+JSON.stringify(rect(canvas))+
+     '\\ncanvas transform: '+(canvas?getComputedStyle(canvas).transform:'none')+
+     '\\nInside out L/R/W: '+JSON.stringify(fig)+
+     '\\nInside right gap: '+(fig?Math.round((width-fig[1])*10)/10:'?')+
+     '\\nTour L/R/W: '+JSON.stringify(full)+
+     '\\nTour right gap: '+(full?Math.round((width-full[1])*10)/10:'?');
+  }
+  measure();window.addEventListener('resize',measure);
+  window.addEventListener('scroll',measure,{passive:true});
+}
+</script></body>
 </html>

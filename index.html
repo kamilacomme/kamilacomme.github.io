@@ -928,58 +928,13 @@ class Component extends DCLogic {
         // the hero frame follows the window height too, so its bottom cluster (portrait +
         // scroll cue) rides the window edge instead of a fixed 1112 frame that can overflow
         [this.tPStage, this.tAStage, this.tHero].forEach((el) => { if (el) el.style.height = tFrameH + "px"; });
-        this.layoutTablet(tFrameH);
-        // the About grid is sized off the frame, so re-run it whenever the frame changes
+        // Active tablet layout and About frame.
         try { this.renderAbout(); } catch (e) {}
         this.fitProjLabels(st, force);
         this.showTGrid(st, force);
         [this.tHero, this.tPStage, this.tAStage].forEach((el) => {
           if (el) el.style.transform = "translate(-50%,-50%) scale(" + st + ")";
         });
-        // landscape anchors the word on the left grid margin, so it must not be re-centred
-        if (this.tWordmark) this.tWordmark.style.transform = this.isLand()
-          ? "none" : "translateX(-50%) scale(" + st + ")";
-        this.equalize(this.tTickets);
-        let th = 0;
-        (this.tTickets || []).forEach((el) => { if (el) th = Math.max(th, el.offsetHeight); });
-        // the +96 drops the deck below the wordmark, but never so far that the ticket runs
-        // past the frame — a short landscape window clamps it back to the top margin
-        // landscape centres the deck in the frame (the word lives on the bottom edge behind
-        // it); portrait keeps the 96 drop under the two-line title
-        const room = Math.max(24, tFrameH - th - 24);
-        let tt;
-        if (this.isLand()) {
-          // landscape lifts the deck off centre into the room above it
-          tt = Math.max(24, Math.min(Math.round((tFrameH - th) / 2) - 30, room)) + "px";
-        } else {
-          // portrait spreads the free height evenly: word above, FAIRE GLISSER / 01-06 below
-          const top = (this._wmBottom || 0) / st;
-          const bottom = tFrameH - 60;
-          tt = Math.max(24, Math.min(Math.round(top + (bottom - top - th) / 2), room)) + "px";
-        }
-        // the deck is placed here as well as in the frame loop: animation frames are
-        // suspended in a background tab and in an offscreen preview, and the rail must
-        // never be the only thing that leaves the tickets parked off-frame
-        this.tRail();
-        (this.tTickets || []).forEach((el) => { if (el) el.style.top = tt; });
-        // portrait: the two-line word must never touch the navbar above it or the deck
-        // below it. It keeps a 24 gap on both sides and gives up size when the band is
-        // too short for it (a narrow window makes the word wide, hence tall).
-        if (!this.isLand() && this.tWordmark) {
-          const GAPr = 24 * st;
-          const navR = this.nav ? this.nav.getBoundingClientRect().height : 96 * st;
-          const topR = Math.max(navR + GAPr, parseFloat(this.tWordmark.style.top) || 0);
-          const limitR = parseFloat(tt) * st - GAPr;
-          let fsCss = parseFloat(this.tWordmark.style.fontSize) || 0;
-          const hR = () => 2 * 0.92 * fsCss * st;
-          if (topR + hR() > limitR) {
-            const availR = Math.max(24, limitR - topR);
-            fsCss = availR / (2 * 0.92 * st);
-            this.tWordmark.style.fontSize = fsCss.toFixed(1) + "px";
-          }
-          this.tWordmark.style.top = topR.toFixed(1) + "px";
-          this._wmBottom = topR + hR();
-        }
       }
       // navbar rides whichever frame is active
       if (this.nav) {
@@ -1081,9 +1036,7 @@ class Component extends DCLogic {
       const vp = window.innerWidth + "x" + Math.round(this.lvhNow());
       if (this._lastVP !== vp) { this._lastVP = vp; this._fhT = 0; }
       if (this.fit) this.fit();
-      this.repaintDeck();
       // fonts and the address bar settle a beat later
-      setTimeout(() => { if (this.fit) this.fit(); this.repaintDeck(); }, 300);
     };
     window.addEventListener("pageshow", this._revive);
     // no focus listener: it fires on every tap into the page and duplicates visibilitychange
@@ -1747,109 +1700,8 @@ class Component extends DCLogic {
   // font-size wide, and the M's left side bearing is 0.0760 x the font-size. Measuring at run
   // time went wrong on Safari (metrics read before Figtree had loaded, or off a fallback face),
   // which is why the word kept landing at a different inset than the K and the captions.
-  fitWordmark(target) {
-    const el = this.tWordmark;
-    if (!el || !target) return;
-    const INK_W = 6.2407, INK_L = 0.0760;
-    const fs = Math.max(40, target / INK_W);
-    el.style.fontSize = fs.toFixed(1) + "px";
-    // subtract the bearing so the M's EDGE — not its invisible box — sits on the 32 line;
-    // the S then ends on the right margin by construction
-    el.style.left = (32 - INK_L * fs).toFixed(1) + "px";
-  }
-  layoutTablet(fh) {
-    const land = this.isLand();
-    // One tablet scale (this.st) serves Hero, Projects and About. Ticket
-    // geometry lives in the same unscaled frame units: do not scale twice.
-    const fw = this.tFrameW || 834;
-    const usable = Math.max(240, fw - 64);
-    // Portrait presents a substantial single card; landscape leaves part of
-    // the next card visible so the horizontal swipe interaction stays obvious.
-    const w = Math.round(Math.min(usable, usable * (land ? 0.56 : 0.74)));
-    const inner = w - 48; // approved 24px padding on both sides
-    const mediaHeight = Math.round(inner * 157 / 275);
-    this._tLand = land;
-    (this.tTickets || []).forEach((el) => {
-      if (!el) return;
-      const media = el.querySelector("[data-tmedia]");
-      const text = el.querySelector("[data-ttext]");
-      el.style.width = w + "px";
-      el.style.flexDirection = "column";
-      el.style.gap = "24px";
-      el.style.padding = "24px";
-      if (media) {
-        media.style.width = inner + "px";
-        media.style.height = mediaHeight + "px";
-      }
-      if (text) text.style.width = inner + "px";
-      el._st = {};
-    });
-    if (this.tWordmark) {
-      const w = this.tWordmark.style;
-      if (land) {
-        // landscape tablet: the word sits BEHIND the deck, pinned to the bottom edge and set
-        // from the left grid margin to the right one. soft-light on black left it invisible,
-        // so it carries an explicit low-opacity white the captions still read over.
-        const fw = this.tFrameW || 834;
-        const stt = this.st || 1;
-        w.mixBlendMode = "normal";
-        w.color = "rgba(255,255,255,0.13)";
-        w.transformOrigin = "bottom left";
-        w.top = "auto";
-        w.bottom = "0px";
-        w.left = Math.round(32 * stt) + "px";
-        w.right = "auto";
-        w.zIndex = "0";
-        w.whiteSpace = "nowrap";
-        w.width = "auto";
-        w.textAlign = "left";
-        w.lineHeight = "0.78";
-        if (this.tWordmark.textContent !== "mes projets") this.tWordmark.textContent = "mes projets";
-        this.fitWordmark(Math.max(120, fw * stt - 64), 1);
-      } else {
-        // portrait tablet: MES over PROJETS, centred, sitting at the top of the screen with the
-        // deck distributed below it — the bottom placement ran the word off the screen edge
-        const fwP = (this.tFrameW || 834) * (this.st || 1);
-        const fhP = fh * (this.st || 1);
-        // the word is a fixed share of the SCREEN width, not of the tablet scale: the element
-        // carries scale(st), so the authored size is divided by st to cancel it out — without
-        // this the word shrank with st on short windows
-        const stt = this.st || 1;
-        const fsP = Math.round(fwP * 0.145);
-        w.fontSize = (fsP / stt).toFixed(1) + "px";
-        w.mixBlendMode = "normal";
-        w.color = "rgba(255,255,255,0.13)";
-        w.left = "50%";
-        w.right = "auto";
-        w.zIndex = "0";
-        w.transformOrigin = "top center";
-        w.bottom = "auto";
-        w.top = Math.round(fhP * 0.10) + "px";
-        w.whiteSpace = "pre";
-        w.width = Math.round(fwP / stt) + "px";
-        w.textAlign = "center";
-        w.lineHeight = "0.92";
-        this._wmBottom = Math.round(fhP * 0.10) + 2 * 0.92 * fsP;
-        if (this.tWordmark.textContent !== "mes\nprojets") this.tWordmark.textContent = "mes\nprojets";
-      }
-    }
-    // centring is layout-driven (top 50% + a -50% in the transform showTicket writes), so
-    // it never depends on measuring a height mid-reflow
-    // the rail centres each ticket in the FRAME, whose width follows the window — so the
-    // deck reads centred on an iPad in either orientation
-    this._tTicketW = w;
-    this._tSpacing = w + 24;
-    this._tLandNow = land;
-    // landscape: the deck STARTS on the grid — the first ticket's left edge lines up with the
-    // K of the wordmark in the navbar, like every other block
-    // both orientations start the deck on the grid: first card's left edge on the 32 line
-    const left = 32;
-    (this.tTickets || []).forEach((el) => {
-      if (!el) return;
-      if (el._left !== left) { el._left = left; el.style.left = left + "px"; }
-      if (!el._cy) { el._cy = true; el._st = {}; }
-    });
-  }
+
+
   // TABLET DECK — one screen, browsed by dragging sideways. No scroll linkage, no sticky
   // layer, no 3D: the two things that made the old block come back cropped from a Safari
   // tab restore. Position is a single number (tOff, in tickets) that the drag moves and a
@@ -1859,176 +1711,16 @@ class Component extends DCLogic {
   // a card came back as bare photo (card layer empty) or as a grey plate (video layer empty)
   // and only repainted itself seconds later. This drops the promotion and forces one real
   // repaint of card and clip.
-  repaintDeck() {
-    if (!this.tablet) return;
-    const tk = (this.tTickets || []).filter(Boolean);
-    if (!tk.length) return;
-    tk.forEach((el) => {
-      el.style.willChange = "auto";
-      el._st = {};
-      // a change the compositor cannot serve from the cached layer
-      el.style.opacity = "0.998";
-      el.querySelectorAll("video").forEach((v) => {
-        if (!v._gateOn) return;                       // the parked clips stay parked
-        if (!v.getAttribute("src") && v.dataset.src) { v.setAttribute("src", v.dataset.src); }
-        try { v.load(); } catch (e) {}
-        const q = v.play(); if (q && q.catch) q.catch(() => {});
-      });
-    });
-    requestAnimationFrame(() => { this.tRail(); });
-  }
+
   // how far the rail may travel: at this offset the last ticket's right edge sits on the right
   // grid margin. Beyond it the deck would drag the last card over to the left margin and leave
   // dead black to its right.
-  tMaxOff() {
-    const n = this.N - 1;
-    const sp = this._tSpacing || 356, w = this._tTicketW || 323;
-    // tFrameW is already expressed in tPStage's own design-unit space (it's set from
-    // window.innerWidth / st, and tPStage itself gets scale(st) applied via CSS transform),
-    // the same space left/w/sp live in — so no extra *st here, or W gets shrunk twice and
-    // the max offset overshoots past the point where the last ticket lines up with the margin.
-    const W = this.tFrameW || 834;
-    return Math.max(0, Math.min(n, n - (W - 64 - w) / sp));
-  }
+
   // each ticket opens its project, same targets as the desktop cards. A tap, not a drag:
   // anything past a few pixels of travel is a swipe of the rail and must not navigate.
 
-  wireTDrag(el) {
-    if (!el || el._tWired) return;
-    el._tWired = true;
-    this.tOff = this.tOff || 0;
-    this.tVel = 0;
-    const spacing = () => this._tSpacing || (this._tTicketW || 560) + 24;
-    const clamp = (v) => Math.max(0, Math.min(this.tMaxOff(), v));
-    let id = null, x0 = 0, y0 = 0, off0 = 0, axis = null, lastX = 0, lastT = 0;
-    const down = (e) => {
-      if (id !== null) return;
-      id = e.pointerId; axis = null;
-      x0 = lastX = e.clientX; y0 = e.clientY; off0 = this.tOff;
-      this._tTapMax = 0;
-      (this.tTickets || []).forEach((t) => { if (t) t.style.willChange = "transform"; });
-      lastT = performance.now(); this.tVel = 0;
-    };
-    const move = (e) => {
-      if (id === null || e.pointerId !== id) return;
-      const dx = e.clientX - x0, dy = e.clientY - y0;
-      if (!axis) {
-        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
-        axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
-        // a vertical gesture belongs to the page: hand it back and stay out of the way
-        if (axis === "y") { id = null; return; }
-        this._tDrag = true;
-        if (el.setPointerCapture) { try { el.setPointerCapture(id); } catch (err) {} }
-      }
-      const now = performance.now();
-      const dt = Math.max(8, now - lastT);
-      this._tTapMax = Math.max(this._tTapMax || 0, Math.abs(e.clientX - x0), Math.abs(e.clientY - y0));
-      this.tVel = ((lastX - e.clientX) / spacing()) / dt * 16;
-      lastX = e.clientX; lastT = now;
-      this.tOff = clamp(off0 - dx / spacing());
-      // paint from the gesture itself, so the deck follows the finger even if the frame
-      // loop is throttled
-      this.tRail();
-      if (e.cancelable) e.preventDefault();
-    };
-    const up = (e) => {
-      if (id === null || (e.pointerId !== undefined && e.pointerId !== id)) return;
-      id = null;
-      if (!this._tDrag) return;
-      this._tDrag = false;
-      // a flick carries at most one extra ticket: a hard swipe used to skid across the deck
-      this.tOff = clamp(this.tOff + Math.max(-1.2, Math.min(1.2, this.tVel * 2.5)));
-      this.tVel = 0;
-      // and settle without the frame loop if it happens to be suspended
-      let n = 0;
-      clearInterval(this._tSettle);
-      this._tSettle = setInterval(() => {
-        this.tRail();
-        // the promotion is released once the deck has settled, so a backgrounded tab holds no
-        // composited ticket layers to come back empty
-        if (++n > 40) { clearInterval(this._tSettle); (this.tTickets || []).forEach((t) => { if (t) t.style.willChange = "auto"; }); }
-      }, 16);
-    };
-    el.addEventListener("pointerdown", down, { passive: true });
-    el.addEventListener("pointermove", move, { passive: false });
-    el.addEventListener("pointerup", up);
-    el.addEventListener("pointercancel", up);
-    el.addEventListener("dragstart", (e) => e.preventDefault());
-    // a drag that ends on a ticket must not also open its link
-    el.addEventListener("click", (e) => {
-      if (Math.abs(lastX - x0) > 8) { e.preventDefault(); e.stopPropagation(); }
-    }, true);
-  }
-  tRail() {
-    const tk = (this.tTickets || []).filter(Boolean);
-    if (!tk.length) return;
-    if (typeof this.tOff !== "number") this.tOff = 0;
-    const sp = this._tSpacing || (this._tTicketW || 560) + 24;
-    const land = !!this._tLandNow;
-    if (!this._tDrag) {
-      const mx = this.tMaxOff();
-      // snap targets are whole tickets, plus the end stop itself — so the last card can rest
-      // flush against the right margin instead of travelling all the way to the left one
-      let tgt = Math.max(0, Math.min(mx, Math.round(this.tOff)));
-      if (mx - tgt < 1 && Math.abs(mx - this.tOff) < Math.abs(tgt - this.tOff)) tgt = mx;
-      const d = tgt - this.tOff;
-      this.tOff = Math.abs(d) < 0.0015 ? tgt : this.tOff + d * 0.18;
-    }
-    const off = this.tOff;
-    // the card that plays is the one in the MIDDLE OF THE SCREEN. In landscape the rail is laid
-    // from the left margin, so the middle card is a couple of slots along from the offset.
-    // whose turn it is to animate — a rotation, not a position: one card at a time
-    let act = this._tSeqI || 0;
-    this._tAct = act;
-    tk.forEach((el) => {
-      const i = +el.dataset.i;
-      const d = i - off;
-      const ad = Math.abs(d);
-      // landscape is the flat deck of the approved composition: same size, same opacity,
-      // simply sliding sideways and clipped by the section edges
-      const tr = "translate(" + (d * sp).toFixed(1) + "px,0)";
-      const op = 1;
-      const st = el._st || (el._st = {});
-      if (st.tr !== tr) { st.tr = tr; el.style.transform = tr; }
-      const o = op.toFixed(2);
-      if (st.op !== o) { st.op = o; el.style.opacity = o; }
-      const z = String(30 - Math.round(Math.min(ad, 4) * 5));
-      if (st.z !== z) { st.z = z; el.style.zIndex = z; }
-      // every ticket is tappable: the deck lies side by side, so only letting the card at the
-      // current offset take a tap left TDP, longread and inside out dead
-      const pe = "auto";
-      if (st.pe !== pe) { st.pe = pe; el.style.pointerEvents = pe; }
-      // only the card in the middle of the screen plays
-      const on = i === act;
-      el.querySelectorAll("video[data-gate]").forEach((v) => {
-        // enforced every frame, not only on the change: the shared video warm-up starts every
-        // clip once to decode its first frame, and that left the off-centre cards running
-        if (!on && !v.paused) { try { v.pause(); v.currentTime = 0; } catch (e) {} }
-        if (v._gateOn === on) return;
-        v._gateOn = on;
-        if (on) {
-          // hand the decoder back before playing: iPadOS allows only a handful at once, and a
-          // clip that cannot get one paints nothing — that is the grey plate
-          if (!v.getAttribute("src") && v.dataset.src) { v.setAttribute("src", v.dataset.src); try { v.load(); } catch (e) {} }
-          const q = v.play(); if (q && q.catch) q.catch(() => {});
-        } else {
-          try { v.pause(); v.currentTime = 0; } catch (e) {}
-          // parked on its first frame; the still underneath covers a clip Safari won't decode
-        }
-      });
-    });
-    // the projets field is black, as everywhere else in the deck: the project photographs
-    // belong inside the cards, not behind them
-    (this.tBgs || []).forEach((el) => {
-      if (!el) return;
-      if (el._o !== "0") { el._o = "0"; el.style.opacity = "0"; }
-    });
-    if (this.tCount) {
-      const n = Math.max(1, Math.min(this.N, Math.round(off) + 1));
-      const txt = ("0" + n).slice(-2) + " — 06";
-      if (this.tCount.textContent !== txt) this.tCount.textContent = txt;
-    }
-  }
+
+
 
 
   // all tickets in a breakpoint take the height of the tallest one; the tag block
@@ -2558,7 +2250,6 @@ class Component extends DCLogic {
       tProjRef: (el) => { this.tProj = el; if (this.fit) this.fit(); },
       tPStageRef: (el) => { this.tPStage = el; if (this.fit) this.fit(); },
       tAStageRef: (el) => { this.tAStage = el; if (this.fit) this.fit(); },
-      tWordmarkRef: (el) => { this.tWordmark = el; if (this.fit) this.fit(); },
       tCardRef: (el) => { if (!el) return; if (!this.tCards) this.tCards = []; this.tCards[+el.dataset.i] = el; this.renderAbout(); },
       wordmarkRef: (el) => { this.wordmark = el; if (this.fit) this.fit(); },
       cardRef: (el) => { if (!el) return; if (!this.cards) this.cards = []; this.cards[+el.dataset.i] = el; this.renderAbout(); },

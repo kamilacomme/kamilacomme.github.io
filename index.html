@@ -3026,24 +3026,10 @@ class Component extends DCLogic {
       heroEnter: (e) => { this.heroTarget(e); this.ti = 1; },
       heroLeave: () => { this.ti = 0; },
       // projets
-      pStageRef: (el) => { this.pStage = el; if (this.fit) this.fit(); },
-      bgRef: (el) => { if (!el) return; if (!this.bgs) this.bgs = []; this.bgs[+el.dataset.i] = el; },
-      ticketRef: (el) => {
-        if (!el) return;
-        if (!this.tickets) this.tickets = [];
-        this.tickets[+el.dataset.i] = el;
-        this.wireTicket(el);
-        this.renderProjets();
-      },
-      pWordRef: (el) => { this.pWord = el; if (this.fit) this.fit(); },
-      pWordSvgRef: (el) => { this.pWordSvg = el; if (this.fit) this.fit(); },
-      pWordTextRef: (el) => { this.pWordText = el; if (this.fit) this.fit(); },
-      pLabelsRef: (el) => { this.pLabels = el; if (this.fit) this.fit(); },
+      // The old Projects carousel template callbacks were removed.
       pillRef: (el) => { this.pill = el; },
       ticketCursorRef: (el) => { this.ticketCursor = el; },
       ticketCursorImgRef: (el) => { this.ticketCursorImg = el; if (this.fit) this.fit(); },
-      barcodeRef: (el) => { if (!el) return; if (!this._bc) this._bc = this.buildBarcode(); el.style.backgroundImage = this._bc; el.style.backgroundRepeat = "no-repeat"; },
-      pSlideRef: (el) => { if (!el) return; if (!this.pSlides) this.pSlides = {}; const k = el.dataset.panel; const arr = (this.pSlides[k] = this.pSlides[k] || []); if (!arr.includes(el)) arr.push(el); },
       // about
       aStageRef: (el) => { this.aStage = el; if (this.fit) this.fit(); },
       lvhProbeRef: (el) => { this.lvhProbe = el; if (this.fit) this.fit(); },

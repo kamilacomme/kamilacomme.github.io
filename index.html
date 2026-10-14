@@ -3590,7 +3590,7 @@ class Component extends DCLogic {
     rail.style.left = '32px';
     const visibleBottom = viewport.getBoundingClientRect().bottom;
     const stageTop = stage.getBoundingClientRect().top;
-    const rowTop = (visibleBottom - stageTop) / scale - 220 - 32;
+    const rowTop = (visibleBottom - stageTop - 32) / scale - 220;
     rail.style.setProperty('top', Math.max(0, rowTop).toFixed(2) + 'px', 'important');
     rail.style.setProperty('bottom', 'auto', 'important');
     const fullWidth = cards.length * cardWidth + (cards.length - 1) * 18;
@@ -3759,30 +3759,6 @@ class Component extends DCLogic {
   fitMobileProjects();
 })();
 </script>
-<script>
-/* Read-only landscape geometry panel. Add ?kc_tablet_debug=1 to enable. */
-if (new URLSearchParams(location.search).get('kc_tablet_debug') === '1') {
-  const panel = document.createElement('pre');
-  Object.assign(panel.style,{position:'fixed',top:'100px',right:'8px',width:'min(600px,68vw)',maxHeight:'60vh',overflow:'auto',zIndex:'999999',background:'rgba(0,0,0,.90)',color:'#fff',padding:'12px',font:'12px/1.5 monospace',whiteSpace:'pre-wrap',pointerEvents:'none'});
-  document.body.appendChild(panel);
-  const ids=['kc-tablet-projets','projets-t','kc-t-viewport','kc-t-stage'];
-  const round=n=>Math.round(n);
-  function measure(){
-    const rect=el=>{const r=el.getBoundingClientRect(),c=getComputedStyle(el);return 'top:'+round(r.top)+' bottom:'+round(r.bottom)+' height:'+round(r.height)+' left:'+round(r.left)+' width:'+round(r.width)+' position:'+c.position+' overflow:'+c.overflow;};
-    const section=document.getElementById('kc-tablet-projets');
-    const rail=document.querySelector('#kc-t-stage .tickets');
-    const card=rail?.querySelector('.ticket');
-    panel.textContent='screen '+innerWidth+' x '+innerHeight+' visual:'+round(window.visualViewport?.height||0)+' scale:'+(window.__kcTabletScale||'?')+
-      '\\nlandscape enabled: '+!!section?.classList.contains('kc-landscape-rail')+
-      '\\n'+ids.map(id=>id+': '+(document.getElementById(id)?rect(document.getElementById(id)):'MISSING')).join('\\n')+
-      '\\nrail: '+(rail?rect(rail):'MISSING')+'\\nfirst card: '+(card?rect(card):'MISSING')+
-      '\\nsection CSS height: '+(section?.style.height||'auto');
-  }
-  window.addEventListener('scroll',measure,{passive:true});
-  window.addEventListener('resize',measure,{passive:true});
-  requestAnimationFrame(measure);
-  setInterval(measure,1200);
-}
-</script>
+
 </body>
 </html>

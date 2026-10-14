@@ -3588,8 +3588,11 @@ class Component extends DCLogic {
     const cards = [...rail.querySelectorAll('.ticket')];
     cards.forEach(el => { el.style.width = cardWidth + 'px'; el.style.height = '220px'; });
     rail.style.left = '32px';
-    rail.style.top = 'auto';
-    rail.style.bottom = '32px';
+    const visibleBottom = viewport.getBoundingClientRect().bottom;
+    const stageTop = stage.getBoundingClientRect().top;
+    const rowTop = (visibleBottom - stageTop) / scale - 220 - 32;
+    rail.style.setProperty('top', Math.max(0, rowTop).toFixed(2) + 'px', 'important');
+    rail.style.setProperty('bottom', 'auto', 'important');
     const fullWidth = cards.length * cardWidth + (cards.length - 1) * 18;
     travel = Math.max(0, fullWidth + 32 - vw);
     scrollLength = travel * scale;

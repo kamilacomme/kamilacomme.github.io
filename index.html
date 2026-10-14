@@ -237,7 +237,7 @@
     <div ref="{{ mGridRef }}" style="position: absolute; inset: 0; z-index: 60; pointer-events: none; display: none; box-sizing: border-box; padding: 0 16px; flex-direction: row; gap: 16px;"><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div></div>
   </div>
   <div ref="{{ tHeroRef }}" style="position: absolute; left: 50%; top: 50%; width: 834px; height: 1112px; transform-origin: center; transform: translate(-50%,-50%);">
-    <div style="position: absolute; right: 32px; bottom: 32px; width: 314px; height: 196px; border-radius: 4px; overflow: hidden; background: rgb(238,236,236);">
+    <div data-kc-tablet-hero-slideshow style="position: absolute; right: 32px; bottom: 32px; width: 314px; height: 196px; border-radius: 4px; overflow: hidden; background: rgb(238,236,236);">
       <div ref="{{ tHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 1; background: url(assets/preview-1.webp) center / cover no-repeat;"></div>
       <div ref="{{ tHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-2.webp) center / cover no-repeat;"></div>
       <div ref="{{ tHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-3.webp) center / cover no-repeat;"></div>
@@ -3544,6 +3544,10 @@ class Component extends DCLogic {
  observer.observe(document.documentElement,{childList:true,subtree:true});
  attach();window.addEventListener('load',attach,{once:true});
 })();</script><style>
+/* Landscape tablet Hero: slideshow panel 40% smaller in both dimensions. */
+@media (min-width: 500px) and (orientation: landscape) {
+  [data-kc-tablet-hero-slideshow] { width: 188.4px !important; height: 117.6px !important; }
+}
 /* Landscape tablet only: pin the section and move the same approved tickets sideways. */
 #kc-tablet-projets.kc-landscape-rail #projets-t { position:sticky !important; top:0; height:100vh; overflow:hidden; }
 #kc-tablet-projets.kc-landscape-rail #kc-t-viewport { position:relative !important; top:auto; height:100vh; overflow:hidden; }

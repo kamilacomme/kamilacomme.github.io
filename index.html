@@ -3559,7 +3559,7 @@ class Component extends DCLogic {
     const section = $('kc-tablet-projets'), viewport = $('kc-t-viewport'),
       stage = $('kc-t-stage'), rail = stage?.querySelector('.tickets');
     if (!section || !viewport || !stage || !rail) return;
-    const tabletRoot = section.parentElement?.parentElement;
+    const tabletRoot = section.parentElement;
     const shouldRun = !!tabletRoot && getComputedStyle(tabletRoot).display !== 'none'
       && window.innerWidth > window.innerHeight && window.innerWidth >= 500;
     if (!shouldRun) {

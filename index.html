@@ -2044,69 +2044,6 @@ class Component extends DCLogic {
     const idx = Math.min(n - 1, Math.round(p * (n - 1)));
     if (this.mCount) this.mCount.textContent = String(idx + 1).padStart(2, "0") + "-06";
   }
-  fitMobileProj(sm, kFit) {
-    const boxW = (this.devW || window.innerWidth) * kFit;
-    const frameH = this.mFrameH || 844;
-    const boxH = frameH * sm;
-    const plan = this.mobileProjPlan(frameH);
-    const squeezed = plan.mode === "squeezed";
-    let inkTop = null; // ink top of the squeezed word, in box px
-    if (this.pWord) {
-      this.hideWordSvg();
-      this._wmOwned = true;
-      this.pWord.style.display = "block";
-      if (squeezed) {
-        const cv = (this._mt = this._mt || document.createElement("canvas")).getContext("2d");
-        try { cv.letterSpacing = "-0.04em"; } catch (e) {}
-        cv.font = "700 200px Figtree, sans-serif";
-        const m = cv.measureText("PROJETS");
-        const inkL = -m.actualBoundingBoxLeft;
-        const inkW = m.actualBoundingBoxRight - inkL;
-        if (inkW > 0) {
-          const size = 200 * (boxW / inkW);
-          const A = (m.fontBoundingBoxAscent || 0) * size / 200;
-          const D = (m.fontBoundingBoxDescent || 0) * size / 200;
-          const baseFromTop = (size - (A + D)) / 2 + A;
-          const crop = 6 * sm;
-          if (this.pWord.textContent !== "PROJETS") this.pWord.textContent = "PROJETS";
-          Object.assign(this.pWord.style, {
-            fontSize: size.toFixed(2) + "px", lineHeight: "1", whiteSpace: "nowrap",
-            textAlign: "left", width: "auto", opacity: "0.09",
-            left: (-inkL * size / 200).toFixed(1) + "px", top: "auto",
-            bottom: (-(size - baseFromTop) - crop).toFixed(1) + "px",
-          });
-          inkTop = boxH + crop - m.actualBoundingBoxAscent * size / 200;
-        }
-      } else {
-        const w = plan.w, two = plan.mode === "two";
-        const txt = two ? "MES\nPROJETS" : "PROJETS";
-        if (this.pWord.textContent !== txt) this.pWord.textContent = txt;
-        // both tiers are placed by the ink top, so the gap under the navbar is identical:
-        // the glyph box is centred in the line box, baseline sits baseFromTop into it
-        const L = two ? 0.92 : 1;
-        const inset = (L * w.size - w.size) / 2 + w.baseFromTop - w.asc;
-        Object.assign(this.pWord.style, {
-          fontSize: (w.size * sm).toFixed(2) + "px", lineHeight: String(L),
-          whiteSpace: two ? "pre" : "nowrap", opacity: "0.16",
-          textAlign: two ? "center" : "left",
-          width: two ? boxW.toFixed(1) + "px" : "auto",
-          left: two ? "0px" : ((16 + w.left) * sm).toFixed(1) + "px",
-          top: ((plan.pad - inset) * sm).toFixed(1) + "px", bottom: "auto",
-        });
-      }
-    }
-    if (this.pLabels) {
-      this.pLabels.style.left = (16 * sm).toFixed(1) + "px";
-      this.pLabels.style.right = (16 * sm).toFixed(1) + "px";
-      this.pLabels.style.bottom = (12 * sm).toFixed(1) + "px";
-      this.pLabels.querySelectorAll("span").forEach((el) => { el.style.fontSize = (12 * sm).toFixed(1) + "px"; });
-    }
-    // the ticket is distributed: equal air above it and below it, measured between the
-    // navbar / word above and the word's ink / captions below
-    const bandTop = squeezed ? 64 : plan.bandTop;
-    const bandBottom = squeezed && inkTop != null ? inkTop / sm : frameH - 48;
-    const center = Math.max(64 + plan.cardH / 2, (bandTop + bandBottom) / 2);
-  }
   isLand() {
     // orientation is the FRAME's, not the window's: the reviewed tablet preview is the portrait
     // 834x1112 frame no matter how wide the reviewing window happens to be

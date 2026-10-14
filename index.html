@@ -2641,165 +2641,6 @@ class Component extends DCLogic {
       5: "https://kamilacomme.github.io/celimax/",                                  // Celimax
     };
   }
-  // A ticket moves ONLY while the cursor is on it. pointerenter/leave alone proved
-  // unreliable here (the carousel moves cards out from under a still cursor, and a card
-  // that turns pointer-events:none while hovered never gets its leave event), so the
-  // pointer position is the single source of truth, re-checked every frame.
-  initHoverWatch() {
-    if (this._hoverWatch) return;
-    this._hoverWatch = true;
-    const set = (e) => { this._px = e.clientX; this._py = e.clientY; this.syncHover(); };
-    window.addEventListener("pointermove", set, { passive: true });
-    window.addEventListener("pointerdown", set, { passive: true });
-    const off = () => { this._px = this._py = null; this.syncHover(); };
-    window.addEventListener("pointerleave", off);
-    window.addEventListener("blur", off);
-    document.addEventListener("visibilitychange", () => { if (document.hidden) off(); });
-  }
-  syncHover() {
-    const cards = (this.cCards || []).filter(Boolean);
-    if (!cards.length) return;
-    let hit = null;
-    if (!this.touch && this._px != null) {
-      const x = this._px, y = this._py;
-      // the rectangles alone are not enough: the About panel scrolls OVER the sticky projects
-      // section, so ask the document what is actually on top at the pointer first
-      const top = document.elementFromPoint(x, y);
-      const overCards = !!top && !!top.closest && !!top.closest("#projets");
-      if (overCards) {
-        cards.forEach((el) => {
-          if (el.offsetParent === null) return;
-          const r = el.getBoundingClientRect();
-          if (x < r.left || x > r.right || y < r.top || y > r.bottom) return;
-          // the card nearest the front of the arc wins an overlap
-          if (!hit || Math.abs(el._p || 0) < Math.abs(hit._p || 0)) hit = el;
-        });
-      }
-    }
-    cards.forEach((el) => {
-      const on = el === hit;
-      if (on && !el._hoverOn) this.startCycle(el);
-      else if (!on && (el._hoverOn || el._cyc || el._cycT)) this.stopCycle(el);
-      // desktop tickets carry their own cursor art, so the system grab hand is off
-      const cur = this.touch ? "pointer" : "none";
-      if (el.style.cursor !== cur) el.style.cursor = cur;
-    });
-    this.moveTicketCursor(hit);
-  }
-  // the label follows the pointer while a ticket is under it; the arrow tip in the SVG
-  // (7.31, 6.08 at authored size, scaled to a 44-tall label) is the hotspot
-  moveTicketCursor(hit) {
-    const c = this.ticketCursor;
-    if (!c) return;
-    const show = !!hit && !this.touch && this._px != null;
-    // the art IS the cursor while a ticket is under the pointer: hide the system one on the
-    // document too, not just on the ticket (children and the page below it would show it)
-    if (this._curHide !== show) {
-      this._curHide = show;
-      const v = show ? "none" : "";
-      document.documentElement.style.cursor = v;
-      if (document.body) document.body.style.cursor = v;
-      if (this.dProj) this.dProj.style.cursor = v;
-    }
-    if (show) {
-      const k = this._curK || 1;
-      c.style.transform = "translate3d(" + (this._px - 7.31 * k).toFixed(1) + "px," + (this._py - 6.08 * k).toFixed(1) + "px,0)";
-    }
-    const o = show ? "1" : "0";
-    if (c._o !== o) { c._o = o; c.style.opacity = o; }
-  }
-  startCycle(el) {
-    const arr = this.cSlides && this.cSlides[el.dataset.i];
-    if (!arr || arr.length < 2) return;
-    this.stopCycle(el);
-    el._hoverOn = true;
-    const vi = arr.findIndex((s) => s.dataset.vid === "1");
-    if (vi > -1) {
-      const v = arr[vi].querySelector("video");
-      // hold the still frame until the clip is actually running: swapping to a video that
-      // hasn't decoded its first frame yet shows a black rectangle
-      const reveal = () => { if (el._hoverOn) arr.forEach((s, j) => { s.style.opacity = j === vi ? 1 : 0; }); };
-      el._hoverOn = true;
-      if (v) {
-        // recover a clip whose first load failed: re-request it and play as soon as it lands
-        if (v.error || v.readyState === 0) {
-          v._tries = 0;
-          try { v.load(); } catch (e) {}
-          v.addEventListener("loadeddata", () => { if (el._hoverOn) { const q = v.play(); if (q && q.then) q.then(reveal, () => {}); } }, { once: true });
-        }
-        if (v.fastSeek) { try { v.fastSeek(0); } catch (e) { v.currentTime = 0; } } else { try { v.currentTime = 0; } catch (e) {} }
-        if (v.readyState >= 3 && !v.paused) reveal(); else v.addEventListener("playing", reveal, { once: true });
-        const p = v.play(); if (p && p.then) p.then(reveal, () => {});
-      } else reveal();
-      return;
-    }
-    let k = 0;
-    const step = () => {
-      const prev = k; k = (k + 1) % arr.length;
-      if (arr[prev]) arr[prev].style.opacity = 0;
-      if (arr[k]) arr[k].style.opacity = 1;
-    };
-    el._cycT = setTimeout(step, 90);
-    el._cyc = setInterval(() => {
-      const prev = k; k = (k + 1) % arr.length;
-      if (arr[prev]) arr[prev].style.opacity = 0;
-      if (arr[k]) arr[k].style.opacity = 1;
-    }, 900);
-  }
-  stopCycle(el) {
-    el._hoverOn = false;
-    if (el._cyc) { clearInterval(el._cyc); el._cyc = null; }
-    if (el._cycT) { clearTimeout(el._cycT); el._cycT = null; }
-    const arr = this.cSlides && this.cSlides[el.dataset.i];
-    if (arr) arr.forEach((s, j) => { s.style.opacity = j === 0 ? 1 : 0; });
-    if (arr) arr.forEach((s) => {
-      const v = s.dataset.vid === "1" && s.querySelector("video");
-      if (v && v.dataset.hover) { v.pause(); try { v.currentTime = 0; } catch (e) {} }
-    });
-  }
-  wireRail(el) {
-    if (!el || el._wired) return;
-    el._wired = true;
-    this.cRail = el;
-    el.addEventListener("pointerdown", (e) => {
-      if (e.button) return;
-      this.cDrag = { last: e.clientX, startX: e.clientX, id: e.pointerId, captured: false };
-      this.cMoved = 0; this.cMovedRaw = 0; this.cVel = 0;
-    });
-    el.addEventListener("pointermove", (e) => {
-      if (!this.cDrag) return;
-      const dx = (e.clientX - this.cDrag.last) / (this.ps || this.s || 1);
-      this.cDrag.last = e.clientX;
-      this.cMoved += Math.abs(dx);
-      // FIX: net, unscaled pixel distance from the actual pointerdown — used only to
-      // decide click-vs-drag. The old check (cMoved, a scaled sum of every jitter step)
-      // hit its "6" threshold after just a few REAL pixels on any screen narrower than
-      // the 1440 design width (scale < 1), so ordinary mouse/trackpad jitter during a
-      // plain click was silently read as a drag and the click was cancelled every time.
-      this.cMovedRaw = Math.abs(e.clientX - this.cDrag.startX);
-      // ROOT FIX: setPointerCapture used to fire on every pointerdown, immediately —
-      // that redirects the browser's later "click" event target to THIS rail element
-      // instead of the ticket <a> underneath, so the anchor's own href navigation
-      // never runs (it just looks/feels like the whole carousel absorbs every click).
-      // Only capture once we've confirmed it's an actual drag past the same threshold
-      // used above — a plain click never captures, so its native click reaches the <a>.
-      if (!this.cDrag.captured && this.cMovedRaw > 10) {
-        this.cDrag.captured = true;
-        try { el.setPointerCapture(this.cDrag.id); } catch (err) {}
-      }
-      this.cOffset -= dx;
-      this.cVel = -dx * 0.55;
-    });
-    const end = () => { this.cDrag = null; };
-    el.addEventListener("pointerup", end);
-    el.addEventListener("pointercancel", end);
-    // a drag must never fire the ticket's link — now gated on real pixels moved
-    el.addEventListener("click", (e) => {
-      if ((this.cMovedRaw || 0) > 10) { e.stopPropagation(); e.preventDefault(); }
-      this.cMoved = 0; this.cMovedRaw = 0;
-    }, true);
-    el.addEventListener("dragstart", (e) => e.preventDefault());
-  }
   wireTicket(el) {
     if (!el || el._link) return;
     const url = this.ticketLinks()[+el.dataset.i];
@@ -3194,35 +3035,13 @@ class Component extends DCLogic {
         this.wireTicket(el);
         this.renderProjets();
       },
-      cRailRef: (el) => { this.cRail = el; this.wireRail(el); },
       pWordRef: (el) => { this.pWord = el; if (this.fit) this.fit(); },
       pWordSvgRef: (el) => { this.pWordSvg = el; if (this.fit) this.fit(); },
       pWordTextRef: (el) => { this.pWordText = el; if (this.fit) this.fit(); },
       pLabelsRef: (el) => { this.pLabels = el; if (this.fit) this.fit(); },
       pillRef: (el) => { this.pill = el; },
-      cCardRef: (el) => {
-        if (!el) return;
-        if (!this.cCards) this.cCards = [];
-        this.cCards[+el.dataset.i] = el;
-        this.initHoverWatch();
-      },
       ticketCursorRef: (el) => { this.ticketCursor = el; },
       ticketCursorImgRef: (el) => { this.ticketCursorImg = el; if (this.fit) this.fit(); },
-      cMediaRef: (el) => { if (!el) return; if (!this.cMedia) this.cMedia = []; this.cMedia[+el.dataset.i] = el; },
-      cSlideRef: (el) => {
-        if (!el) return;
-        if (!this.cSlides) this.cSlides = {};
-        const k = el.dataset.i;
-        const arr = (this.cSlides[k] = this.cSlides[k] || []);
-        if (!arr.includes(el)) arr.push(el);
-      },
-      cBarcodeRef: (el) => {
-        if (!el) return;
-        if (!this._bcc) this._bcc = this.buildBarcode(true, 275);
-        el.style.backgroundImage = this._bcc;
-        el.style.backgroundRepeat = "no-repeat";
-        el.style.backgroundSize = "100% 100%";
-      },
       barcodeRef: (el) => { if (!el) return; if (!this._bc) this._bc = this.buildBarcode(); el.style.backgroundImage = this._bc; el.style.backgroundRepeat = "no-repeat"; },
       pSlideRef: (el) => { if (!el) return; if (!this.pSlides) this.pSlides = {}; const k = el.dataset.panel; const arr = (this.pSlides[k] = this.pSlides[k] || []); if (!arr.includes(el)) arr.push(el); },
       // about

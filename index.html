@@ -605,42 +605,7 @@ class Component extends DCLogic {
     }, 350);
     // --- projets ---
     this._bc = this.buildBarcode();
-    this.pSlideTimer = null; /* disabled old project slideshow */ if (false) {
-      // was running forever regardless of whether #projets was ever on screen — pause the
-      // whole thing (18 elements' worth of opacity transitions) while it isn't
-      if (this.dProj && this.dProj.offsetParent === null) return;
-      Object.keys(this.pSlides).forEach((k) => {
-        const arr = this.pSlides[k];
-        if (!arr || arr.length < 2) return;
-        // on the tablet deck only the card in the middle of the screen animates: the photo
-        // cards were cycling wherever they stood, so the deck read as "every other one plays"
-        if (this.tablet && k.charAt(0) === "t") {
-          const tk = arr[0].closest("[data-i]");
-          if (!tk || +tk.dataset.i !== this._tAct) {
-            // parked on its opening photo, so a card away from the middle is a still
-            if ((this.pSlideIdx[k] || 0) !== 0) {
-              arr.forEach((el, ix) => { el.style.opacity = ix === 0 ? 1 : 0; });
-              this.pSlideIdx[k] = 0;
-            }
-            return;
-          }
-        }
-        const prev = this.pSlideIdx[k] || 0;
-        const nx = (prev + 1) % arr.length;
-        if (arr[prev]) arr[prev].style.opacity = 0;
-        if (arr[nx]) arr[nx].style.opacity = 1;
-        this.pSlideIdx[k] = nx;
-      });
-    }
-
-    // TABLET DECK — the cards take turns: 1, then 2, then 3... Only ever one clip running, so
-    // iPadOS never runs out of video decoders and no card is left with an empty plate.
-    this._tSeqI = 0;
-    this.tSeqTimer = null; /* disabled old tablet carousel */ if (false) {
-      if (!this.tablet || document.hidden) return;
-      this._tSeqI = (this._tSeqI + 1) % this.N;
-      this.tRail();
-    }
+    // The previous project slideshow and tablet deck were disabled before redesign.
 
     // --- projets carousel (desktop) ---
     this.C_SPACING = 356;
@@ -2957,47 +2922,7 @@ class Component extends DCLogic {
     max = Math.round(max * (factor || 1));
     els.forEach((el) => { el.style.height = max + "px"; });
   }
-  renderProjets() { return; // New responsive portfolio projects use independent controllers.
-    if (this.mobile) { this.renderMobileRail(); return; }
-    this.syncSnap();
-    if (this.tablet) { this.tRail(); return; } // tablet drives its own drag deck
-    const set = this.mobile ? { bgs: this.mBgs, tk: this.mTickets, th: 620 }
-      : this.tablet ? { bgs: this.tBgs, tk: this.tTickets, th: 720 }
-      : { bgs: this.bgs, tk: this.tickets, th: this.TH };
-    if (!set.tk || !set.tk.length) return;
-    const sH = this.stepH();
-    const local = (window.scrollY - this.PROJ_TOP * sH) / sH;
-    const p = Math.max(0, Math.min(this.N - 1, local));
-    let idx = Math.floor(p);
-    if (idx > this.N - 1) idx = this.N - 1;
-    const l = p - idx;
-    let e = 0;
-    if (l > this.HOLD) e = this.ease((l - this.HOLD) / (1 - this.HOLD));
-    const from = idx, to = Math.min(idx + 1, this.N - 1);
-    set.bgs.forEach((el, i) => {
-      if (!el) return;
-      if (from === to) el.style.opacity = i === from ? 1 : 0;
-      else if (i === to) el.style.opacity = e;
-      else if (i === from) el.style.opacity = 1;
-      else el.style.opacity = 0;
-    });
-    const slide = true;
-    // the travel has to clear the whole frame, otherwise two tickets sit on screen
-    // together mid-transition on tall windows
-    const OFF = this.mobile ? 900 : this.tablet ? Math.max(1200, this.tFrameH || 0) : Math.max(this.OFF, (this.frameH || 844) + 60);
-    set.tk.forEach((el, i) => {
-      if (from === to) { this.showTicket(el, i === from ? 1 : 0, i === from ? 3 : 0, null, i === from ? 0 : OFF); return; }
-      if (slide) {
-        if (i === from) this.showTicket(el, 1, 2, null, -OFF * e);
-        else if (i === to) this.showTicket(el, 1, 3, null, OFF * (1 - e));
-        else this.showTicket(el, 0, 0, null, OFF);
-      } else {
-        if (i === from) this.showTicket(el, 1, 2, null);
-        else if (i === to) this.showTicket(el, 1, 3, this.curtainMask(e, set.th));
-        else this.showTicket(el, 0, 0, null);
-      }
-    });
-  }
+  renderProjets() { return; } // Current Projects sections use independent controllers.
 
   // ===================== ABOUT + FOOTER =====================
   // desktop: each fact card rises from below into its slot in the 2-row grid and

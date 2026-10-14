@@ -87,17 +87,10 @@
 #kc-tablet-projets .info{width:auto;flex:1 1 0;min-width:0}
 #kc-tablet-projets .barcode{width:7%;max-width:52px;min-width:28px}
 #kc-tablet-projets .ticket:focus-visible{outline:2px solid #222;outline-offset:2px}@media(prefers-reduced-motion:reduce){#kc-tablet-projets .motion{transition:none}}#kc-mobile-projets #kc-m-viewport{position:relative;width:100%;height:913.232vw;overflow:hidden}#kc-mobile-projets #kc-m-canvas{width:393px;height:3589px;position:absolute;left:0;top:0;transform-origin:top left;background:#fff}#kc-mobile-projets h1{position:absolute;left:16.449px;top:119.784px;width:303.736px;margin:0;font:700 32px/1 Figtree,Arial,sans-serif;letter-spacing:-.03em}#kc-mobile-projets .project{position:absolute;color:inherit;text-decoration:none;display:block}#kc-mobile-projets .project:focus-visible{outline:2px solid #222;outline-offset:4px}#kc-mobile-projets .visual{width:100%;position:relative;overflow:hidden;border-radius:2px;background:#f2eef2}#kc-mobile-projets .poster,#kc-mobile-projets .motion{width:100%;height:100%;position:absolute;inset:0;display:block;object-fit:cover}#kc-mobile-projets .motion{opacity:0;transition:opacity .2s}#kc-mobile-projets .project.playing .motion{opacity:1}#kc-mobile-projets .project h2{position:absolute;left:0;width:100%;font:700 24px/1 Figtree,Arial,sans-serif;letter-spacing:-.03em;margin:0}#kc-mobile-projets .description{position:absolute;left:0;width:100%;font:400 14px/1.5 Inter,Arial,sans-serif;letter-spacing:-.01em;margin:0;color:#5c575c}#kc-mobile-projets .categories{position:absolute;left:0;display:flex;flex-direction:column;gap:8px;font:500 11px/18px Inter,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}#kc-mobile-projets .barcode{position:absolute;left:0;fill:#2b3b37;display:block}#kc-mobile-projets .project:hover{text-decoration:none}@media(prefers-reduced-motion:reduce){#kc-mobile-projets .motion{transition:none}}
-#kc-desktop-projets,#kc-tablet-projets,#kc-mobile-projets{background:white;color:#222022;font-family:Inter,Arial,sans-serif}#kc-desktop-projets .ticket:hover,#kc-tablet-projets .ticket:hover,#kc-mobile-projets .project:hover{opacity:1}#kc-desktop-projets .portfolio{position:relative}#kc-tablet-projets #kc-t-viewport,#kc-mobile-projets #kc-m-viewport{position:relative;width:100%;overflow:hidden}
+#kc-desktop-projets,#kc-tablet-projets,#kc-mobile-projets{background:white;color:#222022;font-family:Inter,Arial,sans-serif}#kc-tablet-projets .ticket:hover,#kc-mobile-projets .project:hover{opacity:1}#kc-tablet-projets #kc-t-viewport,#kc-mobile-projets #kc-m-viewport{position:relative;width:100%;overflow:hidden}
 /* Integration guardrails: use the approved standalone layouts without inherited card geometry. */
 #kc-desktop-projets,#kc-tablet-projets,#kc-mobile-projets{display:block;position:relative;width:100%;box-sizing:border-box;isolation:isolate}
 #kc-desktop-projets *,#kc-tablet-projets *,#kc-mobile-projets *{box-sizing:border-box}
-#kc-desktop-projets .stage{transform-origin:top left!important}
-#kc-desktop-projets .ticket{box-sizing:border-box;flex-shrink:0}
-#kc-desktop-projets .ticket-panel{box-sizing:border-box}
-#kc-desktop-projets .ticket-image .media-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .32s ease}
-#kc-desktop-projets .ticket-image .media-layer.active{opacity:1}
-#kc-desktop-projets .toolbar{right:32px}
-#kc-desktop-projets .toolbar small{display:block;white-space:nowrap}
 
 #kc-mobile-projets h1 em{font-style:italic!important;font-weight:400}
 
@@ -529,7 +522,7 @@ class Component extends DCLogic {
       // left the sections below black for the first seconds. The hero's own slides go first,
       // then everything else in small batches during idle time.
       const first = (this.heroSlides || []).concat(this.tHeroSlides || [], this.mHeroSlides || []).filter(Boolean);
-      const rest = [].concat(this.bgs || [], this.tBgs || [], this.mBgs || []).filter(Boolean)
+      const rest = [].concat(this.bgs || [], this.mBgs || []).filter(Boolean)
         .concat(this.root ? Array.from(this.root.querySelectorAll("[data-tmedia] div, [data-i] div")).slice(0, 60) : []);
       if (!first.length && !rest.length) { setTimeout(this._warmBgs, 300); return; }
       this._warmed = true;
@@ -1487,13 +1480,6 @@ class Component extends DCLogic {
     // the preview masks everything outside the frame vertically too, so the bottom edge
     // of the frame — not of the window — is what these sit on
     const boxB = Math.max(0, (this.vhNow() - boxH) / 2);
-    if (this.pLabels) {
-      const pad = (boxL + 32 * st).toFixed(1) + "px";
-      this.pLabels.style.left = pad;
-      this.pLabels.style.right = pad;
-      this.pLabels.style.bottom = (boxB + 32 * st).toFixed(1) + "px";
-      this.pLabels.querySelectorAll("span").forEach((el) => { el.style.fontSize = "12px"; });
-    }
     const ckT = this.cookies && this.cookies.desktop;
     if (ckT) {
       // the banner sits on the same grid line as FAIRE GLISSER, on the frame's edge
@@ -1684,49 +1670,6 @@ class Component extends DCLogic {
     const idx = Math.min(n - 1, Math.round(p * (n - 1)));
     if (this.mCount) this.mCount.textContent = String(idx + 1).padStart(2, "0") + "-06";
   }
-  isLand() {
-    // orientation is the FRAME's, not the window's: the reviewed tablet preview is the portrait
-    // 834x1112 frame no matter how wide the reviewing window happens to be
-    const force = (this.props && this.props.layout) || "auto";
-    if (force === "tablet") return false;
-    if (window.__kcPortrait) return false;            // review hook: read the portrait frame
-    return window.innerWidth > window.innerHeight;
-  }
-  // sets the wordmark so its INK spans exactly from the left grid margin to the right one:
-  // the type is measured at a reference size and scaled, then the M's left side bearing is
-  // subtracted so the letter's edge — not its invisible box — lands on the 32 line.
-  // MES PROJETS is set from the FONT's own geometry instead of a runtime measurement.
-  // Figtree Bold, letter-spacing -0.03em, the string "MES PROJETS": the ink runs 6.2407 x the
-  // font-size wide, and the M's left side bearing is 0.0760 x the font-size. Measuring at run
-  // time went wrong on Safari (metrics read before Figtree had loaded, or off a fallback face),
-  // which is why the word kept landing at a different inset than the K and the captions.
-
-
-  // TABLET DECK — one screen, browsed by dragging sideways. No scroll linkage, no sticky
-  // layer, no 3D: the two things that made the old block come back cropped from a Safari
-  // tab restore. Position is a single number (tOff, in tickets) that the drag moves and a
-  // spring settles onto whole numbers.
-  // Safari restores a frozen tab by re-attaching the compositor layers it kept — and hands
-  // some of them back EMPTY. A ticket promoted by will-change owns such a layer, which is why
-  // a card came back as bare photo (card layer empty) or as a grey plate (video layer empty)
-  // and only repainted itself seconds later. This drops the promotion and forces one real
-  // repaint of card and clip.
-
-  // how far the rail may travel: at this offset the last ticket's right edge sits on the right
-  // grid margin. Beyond it the deck would drag the last card over to the left margin and leave
-  // dead black to its right.
-
-  // each ticket opens its project, same targets as the desktop cards. A tap, not a drag:
-  // anything past a few pixels of travel is a swipe of the rail and must not navigate.
-
-
-
-
-
-  // all tickets in a breakpoint take the height of the tallest one; the tag block
-  // sits on an auto margin so the slack lands between description and tags
-  // consent gates Google Analytics: nothing is measured until the visitor accepts, and
-  // the choice is remembered so the bar shows only once
   consentValue() {
     try { return localStorage.getItem("kc-cookie-consent"); } catch (e) { return "deny"; }
   }
@@ -1877,16 +1820,6 @@ class Component extends DCLogic {
   // least 15% of the frame empty above and below (never less than the 16px side
   // margin). If the content can't fit, the media block gives up height first.
 
-  equalize(list, factor) {
-    const els = (list || []).filter(Boolean);
-    if (els.length < 2) return;
-    els.forEach((el) => { el.style.height = "auto"; });
-    let max = 0;
-    els.forEach((el) => { max = Math.max(max, el.offsetHeight); });
-    if (!max) return;
-    max = Math.round(max * (factor || 1));
-    els.forEach((el) => { el.style.height = max + "px"; });
-  }
   renderProjets() { return; } // Current Projects sections use independent controllers.
 
   // ===================== ABOUT + FOOTER =====================

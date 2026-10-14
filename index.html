@@ -3590,7 +3590,9 @@ class Component extends DCLogic {
     rail.style.left = '32px';
     const visibleBottom = viewport.getBoundingClientRect().bottom;
     const stageTop = stage.getBoundingClientRect().top;
-    const rowTop = (visibleBottom - stageTop - 32) / scale - 220;
+    const stageRect = stage.getBoundingClientRect();
+    const actualScale = stage.offsetWidth ? stageRect.width / stage.offsetWidth : 1;
+    const rowTop = (visibleBottom - stageTop - 32) / actualScale - 220;
     rail.style.setProperty('top', Math.max(0, rowTop).toFixed(2) + 'px', 'important');
     rail.style.setProperty('bottom', 'auto', 'important');
     const fullWidth = cards.length * cardWidth + (cards.length - 1) * 18;

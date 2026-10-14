@@ -1580,6 +1580,7 @@ class Component extends DCLogic {
     // little thin, so it gets a modest bump — CLAMPED, because feeding the raw height ratio
     // into width terms inflates the pool past the screen edges and turns the spotlight into
     // a flat wash that kills the lit/dark seat contrast.
+    const mobileBeam = this.mHero && this.mHero.style.display === 'block';
     const k = Math.min(1.6, Math.max(1, HHpre / 813));
     if (shape === "circle") {
       const R = w * 0.105 * k;
@@ -1605,8 +1606,9 @@ class Component extends DCLogic {
       // so the pool spreads, flattens into perspective and tilts along the beam
       const throwY = Math.max(0.12, Math.min(1.25, this.cy / (HH * 0.72)));
       const off = (this.cx - ax) / (720 * 0.9);
-      const ay = -40, apexHW = 16 * k;
-      const baseHW = (118 + 74 * throwY) * k;
+      const mobileSpread = mobileBeam ? 1.28 : 1;
+      const ay = -40, apexHW = 16 * k * mobileSpread;
+      const baseHW = (118 + 74 * throwY) * k * mobileSpread;
       const shaft = (ax - apexHW) + "," + ay + " " + (ax + apexHW) + "," + ay + " " +
         (this.cx + baseHW) + "," + this.cy + " " + (this.cx - baseHW) + "," + this.cy;
       const prx = baseHW * (1.18 + 0.26 * throwY), pry = baseHW * (0.52 - 0.20 * throwY);
@@ -1615,7 +1617,8 @@ class Component extends DCLogic {
       if (this.glowShaft) { this.glowShaft.setAttribute("points", shaft); this.glowShaft.setAttribute("filter", "url(#beamSoft)"); }
       // single-pass blur only: a second filtered pass over the whole plate was needless
       // main-thread cost in every browser for a difference nobody could see
-      if (this.beamBlur && this._sd !== "15") { this._sd = "15"; this.beamBlur.setAttribute("stdDeviation", "15"); }
+      const shaftBlur = mobileBeam ? "31" : "15";
+      if (this.beamBlur && this._sd !== shaftBlur) { this._sd = shaftBlur; this.beamBlur.setAttribute("stdDeviation", shaftBlur); }
       [this.maskPool, this.glowPool].forEach((el) => {
         if (!el) return;
         el.setAttribute("cx", this.cx); el.setAttribute("cy", this.cy);

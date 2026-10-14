@@ -1606,7 +1606,11 @@ class Component extends DCLogic {
       // so the pool spreads, flattens into perspective and tilts along the beam
       const throwY = Math.max(0.12, Math.min(1.25, this.cy / (HH * 0.72)));
       const off = (this.cx - ax) / (720 * 0.9);
-      const mobileSpread = mobileBeam ? 1.55 : 1;
+      // Keep 1.55x at the 390x844 reference; adapt gently to shorter/taller phone screens.
+      const phoneAspect = window.innerHeight / Math.max(1, window.innerWidth);
+      const mobileSpread = mobileBeam
+        ? Math.max(1.35, Math.min(1.8, 1.55 * Math.pow(phoneAspect / (844 / 390), 0.4)))
+        : 1;
       const ay = -40, apexHW = 16 * k * mobileSpread;
       const baseHW = (118 + 74 * throwY) * k * mobileSpread;
       const shaft = (ax - apexHW) + "," + ay + " " + (ax + apexHW) + "," + ay + " " +

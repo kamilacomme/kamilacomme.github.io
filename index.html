@@ -3739,6 +3739,87 @@ class Component extends DCLogic {
 })();
 </script>
 <script>
+/* Mobile image tickets: the same three-image, 1900ms loop used by desktop Projects. */
+(function () {
+  const root = document.getElementById('kc-mobile-projets');
+  if (!root) return;
+  const imageSets = {
+    'Tour de parole': ['p3-bg.webp', 'p3-b.webp', 'p3-c.webp'],
+    'Celimax': ['p6-bg.webp', 'p6-b.webp', 'p6-c.webp'],
+    'Napoli': ['p2-a.webp', 'p2-b.webp', 'p2-bg.webp']
+  };
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const bound = new WeakSet();
+  const running = new Map();
+  const base = 'https://kamilacomme.github.io/assets/projets/opt/';
+  function stop(ticket) {
+    const state = running.get(ticket);
+    if (!state) return;
+    if (state.timer !== null) clearInterval(state.timer);
+    state.timer = null;
+    state.index = 0;
+    state.images.forEach((img, i) => { img.style.opacity = i === 0 ? '1' : '0'; });
+  }
+  function start(ticket) {
+    const state = running.get(ticket);
+    if (!state || state.timer !== null || reduced.matches || document.hidden) return;
+    state.timer = setInterval(function () {
+      state.index = (state.index + 1) % state.images.length;
+      state.images.forEach((img, i) => { img.style.opacity = i === state.index ? '1' : '0'; });
+    }, 1900);
+  }
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.32) start(entry.target);
+      else stop(entry.target);
+    });
+  }, {threshold:[0,0.32,0.6]});
+  function bind() {
+    root.querySelectorAll('.project').forEach(function (ticket) {
+      if (bound.has(ticket)) return;
+      const name = ticket.getAttribute('aria-label')?.replace('Voir le projet ', '');
+      const files = imageSets[name];
+      if (!files) return;
+      const visual = ticket.querySelector('.visual');
+      const poster = visual?.querySelector('img.poster');
+      if (!poster) return;
+      bound.add(ticket);
+      poster.style.transition = 'opacity .32s ease';
+      poster.style.opacity = '1';
+      const images = [poster];
+      files.slice(1).forEach(function (filename) {
+        const img = document.createElement('img');
+        img.className = 'poster kc-mobile-slide';
+        img.src = base + filename;
+        img.alt = '';
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.style.opacity = '0';
+        img.style.transition = 'opacity .32s ease';
+        img.style.pointerEvents = 'none';
+        visual.appendChild(img);
+        images.push(img);
+      });
+      running.set(ticket, {images:images,index:0,timer:null});
+      observer.observe(ticket);
+    });
+  }
+  document.addEventListener('visibilitychange',function () {
+    running.forEach(function (_,ticket) {
+      if (document.hidden) stop(ticket);
+      else if (ticket.getBoundingClientRect().bottom > 0 &&
+               ticket.getBoundingClientRect().top < innerHeight) start(ticket);
+    });
+  });
+  if (reduced.addEventListener) reduced.addEventListener('change',function () {
+    running.forEach(function (_,ticket) { stop(ticket); });
+  });
+  const mounts = new MutationObserver(bind);
+  mounts.observe(root,{childList:true,subtree:true});
+  bind();
+})();
+</script>
+<script>
 /* Apply the 393px Figma canvas scaling whenever the rendered component is mounted or resized. */
 (function () {
   let observedViewport = null;

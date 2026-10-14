@@ -3543,7 +3543,84 @@ class Component extends DCLogic {
  const observer=new MutationObserver(()=>{attach();if(attached)observer.disconnect()});
  observer.observe(document.documentElement,{childList:true,subtree:true});
  attach();window.addEventListener('load',attach,{once:true});
-})();</script><script>
+})();</script><style>
+/* Landscape tablet only: pin the section and move the same approved tickets sideways. */
+#kc-tablet-projets.kc-landscape-rail #kc-t-viewport { position:sticky !important; top:0; overflow:hidden; }
+#kc-tablet-projets.kc-landscape-rail #kc-t-stage .tickets { display:flex; flex-direction:row; align-items:stretch; gap:18px; width:max-content; max-width:none; }
+#kc-tablet-projets.kc-landscape-rail #kc-t-stage .ticket { flex:none; height:220px; }
+</style>
+<script>
+/* Vertical page scroll drives horizontal tablet Projects tickets in landscape only.
+   Portrait keeps the approved six-row layout and its existing sizing controller. */
+(function () {
+  let lastFrame = null, active = false, travel = 0, scrollLength = 0, scale = 1;
+  const $ = id => document.getElementById(id);
+  function layout() {
+    const section = $('kc-tablet-projets'), viewport = $('kc-t-viewport'),
+      stage = $('kc-t-stage'), rail = stage?.querySelector('.tickets');
+    if (!section || !viewport || !stage || !rail) return;
+    const tabletRoot = section.parentElement?.parentElement;
+    const shouldRun = !!tabletRoot && getComputedStyle(tabletRoot).display !== 'none'
+      && window.innerWidth > window.innerHeight && window.innerWidth >= 500;
+    if (!shouldRun) {
+      if (active) {
+        active = false;
+        section.classList.remove('kc-landscape-rail');
+        section.style.height = '';
+        viewport.style.position = ''; viewport.style.top = ''; viewport.style.height = '';
+        rail.style.transform = ''; rail.style.width = ''; rail.style.top = '';
+        rail.style.left = '';
+        [...rail.children].forEach(el => { el.style.width = ''; el.style.height = ''; });
+        if (window.__kcTabletProjectFit) window.__kcTabletProjectFit();
+      }
+      return;
+    }
+    active = true;
+    section.classList.add('kc-landscape-rail');
+    scale = window.__kcTabletScale || 1;
+    const vw = window.innerWidth / scale, vh = window.innerHeight / scale;
+    stage.style.height = vh + 'px';
+    viewport.style.width = '100%';
+    viewport.style.height = window.innerHeight + 'px';
+    const cardWidth = Math.min(574, vw - 64);
+    const cards = [...rail.querySelectorAll('.ticket')];
+    cards.forEach(el => { el.style.width = cardWidth + 'px'; el.style.height = '220px'; });
+    rail.style.left = '32px';
+    rail.style.top = Math.max(160, (vh - 220) / 2) + 'px';
+    const fullWidth = cards.length * cardWidth + (cards.length - 1) * 18;
+    travel = Math.max(0, fullWidth + 32 - vw);
+    scrollLength = travel * scale;
+    section.style.height = (window.innerHeight + scrollLength) + 'px';
+    lastFrame = section;
+    update();
+  }
+  function update() {
+    if (!active || !lastFrame) return;
+    const rail = lastFrame.querySelector('.tickets');
+    if (!rail) return;
+    const rect = lastFrame.getBoundingClientRect();
+    const moved = Math.max(0, Math.min(scrollLength, -rect.top));
+    rail.style.transform = 'translate3d(' + (-moved / scale).toFixed(2) + 'px,0,0)';
+  }
+  let scheduled = false;
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(function () { scheduled = false; layout(); });
+  }
+  window.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', schedule, {passive:true});
+  window.addEventListener('pageshow', schedule);
+  document.addEventListener('DOMContentLoaded', schedule, {once:true});
+  const mounts = new MutationObserver(function () {
+    const section = $('kc-tablet-projets');
+    if (section && section !== lastFrame) schedule();
+  });
+  mounts.observe(document.documentElement,{childList:true,subtree:true});
+  schedule();
+})();
+</script>
+<script>
 /* Tablet Projects: standalone-preview video playback, safe for dynamic mounting. */
 (function () {
   const observed = new WeakSet();

@@ -1157,7 +1157,6 @@ class Component extends DCLogic {
           }
         }
       }
-      if (!mobile) this.placeWordmark();
       if (this._measureAbout) this._measureAbout();
     };
     this.fit();
@@ -1771,30 +1770,6 @@ class Component extends DCLogic {
         + colW.toFixed(2) + "px, rgba(202,229,108,0) " + colW.toFixed(2) + "px, rgba(202,229,108,0) "
         + period.toFixed(2) + "px)",
     });
-  }
-  // ONE owner for the big wordmark, running last on every fit: its box is taken from the
-  // rendered navbar — left edge where the K starts, right edge where the pink button ends.
-  // No design-px maths, no per-branch duplicate, nothing to disagree with.
-  placeWordmark() {
-    // tablet is left alone: everything the vector/nav-box machinery added there is off
-    if (this._wmOwned || this.tablet) return;
-    const nav = this.nav, svg = this.pWordSvg;
-    if (!nav || !svg || !svg.parentElement) return;
-    const logo = nav.querySelector("span");
-    const mails = nav.querySelectorAll("a[href^='mailto']");
-    const pill = mails.length ? mails[mails.length - 1] : null;
-    const lr = logo && logo.getBoundingClientRect();
-    const pr = pill && pill.getBoundingClientRect();
-    if (!lr || !pr || !(pr.right > lr.left)) return;
-    const host = svg.parentElement.getBoundingClientRect();
-    if (!host.width) return;
-    // the wordmark lives inside a SCALED stage: screen pixels have to be divided by that
-    // scale to become local ones. Writing screen px straight in is what put the word in an
-    // arbitrary spot on a tablet (scale 0.97 / 1.37) while looking perfect at scale 1.
-    const k = svg.parentElement.offsetWidth ? host.width / svg.parentElement.offsetWidth : 1;
-    if (!(k > 0)) return;
-    this._wmPath = "nav-box k" + k.toFixed(3);
-    this.fitWordSvg((lr.left - host.left) / k, (pr.right - lr.left) / k, 0);
   }
   // the landscape wordmark is drawn as SVG and cropped to its own measured geometry: the
   // box comes from the same getBBox as the crop, so the word fills the width and its

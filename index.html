@@ -3599,7 +3599,11 @@ class Component extends DCLogic {
     // Measure the rendered stage rather than the nominal tablet scale; account for both 32px gutters.
     scale = actualScale || 1;
     const visibleWidth = viewport.getBoundingClientRect().width / scale;
-    travel = Math.max(0, 32 + fullWidth + 32 - visibleWidth);
+    const hireButton = document.querySelector('a[data-fixed-ink][href^="mailto:"]');
+    const buttonRect = hireButton?.getBoundingClientRect();
+    const viewportRect = viewport.getBoundingClientRect();
+    const rightInset = buttonRect && buttonRect.width ? Math.max(0, viewportRect.right - buttonRect.right) / scale : 32;
+    travel = Math.max(0, 32 + fullWidth + rightInset - visibleWidth);
     scrollLength = travel * scale;
     section.style.height = (window.innerHeight + scrollLength) + 'px';
     lastFrame = section;

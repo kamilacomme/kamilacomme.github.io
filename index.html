@@ -696,12 +696,6 @@ class Component extends DCLogic {
           w.style.transform = "none";
         }
       }
-      if (this.pStage) {
-        const sec = this.pStage.parentElement;
-        const secH = (sec && sec.clientHeight) || this.vhNow();
-        this.pStage.style.height = (secH / ps).toFixed(2) + "px";
-        this.pStage.style.transform = "translate(-50%,-50%) scale(" + ps + ")";
-      }
       if (this.aStage) this.aStage.style.transform = "translate(-50%,-50%) scale(" + s + ")";
       // every desktop ticket shares ONE top (they are all TH tall) — measuring each one
       // separately made them land at different heights and overlap during a transition
@@ -785,15 +779,6 @@ class Component extends DCLogic {
       // stage at 1:1 there instead: 16/12 type stays 16/12 and the deck reads smaller.
       // the desktop carousel is desktop-only again: the tablet has its own block with the
       // same composition, so nothing here is re-sized in window pixels
-      if (this.pStage) {
-        if (!mobile && this._psMode) {
-          this.pStage.style.width = "1440px";
-          this.pStage.style.height = "813px";
-          this.pStage.style.overflow = "hidden";
-          if (this.cRail) this.cRail.style.width = "1440px";
-        }
-        this._psMode = mobile ? "m" : "";
-      }
       // the phone runs the same desktop carousel, scaled into the 390 frame
       // the tablet block carries the SAME composition as the desktop one — black field, the
       // word behind the deck, one horizontal carousel — on its own tablet frame
@@ -801,9 +786,6 @@ class Component extends DCLogic {
       if (this.mProj) this.mProj.style.display = mobile ? "block" : "none";
       if (this.about) this.about.style.display = big ? "block" : "none";
       if (this.tProj) this.tProj.style.display = tablet ? "block" : "none";
-      if (touch) {
-        (this.cCards || []).forEach((el) => { if (el) el.style.cursor = "pointer"; });
-      }
       if (this.heroTop) this.heroTop.style.display = big ? "block" : "none";
       if (this.heroBottom) this.heroBottom.style.display = big ? "block" : "none";
       // the bar spans the window, so the content frames span it too. Their 32px design
@@ -910,22 +892,6 @@ class Component extends DCLogic {
             width: bw.toFixed(1) + "px", marginLeft: bl.toFixed(1) + "px" });
         });
         if (this.mWordmark) this.mWordmark.style.bottom = (11 * sm).toFixed(1) + "px";
-        if (this.pStage) {
-          this.ps = 1;
-          this.pStage.style.width = "390px";
-          this.pStage.style.height = mFrameH + "px";
-          this.pStage.style.transform = "translate(-50%,-50%) scale(" + sm + ")";
-          if (this.cRail) this.cRail.style.width = "100%";
-        }
-        (this.cCards || []).forEach((el) => {
-          if (!el) return;
-          const spans = el.querySelectorAll("span");
-          spans.forEach((sp, i) => {
-            if (i === 0) sp.style.fontSize = "32px";
-            else if (sp.style.fontWeight === "400") sp.style.fontSize = "14px";
-            else sp.style.fontSize = "11px";
-          });
-        });
         this.fitMobileRail(sm, kFit);
         // the phone runs the desktop projets carousel, so the About block does not start
         // where the 7-screen constant assumed — measure it instead of trusting a number

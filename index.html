@@ -1533,11 +1533,7 @@ class Component extends DCLogic {
     return "linear-gradient(to " + (horizontal ? "right" : "bottom") + ", " + stops.join(",") + ")";
   }
   ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-  curtainMask(e, th) {
-    const band = (th || this.TH) / this.BANDS;
-    const cover = e * band;
-    return "repeating-linear-gradient(to bottom, #000 0, #000 " + cover.toFixed(2) + "px, transparent " + cover.toFixed(2) + "px, transparent " + band.toFixed(2) + "px)";
-  }
+
   // desktop, tablet and phone each carry their own copy of the ticket deck, so all six
   // YouTube players used to boot at once — on a phone that alone eats the frame budget.
   // Only the embeds inside the layout actually on screen keep a src.
@@ -1640,111 +1636,8 @@ class Component extends DCLogic {
       ckT.style.bottom = (boxB + 32 * st).toFixed(1) + "px";
       ckT.style.right = "auto";
     }
-    if (!this.pWord) return;
-    this.pWord.style.opacity = "0.11";
-    const cv = (this._mt = this._mt || document.createElement("canvas")).getContext("2d");
-    try { cv.letterSpacing = "-0.04em"; } catch (e) {}
-    cv.font = "700 200px Figtree, sans-serif";
-    // Safari ignores canvas letterSpacing, so measuring a tracked-in word on canvas comes
-    // back too wide and the word lands short of the right edge. Measure the real element:
-    // probe size, read the rendered width, scale to the target.
-    const domSize = (text, targetW) => {
-      const el = this.pWord;
-      const prev = { ws: el.style.whiteSpace, fs: el.style.fontSize, lh: el.style.lineHeight, tx: el.textContent };
-      el.style.whiteSpace = "nowrap"; el.style.lineHeight = "1"; el.style.fontSize = "200px";
-      if (el.textContent !== text) el.textContent = text;
-      let w = el.getBoundingClientRect().width;
-      let size = w > 0 ? 200 * targetW / w : 0;
-      if (size > 0) {
-        el.style.fontSize = size.toFixed(2) + "px";
-        w = el.getBoundingClientRect().width;
-        if (w > 0) size = size * targetW / w;
-      }
-      Object.assign(el.style, { whiteSpace: prev.ws, fontSize: prev.fs, lineHeight: prev.lh });
-      if (el.textContent !== prev.tx) el.textContent = prev.tx;
-      return size > 0 ? size : null;
-    };
-    const portraitFrame = force !== "auto" ? boxH / boxW > 1.05
-      : window.innerWidth <= this.vhNow() * 1.02;
-    if (portraitFrame) {
-      // tablet: MES over PROJETS, centred at the top of the frame. The Display step (88)
-      // is the floor and 120 the ceiling — a wider iPad grows the title on that curve
-      // instead of leaving it small in a big frame. Its position is a share of the frame
-      // height (13.5%), so the rhythm holds whatever the tablet's aspect is.
-      // the tickets are placed as a share of the SECTION height (100svh), so the title has
-      // to be measured against the same box — a frame-box position drifts into the cards
-      // on any tablet whose viewport is not exactly 1112*st.
-      // the cards' 61% resolves against their own containing block — measure THAT, not the
-      // window: vhNow() can report a different (stable / large) viewport height
-      const railBox = (this.cRail && this.cRail.offsetHeight)
-        || (this.cCards && this.cCards[0] && this.cCards[0].offsetParent && this.cCards[0].offsetParent.offsetHeight)
-        || this.vhNow();
-      const vh = railBox;
-      let cardH = 494;
-      (this.cCards || []).forEach((el) => { if (el && el.offsetHeight) cardH = Math.max(cardH, el.offsetHeight); });
-      const designW = boxW / (st || 1);
-      const NAV = 96 * st, GAP = 32 * st, CAP = 72 * st;
-      // the title never goes under the Display step: 88 is the floor, 120 the ceiling.
-      // Where two lines do not fit between the navbar and the band, the phone's pattern
-      // applies — one line "PROJETS" — and the band moves down, the type never shrinks.
-      // the title is set like the phone's and the desktop's: the word spans the frame
-      // width (24 margin each side) instead of sitting at a fixed Display step in a big
-      // frame. It only gives size back if the two lines would reach the ticket band.
-      const wmT = domSize("PROJETS", (designW - 64) * st);
-      // the two-line portrait title owns the wordmark: placeWordmark must not replace it
-      this._wmOwned = true;
-      this.hideWordSvg();
-      let tSize = wmT || Math.max(88, Math.min(120, designW * 0.105)) * st;
-      const cardTop = vh * 0.61 - cardH / 2;
-      const room = Math.max(88 * st, cardTop - NAV - GAP / 2);
-      let two = true;
-      if (tSize * 1.9 > room) {
-        if (room / 1.9 >= 88 * st) tSize = room / 1.9;
-        else { two = false; tSize = Math.max(88 * st, Math.min(tSize, room / 0.95)); }
-      }
-      let tH = two ? tSize * 1.9 : tSize * 0.95;
-      const top = NAV;
-      const txt = two ? "MES\nPROJETS" : "PROJETS";
-      if (this.pWord.textContent !== txt) this.pWord.textContent = txt;
-      Object.assign(this.pWord.style, {
-        fontSize: tSize.toFixed(2) + "px", lineHeight: "0.95",
-        whiteSpace: two ? "pre" : "nowrap", display: "block",
-        textAlign: "center", width: boxW.toFixed(1) + "px",
-        left: boxL.toFixed(1) + "px", bottom: "auto", top: top.toFixed(1) + "px",
-      });
-      // equal air above and below the rail: the same gap under the title block as over the
-      // FAIRE GLISSER / 01—06 row, whatever the tablet's height
-      const labH = 44 * st;
-      const air = Math.max(16 * st, (vh - (NAV + tH) - labH - cardH) / 2);
-      const cCenter = NAV + tH + air + cardH / 2;
-        return;
-    }
-    if (this.pWord.textContent !== "MES PROJETS") this.pWord.textContent = "MES PROJETS";
-    Object.assign(this.pWord.style, { whiteSpace: "nowrap", width: "auto", textAlign: "left", top: "auto" });
-    // ink to ink: sized on the advance box the word kept its side bearings and sat a dozen
-    // px short of the left edge, which is what stayed unfixed all this time
-    this._wmPath = "tablet-land";
-    this._wmOwned = false;
-    // iPad: back to the plain text wordmark, sized to the grid box. None of the SVG /
-    // nav-box machinery runs here any more.
-    const wmM = 32 * st;
-    const wmW = Math.max(1, boxW - 2 * wmM);
-    this.hideWordSvg(false);
-    const dz = domSize("MES PROJETS", wmW);
-    if (!dz) { if (this.pWord) this.pWord.style.display = "none"; return; }
-    this.pWord.style.display = "block";
-    Object.assign(this.pWord.style, { fontSize: dz.toFixed(2) + "px", lineHeight: "1",
-      left: (boxL + wmM).toFixed(1) + "px", bottom: boxB.toFixed(1) + "px" });
-    const f = this.inkFlush("MES PROJETS", wmW);
-    if (f) {
-      this.pWord.style.fontSize = f.size.toFixed(2) + "px";
-      this.pWord.style.left = (boxL + wmM + f.left).toFixed(1) + "px";
-      this.pWord.style.lineHeight = "1";
-      this.pWord.style.bottom = (boxB - (f.size - f.baseFromTop)).toFixed(1) + "px";
-    }
   }
-  // the grid toggle, on the tablet frame: 12 columns, 32 margin, 24 gutter — the lines the
-  // whole composition is placed on
+
   showTGrid(st, force) {
     const on = !!(this.props && this.props.grid) && !this.mobile;
     let g = this._tGrid;
@@ -2205,11 +2098,7 @@ class Component extends DCLogic {
   }
   // each ticket opens its project, same targets as the desktop cards. A tap, not a drag:
   // anything past a few pixels of travel is a swipe of the rail and must not navigate.
-  tTicketUrl(i) {
-    return ["https://www.instagram.com/", "https://www.threads.net/", "https://t.me/",
-      "https://readymag.website/u1448912666/perfectionism/", "https://x.com/",
-      "https://www.facebook.com/"][i] || "";
-  }
+
   wireTDrag(el) {
     if (!el || el._tWired) return;
     el._tWired = true;
@@ -2346,35 +2235,8 @@ class Component extends DCLogic {
       if (this.tCount.textContent !== txt) this.tCount.textContent = txt;
     }
   }
-  showTicket(el, op, z, mask, y) {
-    if (!el) return;
-    // every write here is a style recalc; the loop runs 6x per frame, so only touch a
-    // property when it actually changed (this is what made phone scrolling stutter)
-    const base = el._cy ? "translateY(-50%)" : "";
-    const t = (y == null) ? (base || "none") : (base + " translateY(" + y.toFixed(1) + "px)").trim();
-    const m = mask || "none";
-    const pe = op > 0.5 && !mask ? "auto" : "none";
-    const c = el._st || (el._st = {});
-    if (c.t !== t) { c.t = t; el.style.transform = t; }
-    if (c.op !== op) { c.op = op; el.style.opacity = op; }
-    if (c.z !== z) { c.z = z; el.style.zIndex = z; }
-    if (c.m !== m) { c.m = m; el.style.webkitMaskImage = m; el.style.maskImage = m; }
-    if (c.pe !== pe) { c.pe = pe; el.style.pointerEvents = pe; }
-  }
-  syncSnap() {
-    // desktop no longer scroll-snaps: the projets block is one screen with a carousel
-    if (!this.mobile) {
-      if (this._snapOn) { this._snapOn = false; document.documentElement.style.scrollSnapType = ""; }
-      return;
-    }
-    const sH = this.stepH();
-    const local = (window.scrollY - this.PROJ_TOP * sH) / sH;
-    const on = local >= 0 && local <= this.N - 1;
-    if (on !== this._snapOn) {
-      this._snapOn = on;
-      document.documentElement.style.scrollSnapType = on ? "y mandatory" : "";
-    }
-  }
+
+
   // all tickets in a breakpoint take the height of the tallest one; the tag block
   // sits on an auto margin so the slack lands between description and tags
   // consent gates Google Analytics: nothing is measured until the visitor accepts, and
@@ -2528,25 +2390,7 @@ class Component extends DCLogic {
   // phone: the ticket is centred in whatever the handset's frame height is, with at
   // least 15% of the frame empty above and below (never less than the 16px side
   // margin). If the content can't fit, the media block gives up height first.
-  fitMobileTickets(frameH, boxH) {
-    const els = this.mRailTickets ? this.mRailTickets() : (this.mTickets || []).filter(Boolean);
-    if (!els.length) return;
-    const gap = Math.max(16, Math.round(frameH * 0.15));
-    const avail = frameH - gap * 2;
-    const media = els.map((el) => el.querySelector(":scope > div"));
-    let mh = 192, nat = 0;
-    for (let pass = 0; pass < 5; pass++) {
-      media.forEach((m) => { if (m) m.style.height = mh + "px"; });
-      els.forEach((el) => { el.style.height = "auto"; });
-      nat = 0; els.forEach((el) => { nat = Math.max(nat, el.offsetHeight); });
-      if (nat <= avail || mh <= 104) break;
-      mh = Math.max(104, mh - (nat - avail));
-    }
-    // the rail passes the height it wants; only the old centred deck asks for its own
-    if (boxH) { els.forEach((el) => { el.style.height = boxH + "px"; }); return; }
-    const h = Math.max(0, Math.min(avail, Math.round(nat * 1.18)));
-    els.forEach((el) => { el.style.height = h + "px"; el.style.top = Math.round((frameH - h) / 2) + "px"; });
-  }
+
   equalize(list, factor) {
     const els = (list || []).filter(Boolean);
     if (els.length < 2) return;
@@ -2921,11 +2765,6 @@ class Component extends DCLogic {
       tPStageRef: (el) => { this.tPStage = el; if (this.fit) this.fit(); },
       tAStageRef: (el) => { this.tAStage = el; if (this.fit) this.fit(); },
       tWordmarkRef: (el) => { this.tWordmark = el; if (this.fit) this.fit(); },
-      tDragRef: (el) => { this.tDrag = el; this.wireTDrag(el); if (this.tablet) this.tRail(); },
-      tLabelsRef: (el) => { this.tLabels = el; },
-      tCountRef: (el) => { this.tCount = el; },
-      tBgRef: (el) => { if (!el) return; if (!this.tBgs) this.tBgs = []; this.tBgs[+el.dataset.i] = el; },
-      tTicketRef: (el) => { if (!el) return; el.style.cursor = "pointer"; el.style.textDecoration = "none"; if (!this.tTickets) this.tTickets = []; this.tTickets[+el.dataset.i] = el; this.wireTicket(el); if (this.fit) this.fit(); this.renderProjets(); if (this.tablet) this.tRail(); },
       tCardRef: (el) => { if (!el) return; if (!this.tCards) this.tCards = []; this.tCards[+el.dataset.i] = el; this.renderAbout(); },
       wordmarkRef: (el) => { this.wordmark = el; if (this.fit) this.fit(); },
       cardRef: (el) => { if (!el) return; if (!this.cards) this.cards = []; this.cards[+el.dataset.i] = el; this.renderAbout(); },

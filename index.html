@@ -3547,7 +3547,7 @@ class Component extends DCLogic {
 /* Landscape tablet only: pin the section and move the same approved tickets sideways. */
 #kc-tablet-projets.kc-landscape-rail #projets-t { position:sticky !important; top:0; height:100vh; overflow:hidden; }
 #kc-tablet-projets.kc-landscape-rail #kc-t-viewport { position:relative !important; top:auto; height:100vh; overflow:hidden; }
-#kc-tablet-projets.kc-landscape-rail #kc-t-stage .tickets { display:flex; flex-direction:row; align-items:stretch; gap:18px; width:max-content; max-width:none; top:auto !important; bottom:32px !important; }
+#kc-tablet-projets.kc-landscape-rail #kc-t-stage .tickets { display:flex; flex-direction:row; align-items:stretch; gap:18px; width:max-content; max-width:none; bottom:auto !important; }
 #kc-tablet-projets.kc-landscape-rail #kc-t-stage .ticket { flex:none; height:220px; }
 </style>
 <script>
@@ -3623,6 +3623,15 @@ class Component extends DCLogic {
     if (section && section !== lastFrame) schedule();
   });
   mounts.observe(document.documentElement,{childList:true,subtree:true});
+  function watchTabletVisibility() {
+    const root = $('kc-tablet-projets')?.parentElement;
+    if (!root) return;
+    const visibilityObserver = new MutationObserver(schedule);
+    visibilityObserver.observe(root, {attributes:true,attributeFilter:['style','class']});
+    schedule();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watchTabletVisibility, {once:true});
+  else watchTabletVisibility();
   schedule();
 })();
 </script>

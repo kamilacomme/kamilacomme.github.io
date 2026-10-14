@@ -3545,7 +3545,8 @@ class Component extends DCLogic {
  attach();window.addEventListener('load',attach,{once:true});
 })();</script><style>
 /* Landscape tablet only: pin the section and move the same approved tickets sideways. */
-#kc-tablet-projets.kc-landscape-rail #kc-t-viewport { position:sticky !important; top:0; overflow:hidden; }
+#kc-tablet-projets.kc-landscape-rail #projets-t { position:sticky !important; top:0; height:100vh; overflow:hidden; }
+#kc-tablet-projets.kc-landscape-rail #kc-t-viewport { position:relative !important; top:auto; height:100vh; overflow:hidden; }
 #kc-tablet-projets.kc-landscape-rail #kc-t-stage .tickets { display:flex; flex-direction:row; align-items:stretch; gap:18px; width:max-content; max-width:none; }
 #kc-tablet-projets.kc-landscape-rail #kc-t-stage .ticket { flex:none; height:220px; }
 </style>
@@ -3586,7 +3587,7 @@ class Component extends DCLogic {
     const cards = [...rail.querySelectorAll('.ticket')];
     cards.forEach(el => { el.style.width = cardWidth + 'px'; el.style.height = '220px'; });
     rail.style.left = '32px';
-    rail.style.top = Math.max(160, (vh - 220) / 2) + 'px';
+    rail.style.top = Math.max(0, vh - 220 - 32) + 'px';
     const fullWidth = cards.length * cardWidth + (cards.length - 1) * 18;
     travel = Math.max(0, fullWidth + 32 - vw);
     scrollLength = travel * scale;

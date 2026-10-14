@@ -135,9 +135,6 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
     }
-    @keyframes kcRevealRight { from { clip-path: inset(-10% 100% -10% -2%); } to { clip-path: inset(-10% -4% -10% -2%); } }
-    @keyframes kcBeamDrift { from { transform: translateX(-2.5%); } to { transform: translateX(2.5%); } }
-    @keyframes kcFadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes kcDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.28; transform: scale(0.82); } }
     /* mobile: body copy 16→14, tag/label copy 12→11 */
     #kc-mobile-root [style*="font-size: 16px"] { font-size: 14px !important; }
@@ -1057,7 +1054,7 @@ class Component extends DCLogic {
     // them straight from the scroll event too, so they are always correct on arrival.
     this._onScroll = () => {
       if (this._gen !== window.__kcGen) return;
-      try { this.renderProjets(); this.renderAbout(); this.renderFooter(); } catch (e) {}
+      try { this.renderAbout(); this.renderFooter(); } catch (e) {}
       // mobile needs this on scroll just as much as tablet does: without it, anything
       // gated by nearness (like the footer walk clip) only ever gets checked at page load,
       // long before the user has scrolled anywhere near it, and never again after that.
@@ -1820,7 +1817,6 @@ class Component extends DCLogic {
   // least 15% of the frame empty above and below (never less than the 16px side
   // margin). If the content can't fit, the media block gives up height first.
 
-  renderProjets() { return; } // Current Projects sections use independent controllers.
 
   // ===================== ABOUT + FOOTER =====================
   // desktop: each fact card rises from below into its slot in the 2-row grid and
@@ -2121,7 +2117,6 @@ class Component extends DCLogic {
         // mix-blend-mode: screen over the plate forces an unaccelerated blend layer on iOS
         this.heroCanvas.style.display = "none";
       }
-      this.renderProjets();
       this.renderAbout();
       this.renderFooter();
     } catch (err) {
@@ -2173,7 +2168,7 @@ class Component extends DCLogic {
       mAStageRef: (el) => { this.mAStage = el; if (this.fit) this.fit(); },
       mWordmarkRef: (el) => { this.mWordmark = el; if (this.fit) this.fit(); },
       mBgRef: (el) => { if (!el) return; if (!this.mBgs) this.mBgs = []; this.mBgs[+el.dataset.i] = el; },
-      mTicketRef: (el) => { if (!el) return; if (!this.mTickets) this.mTickets = []; this.mTickets[+el.dataset.i] = el; this.wireTicket(el); if (this.fit) this.fit(); this.renderProjets(); },
+      mTicketRef: (el) => { if (!el) return; if (!this.mTickets) this.mTickets = []; this.mTickets[+el.dataset.i] = el; this.wireTicket(el); if (this.fit) this.fit(); },
       mGridRef: (el) => { if (!el) return; if (!this.mGrids) this.mGrids = []; if (!this.mGrids.includes(el)) this.mGrids.push(el); if (this.fit) this.fit(); },
       mCardRef: (el) => { if (!el) return; if (!this.mCards) this.mCards = []; this.mCards[+el.dataset.i] = el; },
       mBarcodeRef: (el) => { if (!el) return; if (!this._bcm) this._bcm = this.buildBarcode(true, 326); el.style.backgroundImage = this._bcm; el.style.backgroundRepeat = "no-repeat"; },

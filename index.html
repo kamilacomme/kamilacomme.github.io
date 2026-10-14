@@ -3596,7 +3596,10 @@ class Component extends DCLogic {
     rail.style.setProperty('top', Math.max(0, rowTop).toFixed(2) + 'px', 'important');
     rail.style.setProperty('bottom', 'auto', 'important');
     const fullWidth = cards.length * cardWidth + (cards.length - 1) * 18;
-    travel = Math.max(0, fullWidth + 32 - vw);
+    // Measure the rendered stage rather than the nominal tablet scale; account for both 32px gutters.
+    scale = actualScale || 1;
+    const visibleWidth = viewport.getBoundingClientRect().width / scale;
+    travel = Math.max(0, 32 + fullWidth + 32 - visibleWidth);
     scrollLength = travel * scale;
     section.style.height = (window.innerHeight + scrollLength) + 'px';
     lastFrame = section;

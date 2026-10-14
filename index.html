@@ -690,7 +690,6 @@ class Component extends DCLogic {
           w.style.bottom = (-(size - baseFromTop)).toFixed(1) + "px";
           const secB = w.parentElement.getBoundingClientRect().bottom;
           let cb = -1e9;
-          (this.cCards || []).forEach((el) => { if (el) cb = Math.max(cb, el.getBoundingClientRect().bottom); });
           const capH = m.actualBoundingBoxAscent * size / 200;
           const targetH = cb > -1e8 ? Math.max(120, secB - cb) : capH;
           w.style.transform = "none";
@@ -1719,8 +1718,7 @@ class Component extends DCLogic {
       const labH = 44 * st;
       const air = Math.max(16 * st, (vh - (NAV + tH) - labH - cardH) / 2);
       const cCenter = NAV + tH + air + cardH / 2;
-      (this.cCards || []).forEach((el) => { if (el) el.style.top = cCenter.toFixed(1) + "px"; });
-      return;
+        return;
     }
     if (this.pWord.textContent !== "MES PROJETS") this.pWord.textContent = "MES PROJETS";
     Object.assign(this.pWord.style, { whiteSpace: "nowrap", width: "auto", textAlign: "left", top: "auto" });
@@ -2133,21 +2131,6 @@ class Component extends DCLogic {
     const bandTop = squeezed ? 64 : plan.bandTop;
     const bandBottom = squeezed && inkTop != null ? inkTop / sm : frameH - 48;
     const center = Math.max(64 + plan.cardH / 2, (bandTop + bandBottom) / 2);
-    (this.cCards || []).forEach((el) => {
-      if (el) el.style.top = ((center / frameH) * 100).toFixed(2) + "%";
-    });
-  }
-  // the two small labels read as a caption for the deck, so they sit right under the
-  // tickets rather than on the bottom edge of the section
-  parkLabelsUnderDeck() {
-    if (!this._tabletMode) return;
-    if (!this.pLabels || !this.dProj) return;
-    const sec = this.dProj.getBoundingClientRect();
-    let cb = -1e9;
-    (this.cCards || []).forEach((el) => { if (el && el.offsetParent) cb = Math.max(cb, el.getBoundingClientRect().bottom); });
-    if (cb < -1e8) return;
-    const b = Math.round(sec.bottom - cb - 32);
-    if (this._labB !== b) { this._labB = b; this.pLabels.style.bottom = b + "px"; }
   }
   isLand() {
     // orientation is the FRAME's, not the window's: the reviewed tablet preview is the portrait

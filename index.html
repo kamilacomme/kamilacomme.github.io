@@ -659,47 +659,7 @@ class Component extends DCLogic {
       // tablet — where the window is much narrower than the 1440 design frame — the stage grew
       // wider than the screen and the deck was cropped sideways. Touch devices fit by WIDTH;
       // the stage's height follows the section, so nothing is cropped in either direction.
-      const psW = window.innerWidth / 1440;
-      const coarsePtr = !!(window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches);
-      const ps = coarsePtr ? psW : Math.max(psW, this.vhNow() / 813);
-      this.ps = ps;
-      if (this.pWord && !coarsePtr) {
-        const w = this.pWord;
-        // measured on the INK, not the advance width: the M's side bearing would
-        // otherwise leave a gap at the left edge and the word wouldn't run edge to edge
-        const cv = (this._mt = this._mt || document.createElement("canvas")).getContext("2d");
-        try { cv.letterSpacing = "-0.04em"; } catch (e) {}
-        cv.font = "700 200px Figtree, sans-serif";
-        const m = cv.measureText("MES PROJETS");
-        const inkL = -m.actualBoundingBoxLeft;
-        const inkW = m.actualBoundingBoxRight - inkL;
-        if (inkW > 0) {
-          const size = 200 * (window.innerWidth / inkW);
-          w.style.fontSize = size.toFixed(2) + "px";
-          w.style.left = (-inkL * size / 200).toFixed(1) + "px";
-          // sit the baseline exactly on the bottom edge of the section, then stretch the
-          // caps up until they meet the bottom of the ticket row
-          w.style.bottom = (-(m.fontBoundingBoxDescent || 0) * size / 200).toFixed(1) + "px";
-          // sit the baseline on the section's bottom edge and stretch the caps UP until
-          // they touch the bottom of the ticket row — measured against the section, not the
-          // viewport, so it holds while the sticky section is still below the fold
-          const A = (m.fontBoundingBoxAscent || 0) * size / 200;
-          const D = (m.fontBoundingBoxDescent || 0) * size / 200;
-          const baseFromTop = (size - (A + D)) / 2 + A;
-          w.style.lineHeight = "1";
-          w.style.bottom = (-(size - baseFromTop)).toFixed(1) + "px";
-          const secB = w.parentElement.getBoundingClientRect().bottom;
-          let cb = -1e9;
-          const capH = m.actualBoundingBoxAscent * size / 200;
-          const targetH = cb > -1e8 ? Math.max(120, secB - cb) : capH;
-          w.style.transform = "none";
-        }
-      }
       if (this.aStage) this.aStage.style.transform = "translate(-50%,-50%) scale(" + s + ")";
-      // every desktop ticket shares ONE top (they are all TH tall) — measuring each one
-      // separately made them land at different heights and overlap during a transition
-      const tTop = Math.round((560 / 844) * frameH - this.TH / 2) + "px";
-      (this.tickets || []).forEach((el) => { if (el) el.style.top = tTop; });
       if (this.nav) this.nav.style.transform = "translateX(-50%) scale(" + s + ")";
       if (this.wordmark) this.wordmark.style.transform = "translateX(-50%) scale(" + s + ")";
 
@@ -855,7 +815,6 @@ class Component extends DCLogic {
       const mHeroFrameH = Math.round(heroViewH / (viewW / 390));
       const mFrameH = Math.round(viewH / (viewW / 390));
       this.sm = sm; this.mFrameH = mFrameH; this.mHeroFrameH = mHeroFrameH;
-      this.fitMobileCards(mobile ? this.mobileProjPlan(mFrameH).u : 1);
       if (this.mHero) this.mHero.style.height = mHeroFrameH + "px";
       [this.mPStage, this.mAStage].forEach((el) => { if (el) el.style.height = mFrameH + "px"; });
       if (mobile) {
@@ -1109,53 +1068,6 @@ class Component extends DCLogic {
         this._navRect = { left: nr.left, top: nr.top, height: nr.height };
         const nl = Math.round(nr.left);
         if (nl !== this._navL) { this._navL = nl; this.fitFooter(this.tablet); }
-      }
-      // the deck caption only rides the tablet frame; on desktop it keeps its original
-      // grid position (32px margins, 32px off the section bottom)
-      if (tablet) {
-        // portrait: tickets sit low so the two-line title has the top of the frame.
-        // landscape: the title is the desktop one — full width, sitting on the bottom edge —
-        // so the tickets ride high enough not to cover it.
-        // portrait: the rail's vertical position is distributed by fitProjLabels (equal air
-        // above and below), so only landscape sets a share here
-        const tTop = portrait ? null : "44%";
-        (this.cCards || []).forEach((el) => { if (el) { if (tTop) el.style.top = tTop; const t = el.querySelector("span"); if (t) t.style.fontSize = "40px";
-          const sp2 = el.querySelectorAll("span");
-          sp2.forEach((sp, i) => { if (i === 0) return; sp.style.fontSize = sp.style.fontWeight === "400" ? "16px" : "12px"; }); } });
-      } else if (!mobile && this.pLabels) {
-        if (this.dProj) Object.assign(this.dProj.style, { top: "0px", height: "100svh", width: "100%", marginLeft: "0px", marginTop: "0px" });
-        (this.cCards || []).forEach((el) => { if (el) { el.style.top = "46%"; const t = el.querySelector("span"); if (t) t.style.fontSize = "40px";
-          const sp2 = el.querySelectorAll("span");
-          sp2.forEach((sp, i) => { if (i === 0) return; sp.style.fontSize = sp.style.fontWeight === "400" ? "16px" : "12px"; }); } });
-        this._labB = null;
-        // this row is a direct child of the untransformed section, so a literal 32px would
-        // be 32 REAL px while the scaled blocks resolve their 32px design margin through
-        // scale s. Resolve it the same way so all edges agree.
-        const edge = (32 * s).toFixed(1) + "px";
-        Object.assign(this.pLabels.style, { left: edge, right: edge, bottom: "14px" });
-        const ckD = this.cookies && this.cookies.desktop;
-        if (ckD) { ckD.style.left = edge; ckD.style.bottom = edge; ckD.style.right = "auto"; }
-        this.pLabels.querySelectorAll("span").forEach((el) => { el.style.fontSize = "12px"; });
-        if (this.pWord) {
-          if (this.pWord.textContent !== "MES PROJETS") this.pWord.textContent = "MES PROJETS";
-          Object.assign(this.pWord.style, { whiteSpace: "nowrap", width: "auto", textAlign: "left", display: "block",
-            lineHeight: "1", top: "auto" });
-          // the word spans the real window edge to edge and its baseline sits flush on the
-          // section's bottom edge — measured, not a fixed size that overflows a wide window
-          const f = this.inkFlush("MES PROJETS", Math.max(1, window.innerWidth - 64 * s));
-          this._wmPath = "desktop";
-          this._wmOwned = false;
-          const wmM = 32 * s;
-          const wmW = Math.max(1, window.innerWidth - 2 * wmM);
-          if (this.fitWordSvg(wmM, wmW, 0)) {
-            // vector path owns it; nothing else to place
-          } else if (f) {
-            this.hideWordSvg();
-            this.pWord.style.fontSize = f.size.toFixed(2) + "px";
-            this.pWord.style.left = (wmM + f.left).toFixed(1) + "px";
-            this.pWord.style.bottom = (-(f.size - f.baseFromTop)).toFixed(1) + "px";
-          }
-        }
       }
       if (this._measureAbout) this._measureAbout();
     };
@@ -1667,136 +1579,18 @@ class Component extends DCLogic {
   // the landscape wordmark is drawn as SVG and cropped to its own measured geometry: the
   // box comes from the same getBBox as the crop, so the word fills the width and its
   // baseline sits on the bottom edge whatever the font metrics report.
-  fitWordSvg(boxL, boxW, boxB) {
-    const svg = this.pWordSvg, tx = this.pWordText;
-    if (!svg || !tx || !(boxW > 0)) return false;
-    svg.style.display = "block";
-    // getBBox proved unreliable: Safari paints the tracked word WIDER than the box it
-    // reports, so the word overflowed its frame and got clipped at both ends. Pin the
-    // painted extent instead — textLength makes the engine fit the run to a length we
-    // choose, and getComputedTextLength is the length it actually uses.
-    let adv = 0;
-    try { adv = tx.getComputedTextLength ? tx.getComputedTextLength() : 0; } catch (e) { adv = 0; }
-    if (!(adv > 0)) {
-      svg.style.display = "none";
-      if (!this._wmRetry) { this._wmRetry = true; setTimeout(() => { this._wmRetry = false; if (this.fit) this.fit(); }, 400); }
-      return false;
-    }
-    tx.setAttribute("textLength", adv.toFixed(2));
-    tx.setAttribute("lengthAdjust", "spacing");
-    // side bearings and cap height from single-glyph canvas metrics — one glyph each, so the
-    // letterSpacing Safari ignores cannot distort them
-    let bl = 0, br = 0, cap = 144;
-    try {
-      const cv = (this._mt = this._mt || document.createElement("canvas")).getContext("2d");
-      cv.font = "700 200px Figtree, sans-serif";
-      const mM = cv.measureText("M"), mS = cv.measureText("S");
-      bl = Math.max(0, -mM.actualBoundingBoxLeft);
-      br = Math.max(0, mS.width - mS.actualBoundingBoxRight);
-      if (mM.actualBoundingBoxAscent > 0) cap = mM.actualBoundingBoxAscent;
-    } catch (e) {}
-    const vx = bl, vw = Math.max(1, adv - bl - br);
-    svg.setAttribute("viewBox", vx.toFixed(2) + " " + (-cap).toFixed(2) + " " + vw.toFixed(2) + " " + cap.toFixed(2));
-    Object.assign(svg.style, {
-      left: boxL.toFixed(1) + "px", width: boxW.toFixed(1) + "px",
-      height: (boxW * cap / vw).toFixed(1) + "px",
-      bottom: boxB.toFixed(1) + "px", top: "auto", overflow: "visible",
-    });
-    if (this.pWord) this.pWord.style.display = "none";
-    return true;
-  }
-  hideWordSvg(showSpan) {
-    if (this.pWordSvg) this.pWordSvg.style.display = "none";
-    // the span is only ever shown by whoever is about to SIZE it. Showing it here left the
-    // authored 358px copy on screen whenever a measurement failed — which is exactly the
-    // stray giant wordmark on the device.
-    if (this.pWord && showSpan !== false) this.pWord.style.display = "block";
-  }
+
+
   // ink-flush metrics for the big wordmark: the size at which the INK measures targetW, and
   // the left offset that puts that ink on x = 0. Safari's canvas ignores letterSpacing, so
   // the -0.04em tracking is taken off by hand where that support is missing.
-  inkFlush(text, targetW) {
-    const cv = (this._mt = this._mt || document.createElement("canvas")).getContext("2d");
-    // if Figtree is not in yet, the metrics below are a fallback face's: bail and let the
-    // font-loading re-fit do it properly rather than baking a wrong size in
-    try { if (document.fonts && !document.fonts.check("700 200px Figtree")) return null; } catch (e) {}
-    cv.font = "700 200px Figtree, sans-serif";
-    let lsOK = false;
-    try {
-      cv.letterSpacing = "0px";
-      const w0 = cv.measureText("MMMM").width;
-      cv.letterSpacing = "-20px";
-      lsOK = cv.measureText("MMMM").width < w0 - 10;
-    } catch (e) { lsOK = false; }
-    try { cv.letterSpacing = "-0.04em"; } catch (e) {}
-    cv.font = "700 200px Figtree, sans-serif";
-    const m = cv.measureText(text);
-    const inkL = -m.actualBoundingBoxLeft;
-    const track = lsOK ? 0 : 0.04 * 200 * (text.length - 1);
-    const inkW = m.actualBoundingBoxRight - track - inkL;
-    if (!(inkW > 0) || !(targetW > 0)) return null;
-    const size = 200 * targetW / inkW;
-    const A = (m.fontBoundingBoxAscent || 0) * size / 200;
-    const D = (m.fontBoundingBoxDescent || 0) * size / 200;
-    return { size: size, left: -inkL * size / 200, baseFromTop: (size - (A + D)) / 2 + A };
-  }
+
   // phone: the ticket gives up a little everywhere — media height, inner gaps and the
   // barcode — as the frame gets shorter. u = 0 tightest, u = 1 full desktop metrics.
-  fitMobileCards(u) {
-    if (this._mCards === u) return;
-    this._mCards = u;
-    const media = 132 + 25 * u, gap = 16 + 8 * u, bar = 32 + 9.366 * u;
-    (this.cCards || []).forEach((el) => {
-      if (!el) return;
-      el.style.gap = gap.toFixed(2) + "px";
-      el.style.height = (436 + 58.366 * u).toFixed(2) + "px";
-      const m = el.querySelector(":scope > div");
-      if (m) m.style.height = media.toFixed(2) + "px";
-      const b = el.querySelector(":scope > div:last-child");
-      if (b) { b.style.height = bar.toFixed(2) + "px"; b.style.backgroundSize = "100% 100%"; }
-    });
-  }
+
   // Figtree metrics for a word scaled so its ink measures targetInkW across
-  measureWord(text, targetInkW) {
-    const cv = (this._mt = this._mt || document.createElement("canvas")).getContext("2d");
-    try { cv.letterSpacing = "-0.04em"; } catch (e) {}
-    cv.font = "700 200px Figtree, sans-serif";
-    const m = cv.measureText(text);
-    const inkL = -m.actualBoundingBoxLeft;
-    const inkW = m.actualBoundingBoxRight - inkL;
-    if (!(inkW > 0)) return null;
-    const k = targetInkW / inkW, size = 200 * k;
-    const A = (m.fontBoundingBoxAscent || 0) * k, D = (m.fontBoundingBoxDescent || 0) * k;
-    return { size: size, left: -inkL * k, baseFromTop: (size - (A + D)) / 2 + A,
-      asc: m.actualBoundingBoxAscent * k, desc: m.actualBoundingBoxDescent * k };
-  }
-  mobileProjPlan(frameH) {
-    const MINC = 436, MAXC = 494.366;
-    // three tiers, chosen by what the frame can actually hold. The word is always set so
-    // PROJETS spans the grid; its ink top sits 88px down, clear of the navbar, then 16px
-    // before the ticket band and 60px of captions at the foot.
-    const w = this.measureWord("PROJETS", 390 - 32);
-    if (!w) return { mode: "squeezed", u: 0, cardH: MINC };
-    const inkH = w.asc + w.desc;
-    // shorter frames tighten the pad under the navbar and the gap to the ticket rather
-    // than dropping a whole tier for the sake of a couple of pixels
-    const tight = frameH < 700;
-    const P = tight ? 64 : 80, gap = tight ? 12 : 16;
-    const band = (top) => frameH - (tight ? 36 : 48) - top;
-    const twoTop = P + inkH + 0.92 * w.size + gap;
-    const oneTop = P + inkH + gap;
-    // the TICKET is the content — the decorative wordmark gives way before the ticket is
-    // allowed to squash. A tier only wins if the band it leaves keeps the ticket close to
-    // its designed 323x494 proportion (PREF); MINC is the last-resort floor.
-    const PREF = 478;
-    let mode = "squeezed", bandTop = 0;
-    if (band(twoTop) >= PREF) { mode = "two"; bandTop = twoTop; }
-    else if (band(oneTop) >= PREF) { mode = "one"; bandTop = oneTop; }
-    else if (band(oneTop) >= MINC) { mode = "one"; bandTop = oneTop; }
-    else return { mode: "squeezed", u: 0, cardH: MINC };
-    const u = Math.min(1, (band(bandTop) - MINC) / (MAXC - MINC));
-    return { mode: mode, u: u, cardH: MINC + (MAXC - MINC) * u, bandTop: bandTop, pad: P, w: w };
-  }
+
+
   // The phone shows projects as a horizontal rail: vertical scroll drives the row
   // sideways so every ticket is seen, then normal scrolling resumes. Tickets keep ONE
   // fixed shape at every screen size — the whole 390 frame is uniformly scaled, so the

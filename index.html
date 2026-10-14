@@ -1612,7 +1612,7 @@ class Component extends DCLogic {
       // Make the visible pool about 90% of the real phone width, rather than
       // multiplying a desktop-sized cone that becomes tiny after scaling.
       const baseHalfWidth = (118 + 74 * throwY) * k;
-      const baseHW = touchBeam ? Math.max(baseHalfWidth, w * 0.45) : baseHalfWidth;
+      const baseHW = Math.max(baseHalfWidth, w * 0.45);
       const ay = -40, apexHW = touchBeam ? 24 * k : 16 * k;
       const shaft = (ax - apexHW) + "," + ay + " " + (ax + apexHW) + "," + ay + " " +
         (this.cx + baseHW) + "," + this.cy + " " + (this.cx - baseHW) + "," + this.cy;

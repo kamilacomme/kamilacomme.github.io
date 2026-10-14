@@ -3739,84 +3739,88 @@ class Component extends DCLogic {
 })();
 </script>
 <script>
-/* Mobile image tickets: the same three-image, 1900ms loop used by desktop Projects. */
+/* Mobile image tickets: viewport-triggered loops, mounted like the working videos. */
 (function () {
-  const root = document.getElementById('kc-mobile-projets');
-  if (!root) return;
-  const imageSets = {
-    'Tour de parole': ['p3-bg.webp', 'p3-b.webp', 'p3-c.webp'],
-    'Celimax': ['p6-bg.webp', 'p6-b.webp', 'p6-c.webp'],
-    'Napoli': ['p2-a.webp', 'p2-b.webp', 'p2-bg.webp']
+  const sets = {
+    'Tour de parole': ['p3-bg.webp','p3-b.webp','p3-c.webp'],
+    'Celimax': ['p6-bg.webp','p6-b.webp','p6-c.webp'],
+    'Napoli': ['p2-a.webp','p2-b.webp','p2-bg.webp']
   };
+  const base = 'assets/projets/opt/';
+  const bound = new WeakSet(), states = new WeakMap(), targets = new Set();
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const bound = new WeakSet();
-  const running = new Map();
-  const base = 'https://kamilacomme.github.io/assets/projets/opt/';
-  function stop(ticket) {
-    const state = running.get(ticket);
+  function show(state, n) {
+    state.index = n;
+    state.layers.forEach(function (img,i) {
+      img.style.opacity = i === n ? '1' : '0';
+    });
+  }
+  function stop(visual) {
+    const state = states.get(visual);
     if (!state) return;
-    if (state.timer !== null) clearInterval(state.timer);
+    if (state.timer) clearInterval(state.timer);
     state.timer = null;
-    state.index = 0;
-    state.images.forEach((img, i) => { img.style.opacity = i === 0 ? '1' : '0'; });
+    show(state,0);
   }
-  function start(ticket) {
-    const state = running.get(ticket);
-    if (!state || state.timer !== null || reduced.matches || document.hidden) return;
-    state.timer = setInterval(function () {
-      state.index = (state.index + 1) % state.images.length;
-      state.images.forEach((img, i) => { img.style.opacity = i === state.index ? '1' : '0'; });
-    }, 1900);
+  function start(visual) {
+    const state = states.get(visual);
+    if (!state || state.timer || document.hidden || reduced.matches) return;
+    // The poster remains visible until the next image has loaded.
+    const advance = function () {
+      const next = (state.index + 1) % state.layers.length;
+      if (state.layers[next].complete && state.layers[next].naturalWidth) show(state,next);
+    };
+    advance();
+    state.timer = setInterval(advance,1900);
   }
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting && entry.intersectionRatio >= 0.32) start(entry.target);
+  const io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if(entry.isIntersecting && entry.intersectionRatio >= .32 && !document.hidden) start(entry.target);
       else stop(entry.target);
     });
-  }, {threshold:[0,0.32,0.6]});
-  function bind() {
-    root.querySelectorAll('.project').forEach(function (ticket) {
-      if (bound.has(ticket)) return;
-      const name = ticket.getAttribute('aria-label')?.replace('Voir le projet ', '');
-      const files = imageSets[name];
-      if (!files) return;
-      const visual = ticket.querySelector('.visual');
-      const poster = visual?.querySelector('img.poster');
+  }, {threshold:[0,.32,.6]});
+  function bindImages() {
+    document.querySelectorAll('#kc-mobile-projets .project').forEach(function(ticket) {
+      const name = ticket.getAttribute('aria-label')?.replace('Voir le projet ','');
+      const set = sets[name], visual = ticket.querySelector('.visual');
+      if (!set || !visual || bound.has(visual)) return;
+      const poster = visual.querySelector('img.poster');
       if (!poster) return;
-      bound.add(ticket);
+      bound.add(visual);
+      const layers = [poster];
       poster.style.transition = 'opacity .32s ease';
-      poster.style.opacity = '1';
-      const images = [poster];
-      files.slice(1).forEach(function (filename) {
+      set.slice(1).forEach(function(filename) {
         const img = document.createElement('img');
-        img.className = 'poster kc-mobile-slide';
-        img.src = base + filename;
-        img.alt = '';
-        img.loading = 'lazy';
-        img.decoding = 'async';
-        img.style.opacity = '0';
-        img.style.transition = 'opacity .32s ease';
-        img.style.pointerEvents = 'none';
+        img.className='poster kc-mobile-slide';
+        img.src=base+filename;
+        img.alt='';
+        img.decoding='async';
+        img.loading='eager';
+        img.style.opacity='0';
+        img.style.transition='opacity .32s ease';
+        img.style.pointerEvents='none';
         visual.appendChild(img);
-        images.push(img);
+        layers.push(img);
       });
-      running.set(ticket, {images:images,index:0,timer:null});
-      observer.observe(ticket);
+      states.set(visual,{layers:layers,index:0,timer:null});
+      targets.add(visual);
+      io.observe(visual);
     });
   }
-  document.addEventListener('visibilitychange',function () {
-    running.forEach(function (_,ticket) {
-      if (document.hidden) stop(ticket);
-      else if (ticket.getBoundingClientRect().bottom > 0 &&
-               ticket.getBoundingClientRect().top < innerHeight) start(ticket);
+  const mounts = new MutationObserver(bindImages);
+  mounts.observe(document.documentElement,{childList:true,subtree:true});
+  document.addEventListener('DOMContentLoaded',bindImages,{once:true});
+  document.addEventListener('visibilitychange',function() {
+    targets.forEach(function(visual) {
+      if (document.hidden) stop(visual);
+      else if (visual.getBoundingClientRect().bottom > 0 &&
+        visual.getBoundingClientRect().top < innerHeight) start(visual);
     });
   });
-  if (reduced.addEventListener) reduced.addEventListener('change',function () {
-    running.forEach(function (_,ticket) { stop(ticket); });
+  reduced.addEventListener?.('change',function() {
+    targets.forEach(stop);
   });
-  const mounts = new MutationObserver(bind);
-  mounts.observe(root,{childList:true,subtree:true});
-  bind();
+  bindImages();
 })();
 </script>
 <script>

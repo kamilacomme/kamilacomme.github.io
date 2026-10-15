@@ -2017,6 +2017,8 @@ class Component extends DCLogic {
     if (this.navScrim) { this.navScrim.style.opacity = "0"; this.navScrim.style.display = "none"; }
     this.nav.querySelectorAll("span, a").forEach((el) => {
       if (el.closest("[data-fixed-ink]")) return;
+      // The logo blends against the page independently; do not override its white ink.
+      if (el === this.nav.firstElementChild || this.nav.firstElementChild.contains(el)) return;
       el.style.color = color;
     });
     // over the white section the status pill flips to the light surface, glass intact

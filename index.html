@@ -1011,6 +1011,31 @@ class Component extends DCLogic {
         // the nav is position:fixed, so unlike the footer its rect does not move with
         // scroll at all — caching it here is exact, not an approximation
         this._navRect = { left: nr.left, top: nr.top, height: nr.height };
+        // The scaled navbar creates a stacking context. Render only its logo
+        // at body level so exclusion blends with the real page underneath.
+        const sourceLogo = this.nav.firstElementChild;
+        if (sourceLogo && !this._blendLogo) {
+          this._blendLogo = sourceLogo.cloneNode(true);
+          this._blendLogo.setAttribute("aria-hidden", "true");
+          Object.assign(this._blendLogo.style, {
+            position: "fixed", zIndex: "501", pointerEvents: "none",
+            mixBlendMode: "exclusion", visibility: "visible", margin: "0"
+          });
+          document.body.appendChild(this._blendLogo);
+          sourceLogo.style.visibility = "hidden";
+        }
+        if (sourceLogo && this._blendLogo) {
+          const bounds = sourceLogo.getBoundingClientRect();
+          const scale = mobile ? sm : tablet ? st : s;
+          Object.assign(this._blendLogo.style, {
+            left: bounds.left.toFixed(2) + "px",
+            top: bounds.top.toFixed(2) + "px",
+            fontSize: (20 * scale).toFixed(3) + "px",
+            gap: (3 * scale).toFixed(3) + "px"
+          });
+          const reg = this._blendLogo.firstElementChild;
+          if (reg) reg.style.fontSize = (9 * scale).toFixed(3) + "px";
+        }
         const nl = Math.round(nr.left);
         if (nl !== this._navL) { this._navL = nl; this.fitFooter(this.tablet); }
       }
@@ -1224,6 +1249,7 @@ class Component extends DCLogic {
     if (this._onMail) document.removeEventListener("click", this._onMail, true);
     if (this._onLegal) document.removeEventListener("click", this._onLegal, true);
     if (this._onKey) document.removeEventListener("keydown", this._onKey);
+    if (this._blendLogo) { this._blendLogo.remove(); this._blendLogo = null; }
     if (this.raf) cancelAnimationFrame(this.raf);
     if (this.heroTimer) clearInterval(this.heroTimer);
     if (this.pSlideTimer) clearInterval(this.pSlideTimer);

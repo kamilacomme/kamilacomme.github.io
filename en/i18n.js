@@ -183,50 +183,21 @@ const observer=new MutationObserver((mutations)=>{
  finally{busy=false}
 });
 translateTree(document);
-// The source site's tablet controller can initialize while the viewport is still
-// mobile-sized in DevTools. Re-run its own approved fit routine when the viewport
-// changes; no ticket geometry or typography is overridden here.
-let lastTabletWidth=0;
-function syncTabletProjects(){
- const stage=document.getElementById('kc-t-stage');
- if(!stage||window.innerWidth<500||typeof window.__kcTabletProjectFit!=='function')return;
- if(window.innerWidth!==lastTabletWidth){
-  lastTabletWidth=window.innerWidth;
-  window.__kcTabletProjectFit();
+// Keep the original French tablet controller. The English translation layer
+// must not supply any independent stage/ticket geometry.
+function refreshOriginalTabletFit(){
+ if(window.innerWidth<500)return;
+ const fit=window.__kcTabletProjectFit;
+ if(typeof fit==='function')fit();
+}
+window.addEventListener('resize',()=>requestAnimationFrame(refreshOriginalTabletFit));
+window.addEventListener('load',()=>requestAnimationFrame(refreshOriginalTabletFit));
+const tabletMountObserver=new MutationObserver(()=>{
+ if(document.getElementById('kc-t-stage')){
+  tabletMountObserver.disconnect();
+  requestAnimationFrame(refreshOriginalTabletFit);
  }
- if(window.innerWidth>=window.innerHeight)return;
- const st=window.__kcTabletScale||1;
- const expectedWidth=window.innerWidth/st;
- if(!Number.isFinite(expectedWidth)||expectedWidth<=0)return;
- stage.style.width=expectedWidth+'px';
- stage.style.transform='scale('+st+')';
- requestAnimationFrame(alignEnglishTabletTickets);
-}
-function alignEnglishTabletTickets(){
- if(window.innerWidth<500||window.innerWidth>=window.innerHeight)return;
- const stage=document.getElementById('kc-t-stage');
- const tickets=stage?.querySelector('.tickets');
- if(!stage||!tickets||!stage.offsetWidth)return;
- const rect=stage.getBoundingClientRect();
- const scale=rect.width/stage.offsetWidth;
- if(!Number.isFinite(scale)||scale<=0)return;
- // Align the rendered ticket edges to the approved French 32px viewport inset.
- const left=(32-rect.left)/scale;
- const right=(rect.right-(window.innerWidth-32))/scale;
- if(left<0||right<0)return;
- const leftValue=left.toFixed(3)+'px';
- const widthValue='calc(100% - '+(left+right).toFixed(3)+'px)';
- if(tickets.style.left!==leftValue||tickets.style.getPropertyPriority('left')!=='important')
-  tickets.style.setProperty('left',leftValue,'important');
- if(tickets.style.width!==widthValue||tickets.style.getPropertyPriority('width')!=='important')
-  tickets.style.setProperty('width',widthValue,'important');
-}
-window.addEventListener('resize',()=>{lastTabletWidth=0;requestAnimationFrame(syncTabletProjects)});
-window.addEventListener('load',()=>{lastTabletWidth=0;requestAnimationFrame(syncTabletProjects)});
-const tabletStageObserver=new MutationObserver(()=>syncTabletProjects());
-const tabletSizeObserver=new ResizeObserver(()=>requestAnimationFrame(alignEnglishTabletTickets));
-const observeEnglishTablet=()=>{const stage=document.getElementById('kc-t-stage');if(stage){tabletSizeObserver.observe(stage);alignEnglishTabletTickets();}};
-window.addEventListener('load',observeEnglishTablet);
-tabletStageObserver.observe(document.documentElement,{subtree:true,childList:true});
+});
+tabletMountObserver.observe(document.documentElement,{childList:true,subtree:true});
 observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title','placeholder','alt']});
 })();

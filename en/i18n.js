@@ -190,6 +190,19 @@ const observer=new MutationObserver((mutations)=>{
  else if(m.type==='attributes')translateElement(m.target);}}
  finally{busy=false}
 });
+// The English entry intentionally retains <base href="/"> for shared assets.
+// Without this handler, hash links resolve to /#apropos and leave /en/.
+document.addEventListener('click',function(event){
+ const link=event.target.closest?.('a[href^="#"]');
+ if(!link)return;
+ const href=link.getAttribute('href');
+ if(!/^#(?:projets|apropos)(?:-t|-m)?$/.test(href))return;
+ const target=document.getElementById(href.slice(1));
+ if(!target)return;
+ event.preventDefault();
+ history.pushState(null,'',location.pathname+location.search+href);
+ target.scrollIntoView({behavior:'smooth',block:'start'});
+},true);
 translateTree(document);
 // Keep the original French tablet controller. The English translation layer
 // must not supply any independent stage/ticket geometry.

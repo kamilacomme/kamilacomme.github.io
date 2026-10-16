@@ -138,6 +138,11 @@ function translateText(node){
 }
 function fixProjectsHeading(el){
  if(!el.matches('.heading, #kc-tablet-projets h1, #kc-mobile-projets h1'))return;
+ if(el.closest('#kc-mobile-projets')){
+  el.style.removeProperty('font-size');
+  el.style.removeProperty('letter-spacing');
+  el.style.removeProperty('white-space');
+ }
  if(el.dataset.enProjectsHeading==='1')return;
  el.dataset.enProjectsHeading='1';
  if(el.closest('#kc-mobile-projets')){

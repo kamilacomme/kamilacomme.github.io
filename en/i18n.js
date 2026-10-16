@@ -141,6 +141,10 @@ function fixProjectsHeading(el){
  if(el.dataset.enProjectsHeading==='1')return;
  el.dataset.enProjectsHeading='1';
  if(el.closest('#kc-mobile-projets')){
+  // Use the original mobile heading CSS (32px); do not resize or reposition it.
+  el.style.removeProperty('font-size');
+  el.style.removeProperty('letter-spacing');
+  el.style.removeProperty('white-space');
   el.innerHTML='A selection of my<br><em>recent projects.</em>';
  }else if(el.closest('#kc-tablet-projets')){
   el.innerHTML='<span class="kc-title-line">A selection of my most</span><span class="kc-title-line"><em>recent projects.</em></span>';

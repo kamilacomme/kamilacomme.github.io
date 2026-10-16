@@ -2643,55 +2643,74 @@ class Component extends DCLogic {
 </script>
 
 <script id="kc-tablet-project-frame-alignment">
-/* Tablet Projects: keep the same rendered frame origin as Hero/About.
-   Unlike the initial Projects fit, the shared frame can change after mount,
-   viewport resize or layout updates. Follow it, without altering ticket CSS. */
-(function () {
-  let pending = 0;
-  const stage = document.getElementById('kc-t-stage');
-  const viewport = document.getElementById('kc-t-viewport');
-  const about = document.querySelector('#apropos-t > div > div');
-  if (!stage || !viewport || !about) return;
+/* Tablet Projects matches the verified English tablet fix.
+   The About frame owns width/scale/origin. The project section remains in
+   document flow and follows that frame after responsive layout updates.
+   French Footer, Hero, About and all project content are unchanged. */
+(function(){
+'use strict';
+let englishFrameRaf=0;
+function fitEnglishTabletFrame(){
+ englishFrameRaf=0;
+ if(window.innerWidth<500||window.innerWidth>1080||window.innerWidth>=window.innerHeight)return;
+ const stage=document.getElementById('kc-t-stage');
+ const viewport=document.getElementById('kc-t-viewport');
+ const about=document.querySelector('#apropos-t > div > div');
+ if(!stage||!viewport||!about)return;
+ const scale=window.__kcTabletScale||1;
+ const width=about.offsetWidth||834;
+ const frameLeft=(window.innerWidth-width*scale)/2;
+ const aboutRect=about.getBoundingClientRect();
+ const viewportRect=viewport.getBoundingClientRect();
+ if(!aboutRect.width||!viewportRect.width)return;
+ // CSS-centered About uses the page content width, which excludes the
+ // vertical scrollbar. Projects must use About's actual rendered left edge
+ // rather than window.innerWidth (which includes that scrollbar).
+ const stageLeft=aboutRect.left-viewportRect.left;
+ // Projects remains in normal document flow, so give its relative stage
+ // the same rendered horizontal origin as the centered About frame.
+ const values={
+  width:width+'px',
+  position:'relative',
+  left:stageLeft+'px',
+  transform:'scale('+scale+')'
+ };
+ for(const [name,value] of Object.entries(values)){
+  if(stage.style[name]!==value)stage.style[name]=value;
+ }
+ const h=(1655*scale)+'px';
+ if(viewport.style.height!==h)viewport.style.height=h;
 
-  function align() {
-    pending = 0;
-    if (window.innerWidth < 500 || window.innerWidth > 1080 ||
-        window.innerWidth >= window.innerHeight) return;
-    const scale = window.__kcTabletScale || 1;
-    const frameWidth = about.offsetWidth || 834;
-    const aboutRect = about.getBoundingClientRect();
-    const viewportRect = viewport.getBoundingClientRect();
-    if (!aboutRect.width || !viewportRect.width) return;
+}
+function queueEnglishTabletFrame(){
+ if(englishFrameRaf)return;
+ englishFrameRaf=requestAnimationFrame(fitEnglishTabletFrame);
+}
+window.addEventListener('resize',queueEnglishTabletFrame);
+window.addEventListener('load',queueEnglishTabletFrame);
+const englishTabletFrameObserver=new MutationObserver(queueEnglishTabletFrame);
+function attachEnglishTabletFrame(){
+ const stage=document.getElementById('kc-t-stage');
+ const head=document.querySelector('[data-c="0"]');
+ if(!stage||!head)return false;
+ englishTabletFrameObserver.disconnect();
+ englishTabletFrameObserver.observe(stage,{attributes:true,attributeFilter:['style']});
+ // Follow About's centered frame if the main controller changes its width
+ // or transform after this English-only Projects fit.
+ const about=document.querySelector('#apropos-t > div > div');
+ if(about)englishTabletFrameObserver.observe(about,{attributes:true,attributeFilter:['style']});
+ englishTabletFrameObserver.observe(head,{attributes:true,attributeFilter:['style']});
+ const info=head.parentElement?.querySelector('[data-c="1"]');
+ if(info)englishTabletFrameObserver.observe(info,{attributes:true,attributeFilter:['style']});
+ queueEnglishTabletFrame();
+ return true;
+}
+const englishTabletMountObserver=new MutationObserver(()=>{
+ if(attachEnglishTabletFrame())englishTabletMountObserver.disconnect();
+});
+englishTabletMountObserver.observe(document.documentElement,{childList:true,subtree:true});
+attachEnglishTabletFrame();
 
-    // Read the actual CSS-centered frame; do not center using innerWidth,
-    // which counts the scrollbar and shifts Projects to the right.
-    const frameLeft = aboutRect.left - viewportRect.left;
-    const values = {
-      width: frameWidth + 'px',
-      position: 'relative',
-      left: frameLeft + 'px',
-      transform: 'scale(' + scale + ')'
-    };
-    for (const [key, value] of Object.entries(values)) {
-      if (stage.style[key] !== value) stage.style[key] = value;
-    }
-    const height = (1655 * scale) + 'px';
-    if (viewport.style.height !== height) viewport.style.height = height;
-  }
-
-  function queue() {
-    if (!pending) pending = requestAnimationFrame(align);
-  }
-
-  // This is deliberately the same post-layout strategy proven in /en:
-  // the original app can update frame and stage styles AFTER its initial fit.
-  const watch = new MutationObserver(queue);
-  watch.observe(stage, { attributes: true, attributeFilter: ['style'] });
-  watch.observe(about, { attributes: true, attributeFilter: ['style'] });
-  window.addEventListener('resize', queue);
-  window.addEventListener('load', queue);
-  window.addEventListener('pageshow', queue);
-  queue();
 })();
 </script>
 

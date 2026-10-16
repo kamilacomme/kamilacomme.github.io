@@ -2649,9 +2649,9 @@ class Component extends DCLogic {
    French Footer, Hero, About and all project content are unchanged. */
 (function(){
 'use strict';
-let englishFrameRaf=0;
-function fitEnglishTabletFrame(){
- englishFrameRaf=0;
+let tabletProjectFrameRaf=0;
+function fitTabletProjectFrame(){
+ tabletProjectFrameRaf=0;
  if(window.innerWidth<500||window.innerWidth>1080||window.innerWidth>=window.innerHeight)return;
  const stage=document.getElementById('kc-t-stage');
  const viewport=document.getElementById('kc-t-viewport');
@@ -2659,7 +2659,6 @@ function fitEnglishTabletFrame(){
  if(!stage||!viewport||!about)return;
  const scale=window.__kcTabletScale||1;
  const width=about.offsetWidth||834;
- const frameLeft=(window.innerWidth-width*scale)/2;
  const aboutRect=about.getBoundingClientRect();
  const viewportRect=viewport.getBoundingClientRect();
  if(!aboutRect.width||!viewportRect.width)return;
@@ -2682,34 +2681,34 @@ function fitEnglishTabletFrame(){
  if(viewport.style.height!==h)viewport.style.height=h;
 
 }
-function queueEnglishTabletFrame(){
- if(englishFrameRaf)return;
- englishFrameRaf=requestAnimationFrame(fitEnglishTabletFrame);
+function queueTabletProjectFrame(){
+ if(tabletProjectFrameRaf)return;
+ tabletProjectFrameRaf=requestAnimationFrame(fitTabletProjectFrame);
 }
-window.addEventListener('resize',queueEnglishTabletFrame);
-window.addEventListener('load',queueEnglishTabletFrame);
-const englishTabletFrameObserver=new MutationObserver(queueEnglishTabletFrame);
-function attachEnglishTabletFrame(){
+window.addEventListener('resize',queueTabletProjectFrame);
+window.addEventListener('load',queueTabletProjectFrame);
+const tabletProjectFrameObserver=new MutationObserver(queueTabletProjectFrame);
+function attachTabletProjectFrame(){
  const stage=document.getElementById('kc-t-stage');
  const head=document.querySelector('[data-c="0"]');
  if(!stage||!head)return false;
- englishTabletFrameObserver.disconnect();
- englishTabletFrameObserver.observe(stage,{attributes:true,attributeFilter:['style']});
+ tabletProjectFrameObserver.disconnect();
+ tabletProjectFrameObserver.observe(stage,{attributes:true,attributeFilter:['style']});
  // Follow About's centered frame if the main controller changes its width
- // or transform after this English-only Projects fit.
+ // or transform after the Projects fit.
  const about=document.querySelector('#apropos-t > div > div');
- if(about)englishTabletFrameObserver.observe(about,{attributes:true,attributeFilter:['style']});
- englishTabletFrameObserver.observe(head,{attributes:true,attributeFilter:['style']});
+ if(about)tabletProjectFrameObserver.observe(about,{attributes:true,attributeFilter:['style']});
+ tabletProjectFrameObserver.observe(head,{attributes:true,attributeFilter:['style']});
  const info=head.parentElement?.querySelector('[data-c="1"]');
- if(info)englishTabletFrameObserver.observe(info,{attributes:true,attributeFilter:['style']});
- queueEnglishTabletFrame();
+ if(info)tabletProjectFrameObserver.observe(info,{attributes:true,attributeFilter:['style']});
+ queueTabletProjectFrame();
  return true;
 }
-const englishTabletMountObserver=new MutationObserver(()=>{
- if(attachEnglishTabletFrame())englishTabletMountObserver.disconnect();
+const tabletProjectMountObserver=new MutationObserver(()=>{
+ if(attachTabletProjectFrame())tabletProjectMountObserver.disconnect();
 });
-englishTabletMountObserver.observe(document.documentElement,{childList:true,subtree:true});
-attachEnglishTabletFrame();
+tabletProjectMountObserver.observe(document.documentElement,{childList:true,subtree:true});
+attachTabletProjectFrame();
 
 })();
 </script>

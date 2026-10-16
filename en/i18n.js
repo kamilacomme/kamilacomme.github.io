@@ -194,22 +194,22 @@ function syncTabletProjects(){
  if(typeof window.__kcTabletProjectFit!=='function')return;
  lastTabletWidth=window.innerWidth;
  window.__kcTabletProjectFit();
- // Portrait only: align the tickets' right edge with the visible navbar CTA.
- // This changes only the English tablet ticket-column width, not its left
- // position, typography, scale, cards, or the shared French CSS.
+
+ // Match the original French tablet geometry: full viewport divided by
+ // the shared tablet scale, with the ORIGINAL 32px inset on both sides.
+ // The English entry can otherwise retain the previous 393px mobile stage.
  if(window.innerWidth>window.innerHeight)return;
- requestAnimationFrame(()=>{
-  const tickets=stage.querySelector('.tickets');
-  if(!tickets)return;
-  const navCTA=[...document.querySelectorAll('a[href^="mailto:"]')]
-   .find(a=>{const r=a.getBoundingClientRect();return r.width>0&&r.height>0&&r.top>=0&&r.top<120&&r.right<=window.innerWidth+1});
-  if(!navCTA)return;
-  const buttonRight=navCTA.getBoundingClientRect().right;
-  const ticketsLeft=tickets.getBoundingClientRect().left;
-  const stageScale=stage.offsetWidth?stage.getBoundingClientRect().width/stage.offsetWidth:1;
-  if(buttonRight>ticketsLeft&&stageScale>0)
-   tickets.style.width=((buttonRight-ticketsLeft)/stageScale)+'px';
- });
+ const st=window.__kcTabletScale||1;
+ const expectedWidth=window.innerWidth/st;
+ if(!Number.isFinite(expectedWidth)||expectedWidth<=0)return;
+ stage.style.width=expectedWidth+'px';
+ stage.style.transform='scale('+st+')';
+ const tickets=stage.querySelector('.tickets');
+ if(tickets){
+  tickets.style.removeProperty('left');
+  tickets.style.removeProperty('width');
+ }
+
 }
 window.addEventListener('resize',()=>{lastTabletWidth=0;requestAnimationFrame(syncTabletProjects)});
 window.addEventListener('load',()=>{lastTabletWidth=0;requestAnimationFrame(syncTabletProjects)});

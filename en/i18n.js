@@ -108,6 +108,14 @@ const translations={
   "designer Brand & Digital": "a Brand & Digital Designer",
   "designer Brand & Digital ": "a Brand & Digital Designer"
 };
+// Keep short English function words with the word that follows them.
+// Non-breaking spaces have the same width as normal spaces; existing fonts,
+// element geometry and deliberate Projects heading line breaks are untouched.
+function polishLineBreaks(value){
+ if(!value || value.length<30 || value.includes('\n'))return value;
+ return value.replace(/\b(a|an|of|to|in|on|at|by|for|with|the) ([A-Za-z][A-Za-z’-]*)/gi,
+  (match,word,next)=>word+'\u00a0'+next);
+}
 const normalize=(s)=>s.replace(/\s+/g,' ').trim();
 const lookup=new Map(Object.entries(translations).map(([key,val])=>[normalize(key),val]));
 function translateText(node){
@@ -133,7 +141,7 @@ function translateText(node){
  const translated=lookup.get(normalize(original));
  if(!translated)return;
  const leading=original.match(/^\s*/)[0],trailing=original.match(/\s*$/)[0];
- const next=leading+translated+trailing;
+ const next=leading+polishLineBreaks(translated)+trailing;
  if(next!==original)node.nodeValue=next;
 }
 function fixProjectsHeading(el){

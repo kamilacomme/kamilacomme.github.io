@@ -183,5 +183,21 @@ const observer=new MutationObserver((mutations)=>{
  finally{busy=false}
 });
 translateTree(document);
+// The source site's tablet controller can initialize while the viewport is still
+// mobile-sized in DevTools. Re-run its own approved fit routine when the viewport
+// changes; no ticket geometry or typography is overridden here.
+let lastTabletWidth=0;
+function syncTabletProjects(){
+ const stage=document.getElementById('kc-t-stage');
+ const host=document.getElementById('kc-tablet-projets');
+ if(!stage||!host||window.innerWidth<500||window.innerWidth===lastTabletWidth)return;
+ if(typeof window.__kcTabletProjectFit!=='function')return;
+ lastTabletWidth=window.innerWidth;
+ window.__kcTabletProjectFit();
+}
+window.addEventListener('resize',()=>{lastTabletWidth=0;requestAnimationFrame(syncTabletProjects)});
+window.addEventListener('load',()=>{lastTabletWidth=0;requestAnimationFrame(syncTabletProjects)});
+const tabletStageObserver=new MutationObserver(()=>syncTabletProjects());
+tabletStageObserver.observe(document.documentElement,{subtree:true,childList:true});
 observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title','placeholder','alt']});
 })();

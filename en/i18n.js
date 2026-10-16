@@ -189,8 +189,7 @@ translateTree(document);
 let lastTabletWidth=0;
 function syncTabletProjects(){
  const stage=document.getElementById('kc-t-stage');
- if(!stage||window.innerWidth<500)return;
- if(typeof window.__kcTabletProjectFit!=='function')return;
+ if(!stage||window.innerWidth<500||typeof window.__kcTabletProjectFit!=='function')return;
  if(window.innerWidth!==lastTabletWidth){
   lastTabletWidth=window.innerWidth;
   window.__kcTabletProjectFit();
@@ -201,17 +200,33 @@ function syncTabletProjects(){
  if(!Number.isFinite(expectedWidth)||expectedWidth<=0)return;
  stage.style.width=expectedWidth+'px';
  stage.style.transform='scale('+st+')';
- const tickets=stage.querySelector('.tickets');
- if(!tickets)return;
- // The approved French site has 32 CSS-pixel viewport margins at 768px.
- // Account for the English stage's scale so the visible margins equal 32px.
- const inset=32/st;
- tickets.style.left=inset+'px';
- tickets.style.width='calc(100% - '+(2*inset)+'px)';
+ requestAnimationFrame(alignEnglishTabletTickets);
+}
+function alignEnglishTabletTickets(){
+ if(window.innerWidth<500||window.innerWidth>=window.innerHeight)return;
+ const stage=document.getElementById('kc-t-stage');
+ const tickets=stage?.querySelector('.tickets');
+ if(!stage||!tickets||!stage.offsetWidth)return;
+ const rect=stage.getBoundingClientRect();
+ const scale=rect.width/stage.offsetWidth;
+ if(!Number.isFinite(scale)||scale<=0)return;
+ // Align the rendered ticket edges to the approved French 32px viewport inset.
+ const left=(32-rect.left)/scale;
+ const right=(rect.right-(window.innerWidth-32))/scale;
+ if(left<0||right<0)return;
+ const leftValue=left.toFixed(3)+'px';
+ const widthValue='calc(100% - '+(left+right).toFixed(3)+'px)';
+ if(tickets.style.left!==leftValue||tickets.style.getPropertyPriority('left')!=='important')
+  tickets.style.setProperty('left',leftValue,'important');
+ if(tickets.style.width!==widthValue||tickets.style.getPropertyPriority('width')!=='important')
+  tickets.style.setProperty('width',widthValue,'important');
 }
 window.addEventListener('resize',()=>{lastTabletWidth=0;requestAnimationFrame(syncTabletProjects)});
 window.addEventListener('load',()=>{lastTabletWidth=0;requestAnimationFrame(syncTabletProjects)});
 const tabletStageObserver=new MutationObserver(()=>syncTabletProjects());
+const tabletSizeObserver=new ResizeObserver(()=>requestAnimationFrame(alignEnglishTabletTickets));
+const observeEnglishTablet=()=>{const stage=document.getElementById('kc-t-stage');if(stage){tabletSizeObserver.observe(stage);alignEnglishTabletTickets();}};
+window.addEventListener('load',observeEnglishTablet);
 tabletStageObserver.observe(document.documentElement,{subtree:true,childList:true});
 observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title','placeholder','alt']});
 })();

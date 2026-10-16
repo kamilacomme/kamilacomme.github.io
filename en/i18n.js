@@ -256,7 +256,7 @@ document.addEventListener('click',function(event){
  if(!target)return;
  event.preventDefault();
  history.pushState(null,'',location.pathname+location.search+href);
- target.scrollIntoView({behavior:'smooth',block:'start'});
+ target.scrollIntoView({behavior:'auto',block:'start'});
 },true);
 translateTree(document);
 observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title','placeholder','alt']});

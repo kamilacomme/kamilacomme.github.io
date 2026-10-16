@@ -125,7 +125,7 @@ function translateText(node){
   };
   const v=parts[normalize(original)];
   if(v!==undefined){
-   const leading=original.match(/^\\s*/)[0],trailing=original.match(/\\s*$/)[0];
+   const leading=original.match(/^\s*/)[0],trailing=original.match(/\s*$/)[0];
    node.nodeValue=v?leading+v+trailing:'';
    return;
   }

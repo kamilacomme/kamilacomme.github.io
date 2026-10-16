@@ -108,6 +108,9 @@ const translations={
   "designer Brand & Digital": "a Brand & Digital Designer",
   "designer Brand & Digital ": "a Brand & Digital Designer"
 };
+const headingStyles=document.createElement('style');
+headingStyles.textContent='#kc-mobile-projets h1 .kc-en-heading-line{display:block;white-space:nowrap}';
+document.head.appendChild(headingStyles);
 const normalize=(s)=>s.replace(/\s+/g,' ').trim();
 const lookup=new Map(Object.entries(translations).map(([key,val])=>[normalize(key),val]));
 function translateText(node){
@@ -140,7 +143,12 @@ function fixProjectsHeading(el){
  if(!el.matches('.heading, #kc-tablet-projets h1, #kc-mobile-projets h1'))return;
  if(el.dataset.enProjectsHeading==='1')return;
  el.dataset.enProjectsHeading='1';
- if(el.closest('#kc-tablet-projets')){
+ if(el.closest('#kc-mobile-projets')){
+  el.innerHTML='<span class="kc-en-heading-line">A selection of my most</span><span class="kc-en-heading-line"><em>recent projects.</em></span>';
+  el.style.whiteSpace='normal';
+  el.style.fontSize='clamp(22px, 6.1vw, 28px)';
+  el.style.letterSpacing='-0.045em';
+ }else if(el.closest('#kc-tablet-projets')){
   el.innerHTML='<span class="kc-title-line">A selection of my most</span><span class="kc-title-line"><em>recent projects.</em></span>';
  }else{
   el.innerHTML='A selection of my most<br><em>recent projects.</em>';

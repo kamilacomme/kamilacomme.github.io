@@ -365,7 +365,7 @@
 </div>
 
 <!-- Footer (cinema final) — an ordinary block, next in the scroll order -->
-<div ref="{{ footerRef }}" style="position: relative; left: 0; top: 0; width: 100%; height: 100svh; overflow: hidden; background-color: #000000; z-index: 4; will-change: transform;">
+<div id="contact" ref="{{ footerRef }}" style="position: relative; left: 0; top: 0; width: 100%; height: 100svh; overflow: hidden; background-color: #000000; z-index: 4; will-change: transform;">
 
   <div ref="{{ clothRef }}" style="position: absolute; left: 0; top: 0; width: 100vw; height: 100svh; z-index: 1; pointer-events: auto;"></div>
 
@@ -440,7 +440,7 @@
   <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); display: flex; flex-direction: row; gap: 32px; align-items: center; pointer-events: auto;">
     <a href="#projets" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">Projets</a>
     <a href="#apropos" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">À propos</a>
-    <a href="mailto:comme.kamila@gmail.com" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">Contact</a>
+    <a href="#contact" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">Contact</a>
   </div>
   <div style="display: flex; flex-direction: row; gap: 16px; align-items: center; pointer-events: auto;">
     <span ref="{{ pillRef }}" data-fixed-ink="1" style="display: inline-flex; flex-direction: row; gap: 8px; align-items: center; height: 44px; box-sizing: border-box; padding: 12px 24px; border-radius: 4px; background-color: rgba(34,32,34,0.55); border: 1px solid rgba(255,255,255,0.14); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4);"><span data-fixed-ink="1" style="width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background-color: rgb(202,229,108); animation: kcDot 1.8s ease-in-out infinite;"></span><span data-fixed-ink="1" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.667; letter-spacing: 0.04em; text-transform: uppercase; color: rgb(189,183,189);">En recherche de CDI 2026</span></span>
@@ -1969,6 +1969,19 @@ class Component extends DCLogic {
     // The approved projects surface is white. A cross-document iframe is opaque
     // to elementsFromPoint(), which otherwise incorrectly classifies it as dark.
     // Use the current layout's section bounds instead of sampling inside the iframe.
+    // About has a white surface, even when its nested imagery or the
+    // section below confuses the luminance samples. Test section bounds before
+    // sampling so the nav text cannot remain white against the white About.
+    // Footer is full-bleed black and takes precedence when it reaches the nav.
+    const navY = this._navRect.top + this._navRect.height * 0.55;
+    const isAtNav = (el) => {
+      if (!el || getComputedStyle(el).display === "none") return false;
+      const rect = el.getBoundingClientRect();
+      return rect.top <= navY && rect.bottom > navY;
+    };
+    if (isAtNav(document.getElementById("contact"))) return false;
+    const aboutId = this.mobile ? "apropos-m" : this.tablet ? "apropos-t" : "apropos";
+    if (isAtNav(document.getElementById(aboutId))) return true;
     const projectId = this.mobile ? "projets-m" : this.tablet ? "projets-t" : "projets";
     const projectSection = document.getElementById(projectId);
     if (projectSection) {

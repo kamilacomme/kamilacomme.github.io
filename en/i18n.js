@@ -4,11 +4,11 @@
 const translations={
   "Hello, je suis Kamila,": "Hello, I'm Kamila,",
   "Je suis Kamila Comme,": "I'm Kamila Comme,",
-  "avec un Mastère en Direction Artistique et": "with a Master's degree in Art Direction and",
+  "avec un Mastère en Direction Artistique et": "with a Master’s in Art Direction and",
   "5 ans d’expérience.": "5 years of experience.",
-  "Je transforme une idée en marque qui marche sur plusieurs supports.": "I turn an idea into a brand that works across every medium.",
-  "En recherche d’un CDI pour 2026.": "Looking for a permanent position in 2026.",
-  "Mastère": "Master's degree",
+  "Je transforme une idée en marque qui marche sur plusieurs supports.": "I turn ideas into brands that work across different platforms and mediums.",
+  "En recherche d’un CDI pour 2026.": "Seeking a full-time position in 2026.",
+  "Mastère": "Master’s in",
   "Ma dernière entreprise, de 2024 à 2026. Avant, j’étais chez Bene Bono, de 2023 à 2024.": "My most recent company, from 2024 to 2026. Previously, I worked at Bene Bono from 2023 to 2024.",
   "vues sur TikTok, pour une vidéo sur mon portfolio sur Readymag.": "TikTok views for a video about my Readymag portfolio.",
   "2 sélections Behance (Illustration et Packaging) pour mon projet Chocolate Mallow Lab.": "2 Behance features (Illustration and Packaging) for my Chocolate Mallow Lab project.",
@@ -27,16 +27,16 @@ const translations={
   "Je suis Kamila Comme,": "I'm Kamila Comme,",
   "5 ans d’expérience.": "5 years of experience.",
   "Je transforme une idée en marque qui marche sur plusieurs supports.": "I turn an idea into a brand that works across multiple media.",
-  "En recherche d’un CDI pour 2026.": "Seeking a permanent position in 2026.",
+  "En recherche d’un CDI pour 2026.": "Seeking a full-time position in 2026.",
   "Ma dernière entreprise, de 2024 à 2026. Avant, j’étais chez Bene Bono, de 2023 à 2024.": "My most recent company, from 2024 to 2026. Previously, I worked at Bene Bono from 2023 to 2024.",
   "vues sur TikTok, pour une vidéo sur mon portfolio sur Readymag.": "TikTok views for a video about my Readymag portfolio.",
   "2 sélections Behance (Illustration et Packaging) pour mon projet Chocolate Mallow Lab.": "2 Behance features (Illustration and Packaging) for my Chocolate Mallow Lab project.",
   "3 langues": "3 languages",
   "Je parle français, anglais et russe couramment.": "I speak French, English and Russian fluently.",
-  "avec un Mastère en Direction Artistique et": "with a Master's degree in Art Direction and",
+  "avec un Mastère en Direction Artistique et": "with a Master’s in Art Direction and",
   "Ma dernière entreprise, de 2024 à 2026. Avant, j’étais chez Bene Bono, de 2023 à 2024.": "My most recent company, from 2024 to 2026. Previously, I worked at Bene Bono from 2023 to 2024.",
   "Je parle français, anglais et russe couramment.": "I speak French, English and Russian fluently.",
-  "Un CDI ? Écrivez-moi.": "A permanent role? Get in touch.",
+  "Un CDI ? Écrivez-moi.": "A full-time opportunity? Let's talk.",
   "Mentions légales": "Legal notice",
   "Politique de confidentialité": "Privacy policy",
   "Ce site est un portfolio personnel. Voici les informations légales qui s’y rapportent.": "This is a personal portfolio. Below is the legal information relating to this website.",
@@ -77,7 +77,7 @@ const translations={
   "Cookies : mesure d’audience uniquement.": "Cookies: audience measurement only.",
   "Projets": "Projects",
   "À propos": "About",
-  "En recherche de CDI 2026": "Seeking a permanent position in 2026",
+  "En recherche de CDI 2026": "Open to full-time roles",
   "Me recruter": "Hire me",
   "M’écrire à comme.kamila@gmail.com": "Email me at comme.kamila@gmail.com",
   "Projets récents – défilement horizontal": "Recent projects – horizontal scrolling",
@@ -103,14 +103,33 @@ const translations={
   "Aperçu animé du projet Celimax": "Animated preview of the Celimax project",
   "Aperçu animé du projet Napoli": "Animated preview of the Napoli project",
   "Contact": "Contact",
-  "En recherche de CDI 2026": "Seeking a permanent position in 2026",
-  "Un CDI ? Écrivez-moi.": "A permanent role? Get in touch."
+  "En recherche de CDI 2026": "Open to full-time roles",
+  "Un CDI ? Écrivez-moi.": "A full-time opportunity? Let's talk.",
+  "designer Brand & Digital": "a Brand & Digital Designer",
+  "designer Brand & Digital ": "a Brand & Digital Designer"
 };
 const normalize=(s)=>s.replace(/\s+/g,' ').trim();
 const lookup=new Map(Object.entries(translations).map(([key,val])=>[normalize(key),val]));
 function translateText(node){
  const original=node.nodeValue;
  if(!original||!original.trim())return;
+ const projectHeading=node.parentElement?.closest('.heading, #kc-tablet-projets h1, #kc-mobile-projets h1');
+ if(projectHeading){
+  const parts={
+   'Une sélection de':'A selection of my most',
+   'Une sélection des':'A selection of my most',
+   'mes':'',
+   'projets':'recent projects.',
+   'récents.':'',
+   'les plus récents.':''
+  };
+  const v=parts[normalize(original)];
+  if(v!==undefined){
+   const leading=original.match(/^\\s*/)[0],trailing=original.match(/\\s*$/)[0];
+   node.nodeValue=v?leading+v+trailing:'';
+   return;
+  }
+ }
  const translated=lookup.get(normalize(original));
  if(!translated)return;
  const leading=original.match(/^\s*/)[0],trailing=original.match(/\s*$/)[0];

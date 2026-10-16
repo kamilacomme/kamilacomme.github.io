@@ -141,7 +141,7 @@ function fixProjectsHeading(el){
  if(el.dataset.enProjectsHeading==='1')return;
  el.dataset.enProjectsHeading='1';
  if(el.closest('#kc-mobile-projets')){
-  el.innerHTML='A selection of my<br><em>most recent projects.</em>';
+  el.innerHTML='A selection of my<br><em>recent projects.</em>';
  }else if(el.closest('#kc-tablet-projets')){
   el.innerHTML='<span class="kc-title-line">A selection of my most</span><span class="kc-title-line"><em>recent projects.</em></span>';
  }else{

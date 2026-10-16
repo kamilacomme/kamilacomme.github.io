@@ -190,9 +190,26 @@ const observer=new MutationObserver((mutations)=>{
  else if(m.type==='attributes')translateElement(m.target);}}
  finally{busy=false}
 });
+// Original tablet tickets combine width:100% with horizontal padding.
+// Constrain padding inside their declared width, without changing typography.
+const tabletGeometryStyle=document.createElement('style');
+tabletGeometryStyle.textContent='#kc-tablet-projets .ticket{box-sizing:border-box}';
+document.head.appendChild(tabletGeometryStyle);
 // The English entry intentionally retains <base href="/"> for shared assets.
 // Without this handler, hash links resolve to /#apropos and leave /en/.
 document.addEventListener('click',function(event){
+ const contactLink=event.target.closest?.('a[href^="mailto:"]');
+ if(contactLink && contactLink.textContent.trim().toLowerCase()==='contact'){
+  const suffix=window.innerWidth<500?'-m':window.innerWidth<=1080?'-t':'';
+  const about=document.getElementById('apropos'+suffix)||document.getElementById('apropos');
+  const footer=about?.querySelector('[href^="mailto:"]')?.closest('div[style*="flex"]') || about;
+  if(footer){
+   event.preventDefault();
+   footer.scrollIntoView({behavior:'smooth',block:'end'});
+   history.pushState(null,'',location.pathname+location.search+'#contact');
+   return;
+  }
+ }
  const link=event.target.closest?.('a[href^="#"]');
  if(!link)return;
  const href=link.getAttribute('href');

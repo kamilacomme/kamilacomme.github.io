@@ -211,12 +211,19 @@ function fitEnglishTabletFrame(){
  const scale=window.__kcTabletScale||1;
  const width=about.offsetWidth||834;
  const frameLeft=(window.innerWidth-width*scale)/2;
- // Center Projects exactly like the About frame, without altering the cards.
- // Position is explicit because Projects is in document flow, unlike About.
+ const aboutRect=about.getBoundingClientRect();
+ const viewportRect=viewport.getBoundingClientRect();
+ if(!aboutRect.width||!viewportRect.width)return;
+ // CSS-centered About uses the page content width, which excludes the
+ // vertical scrollbar. Projects must use About's actual rendered left edge
+ // rather than window.innerWidth (which includes that scrollbar).
+ const stageLeft=aboutRect.left-viewportRect.left;
+ // Projects remains in normal document flow, so give its relative stage
+ // the same rendered horizontal origin as the centered About frame.
  const values={
   width:width+'px',
   position:'relative',
-  left:frameLeft+'px',
+  left:stageLeft+'px',
   transform:'scale('+scale+')'
  };
  for(const [name,value] of Object.entries(values)){
@@ -249,6 +256,10 @@ function attachEnglishTabletFrame(){
  if(!stage||!head)return false;
  englishTabletFrameObserver.disconnect();
  englishTabletFrameObserver.observe(stage,{attributes:true,attributeFilter:['style']});
+ // Follow About's centered frame if the main controller changes its width
+ // or transform after this English-only Projects fit.
+ const about=document.querySelector('#apropos-t > div > div');
+ if(about)englishTabletFrameObserver.observe(about,{attributes:true,attributeFilter:['style']});
  englishTabletFrameObserver.observe(head,{attributes:true,attributeFilter:['style']});
  const info=head.parentElement?.querySelector('[data-c="1"]');
  if(info)englishTabletFrameObserver.observe(info,{attributes:true,attributeFilter:['style']});

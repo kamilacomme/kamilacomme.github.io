@@ -2316,38 +2316,7 @@ class Component extends DCLogic {
       projectTitle.style.fontSize=(48*ratio).toFixed(3)+'px';
     }
   }
-}window.__kcTabletProjectFit=fit;fit();
-  // The Projects stage must be fitted in the SAME coordinate system as the
-  // tablet Hero and About frames (834 design pixels scaled by __kcTabletScale).
-  // Refresh after viewport changes, including browser zoom and device emulation.
-  let tabletFitQueued=false;
-  function scheduleTabletProjectFit(){
-    if(tabletFitQueued)return;
-    tabletFitQueued=true;
-    requestAnimationFrame(()=>{
-      tabletFitQueued=false;
-      if(window.innerWidth>=500 && window.innerWidth<=1080 &&
-         window.innerHeight>window.innerWidth && stage.isConnected){
-        fit();
-      }
-    });
-  }
-  window.addEventListener('resize',scheduleTabletProjectFit);
-  window.addEventListener('load',scheduleTabletProjectFit);
-  // The surrounding application can rerender its stage after its initial fit.
-  // Only restore geometry if it has become stale; never translate or resize tickets.
-  const tabletStageChanges=new MutationObserver(()=>{
-    if(window.innerWidth<500||window.innerWidth>1080||window.innerHeight<=window.innerWidth)return;
-    const st=window.__kcTabletScale||1;
-    const expected=window.innerWidth/st;
-    const actual=stage.getBoundingClientRect().width;
-    if(Math.abs(actual-window.innerWidth)>1||
-       Math.abs(stage.offsetWidth-expected)>1){
-      scheduleTabletProjectFit();
-    }
-  });
-  tabletStageChanges.observe(stage,{attributes:true,attributeFilter:['style']});
-// Tablet video playback is initialized independently after component mounting below.
+}window.__kcTabletProjectFit=fit;fit();// Tablet video playback is initialized independently after component mounting below.
 })();
 (()=>{ 
 // Mobile Projects geometry is managed by the independent layout observer below.

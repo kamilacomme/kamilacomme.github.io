@@ -152,7 +152,7 @@ function fixProjectsHeading(el){
   el.style.removeProperty('white-space');
   el.innerHTML='A selection of my<br><em>recent projects.</em>';
  }else if(el.closest('#kc-tablet-projets')){
-  el.innerHTML='<span class="kc-title-line">A selection of my most</span><span class="kc-title-line"><em>recent projects.</em></span>';
+  el.innerHTML='<span class="kc-title-line">A selection of my</span><span class="kc-title-line"><em>recent projects.</em></span>';
  }else{
   el.innerHTML='A selection of my most<br><em>recent projects.</em>';
  }

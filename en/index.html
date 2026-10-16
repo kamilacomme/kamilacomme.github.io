@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kamila Comme — Brand &amp; Digital Designer | Portfolio</title>
+<meta name="description" content="Brand &amp; Digital Designer with a Master’s in Art Direction and 5 years of experience. Explore Kamila Comme’s branding, web and motion projects.">
+<meta property="og:title" content="Kamila Comme — Brand &amp; Digital Designer">
+<meta property="og:description" content="Branding, digital design and motion projects by Kamila Comme.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kamilacomme.github.io/en/">
+<meta property="og:image" content="https://kamilacomme.github.io/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kamilacomme.github.io/assets/og.jpg">
+<link rel="canonical" href="https://kamilacomme.github.io/en/">
+<base href="/">
+<script>
+(async function () {
+  try {
+    const response = await fetch('/index.html', {cache: 'no-cache'});
+    if (!response.ok) throw new Error('Unable to load portfolio: ' + response.status);
+    let html = await response.text();
+    html = html.replace('<html lang="fr">', '<html lang="en">');
+    html = html.replace('<html lang="fr"', '<html lang="en"');
+    html = html.replace('<head>', '<head><base href="/">');
+    html = html.split('src="desktop-project-embedded.html"').join('src="/en/desktop-project-embedded.html"');
+    html = html.replace('<title>Kamila Comme — designer Brand &amp; Digital, Paris</title>', '<title>Kamila Comme — Brand &amp; Digital Designer | Portfolio</title>');
+    html = html.replace(/<meta name="description" content="[^"]*">/, '<meta name="description" content="Brand &amp; Digital Designer with a Master’s in Art Direction and 5 years of experience. Explore Kamila Comme’s branding, web and motion projects.">');
+    html = html.replace(/<meta property="og:title" content="[^"]*">/, '<meta property="og:title" content="Kamila Comme — Brand &amp; Digital Designer">');
+    html = html.replace(/<meta property="og:description" content="[^"]*">/, '<meta property="og:description" content="Branding, digital design and motion projects by Kamila Comme.">');
+    html = html.replace('content="https://kamilacomme.github.io/"', 'content="https://kamilacomme.github.io/en/"');
+
+
+    html = html.replace('</head>', '<meta property="og:locale" content="en_US"><link rel="canonical" href="https://kamilacomme.github.io/en/"><script src="/en/i18n.js"><' + '/script></head>');
+    document.open();
+    document.write(html);
+    document.close();
+  } catch (error) {
+    document.body.textContent = 'Portfolio could not be loaded. Please refresh.';
+    console.error(error);
+  }
+})();
+</script>
+</head>
+<body></body>
+</html>

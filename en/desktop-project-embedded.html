@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio — Projects</title>
+<base href="/">
+<script>
+(async function () {
+  try {
+    const response = await fetch('/desktop-project-embedded.html', {cache: 'no-cache'});
+    if (!response.ok) throw new Error('Unable to load portfolio: ' + response.status);
+    let html = await response.text();
+    html = html.replace('<html lang="fr">', '<html lang="en">');
+    html = html.replace('<html lang="fr"', '<html lang="en"');
+    html = html.replace('<head>', '<head><base href="/">');
+    
+    html = html.replace('</head>', '<script src="/en/i18n.js"><' + '/script></head>');
+    document.open();
+    document.write(html);
+    document.close();
+  } catch (error) {
+    document.body.textContent = 'Portfolio could not be loaded. Please refresh.';
+    console.error(error);
+  }
+})();
+</script>
+</head>
+<body></body>
+</html>

@@ -4,24 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kamila Comme — Brand &amp; Digital Designer | Portfolio</title>
-<meta name="description" content="Explore the portfolio of Kamila Comme, a Paris-based Brand &amp; Digital Designer with five years of experience in branding, web design and motion design.">
 <base href="/">
 <script>
-/* GitHub Pages English entry point: load the single canonical portfolio source. */
-(async function(){
- try {
-  const response=await fetch('/index.html',{cache:'no-cache'});
-  if(!response.ok)throw new Error('Unable to load portfolio ('+response.status+')');
-  let html=await response.text();
-  html=html.replace(/<html([^>]*)lang=["']fr["']/i,'<html$1lang="en"');
-  html=html.replace(/<head([^>]*)>/i,'<head$1><base href="/">');
-  html=html.replace(/src="desktop-project-embedded\\.html"/g,'src="/en/desktop-project-embedded.html"');
-  html=html.replace(/<title>[\\s\\S]*?<\\/title>/i,'<title>Kamila Comme — Brand &amp; Digital Designer | Portfolio</title>');
-  html=html.replace(/<meta name="description" content="[^"]*">/i,'<meta name="description" content="Portfolio of Kamila Comme, Paris-based Brand &amp; Digital Designer with 5 years of experience. Branding, web design and motion design.">');
-  html=html.replace(/<meta property="og:url" content="[^"]*">/i,'<meta property="og:url" content="https://kamilacomme.github.io/en">');
-  html=html.replace(/<\\/head>/i,'<script src="/en/i18n.js"><\\/script><\\/head>');
-  document.open();document.write(html);document.close();
- } catch(error){document.body.textContent='Portfolio could not be loaded. Please refresh this page.';console.error(error)}
+(async function () {
+  try {
+    const response = await fetch('/index.html', {cache: 'no-cache'});
+    if (!response.ok) throw new Error('Unable to load portfolio: ' + response.status);
+    let html = await response.text();
+    html = html.replace('<html lang="fr">', '<html lang="en">');
+    html = html.replace('<html lang="fr"', '<html lang="en"');
+    html = html.replace('<head>', '<head><base href="/">');
+    html = html.split('src="desktop-project-embedded.html"').join('src="/en/desktop-project-embedded.html"');
+    html = html.replace('<title>Kamila Comme — designer Brand &amp; Digital, Paris</title>', '<title>Kamila Comme — Brand &amp; Digital Designer | Portfolio</title>');
+    html = html.replace('content="https://kamilacomme.github.io/"', 'content="https://kamilacomme.github.io/en"');
+    html = html.replace('</head>', '<script src="/en/i18n.js"><' + '/script></head>');
+    document.open();
+    document.write(html);
+    document.close();
+  } catch (error) {
+    document.body.textContent = 'Portfolio could not be loaded. Please refresh.';
+    console.error(error);
+  }
 })();
 </script>
-</head><body></body></html>
+</head>
+<body></body>
+</html>

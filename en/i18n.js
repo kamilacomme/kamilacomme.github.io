@@ -195,42 +195,17 @@ const observer=new MutationObserver((mutations)=>{
 const tabletGeometryStyle=document.createElement('style');
 tabletGeometryStyle.textContent='#kc-tablet-projets .ticket{box-sizing:border-box}';
 document.head.appendChild(tabletGeometryStyle);
-// English tablet Projects uses one fixed design coordinate system, just like
-// the tablet Hero/About frames: design width 834, uniformly fitted to viewport.
-// No per-ticket margin, padding or font-size adjustments.
-// English-only tablet experiment: use the same main-controller frame width
-// and scale as Hero/About. Footer's full-bleed curtain stays untouched.
+// The shared French source controls Projects. English only retains its
+// approved Footer-content alignment; the curtain remains unchanged.
 let englishFrameRaf=0;
-function fitEnglishTabletFrame(){
+function fitEnglishTabletFooter(){
  englishFrameRaf=0;
  if(window.innerWidth<500||window.innerWidth>1080||window.innerWidth>=window.innerHeight)return;
- const stage=document.getElementById('kc-t-stage');
- const viewport=document.getElementById('kc-t-viewport');
  const about=document.querySelector('#apropos-t > div > div');
- if(!stage||!viewport||!about)return;
+ if(!about)return;
  const scale=window.__kcTabletScale||1;
  const width=about.offsetWidth||834;
  const frameLeft=(window.innerWidth-width*scale)/2;
- const aboutRect=about.getBoundingClientRect();
- const viewportRect=viewport.getBoundingClientRect();
- if(!aboutRect.width||!viewportRect.width)return;
- // CSS-centered About uses the page content width, which excludes the
- // vertical scrollbar. Projects must use About's actual rendered left edge
- // rather than window.innerWidth (which includes that scrollbar).
- const stageLeft=aboutRect.left-viewportRect.left;
- // Projects remains in normal document flow, so give its relative stage
- // the same rendered horizontal origin as the centered About frame.
- const values={
-  width:width+'px',
-  position:'relative',
-  left:stageLeft+'px',
-  transform:'scale('+scale+')'
- };
- for(const [name,value] of Object.entries(values)){
-  if(stage.style[name]!==value)stage.style[name]=value;
- }
- const h=(1655*scale)+'px';
- if(viewport.style.height!==h)viewport.style.height=h;
  // Footer is full bleed; anchor its CONTENT to About's centered frame.
  const head=document.querySelector('[data-c="0"]');
  const footer=head?.parentElement;
@@ -243,27 +218,26 @@ function fitEnglishTabletFrame(){
  const gif=footer.querySelector('[data-c="3"]');
  if(gif&&gif.style.right!==right+'px')gif.style.right=right+'px';
 }
-function queueEnglishTabletFrame(){
+function queueEnglishTabletFooter(){
  if(englishFrameRaf)return;
- englishFrameRaf=requestAnimationFrame(fitEnglishTabletFrame);
+ englishFrameRaf=requestAnimationFrame(fitEnglishTabletFooter);
 }
-window.addEventListener('resize',queueEnglishTabletFrame);
-window.addEventListener('load',queueEnglishTabletFrame);
-const englishTabletFrameObserver=new MutationObserver(queueEnglishTabletFrame);
+window.addEventListener('resize',queueEnglishTabletFooter);
+window.addEventListener('load',queueEnglishTabletFooter);
+const englishTabletFrameObserver=new MutationObserver(queueEnglishTabletFooter);
 function attachEnglishTabletFrame(){
  const stage=document.getElementById('kc-t-stage');
  const head=document.querySelector('[data-c="0"]');
  if(!stage||!head)return false;
  englishTabletFrameObserver.disconnect();
  englishTabletFrameObserver.observe(stage,{attributes:true,attributeFilter:['style']});
- // Follow About's centered frame if the main controller changes its width
- // or transform after this English-only Projects fit.
+ // Keep Footer content aligned if the main tablet frame changes.
  const about=document.querySelector('#apropos-t > div > div');
  if(about)englishTabletFrameObserver.observe(about,{attributes:true,attributeFilter:['style']});
  englishTabletFrameObserver.observe(head,{attributes:true,attributeFilter:['style']});
  const info=head.parentElement?.querySelector('[data-c="1"]');
  if(info)englishTabletFrameObserver.observe(info,{attributes:true,attributeFilter:['style']});
- queueEnglishTabletFrame();
+ queueEnglishTabletFooter();
  return true;
 }
 const englishTabletMountObserver=new MutationObserver(()=>{

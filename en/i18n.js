@@ -195,6 +195,48 @@ const observer=new MutationObserver((mutations)=>{
 const tabletGeometryStyle=document.createElement('style');
 tabletGeometryStyle.textContent='#kc-tablet-projets .ticket{box-sizing:border-box}';
 document.head.appendChild(tabletGeometryStyle);
+// English tablet Projects uses one fixed design coordinate system, just like
+// the tablet Hero/About frames: design width 834, uniformly fitted to viewport.
+// No per-ticket margin, padding or font-size adjustments.
+const englishTabletDesignWidth=834;
+let englishTabletStage=null;
+let englishTabletRaf=0;
+function fitEnglishTabletProjects(){
+ englishTabletRaf=0;
+ const stage=document.getElementById('kc-t-stage');
+ const viewport=document.getElementById('kc-t-viewport');
+ if(!stage||!viewport)return;
+ if(window.innerWidth<500||window.innerWidth>1080||window.innerWidth>=window.innerHeight)return;
+ const scale=window.innerWidth/englishTabletDesignWidth;
+ const transform='scale('+scale+')';
+ // The stage is deliberately fixed in design pixels; only its transform
+ // changes when Chrome zoom or the viewport width changes.
+ if(stage.style.width!=='834px')stage.style.width='834px';
+ if(stage.style.transform!==transform)stage.style.transform=transform;
+ const height=(1655*scale)+'px';
+ if(viewport.style.height!==height)viewport.style.height=height;
+}
+function queueEnglishTabletFit(){
+ if(englishTabletRaf)return;
+ englishTabletRaf=requestAnimationFrame(fitEnglishTabletProjects);
+}
+const englishStageStyleObserver=new MutationObserver(queueEnglishTabletFit);
+function watchEnglishTabletStage(){
+ const stage=document.getElementById('kc-t-stage');
+ if(stage&&stage!==englishTabletStage){
+  englishTabletStage=stage;
+  englishStageStyleObserver.disconnect();
+  englishStageStyleObserver.observe(stage,{attributes:true,attributeFilter:['style']});
+ }
+ queueEnglishTabletFit();
+}
+window.addEventListener('resize',queueEnglishTabletFit);
+window.addEventListener('load',watchEnglishTabletStage);
+const englishStageMountObserver=new MutationObserver(()=>{
+ if(document.getElementById('kc-t-stage'))watchEnglishTabletStage();
+});
+englishStageMountObserver.observe(document.documentElement,{childList:true,subtree:true});
+watchEnglishTabletStage();
 // The English entry intentionally retains <base href="/"> for shared assets.
 // Without this handler, hash links resolve to /#apropos and leave /en/.
 document.addEventListener('click',function(event){

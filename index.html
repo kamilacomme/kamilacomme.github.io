@@ -875,7 +875,6 @@ class Component extends DCLogic {
       this.st = st;
       // Shared tablet design-to-screen scale for the active portfolio block.
       window.__kcTabletScale = st;
-      if (window.__kcTabletProjectFit) window.__kcTabletProjectFit();
       // the tablet stage height follows the window too, so the ticket is centred on the
       // SCREEN rather than inside a 1112 frame that may be taller than the viewport
       const tFrameH = Math.max(200, Math.round(this.vhNow() / st));
@@ -926,6 +925,9 @@ class Component extends DCLogic {
           if (el) el.style.transform = "translate(-50%,-50%) scale(" + st + ")";
         });
       }
+      // About's frame width and transform must be final before Projects
+      // measures its left edge. This also runs on responsive resize.
+      if (window.__kcTabletProjectFit) window.__kcTabletProjectFit();
       // navbar rides whichever frame is active
       if (this.nav) {
         // desktop: the bar spans the real window width (in design px) so the links and
@@ -2295,7 +2297,21 @@ class Component extends DCLogic {
   attached=true;
   (()=>{ const viewport=document.querySelector('#kc-t-viewport'),stage=document.querySelector('#kc-t-stage');function fit(){
   const st=window.__kcTabletScale||1;
-  stage.style.width=(window.innerWidth/st)+'px';
+  // Match the tablet Hero/About frame rather than centering from
+  // window.innerWidth (which includes the vertical scrollbar).
+  const about=document.querySelector('#apropos-t > div > div');
+  const aboutRect=about&&about.getBoundingClientRect();
+  const viewportRect=viewport.getBoundingClientRect();
+  const sharedFrame=window.innerWidth>=500&&window.innerWidth<window.innerHeight
+    &&aboutRect&&aboutRect.width>0&&viewportRect.width>0;
+  if(sharedFrame){
+    stage.style.width=about.offsetWidth+'px';
+    stage.style.left=(aboutRect.left-viewportRect.left)+'px';
+  }else{
+    // Preserve the original geometry for landscape and non-tablet layouts.
+    stage.style.width=(window.innerWidth/st)+'px';
+    stage.style.left='0px';
+  }
   stage.style.transform='scale('+st+')';
   stage.style.height='1655px';
   viewport.style.width='100%';

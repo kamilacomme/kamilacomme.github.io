@@ -195,6 +195,31 @@ const observer=new MutationObserver((mutations)=>{
 const tabletGeometryStyle=document.createElement('style');
 tabletGeometryStyle.textContent='#kc-tablet-projets .ticket{box-sizing:border-box}';
 document.head.appendChild(tabletGeometryStyle);
+// Mirror the original French tablet Projects stage's rendered geometry.
+// In the English loader the stage can retain a stale 1920px inline width.
+// Reset only that stale width/transform, preserving all ticket typography and spacing.
+function restoreTabletProjectStage(){
+ const stage=document.getElementById('kc-t-stage');
+ if(!stage)return;
+ if(window.innerWidth<500||window.innerWidth>1080||window.innerWidth>=window.innerHeight)return;
+ const viewport=document.getElementById('kc-t-viewport');
+ if(!viewport)return;
+ const width=viewport.getBoundingClientRect().width;
+ if(!(width>0))return;
+ // The French reference's stage exactly fills the 768px viewport without a transform.
+ if(Math.abs(stage.getBoundingClientRect().width-width)>1){
+  stage.style.width='100%';
+  stage.style.transform='none';
+ }
+}
+window.addEventListener('load',()=>requestAnimationFrame(restoreTabletProjectStage));
+window.addEventListener('resize',()=>requestAnimationFrame(restoreTabletProjectStage));
+const projectStageWatch=new MutationObserver(()=>{
+ const stage=document.getElementById('kc-t-stage');
+ if(!stage)return;
+ requestAnimationFrame(restoreTabletProjectStage);
+});
+projectStageWatch.observe(document.documentElement,{childList:true,subtree:true});
 // The English entry intentionally retains <base href="/"> for shared assets.
 // Without this handler, hash links resolve to /#apropos and leave /en/.
 document.addEventListener('click',function(event){

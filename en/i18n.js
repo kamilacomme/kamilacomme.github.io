@@ -187,28 +187,6 @@ translateTree(document);
 // mobile-sized in DevTools. Re-run its own approved fit routine when the viewport
 // changes; no ticket geometry or typography is overridden here.
 let lastTabletWidth=0;
-function alignTabletTickets(){
- if(window.innerWidth<500||window.innerWidth>=window.innerHeight)return;
- const stage=document.getElementById('kc-t-stage');
- const tickets=stage?.querySelector('.tickets');
- if(!stage||!tickets)return;
- // Both reference edges come from the same, already scaled French navbar.
- const candidates=[...document.querySelectorAll('a[href^="mailto:"]')];
- const cta=candidates.find(a=>{
-  const b=a.getBoundingClientRect();
-  return b.width>0&&b.height>0&&b.top>=0&&b.top<130&&b.right<=window.innerWidth+1;
- });
- const navRow=cta?.parentElement?.parentElement;
- const logo=navRow?.firstElementChild;
- if(!cta||!logo||logo===cta.parentElement)return;
- const left=logo.getBoundingClientRect().left;
- const right=cta.getBoundingClientRect().right;
- const rect=stage.getBoundingClientRect();
- const scale=rect.width/stage.offsetWidth;
- if(!(right>left&&scale>0))return;
- tickets.style.left=((left-rect.left)/scale)+'px';
- tickets.style.width=((right-left)/scale)+'px';
-}
 function syncTabletProjects(){
  const stage=document.getElementById('kc-t-stage');
  if(!stage||window.innerWidth<500)return;
@@ -218,17 +196,18 @@ function syncTabletProjects(){
   window.__kcTabletProjectFit();
  }
  if(window.innerWidth>=window.innerHeight)return;
- requestAnimationFrame(()=>{
-  // Use approved tablet stage scaling, not the mobile stage's stale width.
-  const st=window.__kcTabletScale||1;
-  const expectedWidth=window.innerWidth/st;
-  if(expectedWidth>0&&Number.isFinite(expectedWidth)){
-   stage.style.width=expectedWidth+'px';
-   stage.style.transform='scale('+st+')';
-  }
-  alignTabletTickets();
-  requestAnimationFrame(alignTabletTickets);
- });
+ const st=window.__kcTabletScale||1;
+ const expectedWidth=window.innerWidth/st;
+ if(!Number.isFinite(expectedWidth)||expectedWidth<=0)return;
+ stage.style.width=expectedWidth+'px';
+ stage.style.transform='scale('+st+')';
+ const tickets=stage.querySelector('.tickets');
+ if(!tickets)return;
+ // The approved French site has 32 CSS-pixel viewport margins at 768px.
+ // Account for the English stage's scale so the visible margins equal 32px.
+ const inset=32/st;
+ tickets.style.left=inset+'px';
+ tickets.style.width='calc(100% - '+(2*inset)+'px)';
 }
 window.addEventListener('resize',()=>{lastTabletWidth=0;requestAnimationFrame(syncTabletProjects)});
 window.addEventListener('load',()=>{lastTabletWidth=0;requestAnimationFrame(syncTabletProjects)});

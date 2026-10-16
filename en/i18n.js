@@ -136,7 +136,18 @@ function translateText(node){
  const next=leading+translated+trailing;
  if(next!==original)node.nodeValue=next;
 }
+function fixProjectsHeading(el){
+ if(!el.matches('.heading, #kc-tablet-projets h1, #kc-mobile-projets h1'))return;
+ if(el.dataset.enProjectsHeading==='1')return;
+ el.dataset.enProjectsHeading='1';
+ if(el.closest('#kc-tablet-projets')){
+  el.innerHTML='<span class="kc-title-line">A selection of my most</span><span class="kc-title-line"><em>recent projects.</em></span>';
+ }else{
+  el.innerHTML='A selection of my most<br><em>recent projects.</em>';
+ }
+}
 function translateElement(el){
+ fixProjectsHeading(el);
  for(const name of ['aria-label','title','placeholder','alt']){
   const v=el.getAttribute(name);
   if(v){const out=lookup.get(normalize(v));if(out&&out!==v)el.setAttribute(name,out);}

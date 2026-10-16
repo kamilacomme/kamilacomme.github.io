@@ -204,21 +204,5 @@ document.addEventListener('click',function(event){
  target.scrollIntoView({behavior:'smooth',block:'start'});
 },true);
 translateTree(document);
-// Keep the original French tablet controller. The English translation layer
-// must not supply any independent stage/ticket geometry.
-function refreshOriginalTabletFit(){
- if(window.innerWidth<500)return;
- const fit=window.__kcTabletProjectFit;
- if(typeof fit==='function')fit();
-}
-window.addEventListener('resize',()=>requestAnimationFrame(refreshOriginalTabletFit));
-window.addEventListener('load',()=>requestAnimationFrame(refreshOriginalTabletFit));
-const tabletMountObserver=new MutationObserver(()=>{
- if(document.getElementById('kc-t-stage')){
-  tabletMountObserver.disconnect();
-  requestAnimationFrame(refreshOriginalTabletFit);
- }
-});
-tabletMountObserver.observe(document.documentElement,{childList:true,subtree:true});
 observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title','placeholder','alt']});
 })();

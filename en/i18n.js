@@ -198,45 +198,68 @@ document.head.appendChild(tabletGeometryStyle);
 // English tablet Projects uses one fixed design coordinate system, just like
 // the tablet Hero/About frames: design width 834, uniformly fitted to viewport.
 // No per-ticket margin, padding or font-size adjustments.
-const englishTabletDesignWidth=834;
-let englishTabletStage=null;
-let englishTabletRaf=0;
-function fitEnglishTabletProjects(){
- englishTabletRaf=0;
+// English-only tablet experiment: use the same main-controller frame width
+// and scale as Hero/About. Footer's full-bleed curtain stays untouched.
+let englishFrameRaf=0;
+function fitEnglishTabletFrame(){
+ englishFrameRaf=0;
+ if(window.innerWidth<500||window.innerWidth>1080||window.innerWidth>=window.innerHeight)return;
  const stage=document.getElementById('kc-t-stage');
  const viewport=document.getElementById('kc-t-viewport');
- if(!stage||!viewport)return;
- if(window.innerWidth<500||window.innerWidth>1080||window.innerWidth>=window.innerHeight)return;
- const scale=window.innerWidth/englishTabletDesignWidth;
- const transform='scale('+scale+')';
- // The stage is deliberately fixed in design pixels; only its transform
- // changes when Chrome zoom or the viewport width changes.
- if(stage.style.width!=='834px')stage.style.width='834px';
- if(stage.style.transform!==transform)stage.style.transform=transform;
- const height=(1655*scale)+'px';
- if(viewport.style.height!==height)viewport.style.height=height;
-}
-function queueEnglishTabletFit(){
- if(englishTabletRaf)return;
- englishTabletRaf=requestAnimationFrame(fitEnglishTabletProjects);
-}
-const englishStageStyleObserver=new MutationObserver(queueEnglishTabletFit);
-function watchEnglishTabletStage(){
- const stage=document.getElementById('kc-t-stage');
- if(stage&&stage!==englishTabletStage){
-  englishTabletStage=stage;
-  englishStageStyleObserver.disconnect();
-  englishStageStyleObserver.observe(stage,{attributes:true,attributeFilter:['style']});
+ const about=document.querySelector('#apropos-t > div > div');
+ if(!stage||!viewport||!about)return;
+ const scale=window.__kcTabletScale||1;
+ const width=about.offsetWidth||834;
+ const frameLeft=(window.innerWidth-width*scale)/2;
+ // Center Projects exactly like the About frame, without altering the cards.
+ // Position is explicit because Projects is in document flow, unlike About.
+ const values={
+  width:width+'px',
+  position:'relative',
+  left:frameLeft+'px',
+  transform:'scale('+scale+')'
+ };
+ for(const [name,value] of Object.entries(values)){
+  if(stage.style[name]!==value)stage.style[name]=value;
  }
- queueEnglishTabletFit();
+ const h=(1655*scale)+'px';
+ if(viewport.style.height!==h)viewport.style.height=h;
+ // Footer is full bleed; anchor its CONTENT to About's centered frame.
+ const head=document.querySelector('[data-c="0"]');
+ const footer=head?.parentElement;
+ if(!footer||!footer.querySelector('[data-c="1"]'))return;
+ const left=frameLeft+32*scale;
+ const right=window.innerWidth-(frameLeft+(width-32)*scale);
+ for(const el of [head,footer.querySelector('[data-c="1"]'),footer.querySelector('[data-c="4"]')]){
+  if(el&&el!==footer.querySelector('[data-c="4"]')&&el.style.left!==left+'px')el.style.left=left+'px';
+ }
+ const gif=footer.querySelector('[data-c="3"]');
+ if(gif&&gif.style.right!==right+'px')gif.style.right=right+'px';
 }
-window.addEventListener('resize',queueEnglishTabletFit);
-window.addEventListener('load',watchEnglishTabletStage);
-const englishStageMountObserver=new MutationObserver(()=>{
- if(document.getElementById('kc-t-stage'))watchEnglishTabletStage();
+function queueEnglishTabletFrame(){
+ if(englishFrameRaf)return;
+ englishFrameRaf=requestAnimationFrame(fitEnglishTabletFrame);
+}
+window.addEventListener('resize',queueEnglishTabletFrame);
+window.addEventListener('load',queueEnglishTabletFrame);
+const englishTabletFrameObserver=new MutationObserver(queueEnglishTabletFrame);
+function attachEnglishTabletFrame(){
+ const stage=document.getElementById('kc-t-stage');
+ const head=document.querySelector('[data-c="0"]');
+ if(!stage||!head)return false;
+ englishTabletFrameObserver.disconnect();
+ englishTabletFrameObserver.observe(stage,{attributes:true,attributeFilter:['style']});
+ englishTabletFrameObserver.observe(head,{attributes:true,attributeFilter:['style']});
+ const info=head.parentElement?.querySelector('[data-c="1"]');
+ if(info)englishTabletFrameObserver.observe(info,{attributes:true,attributeFilter:['style']});
+ queueEnglishTabletFrame();
+ return true;
+}
+const englishTabletMountObserver=new MutationObserver(()=>{
+ if(attachEnglishTabletFrame())englishTabletMountObserver.disconnect();
 });
-englishStageMountObserver.observe(document.documentElement,{childList:true,subtree:true});
-watchEnglishTabletStage();
+englishTabletMountObserver.observe(document.documentElement,{childList:true,subtree:true});
+attachEnglishTabletFrame();
 // The English entry intentionally retains <base href="/"> for shared assets.
 // Without this handler, hash links resolve to /#apropos and leave /en/.
 document.addEventListener('click',function(event){

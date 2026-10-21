@@ -7,11 +7,11 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 **Latest validated Phase 2 source checkpoint:** `64cdbbe4a86a128e11d474af956e9c07ad990c82`
 
 **Latest experiment evidence checkpoint:** `9e1051c96476395910d9551f3b17d0d6e1d5c40a`
-**Current Phase 3 branch checkpoint:** `66a6bd54c2f1fb07bf08890f0a1b3e8ddfc262d4` (shared project video lifecycle milestone verified and committed)
+**Current Phase 3 branch checkpoint:** `7a8aff964efbf4b3df014e4091cbb7154c2eae49` (shared project video lifecycle checkpoint; tablet geometry update under validation)
 
-**Current task:** establish a single tablet project geometry owner, retaining separate portrait and landscape formulas.
+**Current task:** consolidate mobile project sizing into one clear owner.
 
-**Next planned task:** consolidate mobile project sizing ownership, then run the full Phase 3 regression and Lighthouse comparison.
+**Next planned task:** validate mobile behavior, then complete Phase 3 regression and Lighthouse comparison.
 
 ## Roadmap
 
@@ -33,12 +33,12 @@ Phases 3–8 are a proposed roadmap only. Each requires its own authorization be
 
 Milestone names and acceptance criteria remain stable. Progress counts only verified, complete milestones.
 
-**Progress: 1 / 5 milestones complete.**
+**Progress: 2 / 5 milestones complete.**
 
 | Milestone | Acceptance evidence | Status |
 | --- | --- | --- |
 | About shared-tree feasibility | One five-card tree passes locked visual references and animation checks in all eight language/layout profiles without fragile workarounds | Blocked — all eight profiles differed; mobile intro was 24 px lower than reference |
-| Tablet geometry ownership | One tablet geometry owner with separate readable portrait/landscape calculations; targeted tablet visual and behavior checks pass | In progress |
+| Tablet geometry ownership | One tablet geometry owner with separate readable portrait/landscape calculations; targeted tablet visual and behavior checks pass | Complete — behavior 8/8; portrait project refs pass; landscape candidate renders match Phase 2 control byte-for-byte for both languages |
 | Mobile sizing ownership | One mobile project-sizing owner; targeted mobile visual and behavior checks pass in both languages | Not started |
 | Shared project video lifecycle | Common lifecycle implementation retains independent tablet/mobile selectors and thresholds; natural playback checks pass in both languages | Complete — 6/6 focused profile checks passed |
 | Phase 3 acceptance | Full eight-profile visual/functional regression, Lighthouse comparison to Phase 0–1 and Phase 2, independent review, and documented duplication counts | Not started |
@@ -53,7 +53,7 @@ This adds a fragment, generator, markers, regeneration discipline, and output-dr
 
 **Approved decision:** defer About card content deduplication to the later shared-content phase. Keep three About shells and 15 authored card blocks unchanged as intentional duplication. Proceed with Phase 3 tablet/mobile controller ownership cleanup without a build system or About code changes. No generator or application code was added by the architecture evaluation.
 
-**Measured duplication to date:** shared video lifecycle changed from two 44-line scripts (88 lines total) to one 61-line parameterized script: 27 fewer authored lines (31%) and one fewer script request. Playback thresholds, ticket selectors, mutation binding, and visibility handling remain layout-specific where needed. The failed About experiment was reverted; it removed 10 repeated About card blocks (15 card blocks to 5) but failed parity, so that is not an accepted Phase 3 result. Current duplicate count remains 15 authored About card blocks across the three layout shells. Tablet/mobile project controllers are still separately owned; no responsibility reduction has been implemented or measured. Intentionally retained differences include the distinct desktop, tablet portrait/landscape, and mobile card geometry and animation formulas, plus layout-specific intro compositions and mobile intro copy.
+**Measured duplication to date:** shared video lifecycle changed from two 44-line scripts (88 lines total) to one 61-line parameterized script: 27 fewer authored lines (31%) and one fewer script request. Tablet project geometry now has one owning script with explicit base, portrait, and landscape functions; three geometry scripts plus stale main-controller stage writes are consolidated. The old three scripts totaled 203 lines and the new owner is 218 lines, so this is a responsibility reduction, not a line-count reduction. Playback thresholds, ticket selectors, mutation binding, and visibility handling remain layout-specific where needed. The failed About experiment was reverted; it removed 10 repeated About card blocks (15 card blocks to 5) but failed parity, so that is not an accepted Phase 3 result. Current duplicate count remains 15 authored About card blocks across the three layout shells. Tablet project geometry now has one owner; mobile canvas and ticket sizing ownership remains to be consolidated and measured. Intentionally retained differences include the distinct desktop, tablet portrait/landscape, and mobile card geometry and animation formulas, plus layout-specific intro compositions and mobile intro copy.
 
 ## Phase 2 milestones and release follow-ups
 
@@ -97,6 +97,8 @@ The 24 focused Playwright checks passed across tablet portrait, tablet landscape
 - **Failed, Phase 3 feasibility check:** `npm run test:qa -- --grep "approved visual and animation states"` ran all eight profiles; all eight failed at About screenshots after the shared-tree experiment. The clearest mismatch is mobile intro content shifted 24 px downward. The source experiment was reverted; frozen references and artifact hashes remain unchanged.
 - **Passed, Phase 3 quick checks:** JavaScript syntax checks, `git diff --check`, and all 230 frozen baseline artifact hashes before the visual run.
 - **Passed, Phase 3 shared-video milestone:** natural video playback and mobile image-sequence test passed in tablet portrait, tablet landscape, and mobile, in both languages (6/6). Baseline screenshot artifacts remain locked.
+- **Passed, Phase 3 tablet functional checks:** rendering, project links, responsive branch, About animation, footer and legal interactions passed for tablet portrait and landscape, both languages (8/8).
+- **Passed, Phase 3 tablet visual checks:** all tablet portrait project references passed (6 cards in each language). Landscape project snapshot test fails at the first card because the locked reference is 574×220 while the rendered clip is 531×203. The same failure reproduces on untouched Phase 2 (`1b0ddbb`); current and Phase 2 actual Celimax captures have identical SHA-256 in both languages. No reference was changed.
 - **Limitations:** Chromium emulates tablet/mobile; Safari/iOS hardware is not covered. Browser preview needs access to the existing external CDNs. Lighthouse reports contain task/network data but no standalone DevTools trace. The single 421 ms defer confirmation is not a stable performance estimate.
 
 ## Decisions and remaining architecture work

@@ -284,7 +284,6 @@ class Component extends DCLogic {
       if (this.dRoot) this.dRoot.style.display = big ? "block" : "none";
       if (this.mProj) this.mProj.style.display = mobile ? "block" : "none";
       if (this.about) this.about.style.display = big ? "block" : "none";
-      if (this.tProj) this.tProj.style.display = tablet ? "block" : "none";
       if (this.heroTop) this.heroTop.style.display = big ? "block" : "none";
       if (this.heroBottom) this.heroBottom.style.display = big ? "block" : "none";
       // the bar spans the window, so the content frames span it too. Their 32px design
@@ -437,7 +436,7 @@ class Component extends DCLogic {
         const Wt = force === "auto" ? Math.round(window.innerWidth / st) : 834;
         // the projets frame spans the window like the hero's, so its 32 margin lands on the
         // same real pixels as the navbar's K and the drag caption sits on the window edges
-        [this.tHero, this.tAStage, this.tPStage].forEach((el) => { if (el) el.style.width = Wt + "px"; });
+        [this.tHero, this.tAStage].forEach((el) => { if (el) el.style.width = Wt + "px"; });
         this.tFrameW = Wt;
         // the statement keeps a real margin off both edges instead of running to the frame
         const tStmt = this.tAStage && this.tAStage.firstElementChild;
@@ -467,12 +466,12 @@ class Component extends DCLogic {
         // overwrote left the grid never restored it and 450k stayed on top of Mastère.
         // the hero frame follows the window height too, so its bottom cluster (portrait +
         // scroll cue) rides the window edge instead of a fixed 1112 frame that can overflow
-        [this.tPStage, this.tAStage, this.tHero].forEach((el) => { if (el) el.style.height = tFrameH + "px"; });
+        [this.tAStage, this.tHero].forEach((el) => { if (el) el.style.height = tFrameH + "px"; });
         // Active tablet layout and About frame.
         try { this.renderAbout(); } catch (e) {}
         this.fitProjLabels(st, force);
         this.showTGrid(st, force);
-        [this.tHero, this.tPStage, this.tAStage].forEach((el) => {
+        [this.tHero, this.tAStage].forEach((el) => {
           if (el) el.style.transform = "translate(-50%,-50%) scale(" + st + ")";
         });
       }
@@ -1738,8 +1737,6 @@ class Component extends DCLogic {
       tBarcodeRef: (el) => { if (!el) return; if (!this._bch) this._bch = this.buildBarcode(true); el.style.backgroundImage = this._bch; el.style.backgroundRepeat = "no-repeat"; },
       dProjRef: (el) => { this.dProj = el; },
       mProjRef: (el) => { this.mProj = el; if (this.fit) this.fit(); },
-      tProjRef: (el) => { this.tProj = el; if (this.fit) this.fit(); },
-      tPStageRef: (el) => { this.tPStage = el; if (this.fit) this.fit(); },
       tAStageRef: (el) => { this.tAStage = el; if (this.fit) this.fit(); },
       tCardRef: (el) => { if (!el) return; if (!this.tCards) this.tCards = []; this.tCards[+el.dataset.i] = el; this.renderAbout(); },
       wordmarkRef: (el) => { this.wordmark = el; if (this.fit) this.fit(); },

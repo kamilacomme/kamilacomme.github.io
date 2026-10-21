@@ -83,7 +83,7 @@ for (const [locale, route] of [['fr', '/'], ['en', '/en/']]) for (const [profile
       preflight.on('pageerror', e=>pageErrors.push(e.message));
       await preflight.setViewportSize({width:settings.screenEmulation.width,height:settings.screenEmulation.height});
       await preflight.goto(origin+route, {waitUntil:'load', timeout:60000});
-      await preflight.waitForFunction(()=>document.body.innerText.length>300, undefined, {timeout:30000});
+      await preflight.waitForFunction(()=>!!document.body && document.body.innerText.length>300, undefined, {timeout:30000});
       await preflight.waitForFunction(()=>!!customElements.get('curtain-cloth') && !!document.querySelector('curtain-cloth canvas'), undefined, {timeout:30000});
       await preflight.evaluate(()=>document.fonts.ready);
       const readiness = await preflight.evaluate(()=>({lang:document.documentElement.lang, title:document.title, textLength:document.body.innerText.length, react:!!window.React, fonts:document.fonts.status, curtainDefined:!!customElements.get('curtain-cloth')}));

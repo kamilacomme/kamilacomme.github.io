@@ -18,6 +18,12 @@ Playwright is pinned in `package-lock.json`. Use the same OS/browser for visual
 comparison; a browser upgrade requires a separately reviewed compatibility run.
 The available cloud image already has this browser; `npm ci` does not install it.
 
+Project preview video pixels vary after a seek in this software Chromium renderer.
+The visual screenshots therefore show each project's original poster image beneath
+its video. The functional suite separately requires the real MP4 to decode, play,
+and advance under natural time. The footer and curtain remain visible in the
+full-page references; this poster policy applies only to project previews.
+
 Start the original website from the repository root in a persistent terminal:
 
 ```sh

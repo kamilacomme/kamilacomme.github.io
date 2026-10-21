@@ -14,24 +14,24 @@
   },
   "browserVersion": "154.0.8037.57",
   "playwrightVersion": "1.62.1",
-  "harnessSha256": "7cff2ef7bdca2176a796fe8a4ad8f774b66f75531752f3da5c8c4b12bcc03020",
+  "harnessSha256": "29abfe8b7970bfe2d1fab4555be3913354342d5a44cf754fa17b7c001ebf031c",
   "runtimeManifestSha256": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3",
   "serverSha256": "6a59a4f13366674425f421b9ea7f72e2d5132741caef554ab574c1eb248b22fa",
   "configuration": {
     "clockEpoch": "2026-01-01T00:00:00.000Z",
     "randomSeed": 123456789,
-    "mediaFrameSeconds": 0,
+    "projectVideoVisualPolicy": "Original poster images shown in screenshots; project preview videos are verified under natural time in functional.spec.cjs.",
     "screenshotScale": "css",
     "cssAnimations": "disabled at screenshot only"
   },
   "cancelledRequests": [
-    "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
     "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
     "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
-    "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
     "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
     "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
-    "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp"
+    "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp"
   ],
   "states": [
     {
@@ -48,7 +48,7 @@
         "x": 0,
         "y": 834
       },
-      "performanceNow": 3164,
+      "performanceNow": 3166,
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "devicePixelRatio": 2,
       "text": "CelimaxUn pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j’adore.brandingUX/UI",
@@ -77,7 +77,7 @@
         "x": 0,
         "y": 1314
       },
-      "performanceNow": 3324,
+      "performanceNow": 3326,
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "devicePixelRatio": 2,
       "text": "Inside outUn motion sur la santé mentale : l’anxiété sociale et le sentiment d’être submergé par les émotions.creative directionmotion design",
@@ -93,10 +93,10 @@
       "videos": [
         {
           "src": "assets/projets/inside-out.mp4",
-          "currentTime": 0,
+          "currentTime": 0.986412,
           "readyState": 4,
           "paused": true,
-          "playbackRate": 0
+          "playbackRate": 1
         }
       ]
     },
@@ -114,7 +114,7 @@
         "x": 0,
         "y": 1795
       },
-      "performanceNow": 3484,
+      "performanceNow": 3486,
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "devicePixelRatio": 2,
       "text": "NapoliUn vrai bout d’Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.full brand identityWeb design",
@@ -143,7 +143,7 @@
         "x": 0,
         "y": 2275
       },
-      "performanceNow": 3644,
+      "performanceNow": 3646,
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "devicePixelRatio": 2,
       "text": "LongreadPourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ?Web designreadymag animation",
@@ -159,10 +159,10 @@
       "videos": [
         {
           "src": "assets/projets/longread.mp4",
-          "currentTime": 0,
+          "currentTime": 0.962062,
           "readyState": 4,
           "paused": true,
-          "playbackRate": 0
+          "playbackRate": 1
         }
       ]
     },
@@ -180,7 +180,7 @@
         "x": 0,
         "y": 2756
       },
-      "performanceNow": 3804,
+      "performanceNow": 3806,
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "devicePixelRatio": 2,
       "text": "Tour de paroleUne école en ligne enseigne aux jeunes à négocier : salaire, tarif, entretien de manière ludique.full brand identityapp & web design",
@@ -209,7 +209,7 @@
         "x": 0,
         "y": 3236
       },
-      "performanceNow": 3964,
+      "performanceNow": 3966,
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "devicePixelRatio": 2,
       "text": "PilatesPilates pour les hommes 28-50 ans, pas la cible habituelle. Construire le corps comme un architecte.web designillustration",
@@ -225,10 +225,10 @@
       "videos": [
         {
           "src": "assets/projets/pilates.mp4",
-          "currentTime": 0,
+          "currentTime": 0.914946,
           "readyState": 4,
           "paused": true,
-          "playbackRate": 0
+          "playbackRate": 1
         }
       ]
     }

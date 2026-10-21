@@ -4,7 +4,7 @@
   ],
   "cancellationPolicy": "net::ERR_ABORTED from original remount/pruning is recorded separately; all other request failures and HTTP errors fail. Visible images decode, required fonts and curtain texture must load.",
   "harnessHashes": {
-    "helpers.cjs": "37ee465d847ff79446ce8723b92dce2e2f420c9f613a6205314eb05ddff98d11",
+    "helpers.cjs": "2955ba3a13d0df7c37dc311ef98b051c6c10f7e74df386e78771d522fd960ac3",
     "visual.spec.cjs": "56d9dc255985763ba7646c64a7df3b418c7b7d603bd2d422ed03402687317522",
     "playwright.config.cjs": "f8c63c4ca1ff4e5920075f30208c23277b518a78d12d5c0bafa1319ee45622bf",
     "runtimeManifest": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3",
@@ -45,6 +45,7 @@
     "randomSeed": 123456789,
     "clockEpoch": "2026-01-01T00:00:00.000Z",
     "videoFrameSeconds": 0,
+    "projectVideoVisualPolicy": "Original poster images shown in screenshots; project preview videos are verified under natural time in functional.spec.cjs.",
     "cssAnimations": "disabled for screenshots only",
     "screenshotAcquisitionTimeoutMs": 60000,
     "footerClockAdvance": "18x500ms with50ms real yields to drain software GPU queues"
@@ -62,7 +63,7 @@
         "devicePixelRatio": 1
       },
       "url": "/en/",
-      "performanceNow": 611,
+      "performanceNow": 608,
       "language": "en",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -293,7 +294,7 @@
         "devicePixelRatio": 1
       },
       "url": "/en/",
-      "performanceNow": 3011,
+      "performanceNow": 3008,
       "language": "en",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -524,7 +525,7 @@
         "devicePixelRatio": 1
       },
       "url": "/en/",
-      "performanceNow": 3171,
+      "performanceNow": 3168,
       "language": "en",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -755,7 +756,7 @@
         "devicePixelRatio": 1
       },
       "url": "/en/",
-      "performanceNow": 3331,
+      "performanceNow": 3328,
       "language": "en",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -986,7 +987,7 @@
         "devicePixelRatio": 1
       },
       "url": "/en/",
-      "performanceNow": 3491,
+      "performanceNow": 3488,
       "language": "en",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -1217,7 +1218,7 @@
         "devicePixelRatio": 1
       },
       "url": "/en/",
-      "performanceNow": 3651,
+      "performanceNow": 3648,
       "language": "en",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -1448,7 +1449,7 @@
         "devicePixelRatio": 1
       },
       "url": "/en/",
-      "performanceNow": 3811,
+      "performanceNow": 3808,
       "language": "en",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -1679,7 +1680,7 @@
         "devicePixelRatio": 1
       },
       "url": "/en/",
-      "performanceNow": 3971,
+      "performanceNow": 3968,
       "language": "en",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -1910,7 +1911,7 @@
         "devicePixelRatio": 1
       },
       "url": "/en/",
-      "performanceNow": 4731,
+      "performanceNow": 4728,
       "language": "en",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -2141,7 +2142,7 @@
         "devicePixelRatio": 1
       },
       "url": "/en/",
-      "performanceNow": 13891,
+      "performanceNow": 13888,
       "language": "en",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -2372,7 +2373,7 @@
         "devicePixelRatio": 1
       },
       "url": "/en/",
-      "performanceNow": 14091,
+      "performanceNow": 14088,
       "language": "en",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -2603,7 +2604,7 @@
         "devicePixelRatio": 1
       },
       "url": "/en/",
-      "performanceNow": 14291,
+      "performanceNow": 14288,
       "language": "en",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [

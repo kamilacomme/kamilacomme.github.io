@@ -14,13 +14,13 @@
   },
   "browserVersion": "154.0.8037.57",
   "playwrightVersion": "1.62.1",
-  "harnessSha256": "7cff2ef7bdca2176a796fe8a4ad8f774b66f75531752f3da5c8c4b12bcc03020",
+  "harnessSha256": "29abfe8b7970bfe2d1fab4555be3913354342d5a44cf754fa17b7c001ebf031c",
   "runtimeManifestSha256": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3",
   "serverSha256": "6a59a4f13366674425f421b9ea7f72e2d5132741caef554ab574c1eb248b22fa",
   "configuration": {
     "clockEpoch": "2026-01-01T00:00:00.000Z",
     "randomSeed": 123456789,
-    "mediaFrameSeconds": 0,
+    "projectVideoVisualPolicy": "Original poster images shown in screenshots; project preview videos are verified under natural time in functional.spec.cjs.",
     "screenshotScale": "css",
     "cssAnimations": "disabled at screenshot only"
   },
@@ -42,7 +42,7 @@
         "x": 0,
         "y": 900
       },
-      "performanceNow": 3166,
+      "performanceNow": 3164,
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "devicePixelRatio": 1,
       "text": "PilatesPilates for men aged 28–50, beyond the usual audience. Building the body like an architect.web designillustration",
@@ -79,7 +79,7 @@
         "x": 0,
         "y": 2047
       },
-      "performanceNow": 3326,
+      "performanceNow": 3324,
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "devicePixelRatio": 1,
       "text": "LongreadWhy does one slightly misaligned object in a perfect row bother us so much?Web designreadymag animation",
@@ -116,7 +116,7 @@
         "x": 0,
         "y": 3195
       },
-      "performanceNow": 3486,
+      "performanceNow": 3484,
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "devicePixelRatio": 1,
       "text": "Tour de paroleAn online school that teaches young people to negotiate salaries, rates and interviews through play.full brand identityapp & web design",
@@ -157,7 +157,7 @@
         "x": 0,
         "y": 4342
       },
-      "performanceNow": 3646,
+      "performanceNow": 3644,
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "devicePixelRatio": 1,
       "text": "Inside outA motion design piece about mental health: social anxiety and feeling overwhelmed.creative directionmotion design",
@@ -194,7 +194,7 @@
         "x": 0,
         "y": 5490
       },
-      "performanceNow": 3806,
+      "performanceNow": 3804,
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "devicePixelRatio": 1,
       "text": "CelimaxA skincare jar reimagined as a mini record player for Celimax — a Korean brand I love.3d modelinglanding page",
@@ -235,7 +235,7 @@
         "x": 0,
         "y": 6637
       },
-      "performanceNow": 3966,
+      "performanceNow": 3964,
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "devicePixelRatio": 1,
       "text": "NapoliAn authentic taste of Italy in Montreuil — focaccia, Italian pastries and Neapolitan espresso.brand identityWeb design",

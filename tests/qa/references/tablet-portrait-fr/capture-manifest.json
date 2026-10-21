@@ -1,15 +1,15 @@
 {
   "cancelledRequests": [
-    "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
     "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
-    "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
     "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
     "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
     "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp"
   ],
   "cancellationPolicy": "net::ERR_ABORTED from original remount/pruning is recorded separately; all other request failures and HTTP errors fail. Visible images decode, required fonts and curtain texture must load.",
   "harnessHashes": {
-    "helpers.cjs": "37ee465d847ff79446ce8723b92dce2e2f420c9f613a6205314eb05ddff98d11",
+    "helpers.cjs": "2955ba3a13d0df7c37dc311ef98b051c6c10f7e74df386e78771d522fd960ac3",
     "visual.spec.cjs": "56d9dc255985763ba7646c64a7df3b418c7b7d603bd2d422ed03402687317522",
     "playwright.config.cjs": "f8c63c4ca1ff4e5920075f30208c23277b518a78d12d5c0bafa1319ee45622bf",
     "runtimeManifest": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3",
@@ -50,6 +50,7 @@
     "randomSeed": 123456789,
     "clockEpoch": "2026-01-01T00:00:00.000Z",
     "videoFrameSeconds": 0,
+    "projectVideoVisualPolicy": "Original poster images shown in screenshots; project preview videos are verified under natural time in functional.spec.cjs.",
     "cssAnimations": "disabled for screenshots only",
     "screenshotAcquisitionTimeoutMs": 60000,
     "footerClockAdvance": "18x500ms with50ms real yields to drain software GPU queues"
@@ -67,7 +68,7 @@
         "devicePixelRatio": 2
       },
       "url": "/",
-      "performanceNow": 603,
+      "performanceNow": 613,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -325,7 +326,7 @@
         "devicePixelRatio": 2
       },
       "url": "/",
-      "performanceNow": 3003,
+      "performanceNow": 3013,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -583,7 +584,7 @@
         "devicePixelRatio": 2
       },
       "url": "/",
-      "performanceNow": 3163,
+      "performanceNow": 3173,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -774,14 +775,14 @@
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 0.937956,
+          "paused": false
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 0.937369,
+          "paused": false
         },
         {
           "src": null,
@@ -841,7 +842,7 @@
         "devicePixelRatio": 2
       },
       "url": "/",
-      "performanceNow": 3323,
+      "performanceNow": 3333,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -1032,14 +1033,14 @@
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 1.936296,
+          "paused": false
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 1.935691,
+          "paused": false
         },
         {
           "src": null,
@@ -1099,7 +1100,7 @@
         "devicePixelRatio": 2
       },
       "url": "/",
-      "performanceNow": 3483,
+      "performanceNow": 3493,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -1290,20 +1291,20 @@
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 2.894503,
+          "paused": false
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 2.893898,
+          "paused": false
         },
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 0.782157,
+          "paused": false
         },
         {
           "src": "assets/about/avatar.mp4",
@@ -1357,7 +1358,7 @@
         "devicePixelRatio": 2
       },
       "url": "/",
-      "performanceNow": 3643,
+      "performanceNow": 3653,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -1548,19 +1549,19 @@
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959605,
           "paused": true
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959148,
           "paused": true
         },
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 0.847458,
           "paused": true
         },
         {
@@ -1615,7 +1616,7 @@
         "devicePixelRatio": 2
       },
       "url": "/",
-      "performanceNow": 3803,
+      "performanceNow": 3813,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -1806,19 +1807,19 @@
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959605,
           "paused": true
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959148,
           "paused": true
         },
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 0.847458,
           "paused": true
         },
         {
@@ -1873,7 +1874,7 @@
         "devicePixelRatio": 2
       },
       "url": "/",
-      "performanceNow": 3963,
+      "performanceNow": 3973,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -2064,19 +2065,19 @@
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959605,
           "paused": true
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959148,
           "paused": true
         },
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 0.847458,
           "paused": true
         },
         {
@@ -2131,7 +2132,7 @@
         "devicePixelRatio": 2
       },
       "url": "/",
-      "performanceNow": 4723,
+      "performanceNow": 4733,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -2322,19 +2323,19 @@
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959605,
           "paused": true
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959148,
           "paused": true
         },
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 0.847458,
           "paused": true
         },
         {
@@ -2374,7 +2375,7 @@
           "paused": false
         }
       ],
-      "curtainProgress": 0.11519999999999998,
+      "curtainProgress": 0.11279999999999998,
       "projectRailTransform": ""
     },
     {
@@ -2389,7 +2390,7 @@
         "devicePixelRatio": 2
       },
       "url": "/",
-      "performanceNow": 13883,
+      "performanceNow": 13893,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -2580,19 +2581,19 @@
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959605,
           "paused": true
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959148,
           "paused": true
         },
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 0.847458,
           "paused": true
         },
         {
@@ -2647,7 +2648,7 @@
         "devicePixelRatio": 2
       },
       "url": "/",
-      "performanceNow": 14083,
+      "performanceNow": 14093,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -2838,19 +2839,19 @@
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959605,
           "paused": true
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959148,
           "paused": true
         },
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 0.847458,
           "paused": true
         },
         {
@@ -2890,7 +2891,7 @@
           "paused": false
         }
       ],
-      "curtainProgress": 0.9998753899199928,
+      "curtainProgress": 0.9998721160919466,
       "projectRailTransform": ""
     },
     {
@@ -2905,7 +2906,7 @@
         "devicePixelRatio": 2
       },
       "url": "/",
-      "performanceNow": 14283,
+      "performanceNow": 14293,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -3096,19 +3097,19 @@
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959605,
           "paused": true
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.959148,
           "paused": true
         },
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 0.847458,
           "paused": true
         },
         {

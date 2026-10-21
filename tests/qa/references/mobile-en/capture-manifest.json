@@ -4,7 +4,7 @@
   ],
   "cancellationPolicy": "net::ERR_ABORTED from original remount/pruning is recorded separately; all other request failures and HTTP errors fail. Visible images decode, required fonts and curtain texture must load.",
   "harnessHashes": {
-    "helpers.cjs": "37ee465d847ff79446ce8723b92dce2e2f420c9f613a6205314eb05ddff98d11",
+    "helpers.cjs": "2955ba3a13d0df7c37dc311ef98b051c6c10f7e74df386e78771d522fd960ac3",
     "visual.spec.cjs": "56d9dc255985763ba7646c64a7df3b418c7b7d603bd2d422ed03402687317522",
     "playwright.config.cjs": "f8c63c4ca1ff4e5920075f30208c23277b518a78d12d5c0bafa1319ee45622bf",
     "runtimeManifest": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3",
@@ -45,6 +45,7 @@
     "randomSeed": 123456789,
     "clockEpoch": "2026-01-01T00:00:00.000Z",
     "videoFrameSeconds": 0,
+    "projectVideoVisualPolicy": "Original poster images shown in screenshots; project preview videos are verified under natural time in functional.spec.cjs.",
     "cssAnimations": "disabled for screenshots only",
     "screenshotAcquisitionTimeoutMs": 60000,
     "footerClockAdvance": "18x500ms with50ms real yields to drain software GPU queues"
@@ -62,7 +63,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 604,
+      "performanceNow": 605,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -313,8 +314,8 @@
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 1.161723,
+          "paused": false
         },
         {
           "src": null,
@@ -356,7 +357,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 3004,
+      "performanceNow": 3005,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -607,7 +608,7 @@
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 2.8,
           "paused": true
         },
         {
@@ -650,7 +651,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 3164,
+      "performanceNow": 3165,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -901,14 +902,14 @@
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 0.685872,
+          "paused": false
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 0.611283,
+          "paused": false
         },
         {
           "src": null,
@@ -944,7 +945,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 3324,
+      "performanceNow": 3325,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -1195,20 +1196,20 @@
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 0.726681,
           "paused": true
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 0.652169,
           "paused": true
         },
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 0.685831,
+          "paused": false
         },
         {
           "src": "assets/about/avatar.mp4",
@@ -1238,7 +1239,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 3484,
+      "performanceNow": 3485,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -1489,19 +1490,19 @@
         {
           "src": "assets/projets/pilates.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 0.726681,
           "paused": true
         },
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 0.652169,
           "paused": true
         },
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 0.721933,
           "paused": true
         },
         {
@@ -1532,7 +1533,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 5544,
+      "performanceNow": 5545,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -1789,14 +1790,14 @@
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 2.215632,
+          "paused": false
         },
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 2.286508,
+          "paused": false
         },
         {
           "src": "assets/about/avatar.mp4",
@@ -1826,7 +1827,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 7444,
+      "performanceNow": 7445,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -2083,14 +2084,14 @@
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 3.807318,
+          "paused": false
         },
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 3.878194,
+          "paused": false
         },
         {
           "src": "assets/about/avatar.mp4",
@@ -2120,7 +2121,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 9344,
+      "performanceNow": 9345,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -2377,14 +2378,14 @@
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 5.401894,
+          "paused": false
         },
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 5.472769,
+          "paused": false
         },
         {
           "src": "assets/about/avatar.mp4",
@@ -2414,7 +2415,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 9504,
+      "performanceNow": 9505,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -2671,13 +2672,13 @@
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 5.974271,
+          "paused": false
         },
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 5.500705,
           "paused": true
         },
         {
@@ -2708,7 +2709,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 9664,
+      "performanceNow": 9665,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -2965,13 +2966,13 @@
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 6.534937,
+          "paused": false
         },
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 5.500705,
           "paused": true
         },
         {
@@ -3002,7 +3003,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 9824,
+      "performanceNow": 9825,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -3259,13 +3260,13 @@
         {
           "src": "assets/projets/longread.mp4",
           "readyState": 4,
-          "currentTime": 0,
-          "paused": true
+          "currentTime": 7.098917,
+          "paused": false
         },
         {
           "src": "assets/projets/inside-out.mp4",
           "readyState": 4,
-          "currentTime": 0,
+          "currentTime": 5.500705,
           "paused": true
         },
         {
@@ -3296,7 +3297,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 10584,
+      "performanceNow": 10585,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -3590,7 +3591,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 19744,
+      "performanceNow": 19745,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -3884,7 +3885,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 19944,
+      "performanceNow": 19945,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [
@@ -4178,7 +4179,7 @@
         "devicePixelRatio": 2
       },
       "url": "/en/",
-      "performanceNow": 20144,
+      "performanceNow": 20145,
       "language": "en",
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "visibleHeadings": [

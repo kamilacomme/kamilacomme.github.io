@@ -9,9 +9,9 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 **Latest experiment evidence checkpoint:** `9e1051c96476395910d9551f3b17d0d6e1d5c40a`
 **Current Phase 3 branch checkpoint:** `7492e6305a4d70471df60f2b08e6fff03ec4469b` (blocked About feasibility documented; experiment reverted)
 
-**Current task:** resolve the blocked About consolidation approach before any more Phase 3 implementation.
+**Current task:** evaluate a build-time About content source and decide Phase 3 sequencing.
 
-**Next planned task:** review a safer alternative for approval. No application implementation is active.
+**Next planned task:** pending approval to defer About deduplication and resume tablet/mobile controller ownership cleanup. No application implementation is active.
 
 ## Roadmap
 
@@ -44,7 +44,13 @@ Milestone names and acceptance criteria remain stable. Progress counts only veri
 
 **Current blocker:** the shared About section caused visual differences across desktop, tablet portrait, tablet landscape, and mobile, in both languages. Mobile has a clear 24 px vertical intro displacement. All eight profile runs failed at About snapshots. No reference images were updated. The unverified source experiment was reverted; comparison images, error contexts, and traces remain in `artifacts/playwright/results/`.
 
-**Proposed safer alternative for review:** retain the three responsive About presentation shells and their verified frame/animation ownership. Move the five card definitions into one inert `<template>` or data-backed fragment and instantiate it into each shell at runtime, keeping the current layout-specific intro markup and geometry. This reduces authored card markup while preserving independently validated layout frames; generated DOM remains duplicated by design. Before implementation, verify that fragment cloning preserves React refs, translation selectors, video lifecycles, accessibility order, and locked screenshots. If that alternative adds fragile runtime coupling, retain the existing shells and seek a smaller consolidation boundary.
+**About content deduplication evaluation:** build-time generation is compatible with `x-dc`/`support.js` because a generator can emit ordinary HTML inside the existing template before the browser loads it. GitHub Pages can serve the generated result as static files; however, this repository documents a no-build workflow and Pages serves the root of `main`, so hosting will not run a generator. Generated `index.html` would need to be committed, with the generator run and verified before each change.
+
+The smallest practical option, if revisited, is a dependency-free Node preprocessing script plus a canonical About-card HTML fragment and three explicit insertion markers. It would expand the same five source card definitions into the existing desktop, tablet and mobile shells and substitute each existing React ref name (`cardRef`, `tCardRef`, `mCardRef`). The output remains static HTML; no browser-side cloning, observer, timing dependency, or added runtime JavaScript is needed. A deterministic output check would guard against generated HTML drift. The fragment must preserve wrappers, intro copy, attributes, order, and refs. Existing `renderAbout()` formulas and refs stay in their layout-specific controller paths. English localization selectors and fallback text matching would need verification for all expanded copies.
+
+This adds a fragment, generator, markers, regeneration discipline, and output-drift testing to a repository whose page is edited and served directly. It could reduce authored card markup by 10 copies (15 authored blocks to five source definitions), but still outputs 15 runtime DOM cards and leaves layout-specific structure and animations intact. That reduction alone does not justify a build convention now.
+
+**Recommendation:** defer About card content deduplication to the later shared-content phase, where content sources are already in scope. Record the three About shells and their 15 rendered card blocks as intentional duplication for now. Proceed first with the approved tablet/mobile controller ownership cleanup; it can simplify responsibilities without changing the About DOM or adding a build system. Phase 3 remains paused until this reprioritization is approved. No generator or application code was added.
 
 **Measured duplication to date:** no net source reduction is claimed because the failed shared-tree experiment was reverted. The experiment removed 10 repeated About card blocks (15 card blocks to 5) but failed parity, so that is not an accepted Phase 3 result. Current duplicate count remains 15 authored About card blocks across the three layout shells. Tablet/mobile project controllers are still separately owned; no responsibility reduction has been implemented or measured. Intentionally retained differences include the distinct desktop, tablet portrait/landscape, and mobile card geometry and animation formulas, plus layout-specific intro compositions and mobile intro copy.
 

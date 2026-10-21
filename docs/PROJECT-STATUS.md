@@ -11,13 +11,13 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 **Latest Phase 3 checkpoint:** `45349d19e53801e2fe45e7033147e5f21be50945` (locked separate landscape references)
 **Latest pushed Phase 3 report commit:** `b6ceeec2e049fe8303bc14f0325a8fff1b4ce93c` (backup/review only)
 
-**Current task:** revise the Phase 4 plan to incorporate the approved single canonical project order. Implementation is paused pending approval of the revised plan.
+**Current task:** build shared templates and generate French static output from the approved canonical project data.
 
-**Latest Phase 4 checkpoint:** `6bd3a4781d49568620bb42ea06c8bcca5d3585d7` (read-only inventory; implementation draft discarded)
+**Latest Phase 4 checkpoint:** pending commit for Milestone 2 (canonical project data and parity validator)
 
 **Phase 4 base checkpoint:** `f41f000dbb24412b31471b98e6a656e36ae3894d` (validated Phase 3 source plus reviewed documentation; no application changes since Phase 3)
 
-**Next planned task:** after approval of the revised Phase 4 plan, define the canonical project-data schema and parity validator. No application implementation is currently authorized. Phase 5 implementation is not authorized.
+**Next planned task:** implement shared project-card/page templates and generate the French route while the existing production source remains unchanged. Phase 5 implementation is not authorized.
 
 ## Roadmap
 
@@ -43,16 +43,24 @@ Phases 4–8 are future roadmap items. Phase 3 structural work is complete. The 
 
 Milestone names and acceptance criteria remain stable. Progress counts only verified complete milestones.
 
-**Progress: 1 / 6 milestones complete. Implementation status: Blocked pending approval of the revised plan.**
+**Progress: 2 / 6 milestones complete. Phase 4 implementation is authorized on this branch only.**
 
 | Milestone | Acceptance evidence | Status |
 | --- | --- | --- |
 | Source inventory and parity contract | Current source and frozen inventory document all project IDs, exact localized/layout variants, URLs, media, historical layout orders, About repeats, loader/runtime duties, and preserved asset hashes; approved canonical-order delta is documented | Complete — `docs/phase-4-inventory.md`; read-only, no page output changed |
-| Canonical project data and responsive order | Six stable project records, locale/layout overrides and one canonical six-ID order validate against the frozen 48 records, with the approved tablet-order delta explicitly allowed; all card assets, links and labels remain attached to IDs | Not started — revised plan approval pending |
+| Canonical project data and responsive order | Six normalized project records, locale/layout overrides and one canonical six-ID order validate against all frozen records; all card assets, links and labels remain attached to IDs | Complete — `content/projects.json` and `npm run content:check`; 48/48 records match except approved historical tablet-order delta |
 | Shared templates and French static output | Deterministic templates generate `/` and the desktop iframe; French source/content, refs, assets and metadata pass focused parity checks | Not started |
 | English static output and loader retirement | `/en/` and English iframe are generated from the same templates; translated text, metadata, hash navigation, Footer layout, runtime refs and initialization pass parity before removing runtime translation | Not started |
 | Shared About content generation | Five bilingual About content records generate existing three shells; refs, animation timing and visuals pass targeted checks | Not started |
 | Phase 4 acceptance and review | Deterministic output, exact inventory, full eight-profile visual/functional gate, independent review and Lighthouse comparison are complete; mobile TBT stays a release blocker | Not started |
+
+## Phase 4 milestone 2 checkpoint
+
+**Completed:** `content/projects.json` now holds six project records, one canonical project order, six canonical URLs, French/English copy with only necessary layout overrides, and per-layout media/background references. `scripts/content/validate-project-data.mjs` reconstructs each record and compares text, tags, URL, accessible name and media with the frozen inventory. One order array is validated against all four layouts and both locales. No website HTML, CSS, JavaScript, translations, assets, or generated output changed.
+
+**Measured source model:** six maintained project identities instead of 48 complete inventory records; one six-ID ordering source instead of four layout lists; media paths are centralized by project/layout and shared across languages. The canonical project data is 18,537 bytes. Layout presentation records remain where the source differs.
+
+**Checks:** `npm run content:check` passed (48 project/layout/locale records); `npm run test:baseline-integrity` passed (230 frozen artifacts). `npm run test:source` remains incompatible with the Phase 3 starting tree because it compares against original commit `d8a3731` and reports the already-existing `index.html` difference; the current file matches the Phase 4 branch HEAD byte-for-byte, so this milestone did not introduce it.
 
 ## Phase 3 milestones
 

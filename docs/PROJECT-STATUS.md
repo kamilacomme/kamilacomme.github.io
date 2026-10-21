@@ -7,7 +7,7 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 **Latest validated Phase 2 source checkpoint:** `64cdbbe4a86a128e11d474af956e9c07ad990c82`
 
 **Latest experiment evidence checkpoint:** `9e1051c96476395910d9551f3b17d0d6e1d5c40a`
-**Current Phase 3 branch checkpoint:** `7492e6305a4d70471df60f2b08e6fff03ec4469b` (blocked About feasibility documented; experiment reverted)
+**Current Phase 3 branch checkpoint:** `39c8897b1e0ff18afcb69bf5d7dc4706165c0f5c` (About generation evaluated; recommendation recorded; application source unchanged)
 
 **Current task:** evaluate a build-time About content source and decide Phase 3 sequencing.
 

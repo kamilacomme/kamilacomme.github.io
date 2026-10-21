@@ -11,9 +11,11 @@ Updated: 2026-10-22. This tracker records verified milestones; it does not autho
 **Latest Phase 3 checkpoint:** `45349d19e53801e2fe45e7033147e5f21be50945` (locked separate landscape references)
 **Latest pushed Phase 3 report commit:** `b6ceeec2e049fe8303bc14f0325a8fff1b4ce93c` (backup/review only)
 
-**Current task:** present the Phase 4 architecture recommendation for approval.
+**Current task:** implement Phase 4 from the approved generated-static-pages architecture.
 
-**Next planned task:** wait for approval of the Phase 4 proposal before implementing it. Phase 4 is not authorized yet; Phase 5 implementation is also not authorized.
+**Phase 4 base checkpoint:** `f41f000dbb24412b31471b98e6a656e36ae3894d` (validated Phase 3 source plus reviewed documentation; no application changes since Phase 3)
+
+**Next planned task:** define the canonical project-data schema and parity validator. Phase 5 implementation is not authorized.
 
 ## Roadmap
 
@@ -23,17 +25,32 @@ Updated: 2026-10-22. This tracker records verified milestones; it does not autho
 | 1 | Baseline inventory, screenshots, Playwright gates and Lighthouse references | Complete |
 | 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — structural extraction, visual/functional validation and user inspection passed. French mobile TBT remains unresolved and blocks release readiness |
 | 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | Structurally complete — approved tablet scale retained, Projects initialization dependency resolved, eight-profile gate and review passed. Mobile Lighthouse regression remains unresolved and blocks release readiness |
-| 4 | Centralize project data and French/English translations | Not started — proposal recommends shared templates generating both static locale routes; awaiting approval |
+| 4 | Centralize project data and French/English translations | In progress — approved approach B; source inventory milestone complete, no generated page output changed yet |
 | 5 | Hybrid fluid-responsive layout, independently readable typography, and semantic/accessibility review | Not started — target architecture is approved for future Phase 5; implementation is not authorized. Proposal: [hybrid-responsive-architecture-proposal.md](hybrid-responsive-architecture-proposal.md) |
 | 6 | Review asset loading and make separately approved performance improvements | Not started |
 | 7 | Cross-browser/device validation and release-candidate regression | Not started |
 | 8 | Final documentation, independent acceptance and release decision | Not started |
 
-Phases 4–8 are future roadmap items. Phase 3 structural work is complete. Phase 4 proposal is awaiting approval; Phase 5 architecture direction is approved for the future, but its implementation is not authorized.
+Phases 4–8 are future roadmap items. Phase 3 structural work is complete. Phase 4 is authorized on its dedicated branch; Phase 5 architecture direction is approved for the future, but its implementation is not authorized.
 
 **Responsive architecture proposal:** the user approved the hybrid Grid/Flexbox direction, intended effective typography sizes, readability/zoom requirements and 325px effective Hero slideshow cap for future Phase 5. The plan is documented in [hybrid-responsive-architecture-proposal.md](hybrid-responsive-architecture-proposal.md), sequenced after Phase 4; it does not authorize implementation now.
 
-**Phase 4 proposal:** [phase-4-architecture-proposal.md](phase-4-architecture-proposal.md) compares the current runtime English loader with build-time French/English static pages and recommends the latter. It describes central project records, media paths, four responsive order lists, bilingual project copy, shared templates, GitHub Pages output, migration risks and gates. It is awaiting approval; no Phase 4 implementation has begun.
+**Phase 4 architecture:** the user approved approach B: generate French and English static pages from shared templates/data, removing the runtime French-to-English HTML rewrite only after parity passes. The plan is documented in [phase-4-architecture-proposal.md](phase-4-architecture-proposal.md). The read-only baseline inventory is [phase-4-inventory.md](phase-4-inventory.md).
+
+## Phase 4 milestones
+
+Milestone names and acceptance criteria remain stable. Progress counts only verified complete milestones.
+
+**Progress: 1 / 6 milestones complete.**
+
+| Milestone | Acceptance evidence | Status |
+| --- | --- | --- |
+| Source inventory and parity contract | Current source and frozen inventory document all project IDs, exact localized/layout variants, URLs, media, order, About repeats, loader/runtime duties, and preserved asset hashes | Complete — `docs/phase-4-inventory.md`; read-only, no page output changed |
+| Canonical project data and responsive order | Six stable project records, locale/layout overrides and four order arrays validate exactly against the 48-record frozen inventory | Not started |
+| Shared templates and French static output | Deterministic templates generate `/` and the desktop iframe; French source/content, refs, assets and metadata pass focused parity checks | Not started |
+| English static output and loader retirement | `/en/` and English iframe are generated from the same templates; translated text, metadata, hash navigation, Footer layout, runtime refs and initialization pass parity before removing runtime translation | Not started |
+| Shared About content generation | Five bilingual About content records generate existing three shells; refs, animation timing and visuals pass targeted checks | Not started |
+| Phase 4 acceptance and review | Deterministic output, exact inventory, full eight-profile visual/functional gate, independent review and Lighthouse comparison are complete; mobile TBT stays a release blocker | Not started |
 
 ## Phase 3 milestones
 

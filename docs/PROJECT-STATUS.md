@@ -11,7 +11,7 @@ Updated: 2026-10-22. This tracker records verified milestones; it does not autho
 **Latest Phase 3 checkpoint:** `45349d19e53801e2fe45e7033147e5f21be50945` (locked separate landscape references)
 **Latest pushed Phase 3 report commit:** `b6ceeec2e049fe8303bc14f0325a8fff1b4ce93c` (backup/review only)
 
-**Current task:** clarify Phase 3 record and prepare the Phase 4 architecture proposal.
+**Current task:** present the Phase 4 architecture recommendation for approval.
 
 **Next planned task:** wait for approval of the Phase 4 proposal before implementing it. Phase 4 is not authorized yet; Phase 5 implementation is also not authorized.
 
@@ -23,7 +23,7 @@ Updated: 2026-10-22. This tracker records verified milestones; it does not autho
 | 1 | Baseline inventory, screenshots, Playwright gates and Lighthouse references | Complete |
 | 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — structural extraction, visual/functional validation and user inspection passed. French mobile TBT remains unresolved and blocks release readiness |
 | 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | Structurally complete — approved tablet scale retained, Projects initialization dependency resolved, eight-profile gate and review passed. Mobile Lighthouse regression remains unresolved and blocks release readiness |
-| 4 | Centralize project data and French/English translations | Not started — architecture proposal prepared for approval; no implementation authorized |
+| 4 | Centralize project data and French/English translations | Not started — proposal recommends shared templates generating both static locale routes; awaiting approval |
 | 5 | Hybrid fluid-responsive layout, independently readable typography, and semantic/accessibility review | Not started — target architecture is approved for future Phase 5; implementation is not authorized. Proposal: [hybrid-responsive-architecture-proposal.md](hybrid-responsive-architecture-proposal.md) |
 | 6 | Review asset loading and make separately approved performance improvements | Not started |
 | 7 | Cross-browser/device validation and release-candidate regression | Not started |
@@ -33,7 +33,7 @@ Phases 4–8 are future roadmap items. Phase 3 structural work is complete. Phas
 
 **Responsive architecture proposal:** the user approved the hybrid Grid/Flexbox direction, intended effective typography sizes, readability/zoom requirements and 325px effective Hero slideshow cap for future Phase 5. The plan is documented in [hybrid-responsive-architecture-proposal.md](hybrid-responsive-architecture-proposal.md), sequenced after Phase 4; it does not authorize implementation now.
 
-**Phase 4 proposal:** [phase-4-architecture-proposal.md](phase-4-architecture-proposal.md) describes central project records, media paths, four responsive order lists, bilingual project copy, shared build-time content templates, and review gates. It is awaiting approval; no Phase 4 implementation has begun.
+**Phase 4 proposal:** [phase-4-architecture-proposal.md](phase-4-architecture-proposal.md) compares the current runtime English loader with build-time French/English static pages and recommends the latter. It describes central project records, media paths, four responsive order lists, bilingual project copy, shared templates, GitHub Pages output, migration risks and gates. It is awaiting approval; no Phase 4 implementation has begun.
 
 ## Phase 3 milestones
 

@@ -7,7 +7,7 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 **Latest validated Phase 2 source checkpoint:** `64cdbbe4a86a128e11d474af956e9c07ad990c82`
 
 **Latest experiment evidence checkpoint:** `9e1051c96476395910d9551f3b17d0d6e1d5c40a`
-**Current Phase 3 branch checkpoint:** `8b5c426fa70a4c46907adfb1fd9418c71995765d` (branch created from validated Phase 2 with approved follow-up evidence)
+**Current Phase 3 branch checkpoint:** `7492e6305a4d70471df60f2b08e6fff03ec4469b` (blocked About feasibility documented; experiment reverted)
 
 **Current task:** resolve the blocked About consolidation approach before any more Phase 3 implementation.
 

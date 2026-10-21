@@ -20,4 +20,13 @@
 
 ## Current work
 
-Continue with the remaining small classic-script groups, preserving their source order. The `text/x-dc` controller is read as text by the original runtime and must remain inline unless a separately verified factory bridge is introduced. Continue from the current branch head; do not reset the workspace or update the frozen references.
+### Tablet project controllers — complete
+
+- Extracted tablet fitting/mounting, landscape rail, tablet preview playback and portrait frame alignment into four ordered classic scripts under `scripts/projects/`. Preserved the interaction script ID and the hand-offs through `window.__kcTabletScale` and `window.__kcTabletProjectFit`.
+- `node --check` passed for each file; `git diff --check` and the 230-artifact lock passed.
+- Targeted regression: `npm test -- --project=tablet-portrait-fr --project=tablet-portrait-en --project=tablet-landscape-fr --project=tablet-landscape-en` — 21 passed, 3 pre-existing responsive skips, no failures or flakes. Covered both tablet orientations and languages, selected visual references, rendering/navigation, all projects and natural media playback.
+- Lighthouse was not rerun for this structural extraction.
+
+## Current work
+
+Continue with mobile controllers, preserving their source order. The `text/x-dc` controller is read as text by the original runtime and must remain inline unless a separately verified factory bridge is introduced. Continue from the current branch head; do not reset the workspace or update the frozen references.

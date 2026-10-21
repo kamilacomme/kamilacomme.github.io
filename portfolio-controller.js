@@ -419,7 +419,6 @@ class Component extends DCLogic {
       this.st = st;
       // Shared tablet design-to-screen scale for the active portfolio block.
       window.__kcTabletScale = st;
-      if (window.__kcTabletProjectFit) window.__kcTabletProjectFit();
       // the tablet stage height follows the window too, so the ticket is centred on the
       // SCREEN rather than inside a 1112 frame that may be taller than the viewport
       const tFrameH = Math.max(200, Math.round(this.vhNow() / st));
@@ -559,6 +558,21 @@ class Component extends DCLogic {
         if (nl !== this._navL) { this._navL = nl; this.fitFooter(this.tablet); }
       }
       if (this._measureAbout) this._measureAbout();
+      // Publish the completed shared tablet viewport policy. Projects owns its own
+      // geometry and consumes this only after the controller has written the Hero,
+      // About frame, and navigation dimensions for this layout pass.
+      const tabletLayout = {
+        tablet,
+        scale: st,
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+      window.__kcTabletLayout = tabletLayout;
+      const tabletLayoutKey = [tablet, st, tabletLayout.width, tabletLayout.height].join(':');
+      if (this._tabletLayoutKey !== tabletLayoutKey) {
+        this._tabletLayoutKey = tabletLayoutKey;
+        window.dispatchEvent(new CustomEvent('kc:tablet-layout-change', { detail: tabletLayout }));
+      }
     };
     this.fit();
     // Safari keeps the page in its freeze/back-forward cache: coming back from another app

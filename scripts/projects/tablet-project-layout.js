@@ -8,6 +8,8 @@
   let scrollLength = 0;
   let scrollScale = 1;
   let layoutFrame = 0;
+  let lastLayoutKey = '';
+  let forceLayout = false;
 
   function setStyle(element, name, value) {
     if (element && element.style[name] !== value) element.style[name] = value;
@@ -52,7 +54,7 @@
     const stage = $('kc-t-stage');
     if (!frame || !viewport || !stage) return false;
 
-    const scale = window.__kcTabletScale || 1;
+    const scale = window.__kcTabletLayout?.scale || window.__kcTabletScale || 1;
     setStyle(stage, 'width', (window.innerWidth / scale) + 'px');
     setStyle(stage, 'transform', 'scale(' + scale + ')');
     setStyle(viewport, 'width', '100%');
@@ -82,19 +84,15 @@
     if (window.innerWidth < 500 || window.innerWidth > 1080 || window.innerWidth >= window.innerHeight) return;
     const stage = $('kc-t-stage');
     const viewport = $('kc-t-viewport');
-    const aboutFrame = document.querySelector('#apropos-t > div > div');
-    if (!stage || !viewport || !aboutFrame) return;
+    if (!stage || !viewport) return;
 
-    const scale = window.__kcTabletScale || 1;
-    const width = aboutFrame.offsetWidth || 834;
-    const aboutRect = aboutFrame.getBoundingClientRect();
-    const viewportRect = viewport.getBoundingClientRect();
-    if (!aboutRect.width || !viewportRect.width) return;
-
-    // Align Projects to About's actual centered frame, excluding scrollbar width.
+    const scale = window.__kcTabletLayout?.scale || window.__kcTabletScale || 1;
+    const width = Math.round(window.innerWidth / scale);
+    // The shared tablet frame is centered on the viewport; derive its position from
+    // that policy instead of measuring the unrelated About section.
     setStyle(stage, 'width', width + 'px');
     setStyle(stage, 'position', 'relative');
-    setStyle(stage, 'left', (aboutRect.left - viewportRect.left) + 'px');
+    setStyle(stage, 'left', '0px');
     setStyle(stage, 'transform', 'scale(' + scale + ')');
     setStyle(viewport, 'height', (1655 * scale) + 'px');
   }
@@ -113,7 +111,7 @@
     activeLandscape = true;
     frame = section;
     section.classList.add('kc-landscape-rail');
-    const scale = window.__kcTabletScale || 1;
+    const scale = window.__kcTabletLayout?.scale || window.__kcTabletScale || 1;
     const width = window.innerWidth / scale;
     const height = window.innerHeight / scale;
     setImportantStyle(stage, 'height', height + 'px');
@@ -139,12 +137,9 @@
     const fullWidth = cards.length * cardWidth + (cards.length - 1) * 18;
     scrollScale = actualScale || 1;
     const visibleWidth = viewport.getBoundingClientRect().width / scrollScale;
-    const hireButton = document.querySelector('a[data-fixed-ink][href^="mailto:"]');
-    const buttonRect = hireButton?.getBoundingClientRect();
-    const viewportRect = viewport.getBoundingClientRect();
-    const rightInset = buttonRect && buttonRect.width
-      ? Math.max(0, viewportRect.right - buttonRect.right) / scrollScale
-      : 32;
+    // Match the fixed 32-design-pixel frame gutter; do not infer rail length from
+    // the navigation CTA, whose position is written by another controller.
+    const rightInset = 32;
     travel = Math.max(0, 32 + fullWidth + rightInset - visibleWidth);
     scrollLength = travel * scrollScale;
     setStyle(section, 'height', (window.innerHeight + scrollLength) + 'px');
@@ -173,46 +168,43 @@
     fitPortraitGeometry();
   }
 
-  function scheduleFit() {
+  function scheduleFit(force = false) {
+    forceLayout = forceLayout || force;
     if (layoutFrame) return;
     layoutFrame = requestAnimationFrame(function () {
       layoutFrame = 0;
+      const forced = forceLayout;
+      forceLayout = false;
+      const policy = window.__kcTabletLayout;
+      const key = policy
+        ? [policy.tablet, policy.scale, policy.width, policy.height].join(':')
+        : [window.innerWidth, window.innerHeight, window.__kcTabletScale || 1].join(':');
+      if (!forced && key === lastLayoutKey) return;
+      lastLayoutKey = key;
       fitTabletProjectGeometry();
     });
   }
 
-  window.__kcTabletProjectFit = fitTabletProjectGeometry;
-  window.addEventListener('resize', scheduleFit, { passive: true });
-  window.addEventListener('pageshow', scheduleFit);
+  window.addEventListener('kc:tablet-layout-change', () => scheduleFit());
+  window.addEventListener('resize', () => scheduleFit(), { passive: true });
+  window.addEventListener('orientationchange', () => scheduleFit(), { passive: true });
+  window.addEventListener('pageshow', () => scheduleFit(true));
+  window.addEventListener('load', () => scheduleFit(true), { once: true });
   window.addEventListener('scroll', updateLandscapeScroll, { passive: true });
-  document.addEventListener('DOMContentLoaded', scheduleFit, { once: true });
+  document.addEventListener('DOMContentLoaded', () => scheduleFit(), { once: true });
+  if (document.fonts) {
+    document.fonts.ready.then(() => scheduleFit(true)).catch(function () {});
+    document.fonts.addEventListener?.('loadingdone', () => scheduleFit(true));
+  }
 
-  const mountObserver = new MutationObserver(function () {
-    const stage = $('kc-t-stage');
-    if (!stage || !fitTabletProjectGeometry()) return;
+  const projectsRoot = $('kc-tablet-projets');
+  const mountObserver = projectsRoot && new MutationObserver(function () {
+    if (!$('kc-t-stage')) return;
     mountObserver.disconnect();
-    watchTabletFrame(stage);
+    scheduleFit();
   });
-  function watchTabletFrame(stage) {
-    const aboutFrame = document.querySelector('#apropos-t > div > div');
-    const head = document.querySelector('[data-c="0"]');
-    if (!head) return;
-    const observer = new MutationObserver(scheduleFit);
-    observer.observe(stage, { attributes: true, attributeFilter: ['style'] });
-    if (aboutFrame) observer.observe(aboutFrame, { attributes: true, attributeFilter: ['style'] });
-    observer.observe(head, { attributes: true, attributeFilter: ['style'] });
-    const info = head.parentElement?.querySelector('[data-c="1"]');
-    if (info) observer.observe(info, { attributes: true, attributeFilter: ['style'] });
-
-    const root = $('kc-tablet-projets')?.parentElement;
-    if (root) {
-      const visibilityObserver = new MutationObserver(scheduleFit);
-      visibilityObserver.observe(root, { attributes: true, attributeFilter: ['style', 'class'] });
-    }
+  if (projectsRoot && !$('kc-t-stage')) {
+    mountObserver.observe(projectsRoot, { childList: true, subtree: true });
   }
-  mountObserver.observe(document.documentElement, { childList: true, subtree: true });
-  if (fitTabletProjectGeometry()) {
-    mountObserver.disconnect();
-    watchTabletFrame($('kc-t-stage'));
-  }
+  if ($('kc-t-stage')) scheduleFit();
 })();

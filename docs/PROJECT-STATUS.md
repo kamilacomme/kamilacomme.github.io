@@ -1,17 +1,17 @@
 # Project status
 
-Updated: 2026-10-21. This tracker records verified milestones; it does not authorize later phases.
+Updated: 2026-10-22. This tracker records verified milestones; it does not authorize later phases.
 
 **Current branch:** `phase-3/simplification`
 
 **Latest validated Phase 2 source checkpoint:** `64cdbbe4a86a128e11d474af956e9c07ad990c82`
 
 **Latest experiment evidence checkpoint:** `9e1051c96476395910d9551f3b17d0d6e1d5c40a`
-**Latest Phase 3 source checkpoint:** `6e2b585eb2f51d8910e83812d83192ad271d0dc7` (tablet geometry and mobile sizing ownership milestones committed)
+**Latest Phase 3 source checkpoint:** `b00285144419ee1ec8ed31e750b78477d9971bad` (current tablet geometry ownership and mobile sizing worktree)
 
-**Current task:** resolve the tablet-landscape visual parity blocker before further Phase 3 validation.
+**Current task:** validate the Phase 3 tablet geometry correction, then finish the full regression and performance comparisons.
 
-**Next planned task:** pause for review of the tablet-landscape regression and decide whether to investigate the geometry extraction further. Lighthouse is deferred until visual parity passes.
+**Next planned task:** finish the Phase 3 eight-profile visual/functional gate and Lighthouse comparison; then stop for user review. Phase 4/5 implementation is not authorized.
 
 ## Roadmap
 
@@ -20,14 +20,16 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 | 0 | Read-only audit of responsive implementations, content, risks and architecture | Complete |
 | 1 | Baseline inventory, screenshots, Playwright gates and Lighthouse references | Complete |
 | 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — extraction, visual/functional validation and user inspection passed; French mobile TBT remains an open release blocker |
-| 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | Blocked — tablet-landscape visual parity regression needs review |
+| 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | In progress — tablet-landscape scale adjustment is explicitly approved; final scroll and phase validation remain pending |
 | 4 | Centralize project data and French/English translations | Not started |
-| 5 | Improve semantic structure and accessibility while preserving approved text and SEO values | Not started |
+| 5 | Hybrid fluid-responsive layout, independently readable typography, and semantic/accessibility review | Not started — target architecture is approved for future Phase 5; implementation is not authorized. Proposal: [hybrid-responsive-architecture-proposal.md](hybrid-responsive-architecture-proposal.md) |
 | 6 | Review asset loading and make separately approved performance improvements | Not started |
 | 7 | Cross-browser/device validation and release-candidate regression | Not started |
 | 8 | Final documentation, independent acceptance and release decision | Not started |
 
-Phases 3–8 are a proposed roadmap only. Each requires its own authorization before implementation.
+Phases 3–8 are a proposed roadmap. Phase 3 is authorized and underway. Phase 5 architecture direction is approved for the future; Phase 4 and Phase 5 implementation still require their own authorization.
+
+**Responsive architecture proposal:** the user approved the hybrid Grid/Flexbox direction, intended effective typography sizes, readability/zoom requirements and 325px effective Hero slideshow cap for future Phase 5. The plan is documented in [hybrid-responsive-architecture-proposal.md](hybrid-responsive-architecture-proposal.md), sequenced after Phase 4; it does not authorize implementation now.
 
 ## Phase 3 milestones
 
@@ -38,10 +40,18 @@ Milestone names and acceptance criteria remain stable. Progress counts only veri
 | Milestone | Acceptance evidence | Status |
 | --- | --- | --- |
 | About shared-tree feasibility | One five-card tree passes locked visual references and animation checks in all eight language/layout profiles without fragile workarounds | Blocked — deferred to Phase 4 by approval; three existing About layouts remain intentionally separate |
-| Tablet geometry ownership | One tablet geometry owner with separate readable portrait/landscape calculations; targeted tablet visual and behavior checks pass | Blocked — full matrix has landscape project/visual failures in both languages; isolated Phase 2 control passes the same four checks |
+| Tablet geometry ownership | One tablet geometry owner with separate readable portrait/landscape calculations; targeted tablet visual and behavior checks pass | In progress — user approved the 0.9267 Projects scale at 1194×834 as a design change. Removed About measurements/observers and navigation CTA sizing dependency; Projects now consumes completed shared viewport policy. Focused tablet suite after correction: 13 passed, 3 existing responsive skips across both languages and orientations. Phase 3 visual checks remain pending |
 | Mobile sizing ownership | One mobile project-sizing owner; targeted mobile visual and behavior checks pass in both languages | Complete — 10 passed, 2 existing responsive skips across both locales |
 | Shared project video lifecycle | Common lifecycle implementation retains independent tablet/mobile selectors and thresholds; natural playback checks pass in both languages | Complete — 6/6 focused profile checks passed |
-| Phase 3 acceptance | Full eight-profile visual/functional regression, Lighthouse comparison to Phase 0–1 and Phase 2, independent review, and documented duplication counts | Blocked — tablet-landscape parity fails |
+| Phase 3 acceptance | Full eight-profile visual/functional regression, Lighthouse comparison to Phase 0–1 and Phase 2, independent review, and documented duplication counts | In progress — final gate and Lighthouse comparison pending; accepted tablet scale uses a separate Phase 3 reference set so original baselines remain unchanged |
+
+**Approved design adjustment:** tablet-landscape Projects now use the shared tablet scale (0.9267 at 1194×834), matching Hero and About. The uniformly smaller cards, typography, and spacing are an explicitly approved visual change, not unchanged visual parity. Original Phase 0–1 and Phase 2 reference images remain preserved. No separate Phase 3 references were created during the read-only typography audit.
+
+**Tablet Projects initialization dependency — diagnosed and corrected; focused verification passed:** the Projects script waited for its own `#kc-t-stage` mount, then watched `#apropos-t > div > div` and card styles. Portrait alignment read About’s `offsetWidth`/`getBoundingClientRect`; landscape length read an unrelated navigation Hire-button right edge. More significantly, `portfolio-controller.js` called `__kcTabletProjectFit()` immediately after assigning the scale but before it wrote the shared tablet frame and nav sizes. The main controller then re-ran `fit()` on `document.fonts.ready`, `loadingdone`, load/resize/pageshow, fixed 200/800/2000ms timers, and React ref/component updates. A browser trace showed the CTA and viewport measurements changing between early and later fit calls; the derived Projects height shifted by about 60px. The fixed-time controller re-fits were not individually the cause once layout settled, but they repeatedly invoked the early cross-section measurement.
+
+The correction replaces the early callback with a `kc:tablet-layout-change` policy published after the shared controller finishes its writes. The tablet Projects owner uses its own viewport plus the shared scale, a stable 32-design-pixel rail inset, and a frame-coalesced policy signature. It no longer observes or measures About or measures the nav CTA. It still responds to genuine policy/viewport changes, orientation, page restore/load, and font completion. At 1194×834 both languages now settle to the approved 0.9266667 scale and 2975.4px Projects span after one owner initialization; the About boundary remains stable through 3 seconds with no later Projects style writes. Focused tablet behavior/rotation checks passed 13/16, with 3 existing responsive skips; full visual verification is pending.
+
+**Typography/accessibility audit:** [effective-typography-audit.md](effective-typography-audit.md) records rendered font measurements for both languages across 12 representative desktop, tablet, and phone profiles plus a 200% zoom-equivalent viewport. Meaningful copy reaches 9.33px at 1024×600 and 11.4px at 320×568. In the 720×450/DPR2 zoom proxy, Projects/About/Contact navigation links have no rendered boxes; project links and the legal dialog remain reachable. No application code, reference screenshots, or test baselines were changed.
 
 **Historical blocked gate / intentional retention:** the shared About section experiment caused visual differences in all eight profiles, including a 24 px mobile intro displacement. It remains reverted and its diffs/traces remain in `artifacts/playwright/results/`. Per the user-approved sequencing, this is no longer a Phase 3 implementation blocker: keep the three existing About structures unchanged, record their 15 card blocks as intentional duplication, and revisit content deduplication in the shared-content phase.
 
@@ -99,8 +109,9 @@ The 24 focused Playwright checks passed across tablet portrait, tablet landscape
 - **Passed, Phase 3 shared-video milestone:** natural video playback and mobile image-sequence test passed in tablet portrait, tablet landscape, and mobile, in both languages (6/6). Baseline screenshot artifacts remain locked.
 - **Passed, Phase 3 tablet functional checks:** rendering, project links, responsive branch, About animation, footer and legal interactions passed for tablet portrait and landscape, both languages (8/8).
 - **Passed, Phase 3 mobile checks:** the full mobile-only Playwright suite passed in both languages (10 passed, 2 existing responsive skips), covering per-project visuals, scrolling/navigation, videos, image sequences, About/footer and legal dialogs. Frozen references were not updated.
-- **Phase 3 full matrix:** 38 passed, 6 existing responsive skips, 4 failed. All failures are tablet landscape: project-card snapshots and `projects-start` visual references in both languages. The Celimax locked clip expects 574×220 but the candidate clip is 531×203; the overall project-start screenshot differs by 0.08 pixel ratio. No reference was changed.
-- **Parity control:** the detached Phase 2 worktree (`1b0ddbb`), served independently on port 8002, passed the exact four failing tablet-landscape project/visual checks (4/4). This confirms the tablet geometry extraction introduced the visual differences. The tablet geometry milestone is blocked; stop for review rather than patching around the mismatch. The earlier attempted control used the current server and was invalid.
+- **Historical Phase 3 matrix:** 38 passed, 6 existing responsive skips, 4 failed. All failures were tablet landscape: project-card snapshots and `projects-start` references in both languages. The Celimax locked clip expected 574×220 but the candidate was 531×203; the overall project-start screenshot differed by 0.08 pixel ratio. Those differences match the user-approved scale change and are being captured in the separate Phase 3 reference overlay; the frozen originals remain locked.
+- **Parity control:** the detached Phase 2 worktree (`1b0ddbb`), served independently on port 8002, passed the four tablet-landscape project/visual checks against original references (4/4). It confirms the image differences belong to the Phase 3 scale adjustment; those originals are retained as historical baseline evidence.
+- **Passed, Phase 3 tablet geometry correction:** syntax/source checks and frozen artifact lock passed; focused tablet functional/rotation suite passed 13 tests with 3 existing responsive skips across both languages/layouts. Browser timing trace showed stable 2975.4px Projects span and 3809.39px About boundary from 100ms through 3s in both languages. Focused Phase 3 visuals remain pending.
 - **Passed, Phase 3 tablet visual checks:** tablet portrait project references passed (6 cards in each language).
 - **Limitations:** Chromium emulates tablet/mobile; Safari/iOS hardware is not covered. Browser preview needs access to the existing external CDNs. Lighthouse reports contain task/network data but no standalone DevTools trace. The single 421 ms defer confirmation is not a stable performance estimate.
 
@@ -128,6 +139,6 @@ Open `http://127.0.0.1:8000/` for French and `http://127.0.0.1:8000/en/` for Eng
 
 ## Checkpoint and deployment state
 
-The Phase 2 branch `phase-2/css-js-extraction` and original Phase 0–1 baseline branch `test/portfolio-baseline-phase-0-1` remain preserved locally and on GitHub. Validated Phase 2 source checkpoint `64cdbbe4a86a128e11d474af956e9c07ad990c82` is pushed; the defer experiment was reverted, so application files on this branch match that source. Experiment evidence is preserved locally at `9e1051c96476395910d9551f3b17d0d6e1d5c40a`; the current branch and follow-up docs are not pushed. Nothing is merged or deployed. GitHub Pages remains configured to build `main` from `/`; `main` remains at `d8a37314ed7d2265f3f949c9e048b5e2beadfc20`. Phase 3 implementation is local and paused at the tablet-landscape parity blocker.
+The Phase 2 branch `phase-2/css-js-extraction` and original Phase 0–1 baseline branch `test/portfolio-baseline-phase-0-1` remain preserved locally and on GitHub. Validated Phase 2 source checkpoint `64cdbbe4a86a128e11d474af956e9c07ad990c82` is pushed; the defer experiment was reverted, so application files on this branch match that source. Experiment evidence is preserved locally at `9e1051c96476395910d9551f3b17d0d6e1d5c40a`; the current branch and follow-up docs are not pushed. Nothing is merged or deployed. GitHub Pages remains configured to build `main` from `/`; `main` remains at `d8a37314ed7d2265f3f949c9e048b5e2beadfc20`. Phase 3 work remains local; the startup dependency correction has passed focused behavior tests, while focused visual and final phase gates remain outstanding.
 
-**Next decision needed:** review the tablet-landscape parity regression before any further implementation. Phase-completion Lighthouse was not run because visual parity failed. French mobile TBT remains an open release blocker; no standalone TBT investigation is authorized. Phase 3 remains local and nothing has been merged or deployed.
+**Current blocker:** complete focused Phase 3 visual comparison against the separate approved-scale references, then run the authorized full eight-profile gate and phase-end Lighthouse comparison. French mobile TBT remains an open release blocker; no standalone TBT investigation is authorized. Phase 3 remains local and nothing has been merged or deployed.

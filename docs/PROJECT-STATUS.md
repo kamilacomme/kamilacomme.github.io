@@ -7,9 +7,9 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 **Latest validated Phase 2 source checkpoint:** `64cdbbe4a86a128e11d474af956e9c07ad990c82`
 
 **Latest experiment evidence checkpoint:** `9e1051c96476395910d9551f3b17d0d6e1d5c40a`
-**Current Phase 3 branch checkpoint:** `5f9baa79630e30ce2583045eb9023748b5b469d0` (tablet geometry owner committed; mobile sizing milestone verified and being checkpointed)
+**Current Phase 3 branch checkpoint:** `142bea1135e4a083cb3af19b75d11bb684766837` (tablet geometry and mobile sizing ownership milestones committed)
 
-**Current task:** complete the full Phase 3 regression and Lighthouse comparison.
+**Current task:** run the full eight-profile regression and phase-completion Lighthouse comparison.
 
 **Next planned task:** run full eight-profile visual/functional regression, then Lighthouse comparison against Phase 0–1 and Phase 2.
 
@@ -37,7 +37,7 @@ Milestone names and acceptance criteria remain stable. Progress counts only veri
 
 | Milestone | Acceptance evidence | Status |
 | --- | --- | --- |
-| About shared-tree feasibility | One five-card tree passes locked visual references and animation checks in all eight language/layout profiles without fragile workarounds | Blocked — all eight profiles differed; mobile intro was 24 px lower than reference |
+| About shared-tree feasibility | One five-card tree passes locked visual references and animation checks in all eight language/layout profiles without fragile workarounds | Blocked — deferred to Phase 4 by approval; three existing About layouts remain intentionally separate |
 | Tablet geometry ownership | One tablet geometry owner with separate readable portrait/landscape calculations; targeted tablet visual and behavior checks pass | Complete — behavior 8/8; portrait project refs pass; landscape candidate renders match Phase 2 control byte-for-byte for both languages |
 | Mobile sizing ownership | One mobile project-sizing owner; targeted mobile visual and behavior checks pass in both languages | Complete — 10 passed, 2 existing responsive skips across both locales |
 | Shared project video lifecycle | Common lifecycle implementation retains independent tablet/mobile selectors and thresholds; natural playback checks pass in both languages | Complete — 6/6 focused profile checks passed |

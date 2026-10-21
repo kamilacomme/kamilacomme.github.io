@@ -7,11 +7,11 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 **Latest validated Phase 2 source checkpoint:** `64cdbbe4a86a128e11d474af956e9c07ad990c82`
 
 **Latest experiment evidence checkpoint:** `9e1051c96476395910d9551f3b17d0d6e1d5c40a`
-**Current Phase 3 branch checkpoint:** `8a076ff2d93967b47ad9a316654831b49871ed54` (About generation evaluation recorded; application source unchanged)
+**Current Phase 3 branch checkpoint:** `5ee019c1b6d270095836c8999cbf9d7a425f951e` (approved controller scope checkpoint; video lifecycle milestone in progress)
 
-**Current task:** establish a single tablet project geometry owner, retaining portrait and landscape formulas.
+**Current task:** establish a single tablet project geometry owner, retaining separate portrait and landscape formulas.
 
-**Next planned task:** consolidate mobile project sizing ownership and verify responsive video lifecycle sharing where behavior matches.
+**Next planned task:** consolidate mobile project sizing ownership, then run the full Phase 3 regression and Lighthouse comparison.
 
 ## Roadmap
 
@@ -20,7 +20,7 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 | 0 | Read-only audit of responsive implementations, content, risks and architecture | Complete |
 | 1 | Baseline inventory, screenshots, Playwright gates and Lighthouse references | Complete |
 | 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — extraction, visual/functional validation and user inspection passed; French mobile TBT remains an open release blocker |
-| 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | Blocked — proposed shared About DOM failed visual parity in all eight profiles; experiment reverted |
+| 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | In progress — About deduplication deferred by approval; tablet/mobile controller ownership cleanup active |
 | 4 | Centralize project data and French/English translations | Not started |
 | 5 | Improve semantic structure and accessibility while preserving approved text and SEO values | Not started |
 | 6 | Review asset loading and make separately approved performance improvements | Not started |
@@ -33,13 +33,14 @@ Phases 3–8 are a proposed roadmap only. Each requires its own authorization be
 
 Milestone names and acceptance criteria remain stable. Progress counts only verified, complete milestones.
 
-**Progress: 0 / 4 milestones complete.**
+**Progress: 1 / 5 milestones complete.**
 
 | Milestone | Acceptance evidence | Status |
 | --- | --- | --- |
 | About shared-tree feasibility | One five-card tree passes locked visual references and animation checks in all eight language/layout profiles without fragile workarounds | Blocked — all eight profiles differed; mobile intro was 24 px lower than reference |
-| Tablet geometry ownership | One tablet geometry owner with separate readable portrait/landscape calculations; targeted tablet visual and behavior checks pass | Not started |
+| Tablet geometry ownership | One tablet geometry owner with separate readable portrait/landscape calculations; targeted tablet visual and behavior checks pass | In progress |
 | Mobile sizing ownership | One mobile project-sizing owner; targeted mobile visual and behavior checks pass in both languages | Not started |
+| Shared project video lifecycle | Common lifecycle implementation retains independent tablet/mobile selectors and thresholds; natural playback checks pass in both languages | Complete — 6/6 focused profile checks passed |
 | Phase 3 acceptance | Full eight-profile visual/functional regression, Lighthouse comparison to Phase 0–1 and Phase 2, independent review, and documented duplication counts | Not started |
 
 **Historical blocked gate / intentional retention:** the shared About section experiment caused visual differences in all eight profiles, including a 24 px mobile intro displacement. It remains reverted and its diffs/traces remain in `artifacts/playwright/results/`. Per the user-approved sequencing, this is no longer a Phase 3 implementation blocker: keep the three existing About structures unchanged, record their 15 card blocks as intentional duplication, and revisit content deduplication in the shared-content phase.
@@ -52,7 +53,7 @@ This adds a fragment, generator, markers, regeneration discipline, and output-dr
 
 **Approved decision:** defer About card content deduplication to the later shared-content phase. Keep three About shells and 15 authored card blocks unchanged as intentional duplication. Proceed with Phase 3 tablet/mobile controller ownership cleanup without a build system or About code changes. No generator or application code was added by the architecture evaluation.
 
-**Measured duplication to date:** no net source reduction is claimed because the failed shared-tree experiment was reverted. The experiment removed 10 repeated About card blocks (15 card blocks to 5) but failed parity, so that is not an accepted Phase 3 result. Current duplicate count remains 15 authored About card blocks across the three layout shells. Tablet/mobile project controllers are still separately owned; no responsibility reduction has been implemented or measured. Intentionally retained differences include the distinct desktop, tablet portrait/landscape, and mobile card geometry and animation formulas, plus layout-specific intro compositions and mobile intro copy.
+**Measured duplication to date:** shared video lifecycle changed from two 44-line scripts (88 lines total) to one 61-line parameterized script: 27 fewer authored lines (31%) and one fewer script request. Playback thresholds, ticket selectors, mutation binding, and visibility handling remain layout-specific where needed. The failed About experiment was reverted; it removed 10 repeated About card blocks (15 card blocks to 5) but failed parity, so that is not an accepted Phase 3 result. Current duplicate count remains 15 authored About card blocks across the three layout shells. Tablet/mobile project controllers are still separately owned; no responsibility reduction has been implemented or measured. Intentionally retained differences include the distinct desktop, tablet portrait/landscape, and mobile card geometry and animation formulas, plus layout-specific intro compositions and mobile intro copy.
 
 ## Phase 2 milestones and release follow-ups
 
@@ -95,6 +96,7 @@ The 24 focused Playwright checks passed across tablet portrait, tablet landscape
 - **Failed:** one controlled French-mobile defer experiment measured TBT 421 ms; experiment reverted.
 - **Failed, Phase 3 feasibility check:** `npm run test:qa -- --grep "approved visual and animation states"` ran all eight profiles; all eight failed at About screenshots after the shared-tree experiment. The clearest mismatch is mobile intro content shifted 24 px downward. The source experiment was reverted; frozen references and artifact hashes remain unchanged.
 - **Passed, Phase 3 quick checks:** JavaScript syntax checks, `git diff --check`, and all 230 frozen baseline artifact hashes before the visual run.
+- **Passed, Phase 3 shared-video milestone:** natural video playback and mobile image-sequence test passed in tablet portrait, tablet landscape, and mobile, in both languages (6/6). Baseline screenshot artifacts remain locked.
 - **Limitations:** Chromium emulates tablet/mobile; Safari/iOS hardware is not covered. Browser preview needs access to the existing external CDNs. Lighthouse reports contain task/network data but no standalone DevTools trace. The single 421 ms defer confirmation is not a stable performance estimate.
 
 ## Decisions and remaining architecture work

@@ -1,8 +1,8 @@
 # Project status
 
-Updated: 2026-10-22. This tracker records verified milestones; it does not authorize later phases.
+Updated: 2026-10-21. This tracker records verified milestones; it does not authorize later phases.
 
-**Current branch:** `phase-3/simplification`
+**Current branch:** `phase-4/shared-bilingual-static`
 
 **Latest validated Phase 2 source checkpoint:** `64cdbbe4a86a128e11d474af956e9c07ad990c82`
 
@@ -11,11 +11,13 @@ Updated: 2026-10-22. This tracker records verified milestones; it does not autho
 **Latest Phase 3 checkpoint:** `45349d19e53801e2fe45e7033147e5f21be50945` (locked separate landscape references)
 **Latest pushed Phase 3 report commit:** `b6ceeec2e049fe8303bc14f0325a8fff1b4ce93c` (backup/review only)
 
-**Current task:** implement Phase 4 from the approved generated-static-pages architecture.
+**Current task:** revise the Phase 4 plan to incorporate the approved single canonical project order. Implementation is paused pending approval of the revised plan.
+
+**Latest Phase 4 checkpoint:** `6bd3a4781d49568620bb42ea06c8bcca5d3585d7` (read-only inventory; implementation draft discarded)
 
 **Phase 4 base checkpoint:** `f41f000dbb24412b31471b98e6a656e36ae3894d` (validated Phase 3 source plus reviewed documentation; no application changes since Phase 3)
 
-**Next planned task:** define the canonical project-data schema and parity validator. Phase 5 implementation is not authorized.
+**Next planned task:** after approval of the revised Phase 4 plan, define the canonical project-data schema and parity validator. No application implementation is currently authorized. Phase 5 implementation is not authorized.
 
 ## Roadmap
 
@@ -25,28 +27,28 @@ Updated: 2026-10-22. This tracker records verified milestones; it does not autho
 | 1 | Baseline inventory, screenshots, Playwright gates and Lighthouse references | Complete |
 | 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — structural extraction, visual/functional validation and user inspection passed. French mobile TBT remains unresolved and blocks release readiness |
 | 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | Structurally complete — approved tablet scale retained, Projects initialization dependency resolved, eight-profile gate and review passed. Mobile Lighthouse regression remains unresolved and blocks release readiness |
-| 4 | Centralize project data and French/English translations | In progress — approved approach B; source inventory milestone complete, no generated page output changed yet |
+| 4 | Centralize project data and French/English translations | Blocked — revised plan approval required after approved canonical project-order change; inventory complete; no generated page output changed |
 | 5 | Hybrid fluid-responsive layout, independently readable typography, and semantic/accessibility review | Not started — target architecture is approved for future Phase 5; implementation is not authorized. Proposal: [hybrid-responsive-architecture-proposal.md](hybrid-responsive-architecture-proposal.md) |
 | 6 | Review asset loading and make separately approved performance improvements | Not started |
 | 7 | Cross-browser/device validation and release-candidate regression | Not started |
 | 8 | Final documentation, independent acceptance and release decision | Not started |
 
-Phases 4–8 are future roadmap items. Phase 3 structural work is complete. Phase 4 is authorized on its dedicated branch; Phase 5 architecture direction is approved for the future, but its implementation is not authorized.
+Phases 4–8 are future roadmap items. Phase 3 structural work is complete. The Phase 4 architecture direction (generated static French/English pages) was approved, but the user now requires approval of the revised Phase 4 plan incorporating the canonical order before implementation resumes. Phase 5 architecture direction is approved for the future; implementation is not authorized.
 
 **Responsive architecture proposal:** the user approved the hybrid Grid/Flexbox direction, intended effective typography sizes, readability/zoom requirements and 325px effective Hero slideshow cap for future Phase 5. The plan is documented in [hybrid-responsive-architecture-proposal.md](hybrid-responsive-architecture-proposal.md), sequenced after Phase 4; it does not authorize implementation now.
 
-**Phase 4 architecture:** the user approved approach B: generate French and English static pages from shared templates/data, removing the runtime French-to-English HTML rewrite only after parity passes. The plan is documented in [phase-4-architecture-proposal.md](phase-4-architecture-proposal.md). The read-only baseline inventory is [phase-4-inventory.md](phase-4-inventory.md).
+**Phase 4 architecture:** approach B (static French/English pages from shared templates/data, retiring runtime translation only after parity) remains the approved direction. A revised plan now specifies one canonical order—Pilates, Longread, Tour de parole, Inside Out, Celimax, Napoli—for every layout and locale. This order change is explicitly approved and supersedes the historical tablet order in the frozen inventory. Revised implementation plan approval is still pending. See [phase-4-architecture-proposal.md](phase-4-architecture-proposal.md) and [phase-4-inventory.md](phase-4-inventory.md).
 
 ## Phase 4 milestones
 
 Milestone names and acceptance criteria remain stable. Progress counts only verified complete milestones.
 
-**Progress: 1 / 6 milestones complete.**
+**Progress: 1 / 6 milestones complete. Implementation status: Blocked pending approval of the revised plan.**
 
 | Milestone | Acceptance evidence | Status |
 | --- | --- | --- |
-| Source inventory and parity contract | Current source and frozen inventory document all project IDs, exact localized/layout variants, URLs, media, order, About repeats, loader/runtime duties, and preserved asset hashes | Complete — `docs/phase-4-inventory.md`; read-only, no page output changed |
-| Canonical project data and responsive order | Six stable project records, locale/layout overrides and four order arrays validate exactly against the 48-record frozen inventory | Not started |
+| Source inventory and parity contract | Current source and frozen inventory document all project IDs, exact localized/layout variants, URLs, media, historical layout orders, About repeats, loader/runtime duties, and preserved asset hashes; approved canonical-order delta is documented | Complete — `docs/phase-4-inventory.md`; read-only, no page output changed |
+| Canonical project data and responsive order | Six stable project records, locale/layout overrides and one canonical six-ID order validate against the frozen 48 records, with the approved tablet-order delta explicitly allowed; all card assets, links and labels remain attached to IDs | Not started — revised plan approval pending |
 | Shared templates and French static output | Deterministic templates generate `/` and the desktop iframe; French source/content, refs, assets and metadata pass focused parity checks | Not started |
 | English static output and loader retirement | `/en/` and English iframe are generated from the same templates; translated text, metadata, hash navigation, Footer layout, runtime refs and initialization pass parity before removing runtime translation | Not started |
 | Shared About content generation | Five bilingual About content records generate existing three shells; refs, animation timing and visuals pass targeted checks | Not started |
@@ -173,6 +175,15 @@ Open `http://127.0.0.1:8000/` for French and `http://127.0.0.1:8000/en/` for Eng
 
 ## Checkpoint and deployment state
 
-The Phase 2 branch `phase-2/css-js-extraction` and original Phase 0–1 baseline branch `test/portfolio-baseline-phase-0-1` remain preserved locally and on GitHub. Validated Phase 2 source checkpoint `64cdbbe4a86a128e11d474af956e9c07ad990c82` is pushed; the defer experiment was reverted. Experiment evidence is preserved locally at `9e1051c96476395910d9551f3b17d0d6e1d5c40a`. Phase 3 checkpoint `b6ceeec2e049fe8303bc14f0325a8fff1b4ce93c` was pushed to `phase-3/simplification` for backup/review. The present tracker/report corrections and Phase 4 proposal are unpushed documentation changes. No changes were merged, deployed, or published. GitHub Pages remains configured to build `main` from `/`; remote `main` was last verified at `d8a37314ed7d2265f3f949c9e048b5e2beadfc20`. Phase 3 visual/functional validation is complete; mobile Lighthouse performance remains unresolved and prevents release readiness.
+The Phase 2 branch `phase-2/css-js-extraction` and original Phase 0–1 baseline branch `test/portfolio-baseline-phase-0-1` remain preserved locally and on GitHub. Validated Phase 2 source checkpoint `64cdbbe4a86a128e11d474af956e9c07ad990c82` is pushed; the defer experiment was reverted. Experiment evidence is preserved locally at `9e1051c96476395910d9551f3b17d0d6e1d5c40a`. Phase 3 checkpoint `b6ceeec2e049fe8303bc14f0325a8fff1b4ce93c` was pushed to `phase-3/simplification` for backup/review. The Phase 4 inventory checkpoint `6bd3a4781d49568620bb42ea06c8bcca5d3585d7` is committed locally. The revised Phase 4 proposal/tracker are documentation changes for review; the branch has not been pushed. No changes were merged, deployed, or published. GitHub Pages remains configured to build `main` from `/`; remote `main` was last verified at `d8a37314ed7d2265f3f949c9e048b5e2beadfc20`. Phase 3 visual/functional validation is complete; mobile Lighthouse performance remains unresolved and prevents release readiness.
 
-**Current blocker:** mobile Lighthouse budgets fail; French mobile TBT is 925 ms (Phase 2: 380.5 ms; original baseline: 208.5 ms). Phase 3 is structurally complete and pushed for review, but release readiness is blocked. The performance cause has not been separately investigated. The Phase 4 proposal is for review only; wait for approval before implementation. Nothing was merged, deployed, or published, and `main` remains unchanged.
+**Current blocker:** mobile Lighthouse budgets fail; French mobile TBT is 925 ms (Phase 2: 380.5 ms; original baseline: 208.5 ms). Phase 3 is structurally complete and pushed for review, but release readiness is blocked. The performance cause has not been separately investigated. The revised Phase 4 proposal is awaiting approval; implementation is paused. Nothing was merged, deployed, or published, and `main` remains unchanged.
+
+
+## Phase 4 order decision and current pause
+
+**Decision:** the user confirmed the tablet’s different project order was unintentional and approved one canonical sequence across every responsive layout and both locales: Pilates → Longread → Tour de parole → Inside Out → Celimax → Napoli. This is an approved content-order change. Preserve the frozen original inventory as history; do not overwrite its captures or records.
+
+**Implementation state:** no Phase 4 application changes are in progress. An incomplete, uncommitted data-schema/validator draft was discarded when the user requested approval of the revised plan first. The only Phase 4 accomplishment remains the read-only inventory milestone (1/6).
+
+**Next decision:** approve the revised Phase 4 plan in `docs/phase-4-architecture-proposal.md` before schema, templates, or generated output implementation begins. Nothing has been merged, deployed, published, or pushed from this Phase 4 branch.

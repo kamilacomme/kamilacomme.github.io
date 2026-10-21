@@ -1,15 +1,15 @@
 # Phase 4 architecture proposal
 
-**Status: proposal only; implementation is not authorized. Recommendation: choose B, generated French and English static HTML, after a staged parity migration.** This plan covers the shared-content work Phase 3 deferred. It preserves the current visual layouts and browser behavior while making project content, localization, media references, and ordering have one maintained source.
+**Status: revised proposal awaiting user approval before implementation.** Approach B (generated French and English static HTML) remains the approved architecture direction, but the approved project-order correction changes the data and parity contract below. Phase 4 implementation is paused until this revised plan is approved. The plan covers shared-content work deferred from Phase 3 while preserving responsive presentation and browser behavior.
 
 ## Proposed sources and outputs
 
 - `content/projects.json`: one stable record for each of the six project IDs. Each record owns its active URL, accessible label, media/poster/sequence paths, and French and English title, description, and tags. Explicit `layoutOverrides` retain real exceptions instead of normalizing punctuation, capitalization, or copy that currently varies by layout.
-- `content/project-order.json`: four explicit order arrays: desktop, tablet portrait, tablet landscape, and mobile. Portrait and landscape remain separate even though their current orders match.
+- `content/project-order.json`: exactly one canonical project-order array used by desktop, tablet portrait, tablet landscape, and mobile in both languages: Pilates → Longread → Tour de parole → Inside Out → Celimax → Napoli. Do not create layout- or locale-specific order arrays. The existing tablet order is confirmed to be unintentional; matching it to the canonical sequence is an explicitly approved content-order change.
 - Shared content templates: a project-card content template supplies the same data to the four existing layout-specific shells. It does not force one shared geometry or DOM structure. The About section can use five bilingual card-content records expanded at build time into its existing desktop, tablet, and mobile wrappers.
 - A dependency-free Node generator/validator produces both localized static documents from the shared page/layout templates, project data, and translation dictionaries. Generated outputs are committed because GitHub Pages serves static files and does not run this repository's build. The generator must be deterministic and provide a check-only mode for stale output.
 
-Use the frozen `tests/baseline/content-inventory.json` as the extraction oracle. It records all 48 project/layout/language records, exact assets, URLs, descriptions, tags, and order. The source should be compact: six project identities plus localized fields and only necessary layout overrides, rather than maintaining 48 independent full records. Asset manifests should be references in project records, not copied path strings in per-layout templates.
+Use the frozen `tests/baseline/content-inventory.json` as the historical source oracle for all 48 project/layout/language records, exact assets, URLs, descriptions, and tags. It also records the legacy tablet order; that order is retained as historical evidence but is explicitly superseded by the approved canonical order for generated output. Validate all fields against the inventory except this documented order delta, and assert that all four generated responsive shells and both languages emit the same six IDs in canonical order. The source should be compact: six project identities plus localized fields and only necessary layout overrides, not 48 independent full records. Asset manifests should be references in project records, not copied path strings in per-layout templates.
 
 ## Language architecture: A versus B
 
@@ -26,7 +26,7 @@ B is the cleaner long-term architecture. A is the safest temporary bridge during
 
 Two generated HTML documents are compatible with the existing runtime in principle. `support.js` parses the current document's `<x-dc>` source, mounts its React root, and may fetch `location.href` to re-read that same source. With static `/` and `/en/` documents, each fetch returns that route's own complete localized source. Each document keeps one `<x-dc>` structure, one `data-dc-script`/`data-props` block, runtime scripts in the same initialization order, and the exact IDs, data attributes, and ref names (`cardRef`, `tCardRef`, `mCardRef`, and others) expected by `support.js` and `portfolio-controller.js`. The runtime binds refs to that page's elements in the same way it does today; it does not need both languages in one DOM or a new renderer.
 
-The generator must emit valid `x-dc` input and preserve ref identity, layout-specific card counts/order, and `data-i` indices exactly. Generate and verify the desktop iframe documents as well (`desktop-project-embedded.html` and `/en/desktop-project-embedded.html`) so the existing iframe remains functional. This compatibility is a strong architectural fit, not a claim of parity without tests: first validate one generated section in both languages, then each route and all eight responsive profiles before removing the loader.
+The generator must emit valid `x-dc` input and preserve ref identity and layout-specific card counts. It must emit the approved canonical project order in every shell and derive each card’s project content, image/video media, links, accessible labels and `data-i` index from that same project record. Generate and verify the desktop iframe documents as well (`desktop-project-embedded.html` and `/en/desktop-project-embedded.html`) so the existing iframe remains functional. This compatibility is a strong architectural fit, not a claim of parity without tests: first validate one generated section in both languages, then each route and all eight responsive profiles before removing the loader.
 
 ### Locale, switching, metadata, and translation ownership
 
@@ -43,20 +43,20 @@ The migration temporarily retains A while building B in a separate output direct
 
 ## Preservation constraints
 
-- Keep desktop/tablet/mobile wrappers, responsive card order, required element IDs and React refs, animation controllers, project scrolling and video/image-sequence lifecycle in their existing owners.
+- Keep desktop/tablet/mobile wrappers, required element IDs and React refs, animation controllers, project scrolling and video/image-sequence lifecycle in their existing owners. The card sequence changes to the explicitly approved canonical order in every responsive shell.
 - Preserve the documented category and description differences as explicit layout overrides until a content owner approves changing copy.
 - Preserve current media ordering, preload behavior, poster use, accessible labels, link destinations, and the English mobile image-sequence DOM behavior under regression tests. This phase does not authorize cleanup of legacy discrepancies or asset optimization.
 - About deduplication shares content definitions only. Its three layout shells, refs and animation choreography stay intact; do not revive the failed one-tree runtime experiment.
 
 ## Reviewable milestones and gates
 
-1. **Schema and parity contract:** define IDs, locale fields, layout overrides, media references and four orders; validate exact equality against the frozen 48-record inventory. No application output changes yet.
+1. **Schema and parity contract:** define IDs, locale fields, layout overrides and media references; store one six-ID canonical order. Validate all frozen 48-record content, links, media and accessibility fields, with the tablet-order difference recorded as the sole approved order exception. No generated page output changes until the revised plan is approved.
 2. **Shared templates and data:** migrate one project through one existing shell first; verify exact text/URLs/assets/order and refs. Then generate the remaining layout shells from shared records in small commits.
 3. **Static English route:** generate a complete `/en/` page and English iframe from the shared templates/dictionaries; migrate the non-translation responsibilities out of `en/i18n.js`. Verify raw response metadata, both language links, anchors, runtime initialization and English tablet Footer behavior.
 4. **About shared content:** generate the existing three About wrappers from five bilingual content records; preserve refs and test animation states, Footer and legal interactions. Do not merge the three layout DOM structures.
 5. **Phase 4 acceptance:** deterministic generated-output check, exact inventory parity, full eight-profile visual/functional gate, locked reference integrity, independent diff review, and a measured duplication report. Update references only for separately approved design changes.
 
-The measurable target is six maintained project identities instead of 48 full project/layout/language content records, four explicit order lists, and five About card-content definitions instead of 15 maintained card copies. Layout shells and their generated runtime DOM remain distinct where behavior requires it. These targets describe authored source reduction, not a promise to reduce generated HTML bytes or improve Lighthouse. The mobile performance blocker remains separate and release readiness stays blocked until addressed under explicit authorization.
+The measurable target is six maintained project identities instead of 48 full project/layout/language content records, one canonical six-ID order array instead of four layout order lists, and five About card-content definitions instead of 15 maintained card copies. Layout shells and their generated runtime DOM remain distinct where behavior requires it. These targets describe authored source reduction, not a promise to reduce generated HTML bytes or improve Lighthouse. The mobile performance blocker remains separate and release readiness stays blocked until addressed under explicit authorization.
 
 ## Main risks
 
@@ -65,3 +65,8 @@ Text extraction can lose exact typography or layout-specific punctuation; asset 
 ## Asset preservation contract
 
 Phase 4 centralizes references; it does not authorize deleting, replacing, recompressing, or optimizing files. Keep every asset in the frozen inventory, preserve paths, and compare file count, byte length, and SHA-256 to the baseline. Any asset that appears unused remains untouched until a separately approved asset review. Project records may change where references are authored, but generated markup must resolve to the exact existing media and poster paths.
+
+
+## Approved project-order change
+
+The user confirmed that the tablet-specific project order was unintended and approved one canonical order for all layouts and languages: **Pilates → Longread → Tour de parole → Inside Out → Celimax → Napoli**. This is an approved content-order change, not a visual-parity invariant. Each card’s title, description, associated images/videos, destination link and accessibility labels must travel together from its canonical project record. Existing presentation styles, geometry, media behavior, animations, responsive rules and interactions remain in scope for preservation. The frozen Phase 0–1 inventory must not be rewritten; it remains the historical comparator and the old tablet order must be reported as superseded. Generated outputs and tests should separately verify the ordered project IDs and each complete card record.

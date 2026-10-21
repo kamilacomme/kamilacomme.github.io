@@ -38,4 +38,12 @@
 
 ## Current work
 
-Remaining scripts are the high-risk `text/x-dc` controller and the independent generic project-mount/fit controller. The data controller is read as text by the original runtime; preserve it inline until the separately reviewed factory bridge is verified. Continue from the current branch head; do not reset the workspace or update the frozen references.
+### Main runtime controller — extracted, final gate complete
+
+- Moved the original `Component extends DCLogic` class body verbatim into root-level `portfolio-controller.js`, wrapped in a factory receiving the runtime's `DCLogic` and `React` objects.
+- Kept the original `type="text/x-dc"`, `data-dc-script`, exact `data-props`, and a minimal text bridge. The factory classic script loads synchronously immediately before the bridge; root-level placement preserves the controller's relative dynamic-import fallback.
+- `node --check portfolio-controller.js` passed. A source check confirmed the original controller body is present verbatim and its metadata remains unchanged. The full gate passed: 42 passed, 6 existing skips, no failures; 230 frozen hashes passed before and after.
+- Full verification was run once after all extraction changes: `npm test` across all eight profiles, including functional, media, visual and responsive checks.
+- Lighthouse was run once at phase completion: 12 complete reports saved under `tests/phase-2/performance/`. `npm run test:performance:compare` reports one unresolved French mobile TBT regression (candidate median 380.5 ms vs 208.5 ms baseline; comparator limit 308.5 ms). Other metric budgets passed. No Lighthouse rerun or performance optimization was performed.
+
+The extraction and behavior checks are complete. Phase 2 is not pushed or deployed. See [`phase-2-report.md`](phase-2-report.md) for the final review, performance findings and remaining risk. Wait for explicit approval before Phase 3.

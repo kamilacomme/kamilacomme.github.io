@@ -29,4 +29,13 @@
 
 ## Current work
 
-Continue with mobile controllers, preserving their source order. The `text/x-dc` controller is read as text by the original runtime and must remain inline unless a separately verified factory bridge is introduced. Continue from the current branch head; do not reset the workspace or update the frozen references.
+### Mobile project controllers — complete
+
+- Extracted mobile preview playback, timed project image sequences and mobile canvas fitting into three classic scripts under `scripts/projects/`, in original order.
+- `node --check` passed for each file; `git diff --check` and the 230-artifact lock passed.
+- Targeted regression: `npm test -- --project=mobile-fr --project=mobile-en` — 10 passed, 2 pre-existing responsive skips, no failures or flakes. Covered French/English rendering, all projects, natural preview playback and image sequences, navigation and mobile visual references.
+- Lighthouse was not rerun for this structural extraction.
+
+## Current work
+
+Remaining scripts are the high-risk `text/x-dc` controller and the independent generic project-mount/fit controller. The data controller is read as text by the original runtime; preserve it inline until the separately reviewed factory bridge is verified. Continue from the current branch head; do not reset the workspace or update the frozen references.

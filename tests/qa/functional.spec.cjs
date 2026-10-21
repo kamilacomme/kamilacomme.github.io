@@ -72,12 +72,15 @@ test('rendering, localized content, responsive branch and all project links',asy
 test('navigation, About animation, footer and legal dialog interactions',async({page},info)=>{
  const {mode,language}=info.project.metadata;await h.ready(page,language);
  const nav=page.locator('[role="navigation"]');
- for(const label of language==='en'?['Projects','About','Contact']:['Projets','À propos','Contact']){
+ if(mode==='desktop') for(const label of language==='en'?['Projects','About','Contact']:['Projets','À propos','Contact']){
   const link=nav.getByRole('link',{name:label,exact:true});await link.click();
   const targetHash=new URL(page.url()).hash;
   await expect.poll(()=>page.evaluate(hash=>{const el=document.getElementById(hash.slice(1));if(!el)return 9999;const top=el.getBoundingClientRect().top+scrollY;const expected=Math.min(top,document.documentElement.scrollHeight-innerHeight);return Math.abs(scrollY-expected);},targetHash)).toBeLessThan(3);
   expect(new URL(page.url()).pathname).toBe(language==='en'?'/en/':'/');
   expect(new URL(page.url()).hash).toMatch(label==='Contact'?/#contact/:label==='About'||label==='À propos'?/#apropos(?:-t|-m)?/:/#projets(?:-t|-m)?/);
+ } else {
+  for(const href of ['#projets-'+(mode==='mobile'?'m':'t'),'#apropos-'+(mode==='mobile'?'m':'t'),'#contact']) await expect(nav.locator(`a[href="${href}"]`)).toBeHidden();
+  await expect(nav.locator('a[href^="mailto:"]')).toBeVisible();
  }
  const about=h.selectors(mode).about;
  await h.scrollSection(page,about,0);
@@ -118,10 +121,16 @@ test('project video playback and animated image sequences use real media',async(
  }
  if(mode==='mobile')for(const title of ['Tour de parole','Celimax','Napoli']){
    const target=cards.nth(h.expectedOrder[mode].indexOf(title));await target.scrollIntoViewIfNeeded();
-   const layers=target.locator('.visual img');await expect(layers).toHaveCount(3);
+   const id=title==='Tour de parole'?'tour-de-parole':title.toLowerCase();
+   const base=require('../baseline/content-inventory.json').mobileImageSequences[id];
+   const expectedSources=language==='en'?[...base,...base.slice(1)]:base;
+   const layers=target.locator('.visual img');await expect(layers).toHaveCount(expectedSources.length);
+   expect(await layers.evaluateAll(es=>es.map(e=>e.getAttribute('src')))).toEqual(expectedSources);
+   const visibleCycle=language==='en'?[0,3,4]:[0,1,2];
    const visible=()=>layers.evaluateAll(es=>{const visible=es.map((e,i)=>({i,opacity:+getComputedStyle(e).opacity})).filter(x=>x.opacity>.99);return visible.length===1?visible[0].i:null;});
-   await expect.poll(visible,{timeout:4500}).not.toBeNull();
-   const first=await visible();
-   await expect.poll(visible,{timeout:4500}).toBe((first+1)%3);
+   let first=null;
+   await expect.poll(async()=>{const current=await visible();if(visibleCycle.includes(current))first=current;return first!==null;},{timeout:4500}).toBe(true);
+   expect(visibleCycle).toContain(first);
+   await expect.poll(visible,{timeout:6000}).toBe(visibleCycle[(visibleCycle.indexOf(first)+1)%visibleCycle.length]);
  }
 });

@@ -105,10 +105,17 @@ as a substitute.
   file/line, exact reference and reference kind. These include local scripts/CSS,
   asset references and external URLs. An external literal is not necessarily an
   actual network request.
-- `mobileImageSequences`: ordered three-image sequences for Tour de parole,
+- `mobileImageSequences`: ordered three-image source sequences for Tour de parole,
   Celimax and Napoli. These are constructed from a base path and filenames in the
   original JavaScript; the asset reference list records that construction rather
   than incorrectly treating them as unused files.
+  In the current English mobile runtime, each slideshow also appends the last two
+  image nodes a second time, giving five DOM layers with source order
+  `[first, second, third, second, third]`. French has three layers. The functional
+  test records and checks this existing language difference while checking that
+  exactly one layer is visible and the active image advances. The duplicate
+  English nodes visually cover the original second and third nodes, so its
+  visible layer indices cycle through `0, 3, 4`.
 - `runtimeDependencies`: original React/React DOM URLs and SRI, conditional Babel
   loader, Three.js module URL and font hosts.
 - `sourceIntegrity`: byte sizes and SHA-256 for all **51** original tracked files.

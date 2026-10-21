@@ -2,14 +2,16 @@
 
 Updated: 2026-10-21. This tracker records verified milestones; it does not authorize later phases.
 
-**Current branch:** `experiment/defer-project-scripts`
+**Current branch:** `phase-3/simplification`
 
 **Latest validated Phase 2 source checkpoint:** `64cdbbe4a86a128e11d474af956e9c07ad990c82`
 
 **Latest experiment evidence checkpoint:** `9e1051c96476395910d9551f3b17d0d6e1d5c40a`
-**Current task:** propose Phase 3 architecture for approval; no implementation is authorized yet.
+**Current Phase 3 branch checkpoint:** `e1bf42a` (branched from validated Phase 2; evidence-only commits carried forward)
 
-**Next planned task:** begin the first approved Phase 3 milestone only after user approval.
+**Current task:** verify and consolidate the shared About structure, beginning with its single-tree feasibility gate.
+
+**Next planned task:** finish the About feasibility gate; stop and report if one tree requires fragile layout workarounds or changes a reference.
 
 ## Roadmap
 
@@ -18,7 +20,7 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 | 0 | Read-only audit of responsive implementations, content, risks and architecture | Complete |
 | 1 | Baseline inventory, screenshots, Playwright gates and Lighthouse references | Complete |
 | 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — extraction, visual/functional validation and user inspection passed; French mobile TBT remains an open release blocker |
-| 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | Not started |
+| 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | In progress — implementation branch created; About feasibility gate first |
 | 4 | Centralize project data and French/English translations | Not started |
 | 5 | Improve semantic structure and accessibility while preserving approved text and SEO values | Not started |
 | 6 | Review asset loading and make separately approved performance improvements | Not started |
@@ -94,4 +96,4 @@ Open `http://127.0.0.1:8000/` for French and `http://127.0.0.1:8000/en/` for Eng
 
 The Phase 2 branch `phase-2/css-js-extraction` and original Phase 0–1 baseline branch `test/portfolio-baseline-phase-0-1` remain preserved locally and on GitHub. Validated Phase 2 source checkpoint `64cdbbe4a86a128e11d474af956e9c07ad990c82` is pushed; the defer experiment was reverted, so application files on this branch match that source. Experiment evidence is preserved locally at `9e1051c96476395910d9551f3b17d0d6e1d5c40a`; the current branch and follow-up docs are not pushed. Nothing is merged or deployed. GitHub Pages remains configured to build `main` from `/`; `main` remains at `d8a37314ed7d2265f3f949c9e048b5e2beadfc20`. Phase 3 implementation has not started.
 
-**Next decision needed:** approve or revise the Phase 3 architecture proposal. The TBT regression remains an open release blocker; no further investigation is authorized now. Phase 3 implementation remains stopped pending approval.
+**Next decision needed:** none for the approved Phase 3 scope. The About feasibility gate is in progress. French mobile TBT remains an open release blocker; no standalone investigation is authorized.

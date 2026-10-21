@@ -1,0 +1,2142 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/kamilacomme.github.io/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "tests/qa/playwright.config.cjs"
+    ],
+    "configFile": "/workspace/kamilacomme.github.io/tests/qa/playwright.config.cjs",
+    "rootDir": "/workspace/kamilacomme.github.io/tests/qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": "/workspace/kamilacomme.github.io/tests/qa/global-setup.cjs",
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/workspace/kamilacomme.github.io/artifacts/playwright/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "mode": "desktop",
+          "language": "fr",
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "isMobile": false,
+          "hasTouch": false,
+          "deviceScaleFactor": 1
+        },
+        "id": "desktop-fr",
+        "name": "desktop-fr",
+        "testDir": "/workspace/kamilacomme.github.io/tests/qa",
+        "testIgnore": [],
+        "testMatch": [
+          "/.*\\.spec\\.cjs/"
+        ],
+        "timeout": 300000
+      },
+      {
+        "outputDir": "/workspace/kamilacomme.github.io/artifacts/playwright/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "mode": "desktop",
+          "language": "en",
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "isMobile": false,
+          "hasTouch": false,
+          "deviceScaleFactor": 1
+        },
+        "id": "desktop-en",
+        "name": "desktop-en",
+        "testDir": "/workspace/kamilacomme.github.io/tests/qa",
+        "testIgnore": [],
+        "testMatch": [
+          "/.*\\.spec\\.cjs/"
+        ],
+        "timeout": 300000
+      },
+      {
+        "outputDir": "/workspace/kamilacomme.github.io/artifacts/playwright/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "mode": "tablet-portrait",
+          "language": "fr",
+          "viewport": {
+            "width": 834,
+            "height": 1112
+          },
+          "isMobile": true,
+          "hasTouch": true,
+          "deviceScaleFactor": 2
+        },
+        "id": "tablet-portrait-fr",
+        "name": "tablet-portrait-fr",
+        "testDir": "/workspace/kamilacomme.github.io/tests/qa",
+        "testIgnore": [],
+        "testMatch": [
+          "/.*\\.spec\\.cjs/"
+        ],
+        "timeout": 300000
+      },
+      {
+        "outputDir": "/workspace/kamilacomme.github.io/artifacts/playwright/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "mode": "tablet-portrait",
+          "language": "en",
+          "viewport": {
+            "width": 834,
+            "height": 1112
+          },
+          "isMobile": true,
+          "hasTouch": true,
+          "deviceScaleFactor": 2
+        },
+        "id": "tablet-portrait-en",
+        "name": "tablet-portrait-en",
+        "testDir": "/workspace/kamilacomme.github.io/tests/qa",
+        "testIgnore": [],
+        "testMatch": [
+          "/.*\\.spec\\.cjs/"
+        ],
+        "timeout": 300000
+      },
+      {
+        "outputDir": "/workspace/kamilacomme.github.io/artifacts/playwright/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "mode": "tablet-landscape",
+          "language": "fr",
+          "viewport": {
+            "width": 1194,
+            "height": 834
+          },
+          "isMobile": true,
+          "hasTouch": true,
+          "deviceScaleFactor": 2
+        },
+        "id": "tablet-landscape-fr",
+        "name": "tablet-landscape-fr",
+        "testDir": "/workspace/kamilacomme.github.io/tests/qa",
+        "testIgnore": [],
+        "testMatch": [
+          "/.*\\.spec\\.cjs/"
+        ],
+        "timeout": 300000
+      },
+      {
+        "outputDir": "/workspace/kamilacomme.github.io/artifacts/playwright/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "mode": "tablet-landscape",
+          "language": "en",
+          "viewport": {
+            "width": 1194,
+            "height": 834
+          },
+          "isMobile": true,
+          "hasTouch": true,
+          "deviceScaleFactor": 2
+        },
+        "id": "tablet-landscape-en",
+        "name": "tablet-landscape-en",
+        "testDir": "/workspace/kamilacomme.github.io/tests/qa",
+        "testIgnore": [],
+        "testMatch": [
+          "/.*\\.spec\\.cjs/"
+        ],
+        "timeout": 300000
+      },
+      {
+        "outputDir": "/workspace/kamilacomme.github.io/artifacts/playwright/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "mode": "mobile",
+          "language": "fr",
+          "viewport": {
+            "width": 393,
+            "height": 852
+          },
+          "isMobile": true,
+          "hasTouch": true,
+          "deviceScaleFactor": 2
+        },
+        "id": "mobile-fr",
+        "name": "mobile-fr",
+        "testDir": "/workspace/kamilacomme.github.io/tests/qa",
+        "testIgnore": [],
+        "testMatch": [
+          "/.*\\.spec\\.cjs/"
+        ],
+        "timeout": 300000
+      },
+      {
+        "outputDir": "/workspace/kamilacomme.github.io/artifacts/playwright/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "mode": "mobile",
+          "language": "en",
+          "viewport": {
+            "width": 393,
+            "height": 852
+          },
+          "isMobile": true,
+          "hasTouch": true,
+          "deviceScaleFactor": 2
+        },
+        "id": "mobile-en",
+        "name": "mobile-en",
+        "testDir": "/workspace/kamilacomme.github.io/tests/qa",
+        "testIgnore": [],
+        "testMatch": [
+          "/.*\\.spec\\.cjs/"
+        ],
+        "timeout": 300000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "artifacts/playwright/results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "artifacts/playwright/report",
+          "open": "never"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "none",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "functional.spec.cjs",
+      "file": "functional.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "rendering, localized content, responsive branch and all project links",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-fr",
+              "projectName": "desktop-fr",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9422,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:37:42.307Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-2c735bcd83773d00c88b",
+          "file": "functional.spec.cjs",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "navigation, About animation, footer and legal dialog interactions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-fr",
+              "projectName": "desktop-fr",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7438,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:37:51.948Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-f3e65200ec9fbb96297d",
+          "file": "functional.spec.cjs",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "project video playback and animated image sequences use real media",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-fr",
+              "projectName": "desktop-fr",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5735,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:37:59.401Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-92933de989c342e88a71",
+          "file": "functional.spec.cjs",
+          "line": 108,
+          "column": 1
+        },
+        {
+          "title": "rendering, localized content, responsive branch and all project links",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-en",
+              "projectName": "desktop-en",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9168,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:39:12.441Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-fff3bbec87cf1d05e5da",
+          "file": "functional.spec.cjs",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "navigation, About animation, footer and legal dialog interactions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-en",
+              "projectName": "desktop-en",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8243,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:39:21.833Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-3495fbd07677c916ccad",
+          "file": "functional.spec.cjs",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "project video playback and animated image sequences use real media",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-en",
+              "projectName": "desktop-en",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5769,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:39:30.088Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-4f8f4597ea2ec6781aa1",
+          "file": "functional.spec.cjs",
+          "line": 108,
+          "column": 1
+        },
+        {
+          "title": "rendering, localized content, responsive branch and all project links",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-portrait-fr",
+              "projectName": "tablet-portrait-fr",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8891,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:40:37.367Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-967f31c1c324d5e82ec3",
+          "file": "functional.spec.cjs",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "navigation, About animation, footer and legal dialog interactions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-portrait-fr",
+              "projectName": "tablet-portrait-fr",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6127,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:40:46.487Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-7ac52b0d1963878025b7",
+          "file": "functional.spec.cjs",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "project video playback and animated image sequences use real media",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-portrait-fr",
+              "projectName": "tablet-portrait-fr",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5216,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:40:52.628Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-bf280d7df1980c2ce456",
+          "file": "functional.spec.cjs",
+          "line": 108,
+          "column": 1
+        },
+        {
+          "title": "rendering, localized content, responsive branch and all project links",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-portrait-en",
+              "projectName": "tablet-portrait-en",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8501,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:41:51.800Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-8d21d35cf31c75af7a69",
+          "file": "functional.spec.cjs",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "navigation, About animation, footer and legal dialog interactions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-portrait-en",
+              "projectName": "tablet-portrait-en",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5224,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:42:00.592Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-35f17dd10dfa460ae2c4",
+          "file": "functional.spec.cjs",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "project video playback and animated image sequences use real media",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-portrait-en",
+              "projectName": "tablet-portrait-en",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4766,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:42:05.841Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-3afe10621ef782a6432c",
+          "file": "functional.spec.cjs",
+          "line": 108,
+          "column": 1
+        },
+        {
+          "title": "rendering, localized content, responsive branch and all project links",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-landscape-fr",
+              "projectName": "tablet-landscape-fr",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8811,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:42:57.009Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-361a78e12740cdafec83",
+          "file": "functional.spec.cjs",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "navigation, About animation, footer and legal dialog interactions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-landscape-fr",
+              "projectName": "tablet-landscape-fr",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5840,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:43:06.077Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-4943f020e13c9ea4bf05",
+          "file": "functional.spec.cjs",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "project video playback and animated image sequences use real media",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-landscape-fr",
+              "projectName": "tablet-landscape-fr",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4948,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:43:11.933Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-48b7c6b4196973ec0646",
+          "file": "functional.spec.cjs",
+          "line": 108,
+          "column": 1
+        },
+        {
+          "title": "rendering, localized content, responsive branch and all project links",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-landscape-en",
+              "projectName": "tablet-landscape-en",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7736,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:44:07.533Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-596b9ecc9bc00c8135b8",
+          "file": "functional.spec.cjs",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "navigation, About animation, footer and legal dialog interactions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-landscape-en",
+              "projectName": "tablet-landscape-en",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5545,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:44:15.483Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-0fe184b23d505a88da13",
+          "file": "functional.spec.cjs",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "project video playback and animated image sequences use real media",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-landscape-en",
+              "projectName": "tablet-landscape-en",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4594,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:44:21.039Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-e67d48d653be317d2677",
+          "file": "functional.spec.cjs",
+          "line": 108,
+          "column": 1
+        },
+        {
+          "title": "rendering, localized content, responsive branch and all project links",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-fr",
+              "projectName": "mobile-fr",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7655,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:45:18.624Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-d8668efbaf0f6551baf7",
+          "file": "functional.spec.cjs",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "navigation, About animation, footer and legal dialog interactions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-fr",
+              "projectName": "mobile-fr",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3886,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:45:26.500Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-272b787ee43f7da831ed",
+          "file": "functional.spec.cjs",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "project video playback and animated image sequences use real media",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-fr",
+              "projectName": "mobile-fr",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10883,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:45:30.399Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-48903db1903f97465ad9",
+          "file": "functional.spec.cjs",
+          "line": 108,
+          "column": 1
+        },
+        {
+          "title": "rendering, localized content, responsive branch and all project links",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-en",
+              "projectName": "mobile-en",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8007,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:46:14.604Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-c76b796db28a20af4d43",
+          "file": "functional.spec.cjs",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "navigation, About animation, footer and legal dialog interactions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-en",
+              "projectName": "mobile-en",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4189,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:46:22.874Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-add5120dccda9eaac07c",
+          "file": "functional.spec.cjs",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "project video playback and animated image sequences use real media",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-en",
+              "projectName": "mobile-en",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7076,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:46:27.078Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "316d40bbf8c2c1ff9670-fe0b83e5c604b52919fc",
+          "file": "functional.spec.cjs",
+          "line": 108,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "projects.spec.cjs",
+      "file": "projects.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "every project presentation has a readable reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-fr",
+              "projectName": "desktop-fr",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13776,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:38:05.173Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "project-capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/projects-every-project-presentation-has-a-readable-reference-desktop-fr/attachments/project-capture-manifest-9f247e7895a92da7dfa910625338abce6228df8e.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6996b3ba10f2fb05fcc5-49a0dcd5eed60cbb1283",
+          "file": "projects.spec.cjs",
+          "line": 7,
+          "column": 1
+        },
+        {
+          "title": "every project presentation has a readable reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-en",
+              "projectName": "desktop-en",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12443,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:39:35.875Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "project-capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/projects-every-project-presentation-has-a-readable-reference-desktop-en/attachments/project-capture-manifest-4d41c3adbf00b9b9d09c50faa3004effc9758717.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6996b3ba10f2fb05fcc5-20f44166cc55bdebf56a",
+          "file": "projects.spec.cjs",
+          "line": 7,
+          "column": 1
+        },
+        {
+          "title": "every project presentation has a readable reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-portrait-fr",
+              "projectName": "tablet-portrait-fr",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8434,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:40:57.890Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "project-capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/projects-every-project-presentation-has-a-readable-reference-tablet-portrait-fr/attachments/project-capture-manifest-1ee7feb5b28be36afd64001a6488faea078d9000.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6996b3ba10f2fb05fcc5-84280063972b01b9f51e",
+          "file": "projects.spec.cjs",
+          "line": 7,
+          "column": 1
+        },
+        {
+          "title": "every project presentation has a readable reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-portrait-en",
+              "projectName": "tablet-portrait-en",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8110,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:42:10.634Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "project-capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/projects-every-project-presentation-has-a-readable-reference-tablet-portrait-en/attachments/project-capture-manifest-6232f73429cf4847f2c9afb448d71935d22806bb.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6996b3ba10f2fb05fcc5-528a2476c04519f36418",
+          "file": "projects.spec.cjs",
+          "line": 7,
+          "column": 1
+        },
+        {
+          "title": "every project presentation has a readable reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-landscape-fr",
+              "projectName": "tablet-landscape-fr",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8320,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:43:16.905Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "project-capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/projects-every-project-presentation-has-a-readable-reference-tablet-landscape-fr/attachments/project-capture-manifest-47b5531e6e9f218f9777a8aa1637e3d8c3fe7912.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6996b3ba10f2fb05fcc5-dede9529cf6ece9c0968",
+          "file": "projects.spec.cjs",
+          "line": 7,
+          "column": 1
+        },
+        {
+          "title": "every project presentation has a readable reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-landscape-en",
+              "projectName": "tablet-landscape-en",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7742,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:44:25.652Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "project-capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/projects-every-project-presentation-has-a-readable-reference-tablet-landscape-en/attachments/project-capture-manifest-d282344687ac27248d4d3828b610ea3ea268e4c9.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6996b3ba10f2fb05fcc5-545fcafd46cff1280934",
+          "file": "projects.spec.cjs",
+          "line": 7,
+          "column": 1
+        },
+        {
+          "title": "every project presentation has a readable reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-fr",
+              "projectName": "mobile-fr",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7497,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:45:41.308Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "project-capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/projects-every-project-presentation-has-a-readable-reference-mobile-fr/attachments/project-capture-manifest-3bbe8ba2fe3495435701f2d0ef400797706ce2cb.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6996b3ba10f2fb05fcc5-0d7500dceaf5f68bead4",
+          "file": "projects.spec.cjs",
+          "line": 7,
+          "column": 1
+        },
+        {
+          "title": "every project presentation has a readable reference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-en",
+              "projectName": "mobile-en",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6829,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:46:34.173Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "project-capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/projects-every-project-presentation-has-a-readable-reference-mobile-en/attachments/project-capture-manifest-ac5d6e788dfc13eb2aa74669ecded14cad2d13ca.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6996b3ba10f2fb05fcc5-ab051554a2f8c8adafd9",
+          "file": "projects.spec.cjs",
+          "line": 7,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "responsive.spec.cjs",
+      "file": "responsive.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "responsive breakpoint and rotation contracts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-fr",
+              "projectName": "desktop-fr",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5171,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:38:18.965Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1d106208c27409f3c164-867f2e2dd5a38c5a8dc7",
+          "file": "responsive.spec.cjs",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "responsive breakpoint and rotation contracts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Boundary matrix runs once per pointer profile; bilingual layout captures run separately",
+                  "location": {
+                    "file": "/workspace/kamilacomme.github.io/tests/qa/responsive.spec.cjs",
+                    "line": 5,
+                    "column": 7
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "desktop-en",
+              "projectName": "desktop-en",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 231,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:39:48.331Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Boundary matrix runs once per pointer profile; bilingual layout captures run separately",
+                      "location": {
+                        "file": "/workspace/kamilacomme.github.io/tests/qa/responsive.spec.cjs",
+                        "line": 5,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "1d106208c27409f3c164-2560d06c7c3b67f84fba",
+          "file": "responsive.spec.cjs",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "responsive breakpoint and rotation contracts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-portrait-fr",
+              "projectName": "tablet-portrait-fr",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6276,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:41:06.344Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1d106208c27409f3c164-3b3408c98895969d2cfd",
+          "file": "responsive.spec.cjs",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "responsive breakpoint and rotation contracts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Boundary matrix runs once per pointer profile; bilingual layout captures run separately",
+                  "location": {
+                    "file": "/workspace/kamilacomme.github.io/tests/qa/responsive.spec.cjs",
+                    "line": 5,
+                    "column": 7
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "tablet-portrait-en",
+              "projectName": "tablet-portrait-en",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 247,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:42:18.758Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Boundary matrix runs once per pointer profile; bilingual layout captures run separately",
+                      "location": {
+                        "file": "/workspace/kamilacomme.github.io/tests/qa/responsive.spec.cjs",
+                        "line": 5,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "1d106208c27409f3c164-7ab52cd324b16028afad",
+          "file": "responsive.spec.cjs",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "responsive breakpoint and rotation contracts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Boundary matrix runs once per pointer profile; bilingual layout captures run separately",
+                  "location": {
+                    "file": "/workspace/kamilacomme.github.io/tests/qa/responsive.spec.cjs",
+                    "line": 5,
+                    "column": 7
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "tablet-landscape-fr",
+              "projectName": "tablet-landscape-fr",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 270,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:43:25.240Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Boundary matrix runs once per pointer profile; bilingual layout captures run separately",
+                      "location": {
+                        "file": "/workspace/kamilacomme.github.io/tests/qa/responsive.spec.cjs",
+                        "line": 5,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "1d106208c27409f3c164-d100a4d791a5cebe0a62",
+          "file": "responsive.spec.cjs",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "responsive breakpoint and rotation contracts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Boundary matrix runs once per pointer profile; bilingual layout captures run separately",
+                  "location": {
+                    "file": "/workspace/kamilacomme.github.io/tests/qa/responsive.spec.cjs",
+                    "line": 5,
+                    "column": 7
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "tablet-landscape-en",
+              "projectName": "tablet-landscape-en",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 265,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:44:33.411Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Boundary matrix runs once per pointer profile; bilingual layout captures run separately",
+                      "location": {
+                        "file": "/workspace/kamilacomme.github.io/tests/qa/responsive.spec.cjs",
+                        "line": 5,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "1d106208c27409f3c164-7e88166994ce54a6f39a",
+          "file": "responsive.spec.cjs",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "responsive breakpoint and rotation contracts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Boundary matrix runs once per pointer profile; bilingual layout captures run separately",
+                  "location": {
+                    "file": "/workspace/kamilacomme.github.io/tests/qa/responsive.spec.cjs",
+                    "line": 5,
+                    "column": 7
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "mobile-fr",
+              "projectName": "mobile-fr",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 257,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:45:48.823Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Boundary matrix runs once per pointer profile; bilingual layout captures run separately",
+                      "location": {
+                        "file": "/workspace/kamilacomme.github.io/tests/qa/responsive.spec.cjs",
+                        "line": 5,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "1d106208c27409f3c164-0674ca0283994da79d9b",
+          "file": "responsive.spec.cjs",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "responsive breakpoint and rotation contracts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Boundary matrix runs once per pointer profile; bilingual layout captures run separately",
+                  "location": {
+                    "file": "/workspace/kamilacomme.github.io/tests/qa/responsive.spec.cjs",
+                    "line": 5,
+                    "column": 7
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "mobile-en",
+              "projectName": "mobile-en",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 212,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:46:41.028Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Boundary matrix runs once per pointer profile; bilingual layout captures run separately",
+                      "location": {
+                        "file": "/workspace/kamilacomme.github.io/tests/qa/responsive.spec.cjs",
+                        "line": 5,
+                        "column": 7
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "1d106208c27409f3c164-5f97c6a1cf267d75da67",
+          "file": "responsive.spec.cjs",
+          "line": 3,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "visual.spec.cjs",
+      "file": "visual.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "approved visual and animation states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-fr",
+              "projectName": "desktop-fr",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 47779,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:38:24.163Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/visual-approved-visual-and-animation-states-desktop-fr/attachments/capture-manifest-816268b3c552203de2fff2b00aa3f6ce13c4e22a.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8e7d348d2bbae87254cd-480dd9c5a0cd529e5eec",
+          "file": "visual.spec.cjs",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "approved visual and animation states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-en",
+              "projectName": "desktop-en",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 48294,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:39:48.582Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/visual-approved-visual-and-animation-states-desktop-en/attachments/capture-manifest-3f27be683e55fc6fc8e17fde7b10da6aeacd8d0a.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8e7d348d2bbae87254cd-05d190973cf90d979ab0",
+          "file": "visual.spec.cjs",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "approved visual and animation states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-portrait-fr",
+              "projectName": "tablet-portrait-fr",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 38596,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:41:12.650Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/visual-approved-visual-and-animation-states-tablet-portrait-fr/attachments/capture-manifest-2968e8c24960a7546e87441b2c546546400f5e03.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8e7d348d2bbae87254cd-359794874cb23ab1c53a",
+          "file": "visual.spec.cjs",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "approved visual and animation states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-portrait-en",
+              "projectName": "tablet-portrait-en",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 37404,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:42:19.024Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/visual-approved-visual-and-animation-states-tablet-portrait-en/attachments/capture-manifest-f739e757d81da429f8368958b565f9607824a27c.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8e7d348d2bbae87254cd-056ae48828c88752cff6",
+          "file": "visual.spec.cjs",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "approved visual and animation states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-landscape-fr",
+              "projectName": "tablet-landscape-fr",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 41532,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:43:25.533Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/visual-approved-visual-and-animation-states-tablet-landscape-fr/attachments/capture-manifest-39fe7c04e9ee09fc0b751646beef5718f411f5d1.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8e7d348d2bbae87254cd-3308c429f6d4eee9ea85",
+          "file": "visual.spec.cjs",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "approved visual and animation states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-landscape-en",
+              "projectName": "tablet-landscape-en",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 44293,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:44:33.696Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/visual-approved-visual-and-animation-states-tablet-landscape-en/attachments/capture-manifest-5ee44c1aa0b478d2c8b050f011681badd0633a83.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8e7d348d2bbae87254cd-7bcadbd4efa46d3aea7a",
+          "file": "visual.spec.cjs",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "approved visual and animation states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-fr",
+              "projectName": "mobile-fr",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 24968,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:45:49.105Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/visual-approved-visual-and-animation-states-mobile-fr/attachments/capture-manifest-7bd2c7cd971b35754b6525d7ffc3f6baa07573ee.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8e7d348d2bbae87254cd-09cc028916056322f8c2",
+          "file": "visual.spec.cjs",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "approved visual and animation states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 300000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-en",
+              "projectName": "mobile-en",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 24990,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-21T11:46:41.257Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "capture-manifest",
+                      "contentType": "application/json",
+                      "path": "/workspace/kamilacomme.github.io/artifacts/playwright/results/visual-approved-visual-and-animation-states-mobile-en/attachments/capture-manifest-a40e9f21d78685671a63492672dbf7abd1e27022.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8e7d348d2bbae87254cd-def64b19c67cfaad461f",
+          "file": "visual.spec.cjs",
+          "line": 11,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-21T11:37:41.913Z",
+    "duration": 564467.098,
+    "expected": 42,
+    "skipped": 6,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

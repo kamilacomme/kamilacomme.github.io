@@ -98,11 +98,14 @@ the original application files and reference images are never modified by it.
 
 ## Scope and limitations
 
-Visual captures use a seeded clock/randomness and sampled video frames, disclosed
-in each manifest. Natural-time functional and Lighthouse runs do not use those
-controls. Small screenshot tolerances are documented in the QA configuration;
-animation areas are not globally masked. Real Safari/iPad, hardware GPU timing,
-production CDN transfer and field INP are not established by this Chromium lab.
+Visual captures use a seeded clock/randomness and the original project posters,
+disclosed in each manifest. CSS animations are disabled for screenshot acquisition;
+the captured JavaScript-driven About, mobile image and curtain states still have
+explicit times and scroll positions. Natural-time functional and Lighthouse runs
+do not use those controls. Small screenshot tolerances are documented in the QA
+configuration; animation areas are not globally masked. Real Safari/iPad, hardware
+GPU timing, production CDN transfer and field INP are not established by this
+Chromium lab.
 
 Existing accessibility, consent and content discrepancies are recorded rather
 than corrected in these phases. Phase 2 remains subject to explicit user approval.

@@ -36,7 +36,7 @@ class Component extends DCLogic {
   }
   bgs = []; tickets = []; pSlides = {}; pSlideIdx = {};
   tBgs = []; tTickets = []; tCards = [];
-  mBgs = []; mTickets = []; mCards = [];
+  mCards = [];
   HOLD = 0.12; N = 6; BANDS = 11; TH = 416; OFF = 800;
   cards = []; CARD_H = 326; SPACING = 620;
   // section layout, in viewport heights
@@ -69,7 +69,7 @@ class Component extends DCLogic {
       // left the sections below black for the first seconds. The hero's own slides go first,
       // then everything else in small batches during idle time.
       const first = (this.heroSlides || []).concat(this.tHeroSlides || [], this.mHeroSlides || []).filter(Boolean);
-      const rest = [].concat(this.bgs || [], this.mBgs || []).filter(Boolean)
+      const rest = [].concat(this.bgs || []).filter(Boolean)
         .concat(this.root ? Array.from(this.root.querySelectorAll("[data-tmedia] div, [data-i] div")).slice(0, 60) : []);
       if (!first.length && !rest.length) { setTimeout(this._warmBgs, 300); return; }
       this._warmed = true;
@@ -282,7 +282,6 @@ class Component extends DCLogic {
       // the tablet block carries the SAME composition as the desktop one — black field, the
       // word behind the deck, one horizontal carousel — on its own tablet frame
       if (this.dRoot) this.dRoot.style.display = big ? "block" : "none";
-      if (this.mProj) this.mProj.style.display = mobile ? "block" : "none";
       if (this.about) this.about.style.display = big ? "block" : "none";
       if (this.heroTop) this.heroTop.style.display = big ? "block" : "none";
       if (this.heroBottom) this.heroBottom.style.display = big ? "block" : "none";
@@ -355,12 +354,11 @@ class Component extends DCLogic {
       const mFrameH = Math.round(viewH / (viewW / 390));
       this.sm = sm; this.mFrameH = mFrameH; this.mHeroFrameH = mHeroFrameH;
       if (this.mHero) this.mHero.style.height = mHeroFrameH + "px";
-      [this.mPStage, this.mAStage].forEach((el) => { if (el) el.style.height = mFrameH + "px"; });
+      [this.mAStage].forEach((el) => { if (el) el.style.height = mFrameH + "px"; });
       if (mobile) {
-        [this.mHero, this.mPStage, this.mAStage].forEach((el) => {
+        [this.mHero, this.mAStage].forEach((el) => {
           if (el) el.style.transform = "translate(-50%,-50%) scale(" + sm + ")";
         });
-        if (this.mWordmark) this.mWordmark.style.transform = "translateX(-50%) scale(" + sm + ")";
         const bw = (this.devW || window.innerWidth) * kFit;
         const bh = (this.devH || fullH) * kFit;
         const bl = (window.innerWidth - bw) / 2;
@@ -368,7 +366,6 @@ class Component extends DCLogic {
         // the sticky panel IS the phone screen: it pins at the frame's top edge and is
         // exactly one screen tall, so the project photo is cropped to the handset's
         // aspect and never paints a band above or below the frame
-        (this.mBgs || []).forEach((el) => { if (el) Object.assign(el.style, { left: "0px", top: "0px", right: "0px", bottom: "0px", width: "auto", height: "auto" }); });
         const aPanel = this.mAStage && this.mAStage.parentElement;
         if (aPanel) {
           this.mAPanel = aPanel;
@@ -382,14 +379,12 @@ class Component extends DCLogic {
             aPanel.parentElement.style.background = "#08080a";
           }
         }
-        const panels = [this.mBgs && this.mBgs[0] && this.mBgs[0].parentElement, aPanel];
+        const panels = [aPanel];
         panels.forEach((el) => {
           if (!el) return;
           Object.assign(el.style, { top: bt.toFixed(1) + "px", height: bh.toFixed(1) + "px",
             width: bw.toFixed(1) + "px", marginLeft: bl.toFixed(1) + "px" });
         });
-        if (this.mWordmark) this.mWordmark.style.bottom = (11 * sm).toFixed(1) + "px";
-        this.fitMobileRail(sm, kFit);
         // the phone runs the desktop projets carousel, so the About block does not start
         // where the 7-screen constant assumed — measure it instead of trusting a number
         const ab = mobile && this.root && this.root.querySelector("#apropos-m");
@@ -970,13 +965,9 @@ class Component extends DCLogic {
       // the multi-second blank gap it otherwise leaves the first time that section is seen
       const eager = v.dataset.eager === "1";
       const live = v.offsetParent !== null && (eager || !near || near(v));
-      // the mobile ticket rail (Napoli/TDP/Longread/Inside Out/Celimax) is simultaneously
-      // being translated every RAF frame by renderMobileRail()'s own scroll-driven reveal —
-      // a card can be visually on screen while its rect transiently reads as "not near"
-      // mid-transform. Fully evicting src (falling back to data-src + load()) on every such
-      // dip repeatedly restarted the same handful of small clips, which is what showed as
-      // grey placeholders and swapped-looking thumbnails. They're cheap enough to just pause
-      // instead of unloading; eviction still matters for the larger carousel clips.
+      // Mobile project tickets keep their authored positions in the scaled canvas. Pause
+      // offscreen clips without unloading their source so returning to a card does not restart
+      // its media request; larger carousel clips are still evicted when they leave the viewport.
       const isMobileTicket = !!v.dataset.poster && !v.dataset.hover && !v.dataset.gate;
       if (!live) {
         if (!v.paused) v.pause();
@@ -1076,146 +1067,6 @@ class Component extends DCLogic {
   // Figtree metrics for a word scaled so its ink measures targetInkW across
 
 
-  // The phone shows projects as a horizontal rail: vertical scroll drives the row
-  // sideways so every ticket is seen, then normal scrolling resumes. Tickets keep ONE
-  // fixed shape at every screen size — the whole 390 frame is uniformly scaled, so the
-  // card's proportions never change, only its size.
-  // The phone reads projects as a horizontal rail: vertical scroll drives the row
-  // sideways, then normal scrolling resumes. Everything below is laid out on the 390-wide
-  // design frame, which is uniformly scaled to the handset — so the ticket keeps ONE shape
-  // at every screen size. Vertical order is fixed: title, then the rail, then the caption.
-  M_TW = 326; M_TH = 468; M_GAP = 16;
-  mRailTickets() {
-    const sec = this.mProj || (this.root && this.root.querySelector("#projets-m"));
-    if (!sec) return [];
-    return Array.from(sec.querySelectorAll("[data-i]")).filter((el) => el.querySelector("span"));
-  }
-  fitMobileRail(sm, kFit) {
-    const frameH = this.mFrameH || 844;
-    if (this.mPStage) {
-      this.mPStage.style.width = "390px";
-      this.mPStage.style.height = frameH + "px";
-      this.mPStage.style.transform = "translate(-50%,-50%) scale(" + sm + ")";
-      this.mPStage.style.overflow = "visible";
-    }
-    // the backdrop is the section's own dark field, as it always was — none of the
-    // per-project photos are shown behind the rail
-    (this.mBgs || []).forEach((b) => { if (b) b.style.opacity = 0; });
-    const sec = this.mProj || (this.root && this.root.querySelector("#projets-m"));
-    const panel = sec && sec.querySelector("div[style*='position: sticky']");
-    (panel ? Array.from(panel.querySelectorAll(":scope > div")) : []).forEach((d) => {
-      if (/projets\/bg|url\(/.test(d.style.backgroundImage || "")) d.style.opacity = "0";
-    });
-
-    // vertical rhythm, measured off the reference: title block, rail, caption. On a frame
-    // shorter than the reference everything scales down together rather than colliding.
-    const K = Math.min(1, frameH / 844);
-    const titleTop = Math.round(96 * K);
-    const cardH = Math.round(this.M_TH * K);
-    let cardTop = Math.round(312 * K);
-
-    if (this.mWordmark) {
-      this.mWordmark.textContent = "mes projets";
-      Object.assign(this.mWordmark.style, { left: "16px", right: "auto", bottom: "auto",
-        top: titleTop + "px", transform: "none", width: "358px", whiteSpace: "normal",
-        fontSize: Math.round(80 * K) + "px", lineHeight: "0.95", mixBlendMode: "normal",
-        color: "rgba(255,255,255,0.30)", textAlign: "left" });
-    }
-    if (this.mRailCap) this.mRailCap.style.bottom = Math.round(20 * K) + "px";
-
-    // RULE: the rail sits with an EQUAL gap above (under "mes projets") and below
-    // (over "faire glisser / 01-06"), on every phone size. The card keeps its locked
-    // 326:468 ratio and scales as a whole to fit the band — it is never squeezed.
-    // the title and the caption live in the panel, the tickets inside the scaled stage —
-    // measure both in screen px, then convert back into stage px
-    let s = K, cw = Math.round(this.M_TW * K), ch = cardH;
-    const sr = this.mPStage && this.mPStage.getBoundingClientRect();
-    if (this.mWordmark && this.mRailCap && sr && sr.height > 0) {
-      const sc = sr.height / frameH;
-      const capTop = (this.mRailCap.getBoundingClientRect().top - sr.top) / sc;
-      const minGap = 16 * K;
-      const bandFor = () => capTop - (this.mWordmark.getBoundingClientRect().bottom - sr.top) / sc;
-      // "MES PROJETS" on two lines is the default. Only where the ticket then can no
-      // longer hold its type at 32 / 14 / 11 (s < 0.875) does the title drop to a
-      // one-line "PROJETS" to free the height — small screens only.
-      let band = bandFor();
-      if (Math.min(1, (band - 2 * minGap) / this.M_TH) < 0.75) {
-        this.mWordmark.textContent = "projets";
-        this.mWordmark.style.whiteSpace = "nowrap";
-        band = bandFor();
-      }
-      const titleBottom = capTop - band;
-      // the ticket is capped by the reference size, not by the frame's height ratio:
-      // shrinking it with K dropped the type under 32 / 14 / 11 on every handset
-      s = Math.min(1, Math.max(0.4, (band - 2 * minGap) / this.M_TH));
-      cw = Math.round(this.M_TW * s);
-      ch = Math.round(this.M_TH * s);
-      cardTop = Math.round(titleBottom + (band - ch) / 2);
-    }
-    this.M_CW = cw; this.M_CH = ch;
-    const iw = Math.round((this.M_TW - 48) * s);
-    const pad = Math.round(24 * s);
-    // only re-lay the deck when the geometry actually changed: this block measures, and
-    // re-running it on every frame thrashes layout
-    const sig = [cw, ch, cardTop, iw].join("|");
-    if (this._railSig === sig) { this.renderMobileRail(); return; }
-    this._railSig = sig;
-    this.mRailTickets().forEach((el) => {
-      const i = +el.dataset.i;
-      Object.assign(el.style, { left: (16 + i * (cw + this.M_GAP)) + "px",
-        top: cardTop + "px", width: cw + "px", height: ch + "px",
-        padding: pad + "px",
-        opacity: 1, transform: "none", borderRadius: "8px", overflow: "hidden" });
-      const img = el.firstElementChild;
-      if (img) { img.style.width = iw + "px"; img.style.height = Math.round(164 * s) + "px"; img.style.flex = "0 0 auto"; }
-      el.querySelectorAll("span").forEach((sp) => {
-        const w = getComputedStyle(sp).fontWeight;
-        // type floors: 32 name / 14 description / 11 tag, whatever the card size
-        if (w === "700" || w === "bold") sp.style.fontSize = Math.max(32, Math.round(40 * s)) + "px";
-        else if (sp.style.textTransform === "uppercase") sp.style.fontSize = Math.max(11, Math.round(12 * s)) + "px";
-        else sp.style.fontSize = Math.max(14, Math.round(16 * s)) + "px";
-        if (sp.style.maxWidth) {
-          sp.style.maxWidth = iw + "px";
-          // the card height is locked to the reference, so the description takes the cut:
-          // never the barcode. A shrunken card holds two lines instead of three.
-          Object.assign(sp.style, { display: "-webkit-box", WebkitLineClamp: s < 0.9 ? "2" : "3",
-            WebkitBoxOrient: "vertical", overflow: "hidden" });
-        }
-      });
-      // two tags on the phone, as the design has always had
-      const tagBox = el.querySelector("div[style*='margin-top: auto']");
-      if (tagBox) {
-        tagBox.style.paddingTop = Math.round(16 * s) + "px";
-        Array.from(tagBox.children).forEach((t, n) => { t.style.display = n < 2 ? "" : "none"; });
-      }
-      const bc = el._bc || (el._bc = el.querySelector("div[style*='height: 40px']"));
-      if (bc) { bc.style.width = iw + "px"; bc.style.height = Math.round(40 * s) + "px"; bc.style.marginTop = Math.round(16 * s) + "px"; }
-      const txt = el.children[1];
-      if (txt) txt.style.paddingTop = Math.round(16 * s) + "px";
-    });
-    this.renderMobileRail();
-  }
-  renderMobileRail() {
-    if (!this.mobile || !this.mProj) return;
-    const r = this.mProj.getBoundingClientRect();
-    if (r.height <= 0) return;
-    const step = this.lvhNow();
-    // 0 at the moment the section pins, 1 when its last screen is reached
-    const travel = Math.max(1, r.height - step);
-    let p = -r.top / travel;
-    p = p < 0 ? 0 : p > 1 ? 1 : p;
-    const tks = this.mRailTickets();
-    const n = tks.length || 6;
-    const total = n * (this.M_CW || this.M_TW) + (n - 1) * this.M_GAP + 32;
-    const distance = Math.max(0, total - 390);
-    const x = -distance * p;
-    tks.forEach((el) => {
-      const t = "translateX(" + x.toFixed(1) + "px)";
-      if (el._rx !== t) { el._rx = t; el.style.transform = t; }
-    });
-    const idx = Math.min(n - 1, Math.round(p * (n - 1)));
-    if (this.mCount) this.mCount.textContent = String(idx + 1).padStart(2, "0") + "-06";
-  }
   consentValue() {
     try { return localStorage.getItem("kc-cookie-consent"); } catch (e) { return "deny"; }
   }
@@ -1724,19 +1575,11 @@ class Component extends DCLogic {
       mHeroRef: (el) => { this.mHero = el; if (this.fit) this.fit(); },
       mRootRef: (el) => { this.mRoot = el; if (this.fit) this.fit(); },
       mHeroSlideRef: (el) => { if (!this.mHeroSlides) this.mHeroSlides = []; if (el && !this.mHeroSlides.includes(el)) this.mHeroSlides.push(el); },
-      mCountRef: (el) => { this.mCount = el; },
-      mRailCapRef: (el) => { this.mRailCap = el; },
-      mPStageRef: (el) => { this.mPStage = el; if (this.fit) this.fit(); },
       mAStageRef: (el) => { this.mAStage = el; if (this.fit) this.fit(); },
-      mWordmarkRef: (el) => { this.mWordmark = el; if (this.fit) this.fit(); },
-      mBgRef: (el) => { if (!el) return; if (!this.mBgs) this.mBgs = []; this.mBgs[+el.dataset.i] = el; },
-      mTicketRef: (el) => { if (!el) return; if (!this.mTickets) this.mTickets = []; this.mTickets[+el.dataset.i] = el; this.wireTicket(el); if (this.fit) this.fit(); },
       mGridRef: (el) => { if (!el) return; if (!this.mGrids) this.mGrids = []; if (!this.mGrids.includes(el)) this.mGrids.push(el); if (this.fit) this.fit(); },
       mCardRef: (el) => { if (!el) return; if (!this.mCards) this.mCards = []; this.mCards[+el.dataset.i] = el; },
-      mBarcodeRef: (el) => { if (!el) return; if (!this._bcm) this._bcm = this.buildBarcode(true, 326); el.style.backgroundImage = this._bcm; el.style.backgroundRepeat = "no-repeat"; },
       tBarcodeRef: (el) => { if (!el) return; if (!this._bch) this._bch = this.buildBarcode(true); el.style.backgroundImage = this._bch; el.style.backgroundRepeat = "no-repeat"; },
       dProjRef: (el) => { this.dProj = el; },
-      mProjRef: (el) => { this.mProj = el; if (this.fit) this.fit(); },
       tAStageRef: (el) => { this.tAStage = el; if (this.fit) this.fit(); },
       tCardRef: (el) => { if (!el) return; if (!this.tCards) this.tCards = []; this.tCards[+el.dataset.i] = el; this.renderAbout(); },
       wordmarkRef: (el) => { this.wordmark = el; if (this.fit) this.fit(); },

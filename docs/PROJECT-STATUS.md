@@ -7,11 +7,11 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 **Latest validated Phase 2 source checkpoint:** `64cdbbe4a86a128e11d474af956e9c07ad990c82`
 
 **Latest experiment evidence checkpoint:** `9e1051c96476395910d9551f3b17d0d6e1d5c40a`
-**Current Phase 3 branch checkpoint:** `7a8aff964efbf4b3df014e4091cbb7154c2eae49` (shared project video lifecycle checkpoint; tablet geometry update under validation)
+**Current Phase 3 branch checkpoint:** `5f9baa79630e30ce2583045eb9023748b5b469d0` (tablet geometry owner committed; mobile sizing milestone verified and being checkpointed)
 
-**Current task:** consolidate mobile project sizing into one clear owner.
+**Current task:** complete the full Phase 3 regression and Lighthouse comparison.
 
-**Next planned task:** validate mobile behavior, then complete Phase 3 regression and Lighthouse comparison.
+**Next planned task:** run full eight-profile visual/functional regression, then Lighthouse comparison against Phase 0–1 and Phase 2.
 
 ## Roadmap
 
@@ -20,7 +20,7 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 | 0 | Read-only audit of responsive implementations, content, risks and architecture | Complete |
 | 1 | Baseline inventory, screenshots, Playwright gates and Lighthouse references | Complete |
 | 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — extraction, visual/functional validation and user inspection passed; French mobile TBT remains an open release blocker |
-| 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | In progress — About deduplication deferred by approval; tablet/mobile controller ownership cleanup active |
+| 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | In progress — controller ownership cleanup complete; full regression and Lighthouse comparison pending |
 | 4 | Centralize project data and French/English translations | Not started |
 | 5 | Improve semantic structure and accessibility while preserving approved text and SEO values | Not started |
 | 6 | Review asset loading and make separately approved performance improvements | Not started |
@@ -33,13 +33,13 @@ Phases 3–8 are a proposed roadmap only. Each requires its own authorization be
 
 Milestone names and acceptance criteria remain stable. Progress counts only verified, complete milestones.
 
-**Progress: 2 / 5 milestones complete.**
+**Progress: 3 / 5 milestones complete.**
 
 | Milestone | Acceptance evidence | Status |
 | --- | --- | --- |
 | About shared-tree feasibility | One five-card tree passes locked visual references and animation checks in all eight language/layout profiles without fragile workarounds | Blocked — all eight profiles differed; mobile intro was 24 px lower than reference |
 | Tablet geometry ownership | One tablet geometry owner with separate readable portrait/landscape calculations; targeted tablet visual and behavior checks pass | Complete — behavior 8/8; portrait project refs pass; landscape candidate renders match Phase 2 control byte-for-byte for both languages |
-| Mobile sizing ownership | One mobile project-sizing owner; targeted mobile visual and behavior checks pass in both languages | Not started |
+| Mobile sizing ownership | One mobile project-sizing owner; targeted mobile visual and behavior checks pass in both languages | Complete — 10 passed, 2 existing responsive skips across both locales |
 | Shared project video lifecycle | Common lifecycle implementation retains independent tablet/mobile selectors and thresholds; natural playback checks pass in both languages | Complete — 6/6 focused profile checks passed |
 | Phase 3 acceptance | Full eight-profile visual/functional regression, Lighthouse comparison to Phase 0–1 and Phase 2, independent review, and documented duplication counts | Not started |
 
@@ -53,7 +53,7 @@ This adds a fragment, generator, markers, regeneration discipline, and output-dr
 
 **Approved decision:** defer About card content deduplication to the later shared-content phase. Keep three About shells and 15 authored card blocks unchanged as intentional duplication. Proceed with Phase 3 tablet/mobile controller ownership cleanup without a build system or About code changes. No generator or application code was added by the architecture evaluation.
 
-**Measured duplication to date:** shared video lifecycle changed from two 44-line scripts (88 lines total) to one 61-line parameterized script: 27 fewer authored lines (31%) and one fewer script request. Tablet project geometry now has one owning script with explicit base, portrait, and landscape functions; three geometry scripts plus stale main-controller stage writes are consolidated. The old three scripts totaled 203 lines and the new owner is 218 lines, so this is a responsibility reduction, not a line-count reduction. Playback thresholds, ticket selectors, mutation binding, and visibility handling remain layout-specific where needed. The failed About experiment was reverted; it removed 10 repeated About card blocks (15 card blocks to 5) but failed parity, so that is not an accepted Phase 3 result. Current duplicate count remains 15 authored About card blocks across the three layout shells. Tablet project geometry now has one owner; mobile canvas and ticket sizing ownership remains to be consolidated and measured. Intentionally retained differences include the distinct desktop, tablet portrait/landscape, and mobile card geometry and animation formulas, plus layout-specific intro compositions and mobile intro copy.
+**Measured duplication to date:** shared video lifecycle changed from two 44-line scripts (88 lines total) to one 61-line parameterized script: 27 fewer authored lines (31%) and one fewer script request. Tablet project geometry now has one owning script with explicit base, portrait, and landscape functions; three geometry scripts plus stale main-controller stage writes are consolidated. The old three scripts totaled 203 lines and the new owner is 218 lines, so this is a responsibility reduction, not a line-count reduction. Mobile sizing now has one active owner: `mobile-canvas-fit.js` scales the authored 393 px canvas; the competing 140-line controller rail fitter had no matching project refs/cards in the page and was unreachable. Removing it reduced the controller by 165 lines overall and removes the stale refs/call sites; no mobile layout formula or runtime sizing implementation was added. Playback thresholds, ticket selectors, mutation binding, and visibility handling remain layout-specific where needed. The failed About experiment was reverted; it removed 10 repeated About card blocks (15 card blocks to 5) but failed parity, so that is not an accepted Phase 3 result. Current duplicate count remains 15 authored About card blocks across the three layout shells. Tablet geometry and mobile canvas sizing each now have one owner; the mobile project layout remains authored static content scaled by its canvas controller. Intentionally retained differences include the distinct desktop, tablet portrait/landscape, and mobile card geometry and animation formulas, plus layout-specific intro compositions and mobile intro copy.
 
 ## Phase 2 milestones and release follow-ups
 
@@ -98,6 +98,7 @@ The 24 focused Playwright checks passed across tablet portrait, tablet landscape
 - **Passed, Phase 3 quick checks:** JavaScript syntax checks, `git diff --check`, and all 230 frozen baseline artifact hashes before the visual run.
 - **Passed, Phase 3 shared-video milestone:** natural video playback and mobile image-sequence test passed in tablet portrait, tablet landscape, and mobile, in both languages (6/6). Baseline screenshot artifacts remain locked.
 - **Passed, Phase 3 tablet functional checks:** rendering, project links, responsive branch, About animation, footer and legal interactions passed for tablet portrait and landscape, both languages (8/8).
+- **Passed, Phase 3 mobile checks:** the full mobile-only Playwright suite passed in both languages (10 passed, 2 existing responsive skips), covering per-project visuals, scrolling/navigation, videos, image sequences, About/footer and legal dialogs. Frozen references were not updated.
 - **Passed, Phase 3 tablet visual checks:** all tablet portrait project references passed (6 cards in each language). Landscape project snapshot test fails at the first card because the locked reference is 574×220 while the rendered clip is 531×203. The same failure reproduces on untouched Phase 2 (`1b0ddbb`); current and Phase 2 actual Celimax captures have identical SHA-256 in both languages. No reference was changed.
 - **Limitations:** Chromium emulates tablet/mobile; Safari/iOS hardware is not covered. Browser preview needs access to the existing external CDNs. Lighthouse reports contain task/network data but no standalone DevTools trace. The single 421 ms defer confirmation is not a stable performance estimate.
 
@@ -127,4 +128,4 @@ Open `http://127.0.0.1:8000/` for French and `http://127.0.0.1:8000/en/` for Eng
 
 The Phase 2 branch `phase-2/css-js-extraction` and original Phase 0–1 baseline branch `test/portfolio-baseline-phase-0-1` remain preserved locally and on GitHub. Validated Phase 2 source checkpoint `64cdbbe4a86a128e11d474af956e9c07ad990c82` is pushed; the defer experiment was reverted, so application files on this branch match that source. Experiment evidence is preserved locally at `9e1051c96476395910d9551f3b17d0d6e1d5c40a`; the current branch and follow-up docs are not pushed. Nothing is merged or deployed. GitHub Pages remains configured to build `main` from `/`; `main` remains at `d8a37314ed7d2265f3f949c9e048b5e2beadfc20`. Phase 3 implementation has not started.
 
-**Next decision needed:** none for the approved Phase 3 scope. The About feasibility gate is in progress. French mobile TBT remains an open release blocker; no standalone investigation is authorized.
+**Next decision needed:** none for the approved Phase 3 scope. Full regression and phase-completion Lighthouse measurements remain. French mobile TBT remains an open release blocker; no standalone investigation is authorized. Phase 3 remains local and nothing has been merged or deployed.

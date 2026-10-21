@@ -11,4 +11,13 @@
 
 ## Current work
 
-JavaScript remains inline and is the next extraction milestone. Preserve classic synchronous script ordering. The `text/x-dc` controller is read as text by the original runtime and must remain inline unless a separately verified factory bridge is introduced. Continue from the current branch head; do not reset the workspace or update the frozen references.
+### Analytics and consent scripts — complete
+
+- Extracted the two existing head scripts to `scripts/analytics/consent-defaults.js` and `scripts/analytics/init.js`; both are classic synchronous scripts in their original positions, with the async Google tag retained between them.
+- `node --check` passed for both extracted files; `git diff --check` and the 230-artifact lock passed.
+- Targeted regression: `npm test -- --project=desktop-fr --project=mobile-en tests/qa/functional.spec.cjs` — 6 passed, no failures. Covered French desktop and English mobile rendering, all project links, navigation, About/footer/legal interactions, natural video playback and image sequences.
+- No Lighthouse run was needed for this structural change.
+
+## Current work
+
+Continue with the remaining small classic-script groups, preserving their source order. The `text/x-dc` controller is read as text by the original runtime and must remain inline unless a separately verified factory bridge is introduced. Continue from the current branch head; do not reset the workspace or update the frozen references.

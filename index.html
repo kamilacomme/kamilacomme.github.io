@@ -34,20 +34,10 @@
      <!-- Временно скрываем баннер куки -->
 <link rel="stylesheet" href="/styles/hire-cookie-overrides.css">
      <!-- Google Consent Mode v2 -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('consent', 'default', {
-    'analytics_storage': 'granted',
-    'ad_storage': 'granted'
-  });
-</script>
+<script src="/scripts/analytics/consent-defaults.js"></script>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEB5X3SCNX"></script>
-<script>
-  gtag('js', new Date());
-  gtag('config', 'G-NEB5X3SCNX');
-</script>
+<script src="/scripts/analytics/init.js"></script>
 <link rel="stylesheet" href="/styles/project-layouts.css" id="kc-new-project-css"></head>
 <body>
 <x-dc>

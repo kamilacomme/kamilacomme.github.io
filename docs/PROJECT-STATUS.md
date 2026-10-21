@@ -7,11 +7,11 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 **Latest validated Phase 2 source checkpoint:** `64cdbbe4a86a128e11d474af956e9c07ad990c82`
 
 **Latest experiment evidence checkpoint:** `9e1051c96476395910d9551f3b17d0d6e1d5c40a`
-**Current Phase 3 branch checkpoint:** `e1bf42a` (branched from validated Phase 2; evidence-only commits carried forward)
+**Current Phase 3 branch checkpoint:** `8b5c426fa70a4c46907adfb1fd9418c71995765d` (branch created from validated Phase 2 with approved follow-up evidence)
 
-**Current task:** verify and consolidate the shared About structure, beginning with its single-tree feasibility gate.
+**Current task:** resolve the blocked About consolidation approach before any more Phase 3 implementation.
 
-**Next planned task:** finish the About feasibility gate; stop and report if one tree requires fragile layout workarounds or changes a reference.
+**Next planned task:** review a safer alternative for approval. No application implementation is active.
 
 ## Roadmap
 
@@ -20,7 +20,7 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 | 0 | Read-only audit of responsive implementations, content, risks and architecture | Complete |
 | 1 | Baseline inventory, screenshots, Playwright gates and Lighthouse references | Complete |
 | 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — extraction, visual/functional validation and user inspection passed; French mobile TBT remains an open release blocker |
-| 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | In progress — implementation branch created; About feasibility gate first |
+| 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | Blocked — proposed shared About DOM failed visual parity in all eight profiles; experiment reverted |
 | 4 | Centralize project data and French/English translations | Not started |
 | 5 | Improve semantic structure and accessibility while preserving approved text and SEO values | Not started |
 | 6 | Review asset loading and make separately approved performance improvements | Not started |
@@ -28,6 +28,25 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 | 8 | Final documentation, independent acceptance and release decision | Not started |
 
 Phases 3–8 are a proposed roadmap only. Each requires its own authorization before implementation.
+
+## Phase 3 milestones
+
+Milestone names and acceptance criteria remain stable. Progress counts only verified, complete milestones.
+
+**Progress: 0 / 4 milestones complete.**
+
+| Milestone | Acceptance evidence | Status |
+| --- | --- | --- |
+| About shared-tree feasibility | One five-card tree passes locked visual references and animation checks in all eight language/layout profiles without fragile workarounds | Blocked — all eight profiles differed; mobile intro was 24 px lower than reference |
+| Tablet geometry ownership | One tablet geometry owner with separate readable portrait/landscape calculations; targeted tablet visual and behavior checks pass | Not started |
+| Mobile sizing ownership | One mobile project-sizing owner; targeted mobile visual and behavior checks pass in both languages | Not started |
+| Phase 3 acceptance | Full eight-profile visual/functional regression, Lighthouse comparison to Phase 0–1 and Phase 2, independent review, and documented duplication counts | Not started |
+
+**Current blocker:** the shared About section caused visual differences across desktop, tablet portrait, tablet landscape, and mobile, in both languages. Mobile has a clear 24 px vertical intro displacement. All eight profile runs failed at About snapshots. No reference images were updated. The unverified source experiment was reverted; comparison images, error contexts, and traces remain in `artifacts/playwright/results/`.
+
+**Proposed safer alternative for review:** retain the three responsive About presentation shells and their verified frame/animation ownership. Move the five card definitions into one inert `<template>` or data-backed fragment and instantiate it into each shell at runtime, keeping the current layout-specific intro markup and geometry. This reduces authored card markup while preserving independently validated layout frames; generated DOM remains duplicated by design. Before implementation, verify that fragment cloning preserves React refs, translation selectors, video lifecycles, accessibility order, and locked screenshots. If that alternative adds fragile runtime coupling, retain the existing shells and seek a smaller consolidation boundary.
+
+**Measured duplication to date:** no net source reduction is claimed because the failed shared-tree experiment was reverted. The experiment removed 10 repeated About card blocks (15 card blocks to 5) but failed parity, so that is not an accepted Phase 3 result. Current duplicate count remains 15 authored About card blocks across the three layout shells. Tablet/mobile project controllers are still separately owned; no responsibility reduction has been implemented or measured. Intentionally retained differences include the distinct desktop, tablet portrait/landscape, and mobile card geometry and animation formulas, plus layout-specific intro compositions and mobile intro copy.
 
 ## Phase 2 milestones and release follow-ups
 
@@ -68,6 +87,8 @@ The 24 focused Playwright checks passed across tablet portrait, tablet landscape
 - **Passed:** focused experiment checks, 24/24 across six tablet/mobile language profiles; original visual references remained locked.
 - **Failed:** `npm run test:performance:compare` — French mobile TBT 380.5 ms exceeds the 308.5 ms budget.
 - **Failed:** one controlled French-mobile defer experiment measured TBT 421 ms; experiment reverted.
+- **Failed, Phase 3 feasibility check:** `npm run test:qa -- --grep "approved visual and animation states"` ran all eight profiles; all eight failed at About screenshots after the shared-tree experiment. The clearest mismatch is mobile intro content shifted 24 px downward. The source experiment was reverted; frozen references and artifact hashes remain unchanged.
+- **Passed, Phase 3 quick checks:** JavaScript syntax checks, `git diff --check`, and all 230 frozen baseline artifact hashes before the visual run.
 - **Limitations:** Chromium emulates tablet/mobile; Safari/iOS hardware is not covered. Browser preview needs access to the existing external CDNs. Lighthouse reports contain task/network data but no standalone DevTools trace. The single 421 ms defer confirmation is not a stable performance estimate.
 
 ## Decisions and remaining architecture work

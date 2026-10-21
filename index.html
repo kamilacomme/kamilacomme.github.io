@@ -32,22 +32,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect width="400" height="400" fill="#08080a"/><text x="200" y="232" text-anchor="middle" font-family="Figtree, Helvetica, sans-serif" font-weight="700" font-size="150" letter-spacing="-6" fill="#ffffff">KC</text></svg>
 </template>
      <!-- Временно скрываем баннер куки -->
-<style>
-  /* Desktop hire button: keep the normal pink, use lemon-500 on hover. */
-  a[aria-label="M’écrire à comme.kamila@gmail.com"][data-fixed-ink="1"]:hover,
-  a[aria-label="M’écrire à comme.kamila@gmail.com"][data-fixed-ink="1"]:focus-visible {
-    background-color: #cae56c !important;
-    opacity: 1 !important;
-    filter: none !important;
-  }
-  a[aria-label="M’écrire à comme.kamila@gmail.com"][data-fixed-ink="1"]:hover span,
-  a[aria-label="M’écrire à comme.kamila@gmail.com"][data-fixed-ink="1"]:focus-visible span {
-    color: #222022 !important;
-    opacity: 1 !important;
-  }
-
-  [data-cookie] { display: none !important; }
-</style>
+<link rel="stylesheet" href="/styles/hire-cookie-overrides.css">
      <!-- Google Consent Mode v2 -->
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -63,56 +48,7 @@
   gtag('js', new Date());
   gtag('config', 'G-NEB5X3SCNX');
 </script>
-<style id="kc-new-project-css">/* Desktop Projects uses desktop-project-embedded.html; its styles live inside the iframe. */
-#kc-tablet-projets .stage{width:610px;min-height:1896px;transform-origin:top left;position:relative;background:#fff}#kc-tablet-projets h1{position:absolute;top:85px;left:18px;width:475px;margin:0;font:700 48px/1 Figtree,Arial,sans-serif;letter-spacing:-.03em}#kc-tablet-projets h1 em{font-weight:400}#kc-tablet-projets .tickets{position:absolute;left:18px;top:213px;width:574px;display:flex;flex-direction:column;gap:18px}#kc-tablet-projets .ticket{width:574px;height:180px;flex:none;padding:14px;border-radius:8px;display:flex;align-items:center;gap:14.432px;text-decoration:none;color:inherit;overflow:hidden}#kc-tablet-projets .media{width:201.177px;height:152px;flex:none;position:relative;overflow:hidden;border-radius:4px;background:#dedade}#kc-tablet-projets .media img,#kc-tablet-projets .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}#kc-tablet-projets .motion{opacity:0;transition:opacity .2s}#kc-tablet-projets .ticket.playing .motion{opacity:1}#kc-tablet-projets .info{width:247.391px;height:152px;flex:none;display:flex;flex-direction:column;justify-content:space-between}#kc-tablet-projets .info h2{font:700 24px/1 Figtree,Arial,sans-serif;letter-spacing:-.03em;margin:0 0 4.81px}#kc-tablet-projets .info p{font:400 12px/1.5 Inter,Arial,sans-serif;letter-spacing:-.01em;color:#5c575c;margin:0}#kc-tablet-projets .tags{display:flex;flex-direction:column;gap:4px;font:500 10px/1.7 Inter,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}#kc-tablet-projets .barcode{margin-left:auto;flex:none;width:40.937px;height:152px;fill:#2b3b37;display:block}#kc-tablet-projets h1{line-height:1.1}
-#kc-tablet-projets h1 .kc-title-line{display:block}
-/* Tablet typography roles: Figtree 48 headings / 32 card titles, Inter 14 copy / 12 labels. */
-#kc-tablet-projets h1{font-size:48px}
-#kc-tablet-projets .ticket{height:220px}
-#kc-tablet-projets .media{height:192px}
-#kc-tablet-projets .info{height:192px}
-#kc-tablet-projets .barcode{height:192px}
-#kc-tablet-projets .info h2{font-size:32px}
-#kc-tablet-projets .info p{font-size:14px}
-#kc-tablet-projets .tags{font-size:10px;font-weight:400;letter-spacing:.04em;line-height:1.3}
-/* Six 220px tickets at top 213px with five 18px gaps and 32px bottom inset. Fixed geometry avoids premature DOM measurements while the tablet root initializes hidden. */
-#kc-tablet-projets .stage{min-height:0;height:1655px}
-/* Active tablet portfolio: full-width 32px page grid, independent of the
-   obsolete 610px-scaled ticket column. The entire ticket fills its row. */
-#kc-tablet-projets .stage{width:100%;transform-origin:top left!important}
-#kc-tablet-projets h1{left:32px;width:calc(100% - 64px)}
-#kc-tablet-projets .tickets{left:32px;width:calc(100% - 64px)}
-#kc-tablet-projets .ticket{width:100%;gap:clamp(14px,2.3vw,24px)}
-#kc-tablet-projets .media{width:34%;min-width:0}
-#kc-tablet-projets .info{width:auto;flex:1 1 0;min-width:0}
-#kc-tablet-projets .barcode{width:7%;max-width:52px;min-width:28px}
-#kc-tablet-projets .ticket:focus-visible{outline:2px solid #222;outline-offset:2px}@media(prefers-reduced-motion:reduce){#kc-tablet-projets .motion{transition:none}}#kc-mobile-projets #kc-m-viewport{position:relative;width:100%;height:913.232vw;overflow:hidden}#kc-mobile-projets #kc-m-canvas{width:393px;height:3589px;position:absolute;left:0;top:0;transform-origin:top left;background:#fff}#kc-mobile-projets h1{position:absolute;left:16.449px;top:119.784px;width:303.736px;margin:0;font:700 32px/1 Figtree,Arial,sans-serif;letter-spacing:-.03em}#kc-mobile-projets .project{position:absolute;color:inherit;text-decoration:none;display:block}#kc-mobile-projets .project:focus-visible{outline:2px solid #222;outline-offset:4px}#kc-mobile-projets .visual{width:100%;position:relative;overflow:hidden;border-radius:4px;background:#f2eef2}#kc-mobile-projets .poster,#kc-mobile-projets .motion{width:100%;height:100%;position:absolute;inset:0;display:block;object-fit:cover}#kc-mobile-projets .motion{opacity:0;transition:opacity .2s}#kc-mobile-projets .project.playing .motion{opacity:1}#kc-mobile-projets .project h2{position:absolute;left:0;width:100%;font:700 24px/1 Figtree,Arial,sans-serif;letter-spacing:-.03em;margin:0}#kc-mobile-projets .description{position:absolute;left:0;width:100%;font:400 14px/1.5 Inter,Arial,sans-serif;letter-spacing:-.01em;margin:0;color:#5c575c}#kc-mobile-projets .categories{position:absolute;left:0;display:flex;flex-direction:column;gap:8px;font:500 11px/18px Inter,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}#kc-mobile-projets .barcode{position:absolute;left:0;fill:#2b3b37;display:block}#kc-mobile-projets .project:hover{text-decoration:none}@media(prefers-reduced-motion:reduce){#kc-mobile-projets .motion{transition:none}}
-#kc-desktop-projets,#kc-tablet-projets,#kc-mobile-projets{background:white;color:#222022;font-family:Inter,Arial,sans-serif}#kc-tablet-projets .ticket:hover,#kc-mobile-projets .project:hover{opacity:1}#kc-tablet-projets #kc-t-viewport,#kc-mobile-projets #kc-m-viewport{position:relative;width:100%;overflow:hidden}
-/* Integration guardrails: use the approved standalone layouts without inherited card geometry. */
-#kc-desktop-projets,#kc-tablet-projets,#kc-mobile-projets{display:block;position:relative;width:100%;box-sizing:border-box;isolation:isolate}
-#kc-desktop-projets *,#kc-tablet-projets *,#kc-mobile-projets *{box-sizing:border-box}
-
-#kc-mobile-projets h1 em{font-style:italic!important;font-weight:400}
-
-
-/* Prevent iOS Safari from panning outside the mobile page while keeping vertical scrolling. */
-@media (max-width: 499px) {
-  html { width: 100%; max-width: 100%; overflow-x: clip !important; }
-  body { width: 100%; max-width: 100%; overflow-x: clip !important; }
-  x-dc { display: block; width: 100%; max-width: 100%; overflow-x: clip; }
-  #kc-mobile-root, #kc-mobile-projets, #projets-m, #apropos-m { max-width: 100%; }
-}
-/* Mobile grid: the six ticket positions use the Figma 393px baseline. */
-@media (max-width: 499px) {
-  #kc-mobile-projets .project .barcode { width: 100%; max-width: 100%; }
-}
-/* Mobile typography hierarchy: H1 32 / H2 24 / body 14 / labels 11. */
-@media (max-width: 499px) {
-  #apropos-m > div > div > div:first-child > p { font-size: 32px !important; line-height: 1.1 !important; letter-spacing: -0.03em !important; }
-  #apropos-m > div > div > div[data-i] > span:first-child { font-size: 24px !important; font-weight: 700 !important; line-height: 1.1 !important; letter-spacing: -0.03em !important; }
-  #apropos-m > div > div > div[data-i] > span:last-child { font-size: 14px !important; font-weight: 400 !important; line-height: 1.5 !important; letter-spacing: -0.01em !important; }
-}
-</style></head>
+<link rel="stylesheet" href="/styles/project-layouts.css" id="kc-new-project-css"></head>
 <body>
 <x-dc>
 <helmet>
@@ -125,21 +61,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400;1,700&family=Epilogue:wght@500&display=swap" rel="stylesheet">
-  <style>
-    #projets a[data-i]:focus-visible { outline: 3px solid rgb(202,229,108); outline-offset: 4px; }
-    html { scroll-behavior: auto; }
-    body { margin: 0; background: #08080a; overflow-x: hidden; font-family: 'Inter', sans-serif; }
-    a { color: inherit; text-decoration: none; }
-    a:hover { opacity: 0.7; }
-    a:focus-visible, [tabindex]:focus-visible { outline: 2px solid #fdb4f5; outline-offset: 3px; border-radius: 4px; }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
-    }
-    @keyframes kcDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.28; transform: scale(0.82); } }
-    /* mobile: body copy 16→14, tag/label copy 12→11 */
-    #kc-mobile-root [style*="font-size: 16px"] { font-size: 14px !important; }
-    #kc-mobile-root [style*="font-size: 12px"] { font-size: 11px !important; }
-  </style>
+  <link rel="stylesheet" href="/styles/base-and-accessibility.css">
 </helmet>
 
 <p style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;">Kamila Comme — designer Brand &amp; Digital à Paris, en recherche d’un CDI pour 2026</p>
@@ -433,7 +355,7 @@
 </div>
 <!-- Nav scrim: keeps white nav text legible over light project photos -->
 <div ref="{{ navScrimRef }}" style="position: fixed; left: 0; top: 0; width: 100vw; height: 128px; z-index: 499; pointer-events: none; background: linear-gradient(to bottom, rgba(8,8,10,0.62) 0%, rgba(8,8,10,0.34) 45%, rgba(8,8,10,0) 100%); transition: opacity 0.25s ease;"></div>
-<style id="kc-no-nav-gradient">[ref="{{ navScrimRef }}"]{display:none!important} #kc-no-nav-gradient-marker{display:none}</style>
+<link rel="stylesheet" href="/styles/nav-scrim.css" id="kc-no-nav-gradient">
 <!-- Shared navbar: one grid, one type scale, sits above every section -->
 <div ref="{{ navRef }}" role="navigation" aria-label="Navigation principale" style="position: fixed; left: 50%; top: 0; width: 1440px; height: 72px; z-index: 500; transform-origin: top center; transform: translateX(-50%); box-sizing: border-box; padding: 15px 32px; display: flex; flex-direction: row; justify-content: space-between; align-items: center; pointer-events: none;">
   <span style="display: inline-flex; align-items: flex-start; gap: 3px; font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 20px; white-space: nowrap; line-height: 1.2; letter-spacing: -0.02em; color: rgb(255,255,255); pointer-events: auto;">Kamila Comme<span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 9px; line-height: 1.4; letter-spacing: 0;">®</span></span>
@@ -2340,17 +2262,7 @@ class Component extends DCLogic {
  const observer=new MutationObserver(()=>{attach();if(attached)observer.disconnect()});
  observer.observe(document.documentElement,{childList:true,subtree:true});
  attach();window.addEventListener('load',attach,{once:true});
-})();</script><style>
-/* Landscape tablet Hero: slideshow panel 40% smaller in both dimensions. */
-@media (min-width: 500px) and (orientation: landscape) {
-  [data-kc-tablet-hero-slideshow] { width: 300px !important; height: 187.26px !important; }
-}
-/* Landscape tablet only: pin the section and move the same approved tickets sideways. */
-#kc-tablet-projets.kc-landscape-rail #projets-t { position:sticky !important; top:0; height:100vh; overflow:hidden; }
-#kc-tablet-projets.kc-landscape-rail #kc-t-viewport { position:relative !important; top:auto; height:100vh; overflow:hidden; }
-#kc-tablet-projets.kc-landscape-rail #kc-t-stage .tickets { display:flex; flex-direction:row; align-items:stretch; gap:18px; width:max-content; max-width:none; bottom:auto !important; }
-#kc-tablet-projets.kc-landscape-rail #kc-t-stage .ticket { flex:none; height:220px; }
-</style>
+})();</script><link rel="stylesheet" href="/styles/tablet-landscape.css">
 <script>
 /* Vertical page scroll drives horizontal tablet Projects tickets in landscape only.
    Portrait keeps the approved six-row layout and its existing sizing controller. */

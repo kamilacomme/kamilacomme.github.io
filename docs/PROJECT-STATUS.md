@@ -7,9 +7,9 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 **Latest validated Phase 2 source checkpoint:** `64cdbbe4a86a128e11d474af956e9c07ad990c82`
 
 **Latest experiment evidence checkpoint:** `9e1051c96476395910d9551f3b17d0d6e1d5c40a`
-**Current task:** record the completed, reverted `defer` experiment and its Lighthouse result.
+**Current task:** propose Phase 3 architecture for approval; no implementation is authorized yet.
 
-**Next planned task:** wait for a decision on the remaining Phase 2 performance blocker; do not begin Phase 3.
+**Next planned task:** begin the first approved Phase 3 milestone only after user approval.
 
 ## Roadmap
 
@@ -17,7 +17,7 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 | --- | --- | --- |
 | 0 | Read-only audit of responsive implementations, content, risks and architecture | Complete |
 | 1 | Baseline inventory, screenshots, Playwright gates and Lighthouse references | Complete |
-| 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Blocked — visual/functional parity passes; French mobile TBT budget fails and personal inspection is pending |
+| 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — extraction, visual/functional validation and user inspection passed; French mobile TBT remains an open release blocker |
 | 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | Not started |
 | 4 | Centralize project data and French/English translations | Not started |
 | 5 | Improve semantic structure and accessibility while preserving approved text and SEO values | Not started |
@@ -27,9 +27,9 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 
 Phases 3–8 are a proposed roadmap only. Each requires its own authorization before implementation.
 
-## Phase 2 milestones
+## Phase 2 milestones and release follow-ups
 
-Milestone names and acceptance criteria below are stable. Progress is a count of verified milestones, not an estimate of time.
+Milestone names and acceptance criteria remain stable. The Phase 2 structural scope is complete; its two blocked performance follow-ups remain open release issues, not unfinished extraction work. Progress is a count of verified milestones, not an estimate of time.
 
 **Progress: 9 / 11 milestones complete.**
 
@@ -43,8 +43,8 @@ Milestone names and acceptance criteria below are stable. Progress is a count of
 | Obtain independent source review | No blocking parity defect; review notes cold-load timing risk | Complete |
 | Prepare personal preview | Local server serves `/` and `/en/` with HTTP 200 and MP4 range requests with HTTP 206 | Complete |
 | Inspect preview in user's browser | **PASSED** — user personally confirmed both locales and interactions work correctly | Complete |
-| Meet Phase 2 Lighthouse performance budget | 12 reports captured and compared; French mobile TBT is 380.5 ms vs 208.5 ms baseline, above the 308.5 ms budget | Blocked |
-| Isolate the TBT cause and select correction | Evidence reviewed; probable timing mechanism documented, but no single cause isolated. User decision required before code experiment | Blocked |
+| Meet Phase 2 Lighthouse performance budget | 12 reports captured and compared; French mobile TBT is 380.5 ms vs 208.5 ms baseline, above the 308.5 ms budget; authorized defer test measured 421 ms and was reverted | Blocked — open release blocker |
+| Isolate the TBT cause and select correction | Existing reports reviewed and one defer experiment completed; no single cause isolated. User has declined another standalone investigation for now | Blocked — no further investigation authorized |
 | Publish Phase 2 report and tracker | Results and risks documented on the development branch | Complete |
 
 ## Performance diagnosis
@@ -66,7 +66,7 @@ The 24 focused Playwright checks passed across tablet portrait, tablet landscape
 - **Passed:** focused experiment checks, 24/24 across six tablet/mobile language profiles; original visual references remained locked.
 - **Failed:** `npm run test:performance:compare` — French mobile TBT 380.5 ms exceeds the 308.5 ms budget.
 - **Failed:** one controlled French-mobile defer experiment measured TBT 421 ms; experiment reverted.
-- **Limitations:** Chromium emulates tablet/mobile; Safari/iOS hardware is not covered. Browser preview needs access to the existing external CDNs. The Lighthouse reports contain extracted task/network data but no standalone DevTools trace. User has not yet inspected the preview.
+- **Limitations:** Chromium emulates tablet/mobile; Safari/iOS hardware is not covered. Browser preview needs access to the existing external CDNs. Lighthouse reports contain task/network data but no standalone DevTools trace. The single 421 ms defer confirmation is not a stable performance estimate.
 
 ## Decisions and remaining architecture work
 
@@ -74,8 +74,9 @@ The 24 focused Playwright checks passed across tablet portrait, tablet landscape
 - Keep classic scripts ordered and synchronous for the behavior-preserving extraction; preserve the async analytics tag between consent setup and analytics initialization.
 - `support.js` reads the `text/x-dc` controller as text, so the controller uses a tiny text bridge to a root-level classic-script factory. Root placement retains the curtain import fallback.
 - Preserve React/support.js, English translation machinery, the desktop project iframe and Three.js curtain.
-- **Extraction is complete:** CSS and JavaScript now live in source files, and tested presentation states match the accepted references.
+- **Extraction and Phase 2 validation are complete:** CSS and JavaScript now live in source files, and visual/functional states match accepted references; the user independently inspected the site and passed it.
 - **Architectural simplification is still pending:** markup and layout behavior remain duplicated across desktop, tablet portrait, tablet landscape and mobile; project content and translations are not yet centralized. Those changes belong to later approved phases.
+- **Performance release blocker remains open:** French mobile TBT measured 380.5 ms in the Phase 2 comparison (208.5 ms baseline); the one authorized defer experiment measured 421 ms and was reverted. No additional TBT investigation is authorized now.
 
 ## Preview instructions
 
@@ -91,6 +92,6 @@ Open `http://127.0.0.1:8000/` for French and `http://127.0.0.1:8000/en/` for Eng
 
 ## Checkpoint and deployment state
 
-The Phase 2 source/test checkpoint `64cdbbe4a86a128e11d474af956e9c07ad990c82` is pushed to GitHub for backup and independent review. The defer experiment was reverted, so current website application files match that validated source checkpoint. The experiment outcome is committed only on local branch `experiment/defer-project-scripts` at `9e1051c96476395910d9551f3b17d0d6e1d5c40a`; the updated tracker is a local, unpushed change. Nothing is merged or deployed. GitHub Pages remains configured to build `main` from `/`; `main` remains at `d8a37314ed7d2265f3f949c9e048b5e2beadfc20`. No Phase 3 work has started.
+The Phase 2 branch `phase-2/css-js-extraction` and original Phase 0–1 baseline branch `test/portfolio-baseline-phase-0-1` remain preserved locally and on GitHub. Validated Phase 2 source checkpoint `64cdbbe4a86a128e11d474af956e9c07ad990c82` is pushed; the defer experiment was reverted, so application files on this branch match that source. Experiment evidence is preserved locally at `9e1051c96476395910d9551f3b17d0d6e1d5c40a`; the current branch and follow-up docs are not pushed. Nothing is merged or deployed. GitHub Pages remains configured to build `main` from `/`; `main` remains at `d8a37314ed7d2265f3f949c9e048b5e2beadfc20`. Phase 3 implementation has not started.
 
-**Next decision needed:** decide whether to accept the unresolved Phase 2 French-mobile TBT regression as documented or authorize a separately scoped investigation/correction. The one authorized experiment failed and was reverted; Phase 3 remains stopped.
+**Next decision needed:** approve or revise the Phase 3 architecture proposal. The TBT regression remains an open release blocker; no further investigation is authorized now. Phase 3 implementation remains stopped pending approval.

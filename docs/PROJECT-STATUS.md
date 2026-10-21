@@ -7,7 +7,7 @@ Updated: 2026-10-21. This tracker records verified milestones; it does not autho
 **Latest validated Phase 2 source checkpoint:** `64cdbbe4a86a128e11d474af956e9c07ad990c82`
 
 **Latest experiment evidence checkpoint:** `9e1051c96476395910d9551f3b17d0d6e1d5c40a`
-**Current Phase 3 branch checkpoint:** `5ee019c1b6d270095836c8999cbf9d7a425f951e` (approved controller scope checkpoint; video lifecycle milestone in progress)
+**Current Phase 3 branch checkpoint:** `66a6bd54c2f1fb07bf08890f0a1b3e8ddfc262d4` (shared project video lifecycle milestone verified and committed)
 
 **Current task:** establish a single tablet project geometry owner, retaining separate portrait and landscape formulas.
 

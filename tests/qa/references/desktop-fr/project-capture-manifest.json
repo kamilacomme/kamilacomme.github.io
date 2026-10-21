@@ -14,18 +14,24 @@
   },
   "browserVersion": "154.0.8037.57",
   "playwrightVersion": "1.62.1",
-  "harnessSha256": "3cd95d825339fbffcc709dde02f28282c576bea3908ef8e660f5fcef25e5100e",
+  "harnessSha256": "7cff2ef7bdca2176a796fe8a4ad8f774b66f75531752f3da5c8c4b12bcc03020",
   "runtimeManifestSha256": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3",
+  "serverSha256": "6a59a4f13366674425f421b9ea7f72e2d5132741caef554ab574c1eb248b22fa",
   "configuration": {
     "clockEpoch": "2026-01-01T00:00:00.000Z",
     "randomSeed": 123456789,
-    "mediaFrameSeconds": 0.12,
+    "mediaFrameSeconds": 0,
     "screenshotScale": "css",
     "cssAnimations": "disabled at screenshot only"
   },
   "cancelledRequests": [
+    "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
     "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-    "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp"
+    "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp"
   ],
   "states": [
     {
@@ -42,7 +48,7 @@
         "x": 0,
         "y": 900
       },
-      "performanceNow": 3168,
+      "performanceNow": 3165,
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "devicePixelRatio": 1,
       "text": "PilatesPilates pour les hommes 28-50 ans, pas la cible habituelle. Construire le corps comme un architecte.web designillustration",
@@ -61,7 +67,7 @@
           "currentTime": 0,
           "readyState": 0,
           "paused": true,
-          "playbackRate": 0
+          "playbackRate": 1
         }
       ]
     },
@@ -79,7 +85,7 @@
         "x": 0,
         "y": 2047
       },
-      "performanceNow": 3328,
+      "performanceNow": 3325,
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "devicePixelRatio": 1,
       "text": "LongreadPourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ?Web designreadymag animation",
@@ -98,7 +104,7 @@
           "currentTime": 0,
           "readyState": 0,
           "paused": true,
-          "playbackRate": 0
+          "playbackRate": 1
         }
       ]
     },
@@ -116,7 +122,7 @@
         "x": 0,
         "y": 3195
       },
-      "performanceNow": 3488,
+      "performanceNow": 3485,
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "devicePixelRatio": 1,
       "text": "Tour de paroleUne école en ligne enseigne aux jeunes à négocier : salaire, tarif, entretien de manière ludique.full brand identityapp & web design",
@@ -157,7 +163,7 @@
         "x": 0,
         "y": 4342
       },
-      "performanceNow": 3648,
+      "performanceNow": 3645,
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "devicePixelRatio": 1,
       "text": "Inside outUn motion sur la santé mentale : l'anxiété sociale et le sentiment d'être submergé.creative directionmotion design",
@@ -176,7 +182,7 @@
           "currentTime": 0,
           "readyState": 0,
           "paused": true,
-          "playbackRate": 0
+          "playbackRate": 1
         }
       ]
     },
@@ -194,7 +200,7 @@
         "x": 0,
         "y": 5490
       },
-      "performanceNow": 3808,
+      "performanceNow": 3805,
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "devicePixelRatio": 1,
       "text": "CelimaxUn pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j'adore.3d modelinglanding page",
@@ -235,7 +241,7 @@
         "x": 0,
         "y": 6637
       },
-      "performanceNow": 3968,
+      "performanceNow": 3965,
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "devicePixelRatio": 1,
       "text": "NapoliUn vrai bout d'Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.brand identityWeb design",

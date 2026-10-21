@@ -12,7 +12,7 @@ function fixture(){
     aggregate.push({locale,profile,runs:3,scoreRange:[90,90],...metrics});
     for(let iteration=1;iteration<=3;iteration++) measurements.push({id:`${locale}-${profile}-${iteration}`,locale,profile,iteration,lighthouseVersion:'13.5.0',userAgent:'Synthetic gate fixture',...metrics,auditedReadiness:{curtainTextureLoaded:true,requiredFontsLoaded:true},auditPageErrors:[],auditedResourceErrors:[]});
   }
-  return {schemaVersion:1,status:'complete',diagnostic:false,mode:'controlled-local-runtime-replay',referenceCommit:'synthetic-original',servedSourceVerification:{status:'passed'},runtimeManifestSha256:'a'.repeat(64),profiles:{mobile:{},desktop:{}},measurementSettings:{cpuQuietThresholdMs:0},chromeFlags:[],launcherDefaultFlags:[],aggregate,measurements};
+  return {schemaVersion:1,status:'complete',diagnostic:false,mode:'controlled-local-runtime-replay',referenceCommit:'synthetic-original',servedSourceVerification:{status:'passed'},runtimeManifestSha256:'a'.repeat(64),serverSha256:'b'.repeat(64),profiles:{mobile:{},desktop:{}},measurementSettings:{cpuQuietThresholdMs:0},chromeFlags:[],launcherDefaultFlags:[],aggregate,measurements};
 }
 async function run(candidate,baseline=fixture()){
   const temporary=await fs.mkdtemp(path.join(os.tmpdir(),'portfolio-performance-gate-'));
@@ -28,6 +28,7 @@ test('diagnostic output cannot serve as a baseline',async()=>{const b=fixture();
 test('missing target fails rather than passing a partial result',async()=>{const c=fixture();c.measurements=c.measurements.filter(m=>m.locale!=='en');assert.equal((await run(c)).status,1);});
 test('nonfinite metrics fail',async()=>{const c=fixture();c.measurements[0].lcpMs=NaN;assert.equal((await run(c)).status,1);});
 test('runtime dependency mismatch invalidates comparison',async()=>{const c=fixture();c.runtimeManifestSha256='different';assert.equal((await run(c)).status,1);});
+test('static server mismatch invalidates comparison',async()=>{const c=fixture();c.serverSha256='different';assert.equal((await run(c)).status,1);});
 test('material LCP regression fails',async()=>{const c=fixture();for(const m of c.measurements)m.lcpMs=2500;for(const m of c.aggregate)m.lcpMs=2500;const result=await run(c);assert.equal(result.status,1);assert.match(result.output,/lcpMs/);});
 test('required resource failure invalidates measurement',async()=>{const c=fixture();c.measurements[0].auditedResourceErrors=[{url:'https://example.test/font.woff2',error:'blockedbyclient'}];assert.equal((await run(c)).status,1);});
 

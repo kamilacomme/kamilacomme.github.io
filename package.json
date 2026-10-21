@@ -3,6 +3,7 @@
   "private": true,
   "description": "Phase 0\u20131 regression tooling only; no website build or runtime changes",
   "scripts": {
+    "test:serve": "node tests/runtime/server.mjs",
     "test:qa": "playwright test --config tests/qa/playwright.config.cjs",
     "test:visual:update": "UPDATE_BASELINE=1 playwright test --config tests/qa/playwright.config.cjs --grep \"approved visual|every project presentation\"",
     "test:performance": "node tests/performance/run.mjs",

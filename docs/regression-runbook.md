@@ -21,12 +21,13 @@ The available cloud image already has this browser; `npm ci` does not install it
 Start the original website from the repository root in a persistent terminal:
 
 ```sh
-python3 -m http.server 8000 --bind 127.0.0.1
+npm run test:serve
 ```
 
 If that port already serves this checkout, reuse it rather than starting a
-second server. This Python server is uncompressed local HTTP, not the production
-GitHub Pages CDN. Tests use local requests; no preview publication is needed.
+second server. This test server serves the exact repository bytes with HTTP byte
+ranges so the browser can seek to a reproducible video frame. It is uncompressed
+local HTTP, not the production GitHub Pages CDN. No preview publication is needed.
 
 ## Commands
 

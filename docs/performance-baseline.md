@@ -10,7 +10,7 @@ Each target receives three sequential audits in separate fresh Chromium profiles
 
 `tests/runtime/replay.cjs` supplies integrity-verified dependency bytes at the original CDN URLs. This avoids restricted CDN access without changing application source or disabling SRI/TLS checks. Analytics is handled by the shared harness and its treatment must be disclosed with results. Local dependency replay has different transfer latency from production CDNs. Consequently these scores are **controlled local lab measurements**, not a reproduction of public PageSpeed Insights scores 59 mobile / 73 desktop. Their value is a stable original-versus-candidate comparison under identical conditions.
 
-The origin is Python's HTTP/1 static server with uncompressed responses. Production GitHub Pages compression, edge caching and CDN latency are not reproduced. Playwright routing disables HTTP cache, in addition to fresh profiles/storage resets. CPU-quiet waiting is explicitly set to zero because the approved page animates continuously; network quiet and post-load/FCP pauses stay at 1,000 ms. This custom setting avoids waiting for animation to stop and is recorded for candidate parity.
+The origin is the included HTTP/1.1 static server with uncompressed responses and byte-range support for video. Production GitHub Pages compression, edge caching and CDN latency are not reproduced. Playwright routing disables HTTP cache, in addition to fresh profiles/storage resets. CPU-quiet waiting is explicitly set to zero because the approved page animates continuously; network quiet and post-load/FCP pauses stay at 1,000 ms. This custom setting avoids waiting for animation to stop and is recorded for candidate parity. The server SHA-256 is recorded and compared with future runs.
 
 A zero-weight custom Lighthouse gatherer/audit verifies the **actual measured navigation**, after the sensitive measurement window: visible body content, locale, React, loaded Figtree/Inter fonts, curtain texture and live WebGL context. Context listeners also collect uncaught page errors, console errors (including caught frame failures) and required resource failures. Navigation/remount `net::ERR_ABORTED` requests are recorded separately rather than counted as failed final resources. A separate warm-up preflight is not accepted as evidence that the audited page rendered.
 
@@ -18,7 +18,7 @@ No random seed, frozen clock, artificial scroll or animation disabling is applie
 
 ## Commands
 
-Start the unchanged repository at `http://127.0.0.1:8000`. Prepare the shared verified runtime fixtures before running Lighthouse. From the repository root:
+Start the unchanged repository with `npm run test:serve` at `http://127.0.0.1:8000`. Prepare the shared verified runtime fixtures before running Lighthouse. From the repository root:
 
 ```sh
 npm run test:performance -- --record

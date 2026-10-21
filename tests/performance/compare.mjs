@@ -25,6 +25,7 @@ if(baseline.servedSourceVerification?.status!=='passed') failures.push('Baseline
 if(baseline.referenceCommit!==candidate.referenceCommit) failures.push('Original reference commits differ.');
 if(!/^[a-f0-9]{64}$/.test(baseline.runtimeManifestSha256||'')) failures.push('Baseline runtime fingerprint is invalid.');
 if (baseline.runtimeManifestSha256!==candidate.runtimeManifestSha256) failures.push('Runtime dependency fixture fingerprint differs; comparison is invalid.');
+if(!/^[a-f0-9]{64}$/.test(baseline.serverSha256||'')||baseline.serverSha256!==candidate.serverSha256) failures.push('Static server fingerprint differs; comparison is invalid.');
 if (baseline.mode!==candidate.mode) failures.push('Measurement modes differ.');
 if(JSON.stringify(baseline.measurementSettings)!==JSON.stringify(candidate.measurementSettings)) failures.push('Lighthouse measurement settings differ; comparison is invalid.');
 if(JSON.stringify(baseline.profiles)!==JSON.stringify(candidate.profiles)) failures.push('Lighthouse profile settings differ; comparison is invalid.');

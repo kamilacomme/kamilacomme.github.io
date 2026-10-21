@@ -1,11 +1,20 @@
 {
-  "cancelledRequests": [],
+  "cancelledRequests": [
+    "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+    "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap"
+  ],
   "cancellationPolicy": "net::ERR_ABORTED from original remount/pruning is recorded separately; all other request failures and HTTP errors fail. Visible images decode, required fonts and curtain texture must load.",
   "harnessHashes": {
-    "helpers.cjs": "89da92dffa6effb5428c92894b344b75ab88af70dc35865a91fc0c5990be1ba9",
-    "visual.spec.cjs": "22dc73427bea1808163aec651d04b6e3a9ae1a164fa882089a06ac4e2282db34",
+    "helpers.cjs": "37ee465d847ff79446ce8723b92dce2e2f420c9f613a6205314eb05ddff98d11",
+    "visual.spec.cjs": "56d9dc255985763ba7646c64a7df3b418c7b7d603bd2d422ed03402687317522",
     "playwright.config.cjs": "f8c63c4ca1ff4e5920075f30208c23277b518a78d12d5c0bafa1319ee45622bf",
-    "runtimeManifest": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3"
+    "runtimeManifest": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3",
+    "server": "6a59a4f13366674425f421b9ea7f72e2d5132741caef554ab574c1eb248b22fa"
   },
   "originalCommit": "d8a37314ed7d2265f3f949c9e048b5e2beadfc20",
   "browserVersion": "154.0.8037.57",
@@ -41,8 +50,10 @@
     "softwareWebGL": true,
     "randomSeed": 123456789,
     "clockEpoch": "2026-01-01T00:00:00.000Z",
-    "videoFrameSeconds": 0.12,
-    "cssAnimations": "disabled for screenshots only"
+    "videoFrameSeconds": 0,
+    "cssAnimations": "disabled for screenshots only",
+    "screenshotAcquisitionTimeoutMs": 60000,
+    "footerClockAdvance": "18x500ms with50ms real yields to drain software GPU queues"
   },
   "states": [
     {
@@ -57,7 +68,7 @@
         "devicePixelRatio": 1
       },
       "url": "/",
-      "performanceNow": 605,
+      "performanceNow": 608,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -77,7 +88,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p1-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -88,7 +99,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p4-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -99,8 +110,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p3-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -122,7 +133,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p5-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -133,8 +144,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p6-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -156,8 +167,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p2-a.webp",
-              "complete": true,
-              "naturalWidth": 800,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -252,7 +263,7 @@
         "devicePixelRatio": 1
       },
       "url": "/",
-      "performanceNow": 3005,
+      "performanceNow": 3008,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -272,7 +283,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p1-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -283,7 +294,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p4-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -294,8 +305,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p3-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -317,7 +328,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p5-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -328,8 +339,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p6-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -351,8 +362,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p2-a.webp",
-              "complete": true,
-              "naturalWidth": 800,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -447,7 +458,7 @@
         "devicePixelRatio": 1
       },
       "url": "/",
-      "performanceNow": 3165,
+      "performanceNow": 3168,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -467,7 +478,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p1-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -478,7 +489,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p4-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -489,8 +500,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p3-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -512,7 +523,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p5-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -523,8 +534,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p6-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -546,8 +557,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p2-a.webp",
-              "complete": true,
-              "naturalWidth": 800,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -642,7 +653,7 @@
         "devicePixelRatio": 1
       },
       "url": "/",
-      "performanceNow": 3325,
+      "performanceNow": 3328,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -662,7 +673,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p1-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -673,7 +684,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p4-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -684,8 +695,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p3-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -707,7 +718,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p5-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -718,8 +729,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p6-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -741,8 +752,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p2-a.webp",
-              "complete": true,
-              "naturalWidth": 800,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -837,7 +848,7 @@
         "devicePixelRatio": 1
       },
       "url": "/",
-      "performanceNow": 3485,
+      "performanceNow": 3488,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -857,7 +868,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p1-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -868,7 +879,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p4-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -879,8 +890,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p3-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -902,7 +913,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p5-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -913,8 +924,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p6-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -936,8 +947,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p2-a.webp",
-              "complete": true,
-              "naturalWidth": 800,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1032,7 +1043,7 @@
         "devicePixelRatio": 1
       },
       "url": "/",
-      "performanceNow": 3645,
+      "performanceNow": 3648,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -1052,7 +1063,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p1-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1063,7 +1074,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p4-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1074,8 +1085,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p3-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1097,7 +1108,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p5-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1108,8 +1119,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p6-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1131,8 +1142,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p2-a.webp",
-              "complete": true,
-              "naturalWidth": 800,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1227,7 +1238,7 @@
         "devicePixelRatio": 1
       },
       "url": "/",
-      "performanceNow": 3805,
+      "performanceNow": 3808,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -1247,7 +1258,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p1-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1258,7 +1269,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p4-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1269,8 +1280,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p3-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1292,7 +1303,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p5-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1303,8 +1314,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p6-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1326,8 +1337,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p2-a.webp",
-              "complete": true,
-              "naturalWidth": 800,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1422,7 +1433,7 @@
         "devicePixelRatio": 1
       },
       "url": "/",
-      "performanceNow": 3965,
+      "performanceNow": 3968,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -1442,7 +1453,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p1-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1453,7 +1464,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p4-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1464,8 +1475,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p3-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1487,7 +1498,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p5-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1498,8 +1509,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p6-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1521,8 +1532,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p2-a.webp",
-              "complete": true,
-              "naturalWidth": 800,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1617,7 +1628,7 @@
         "devicePixelRatio": 1
       },
       "url": "/",
-      "performanceNow": 4725,
+      "performanceNow": 4728,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -1637,7 +1648,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p1-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1648,7 +1659,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p4-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1659,8 +1670,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p3-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1682,7 +1693,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p5-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1693,8 +1704,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p6-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1716,8 +1727,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p2-a.webp",
-              "complete": true,
-              "naturalWidth": 800,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1797,7 +1808,7 @@
           "paused": false
         }
       ],
-      "curtainProgress": 0.11519999999999998,
+      "curtainProgress": 0.11279999999999998,
       "projectRailTransform": "translate3d(-5617px, 0px, 0px)"
     },
     {
@@ -1812,7 +1823,7 @@
         "devicePixelRatio": 1
       },
       "url": "/",
-      "performanceNow": 13885,
+      "performanceNow": 13888,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -1832,7 +1843,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p1-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1843,7 +1854,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p4-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1854,8 +1865,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p3-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1877,7 +1888,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p5-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -1888,8 +1899,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p6-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -1911,8 +1922,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p2-a.webp",
-              "complete": true,
-              "naturalWidth": 800,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -2007,7 +2018,7 @@
         "devicePixelRatio": 1
       },
       "url": "/",
-      "performanceNow": 14085,
+      "performanceNow": 14088,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -2027,7 +2038,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p1-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -2038,7 +2049,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p4-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -2049,8 +2060,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p3-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -2072,7 +2083,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p5-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -2083,8 +2094,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p6-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -2106,8 +2117,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p2-a.webp",
-              "complete": true,
-              "naturalWidth": 800,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -2187,7 +2198,7 @@
           "paused": false
         }
       ],
-      "curtainProgress": 0.9998753899199928,
+      "curtainProgress": 0.9998721160919466,
       "projectRailTransform": "translate3d(-5617px, 0px, 0px)"
     },
     {
@@ -2202,7 +2213,7 @@
         "devicePixelRatio": 1
       },
       "url": "/",
-      "performanceNow": 14285,
+      "performanceNow": 14288,
       "language": "fr",
       "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
       "visibleHeadings": [
@@ -2222,7 +2233,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p1-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -2233,7 +2244,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p4-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -2244,8 +2255,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p3-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -2267,7 +2278,7 @@
           "layers": [
             {
               "src": "assets/projets/opt/p5-bg.webp",
-              "complete": true,
+              "complete": false,
               "naturalWidth": 800,
               "opacity": 1
             }
@@ -2278,8 +2289,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p6-bg.webp",
-              "complete": true,
-              "naturalWidth": 1000,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {
@@ -2301,8 +2312,8 @@
           "layers": [
             {
               "src": "assets/projets/opt/p2-a.webp",
-              "complete": true,
-              "naturalWidth": 800,
+              "complete": false,
+              "naturalWidth": 0,
               "opacity": 1
             },
             {

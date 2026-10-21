@@ -14,12 +14,13 @@
   },
   "browserVersion": "154.0.8037.57",
   "playwrightVersion": "1.62.1",
-  "harnessSha256": "3cd95d825339fbffcc709dde02f28282c576bea3908ef8e660f5fcef25e5100e",
+  "harnessSha256": "7cff2ef7bdca2176a796fe8a4ad8f774b66f75531752f3da5c8c4b12bcc03020",
   "runtimeManifestSha256": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3",
+  "serverSha256": "6a59a4f13366674425f421b9ea7f72e2d5132741caef554ab574c1eb248b22fa",
   "configuration": {
     "clockEpoch": "2026-01-01T00:00:00.000Z",
     "randomSeed": 123456789,
-    "mediaFrameSeconds": 0.12,
+    "mediaFrameSeconds": 0,
     "screenshotScale": "css",
     "cssAnimations": "disabled at screenshot only"
   },
@@ -41,7 +42,7 @@
         "x": 0,
         "y": 958
       },
-      "performanceNow": 3164,
+      "performanceNow": 3163,
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "devicePixelRatio": 2,
       "text": "PilatesPilates for men aged 28–50, beyond the usual audience. Building the body like an architect.web designillustration",
@@ -57,10 +58,10 @@
       "videos": [
         {
           "src": "assets/projets/pilates.mp4",
-          "currentTime": 0,
+          "currentTime": 0.830938,
           "readyState": 4,
           "paused": false,
-          "playbackRate": 0
+          "playbackRate": 1
         }
       ]
     },
@@ -78,7 +79,7 @@
         "x": 0,
         "y": 1554
       },
-      "performanceNow": 3324,
+      "performanceNow": 3323,
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "devicePixelRatio": 2,
       "text": "LongreadWhy does one slightly misaligned object in a perfect row bother us so much?web designreadymag animation",
@@ -96,7 +97,7 @@
           "src": "assets/projets/longread.mp4",
           "currentTime": 0,
           "readyState": 4,
-          "paused": false,
+          "paused": true,
           "playbackRate": 0
         }
       ]
@@ -115,7 +116,7 @@
         "x": 0,
         "y": 2084
       },
-      "performanceNow": 3484,
+      "performanceNow": 3483,
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "devicePixelRatio": 2,
       "text": "Tour de paroleAn online school that teaches young people to negotiate salaries, rates and interviews through play.full brand identityapp & web design",
@@ -168,7 +169,7 @@
         "x": 0,
         "y": 2831
       },
-      "performanceNow": 3644,
+      "performanceNow": 3643,
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "devicePixelRatio": 2,
       "text": "Inside outA motion design piece about mental health: social anxiety and feeling overwhelmed.creative directionmotion design",
@@ -186,7 +187,7 @@
           "src": "assets/projets/inside-out.mp4",
           "currentTime": 0,
           "readyState": 4,
-          "paused": false,
+          "paused": true,
           "playbackRate": 0
         }
       ]
@@ -205,7 +206,7 @@
         "x": 0,
         "y": 3340
       },
-      "performanceNow": 3804,
+      "performanceNow": 3803,
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "devicePixelRatio": 2,
       "text": "CelimaxA skincare jar reimagined as a mini record player for Celimax — a Korean brand I love.3d modelinglanding page",
@@ -258,7 +259,7 @@
         "x": 0,
         "y": 3936
       },
-      "performanceNow": 3964,
+      "performanceNow": 3963,
       "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
       "devicePixelRatio": 2,
       "text": "NapoliAn authentic taste of Italy in Montreuil — focaccia, Italian pastries and Neapolitan espresso.brand identityweb design",

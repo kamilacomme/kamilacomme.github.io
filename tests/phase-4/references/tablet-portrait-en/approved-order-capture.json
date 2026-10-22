@@ -1,0 +1,86 @@
+{
+  "approvedDelta": "Canonical project order across all layouts: Pilates, Longread, Tour de parole, Inside Out, Celimax, Napoli.",
+  "sourceCommit": "4ecd4aea8b16fc59ceda890551c6bdbb2003cff7",
+  "profile": "tablet-portrait-en",
+  "language": "en",
+  "browserVersion": "154.0.8037.57",
+  "configuration": {
+    "browser": "Chromium",
+    "headless": true,
+    "locale": "en-GB",
+    "timezoneId": "Europe/Paris",
+    "colorScheme": "light",
+    "reducedMotion": "no-preference",
+    "softwareWebGL": true,
+    "device": {
+      "mode": "tablet-portrait",
+      "language": "en",
+      "viewport": {
+        "width": 834,
+        "height": 1112
+      },
+      "isMobile": true,
+      "hasTouch": true,
+      "deviceScaleFactor": 2
+    }
+  },
+  "states": [
+    {
+      "name": "start",
+      "viewport": {
+        "width": 834,
+        "height": 1112
+      },
+      "scroll": {
+        "x": 0,
+        "y": 1112
+      },
+      "projectIds": [
+        "pilates",
+        "longread",
+        "tour-de-parole",
+        "inside-out",
+        "celimax",
+        "napoli"
+      ]
+    },
+    {
+      "name": "middle",
+      "viewport": {
+        "width": 834,
+        "height": 1112
+      },
+      "scroll": {
+        "x": 0,
+        "y": 1384
+      },
+      "projectIds": [
+        "pilates",
+        "longread",
+        "tour-de-parole",
+        "inside-out",
+        "celimax",
+        "napoli"
+      ]
+    },
+    {
+      "name": "end",
+      "viewport": {
+        "width": 834,
+        "height": 1112
+      },
+      "scroll": {
+        "x": 0,
+        "y": 1655
+      },
+      "projectIds": [
+        "pilates",
+        "longread",
+        "tour-de-parole",
+        "inside-out",
+        "celimax",
+        "napoli"
+      ]
+    }
+  ]
+}

@@ -37,9 +37,12 @@ async function freezeMedia(page){
  }});
  await new Promise(resolve=>setTimeout(resolve,200));
 }
-async function capture(page,testInfo,name,records){
+async function prepareVisualCapture(page){
  await page.evaluate(async()=>{for(const doc of [document,...[...document.querySelectorAll('iframe')].map(f=>{try{return f.contentDocument}catch{return null}}).filter(Boolean)]){await Promise.all([...doc.images].filter(i=>{const r=i.getBoundingClientRect();return r.width>0&&r.height>0&&r.bottom>0&&r.top<innerHeight&&r.right>0&&r.left<innerWidth}).map(i=>i.decode()));}});
  await freezeMedia(page);
+}
+async function capture(page,testInfo,name,records){
+ await prepareVisualCapture(page);
  if(process.env.REGRESSION_PROBE==='1'){if(process.env.UPDATE_BASELINE==='1')throw new Error('Refuse baseline update during negative-control probe');await page.addStyleTag({content:'h1 { color: #ff0000 !important; }'});}
  await expect(page).toHaveScreenshot(`${name}.png`,{animations:'disabled',timeout:60000});
  const record=await page.evaluate(()=>({scroll:{x:scrollX,y:scrollY},viewport:{width:innerWidth,height:innerHeight,devicePixelRatio},url:location.pathname,performanceNow:performance.now(),language:document.documentElement.lang,userAgent:navigator.userAgent,
@@ -55,4 +58,4 @@ async function saveManifest(page,testInfo,records){
  const file=testInfo.outputPath('capture-manifest.json');await fs.writeFile(file,JSON.stringify(metadata,null,2));await testInfo.attach('capture-manifest',{path:file,contentType:'application/json'});
  if(process.env.UPDATE_BASELINE==='1') {const dir=path.join(__dirname,'references',testInfo.project.name);await fs.mkdir(dir,{recursive:true});await fs.writeFile(path.join(dir,'capture-manifest.json'),JSON.stringify(metadata,null,2));}
 }
-module.exports={ORIGIN_COMMIT,expectedOrder,links,routes,ready,selectors,projectScope,projectCards,documentBox,scrollTo,scrollSection,seed,capture,saveManifest};
+module.exports={ORIGIN_COMMIT,expectedOrder,links,routes,ready,selectors,projectScope,projectCards,documentBox,scrollTo,scrollSection,seed,freezeMedia,prepareVisualCapture,capture,saveManifest};

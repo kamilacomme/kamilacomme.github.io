@@ -317,8 +317,11 @@ class Component extends DCLogic {
         // hero preview plate: exactly three columns, its 314x196 proportion kept
         const hPlate = this.heroBottom && this.heroBottom.querySelector("[data-hplate]");
         if (hPlate) {
-          hPlate.style.width = cardD.toFixed(1) + "px";
-          hPlate.style.height = (cardD * 204 / 326).toFixed(1) + "px";
+          // The visible plate inherits heroBottom's scale. Cap its rendered width,
+          // while retaining the original 326:204 aspect ratio and bottom-right anchor.
+          const plateWidth = Math.min(cardD, 325 / s);
+          hPlate.style.width = plateWidth.toFixed(1) + "px";
+          hPlate.style.height = (plateWidth * 204 / 326).toFixed(1) + "px";
           hPlate.style.right = "32px";
         }
       }

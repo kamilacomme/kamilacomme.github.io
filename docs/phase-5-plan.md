@@ -1,0 +1,73 @@
+# Phase 5 implementation plan: hybrid fluid-responsive layout
+
+**Status:** Proposed for user review. No Phase 5 application/layout implementation has started.
+
+**Branch:** `phase-5/fluid-responsive`, created from the completed Phase 4 branch checkpoint `0422402b46bb814d4202abd0e8266d95c03685d3`.
+
+**Goal:** Replace whole-container scaling incrementally with responsive layout and independently readable type, while preserving the portfolio's visual identity, motion, media, scrolling and four responsive profiles. Phase 4's canonical project data, generated French and English pages, static routes and single project order remain in place.
+
+## Approved visual and content constraints
+
+- Desktop keeps the current layered project tickets and overall composition.
+- Tablet portrait and landscape use the approved [portrait Figma](https://www.figma.com/design/9vt2ATXB0UTz1sPESCNmWh/For-Claude?node-id=369-1778) and [landscape Figma](https://www.figma.com/design/9vt2ATXB0UTz1sPESCNmWh/For-Claude?node-id=370-1905) direction: an outer project image behind a smaller light-grey ticket containing project media, title, description, tags and barcode.
+- Mobile keeps its separate editorial project card composition and associated media/video lifecycle.
+- Target **effective rendered** font sizes: desktop main heading 56px, project title 40px, body 14px, label 12px; tablet 48px, 32px, 14px, 12px; mobile 32px, 24px, 14px, 12px. Logo is 20px at every profile. Preserve existing font families, weights, line heights and letter spacing until reviewed; do not put these sizes beneath transforms that reduce them.
+- Preserve the desktop Hero's six-image loop, aspect ratio and bottom-right anchor; its maximum effective visible width is 325px, including all ancestor transforms.
+- Preserve tablet page margins, section geometry, rail mapping, project navigation, scroll span/transition into About, project reachability, and resize/orientation behavior while the cards change.
+- Keep original Phase 0–1, Phase 2, Phase 3 and Phase 4 reference images immutable. Only create a separate Phase 5 reference set for intentional approved design states; never update old files to make changes pass.
+- French and English must remain generated from Phase 4 shared templates/data and must maintain equivalent behavior and the canonical order.
+- French and English mobile Lighthouse TBT remain release blockers. Do not mix unrelated performance optimization into this phase.
+
+## Milestones and acceptance criteria
+
+Milestone names and acceptance criteria are stable. Milestones are marked Complete only when all listed evidence exists. Each completed milestone gets a small commit and a status update before work proceeds.
+
+| # | Milestone | Acceptance criteria | Focused validation | Status |
+| --- | --- | --- | --- | --- |
+| 1 | Responsive geometry and reference contract | Record current section bounds, transform owners, breakpoints, card/rail geometry, scroll span and transitions, typography metrics and Hero loop bounds in all four profiles and both languages. Identify expected deltas from the approved designs. Freeze hashes and verify original references remain immutable. | Browser measurement probes and source/runtime inventory; baseline integrity check; no reference update. | Not started |
+| 2 | Shared fluid shell and type foundations | Introduce documented responsive tokens/containers and migrate only low-coupling shell elements. Keep section composition and each layout's visual anchors stable. Ensure target type sizes are effective sizes with no shrinking ancestor transform for migrated elements. | Quick syntax/build checks; desktop/tablet portrait/tablet landscape/mobile smoke in FR/EN; computed font-size and bounding-box assertions; keyboard navigation and zoom spot checks. | Not started |
+| 3 | Hero and navigation migration | Migrate Hero text and navigation sizing/layout without changing the projector animation, pointer response or section navigation. The six-image preview keeps aspect ratio, loop order and bottom-right anchor; its measured effective visible width never exceeds 325px at wide desktop sizes. | Both locales; desktop widths including narrow and wide; all four profiles for navigation; assert loop refs/timing, pointer interaction, effective width cap and no overlap/clipping. | Not started |
+| 4 | Tablet Projects frame and layered tickets | Rebuild only tablet card composition to match approved Figma intent. Preserve page margins, Projects section/rail bounds, scroll-to-horizontal mapping, ordering, section transition, card reachability, links, media association and resize/orientation response. No About initialization dependency, arbitrary delay or offset. | Tablet portrait and landscape in FR/EN; rail start/mid/end, each of six project identities, link/media/label assertions, scroll span and About boundary checks, orientation/resize and targeted visual review. New Phase 5 captures only after Figma review of intentional card changes. | Not started |
+| 5 | Desktop Projects and shared card typography | Preserve current desktop layered tickets and iframe/controller contracts while making ticket text use the effective desktop targets. Do not change canonical data or project/media associations. | Desktop FR/EN visual/functional references; all six tickets, copy, links, alt/accessible names, media playback and iframe behavior; computed typography. | Not started |
+| 6 | About and Footer responsive layout | Reduce reliance on whole-section scaling with Grid/Flexbox or fluid constraints where compatible with the existing three About DOM shells and animation refs. Keep the footer curtain and all animation timing/position progress intact. | Both languages, four profiles; About animation timeline checkpoints and section transition; footer/curtain motion; overflow and reduced-motion/accessibility checks. | Not started |
+| 7 | Mobile editorial layout and short/zoomed viewport handling | Preserve mobile's editorial card markup/composition, canonical sequence, videos, image sequences and navigation while migrating sizing away from whole-canvas shrinkage. Handle 320px width, larger phones, short tablet landscape and 200% zoom without unintended clipping, overlap or lost controls. | Mobile FR/EN at 320, 375, 393 and larger-phone widths; tablet short landscape and 200% zoom checks; card/video sequence, touch/keyboard, dialogs, horizontal overflow and target effective type measurements. | Not started |
+| 8 | Phase 5 acceptance, performance comparison and independent review | All required layout states pass; approved intentional differences are documented separately from regressions; Phase 4 content/generation checks pass; immutable reference locks pass. Run complete eight-profile functional/visual gate once, Lighthouse comparison at phase completion, and independent final diff review. | Full eight-profile gate once, `content:check`, `content:build:check`, artifact locks, Lighthouse FR/EN mobile/desktop compared with original and Phase 4, independent review. Mobile TBT remains visibly blocked if over budget. | Not started |
+
+**Progress: 0 / 8 milestones complete.** Current task is plan review. Application/layout implementation stays paused until the user reviews this plan.
+
+## Tablet Projects geometry contract
+
+The tablet work changes card composition, not the Projects section or navigation system. Before editing cards, Milestone 1 records the tested geometry and behavior at portrait, landscape and short landscape sizes: viewport/page margins; section bounds; scroll position to rail translation; rail start, middle and end; project identity at every stop; total reachable project span; transition point into About; and resize/orientation initialization. Milestone 4 must preserve those contracts within measurement tolerance agreed from repeat captures. Any geometry change that cannot preserve the user's approved contract is a stop-and-report issue, not a reason to add offsets, arbitrary timers, or observers of unrelated sections.
+
+The existing approved tablet scale at 1194 × 834 is part of the current visual state, but Phase 5 should replace whole-container scaling through explicit layout ownership. Do not undo the approved scale by simply restoring the historic 1.0 card size. During migration, state whether each measurement is a structural invariant, a responsive value, or an explicitly approved visual change. Typography changes and card-layer changes may alter text wrapping; those local consequences are expected only when they follow the Figma direction and remain readable without changing rail geometry.
+
+## Expected design changes versus regressions
+
+Expected, subject to visual review: tablet outer image/background restored as part of the layered ticket; smaller light-grey inner ticket overlay; effective type reaching the stated targets instead of being reduced by parent transforms; responsive line wrapping and spacing needed for those sizes; locally adjusted tablet image crop if the Figma composition requires it; Hero preview capped at 325px effective width on wide desktops.
+
+Regressions: incorrect project order or project/media/link/label association; missing media or sequence; changed desktop or mobile card composition; unintended page margins or section/rail geometry changes; clipped/inaccessible tickets; abrupt rail scrolling or premature About transition; changed animation timing, ordering or interactions; text overlap/clipping outside the approved composition; broken FR/EN routes or metadata; image-loop aspect ratio, anchor or playback changes; any unexplained difference unrelated to the approved ticket/typography/cap requirements.
+
+When a visual difference is expected, use a new Phase 5 reference group with its own manifest, commit and reviewer signoff. Keep inherited references and hash locks untouched. A mismatch against a historic tablet ticket screenshot is not itself a failure if the diff matches the approved Figma design; differences outside the intended card region remain failures until explained and accepted.
+
+## Recovery and validation policy
+
+- Keep `phase-4/shared-bilingual-static` and its pushed checkpoint untouched. Do Phase 5 work only on `phase-5/fluid-responsive`.
+- Commit after each independently reviewable milestone. Before a milestone begins, note its starting SHA in `docs/PROJECT-STATUS.md`; after completion, record its commit SHA and test evidence. Roll back a failed experiment with a revert or return to the preceding checkpoint; do not rewrite Phase 4 history.
+- After each small edit: run syntax, deterministic generation checks if shared output/build inputs are touched, source/artifact integrity checks, and the smallest relevant smoke test.
+- At each milestone: run targeted tests for changed components and affected layouts. Include both locales when copy, typography, shared CSS/layout, routing or generated output could be affected. Include portrait and landscape variants for tablet geometry changes.
+- Do not regenerate old baselines. Create Phase 5 references only for approved intentional states, isolate them in new directories and lock hashes before using them as gates.
+- Stop on unexpected changes to animation timing, runtime initialization, geometry, media behavior or canonical project association. Report evidence and offer a minimal correction; do not accumulate workarounds.
+- Run the full eight-profile regression once at Milestone 8. Run Lighthouse only at phase completion or if an approved change plausibly affects loading/execution. Record existing mobile TBT as unresolved unless a valid phase-end comparison shows otherwise; this plan does not authorize a separate optimization effort.
+
+## Risk assessment
+
+Overall risk is **high** because existing transforms feed authored coordinates, card positions, scroll-to-rail geometry and animation calculations. Tablet Projects and About transitions have the highest geometry/behavior risk; the Hero projector and its overlay refs have high animation risk; mobile has high risk from canvas sizing, image-sequence timing and touch scroll interactions. Desktop project content is isolated in an iframe but must retain its runtime contract. Responsive type will naturally change wrapping and some local whitespace; pixel-identical results across all widths are not promised.
+
+The mitigation is to establish measured geometry contracts first, move one region at a time, preserve controller/data/runtime ownership, use targeted checks at each checkpoint, keep Phase 4 rollback-safe, and require independent review. If preserving the tablet rail contract requires broad controller changes or visual hacks, stop before proceeding and bring the concrete tradeoff for review.
+
+## Known blockers and limitations
+
+- French mobile TBT is an unresolved release blocker (Phase 4 median 885.5 ms against original baseline 208.5 ms). English mobile TBT is also unresolved (966.5 ms against 253.5 ms baseline). No unrelated optimization is included here.
+- Figma is the design reference for tablet tickets. The typography and global scaling system need browser measurements; the plan does not assume that CSS token values alone achieve effective sizes.
+- Prior Chromium runs do not cover physical Safari/iOS. Add representative physical-device/browser validation in later release validation as available.
+- Phase 4's four tablet reference differences must not all be silently classified as obsolete ticket appearance. Media, crop, geometry, animation and behavior need separate attribution against the new Figma reference.

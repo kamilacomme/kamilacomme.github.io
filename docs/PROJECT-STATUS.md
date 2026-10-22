@@ -2,13 +2,13 @@
 
 Updated: 2026-10-22. Milestones are marked complete only after their stated checks pass.
 
-**Current branch:** `phase-4/shared-bilingual-static`
+**Current branch:** `phase-5/fluid-responsive` (local planning branch; based on `phase-4/shared-bilingual-static`)
 
-**Latest Phase 4 checkpoint:** `7b4bec310c96c939f876657bf034ea447db85ec4` — Phase 4 source, generated pages, references and reports are pushed for backup and review.
+**Phase 5 branch point:** `0422402b46bb814d4202abd0e8266d95c03685d3` — completed Phase 4 branch checkpoint, including its latest reviewed documentation. Phase 4 remains preserved on its own branch.
 
-**Current task:** Record the approved tablet ticket design direction for Phase 5; Phase 4 branch is awaiting user review.
+**Current task:** Prepare the incremental Phase 5 plan for user review. No application/layout code has changed.
 
-**Next task:** Wait for the user's review and explicit start approval before Phase 5 implementation. The tablet redesign direction is approved, but not started.
+**Next task:** Wait for the user's review of [phase-5-plan.md](phase-5-plan.md). Do not begin application implementation until the plan is reviewed.
 
 ## Roadmap
 
@@ -19,12 +19,29 @@ Updated: 2026-10-22. Milestones are marked complete only after their stated chec
 | 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — structural extraction and user inspection passed; French mobile TBT remains unresolved and blocks release readiness |
 | 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | Complete for structural scope — approved tablet scale retained, initialization dependency resolved, eight-profile gate and review passed; mobile Lighthouse regression remains a release blocker |
 | 4 | Centralize project data and French/English translations; generate static routes | Complete — final acceptance recorded below; mobile Lighthouse remains a release blocker |
-| 5 | Hybrid fluid-responsive layout, readable typography and accessibility review | Not started — target architecture approved; tablet ticket redesign is an approved upcoming milestone |
+| 5 | Hybrid fluid-responsive layout, readable typography and accessibility review | In progress — planning only; implementation paused pending review of `phase-5-plan.md` |
 | 6 | Review asset loading and make separately approved performance improvements | Not started |
 | 7 | Cross-browser/device validation and release-candidate regression | Not started |
 | 8 | Final documentation, independent acceptance and release decision | Not started |
 
-Phase 5 architecture direction is documented in [hybrid-responsive-architecture-proposal.md](hybrid-responsive-architecture-proposal.md). The tablet ticket redesign direction is approved for this future phase; implementation has not started.
+Phase 5 architecture direction and incremental implementation sequence are documented in [phase-5-plan.md](phase-5-plan.md), with the broader hybrid design background in [hybrid-responsive-architecture-proposal.md](hybrid-responsive-architecture-proposal.md). The branch is based on the completed Phase 4 checkpoint. Implementation has not started and remains paused for review.
+
+## Phase 5 milestones
+
+**Progress: 0 / 8 milestones complete.** Current state: planning only. No Phase 5 application or layout implementation is authorized before review of the plan.
+
+| Milestone | Acceptance criteria | Status |
+| --- | --- | --- |
+| 1. Responsive geometry and reference contract | Measure four profiles, both locales, transforms, typography, Hero bounds, tablet rail geometry and section transitions; verify immutable references | Not started |
+| 2. Shared fluid shell and type foundations | Introduce responsive tokens/containers for low-coupling shell areas; effective target sizes without shrinking transforms | Not started |
+| 3. Hero and navigation migration | Preserve projector/motion/navigation; enforce 325px maximum effective Hero preview width and anchor/aspect ratio | Not started |
+| 4. Tablet Projects frame and layered tickets | Match approved Figma card composition while preserving tablet margins, rail geometry, project reachability and About transition | Not started |
+| 5. Desktop Projects and shared card typography | Retain desktop layered tickets/iframe contract and apply effective desktop text targets | Not started |
+| 6. About and Footer responsive layout | Reduce transforms where safe while preserving three About shells, refs, animations and curtain behavior | Not started |
+| 7. Mobile editorial layout and short/zoomed viewport handling | Keep editorial cards and media lifecycles; verify narrow phones, short landscape and zoom accessibility | Not started |
+| 8. Phase 5 acceptance, performance comparison and independent review | Full eight-profile gate once, build/data/artifact checks, Lighthouse comparison and independent diff review | Not started |
+
+The detailed scope, focused tests, expected design changes, regression criteria, risks and recovery policy are in [phase-5-plan.md](phase-5-plan.md). French and English mobile Lighthouse TBT remain open release blockers. The full suite is reserved for Phase 5 completion.
 
 ## Phase 4 milestones
 
@@ -63,7 +80,7 @@ One legacy English About education description remains in French because that wa
 
 ## User-approved upcoming Phase 5 tablet ticket redesign
 
-The user reviewed Phase 4 and approved a new tablet card direction, using [tablet portrait Figma](https://www.figma.com/design/9vt2ATXB0UTz1sPESCNmWh/For-Claude?node-id=369-1778) and [tablet landscape Figma](https://www.figma.com/design/9vt2ATXB0UTz1sPESCNmWh/For-Claude?node-id=370-1905) as visual references. Tablet portrait and landscape cards should adopt a responsive version of the desktop layered ticket composition: a large project background image behind a smaller light-grey ticket containing its image, title, description, tags and barcode. Desktop remains unchanged; mobile retains its intentionally different editorial presentation. This is an approved future milestone, not authorization to start Phase 5 now.
+The user reviewed Phase 4 and approved a new tablet card direction, using [tablet portrait Figma](https://www.figma.com/design/9vt2ATXB0UTz1sPESCNmWh/For-Claude?node-id=369-1778) and [tablet landscape Figma](https://www.figma.com/design/9vt2ATXB0UTz1sPESCNmWh/For-Claude?node-id=370-1905) as visual references. Tablet portrait and landscape cards should adopt a responsive version of the desktop layered ticket composition: a large project background image behind a smaller light-grey ticket containing its image, title, description, tags and barcode. Desktop remains unchanged; mobile retains its intentionally different editorial presentation. This direction is incorporated into the Phase 5 plan; implementation has not started.
 
 Limit the redesign to tablet cards. Preserve tablet page margins, Projects section geometry, scroll behavior and project navigation. Review effective typography and the global scaling system during Phase 5; do not add temporary compensating transforms now. Shared project data does not require identical card markup across breakpoints.
 
@@ -78,7 +95,7 @@ The old tablet design omitted the outer background image and sometimes used pink
 
 ## Deployment and checkpoint state
 
-Phase 4 is on `phase-4/shared-bilingual-static` at `7b4bec310c96c939f876657bf034ea447db85ec4`, pushed to GitHub for backup and review. Latest implementation/reference checkpoints include `506f381` (tablet-order rail references) and `5f42902` (canonical tablet per-project references). Earlier checkpoints preserve inventory, approved plan, canonical data/French output, bilingual static cutover and About data extraction. Phase 2 and Phase 3 backup branches remain on GitHub. Nothing was merged, deployed or published; `main` is unchanged. Phase 5 has not started. French and English mobile Lighthouse TBT remain unresolved release blockers.
+Phase 4 is on `phase-4/shared-bilingual-static` at `0422402b46bb814d4202abd0e8266d95c03685d3`, pushed to GitHub for backup and review. Latest implementation/reference checkpoints include `506f381` (tablet-order rail references) and `5f42902` (canonical tablet per-project references). Earlier checkpoints preserve inventory, approved plan, canonical data/French output, bilingual static cutover and About data extraction. Phase 2 and Phase 3 backup branches remain on GitHub. Nothing was merged, deployed or published; `main` is unchanged. Phase 5 planning is in progress on a separate local branch, with application implementation paused for plan review. French and English mobile Lighthouse TBT remain unresolved release blockers.
 
 ## Phase 3 milestones
 
@@ -201,6 +218,6 @@ Open `http://127.0.0.1:8000/` for French and `http://127.0.0.1:8000/en/` for Eng
 
 ## Checkpoint and deployment state
 
-The Phase 2 branch `phase-2/css-js-extraction` and original Phase 0–1 baseline branch `test/portfolio-baseline-phase-0-1` remain preserved locally and on GitHub. Validated Phase 2 source checkpoint `64cdbbe4a86a128e11d474af956e9c07ad990c82` is pushed; the defer experiment was reverted. Experiment evidence is preserved locally at `9e1051c96476395910d9551f3b17d0d6e1d5c40a`. Phase 3 checkpoint `b6ceeec2e049fe8303bc14f0325a8fff1b4ce93c` was pushed to `phase-3/simplification`. Phase 4 at `7b4bec310c96c939f876657bf034ea447db85ec4` is pushed for backup/review only. Nothing was merged, deployed, or published. GitHub Pages remains configured to build `main` from `/`; remote `main` was last verified at `d8a37314ed7d2265f3f949c9e048b5e2beadfc20`. Phase 4 is complete; the tablet ticket redesign is approved for a future Phase 5 milestone, which has not started. Mobile Lighthouse performance remains unresolved and prevents release readiness.
+The Phase 2 branch `phase-2/css-js-extraction` and original Phase 0–1 baseline branch `test/portfolio-baseline-phase-0-1` remain preserved locally and on GitHub. Validated Phase 2 source checkpoint `64cdbbe4a86a128e11d474af956e9c07ad990c82` is pushed; the defer experiment was reverted. Experiment evidence is preserved locally at `9e1051c96476395910d9551f3b17d0d6e1d5c40a`. Phase 3 checkpoint `b6ceeec2e049fe8303bc14f0325a8fff1b4ce93c` was pushed to `phase-3/simplification`. Phase 4 at `0422402b46bb814d4202abd0e8266d95c03685d3` is pushed for backup/review only. Nothing was merged, deployed, or published. GitHub Pages remains configured to build `main` from `/`; remote `main` was last verified at `d8a37314ed7d2265f3f949c9e048b5e2beadfc20`. Phase 4 is complete; Phase 5 planning is on the separate local `phase-5/fluid-responsive` branch and implementation is paused for review. Mobile Lighthouse performance remains unresolved and prevents release readiness.
 
 **Current blocker:** mobile Lighthouse budgets fail; Phase 4 French mobile TBT is 885.5 ms (Phase 3: 925 ms; Phase 2: 380.5 ms; original baseline: 208.5 ms). English mobile is 966.5 ms. Phase 2/3 source provenance is incomplete, so those values are method-matched context rather than verified source comparisons. Phase 4 is structurally and functionally complete for review. The Phase 4 branch is pushed for backup/review only; nothing was merged, deployed or published, and `main` remains unchanged.

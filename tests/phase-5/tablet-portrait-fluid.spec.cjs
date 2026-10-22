@@ -82,7 +82,17 @@ test('portrait layered cards fill 32px gutters with readable bilingual type', as
 
     expect(result.lang).toBe(language);
     expect(result.heading.effectiveSize).toBe(48);
+    expect(result.heading.scale).toBe(1);
+    expect(result.heading.family).toMatch(/Figtree/);
+    expect(result.heading.weight).toBe('700');
+    expect(result.heading.lineHeight).toBe('52.8px');
+    expect(result.heading.letterSpacing).toBe('-1.44px');
     expect(result.logo.effectiveSize).toBe(20);
+    expect(result.logo.scale).toBe(1);
+    expect(result.logo.family).toMatch(/Figtree/);
+    expect(result.logo.weight).toBe('700');
+    expect(result.logo.lineHeight).toBe('24px');
+    expect(result.logo.letterSpacing).toBe('-0.4px');
     expect(result.cards.map((card) => card.id)).toEqual(order);
     for (const card of result.cards) {
       expect(card.href).toMatch(/^https:\/\//);
@@ -105,6 +115,18 @@ test('portrait layered cards fill 32px gutters with readable bilingual type', as
         // 35px client box; allow only that single-pixel metric rounding.
         expect(card[part].scrollHeight, `${card.id} ${part} vertical overflow`).toBeLessThanOrEqual(card[part].clientHeight + 1);
       }
+      expect(card.title.family).toMatch(/Figtree/);
+      expect(card.title.weight).toBe('700');
+      expect(card.title.lineHeight).toBe('35.2px');
+      expect(card.title.letterSpacing).toBe('-0.96px');
+      expect(card.description.family).toMatch(/Inter/);
+      expect(card.description.weight).toBe('400');
+      expect(card.description.lineHeight).toBe('21px');
+      expect(card.description.letterSpacing).toBe('-0.14px');
+      expect(card.tags.family).toMatch(/Inter/);
+      expect(card.tags.weight).toBe('400');
+      expect(card.tags.lineHeight).toBe('16.2px');
+      expect(card.tags.letterSpacing).toBe('0.48px');
       expect(card.title.rect.right).toBeLessThanOrEqual(card.info.rect.right + 1);
       expect(card.description.rect.bottom).toBeLessThanOrEqual(card.tags.rect.top + 1);
       expect(card.tags.rect.bottom).toBeLessThanOrEqual(card.info.rect.bottom + 1);

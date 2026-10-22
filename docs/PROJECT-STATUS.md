@@ -6,9 +6,9 @@ Updated: 2026-10-22. Milestones are marked complete only after their stated chec
 
 **Phase 5 branch point:** `0422402b46bb814d4202abd0e8266d95c03685d3` — completed Phase 4 branch checkpoint, including its latest reviewed documentation. Phase 4 remains preserved on its own branch.
 
-**Latest Phase 5 implementation checkpoint:** this commit — authoritative Figma-sized tablet tickets, derived portrait/landscape section and rail spans, and focused FR/EN geometry, content and video checks. Previous implementation checkpoint: `97286cdd78eff1afaaccdf3dc31e3d582bf038bd`. Latest documentation checkpoint: `825c9bc74f1650c87de7114358385a2c6f819352`.
+**Latest Phase 5 implementation checkpoint:** `e45e7187539e40ef887384994804b72484f06663` — portrait cards fill the available width between 32px gutters, with focused bilingual geometry/content/type checks at three portrait widths. Tablet landscape remains at the approved Figma sizing. The bilingual typesetting audit is documented; no content copy has been changed.
 
-**Current task:** Present the updated interactive preview for the user's visual review. The shared desktop/tablet ticket now uses the supplied Figma geometry at both target frames; references remain frozen.
+**Current task:** Present the updated interactive preview for the user's visual review. The shared desktop/tablet ticket uses the supplied Figma geometry, portrait cards are fluid to the 32px gutters, and references remain frozen.
 
 **Next task:** User reviews the updated Phase 5 branch preview in French/English, portrait/landscape. Only after approval may separate Phase 5 references be captured and locked.
 
@@ -21,7 +21,7 @@ Updated: 2026-10-22. Milestones are marked complete only after their stated chec
 | 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — structural extraction and user inspection passed; French mobile TBT remains unresolved and blocks release readiness |
 | 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | Complete for structural scope — approved tablet scale retained, initialization dependency resolved, eight-profile gate and review passed; mobile Lighthouse regression remains a release blocker |
 | 4 | Centralize project data and French/English translations; generate static routes | Complete — final acceptance recorded below; mobile Lighthouse remains a release blocker |
-| 5 | Hybrid fluid-responsive layout, readable typography and accessibility review | In progress — Milestones 1–3 complete; Milestone 4 geometry update is underway from supplied Figma measurements |
+| 5 | Hybrid fluid-responsive layout, readable typography and accessibility review | In progress — Milestones 1–3 complete; Milestone 4 portrait width correction is tested and pending visual approval |
 | 6 | Review asset loading and make separately approved performance improvements | Not started |
 | 7 | Cross-browser/device validation and release-candidate regression | Not started |
 | 8 | Final documentation, independent acceptance and release decision | Not started |

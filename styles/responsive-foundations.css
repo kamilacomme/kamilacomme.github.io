@@ -21,3 +21,86 @@
 #kc-tablet-projets h1 {
   font-size: var(--kc-type-heading-tablet, 48px);
 }
+
+/* Tablet controls retain full hit areas; the nav reflows only when one row no longer fits. */
+@media (min-width: 500px) and (max-width: 833px) {
+  .kc-responsive-nav.kc-tablet-nav {
+    --kc-nav-scale: 1 !important;
+    --kc-nav-gutter: 32px !important;
+    --kc-nav-block-padding: 15px !important;
+  }
+  .kc-responsive-nav.kc-tablet-nav > span:first-child,
+  .kc-responsive-nav.kc-tablet-nav > div:last-child {
+    flex: none !important;
+  }
+  .kc-responsive-nav.kc-tablet-nav > div:last-child {
+    gap: 16px !important;
+  }
+  .kc-responsive-nav.kc-tablet-nav > div:last-child > span[data-fixed-ink] {
+    min-height: 44px !important;
+    height: 44px !important;
+    padding: 12px 24px !important;
+    flex: none !important;
+  }
+  .kc-responsive-nav.kc-tablet-nav a[href^="mailto"] {
+    min-width: max-content !important;
+    min-height: 44px !important;
+    height: 44px !important;
+    padding: 12px 24px !important;
+    flex: none !important;
+  }
+}
+
+/* Content-fit measurement: at 608px, the 142.7px logo, 385.3px controls,
+   64px gutters and 16px breathing gap fit in one row. Below that, use two rows. */
+@media (min-width: 500px) and (max-width: 607px) {
+  .kc-responsive-nav.kc-tablet-nav {
+    --kc-nav-gutter: 16px !important;
+    --kc-nav-block-padding: 12px !important;
+    height: auto !important;
+    min-height: 120px;
+    padding: 12px 16px !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-template-rows: 44px 44px;
+    column-gap: 12px;
+    row-gap: 8px;
+    align-items: center;
+    justify-content: normal;
+  }
+  .kc-responsive-nav.kc-tablet-nav > span:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .kc-responsive-nav.kc-tablet-nav > div:nth-child(2) {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    grid-column: 1;
+    grid-row: 2;
+    display: flex !important;
+    gap: 12px !important;
+    align-self: center;
+  }
+  .kc-responsive-nav.kc-tablet-nav > div:nth-child(3) {
+    display: contents !important;
+  }
+  .kc-responsive-nav.kc-tablet-nav > div:nth-child(3) > span[data-fixed-ink] {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+  }
+  .kc-responsive-nav.kc-tablet-nav > div:nth-child(3) > a[href^="mailto"] {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+  .kc-responsive-nav.kc-tablet-nav > div:nth-child(2) > a {
+    flex: none;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 607px) {
+  #kc-tablet-projets.kc-narrow-ticket h1 { top: 128px !important; }
+}

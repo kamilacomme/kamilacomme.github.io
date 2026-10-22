@@ -156,3 +156,44 @@
 @media (prefers-reduced-motion: reduce) {
   #kc-tablet-projets .ticket-image .media-layer { transition: none; }
 }
+
+/* Narrow-tablet fallback: keep the shared layered ticket, changing only its layout. */
+@media (min-width: 500px) and (max-width: 659px) {
+  #kc-tablet-projets.kc-narrow-ticket .ticket {
+    height: auto;
+    padding: 16px;
+    overflow: hidden;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket-panel {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 271 / 206;
+    flex: none;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket-info {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    flex: none;
+    gap: 20px;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket-info > div:first-child {
+    flex: none;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket .barcode {
+    width: 100%;
+    height: 52px;
+    flex: none;
+  }
+}

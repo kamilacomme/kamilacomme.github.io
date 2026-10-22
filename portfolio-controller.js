@@ -483,6 +483,7 @@ class Component extends DCLogic {
       }
       // navbar rides whichever frame is active
       if (this.nav) {
+        this.nav.classList.toggle("kc-tablet-nav", tablet);
         // The navigation frame fills the viewport directly. Keep its spacing in the
         // previous effective layout units while typography remains independently sized.
         const navScale = mobile ? sm : tablet ? st : s;

@@ -27,6 +27,7 @@
     const stage = $('kc-t-stage');
     const rail = stage?.querySelector('.tickets');
     frame.classList.remove('kc-landscape-rail');
+    frame.classList.remove('kc-narrow-ticket');
     frame.style.height = '';
     if (viewport) {
       viewport.style.position = '';
@@ -81,12 +82,11 @@
     // Portrait cards fill the content width between the established 32px gutters.
     // Landscape intentionally retains its separate 770px Figma composition below.
     const cardWidth = Math.max(0, window.innerWidth - 64);
+    const narrowTickets = window.innerWidth <= 659;
+    frame.classList.toggle('kc-narrow-ticket', narrowTickets);
     const cardHeight = 310;
     const cardGap = 32;
     const railTop = 269;
-    const sectionHeight = railTop + 6 * cardHeight + 5 * cardGap + 32;
-    setStyle(stage, 'height', sectionHeight + 'px');
-    setStyle(viewport, 'height', sectionHeight + 'px');
     const heading = stage.querySelector('h1');
     const rail = stage.querySelector('.tickets');
     if (heading) {
@@ -101,9 +101,14 @@
       setStyle(rail, 'gap', cardGap + 'px');
       [...rail.children].forEach((card) => {
         setStyle(card, 'width', '100%');
-        setStyle(card, 'height', cardHeight + 'px');
+        setStyle(card, 'height', narrowTickets ? 'auto' : cardHeight + 'px');
       });
     }
+    const cardHeights = rail ? [...rail.children].map((card) => card.getBoundingClientRect().height) : [];
+    const sectionHeight = railTop + cardHeights.reduce((sum, height) => sum + height, 0)
+      + Math.max(0, cardHeights.length - 1) * cardGap + 32;
+    setStyle(stage, 'height', sectionHeight + 'px');
+    setStyle(viewport, 'height', sectionHeight + 'px');
   }
 
   function fitLandscapeGeometry() {
@@ -127,12 +132,14 @@
     setStyle(viewport, 'height', window.innerHeight + 'px');
 
     const cardWidth = Math.min(770, Math.max(0, width - 64));
-    const cardHeight = 310;
+    const narrowTickets = width <= 659;
+    section.classList.toggle('kc-narrow-ticket', narrowTickets);
+    const fixedCardHeight = 310;
     const cardGap = 32;
     const cards = [...rail.querySelectorAll('.ticket')];
     cards.forEach((card) => {
       setStyle(card, 'width', cardWidth + 'px');
-      setStyle(card, 'height', cardHeight + 'px');
+      setStyle(card, 'height', narrowTickets ? 'auto' : fixedCardHeight + 'px');
     });
     setStyle(rail, 'width', 'max-content');
     setStyle(rail, 'left', '32px');
@@ -140,6 +147,7 @@
 
     const visibleBottom = viewport.getBoundingClientRect().bottom;
     const stageTop = stage.getBoundingClientRect().top;
+    const cardHeight = narrowTickets ? Math.ceil(rail.getBoundingClientRect().height) : fixedCardHeight;
     const rowTop = visibleBottom - stageTop - 32 - cardHeight;
     setImportantStyle(rail, 'top', Math.max(0, rowTop).toFixed(2) + 'px');
     setImportantStyle(rail, 'bottom', 'auto');

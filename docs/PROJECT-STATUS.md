@@ -6,11 +6,11 @@ Updated: 2026-10-22. Milestones are marked complete only after their stated chec
 
 **Phase 5 branch point:** `0422402b46bb814d4202abd0e8266d95c03685d3` — completed Phase 4 branch checkpoint, including its latest reviewed documentation. Phase 4 remains preserved on its own branch.
 
-**Latest Phase 5 recovery checkpoint:** `c028e183f7b286d5044563bff124f810eae6f0be` — Milestone 2 responsive shell/type foundation and tablet heading ownership, validated in both languages and all four profiles.
+**Latest Phase 5 recovery checkpoint:** `ee8979594fd901620c8243225047079292fa1bba` — Milestone 3 desktop/tablet Hero typography and desktop preview cap, validated in both languages; Milestone 2 remains preserved at `c028e183f7b286d5044563bff124f810eae6f0be`.
 
-**Current task:** Begin Milestone 3, Hero and navigation migration, after completing Milestone 2.
+**Current task:** Prepare Milestone 4's shared desktop/tablet ticket implementation boundary before editing tablet cards.
 
-**Next task:** Migrate Hero text and enforce the desktop six-image preview's 325px effective maximum while retaining its aspect ratio, bottom-right anchor and loop. Keep tablet Projects geometry untouched until Milestone 4.
+**Next task:** Start Milestone 4 with one shared desktop/tablet layered-ticket template and common CSS; retain separate desktop iframe and tablet rail wrappers, and keep mobile's editorial template/lifecycle untouched.
 
 ## Roadmap
 
@@ -30,13 +30,13 @@ Phase 5 architecture and incremental implementation sequence are documented in [
 
 ## Phase 5 milestones
 
-**Progress: 2 / 8 milestones complete.** The browser-measured reference contract and shared shell/type foundation are complete. Phase 5 plan approval was received at `7f98795102548b45366d382680e9589ac690d07f`.
+**Progress: 3 / 8 milestones complete.** The browser-measured reference contract, shared shell/type foundation, and desktop/tablet Hero/navigation migration are complete. Phase 5 plan approval was received at `7f98795102548b45366d382680e9589ac690d07f`.
 
 | Milestone | Acceptance criteria | Status |
 | --- | --- | --- |
 | 1. Responsive geometry and reference contract | Measure four profiles, both locales, transforms, typography, Hero bounds, tablet rail geometry and section transitions; verify immutable references | Complete — browser probe and contract at [phase-5-baseline-contract.md](phase-5-baseline-contract.md); checkpoint `33ab8be03c9d06460439a1946b26a0a960f2916d` |
 | 2. Shared fluid shell and type foundations | Introduce responsive tokens/containers for low-coupling shell areas; effective target sizes without shrinking transforms | Complete — checkpoint `c028e183f7b286d5044563bff124f810eae6f0be` |
-| 3. Hero and navigation migration | Preserve projector/motion/navigation; enforce 325px maximum effective Hero preview width and anchor/aspect ratio | In progress |
+| 3. Hero and navigation migration | Preserve projector/motion/navigation; enforce 325px maximum effective Hero preview width and anchor/aspect ratio | Complete — checkpoint `ee8979594fd901620c8243225047079292fa1bba` |
 | 4. Tablet Projects frame and shared layered tickets | Use one desktop/tablet ticket template with responsive styling; preserve tablet margins, rail geometry, project reachability and About transition | Not started — waits until tablet-design milestone; user review required before Phase 5 ticket references are accepted |
 | 5. Desktop Projects and shared card typography | Retain desktop layered tickets/iframe contract and apply effective desktop text targets | Not started |
 | 6. About and Footer responsive layout | Reduce transforms where safe while preserving three About shells, refs, animations and curtain behavior | Not started |
@@ -46,6 +46,8 @@ Phase 5 architecture and incremental implementation sequence are documented in [
 The detailed scope, focused tests, expected design changes, regression criteria, risks and recovery policy are in [phase-5-plan.md](phase-5-plan.md). French and English mobile Lighthouse TBT remain open release blockers. The full suite is reserved for Phase 5 completion.
 
 **Milestone 2 checkpoint:** `styles/responsive-foundations.css` defines the approved typography tokens and shell rules; the navigation frame no longer applies a shrinking transform, and the tablet Projects heading no longer measures the unrelated Hero title to choose its font size. Phase 4 data validation and deterministic bilingual generation passed; all 230 frozen artifacts retain their hashes; changed JavaScript and Playwright files pass syntax checks; the focused responsive-shell test passed 8/8 across FR/EN desktop, tablet portrait, tablet landscape and mobile. Keyboard tab movement from “Projets” to “À propos” passed. Headless Chromium did not provide a browser zoom control, so true 200% zoom remains explicitly unverified for Milestone 7. The first test run's six failures were a test selector reading the status dot rather than its text; the selector was corrected and the full targeted rerun passed. No references were updated. The Option C ticket decision is documented in the Phase 5 plan; ticket code has not changed.
+
+**Milestone 3 checkpoint:** Desktop and tablet Hero headings now use effective 56px and 48px sizes outside shrinking ancestor transforms; their original viewport-relative anchor coordinates are maintained. The desktop six-image preview stays at or below 325 effective pixels at 1280×800, 1440×900 and 2560×1440 in both languages, retains its 326:204 ratio and 32px authored bottom/right insets, and advances its image loop. Hero-focused checks passed 8/8 for desktop and both tablet profiles in FR/EN (four cap checks are expected skips on tablet). The navigation shell test passed 8/8 in the preceding checkpoint. `content:check`, deterministic `content:build:check`, syntax and the 230-artifact immutable baseline lock pass. No screenshot references were changed. Mobile Hero typography remains with Milestone 7 so 320px wrapping can be handled without a temporary scale compensation.
 
 ## Phase 4 milestones
 

@@ -2,7 +2,8 @@ const { expect } = require('@playwright/test');
 const fs = require('node:fs/promises');
 const path = require('node:path');
 const ORIGIN_COMMIT='d8a37314ed7d2265f3f949c9e048b5e2beadfc20';
-const expectedOrder={desktop:['Pilates','Longread','Tour de parole','Inside out','Celimax','Napoli'],mobile:['Pilates','Longread','Tour de parole','Inside out','Celimax','Napoli'],'tablet-portrait':['Celimax','Inside out','Napoli','Longread','Tour de parole','Pilates'],'tablet-landscape':['Celimax','Inside out','Napoli','Longread','Tour de parole','Pilates']};
+const canonicalOrder=['Pilates','Longread','Tour de parole','Inside out','Celimax','Napoli'];
+const expectedOrder={desktop:canonicalOrder,mobile:canonicalOrder,'tablet-portrait':canonicalOrder,'tablet-landscape':canonicalOrder};
 const links={Pilates:'https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men',Longread:'https://readymag.website/u1448912666/perfectionism/','Tour de parole':'https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ','Inside out':'https://www.youtube.com/watch?v=NG0HM9ApyP8',Celimax:'https://www.behance.net/gallery/255872777/Climax-3D-product-website',Napoli:'https://www.behance.net/gallery/257282669/Napoli-caffe-branding'};
 async function routes(context){
   // Network fixture is test-only, preserves the original request URL and SRI bytes.

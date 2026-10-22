@@ -1,12 +1,6 @@
 
 /* Mobile image tickets: viewport-triggered loops, mounted like the working videos. */
 (function () {
-  const sets = {
-    'Tour de parole': ['p3-bg.webp','p3-b.webp','p3-c.webp'],
-    'Celimax': ['p6-bg.webp','p6-b.webp','p6-c.webp'],
-    'Napoli': ['p2-a.webp','p2-b.webp','p2-bg.webp']
-  };
-  const base = 'assets/projets/opt/';
   const bound = new WeakSet(), states = new WeakMap(), targets = new Set();
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   function show(state, n) {
@@ -41,18 +35,18 @@
   }, {threshold:[0,.32,.6]});
   function bindImages() {
     document.querySelectorAll('#kc-mobile-projets .project').forEach(function(ticket) {
-      const name = ticket.querySelector('h2')?.textContent.trim();
-      const set = sets[name], visual = ticket.querySelector('.visual');
-      if (!set || !visual || bound.has(visual)) return;
+      const sequence = (ticket.dataset.sequence || '').split(/\s+/).filter(Boolean);
+      const visual = ticket.querySelector('.visual');
+      if (sequence.length < 2 || !visual || bound.has(visual)) return;
       const poster = visual.querySelector('img.poster');
       if (!poster) return;
       bound.add(visual);
       const layers = [poster];
       poster.style.transition = 'opacity .32s ease';
-      set.slice(1).forEach(function(filename) {
+      sequence.slice(1).forEach(function(src) {
         const img = document.createElement('img');
         img.className='poster kc-mobile-slide';
-        img.src=base+filename;
+        img.src=src;
         img.alt='';
         img.decoding='async';
         img.loading='eager';

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kamila Comme — designer Brand &amp; Digital, Paris</title>
+<meta name="description" content="Portfolio de Kamila Comme, designer Brand &amp; Digital à Paris : identité, web design, motion. En recherche d’un CDI pour 2026.">
+<meta name="theme-color" content="#08080a">
+<meta property="og:title" content="Kamila Comme — designer Brand &amp; Digital">
+<meta property="og:description" content="Une idée. Une marque qui fonctionne partout. Portfolio 2026.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kamilacomme.github.io/">
+<meta property="og:image" content="https://kamilacomme.github.io/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kamilacomme.github.io/assets/og.jpg">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<!-- these assets are only ever referenced from JS (data-src lazy-load, a dynamic
+     import()), which the standalone bundler can’t discover on its own — lifting them
+     here makes the exported file self-contained even with no assets/ folder beside it -->
+<meta name="ext-resource-dependency" content="assets/about/avatar.mp4" data-resource-id="avatarVid" />
+<meta name="ext-resource-dependency" content="assets/about/footer-walk.mp4" data-resource-id="footerWalkVid" />
+<meta name="ext-resource-dependency" content="assets/projets/pilates.mp4" data-resource-id="pilatesVid" />
+<meta name="ext-resource-dependency" content="assets/projets/longread.mp4" data-resource-id="longreadVid" />
+<meta name="ext-resource-dependency" content="assets/projets/inside-out.mp4" data-resource-id="insideoutVid" />
+<meta name="ext-resource-dependency" content="assets/about/footer-curtain.webp" data-resource-id="footerCurtainImg" />
+<meta name="ext-resource-dependency" content="./curtain-cloth.js" data-resource-id="curtainScript" />
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect width="400" height="400" fill="#08080a"/><text x="200" y="232" text-anchor="middle" font-family="Figtree, Helvetica, sans-serif" font-weight="700" font-size="150" letter-spacing="-6" fill="#ffffff">KC</text></svg>
+</template>
+     <!-- Временно скрываем баннер куки -->
+<link rel="stylesheet" href="/styles/hire-cookie-overrides.css">
+     <!-- Google Consent Mode v2 -->
+<script src="/scripts/analytics/consent-defaults.js"></script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NEB5X3SCNX"></script>
+<script src="/scripts/analytics/init.js"></script>
+<link rel="stylesheet" href="/styles/project-layouts.css" id="kc-new-project-css"></head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/styles.css">
+  <script src="_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/_ds_bundle.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400;1,700&family=Epilogue:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/base-and-accessibility.css">
+</helmet>
+
+<p style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;">Kamila Comme — designer Brand &amp; Digital à Paris, en recherche d’un CDI pour 2026</p>
+<div ref="{{ vhProbeRef }}" aria-hidden="true" style="position: fixed; left: 0; top: 0; width: 0; height: 100svh; visibility: hidden; pointer-events: none;"></div>
+<div ref="{{ lvhProbeRef }}" aria-hidden="true" style="position: fixed; left: 0; top: 0; width: 0; height: 100lvh; visibility: hidden; pointer-events: none;"></div>
+
+<!-- 1. HERO -->
+<div style="position: relative; width: 100%; height: 100svh; overflow: hidden; background: #08080a; z-index: 0;">
+  <!-- visual layer: cover-scaled so the cinema fills the screen edge to edge -->
+  <div ref="{{ heroContainerRef }}" onMouseMove="{{ heroMove }}" onMouseEnter="{{ heroEnter }}" onMouseLeave="{{ heroLeave }}" style="position: absolute; left: 50%; top: 50%; width: 1440px; height: 813px; transform-origin: center; transform: translate(-50%,-50%); background: #08080a;">
+
+    <!-- Projector: dark seats (base) + lit seats revealed by spotlight mask + warm beam glow -->
+    <div style="position: absolute; inset: 0; background: url(assets/seats-dark.webp) center / cover no-repeat;"></div>
+    <div style="position: absolute; inset: 0; background: rgba(6,6,8,0.72); pointer-events: none;"></div>
+    <svg ref="{{ heroSvgRef }}" viewBox="0 0 1440 813" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;">
+      <defs>
+        <filter id="beamSoft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur ref="{{ beamBlurRef }}" stdDeviation="24"></feGaussianBlur></filter>
+        <filter id="beamCrisp" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="26"></feGaussianBlur></filter>
+        <linearGradient id="shaftGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0"></stop>
+          <stop offset="55%" stop-color="#ffffff" stop-opacity="0.55"></stop>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="1"></stop>
+        </linearGradient>
+        <radialGradient id="poolGrad">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="1"></stop>
+          <stop offset="22%" stop-color="#ffffff" stop-opacity="0.82"></stop>
+          <stop offset="48%" stop-color="#ffffff" stop-opacity="0.44"></stop>
+          <stop offset="76%" stop-color="#ffffff" stop-opacity="0.14"></stop>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"></stop>
+        </radialGradient>
+        <radialGradient id="poolRound">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="1"></stop>
+          <stop offset="58%" stop-color="#ffffff" stop-opacity="0.88"></stop>
+          <stop offset="84%" stop-color="#ffffff" stop-opacity="0.4"></stop>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"></stop>
+        </radialGradient>
+        <mask id="beamMask">
+          <rect ref="{{ maskRectRef }}" x="0" y="0" width="1440" height="813" fill="#000000"></rect>
+          <polygon ref="{{ maskShaftRef }}" points="0,0 0,0 0,0 0,0" fill="url(#shaftGrad)" filter="url(#beamSoft)"></polygon>
+          <ellipse ref="{{ maskPoolRef }}" cx="0" cy="0" rx="0" ry="0" fill="url(#poolGrad)" filter="url(#beamSoft)"></ellipse>
+        </mask>
+      </defs>
+      <image ref="{{ heroImgRef }}" href="assets/seats-light.webp" x="0" y="0" width="1440" height="813" preserveAspectRatio="xMidYMid slice" mask="url(#beamMask)" style="opacity: 0;"></image>
+      <g ref="{{ heroGlowRef }}" style="opacity: 0;">
+        <polygon ref="{{ glowShaftRef }}" points="0,0 0,0 0,0 0,0" fill="url(#shaftGrad)" filter="url(#beamSoft)" opacity="0.1"></polygon>
+        <ellipse ref="{{ glowPoolRef }}" cx="0" cy="0" rx="0" ry="0" fill="url(#poolGrad)" filter="url(#beamSoft)" opacity="0.17"></ellipse>
+      </g>
+    </svg>
+    <canvas ref="{{ heroCanvasRef }}" width="1440" height="813" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen;"></canvas>
+  </div>
+
+  <!-- top group: pinned to the top edge, on the 1440 grid -->
+  <div ref="{{ heroTopRef }}" style="position: absolute; left: 50%; top: 0; width: 1440px; height: 430px; pointer-events: none; transform-origin: top center; transform: translateX(-50%); font-family: 'Inter', sans-serif;">
+
+    <h1 style="position: absolute; left: 32px; top: 130px; width: 900px; margin: 0; font-family: 'Figtree', sans-serif; font-size: 56px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(255,255,255);"><span style="display: block; font-weight: 700; font-style: normal; white-space: nowrap; margin-left: -3.3px;">Hello, je suis Kamila,</span><span style="display: block; font-weight: 400; font-style: italic; white-space: nowrap; margin-left: -1.8px;">Brand &amp; Digital designer.</span></h1>
+  </div>
+  <!-- bottom group: pinned to the bottom edge, on the same 1440 grid -->
+  <div ref="{{ heroBottomRef }}" style="position: absolute; left: 50%; bottom: 0; width: 1440px; height: 353px; overflow: visible; pointer-events: none; transform-origin: bottom center; transform: translateX(-50%); font-family: 'Inter', sans-serif;">
+    <!-- Project preview: 6 photos cycling on a loop -->
+    <div data-hplate="1" style="position: absolute; right: 32px; bottom: 32px; width: 326px; height: 204px; border-radius: 4px; overflow: hidden; background: rgb(238,236,236);">
+      <div ref="{{ heroSlideRef }}" style="position: absolute; inset: 0; opacity: 1; background: url(assets/preview-1.webp) center / cover no-repeat;"></div>
+      <div ref="{{ heroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-2.webp) center / cover no-repeat;"></div>
+      <div ref="{{ heroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-3.webp) center / cover no-repeat;"></div>
+      <div ref="{{ heroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-4.webp) center / cover no-repeat;"></div>
+      <div ref="{{ heroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-5.webp) center / cover no-repeat;"></div>
+      <div ref="{{ heroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-6.webp) center / cover no-repeat;"></div>
+    </div>
+    <div style="position: absolute; left: 32px; bottom: 32px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
+      <div style="width: 48px; height: 48px; flex: 0 0 auto; border-radius: 4px; overflow: hidden; background: url(assets/portrait.webp) center / cover no-repeat;"></div>
+      <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); text-transform: uppercase;">Scroll down ↓</span>
+    </div>
+  </div>
+  <div ref="{{ mHeroRef }}" style="position: absolute; left: 50%; top: 50%; width: 390px; height: 844px; transform-origin: center; transform: translate(-50%,-50%); display: none;">
+    <div style="position: absolute; right: 16px; bottom: 24px; width: 171px; height: 107px; border-radius: 4px; overflow: hidden; background: rgb(238,236,236);">
+      <div ref="{{ mHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 1; background: url(assets/preview-1.webp) center / cover no-repeat;"></div>
+      <div ref="{{ mHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-2.webp) center / cover no-repeat;"></div>
+      <div ref="{{ mHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-3.webp) center / cover no-repeat;"></div>
+      <div ref="{{ mHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-4.webp) center / cover no-repeat;"></div>
+      <div ref="{{ mHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-5.webp) center / cover no-repeat;"></div>
+      <div ref="{{ mHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-6.webp) center / cover no-repeat;"></div>
+    </div>
+    <h1 style="position: absolute; left: 16px; top: 152px; width: 358px; margin: 0; font-family: 'Figtree', sans-serif; font-size: 32px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(255,255,255);"><span style="display: block; font-weight: 700; font-style: normal; white-space: nowrap; margin-left: -1.7px;">Hello, je suis Kamila,</span><span style="display: block; font-weight: 400; font-style: italic; white-space: nowrap; margin-left: -0.9px;">Brand &amp; Digital designer.</span></h1>
+    <div style="position: absolute; left: 16px; top: 88px; width: 48px; height: 48px; border-radius: 4px; overflow: hidden; background: url(assets/portrait.webp) center / cover no-repeat;"></div>
+    <span style="position: absolute; left: 16px; bottom: 24px; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 11px; line-height: 1; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); text-transform: uppercase;">Scroll down ↓</span>
+    <div ref="{{ mGridRef }}" style="position: absolute; inset: 0; z-index: 60; pointer-events: none; display: none; box-sizing: border-box; padding: 0 16px; flex-direction: row; gap: 16px;"><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div></div>
+  </div>
+  <div ref="{{ tHeroRef }}" style="position: absolute; left: 50%; top: 50%; width: 834px; height: 1112px; transform-origin: center; transform: translate(-50%,-50%);">
+    <div data-kc-tablet-hero-slideshow style="position: absolute; right: 32px; bottom: 32px; width: 314px; height: 196px; border-radius: 4px; overflow: hidden; background: rgb(238,236,236);">
+      <div ref="{{ tHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 1; background: url(assets/preview-1.webp) center / cover no-repeat;"></div>
+      <div ref="{{ tHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-2.webp) center / cover no-repeat;"></div>
+      <div ref="{{ tHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-3.webp) center / cover no-repeat;"></div>
+      <div ref="{{ tHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-4.webp) center / cover no-repeat;"></div>
+      <div ref="{{ tHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-5.webp) center / cover no-repeat;"></div>
+      <div ref="{{ tHeroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-6.webp) center / cover no-repeat;"></div>
+    </div>
+    <h1 data-kc-tablet-hero-title style="position: absolute; left: 32px; top: 128px; width: 770px; margin: 0; font-family: 'Figtree', sans-serif; font-size: 48px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(255,255,255);"><span style="display: block; font-weight: 700; font-style: normal; white-space: nowrap; margin-left: -3.3px;">Hello, je suis Kamila,</span><span style="display: block; font-weight: 400; font-style: italic; white-space: nowrap; margin-left: -1.8px;">Brand &amp; Digital designer.</span></h1>
+    <div style="position: absolute; left: 32px; bottom: 32px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
+      <div style="width: 48px; height: 48px; flex: 0 0 auto; border-radius: 4px; overflow: hidden; background: url(assets/portrait.webp) center / cover no-repeat;"></div>
+      <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); text-transform: uppercase;">Scroll down ↓</span>
+    </div>
+  </div>
+</div>
+
+<div ref="{{ dRootRef }}">
+<div id="kc-desktop-projets"><section id="projets" style="position:relative;width:100%;background:#fff"><iframe title="Projets récents – défilement horizontal" src="desktop-project-embedded.html" loading="eager" scrolling="no" style="position:sticky;top:0;width:100%;height:100svh;border:0;display:block;background:#fff" id="kc-desktop-project-frame"></iframe></section></div>
+<!-- 3. ABOUT + FOOTER -->
+<div id="apropos" ref="{{ aboutRef }}" style="position: relative; width: 100%; height: 800svh; background: #ffffff; z-index: 3;">
+  <div style="position: sticky; top: 0; height: 100svh; overflow: hidden; background: #ffffff;">
+    <div ref="{{ aStageRef }}" style="position: absolute; left: 50%; top: 50%; width: 1440px; height: 844px; overflow: hidden; transform-origin: center; transform: translate(-50%,-50%);">
+
+      <!-- Fixed statement block (grid, vertically centered) -->
+      <div style="position: absolute; left: 32px; top: 50%; transform: translateY(-50%); width: 1336px; z-index: 1;">
+        <p style="margin: 0; text-indent: 0; font-family: 'Figtree', sans-serif; font-size: 56px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34); text-wrap: pretty;"><span style="display: inline-block; vertical-align: baseline; width: 48px; height: 48px; margin-right: 68.67px; border-radius: 4px; overflow: hidden;"><video ref="{{ vidRef }}" preload="metadata" data-src="assets/about/avatar.mp4" data-eager="1" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></span><span style="font-weight: 700; font-style: normal;">Je suis Kamila Comme, </span><span style="font-weight: 400; font-style: italic;">designer Brand&nbsp;&amp;&nbsp;Digital </span><span style="font-weight: 700; font-style: normal;">avec un Mastère en Direction Artistique et </span><span style="font-weight: 400; font-style: italic;">5 ans d’expérience. </span><span style="font-weight: 700; font-style: normal;">Je transforme une idée en marque qui marche sur plusieurs supports. </span><span style="font-weight: 400; font-style: italic;">En recherche d’un CDI pour 2026.</span></p>
+      </div>
+
+      <!-- Scrolling fact cards -->
+      <div ref="{{ cardRef }}" data-i="0" style="position: absolute; left: 32px; top: 0; width: 326px; height: 326px; border-radius: 4px; background: rgb(246,244,246); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 3; transform: translateY(920px);">
+        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">Mastère</span>
+        <span style="display: block; width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Direction Artistique, 2026. Avant : Bachelor Designer Print &amp; Digital, 2024</span>
+      </div>
+
+      <div ref="{{ cardRef }}" data-i="1" style="position: absolute; left: 848px; top: 0; width: 326px; height: 326px; border-radius: 4px; background: rgb(241,251,208); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 3; transform: translateY(920px);">
+        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">Greenly</span>
+        <span style="display: block; width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Ma dernière entreprise, de 2024 à 2026. Avant, j’étais chez Bene Bono, de 2023 à 2024.</span>
+      </div>
+
+      <div ref="{{ cardRef }}" data-i="2" style="position: absolute; left: 382px; top: 0; width: 326px; height: 326px; border-radius: 4px; background: rgb(254,205,249); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 3; transform: translateY(920px);">
+        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">450k</span>
+        <span style="display: block; width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">vues sur TikTok, pour une vidéo sur mon portfolio sur Readymag.</span>
+      </div>
+
+      <div ref="{{ cardRef }}" data-i="3" style="position: absolute; left: 1082px; top: 0; width: 326px; height: 326px; border-radius: 4px; background: rgb(246,244,246); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 3; transform: translateY(920px); overflow: hidden;">
+        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">Behance</span>
+        <span style="display: block; width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">2 sélections Behance (Illustration et Packaging) pour mon projet Chocolate Mallow Lab.</span>
+      </div>
+
+      <div ref="{{ cardRef }}" data-i="4" style="position: absolute; left: 32px; top: 0; width: 326px; height: 326px; border-radius: 4px; background: rgb(176,229,253); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 3; transform: translateY(920px);">
+        <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; color: rgb(34,32,34);">3 langues</span>
+        <span style="display: block; width: 100%; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Je parle français, anglais et russe couramment.</span>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+
+</div>
+
+<!-- ============ TABLET LAYOUT (834 x 1112 frame) ============ -->
+<div ref="{{ tRootRef }}" style="display: none;">
+
+  <div id="kc-tablet-projets"><div id="projets-t"><div id="kc-t-viewport"><main class="stage" id="kc-t-stage"><h1><span class="kc-title-line">Une sélection de</span><span class="kc-title-line">mes <em>projets </em>récents.</span></h1><section class="tickets" aria-label="Projets">{{tabletCards}}</section></main></div></div></div>
+<!-- T3. ABOUT -->
+  <div id="apropos-t" style="position: relative; width: 100%; height: 300svh; background: #ffffff; z-index: 3;">
+    <div style="position: sticky; top: 0; height: 100svh; overflow: hidden; background: #ffffff;">
+      <div ref="{{ tAStageRef }}" style="position: absolute; left: 50%; top: 50%; width: 834px; height: 1112px; overflow: hidden; transform-origin: center; transform: translate(-50%,-50%);">
+        <div style="position: absolute; left: 32px; top: 50%; transform: translateY(-50%); width: 770px; z-index: 1; display: flex; flex-direction: column; gap: 24px; align-items: flex-start;">
+          <div style="width: 64px; height: 64px; border-radius: 4px; overflow: hidden; flex-shrink: 0;"><video ref="{{ vidRef }}" preload="metadata" data-src="assets/about/avatar.mp4" data-eager="1" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
+          <p style="margin: 0; font-family: 'Figtree', sans-serif; font-size: 48px; line-height: 1.15; letter-spacing: -0.03em; color: rgb(34,32,34); text-wrap: pretty;"><span style="font-weight: 700; font-style: normal;">Je suis Kamila Comme, </span><span style="font-weight: 400; font-style: italic;">designer Brand &amp; Digital </span><span style="font-weight: 700; font-style: normal;">avec un Mastère en Direction Artistique et </span><span style="font-weight: 400; font-style: italic;">5 ans d’expérience. </span><span style="font-weight: 700; font-style: normal;">Je transforme une idée en marque qui marche sur plusieurs supports. </span><span style="font-weight: 400; font-style: italic;">En recherche d’un CDI pour 2026.</span></p>
+        </div>
+                <div ref="{{ tCardRef }}" data-i="0" style="position: absolute; left: 24px; top: 0; width: 264px; height: 264px; border-radius: 4px; background: rgb(246,244,246); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; align-items: flex-start; z-index: 3; transform: translateY(1200px);">
+          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.15; letter-spacing: -0.02em; color: rgb(34,32,34);">Mastère</span>
+          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Direction Artistique, 2026. Avant : Bachelor Designer Print &amp; Digital, 2024</span>
+        </div>
+        <div ref="{{ tCardRef }}" data-i="1" style="position: absolute; left: 546px; top: 0; width: 264px; height: 264px; border-radius: 4px; background: rgb(241,251,208); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; align-items: flex-start; z-index: 3; transform: translateY(1200px);">
+          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.15; letter-spacing: -0.02em; color: rgb(34,32,34);">Greenly</span>
+          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Ma dernière entreprise, de 2024 à 2026. Avant, j’étais chez Bene Bono, de 2023 à 2024.</span>
+        </div>
+        <div ref="{{ tCardRef }}" data-i="2" style="position: absolute; left: 24px; top: 0; width: 264px; height: 264px; border-radius: 4px; background: rgb(254,205,249); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; align-items: flex-start; z-index: 3; transform: translateY(1200px);">
+          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.15; letter-spacing: -0.02em; color: rgb(34,32,34);">450k</span>
+          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">vues sur TikTok, pour une vidéo sur mon portfolio sur Readymag.</span>
+        </div>
+        <div ref="{{ tCardRef }}" data-i="3" style="position: absolute; left: 546px; top: 0; width: 264px; height: 264px; border-radius: 4px; background: rgb(246,244,246); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; align-items: flex-start; z-index: 3; transform: translateY(1200px);">
+          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.15; letter-spacing: -0.02em; color: rgb(34,32,34);">Behance</span>
+          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">2 sélections Behance (Illustration et Packaging) pour mon projet Chocolate Mallow Lab.</span>
+        </div>
+        <div ref="{{ tCardRef }}" data-i="4" style="position: absolute; left: 24px; top: 0; width: 264px; height: 264px; border-radius: 4px; background: rgb(176,229,253); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; align-items: flex-start; z-index: 3; transform: translateY(1200px);">
+          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.15; letter-spacing: -0.02em; color: rgb(34,32,34);">3 langues</span>
+          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Je parle français, anglais et russe couramment.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MOBILE LAYOUT (390 x 844 frame) ============ -->
+<div id="kc-mobile-root" ref="{{ mRootRef }}" style="display: none;">
+
+  <div id="kc-mobile-projets"><div id="projets-m"><div id="kc-m-viewport"><main id="kc-m-canvas"><h1>Une sélection de<br>mes <em>projets </em>récents.</h1>{{mobileCards}}</main></div></div></div>
+<!-- T3. ABOUT -->
+  <div id="apropos-m" style="position: relative; width: 100%; height: 370lvh; background: #ffffff; z-index: 3;">
+    <div style="position: sticky; top: 0; height: 100lvh; overflow: hidden; background: #ffffff;">
+      <div ref="{{ mAStageRef }}" style="position: absolute; left: 50%; top: 50%; width: 390px; height: 844px; overflow: hidden; transform-origin: center; transform: translate(-50%,-50%);">
+        <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 358px; z-index: 1; display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
+          <div style="width: 48px; height: 48px; border-radius: 4px; overflow: hidden; flex-shrink: 0;"><video ref="{{ vidRef }}" preload="metadata" data-src="assets/about/avatar.mp4" data-eager="1" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
+          <p style="margin: 0; font-family: 'Figtree', sans-serif; font-size: 32px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34); text-wrap: pretty;"><span style="font-weight: 700; font-style: normal;">Je suis Kamila Comme, </span><span style="font-weight: 400; font-style: italic;">designer Brand &amp; Digital </span><span style="font-weight: 700; font-style: normal;">avec un Mastère en Direction Artistique et </span><span style="font-weight: 400; font-style: italic;">5 ans d’expérience. </span><span style="font-weight: 700; font-style: normal;">En recherche d’un CDI pour 2026.</span></p>
+        </div>
+                <div ref="{{ mCardRef }}" data-i="0" style="position: absolute; left: 56px; top: 0; width: 264px; height: 264px; border-radius: 4px; background: rgb(246,244,246); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 3; transform: translateY(900px);">
+          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34);">Mastère</span>
+          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Direction Artistique, 2026. Avant : Bachelor Designer Print &amp; Digital, 2024</span>
+        </div>
+        <div ref="{{ mCardRef }}" data-i="1" style="position: absolute; left: 56px; top: 0; width: 264px; height: 264px; border-radius: 4px; background: rgb(241,251,208); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 4; transform: translateY(900px);">
+          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34);">Greenly</span>
+          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Ma dernière entreprise, de 2024 à 2026. Avant, j’étais chez Bene Bono, de 2023 à 2024.</span>
+        </div>
+        <div ref="{{ mCardRef }}" data-i="2" style="position: absolute; left: 56px; top: 0; width: 264px; height: 264px; border-radius: 4px; background: rgb(254,205,249); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 5; transform: translateY(900px);">
+          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34);">450k</span>
+          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">vues sur TikTok, pour une vidéo sur mon portfolio sur Readymag.</span>
+        </div>
+        <div ref="{{ mCardRef }}" data-i="3" style="position: absolute; left: 56px; top: 0; width: 264px; height: 264px; border-radius: 4px; background: rgb(246,244,246); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 6; transform: translateY(900px);">
+          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34);">Behance</span>
+          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">2 sélections Behance (Illustration et Packaging) pour mon projet Chocolate Mallow Lab.</span>
+        </div>
+        <div ref="{{ mCardRef }}" data-i="4" style="position: absolute; left: 56px; top: 0; width: 264px; height: 264px; border-radius: 4px; background: rgb(176,229,253); box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; z-index: 7; transform: translateY(900px);">
+          <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34);">3 langues</span>
+          <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(92,87,92);">Je parle français, anglais et russe couramment.</span>
+        </div>
+    <div ref="{{ mGridRef }}" style="position: absolute; inset: 0; z-index: 60; pointer-events: none; display: none; box-sizing: border-box; padding: 0 16px; flex-direction: row; gap: 16px;"><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div><div style="flex: 1 1 0; background: rgba(255,64,129,0.16);"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer (cinema final) — an ordinary block, next in the scroll order -->
+<div id="contact" ref="{{ footerRef }}" style="position: relative; left: 0; top: 0; width: 100%; height: 100svh; overflow: hidden; background-color: #000000; z-index: 4; will-change: transform;">
+
+  <div ref="{{ clothRef }}" style="position: absolute; left: 0; top: 0; width: 100vw; height: 100svh; z-index: 1; pointer-events: auto;"></div>
+
+  <div ref="{{ creditRef }}" data-c="0" style="position: absolute; left: 32px; top: 118px; z-index: 2; font-family: 'Figtree', sans-serif; font-weight: 400; font-style: italic; font-size: 56px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(255,255,255);">
+    <span style="display: block;">Un CDI ? Écrivez-moi.</span>
+    <a href="mailto:comme.kamila@gmail.com?subject=Un%20CDI%20chez%20nous%20%3F" aria-label="M’écrire à comme.kamila@gmail.com" style="display: block; color: rgb(255,255,255); text-decoration: none; font-style: normal; font-weight: 700;">comme.kamila<wbr>@gmail.com</a>
+  </div>
+
+  <div ref="{{ creditRef }}" data-c="1" style="position: absolute; left: 32px; bottom: 21px; z-index: 2; display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+    <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(255,255,255); white-space: nowrap;">+33 (0) 7 45 67 03 83</span>
+    <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(255,255,255); white-space: nowrap;">Paris, France</span>
+  </div>
+
+  <div ref="{{ creditRef }}" data-c="3" style="position: absolute; left: 1358px; bottom: 27px; width: 48px; height: 48px; z-index: 2; border-radius: 4px; overflow: hidden; background: #111013;"><video ref="{{ vidRef }}" preload="auto" data-src="assets/about/footer-walk.mp4" data-eager="1" aria-hidden="true" tabindex="-1" autoplay muted loop playsinline onEnded="{{ loopVideo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video></div>
+
+  <div ref="{{ creditRef }}" data-c="4" style="position: absolute; left: 583px; bottom: 22px; z-index: 2; display: flex; flex-direction: row; align-items: flex-start; gap: 32px;">
+    <div style="display: flex; flex-direction: row; gap: 32px; align-items: flex-start; flex: 0 0 auto;">
+      <a href="#mentions-legales" data-legal="legal" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(158,154,158); white-space: nowrap; text-decoration: none;">Mentions légales</a>
+      <a href="#politique-de-confidentialite" data-legal="privacy" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(158,154,158); white-space: nowrap; text-decoration: none;">Politique de confidentialité</a>
+    </div>
+  </div>
+
+</div>
+
+<div ref="{{ legalRef }}" data-sheet="legal" role="dialog" aria-modal="true" aria-label="Mentions légales" style="position: fixed; inset: 0; z-index: 700; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(8,8,10,0.72);">
+  <div data-card style="position: relative; box-sizing: border-box; width: 100%; max-width: 640px; max-height: 84vh; display: flex; flex-direction: column; padding: 32px; border-radius: 4px; background: rgb(255,255,255); overflow: hidden;">
+    <div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: 24px;">
+      <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34);">Mentions légales</span>
+      <button type="button" data-close aria-label="Fermer" style="flex: 0 0 auto; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; padding: 0; border: 0; border-radius: 4px; background: rgb(243,241,243); color: rgb(34,32,34); font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1; cursor: pointer;">✕</button>
+    </div>
+    <div data-scroll style="flex: 1 1 auto; min-height: 0; overflow: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; mask-image: linear-gradient(to bottom, #000 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);">
+      <div data-body style="display: flex; flex-direction: column; gap: 28px;"><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Ce site est un portfolio personnel. Voici les informations légales qui s’y rapportent.</p></div><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Éditeur du site</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Ce site est édité par Kamila Comme, à titre personnel et non professionnel (portfolio, aucune vente de produit ou service en ligne). Contact : comme.kamila@gmail.com</p></div><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Directeur de la publication</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Kamila Comme</p></div><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Hébergement</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Ce site est hébergé par : GitHub, Inc.</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Adresse : 88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Contact : https://support.github.com/contact</p></div><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Propriété intellectuelle</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Le design, les textes, la structure et le code de ce site sont une création originale de Kamila Comme et sont protégés par le droit d’auteur. Toute reproduction, même partielle, sans autorisation préalable est interdite.</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Certains visuels (mockups) présentés sur ce site sont des ressources tierces utilisées sous licence. Leurs droits restent la propriété de leurs auteurs respectifs.</p></div><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Liens externes</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Ce site contient des liens vers des projets et sites tiers. Kamila Comme n’est pas responsable du contenu de ces sites externes.</p></div></div>
+    </div>
+  </div>
+</div>
+<div ref="{{ legalRef }}" data-sheet="privacy" role="dialog" aria-modal="true" aria-label="Politique de confidentialité" style="position: fixed; inset: 0; z-index: 700; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(8,8,10,0.72);">
+  <div data-card style="position: relative; box-sizing: border-box; width: 100%; max-width: 640px; max-height: 84vh; display: flex; flex-direction: column; padding: 32px; border-radius: 4px; background: rgb(255,255,255); overflow: hidden;">
+    <div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: 24px;">
+      <span style="font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; color: rgb(34,32,34);">Politique de confidentialité</span>
+      <button type="button" data-close aria-label="Fermer" style="flex: 0 0 auto; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; padding: 0; border: 0; border-radius: 4px; background: rgb(243,241,243); color: rgb(34,32,34); font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1; cursor: pointer;">✕</button>
+    </div>
+    <div data-scroll style="flex: 1 1 auto; min-height: 0; overflow: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; mask-image: linear-gradient(to bottom, #000 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);">
+      <div data-body style="display: flex; flex-direction: column; gap: 28px;"><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Responsable du traitement</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Kamila Comme — comme.kamila@gmail.com</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Ce site est un portfolio. Il ne contient aucun formulaire, aucune création de compte, et ne collecte aucune donnée personnelle directement auprès des visiteurs.</p></div><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Données collectées : uniquement via Google Analytics 4</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Ce site utilise Google Analytics 4, un outil de mesure d’audience fourni par Google Ireland Limited. Les données collectées (adresse IP anonymisée, pages consultées, durée de visite, type d’appareil et navigateur) permettent de comprendre la fréquentation du site et l’intérêt porté aux différents projets présentés.</p></div><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Finalité</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Mesurer l’audience du site et améliorer le contenu proposé aux visiteurs.</p></div><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Base légale</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Le dépôt de ces cookies repose exclusivement sur le consentement du visiteur, recueilli via le bandeau cookies affiché à l’arrivée sur le site. Aucune donnée n’est collectée avant ce consentement.</p></div><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Cookies utilisés</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Seuls des cookies de mesure d’audience (Google Analytics) sont utilisés. Ce site n’utilise aucun cookie publicitaire, marketing ou de réseau social.</p></div><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Durée de conservation</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Les données sont conservées 14 mois maximum, conformément aux recommandations de la CNIL.</p></div><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Transfert de données hors Union européenne</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Google Analytics peut transférer certaines données vers les États-Unis. Ce transfert est encadré par le cadre juridique EU-US Data Privacy Framework, garantissant un niveau de protection adéquat.</p></div><div style="display: flex; flex-direction: column; gap: 8px;"><p style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(34,32,34); margin: 0;">Vos droits</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Conformément au RGPD, vous disposez d’un droit d’accès, de rectification, d’effacement et d’opposition concernant vos données. Vous pouvez retirer votre consentement à tout moment en modifiant votre choix via le bandeau cookies ou en supprimant les cookies de votre navigateur.</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Pour exercer ces droits, vous pouvez contacter : comme.kamila@gmail.com</p><p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(92,87,92); margin: 0; text-wrap: pretty;">Vous disposez également du droit d’introduire une réclamation auprès de la CNIL (www.cnil.fr) si vous estimez que vos droits ne sont pas respectés.</p></div></div>
+    </div>
+  </div>
+</div>
+<div ref="{{ ticketCursorRef }}" aria-hidden="true" style="position: fixed; left: 0; top: 0; z-index: 660; pointer-events: none; opacity: 0; transition: opacity 0.12s ease; will-change: transform;"><img ref="{{ ticketCursorImgRef }}" src="assets/cursor-ticket.svg" alt="" aria-hidden="true" decoding="async" draggable="false" width="216" height="87" style="display: block; width: 221px; height: 89px;"></div>
+
+<div ref="{{ cookieRef }}" data-cookie="desktop" role="region" aria-label="Cookies" style="position: fixed; left: 32px; bottom: 32px; z-index: 690; display: none; opacity: 0; transition: opacity 0.5s ease; box-sizing: border-box; width: 560px; padding: 16px 24px; border-radius: 4px; background: rgb(34,32,34); align-items: center; justify-content: space-between; gap: 24px;">
+  <div style="display: flex; flex-direction: row; align-items: baseline; gap: 16px; min-width: 0;">
+    <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.5; color: rgb(255,255,255); white-space: nowrap;">Cookies : mesure d’audience.</span>
+    <a href="#politique-de-confidentialite" data-legal="privacy" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; line-height: 1.5; color: rgb(255,255,255); white-space: nowrap;">En savoir plus</a>
+  </div>
+  <div style="display: flex; flex-direction: row; gap: 8px; flex-shrink: 0;">
+    <button type="button" data-consent="deny" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.2; border-radius: 4px; cursor: pointer; white-space: nowrap; color: rgb(255,255,255); border: 1px solid rgb(255,255,255); padding: 8px 16px; background: none;">Refuser</button>
+    <button type="button" data-consent="allow" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.2; border-radius: 4px; cursor: pointer; white-space: nowrap; color: rgb(255,255,255); border: 1px solid rgb(255,255,255); padding: 8px 16px; background: none;">Accepter</button>
+  </div>
+</div>
+<div ref="{{ cookieRef }}" data-cookie="mobile" role="region" aria-label="Cookies" style="position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 690; display: none; opacity: 0; transition: opacity 0.5s ease; box-sizing: border-box; padding: 16px; border-radius: 4px; background: rgb(34,32,34); flex-direction: column; gap: 16px;">
+  <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.5; color: rgb(255,255,255); text-wrap: pretty;">Cookies : mesure d’audience uniquement. <a href="#politique-de-confidentialite" data-legal="privacy" style="font-weight: 600; color: rgb(255,255,255); white-space: nowrap;">En savoir plus</a></span>
+  <div style="display: flex; flex-direction: row; gap: 8px;">
+    <button type="button" data-consent="deny" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.2; border-radius: 4px; cursor: pointer; white-space: nowrap; flex: 1 1 0; color: rgb(255,255,255); border: 1px solid rgb(255,255,255); padding: 8px 12px; background: none;">Refuser</button>
+    <button type="button" data-consent="allow" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.2; border-radius: 4px; cursor: pointer; white-space: nowrap; flex: 1 1 0; color: rgb(255,255,255); border: 1px solid rgb(255,255,255); padding: 8px 12px; background: none;">Accepter</button>
+  </div>
+</div>
+<!-- Nav scrim: keeps white nav text legible over light project photos -->
+<div ref="{{ navScrimRef }}" style="position: fixed; left: 0; top: 0; width: 100vw; height: 128px; z-index: 499; pointer-events: none; background: linear-gradient(to bottom, rgba(8,8,10,0.62) 0%, rgba(8,8,10,0.34) 45%, rgba(8,8,10,0) 100%); transition: opacity 0.25s ease;"></div>
+<link rel="stylesheet" href="/styles/nav-scrim.css" id="kc-no-nav-gradient">
+<!-- Shared navbar: one grid, one type scale, sits above every section -->
+<div ref="{{ navRef }}" role="navigation" aria-label="Navigation principale" style="position: fixed; left: 50%; top: 0; width: 1440px; height: 72px; z-index: 500; transform-origin: top center; transform: translateX(-50%); box-sizing: border-box; padding: 15px 32px; display: flex; flex-direction: row; justify-content: space-between; align-items: center; pointer-events: none;">
+  <span style="display: inline-flex; align-items: flex-start; gap: 3px; font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 20px; white-space: nowrap; line-height: 1.2; letter-spacing: -0.02em; color: rgb(255,255,255); pointer-events: auto;">Kamila Comme<span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 9px; line-height: 1.4; letter-spacing: 0;">®</span></span>
+  <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); display: flex; flex-direction: row; gap: 32px; align-items: center; pointer-events: auto;">
+    <a href="#projets" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">Projets</a>
+    <a href="#apropos" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">À propos</a>
+    <a href="#contact" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">Contact</a>
+  </div>
+  <div style="display: flex; flex-direction: row; gap: 16px; align-items: center; pointer-events: auto;">
+    <span ref="{{ pillRef }}" data-fixed-ink="1" style="display: inline-flex; flex-direction: row; gap: 8px; align-items: center; height: 44px; box-sizing: border-box; padding: 12px 24px; border-radius: 4px; background-color: rgba(34,32,34,0.55); border: 1px solid rgba(255,255,255,0.14); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4);"><span data-fixed-ink="1" style="width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background-color: rgb(202,229,108); animation: kcDot 1.8s ease-in-out infinite;"></span><span data-fixed-ink="1" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; white-space: nowrap; line-height: 1.667; letter-spacing: 0.04em; text-transform: uppercase; color: rgb(189,183,189);">En recherche de CDI 2026</span></span>
+    <a href="mailto:comme.kamila@gmail.com?subject=Un%20CDI%20chez%20nous%20%3F" aria-label="M’écrire à comme.kamila@gmail.com" data-fixed-ink="1" style="display: flex; flex-direction: row; align-items: center; height: 44px; box-sizing: border-box; border-radius: 4px; background-color: rgb(253,180,245); padding: 12px 24px;"><span data-fixed-ink="1" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; white-space: nowrap; line-height: 1; color: rgb(34,32,34);">Me recruter</span></a>
+  </div>
+</div>
+</x-dc>
+<script src="/portfolio-controller.js"></script>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:844},&quot;layout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;phone&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;smallest 320x520&quot;,&quot;Galaxy S / A 360x640&quot;,&quot;iPhone SE 375x635&quot;,&quot;iPhone 13/14 390x664&quot;,&quot;iPhone 14 Pro 393x659&quot;,&quot;Pixel 8 412x743&quot;,&quot;iPhone 15 Pro Max 430x739&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;grid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;beamShape&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cone&quot;,&quot;circle&quot;],&quot;default&quot;:&quot;cone&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Projector&quot;}}">
+const Component = window.createPortfolioComponent(DCLogic, React);
+</script>
+<link rel="stylesheet" href="/styles/tablet-landscape.css">
+<script src="/scripts/projects/tablet-project-layout.js"></script>
+<script src="/scripts/projects/responsive-video.js"></script>
+<script src="/scripts/projects/mobile-image-sequences.js"></script>
+<script src="/scripts/projects/mobile-canvas-fit.js"></script>
+
+</body>
+</html>

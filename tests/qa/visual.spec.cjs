@@ -1,5 +1,18 @@
 const {test,expect}=require('@playwright/test');
 const h=require('./helpers.cjs');
+// Image-sequence layers are verified under natural time in functional.spec.cjs.
+// Freeze a known loaded frame here so visual captures do not depend on network timing.
+async function freezeProjectFrame(page,projectId,filename){
+ await page.locator(`#kc-mobile-projets .project[data-project-id="${projectId}"] .visual img`).evaluateAll((images,filename)=>{
+  let selected=false;
+  for(const image of images){
+   const match=image.getAttribute('src').split('/').at(-1)===filename&&!selected;
+   image.style.transition='none';image.style.opacity=match?'1':'0';
+   if(match)selected=true;
+  }
+  if(!selected)throw new Error(`Missing expected mobile frame ${filename}`);
+ },filename);
+}
 test.beforeEach(async({context,page})=>{
  await h.routes(context);await h.seed(page);page.__qaErrors=[];page.__qaAborts=[];
  page.on('pageerror',e=>page.__qaErrors.push('pageerror: '+e.message));
@@ -15,12 +28,19 @@ test('approved visual and animation states',async({page},info)=>{
  await page.clock.runFor(2400);await h.capture(page,info,'hero-settled-3000ms',states);
  const projects=h.selectors(mode).projects;
  for(const [name,fraction] of [['start',0],['middle',.5],['end',1]]){
-  await h.scrollSection(page,projects,fraction,true);await h.capture(page,info,`projects-${name}`,states);
+  await h.scrollSection(page,projects,fraction,true);
+  if(mode==='mobile'&&name==='middle')await freezeProjectFrame(page,'tour-de-parole','p3-b.webp');
+  await h.capture(page,info,`projects-${name}`,states);
  }
  if(mode==='mobile'){
   const cards=h.projectCards(page,mode),target=cards.nth(h.expectedOrder[mode].indexOf('Tour de parole'));
   const y=await target.evaluate(el=>el.getBoundingClientRect().top+scrollY-100);await h.scrollTo(page,y,true);
-  for(let i=0;i<3;i++){await page.clock.runFor(1900);await h.capture(page,info,`mobile-image-sequence-${i}`,states);}
+  const expectedFrames=['p3-c.webp','p3-bg.webp','p3-b.webp'];
+  for(let i=0;i<expectedFrames.length;i++){
+   await page.clock.runFor(1900);
+   await freezeProjectFrame(page,'tour-de-parole',expectedFrames[i]);
+   await h.capture(page,info,`mobile-image-sequence-${i}`,states);
+  }
  }
  const about=h.selectors(mode).about;
  for(const [name,fraction] of [['entry',0],['rising',.4],['settled',.9]]){

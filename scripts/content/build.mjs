@@ -1,0 +1,215 @@
+import { readFile, mkdir, writeFile, mkdtemp, rm } from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
+import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+const args = process.argv.slice(2);
+const outArg = args.find(arg => arg.startsWith('--out='));
+const localeArg = args.find(arg => arg.startsWith('--locale='));
+const checkOnly = args.includes('--check');
+const siteOutput = args.includes('--site');
+const requestedLocales = localeArg ? [localeArg.slice('--locale='.length)] : ['fr', 'en'];
+if (requestedLocales.some(locale => !['fr', 'en'].includes(locale))) throw new Error('Locale must be fr or en');
+const output = checkOnly ? await mkdtemp(path.join(os.tmpdir(), 'kc-phase4-check-'))
+  : path.resolve(root, outArg ? outArg.slice('--out='.length) : siteOutput ? '.' : 'dist/phase4-preview');
+execFileSync(process.execPath, [path.join(root, 'scripts/content/validate-project-data.mjs')], { stdio: 'inherit' });
+const projectsData = JSON.parse(await readFile(path.join(root, 'content/projects.json'), 'utf8'));
+const ui = JSON.parse(await readFile(path.join(root, 'content/ui.en.json'), 'utf8'));
+const site = JSON.parse(await readFile(path.join(root, 'content/site.en.json'), 'utf8'));
+const projects = new Map(projectsData.projects.map(project => [project.id, project]));
+const canonicalOrder = projectsData.canonicalOrder;
+
+const escapeText = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+const escapeAttribute = value => escapeText(value).replaceAll('"', '&quot;');
+const normalize = value => value.replace(/\s+/g, ' ').trim();
+const decodeEntities = value => value
+  .replace(/&nbsp;/gi, '\u00a0').replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>')
+  .replace(/&quot;/gi, '"').replace(/&#39;|&#x27;/gi, "'")
+  .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+  .replace(/&#x([\da-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)));
+const translated = new Map(Object.entries(ui.translations).map(([from, to]) => [normalize(from), to]));
+function polishEnglishLineBreaks(value) {
+  if (!value || value.length < 30 || value.includes('\n')) return value;
+  return value.replace(/\b(a|an|of|to|in|on|at|by|for|with|the) ([A-Za-z][A-Za-z’'-]*)/gi, (_, word, next) => `${word}\u00a0${next}`);
+}
+
+function renderMedia(items, layout) {
+  return items.map((item, index) => {
+    if (layout === 'desktop') {
+      if (item.element === 'img') return `<img alt="" class="media-layer${index === 0 ? ' active' : ''}" decoding="async" loading="${escapeAttribute(item.loading || 'lazy')}" src="${escapeAttribute(item.src)}"/>`;
+      return `<video aria-hidden="true" class="media-layer" data-src="${escapeAttribute(item['data-src'])}" loop="" muted="" playsinline="" preload="${escapeAttribute(item.preload || 'none')}"></video>`;
+    }
+    if (layout === 'tablet') {
+      if (item.element === 'img') return `<img src="${escapeAttribute(item.src)}" alt="" loading="${escapeAttribute(item.loading || 'lazy')}">`;
+      return `<video class="motion" muted loop playsinline preload="${escapeAttribute(item.preload || 'none')}" data-src="${escapeAttribute(item['data-src'])}" aria-hidden="true"></video>`;
+    }
+    if (item.element === 'img') return `<img class="poster" src="${escapeAttribute(item.src)}" alt="" loading="${escapeAttribute(item.loading || 'lazy')}" />`;
+    return `<video class="motion" muted loop playsinline preload="${escapeAttribute(item.preload || 'none')}" poster="${escapeAttribute(item.poster || '')}" data-src="${escapeAttribute(item['data-src'])}" aria-hidden="true"></video>`;
+  }).join('');
+}
+
+async function renderCards(layout, locale) {
+  const output = [];
+  for (const id of canonicalOrder) {
+    const project = projects.get(id);
+    const localized = project.locales[locale];
+    const override = localized.layoutOverrides[layout === 'tablet' ? 'tablet-portrait' : layout] ?? {};
+    const presentationKey = layout === 'tablet' ? 'tablet-portrait' : layout;
+    const presentation = project.presentations[presentationKey];
+    const tags = override.tags ?? localized.tags;
+    const fields = {
+      id,
+      url: project.url,
+      title: override.title ?? localized.title,
+      description: override.description ?? localized.description,
+      cardAccessibleName: localized.accessibility.card ?? '',
+      mediaAccessibleName: localized.accessibility.mediaPreview,
+      posterStyle: `--poster:url('${presentation.styleAssets[0] ?? ''}')`,
+      mediaLayers: renderMedia(presentation.media, layout),
+      sequence: (presentation.sequenceByLocale?.[locale] ?? []).join(' '),
+    };
+    for (let index = 0; index < tags.length; index++) fields[`tag${index}`] = tags[index];
+    let template = await readFile(path.join(root, 'templates/cards', `${layout}.html`), 'utf8');
+    if (layout === 'mobile') {
+      const geometry = presentation.geometry;
+      const barcodeTemplate = await readFile(path.join(root, 'templates/partials', `mobile-barcode-${geometry.barcodeProfile}.html`), 'utf8');
+      fields.cardStyle = geometry.card;
+      fields.visualStyle = geometry.visual;
+      fields.titleStyle = geometry.title;
+      fields.descriptionStyle = geometry.description;
+      fields.categoriesStyle = geometry.categories;
+      fields.barcode = barcodeTemplate.replace('{{barcodeTop}}', geometry.barcodeTop);
+    }
+    for (const [key, value] of Object.entries(fields)) {
+      const escaped = key === 'mediaLayers' || key === 'barcode' ? value
+        : ['title', 'description'].includes(key) || /^tag\d+$/.test(key) ? escapeText(value)
+        : escapeAttribute(value);
+      template = template.replaceAll(`{{${key}}}`, escaped);
+    }
+    if (/\{\{[^}]+\}\}/.test(template)) throw new Error(`Unfilled template token in ${layout}/${id}`);
+    output.push(template.trim());
+  }
+  return output.join('');
+}
+
+function findTagEnd(html, start) {
+  let quote = '';
+  for (let i = start; i < html.length; i++) {
+    const ch = html[i];
+    if (quote) { if (ch === quote) quote = ''; continue; }
+    if (ch === '"' || ch === "'") quote = ch;
+    else if (ch === '>') return i + 1;
+  }
+  return html.length;
+}
+
+function translateTextNode(value) {
+  const decoded = decodeEntities(value);
+  const normalized = normalize(decoded);
+  const result = translated.get(normalized);
+  if (result === undefined) return value;
+  const leading = decoded.match(/^\s*/)?.[0] ?? '';
+  const trailing = decoded.match(/\s*$/)?.[0] ?? '';
+  return escapeText(leading + polishEnglishLineBreaks(result) + trailing);
+}
+
+function translateAttributes(tag) {
+  return tag.replace(/\b(aria-label|title|placeholder|alt)=("([^"]*)"|'([^']*)')/g, (whole, name, quoted, doubleValue, singleValue) => {
+    const value = doubleValue ?? singleValue ?? '';
+    const result = translated.get(normalize(decodeEntities(value)));
+    if (result === undefined) return whole;
+    const quote = quoted[0];
+    return `${name}=${quote}${escapeAttribute(result)}${quote}`;
+  });
+}
+
+function translateMarkup(html) {
+  // Preserve the known responsive heading compositions while generating localized text.
+  html = html.replace(/<h1 class="heading">[\s\S]*?<\/h1>/, '<h1 class="heading">A selection of my most<br/><em>recent projects.</em></h1>');
+  html = html.replace(/(<main class="stage" id="kc-t-stage"><h1>)[\s\S]*?(<\/h1>)/, '$1<span class="kc-title-line">A selection of my</span><span class="kc-title-line"><em>recent projects.</em></span>$2');
+  html = html.replace(/(<main id="kc-m-canvas"><h1>)[\s\S]*?(<\/h1>)/, '$1A selection of my<br><em>recent projects.</em>$2');
+
+  let result = '', cursor = 0;
+  while (cursor < html.length) {
+    const open = html.indexOf('<', cursor);
+    if (open < 0) { result += translateTextNode(html.slice(cursor)); break; }
+    result += translateTextNode(html.slice(cursor, open));
+    if (html.startsWith('<!--', open)) {
+      const end = html.indexOf('-->', open + 4);
+      const stop = end < 0 ? html.length : end + 3;
+      result += html.slice(open, stop); cursor = stop; continue;
+    }
+    const end = findTagEnd(html, open);
+    let tag = html.slice(open, end);
+    tag = translateAttributes(tag);
+    result += tag;
+    const rawTag = /^<\s*(script|style|noscript)\b/i.exec(tag);
+    cursor = end;
+    if (rawTag && !/^<\s*\//.test(tag)) {
+      const close = new RegExp(`<\\/\\s*${rawTag[1]}\\s*>`, 'ig');
+      close.lastIndex = cursor;
+      const match = close.exec(html);
+      if (match) { result += html.slice(cursor, match.index) + match[0]; cursor = close.lastIndex; }
+    }
+  }
+  return result;
+}
+
+function addLocaleMetadata(html, locale) {
+  if (locale === 'fr') {
+    html = html.replace('<head>', '<head>\n<link rel="canonical" href="https://kamilacomme.github.io/">\n<link rel="alternate" hreflang="fr" href="https://kamilacomme.github.io/">\n<link rel="alternate" hreflang="en" href="https://kamilacomme.github.io/en/">');
+    return html;
+  }
+  html = html.replace('<html lang="fr">', '<html lang="en">');
+  html = html.replace('<head>', '<head><base href="/">\n<meta property="og:locale" content="en_US">\n<link rel="canonical" href="https://kamilacomme.github.io/en/">\n<link rel="alternate" hreflang="fr" href="https://kamilacomme.github.io/">\n<link rel="alternate" hreflang="en" href="https://kamilacomme.github.io/en/">');
+  html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeText(site.title)}</title>`);
+  html = html.replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escapeAttribute(site.description)}">`);
+  html = html.replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeAttribute(site.openGraphTitle)}">`);
+  html = html.replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escapeAttribute(site.openGraphDescription)}">`);
+  html = html.replaceAll('content="https://kamilacomme.github.io/"', 'content="https://kamilacomme.github.io/en/"');
+  html = html.replace('src="desktop-project-embedded.html"', 'src="/en/desktop-project-embedded.html"');
+  html = html.replace(/href="#([^\"]+)"/g, 'href="/en/#$1"');
+  return translateMarkup(html);
+}
+
+async function buildPage(templatePath, cardSlots, locale, layoutKind) {
+  let html = await readFile(templatePath, 'utf8');
+  for (const [slot, markup] of Object.entries(cardSlots)) {
+    if (!html.includes(`{{${slot}}}`)) throw new Error(`Missing card slot ${slot} in ${templatePath}`);
+    html = html.replace(`{{${slot}}}`, markup);
+  }
+  if (locale === 'en') {
+    html = addLocaleMetadata(html, locale);
+    if (layoutKind === 'desktop-embed') html = html.replace(/<title>[\s\S]*?<\/title>/, '<title>Portfolio — Projects</title>');
+    if (layoutKind === 'page') html = html.replace('</body>', '<script src="/scripts/projects/english-tablet-footer-alignment.js"></script>\n</body>');
+  } else html = addLocaleMetadata(html, locale);
+  return html;
+}
+
+for (const locale of requestedLocales) {
+  const folder = path.join(output, locale === 'fr' ? '' : 'en');
+  await mkdir(folder, { recursive: true });
+  const desktopCards = await renderCards('desktop', locale);
+  const tabletCards = await renderCards('tablet', locale);
+  const mobileCards = await renderCards('mobile', locale);
+  const page = await buildPage(path.join(root, 'templates/page.html'), { tabletCards, mobileCards }, locale, 'page');
+  const desktop = await buildPage(path.join(root, 'templates/desktop-project-embedded.html'), { desktopCards }, locale, 'desktop-embed');
+  await writeFile(path.join(folder, 'index.html'), page);
+  await writeFile(path.join(folder, 'desktop-project-embedded.html'), desktop);
+}
+if (checkOnly) {
+  const outputs = requestedLocales.flatMap(locale => {
+    const folder = locale === 'fr' ? '' : 'en/';
+    return [`${folder}index.html`, `${folder}desktop-project-embedded.html`];
+  });
+  for (const relative of outputs) {
+    const [generated, committed] = await Promise.all([readFile(path.join(output, relative)), readFile(path.join(root, relative))]);
+    if (!generated.equals(committed)) throw new Error(`Generated output is stale: ${relative}`);
+  }
+  await rm(output, { recursive: true, force: true });
+  console.log(`Committed output matches deterministic build (${outputs.join(', ')}).`);
+} else {
+  console.log(`Generated ${requestedLocales.join(' and ').toUpperCase()} static pages in ${path.relative(root, output)}.`);
+}

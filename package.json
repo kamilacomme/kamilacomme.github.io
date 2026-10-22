@@ -1,7 +1,7 @@
 {
   "name": "portfolio-regression-lab",
   "private": true,
-  "description": "Phase 0–1 regression tooling only; no website build or runtime changes",
+  "description": "Bilingual static portfolio build and regression tooling",
   "scripts": {
     "test:serve": "node tests/runtime/server.mjs",
     "test:qa": "playwright test --config tests/qa/playwright.config.cjs",
@@ -12,7 +12,10 @@
     "test": "node tests/gate.mjs",
     "test:baseline-integrity": "node tests/artifact-lock.mjs",
     "test:performance:compare": "node tests/performance/compare.mjs",
-    "content:check": "node scripts/content/validate-project-data.mjs"
+    "content:check": "node scripts/content/validate-project-data.mjs",
+    "build:content:preview": "node scripts/content/build.mjs",
+    "content:build": "node scripts/content/build.mjs --site",
+    "content:build:check": "node scripts/content/build.mjs --check"
   },
   "devDependencies": {
     "@playwright/test": "1.62.1",

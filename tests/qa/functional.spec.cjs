@@ -30,7 +30,10 @@ test('rendering, localized content, responsive branch and all project links',asy
  const inventory=require('../baseline/content-inventory.json');
  const baseline=inventory.layouts[mode][language];
  for(let i=0;i<6;i++){
-   const card=cards.nth(i),entry=baseline[i];
+   const card=cards.nth(i);
+   const projectId=await card.getAttribute('data-project-id');
+   const entry=baseline.find(record=>record.id===projectId);
+   expect(entry,`frozen project record exists: ${projectId}`).toBeTruthy();
    expect(await card.locator('h2').evaluate(el=>el.textContent)).toBe(entry.title);
    expect(await card.locator(mode==='mobile'?'.description':'.ticket-info p, .info p').evaluate(el=>el.textContent)).toBe(entry.description);
    expect(await card.locator(mode==='mobile'?'.categories span':'.tags span').allTextContents()).toEqual(entry.tags);

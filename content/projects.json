@@ -25,6 +25,10 @@
             "mobile": {
               "accessibleName": "Voir le projet Pilates"
             }
+          },
+          "accessibility": {
+            "card": "Voir le projet Pilates",
+            "mediaPreview": "Aperçu animé du projet Pilates"
           }
         },
         "en": {
@@ -39,6 +43,10 @@
             "mobile": {
               "accessibleName": "View the Pilates project"
             }
+          },
+          "accessibility": {
+            "card": "View the Pilates project",
+            "mediaPreview": "Animated preview of the Pilates project"
           }
         }
       },
@@ -104,7 +112,21 @@
               "preload": "none"
             }
           ],
-          "styleAssets": []
+          "styleAssets": [],
+          "sequence": [],
+          "sequenceByLocale": {
+            "fr": [],
+            "en": []
+          },
+          "geometry": {
+            "card": "left:16.0791px;top:215.784px;width:360.879px;height:517.732px",
+            "visual": "height:245px",
+            "title": "top:269px",
+            "description": "top:301px",
+            "categories": "top:367px",
+            "barcodeTop": "436.366",
+            "barcodeProfile": "wide"
+          }
         }
       }
     },
@@ -128,6 +150,10 @@
               ],
               "accessibleName": "Voir le projet Longread"
             }
+          },
+          "accessibility": {
+            "card": "Voir le projet Longread",
+            "mediaPreview": "Aperçu animé du projet Longread"
           }
         },
         "en": {
@@ -146,6 +172,10 @@
               ],
               "accessibleName": "View the Longread project"
             }
+          },
+          "accessibility": {
+            "card": "View the Longread project",
+            "mediaPreview": "Animated preview of the Longread project"
           }
         }
       },
@@ -211,7 +241,21 @@
               "preload": "none"
             }
           ],
-          "styleAssets": []
+          "styleAssets": [],
+          "sequence": [],
+          "sequenceByLocale": {
+            "fr": [],
+            "en": []
+          },
+          "geometry": {
+            "card": "left:16.0791px;top:812.15px;width:266px;height:450.732px",
+            "visual": "height:157px",
+            "title": "top:181px",
+            "description": "top:213px",
+            "categories": "top:300px",
+            "barcodeTop": "369.366",
+            "barcodeProfile": "narrow"
+          }
         }
       }
     },
@@ -231,6 +275,10 @@
             "mobile": {
               "accessibleName": "Voir le projet Tour de parole"
             }
+          },
+          "accessibility": {
+            "card": "Voir le projet Tour de parole",
+            "mediaPreview": "Aperçu animé du projet Tour de parole"
           }
         },
         "en": {
@@ -245,6 +293,10 @@
             "mobile": {
               "accessibleName": "View the Tour de parole project"
             }
+          },
+          "accessibility": {
+            "card": "View the Tour de parole project",
+            "mediaPreview": "Animated preview of the Tour de parole project"
           }
         }
       },
@@ -299,7 +351,35 @@
               "loading": "lazy"
             }
           ],
-          "styleAssets": []
+          "styleAssets": [],
+          "sequence": [
+            "assets/projets/opt/p3-bg.webp",
+            "assets/projets/opt/p3-b.webp",
+            "assets/projets/opt/p3-c.webp"
+          ],
+          "sequenceByLocale": {
+            "fr": [
+              "assets/projets/opt/p3-bg.webp",
+              "assets/projets/opt/p3-b.webp",
+              "assets/projets/opt/p3-c.webp"
+            ],
+            "en": [
+              "assets/projets/opt/p3-bg.webp",
+              "assets/projets/opt/p3-b.webp",
+              "assets/projets/opt/p3-c.webp",
+              "assets/projets/opt/p3-b.webp",
+              "assets/projets/opt/p3-c.webp"
+            ]
+          },
+          "geometry": {
+            "card": "left:16.0791px;top:1341.516px;width:360.879px;height:669.091px",
+            "visual": "height:396.359px",
+            "title": "top:420.359px",
+            "description": "top:452.359px",
+            "categories": "top:518.359px",
+            "barcodeTop": "587.725",
+            "barcodeProfile": "wide"
+          }
         }
       }
     },
@@ -325,6 +405,10 @@
             "mobile": {
               "accessibleName": "Voir le projet Inside out"
             }
+          },
+          "accessibility": {
+            "card": "Voir le projet Inside out",
+            "mediaPreview": "Aperçu animé du projet Inside out"
           }
         },
         "en": {
@@ -345,6 +429,10 @@
             "mobile": {
               "accessibleName": "View the Inside out project"
             }
+          },
+          "accessibility": {
+            "card": "View the Inside out project",
+            "mediaPreview": "Animated preview of the Inside out project"
           }
         }
       },
@@ -410,7 +498,21 @@
               "preload": "none"
             }
           ],
-          "styleAssets": []
+          "styleAssets": [],
+          "sequence": [],
+          "sequenceByLocale": {
+            "fr": [],
+            "en": []
+          },
+          "geometry": {
+            "card": "left:110.2676px;top:2089.242px;width:266px;height:429.732px",
+            "visual": "height:157px",
+            "title": "top:181px",
+            "description": "top:213px",
+            "categories": "top:279px",
+            "barcodeTop": "348.366",
+            "barcodeProfile": "narrow"
+          }
         }
       }
     },
@@ -444,6 +546,10 @@
             "mobile": {
               "accessibleName": "Voir le projet Celimax"
             }
+          },
+          "accessibility": {
+            "card": "Voir le projet Celimax",
+            "mediaPreview": "Aperçu animé du projet Celimax"
           }
         },
         "en": {
@@ -470,6 +576,10 @@
             "mobile": {
               "accessibleName": "View the Celimax project"
             }
+          },
+          "accessibility": {
+            "card": "View the Celimax project",
+            "mediaPreview": "Animated preview of the Celimax project"
           }
         }
       },
@@ -524,7 +634,35 @@
               "loading": "lazy"
             }
           ],
-          "styleAssets": []
+          "styleAssets": [],
+          "sequence": [
+            "assets/projets/opt/p6-bg.webp",
+            "assets/projets/opt/p6-b.webp",
+            "assets/projets/opt/p6-c.webp"
+          ],
+          "sequenceByLocale": {
+            "fr": [
+              "assets/projets/opt/p6-bg.webp",
+              "assets/projets/opt/p6-b.webp",
+              "assets/projets/opt/p6-c.webp"
+            ],
+            "en": [
+              "assets/projets/opt/p6-bg.webp",
+              "assets/projets/opt/p6-b.webp",
+              "assets/projets/opt/p6-c.webp",
+              "assets/projets/opt/p6-b.webp",
+              "assets/projets/opt/p6-c.webp"
+            ]
+          },
+          "geometry": {
+            "card": "left:16.0791px;top:2597.608px;width:360.879px;height:517.732px",
+            "visual": "height:245px",
+            "title": "top:269px",
+            "description": "top:301px",
+            "categories": "top:367px",
+            "barcodeTop": "436.366",
+            "barcodeProfile": "wide"
+          }
         }
       }
     },
@@ -562,6 +700,10 @@
               ],
               "accessibleName": "Voir le projet Napoli"
             }
+          },
+          "accessibility": {
+            "card": "Voir le projet Napoli",
+            "mediaPreview": "Aperçu animé du projet Napoli"
           }
         },
         "en": {
@@ -592,6 +734,10 @@
               ],
               "accessibleName": "View the Napoli project"
             }
+          },
+          "accessibility": {
+            "card": "View the Napoli project",
+            "mediaPreview": "Animated preview of the Napoli project"
           }
         }
       },
@@ -646,7 +792,35 @@
               "loading": "lazy"
             }
           ],
-          "styleAssets": []
+          "styleAssets": [],
+          "sequence": [
+            "assets/projets/opt/p2-a.webp",
+            "assets/projets/opt/p2-b.webp",
+            "assets/projets/opt/p2-bg.webp"
+          ],
+          "sequenceByLocale": {
+            "fr": [
+              "assets/projets/opt/p2-a.webp",
+              "assets/projets/opt/p2-b.webp",
+              "assets/projets/opt/p2-bg.webp"
+            ],
+            "en": [
+              "assets/projets/opt/p2-a.webp",
+              "assets/projets/opt/p2-b.webp",
+              "assets/projets/opt/p2-bg.webp",
+              "assets/projets/opt/p2-b.webp",
+              "assets/projets/opt/p2-bg.webp"
+            ]
+          },
+          "geometry": {
+            "card": "left:16.0791px;top:3193.974px;width:266px;height:450.732px",
+            "visual": "height:157px",
+            "title": "top:181px",
+            "description": "top:213px",
+            "categories": "top:300px",
+            "barcodeTop": "369.366",
+            "barcodeProfile": "narrow"
+          }
         }
       }
     }

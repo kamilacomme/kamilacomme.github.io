@@ -82,5 +82,118 @@
         "napoli"
       ]
     }
-  ]
+  ],
+  "projectCards": [
+    {
+      "id": "pilates",
+      "clip": {
+        "x": 29.65333366394043,
+        "y": 597.8158569335938,
+        "width": 531.9066638946533,
+        "height": 203.86663818359375
+      },
+      "viewport": {
+        "width": 1194,
+        "height": 834
+      },
+      "scroll": {
+        "x": 0,
+        "y": 834
+      }
+    },
+    {
+      "id": "longread",
+      "clip": {
+        "x": 150.3979949951172,
+        "y": 597.8158569335938,
+        "width": 531.9066925048828,
+        "height": 203.86663818359375
+      },
+      "viewport": {
+        "width": 1194,
+        "height": 834
+      },
+      "scroll": {
+        "x": 0,
+        "y": 1262
+      }
+    },
+    {
+      "id": "tour-de-parole",
+      "clip": {
+        "x": 270.1511535644531,
+        "y": 597.8158569335938,
+        "width": 531.9067077636719,
+        "height": 203.86663818359375
+      },
+      "viewport": {
+        "width": 1194,
+        "height": 834
+      },
+      "scroll": {
+        "x": 0,
+        "y": 1691
+      }
+    },
+    {
+      "id": "inside-out",
+      "clip": {
+        "x": 390.895751953125,
+        "y": 597.8158569335938,
+        "width": 531.9066772460938,
+        "height": 203.86663818359375
+      },
+      "viewport": {
+        "width": 1194,
+        "height": 834
+      },
+      "scroll": {
+        "x": 0,
+        "y": 2119
+      }
+    },
+    {
+      "id": "celimax",
+      "clip": {
+        "x": 511.6404724121094,
+        "y": 597.8158569335938,
+        "width": 531.9066467285156,
+        "height": 203.86663818359375
+      },
+      "viewport": {
+        "width": 1194,
+        "height": 834
+      },
+      "scroll": {
+        "x": 0,
+        "y": 2547
+      }
+    },
+    {
+      "id": "napoli",
+      "clip": {
+        "x": 632.3943481445312,
+        "y": 597.8158569335938,
+        "width": 531.9066772460938,
+        "height": 203.86663818359375
+      },
+      "viewport": {
+        "width": 1194,
+        "height": 834
+      },
+      "scroll": {
+        "x": 0,
+        "y": 2975
+      }
+    }
+  ],
+  "projectCardsCapture": {
+    "sourceCommit": "506f38154194e0c717b3f682ae890970531af4f1",
+    "harnessSha256": {
+      "tests/phase-4/capture-approved-project-card-references.spec.cjs": "d6a42ab9ecd2432aaaf1284fecb1dac5c57ee47327d31980a66172a82b192b3a",
+      "tests/qa/projects.spec.cjs": "749b6ba684bbe2df5760f70c6a3c178ec643d3bf26baf044865d5cf355382f91",
+      "tests/qa/helpers.cjs": "1bec7c7c6faedc8932af981236fa58c695a3cc63df988e8f97ab37fab5dfa531"
+    },
+    "method": "Same card positioning, image decode, video readiness/hide, 200ms settling, CSS-scale crop, and project-id filename as tests/qa/projects.spec.cjs."
+  }
 }

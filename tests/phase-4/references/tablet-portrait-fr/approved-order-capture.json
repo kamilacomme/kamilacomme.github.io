@@ -82,5 +82,118 @@
         "napoli"
       ]
     }
-  ]
+  ],
+  "projectCards": [
+    {
+      "id": "pilates",
+      "clip": {
+        "x": 32,
+        "y": 110,
+        "width": 770,
+        "height": 220
+      },
+      "viewport": {
+        "width": 834,
+        "height": 1112
+      },
+      "scroll": {
+        "x": 0,
+        "y": 1215
+      }
+    },
+    {
+      "id": "longread",
+      "clip": {
+        "x": 32,
+        "y": 110,
+        "width": 770,
+        "height": 220
+      },
+      "viewport": {
+        "width": 834,
+        "height": 1112
+      },
+      "scroll": {
+        "x": 0,
+        "y": 1453
+      }
+    },
+    {
+      "id": "tour-de-parole",
+      "clip": {
+        "x": 32,
+        "y": 110,
+        "width": 770,
+        "height": 220
+      },
+      "viewport": {
+        "width": 834,
+        "height": 1112
+      },
+      "scroll": {
+        "x": 0,
+        "y": 1691
+      }
+    },
+    {
+      "id": "inside-out",
+      "clip": {
+        "x": 32,
+        "y": 110,
+        "width": 770,
+        "height": 220
+      },
+      "viewport": {
+        "width": 834,
+        "height": 1112
+      },
+      "scroll": {
+        "x": 0,
+        "y": 1929
+      }
+    },
+    {
+      "id": "celimax",
+      "clip": {
+        "x": 32,
+        "y": 110,
+        "width": 770,
+        "height": 220
+      },
+      "viewport": {
+        "width": 834,
+        "height": 1112
+      },
+      "scroll": {
+        "x": 0,
+        "y": 2167
+      }
+    },
+    {
+      "id": "napoli",
+      "clip": {
+        "x": 32,
+        "y": 110,
+        "width": 770,
+        "height": 220
+      },
+      "viewport": {
+        "width": 834,
+        "height": 1112
+      },
+      "scroll": {
+        "x": 0,
+        "y": 2405
+      }
+    }
+  ],
+  "projectCardsCapture": {
+    "sourceCommit": "506f38154194e0c717b3f682ae890970531af4f1",
+    "harnessSha256": {
+      "tests/phase-4/capture-approved-project-card-references.spec.cjs": "d6a42ab9ecd2432aaaf1284fecb1dac5c57ee47327d31980a66172a82b192b3a",
+      "tests/qa/projects.spec.cjs": "749b6ba684bbe2df5760f70c6a3c178ec643d3bf26baf044865d5cf355382f91",
+      "tests/qa/helpers.cjs": "1bec7c7c6faedc8932af981236fa58c695a3cc63df988e8f97ab37fab5dfa531"
+    },
+    "method": "Same card positioning, image decode, video readiness/hide, 200ms settling, CSS-scale crop, and project-id filename as tests/qa/projects.spec.cjs."
+  }
 }

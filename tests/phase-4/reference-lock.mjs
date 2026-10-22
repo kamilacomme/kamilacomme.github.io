@@ -11,6 +11,7 @@ const lockPath=path.join(root,'tests/phase-4/reference-lock.json');
 const profiles=['desktop-fr','desktop-en','tablet-portrait-fr','tablet-portrait-en','tablet-landscape-fr','tablet-landscape-en','mobile-fr','mobile-en'];
 const changedProfiles=profiles.filter(profile=>profile.startsWith('tablet-'));
 const stateFiles=['projects-start.png','projects-middle.png','projects-end.png'];
+const projectFiles=['project-pilates.png','project-longread.png','project-tour-de-parole.png','project-inside-out.png','project-celimax.png','project-napoli.png'];
 const hash=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 
 function validateOverlay(){
@@ -27,7 +28,7 @@ function validateOverlay(){
   const overlayNames=fs.readdirSync(directory).sort();
   for(const name of sourceNames){
    const target=path.join(directory,name),original=path.join(source,name);
-   if(stateFiles.includes(name)){
+   if(stateFiles.includes(name)||projectFiles.includes(name)){
     if(!fs.existsSync(target)||fs.lstatSync(target).isSymbolicLink())throw new Error(`${profile}/${name}: expected an independent approved-order screenshot`);
     captured.push(path.relative(root,target));
    }else if(!fs.lstatSync(target).isSymbolicLink()||fs.realpathSync(target)!==fs.realpathSync(original)){
@@ -37,10 +38,10 @@ function validateOverlay(){
   const manifest=path.join(directory,'approved-order-capture.json');
   if(!fs.existsSync(manifest)||fs.lstatSync(manifest).isSymbolicLink())throw new Error(`${profile}: approved-order capture manifest missing`);
   captured.push(path.relative(root,manifest));
-  const expectedNames=[...sourceNames.filter(name=>!stateFiles.includes(name)),'approved-order-capture.json',...stateFiles].sort();
+  const expectedNames=[...sourceNames.filter(name=>!stateFiles.includes(name)&&!projectFiles.includes(name)),'approved-order-capture.json',...stateFiles,...projectFiles].sort();
   if(JSON.stringify(overlayNames)!==JSON.stringify(expectedNames))throw new Error(`${profile}: reference overlay has unexpected or missing files`);
  }
- if(captured.length!==16)throw new Error(`Expected 12 approved-order screenshots and 4 manifests, got ${captured.length}`);
+ if(captured.length!==40)throw new Error(`Expected 36 approved-order screenshots and 4 manifests, got ${captured.length}`);
  return captured.sort();
 }
 

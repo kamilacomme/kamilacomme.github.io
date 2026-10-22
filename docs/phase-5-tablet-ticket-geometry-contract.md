@@ -29,6 +29,18 @@ The authoritative shared ticket measurements are outer card 770 × 310px with 8p
 - Recalculate the section's scroll allocation from the resulting rail travel so the rail starts at its first card, reaches its sixth card at the end, and transitions smoothly into About. The current section height, card dimensions and rail length are not fixed values when they conflict with the new measured cards.
 - Keep calculations in the existing tablet geometry owner, using its own dimensions and shared tablet viewport policy. No additional controller or unrelated-section measurement is permitted.
 
+## Narrow-tablet Option 2 geometry
+
+The user supplied authoritative measurements from Figma node 387:4523. These apply only to the tablet presentation from 500 through 659 CSS px; below 500px the existing mobile editorial layout remains unchanged. Standard tablet at 660px and above retains the approved horizontal ticket, and desktop retains its existing ticket.
+
+- The outer image card uses a maximum reference size of 596 × 572px, 8px radius, and 120px horizontal / 64px vertical insets around its inner ticket. At the 659px viewport, the existing 32px page gutters yield a 595px outer card; at 500px the outer width is 436px. Outer card width adapts to the available rail content width without transform scaling.
+- Center a compact `#F2EEF2` inner ticket with a maximum reference size of 356 × 444px, 4px radius, 24px padding and 20px vertical section gaps. It remains narrower than the outer image card. The card has a 572px minimum height and grows with content when translated descriptions need more room.
+- The featured image is 308 × 172px at the reference size, 2px radius and `object-fit: cover`; it is constrained by the panel's available inner width and preserves the reference aspect ratio.
+- Narrow-tablet project titles are an explicitly approved 24px exception. Description and tags remain 14px and 12px. The barcode is horizontal and 38px high. Standard-tablet titles remain 32px.
+- The single layered-ticket template and existing tablet geometry owner remain in use. Portrait section height is measured from resulting card heights; landscape rail position and scroll allocation are recalculated from its measured card/rail height. This change does not alter the shared section wrapper, margins, mobile editorial template, or desktop behavior.
+
+Focused tests at widths 500, 560, 607, 608, 640, 659, 660, 680 and 834px verify the variant boundary, measured panel/image/barcode bounds, title size (24px narrow / 32px standard), body/tags, all six projects, navigation, gutters and the Projects-to-About boundary in French and English. The next user visual review is required before any reference capture.
+
 ## Acceptance measurements
 
 At the two supplied target frame sizes, measure rendered geometry in browser pixels and assert: the outer/card and inner-panel bounds; specified image, text and barcode columns; all six project positions and canonical associations; portrait vertical ordering/spacing; landscape first/second positions and approximately 1.47-card initial view; full rail endpoint and all-project reachability; correct scroll allocation and smooth transition into About. Verify 32/14/12px text remains unscaled and fits the panels in French and English. Keep the shared template, desktop appearance/iframe behavior, mobile editorial template, data and media lifecycle unchanged. Run focused tests only. Show the updated interactive preview before accepting or locking any Phase 5 visual reference.

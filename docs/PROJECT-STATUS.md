@@ -6,11 +6,11 @@ Updated: 2026-10-22. Milestones are marked complete only after their stated chec
 
 **Phase 5 branch point:** `0422402b46bb814d4202abd0e8266d95c03685d3` — completed Phase 4 branch checkpoint, including its latest reviewed documentation. Phase 4 remains preserved on its own branch.
 
-**Latest Phase 5 implementation checkpoint:** `c0f4976088998d37367830dcebdb6ff849e91e0e` — the shared layered ticket has a measured vertical fallback at 500–659px; navbar controls reflow below 608px without reducing text. Focused checks pass in both locales and no references have changed.
+**Latest Phase 5 implementation checkpoint:** `9ed1c0e` — the shared narrow-tablet ticket now uses the supplied Figma Option 2 dimensions. Its French/English responsive checks pass at nine widths. The read-only effective-scaling audit is documented below; no screenshot references changed.
 
-**Current task:** Provide an updated interactive preview for the user's visual review. Milestone 4 remains open until that review; references remain frozen.
+**Current task:** Present the compact narrow-tablet Option 2 ticket for visual review and record the effective-scaling audit. Milestone 4 remains open; references remain frozen.
 
-**Next task:** User reviews the updated Phase 5 branch preview in French/English, with narrow/intermediate/standard tablet widths and both orientations. Only after approval may separate Phase 5 references be captured and locked.
+**Next task:** Provide an interactive preview of this checkpoint to the user for review at 500, 560, 608 and 659 CSS px in both locales. Only after approval may separate Phase 5 references be captured and locked.
 
 ## Roadmap
 
@@ -21,7 +21,7 @@ Updated: 2026-10-22. Milestones are marked complete only after their stated chec
 | 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — structural extraction and user inspection passed; French mobile TBT remains unresolved and blocks release readiness |
 | 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | Complete for structural scope — approved tablet scale retained, initialization dependency resolved, eight-profile gate and review passed; mobile Lighthouse regression remains a release blocker |
 | 4 | Centralize project data and French/English translations; generate static routes | Complete — final acceptance recorded below; mobile Lighthouse remains a release blocker |
-| 5 | Hybrid fluid-responsive layout, readable typography and accessibility review | In progress — Milestones 1–3 complete; Milestone 4 narrow-tablet fit fallback passes focused checks and is pending visual approval |
+| 5 | Hybrid fluid-responsive layout, readable typography and accessibility review | In progress — Milestones 1–3 complete; Milestone 4’s measured narrow-tablet ticket correction passes focused checks and awaits visual approval |
 | 6 | Review asset loading and make separately approved performance improvements | Not started |
 | 7 | Cross-browser/device validation and release-candidate regression | Not started |
 | 8 | Final documentation, independent acceptance and release decision | Not started |
@@ -37,11 +37,13 @@ Phase 5 architecture and incremental implementation sequence are documented in [
 | 1. Responsive geometry and reference contract | Measure four profiles, both locales, transforms, typography, Hero bounds, tablet rail geometry and section transitions; verify immutable references | Complete — browser probe and contract at [phase-5-baseline-contract.md](phase-5-baseline-contract.md); checkpoint `33ab8be03c9d06460439a1946b26a0a960f2916d` |
 | 2. Shared fluid shell and type foundations | Introduce responsive tokens/containers for low-coupling shell areas; effective target sizes without shrinking transforms | Complete — checkpoint `c028e183f7b286d5044563bff124f810eae6f0be` |
 | 3. Hero and navigation migration | Preserve projector/motion/navigation; enforce 325px maximum effective Hero preview width and anchor/aspect ratio | Complete — checkpoint `ee8979594fd901620c8243225047079292fa1bba` |
-| 4. Tablet Projects frame and shared layered tickets | Use one desktop/tablet ticket template; adapt card geometry to Figma; preserve section margins/navigation and horizontal scrolling while recalculating rail length/allocation; verify project reachability and About transition | In progress — supplied 770 × 310px geometry implemented; the same ticket switches to a natural-height vertical composition at measured narrow-tablet widths 500–659px, while mobile editorial cards remain unchanged. Nav controls keep full typography and reflow below 608px. Focused French/English tests pass; interactive review is pending and no references are locked. See [geometry contract](phase-5-tablet-ticket-geometry-contract.md) and [narrow-tablet fit audit](phase-5-narrow-tablet-fit-audit.md) |
-| 5. Desktop Projects and shared card typography | Retain desktop layered tickets/iframe contract and apply effective desktop text targets | Not started |
-| 6. About and Footer responsive layout | Reduce transforms where safe while preserving three About shells, refs, animations and curtain behavior | Not started |
-| 7. Mobile editorial layout and short/zoomed viewport handling | Keep editorial cards and media lifecycles; verify narrow phones, short landscape and zoom accessibility | Not started |
-| 8. Phase 5 acceptance, performance comparison and independent review | Full eight-profile gate once, build/data/artifact checks, Lighthouse comparison and independent diff review | Not started |
+| 4. Tablet Projects frame and shared layered tickets | One desktop/tablet ticket template; Figma geometry; stable margins/scroll map/rail reachability/About transition; mobile editorial stays unchanged | In progress — 500–659px uses measured Option 2: max outer 596×572, centered panel 356×444, image 308×172, 24px title exception, 14/12px body/tags, 38px barcode. Navbar retains its approved variants. Focused bilingual checks pass across nine widths. Visual approval and preview remain pending; references unchanged. See [geometry contract](phase-5-tablet-ticket-geometry-contract.md) and [narrow-tablet fit audit](phase-5-narrow-tablet-fit-audit.md) |
+| 5. Desktop Projects and shared card typography | Remove text shrink from desktop iframe stage; keep effective desktop ticket type, iframe behavior, and Hero cue unscaled | Not started — audit assigns the desktop Projects stage and desktop Hero cue here |
+| 6. About and Footer responsive layout | Remove desktop/tablet About scale and JS-scaled Footer text; unscale tablet Hero cue while preserving animations | Not started — audit assigns desktop/tablet About, Footer, tablet Hero cue here |
+| 7. Mobile editorial layout and short/zoomed viewport handling | Remove text-bearing mobile Hero/About and canvas fitting scales; stop scaled Footer font sizes; enforce approved mobile targets | Not started — audit assigns mobile Hero/About/Projects/Footer here |
+| 8. Phase 5 acceptance, performance comparison and independent review | Verify effective targets in both languages and all profiles; no text shrink from whole-container/layout scaling; full gate once, Lighthouse, independent review | Not started |
+
+**Effective-scale audit:** [phase-5-effective-scaling-audit.md](phase-5-effective-scaling-audit.md) records browser measurements for both locales at nine representative sizes. Whole-layout text shrink remains in the desktop iframe Projects stage and About stage; tablet About and Hero cue; mobile Hero/About, project canvas and Footer font sizing. Footer text is reduced through JavaScript font-size writes rather than an ancestor transform. Navigation and tablet Projects text are currently unscaled. The minimum sampled effective text is 8px on the 1024×600 tablet-landscape Footer legal link; French and English metrics match. Milestone 5 addresses desktop Projects and its Hero cue; Milestone 6 addresses desktop/tablet About, Footer and tablet Hero cue; Milestone 7 addresses mobile Hero/About/Projects/Footer. Phase 5 final acceptance now explicitly requires that text does not shrink from whole-container/layout scaling in any supported profile or language; animation-only transforms remain permitted when text is unaffected.
 
 The detailed scope, focused tests, expected design changes, regression criteria, risks and recovery policy are in [phase-5-plan.md](phase-5-plan.md). French and English mobile Lighthouse TBT remain open release blockers. The full suite is reserved for Phase 5 completion.
 

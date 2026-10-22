@@ -1,6 +1,6 @@
 # Phase 5 tablet ticket geometry contract
 
-**Status:** Updated after visual review. Card implementation is paused until exact Figma frame measurements are available. No application code or screenshot references have changed for this update.
+**Status:** Authoritative Figma measurements supplied for portrait frame 834 × 1112px (node 369:1778) and landscape frame 1194 × 834px (node 370:1905). Implementation is in progress; references remain frozen pending interactive visual review.
 
 ## Fixed section and behavior requirements
 
@@ -18,26 +18,16 @@ The old tablet-specific card measurements are obsolete for the restored layered 
 - Portrait: old `770 × 220px` card bounds.
 - Landscape: old `531.91 × 250.19px` card bounds and previous `531.91 × 203.87px` bounds.
 
-The new outer card width and height, radius, inner-panel bounds, image bounds/crop, panel padding, and inter-card gaps must come from the tablet portrait and landscape Figma frames. They must not be guessed from the current implementation or inferred from a scaled JPEG where the source frame measurements are available.
+The authoritative shared ticket measurements are outer card 770 × 310px with 8px radius; inner panel 674 × 246px with 4px radius and 20px padding; 20px panel gap; image and text columns approximately 271px each; barcode column 52px; outer background `cover`; inner image approximately 271 × 206px with `object-fit: cover`; title 32px, description 14px, tags 12px. The 674px inner-panel width follows the 48px outer horizontal inset on each side; its 246px height follows the 32px top and bottom inset. The component widths and positions should use these values at the supplied frame sizes and adapt fluidly at intermediate widths.
 
 ## Rail calculations that adapt to the cards
 
-- Portrait: retain the vertical presentation and its established section framing; derive card positions, spacing and required content height from the Figma dimensions. Confirm all six cards fit without clipping and retain a clear transition into About.
-- Landscape: retain horizontal scrolling and the existing section start/margins. Derive rail width and total horizontal travel from the measured card widths and gaps. At 1194 × 834, the initial visible rail should show approximately 1.5 cards, as in Figma.
+- Portrait at 834 × 1112: first card x=32px, y=269px; vertical card gap=32px, producing card y positions 269, 611 and 953px. Keep the existing vertical page-scroll behavior. At these dimensions, six 310px cards, five 32px gaps, 269px top placement and 32px bottom breathing room require a 2,321px Projects content span; calculate this from the card count and spacing rather than keeping the obsolete 1,655px section height.
+- Landscape at 1194 × 834: first card x=32px, y=492px; second card x=834px, giving a 32px horizontal gap. The initial viewport should show 1.47 cards. Keep horizontal scrolling and the existing section start/margins. For six 770px cards, five 32px gaps, and 32px left/right margins, total horizontal travel is 3,650px; the section's scroll allocation is viewport height plus travel (4,484px at this frame size).
+- At intermediate widths, constrain card width to the available rail width while retaining the 32px outer margins; allow the panel columns to flex within their measured proportions. Do not apply an ancestor scale to achieve the target sizes.
 - Recalculate the section's scroll allocation from the resulting rail travel so the rail starts at its first card, reaches its sixth card at the end, and transitions smoothly into About. The current section height, card dimensions and rail length are not fixed values when they conflict with the new measured cards.
 - Keep calculations in the existing tablet geometry owner, using its own dimensions and shared tablet viewport policy. No additional controller or unrelated-section measurement is permitted.
 
-## Figma measurements needed
+## Acceptance measurements
 
-Figma access is unavailable from this environment (the design URL request is blocked with HTTP tunnel `403`, and no Figma tools are exposed). Please provide the following values in Figma CSS pixels for **each** portrait and landscape frame, along with that frame's viewport dimensions:
-
-1. Outer project card width and height, corner radius, first-card x/y position, and horizontal/vertical gap between cards.
-2. Inner light-grey panel x/y/width/height relative to the outer card, its radius and padding.
-3. Inner image x/y/width/height relative to the panel, plus its `object-fit`/crop intent.
-4. Panel content-column widths or proportions, gaps between image/text/barcode, and barcode width.
-5. For landscape, the intended initial rail x-position and visible fraction of the second card at 1194 × 834 (the target is approximately 1.5 cards).
-6. Whether the portrait frame is a vertical stack or horizontal rail, and the intended first/last-card alignment to the tablet viewport.
-
-If a frame is authored at a different scale than CSS pixels, include the frame dimensions and export scale so the values can be converted exactly. A Figma Inspect/Dev Mode measurement list or frame-level CSS export is sufficient; no new screenshot export is needed.
-
-Until these measurements are provided, do not resize tablet cards, adjust tablet rail/section geometry, or create Phase 5 visual references. After implementation, focused visual and functional checks must cover both languages and both tablet orientations before a new interactive preview is offered for review.
+At the two supplied target frame sizes, measure rendered geometry in browser pixels and assert: the outer/card and inner-panel bounds; specified image, text and barcode columns; all six project positions and canonical associations; portrait vertical ordering/spacing; landscape first/second positions and approximately 1.47-card initial view; full rail endpoint and all-project reachability; correct scroll allocation and smooth transition into About. Verify 32/14/12px text remains unscaled and fits the panels in French and English. Keep the shared template, desktop appearance/iframe behavior, mobile editorial template, data and media lifecycle unchanged. Run focused tests only. Show the updated interactive preview before accepting or locking any Phase 5 visual reference.

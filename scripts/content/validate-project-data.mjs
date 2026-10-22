@@ -3,11 +3,14 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 
 const data = JSON.parse(await readFile(new URL('../../content/projects.json', import.meta.url), 'utf8'));
+const about = JSON.parse(await readFile(new URL('../../content/about.json', import.meta.url), 'utf8'));
 const baseline = JSON.parse(await readFile(new URL('../../tests/baseline/content-inventory.json', import.meta.url), 'utf8'));
+const aboutBaseline = JSON.parse(await readFile(new URL('../../tests/phase-4/about-content-baseline.json', import.meta.url), 'utf8'));
 const expectedOrder = ['pilates', 'longread', 'tour-de-parole', 'inside-out', 'celimax', 'napoli'];
 const layouts = Object.keys(baseline.layouts);
 const locales = ['fr', 'en'];
 const ids = data.projects.map(({ id }) => id);
+const aboutOrder = ['education', 'employer', 'readymag', 'behance', 'languages'];
 
 assert.equal(data.schemaVersion, 1, 'Unsupported project data schema');
 assert.deepEqual(data.canonicalOrder, expectedOrder, 'Canonical project order changed');
@@ -35,6 +38,22 @@ for (const project of data.projects) {
     assert.ok(typeof mobileGeometry[key] === 'string' && mobileGeometry[key].length > 0, `${project.id}/mobile: ${key} geometry is required`);
   }
   assert.ok(['wide', 'narrow'].includes(mobileGeometry.barcodeProfile), `${project.id}/mobile: invalid barcode profile`);
+}
+
+assert.equal(about.schemaVersion, 1, 'Unsupported About data schema');
+assert.deepEqual(about.order, aboutOrder, 'About content order changed');
+assert.deepEqual(about.cards.map(card => card.id), aboutOrder, 'About content records must follow the canonical five-card order');
+for (const layout of ['desktop', 'tablet', 'mobile']) {
+  const referenceRows = aboutBaseline.layouts[layout];
+  assert.equal(referenceRows.length, aboutOrder.length, `${layout}: expected five frozen About records`);
+  for (const reference of referenceRows) {
+    const card = about.cards.find(entry => entry.id === reference.id);
+    assert.ok(card, `${layout}: missing About content ${reference.id}`);
+    for (const locale of locales) {
+      const actual = { ...card.locales[locale], ...card.layoutOverrides[layout]?.[locale] };
+      assert.deepEqual(actual, reference[locale], `${layout}/${locale}/${reference.id}: About content differs from the frozen copy`);
+    }
+  }
 }
 
 for (const layout of layouts) for (const locale of locales) {
@@ -73,4 +92,4 @@ for (const project of data.projects) {
   }
 }
 
-console.log(`Project data valid: ${data.projects.length} projects, ${layouts.length} layouts, ${locales.length} locales; canonical order verified across ${layouts.length * locales.length} output profiles.`);
+console.log(`Content valid: ${data.projects.length} projects, ${about.cards.length} About cards, ${layouts.length} layouts, ${locales.length} locales; canonical order and all ${baseline.assetFiles.length} asset hashes verified.`);

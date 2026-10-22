@@ -16,6 +16,7 @@ const output = checkOnly ? await mkdtemp(path.join(os.tmpdir(), 'kc-phase4-check
   : path.resolve(root, outArg ? outArg.slice('--out='.length) : siteOutput ? '.' : 'dist/phase4-preview');
 execFileSync(process.execPath, [path.join(root, 'scripts/content/validate-project-data.mjs')], { stdio: 'inherit' });
 const projectsData = JSON.parse(await readFile(path.join(root, 'content/projects.json'), 'utf8'));
+const aboutData = JSON.parse(await readFile(path.join(root, 'content/about.json'), 'utf8'));
 const ui = JSON.parse(await readFile(path.join(root, 'content/ui.en.json'), 'utf8'));
 const site = JSON.parse(await readFile(path.join(root, 'content/site.en.json'), 'utf8'));
 const projects = new Map(projectsData.projects.map(project => [project.id, project]));
@@ -179,6 +180,19 @@ async function buildPage(templatePath, cardSlots, locale, layoutKind) {
   for (const [slot, markup] of Object.entries(cardSlots)) {
     if (!html.includes(`{{${slot}}}`)) throw new Error(`Missing card slot ${slot} in ${templatePath}`);
     html = html.replace(`{{${slot}}}`, markup);
+  }
+  if (layoutKind === 'page') {
+    for (const layout of ['desktop', 'tablet', 'mobile']) {
+      for (const card of aboutData.cards) {
+        const text = { ...card.locales[locale], ...card.layoutOverrides[layout]?.[locale] };
+        for (const field of ['title', 'description']) {
+          const token = `{{about_${layout}_${card.id}_${field}}}`;
+          if (!html.includes(token)) throw new Error(`Missing About token ${token}`);
+          html = html.replace(token, escapeText(text[field]));
+        }
+      }
+    }
+    if (html.includes('{{about_')) throw new Error('Unfilled About content token');
   }
   if (locale === 'en') {
     html = addLocaleMetadata(html, locale);

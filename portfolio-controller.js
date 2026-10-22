@@ -165,7 +165,12 @@ class Component extends DCLogic {
         this.ticketCursorImg.style.width = (216 * k).toFixed(1) + "px";
         this.ticketCursorImg.style.height = (87 * k).toFixed(1) + "px";
       }
-      if (this.heroTop) this.heroTop.style.transform = "translateX(-50%) scale(" + s + ")";
+      if (this.heroTop) {
+        // Keep Hero type outside the shrinking artwork transform. Scale its anchor
+        // coordinates independently so the heading remains at its established position.
+        this.heroTop.style.transform = "translateX(-50%)";
+        this.heroTop.style.setProperty("--kc-desktop-hero-scale", String(s));
+      }
       if (this.heroBottom) this.heroBottom.style.transform = "translateX(-50%) scale(" + s + ")";
       if (this.heroContainer) {
         // width-fit stage: the plate is 1440 design px wide and as tall as the window needs,
@@ -284,6 +289,8 @@ class Component extends DCLogic {
       if (this.about) this.about.style.display = big ? "block" : "none";
       if (this.heroTop) this.heroTop.style.display = big ? "block" : "none";
       if (this.heroBottom) this.heroBottom.style.display = big ? "block" : "none";
+      const tabletHeroHeading = document.querySelector("[data-kc-tablet-hero-title]");
+      if (tabletHeroHeading) tabletHeroHeading.style.display = tablet ? "block" : "none";
       // the bar spans the window, so the content frames span it too. Their 32px design
       // margin then resolves to the same real pixels as the bar's, which lines the hero
       // headline up with the wordmark and the preview card up with the Hire-me pill —
@@ -291,6 +298,7 @@ class Component extends DCLogic {
       if (big) {
         const Wd = Math.round(window.innerWidth / s);
         [this.heroTop, this.heroBottom, this.aStage].forEach((el) => { if (el) el.style.width = Wd + "px"; });
+        if (this.heroTop) this.heroTop.style.width = window.innerWidth + "px";
         const stmt = this.aStage && this.aStage.firstElementChild;
         if (stmt) stmt.style.width = (Wd - 64) + "px";
         // the fact cards sit on the frame's own 12-column grid: a card is 3 columns wide and
@@ -419,6 +427,8 @@ class Component extends DCLogic {
       let st = Math.min(ST_MAX, window.innerWidth / 834, Math.max(0.62, this.vhNow() / 900));
       if (force !== "auto" && this.devW) st = Math.min(ST_MAX, this.devW / 834, Math.max(0.62, this.devH / 900));
       this.st = st;
+      const tabletHeroTitle = document.querySelector("[data-kc-tablet-hero-title]");
+      if (tabletHeroTitle) tabletHeroTitle.style.setProperty("--kc-tablet-hero-scale", String(st));
       // Shared tablet design-to-screen scale for the active portfolio block.
       window.__kcTabletScale = st;
       // the tablet stage height follows the window too, so the ticket is centred on the

@@ -78,7 +78,9 @@
     setStyle(stage, 'position', 'relative');
     setStyle(stage, 'left', '0px');
     setStyle(stage, 'transform', 'none');
-    const cardWidth = Math.min(770, Math.max(0, window.innerWidth - 64));
+    // Portrait cards fill the content width between the established 32px gutters.
+    // Landscape intentionally retains its separate 770px Figma composition below.
+    const cardWidth = Math.max(0, window.innerWidth - 64);
     const cardHeight = 310;
     const cardGap = 32;
     const railTop = 269;

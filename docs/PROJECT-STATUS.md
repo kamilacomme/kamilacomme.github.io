@@ -6,9 +6,11 @@ Updated: 2026-10-22. Milestones are marked complete only after their stated chec
 
 **Phase 5 branch point:** `0422402b46bb814d4202abd0e8266d95c03685d3` — completed Phase 4 branch checkpoint, including its latest reviewed documentation. Phase 4 remains preserved on its own branch.
 
-**Current task:** Prepare the incremental Phase 5 plan for user review. No application/layout code has changed.
+**Latest Phase 5 recovery checkpoint:** `33ab8be03c9d06460439a1946b26a0a960f2916d` — recorded the responsive geometry and typography contract for both locales in all four profiles; application code remains unchanged.
 
-**Next task:** Wait for the user's review of [phase-5-plan.md](phase-5-plan.md). Do not begin application implementation until the plan is reviewed.
+**Current task:** Phase 5 Milestone 1 complete; prepare shared fluid type and shell foundations.
+
+**Next task:** Milestone 2, starting with responsive tokens and removing the tablet Hero-to-Projects heading measurement dependency. Keep Projects geometry untouched in this milestone.
 
 ## Roadmap
 
@@ -28,11 +30,11 @@ Phase 5 architecture direction and incremental implementation sequence are docum
 
 ## Phase 5 milestones
 
-**Progress: 0 / 8 milestones complete.** Current state: planning only. No Phase 5 application or layout implementation is authorized before review of the plan.
+**Progress: 1 / 8 milestones complete.** Milestone 1 established the browser-measured reference contract. Phase 5 plan approval was received at commit `7f98795102548b45366d382680e9589ac690d07f`.
 
 | Milestone | Acceptance criteria | Status |
 | --- | --- | --- |
-| 1. Responsive geometry and reference contract | Measure four profiles, both locales, transforms, typography, Hero bounds, tablet rail geometry and section transitions; verify immutable references | Not started |
+| 1. Responsive geometry and reference contract | Measure four profiles, both locales, transforms, typography, Hero bounds, tablet rail geometry and section transitions; verify immutable references | Complete — browser probe and contract at [phase-5-baseline-contract.md](phase-5-baseline-contract.md); checkpoint `33ab8be03c9d06460439a1946b26a0a960f2916d` |
 | 2. Shared fluid shell and type foundations | Introduce responsive tokens/containers for low-coupling shell areas; effective target sizes without shrinking transforms | Not started |
 | 3. Hero and navigation migration | Preserve projector/motion/navigation; enforce 325px maximum effective Hero preview width and anchor/aspect ratio | Not started |
 | 4. Tablet Projects frame and layered tickets | Match approved Figma card composition while preserving tablet margins, rail geometry, project reachability and About transition | Not started |

@@ -41,6 +41,7 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
         lang: document.documentElement.lang,
         tabletActive: window.__kcTabletLayout.tablet,
         navClass: nav.classList.contains('kc-tablet-nav'),
+        viewportWidth: innerWidth,
         navDisplay: getComputedStyle(nav).display,
         navBox: rect(nav),
         navScale: getComputedStyle(nav).getPropertyValue('--kc-nav-scale').trim(),
@@ -49,6 +50,7 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
         links: rect(links),
         sectionLinks: [...links.querySelectorAll('a')].map((link) => ({ text: link.textContent.trim(), href: link.getAttribute('href'), rect: rect(link) })),
         pill: rect(pill),
+        pillDisplay: getComputedStyle(pill).display,
         pillLabel: pill.lastElementChild.textContent.trim(),
         cta: rect(cta),
         ctaText: cta.textContent.trim(),
@@ -111,22 +113,23 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
       }
     }
 
-    const navRow = width <= 607;
-    expect(metrics.navDisplay).toBe(navRow ? 'grid' : 'flex');
-    expect(metrics.linksDisplay).toBe(navRow ? 'flex' : 'none');
-    expect(metrics.pill.height).toBe(44);
+    const narrowNav = width <= 607;
+    expect(metrics.navDisplay).toBe('flex');
+    expect(metrics.linksDisplay).toBe('none');
+    if (narrowNav) expect(metrics.pillDisplay).toBe('none');
+    else expect(metrics.pillDisplay).not.toBe('none');
     expect(metrics.cta.height).toBe(44);
-    expect(metrics.pill.width).toBeGreaterThan(metrics.pillLabel.length * 5);
     expect(metrics.ctaText).toBeTruthy();
-    if (navRow) {
-      expect(metrics.logo.right).toBeLessThanOrEqual(metrics.cta.left);
-      expect(metrics.links.right).toBeLessThanOrEqual(metrics.pill.left);
-      expect(metrics.sectionLinks).toHaveLength(3);
-      expect(metrics.sectionLinks.map((link) => link.href)).toEqual(language === 'fr'
-        ? ['#projets-t', '#apropos-t', '#contact']
-        : ['/en/#projets', '/en/#apropos', '/en/#contact']);
+    expect(metrics.cta.width).toBeGreaterThan(metrics.ctaText.length * 5);
+    expect(metrics.cta.left).toBeGreaterThanOrEqual(0);
+    expect(metrics.cta.right).toBeLessThanOrEqual(width - 31);
+    if (narrowNav) {
+      expect(metrics.logo.right + 12).toBeLessThanOrEqual(metrics.cta.left);
     } else {
+      expect(metrics.pill.height).toBe(44);
+      expect(metrics.pill.width).toBeGreaterThan(metrics.pillLabel.length * 5);
       expect(metrics.logo.right + 15).toBeLessThanOrEqual(metrics.pill.left);
+      expect(metrics.pill.right).toBeLessThan(metrics.cta.left);
     }
   }
 
@@ -150,11 +153,34 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
   const mobile = await page.evaluate(() => ({
     tablet: window.__kcTabletLayout.tablet,
     navClass: document.querySelector('.kc-responsive-nav').classList.contains('kc-tablet-nav'),
+    nav: document.querySelector('.kc-responsive-nav').getBoundingClientRect().toJSON(),
+    logo: document.querySelector('.kc-responsive-nav > span:first-child').getBoundingClientRect().toJSON(),
+    linksDisplay: getComputedStyle(document.querySelector('.kc-responsive-nav > div:nth-child(2)')).display,
+    pillDisplay: getComputedStyle(document.querySelector('.kc-responsive-nav > div:last-child > span[data-fixed-ink]')).display,
+    cta: document.querySelector('.kc-responsive-nav a[href^="mailto"]').getBoundingClientRect().toJSON(),
+    ctaText: document.querySelector('.kc-responsive-nav a[href^="mailto"]').textContent.trim(),
     mobileRootDisplay: getComputedStyle(document.querySelector('#kc-mobile-root')).display,
     editorialCards: document.querySelectorAll('#kc-mobile-projets .project').length,
     mobileTicketCount: document.querySelectorAll('#kc-mobile-projets .ticket').length,
   }));
-  expect(mobile).toEqual({ tablet: false, navClass: false, mobileRootDisplay: 'block', editorialCards: 6, mobileTicketCount: 0 });
+  expect(mobile.tablet).toBe(false);
+  expect(mobile.navClass).toBe(false);
+  expect(mobile.linksDisplay).toBe('none');
+  expect(mobile.pillDisplay).toBe('none');
+  expect(mobile.cta.height).toBe(44);
+  expect(mobile.logo.right + 12).toBeLessThanOrEqual(mobile.cta.left);
+  expect(mobile.cta.right).toBeLessThanOrEqual(393 - 15);
+  expect(mobile.mobileRootDisplay).toBe('block');
+  expect(mobile.editorialCards).toBe(6);
+  expect(mobile.mobileTicketCount).toBe(0);
+  await settleViewport(page, { width: 320, height: 568 });
+  const smallestPhoneNav = await page.evaluate(() => ({
+    cta: document.querySelector('.kc-responsive-nav a[href^="mailto"]').getBoundingClientRect().toJSON(),
+    logo: document.querySelector('.kc-responsive-nav > span:first-child').getBoundingClientRect().toJSON(),
+  }));
+  expect(smallestPhoneNav.logo.right + 8).toBeLessThanOrEqual(smallestPhoneNav.cta.left);
+  expect(smallestPhoneNav.cta.right).toBeLessThanOrEqual(305);
+  expect(smallestPhoneNav.cta.height).toBe(44);
   await info.attach('narrow-tablet-fit-metrics.json', {
     body: Buffer.from(JSON.stringify(records, null, 2)), contentType: 'application/json',
   });

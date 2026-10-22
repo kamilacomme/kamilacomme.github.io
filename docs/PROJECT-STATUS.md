@@ -4,11 +4,11 @@ Updated: 2026-10-22. Milestones are marked complete only after their stated chec
 
 **Current branch:** `phase-4/shared-bilingual-static`
 
-**Latest Phase 4 implementation checkpoint:** `37ac6227ce47e22406384f36a810625a94d05fda` — canonical data, shared project templates and generated French root/iframe.
+**Latest Phase 4 implementation checkpoint:** `20a534faed76b7b9545ac08c2052b267306bfb0d` — generated bilingual routes; runtime English translation retired after parity checks.
 
-**Current task:** complete the English static route cutover after the targeted generated-page parity checks.
+**Current task:** generate the existing desktop, tablet and mobile About content shells from five shared bilingual records.
 
-**Next task:** write generated English `/en/` and iframe output to the branch, remove the fetch-and-rewrite entry page and retire `en/i18n.js` after rechecking the committed routes.
+**Next task:** validate the About content generation against frozen text/layout records, then run the single Phase 4 eight-profile gate, independent review and Lighthouse comparison.
 
 ## Roadmap
 
@@ -28,22 +28,24 @@ Phase 5 architecture direction is documented in [hybrid-responsive-architecture-
 
 ## Phase 4 milestones
 
-**Progress: 3 / 6 milestones complete.** The approval covers Phase 4 development only; it does not authorize pushing, merging or deployment.
+**Progress: 4 / 6 milestones complete.** The approval covers Phase 4 development only; it does not authorize pushing, merging or deployment.
 
 | Milestone | Acceptance evidence | Status |
 | --- | --- | --- |
 | Source inventory and parity contract | Frozen inventory, asset hashes, layout exceptions and canonical-order change documented | Complete — [phase-4-inventory.md](phase-4-inventory.md) |
 | Canonical project data and responsive order | Six project IDs, exact localized/layout copy, URLs, accessible names, media and one order array match the frozen inventory except the approved historical tablet-order delta | Complete — `content/projects.json`; validator checks all eight profiles and 36 asset hashes |
 | Shared templates and French static output | Three layout card templates generate `/` and the desktop iframe; all French records, refs, routes, assets and interactions pass focused checks | Complete — source checkpoint `37ac6227ce47e22406384f36a810625a94d05fda` |
-| English static output and loader retirement | Shared templates generate `/en/` and its iframe; translated content, metadata, anchors, tablet Footer, refs and interactions pass before replacing/removing runtime loader | In progress — staged output passed targeted checks; branch `/en/` still uses the old loader until cutover commit |
-| Shared About content generation | Five bilingual About content records generate the existing three DOM shells; refs, animation timing and visuals pass | Not started |
+| English static output and loader retirement | Shared templates generate `/en/` and its iframe; translated content, metadata, anchors, tablet Footer, refs and interactions pass before replacing/removing runtime loader | Complete — commit `20a534faed76b7b9545ac08c2052b267306bfb0d`; static route smoke passed and `en/i18n.js` is retired |
+| Shared About content generation | Five bilingual About content records generate the existing three DOM shells; refs, animation timing and visuals pass | In progress |
 | Phase 4 acceptance and review | Deterministic output, data/asset integrity, separate refs for approved tablet-order change, full eight-profile gate, independent review and Lighthouse comparison complete | Not started — mobile TBT remains an open release blocker |
 
 **Milestone 3 checkpoint:** content validator passes 48 frozen project/layout/language records, approved canonical order and all 36 asset byte/hash checks. Generated French output is deterministic across two builds and matches committed `/` and desktop-iframe files. Focused Playwright functional checks passed 24/24 across eight locale/layout profiles. Visual checks passed for desktop French/English and mobile French/English (4/4); originals were not updated. Phase 4 generated-route smoke checks passed 10 with 6 expected mobile-only skips across eight profiles. Frozen test artifact integrity passed 230/230.
 
 **Authored-source reduction so far:** 6 maintained project records instead of 48 repeated complete records; one six-ID canonical order instead of four layout orders; 3 shared layout card templates instead of 18 project-specific card shells. Mobile retains two exact barcode SVG variants and per-project coordinate/style parameters because those vary in the original composition. Generated HTML still has separate responsive shells and is not counted as authored-source reduction. The 5 About card definitions remain duplicated and are intentionally pending this milestone.
 
-**English migration evidence:** generated English staged output passes project/order/link/accessibility smoke checks in all eight profiles. The English-specific functional suite passed 12/12 across desktop, tablet portrait, tablet landscape and mobile, covering all project links/media, navigation, About animation, footer and legal dialogs. English visual checks passed desktop and mobile; hash links are emitted route-correctly, metadata is static, and the translation fetch/observer is absent from generated HTML. Tablet order differs from frozen visual references by the approved change; a separate Phase 4 tablet reference set will be created without overwriting earlier references.
+**Milestone 4 checkpoint:** `/en/` and `/en/desktop-project-embedded.html` now contain complete static English markup generated from the shared French templates, project records and English UI dictionary. The old runtime document fetch and mutation-based translation script has been removed. English-only tablet ticket sizing remains in the dedicated `english-tablet-footer-alignment.js` layout owner; route-correct hash links are emitted during generation. `npm run content:build:check`, `npm run content:check`, and generated-route smoke (10 pass, 6 expected skips) passed against the committed outputs. The French mobile Lighthouse blocker is unchanged.
+
+**English migration evidence:** generated English output is committed at `/en/` and `/en/desktop-project-embedded.html`. Targeted English functional checks passed 12/12 across desktop, tablet portrait, tablet landscape and mobile, covering project links/media, navigation, About animation, footer and legal dialogs. English desktop/mobile visual checks passed, and the static route smoke suite passed after cutover. English hash links remain within `/en/`, metadata is static, and no fetch/translation observer or `en/i18n.js` request remains. Tablet order differs from frozen visual references by the approved change; a separate Phase 4 tablet reference set will be created without overwriting earlier references.
 
 ## Current blockers and test limits
 
@@ -54,7 +56,7 @@ Phase 5 architecture direction is documented in [hybrid-responsive-architecture-
 
 ## Deployment and checkpoint state
 
-Phase 4 work is local on `phase-4/shared-bilingual-static`. Checkpoints `6bd3a4781d49568620bb42ea06c8bcca5d3585d7`, `4b8add9782131d302f66356c5bdc0d57bdb8d66b`, `ba55dff91f1bdab09846dc415e26ce9039ca8329`, and `37ac6227ce47e22406384f36a810625a94d05fda` preserve the inventory, approved plan, canonical data, and French static output. The reviewed Phase 2 and Phase 3 backup branches remain preserved on GitHub. No Phase 4 changes have been pushed or merged. Nothing has been deployed or published. `main` is unchanged.
+Phase 4 work is local on `phase-4/shared-bilingual-static`. Checkpoints `6bd3a4781d49568620bb42ea06c8bcca5d3585d7`, `4b8add9782131d302f66356c5bdc0d57bdb8d66b`, `ba55dff91f1bdab09846dc415e26ce9039ca8329`, `37ac6227ce47e22406384f36a810625a94d05fda`, and `20a534faed76b7b9545ac08c2052b267306bfb0d` preserve the inventory, approved plan, canonical data/French output, and bilingual static cutover. The reviewed Phase 2 and Phase 3 backup branches remain preserved on GitHub. No Phase 4 changes have been pushed or merged. Nothing has been deployed or published. `main` is unchanged.
 
 ## Phase 3 milestones
 

@@ -1,10 +1,9 @@
 const { test, expect } = require('@playwright/test');
 const qa = require('../qa/helpers.cjs');
-const baseline = require('./baseline-geometry.json');
 
 const idOrder = ['pilates', 'longread', 'tour-de-parole', 'inside-out', 'celimax', 'napoli'];
 
-test('tablet uses the shared layered ticket at approved effective type sizes without shifting its section boundary', async ({ page, context }, info) => {
+test('tablet shared layered tickets match Figma geometry and adapt the section rail', async ({ page, context }, info) => {
   const { mode, language, viewport } = info.project.metadata;
   test.skip(!mode.startsWith('tablet-'), 'This contract applies to the two tablet presentations.');
   await qa.routes(context);
@@ -62,19 +61,23 @@ test('tablet uses the shared layered ticket at approved effective type sizes wit
       };
     });
     return {
+      projectDocumentTop: root.getBoundingClientRect().top + scrollY,
       sectionHeight: root.getBoundingClientRect().height,
       aboutDocumentTop: root.parentElement.querySelector('#apropos-t').getBoundingClientRect().top + scrollY,
       stageTransform: getComputedStyle(stage).transform,
+      railWidth: rail.getBoundingClientRect().width,
       cards: details,
     };
   });
 
   expect(result.stageTransform).toBe('none');
   expect(result.cards.map(card => card.id)).toEqual(idOrder);
-  const locked = baseline.results.find(item => item.profile.mode === mode && item.profile.locale === language);
-  const start = locked.sectionStates.find(state => state.progress === 0);
-  expect(Math.abs(result.sectionHeight - start.projectSection.height)).toBeLessThanOrEqual(2);
-  expect(Math.abs(result.aboutDocumentTop - start.about.documentTop)).toBeLessThanOrEqual(2);
+  const portrait = mode === 'tablet-portrait';
+  const expectedSectionHeight = portrait
+    ? 269 + (6 * 310) + (5 * 32) + 32
+    : viewport.height + (32 + (6 * 770) + (5 * 32) + 32 - viewport.width);
+  expect(Math.abs(result.sectionHeight - expectedSectionHeight)).toBeLessThanOrEqual(2);
+  expect(Math.abs(result.aboutDocumentTop - (result.projectDocumentTop + result.sectionHeight))).toBeLessThanOrEqual(2);
 
   for (const card of result.cards) {
     expect(card.structure, card.id).toBe(true);
@@ -82,6 +85,14 @@ test('tablet uses the shared layered ticket at approved effective type sizes wit
     expect(card.poster, card.id).toContain('/assets/projets/bg/');
     expect(card.type).toMatchObject({ title: 32, description: 14, tags: 12, scale: 1 });
     const { card: outer, panel, image, info, group, title, description, tags, barcode } = card.boxes;
+    expect(outer.width).toBe(770);
+    expect(outer.height).toBe(310);
+    expect(panel.width).toBe(674);
+    expect(panel.height).toBe(246);
+    expect(image.width).toBeCloseTo(271, 0);
+    expect(image.height).toBe(206);
+    expect(info.width).toBeCloseTo(271, 0);
+    expect(barcode.width).toBe(52);
     expect(panel.left).toBeGreaterThanOrEqual(outer.left);
     expect(panel.right).toBeLessThanOrEqual(outer.right);
     expect(image.left).toBeGreaterThanOrEqual(panel.left);
@@ -92,6 +103,21 @@ test('tablet uses the shared layered ticket at approved effective type sizes wit
     expect(group.bottom).toBeLessThanOrEqual(tags.top + 1);
     expect(description.bottom).toBeLessThanOrEqual(tags.top + 1);
     expect(tags.bottom).toBeLessThanOrEqual(info.bottom + 1);
+  }
+
+  if (portrait) {
+    expect(result.cards[0].boxes.card.left).toBe(32);
+    expect(result.cards[0].boxes.card.top).toBe(269);
+    for (let index = 1; index < result.cards.length; index += 1) {
+      expect(result.cards[index].boxes.card.top - result.cards[index - 1].boxes.card.top).toBe(342);
+    }
+    expect(result.railWidth).toBe(770);
+  } else {
+    expect(result.cards[0].boxes.card.left).toBe(32);
+    expect(result.cards[0].boxes.card.top).toBe(492);
+    expect(result.cards[1].boxes.card.left).toBe(834);
+    expect(1 + (viewport.width - result.cards[1].boxes.card.left) / result.cards[1].boxes.card.width).toBeCloseTo(1.47, 2);
+    expect(result.railWidth).toBe(4780);
   }
 
   const opposite = mode === 'tablet-portrait' ? { width: 1194, height: 834 } : { width: 834, height: 1112 };
@@ -110,4 +136,16 @@ test('tablet uses the shared layered ticket at approved effective type sizes wit
 
   await page.setViewportSize(viewport);
   await page.clock.runFor(500);
+
+  if (!portrait) {
+    await qa.scrollSection(page, qa.selectors(mode).projects, 0);
+    await page.evaluate((documentTop) => window.scrollTo(0, documentTop + 3650), result.projectDocumentTop);
+    await page.clock.runFor(500);
+    const end = await page.locator('#kc-tablet-projets .tickets').evaluate(rail => ({
+      transform: new DOMMatrixReadOnly(getComputedStyle(rail).transform).m41,
+      lastCardRight: rail.lastElementChild.getBoundingClientRect().right,
+    }));
+    expect(end.transform).toBeCloseTo(-3650, 0);
+    expect(end.lastCardRight).toBeCloseTo(viewport.width - 32, 0);
+  }
 });

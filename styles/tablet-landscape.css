@@ -6,5 +6,5 @@
 /* Landscape tablet only: pin the section and move the same approved tickets sideways. */
 #kc-tablet-projets.kc-landscape-rail #projets-t { position:sticky !important; top:0; height:100vh; overflow:hidden; }
 #kc-tablet-projets.kc-landscape-rail #kc-t-viewport { position:relative !important; top:auto; height:100vh; overflow:hidden; }
-#kc-tablet-projets.kc-landscape-rail #kc-t-stage .tickets { display:flex; flex-direction:row; align-items:stretch; gap:18px; width:max-content; max-width:none; bottom:auto !important; }
-#kc-tablet-projets.kc-landscape-rail #kc-t-stage .ticket { flex:none; height:220px; }
+#kc-tablet-projets.kc-landscape-rail #kc-t-stage .tickets { display:flex; flex-direction:row; align-items:stretch; gap:32px; width:max-content; max-width:none; bottom:auto !important; }
+#kc-tablet-projets.kc-landscape-rail #kc-t-stage .ticket { flex:none; height:310px; }

@@ -161,25 +161,33 @@
 @media (min-width: 500px) and (max-width: 659px) {
   #kc-tablet-projets.kc-narrow-ticket .ticket {
     height: auto;
-    padding: 16px;
+    min-height: 572px;
+    padding: 64px 0;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   #kc-tablet-projets.kc-narrow-ticket .ticket-panel {
     position: relative;
     inset: auto;
-    width: 100%;
+    width: min(356px, calc(100% - 48px));
+    min-height: 444px;
     height: auto;
-    margin: 0;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    align-content: start;
+    background: #f2eef2;
   }
   #kc-tablet-projets.kc-narrow-ticket .ticket-image {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 271 / 206;
+    width: min(100%, 308px);
+    height: 172px;
+    aspect-ratio: 308 / 172;
     flex: none;
+    justify-self: center;
   }
   #kc-tablet-projets.kc-narrow-ticket .ticket-info {
     width: 100%;
@@ -187,13 +195,19 @@
     min-height: 0;
     flex: none;
     gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
   #kc-tablet-projets.kc-narrow-ticket .ticket-info > div:first-child {
     flex: none;
   }
+  #kc-tablet-projets.kc-narrow-ticket .ticket-info h2 {
+    font-size: 24px;
+  }
   #kc-tablet-projets.kc-narrow-ticket .ticket .barcode {
     width: 100%;
-    height: 52px;
+    height: 38px;
     flex: none;
   }
 }

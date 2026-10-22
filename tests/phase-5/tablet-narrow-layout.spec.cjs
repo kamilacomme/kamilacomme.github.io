@@ -71,7 +71,7 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
             title: rect(title), description: rect(description), tags: rect(tags), barcode: rect(barcode),
             panelDisplay: getComputedStyle(panel).display,
             panelPosition: getComputedStyle(panel).position,
-            textSizes: [title, description, tags].map((node) => parseFloat(getComputedStyle(node).fontSize)),
+        textSizes: [title, description, tags].map((node) => parseFloat(getComputedStyle(node).fontSize)),
             groupBottom: rect(group).bottom,
           };
         }),
@@ -94,17 +94,23 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
       expect(card.poster).toContain('/assets/projets/bg/');
       expect(card.card.left).toBe(32);
       expect(card.card.width).toBe(width - 64);
-      expect(card.textSizes).toEqual([32, 14, 12]);
+      expect(card.textSizes).toEqual([vertical ? 24 : 32, 14, 12]);
       if (vertical) {
-        expect(card.card.height).toBeGreaterThan(310);
-        expect(card.panelDisplay).toBe('flex');
+        expect(card.card.height).toBeGreaterThanOrEqual(572);
+        expect(card.panel.width).toBe(356);
+        expect(card.panel.height).toBeGreaterThanOrEqual(444);
+        expect(card.panelDisplay).toBe('grid');
         expect(card.image.left).toBe(card.info.left);
         expect(card.image.right).toBe(card.info.right);
+        expect(card.image.width).toBe(308);
+        expect(card.image.height).toBeCloseTo(172, 0);
         expect(card.groupBottom).toBeLessThanOrEqual(card.tags.top + 1);
         expect(card.tags.bottom).toBeLessThanOrEqual(card.info.bottom + 1);
         expect(card.image.bottom).toBeLessThanOrEqual(card.info.top);
         expect(card.barcode.top).toBeGreaterThanOrEqual(card.tags.bottom);
         expect(card.barcode.bottom).toBeLessThanOrEqual(card.panel.bottom);
+        expect(card.barcode.height).toBe(38);
+        expect(Math.abs((card.panel.left - card.card.left) - (card.card.right - card.panel.right))).toBeLessThanOrEqual(1);
       } else {
         expect(card.panelPosition).toBe('absolute');
         expect(card.card.height).toBe(310);

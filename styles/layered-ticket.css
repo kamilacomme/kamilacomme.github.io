@@ -1,0 +1,169 @@
+/* Shared layered project ticket. Desktop geometry matches the existing iframe. */
+.ticket {
+  width: 1142px;
+  height: 393.453px;
+  flex: none;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ddd;
+  text-decoration: none;
+  color: inherit;
+  isolation: isolate;
+}
+.ticket::before,
+.ticket::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.ticket::before { background: var(--poster) center / cover no-repeat; }
+.ticket::after { background: rgba(255, 255, 255, .08); }
+.ticket-panel {
+  position: absolute;
+  z-index: 1;
+  left: 117px;
+  top: 58.97px;
+  width: 908px;
+  height: 274px;
+  padding: 20px;
+  border-radius: 4px;
+  background: #fff;
+  display: flex;
+  gap: 23.85px;
+  align-items: stretch;
+}
+.ticket-image {
+  width: 422px;
+  flex: none;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 2px;
+  background: var(--poster) center / cover no-repeat;
+}
+.ticket-info {
+  width: 326px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ticket-info h2 {
+  font: 700 40px/1 Figtree, Arial, sans-serif;
+  letter-spacing: -.03em;
+  margin: 0 0 8px;
+}
+.ticket-info p {
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: -.14px;
+  color: #5c575c;
+  margin: 0;
+}
+.ticket-info .tags {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.ticket .barcode {
+  width: 72px;
+  height: 234px;
+  flex: none;
+  display: block;
+  fill: #2b3b37;
+  overflow: visible;
+}
+.ticket-image .media-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .32s ease;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+}
+.ticket-image .media-layer.active { opacity: 1; }
+.ticket:focus-visible { outline: 4px solid #7c4ff6; outline-offset: -4px; }
+@media (prefers-reduced-motion: reduce) {
+  .ticket-image .media-layer { transition: none; }
+}
+
+/* Tablet adapts the same ticket structure inside its existing card and rail. */
+#kc-tablet-projets .ticket {
+  width: 100%;
+  height: 220px;
+  display: block;
+  padding: 0;
+  border-radius: 8px;
+  background: #ddd;
+}
+#kc-tablet-projets .ticket::after { background: rgba(255, 255, 255, .04); }
+#kc-tablet-projets .ticket-panel {
+  inset: 10% 6.2%;
+  width: auto;
+  height: auto;
+  padding: clamp(10px, 1.7vw, 16px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(28px, 7%);
+  grid-template-rows: minmax(0, 1fr);
+  gap: clamp(10px, 1.8vw, 18px);
+  background: #f6f2f6;
+}
+#kc-tablet-projets .ticket-image {
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  height: auto;
+  border-radius: 2px;
+}
+#kc-tablet-projets .ticket-info {
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+#kc-tablet-projets .ticket-info h2 {
+  font: 700 32px/1.1 Figtree, Arial, sans-serif;
+  letter-spacing: -.03em;
+  margin: 0 0 8px;
+}
+#kc-tablet-projets .ticket-info p {
+  font: 400 14px/1.5 Inter, Arial, sans-serif;
+  letter-spacing: -.01em;
+}
+#kc-tablet-projets .ticket-info .tags {
+  gap: 6px;
+  font: 400 12px/1.35 Inter, Arial, sans-serif;
+  letter-spacing: .04em;
+}
+#kc-tablet-projets .ticket .barcode {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  max-width: 52px;
+}
+#kc-tablet-projets .ticket:focus-visible { outline: 2px solid #222; outline-offset: 2px; }
+#kc-tablet-projets .ticket.playing .motion { opacity: 1; }
+@media (orientation: portrait) {
+  #kc-tablet-projets .ticket-panel { inset: 6% 6.2%; padding: 8px; }
+}
+/* The landscape rail keeps its width and horizontal travel; added card height
+   gives the approved 32px title and localized copy enough room at this width. */
+#kc-tablet-projets.kc-landscape-rail .ticket-panel {
+  inset: 5% 6.2%;
+  padding: 12px;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.15fr) minmax(28px, 7%);
+  gap: 10px;
+}
+@media (prefers-reduced-motion: reduce) {
+  #kc-tablet-projets .ticket-image .media-layer { transition: none; }
+}

@@ -43,8 +43,8 @@ function renderMedia(items, layout) {
       return `<video aria-hidden="true" class="media-layer" data-src="${escapeAttribute(item['data-src'])}" loop="" muted="" playsinline="" preload="${escapeAttribute(item.preload || 'none')}"></video>`;
     }
     if (layout === 'tablet') {
-      if (item.element === 'img') return `<img src="${escapeAttribute(item.src)}" alt="" loading="${escapeAttribute(item.loading || 'lazy')}">`;
-      return `<video class="motion" muted loop playsinline preload="${escapeAttribute(item.preload || 'none')}" data-src="${escapeAttribute(item['data-src'])}" aria-hidden="true"></video>`;
+      if (item.element === 'img') return `<img alt="" class="media-layer active" decoding="async" loading="${escapeAttribute(item.loading || 'lazy')}" src="${escapeAttribute(item.src)}"/>`;
+      return `<video aria-hidden="true" class="media-layer motion" data-src="${escapeAttribute(item['data-src'])}" loop="" muted="" playsinline="" preload="${escapeAttribute(item.preload || 'none')}"></video>`;
     }
     if (item.element === 'img') return `<img class="poster" src="${escapeAttribute(item.src)}" alt="" loading="${escapeAttribute(item.loading || 'lazy')}" />`;
     return `<video class="motion" muted loop playsinline preload="${escapeAttribute(item.preload || 'none')}" poster="${escapeAttribute(item.poster || '')}" data-src="${escapeAttribute(item['data-src'])}" aria-hidden="true"></video>`;
@@ -59,6 +59,7 @@ async function renderCards(layout, locale) {
     const override = localized.layoutOverrides[layout === 'tablet' ? 'tablet-portrait' : layout] ?? {};
     const presentationKey = layout === 'tablet' ? 'tablet-portrait' : layout;
     const presentation = project.presentations[presentationKey];
+    const ticketPresentation = layout === 'tablet' ? project.presentations.desktop : presentation;
     const tags = override.tags ?? localized.tags;
     const fields = {
       id,
@@ -67,12 +68,15 @@ async function renderCards(layout, locale) {
       description: override.description ?? localized.description,
       cardAccessibleName: localized.accessibility.card ?? '',
       mediaAccessibleName: localized.accessibility.mediaPreview,
-      posterStyle: `--poster:url('${presentation.styleAssets[0] ?? ''}')`,
+      // The layered ticket's poster is consumed from an external stylesheet, so
+      // use a root path rather than a path relative to /styles/.
+      posterStyle: `--poster:url('/${(ticketPresentation.styleAssets[0] ?? '').replace(/^\/+/, '')}')`,
       mediaLayers: renderMedia(presentation.media, layout),
       sequence: (presentation.sequenceByLocale?.[locale] ?? []).join(' '),
     };
     for (let index = 0; index < tags.length; index++) fields[`tag${index}`] = tags[index];
-    let template = await readFile(path.join(root, 'templates/cards', `${layout}.html`), 'utf8');
+    const templateName = layout === 'mobile' ? 'mobile' : 'layered-ticket';
+    let template = await readFile(path.join(root, 'templates/cards', `${templateName}.html`), 'utf8');
     if (layout === 'mobile') {
       const geometry = presentation.geometry;
       const barcodeTemplate = await readFile(path.join(root, 'templates/partials', `mobile-barcode-${geometry.barcodeProfile}.html`), 'utf8');

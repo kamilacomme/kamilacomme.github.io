@@ -39,6 +39,7 @@
       rail.style.top = '';
       rail.style.bottom = '';
       rail.style.left = '';
+      rail.style.gap = '';
       [...rail.children].forEach((card) => {
         card.style.width = '';
         card.style.height = '';
@@ -55,11 +56,12 @@
     if (!frame || !viewport || !stage) return false;
 
     const scale = window.__kcTabletLayout?.scale || window.__kcTabletScale || 1;
-    setStyle(stage, 'width', (window.innerWidth / scale) + 'px');
-    setStyle(stage, 'transform', 'scale(' + scale + ')');
+    setStyle(stage, 'width', window.innerWidth + 'px');
+    setStyle(stage, 'transform', 'none');
+    setStyle(stage, '--kc-tablet-geometry-scale', String(scale));
     setStyle(viewport, 'width', '100%');
     if (!preserveLandscapeFrame) {
-      setStyle(stage, 'height', '1655px');
+      setStyle(stage, 'height', (1655 * scale) + 'px');
       setStyle(viewport, 'height', (1655 * scale) + 'px');
     }
 
@@ -73,14 +75,28 @@
     if (!stage || !viewport) return;
 
     const scale = window.__kcTabletLayout?.scale || window.__kcTabletScale || 1;
-    const width = Math.round(window.innerWidth / scale);
-    // The shared tablet frame is centered on the viewport; derive its position from
-    // that policy instead of measuring the unrelated About section.
-    setStyle(stage, 'width', width + 'px');
+    // Keep the tablet canvas in viewport pixels so ticket typography is not reduced
+    // by an ancestor transform. Preserve the old frame's physical spacing explicitly.
+    setStyle(stage, 'width', window.innerWidth + 'px');
     setStyle(stage, 'position', 'relative');
     setStyle(stage, 'left', '0px');
-    setStyle(stage, 'transform', 'scale(' + scale + ')');
+    setStyle(stage, 'transform', 'none');
+    setStyle(stage, 'height', (1655 * scale) + 'px');
     setStyle(viewport, 'height', (1655 * scale) + 'px');
+    const heading = stage.querySelector('h1');
+    const rail = stage.querySelector('.tickets');
+    if (heading) {
+      setStyle(heading, 'left', (32 * scale) + 'px');
+      setStyle(heading, 'top', (85 * scale) + 'px');
+      setStyle(heading, 'width', (window.innerWidth - 64 * scale) + 'px');
+    }
+    if (rail) {
+      setStyle(rail, 'left', (32 * scale) + 'px');
+      setStyle(rail, 'top', (213 * scale) + 'px');
+      setStyle(rail, 'width', (window.innerWidth - 64 * scale) + 'px');
+      setStyle(rail, 'gap', (18 * scale) + 'px');
+      [...rail.children].forEach((card) => setStyle(card, 'height', (220 * scale) + 'px'));
+    }
   }
 
   function fitLandscapeGeometry() {
@@ -98,36 +114,39 @@
     frame = section;
     section.classList.add('kc-landscape-rail');
     const scale = window.__kcTabletLayout?.scale || window.__kcTabletScale || 1;
-    const width = window.innerWidth / scale;
-    const height = window.innerHeight / scale;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
     setImportantStyle(stage, 'height', height + 'px');
     setStyle(viewport, 'width', '100%');
     setStyle(viewport, 'height', window.innerHeight + 'px');
 
-    const cardWidth = Math.min(574, width - 64);
+    const cardWidth = Math.min(574 * scale, width - 64 * scale);
+    // A little more vertical room compensates for the approved full-size 32px
+    // title while leaving horizontal rail travel and the About boundary intact.
+    const cardHeight = 270 * scale;
     const cards = [...rail.querySelectorAll('.ticket')];
     cards.forEach((card) => {
       setStyle(card, 'width', cardWidth + 'px');
-      setStyle(card, 'height', '220px');
+      setStyle(card, 'height', cardHeight + 'px');
     });
-    setStyle(rail, 'left', '32px');
+    setStyle(rail, 'width', 'max-content');
+    setStyle(rail, 'left', (32 * scale) + 'px');
+    setStyle(rail, 'gap', (18 * scale) + 'px');
 
     const visibleBottom = viewport.getBoundingClientRect().bottom;
     const stageTop = stage.getBoundingClientRect().top;
-    const stageRect = stage.getBoundingClientRect();
-    const actualScale = stage.offsetWidth ? stageRect.width / stage.offsetWidth : 1;
-    const rowTop = (visibleBottom - stageTop - 32) / actualScale - 220;
+    const rowTop = visibleBottom - stageTop - 32 - cardHeight;
     setImportantStyle(rail, 'top', Math.max(0, rowTop).toFixed(2) + 'px');
     setImportantStyle(rail, 'bottom', 'auto');
 
-    const fullWidth = cards.length * cardWidth + (cards.length - 1) * 18;
-    scrollScale = actualScale || 1;
-    const visibleWidth = viewport.getBoundingClientRect().width / scrollScale;
+    const fullWidth = cards.length * cardWidth + (cards.length - 1) * 18 * scale;
+    scrollScale = 1;
+    const visibleWidth = viewport.getBoundingClientRect().width;
     // Match the fixed 32-design-pixel frame gutter; do not infer rail length from
     // the navigation CTA, whose position is written by another controller.
-    const rightInset = 32;
-    travel = Math.max(0, 32 + fullWidth + rightInset - visibleWidth);
-    scrollLength = travel * scrollScale;
+    const rightInset = 32 * scale;
+    travel = Math.max(0, 32 * scale + fullWidth + rightInset - visibleWidth);
+    scrollLength = travel;
     setStyle(section, 'height', (window.innerHeight + scrollLength) + 'px');
     updateLandscapeScroll();
     return true;

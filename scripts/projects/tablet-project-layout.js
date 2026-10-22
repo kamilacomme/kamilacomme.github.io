@@ -63,20 +63,6 @@
       setStyle(viewport, 'height', (1655 * scale) + 'px');
     }
 
-    // Match the rendered tablet Hero title while retaining the original sizing formula.
-    const projectTitle = stage.querySelector('h1');
-    const projectLine = projectTitle && projectTitle.querySelector('.kc-title-line');
-    const hero = document.querySelector('[data-kc-tablet-hero-title]');
-    const heroLine = hero && hero.querySelector('span');
-    if (projectTitle && projectLine && heroLine) {
-      setStyle(projectTitle, 'fontSize', '48px');
-      const target = heroLine.getBoundingClientRect().height;
-      const current = projectLine.getBoundingClientRect().height;
-      if (target > 0 && current > 0) {
-        const ratio = Math.max(0.4, Math.min(1.4, target / current));
-        setStyle(projectTitle, 'fontSize', (48 * ratio).toFixed(3) + 'px');
-      }
-    }
     return true;
   }
 

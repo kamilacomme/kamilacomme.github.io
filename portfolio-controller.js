@@ -200,7 +200,6 @@ class Component extends DCLogic {
       // wider than the screen and the deck was cropped sideways. Touch devices fit by WIDTH;
       // the stage's height follows the section, so nothing is cropped in either direction.
       if (this.aStage) this.aStage.style.transform = "translate(-50%,-50%) scale(" + s + ")";
-      if (this.nav) this.nav.style.transform = "translateX(-50%) scale(" + s + ")";
       if (this.wordmark) this.wordmark.style.transform = "translateX(-50%) scale(" + s + ")";
 
       // ---- tablet frame (834 x 1112) ----
@@ -471,13 +470,12 @@ class Component extends DCLogic {
       }
       // navbar rides whichever frame is active
       if (this.nav) {
-        // desktop: the bar spans the real window width (in design px) so the links and
-        // the Hire me pill always sit on the window's edges, not on a 1440 island
-        this.nav.style.width = mobile ? "390px"
-          : tablet ? (force === "auto" ? Math.round(window.innerWidth / st) + "px" : "834px")
-          : Math.round(window.innerWidth / s) + "px";
-        this.nav.style.padding = mobile ? "12px 16px" : tablet ? "15px 32px" : "15px 32px";
-        this.nav.style.transform = "translateX(-50%) scale(" + (mobile ? sm : tablet ? st : s) + ")";
+        // The navigation frame fills the viewport directly. Keep its spacing in the
+        // previous effective layout units while typography remains independently sized.
+        const navScale = mobile ? sm : tablet ? st : s;
+        this.nav.style.setProperty("--kc-nav-scale", String(navScale));
+        this.nav.style.setProperty("--kc-nav-gutter", ((mobile ? 16 : 32) * navScale).toFixed(3) + "px");
+        this.nav.style.setProperty("--kc-nav-block-padding", ((mobile ? 12 : 15) * navScale).toFixed(3) + "px");
         // the phone / tablet frame is centred in the window — the navbar has to ride
         // its top edge, not the window's, otherwise it floats above the design
         const boxH = mobile ? (this.devH ? this.devH * kFit : this.vhNow())
@@ -493,10 +491,8 @@ class Component extends DCLogic {
         const cdi = this.nav.querySelector("[data-fixed-ink] > [data-fixed-ink]");
         const pill = cdi ? cdi.parentElement : null;
         if (pill) pill.style.display = mobile ? "none" : "inline-flex";
-        // "Me recruter" is body copy, not a label, so it follows the layout's body size:
-        // 16 on the tablet (where descriptions are 16), 14 on the phone
         const cta = this.nav.querySelector("a[href^='mailto'] > span");
-        if (cta) cta.style.fontSize = tablet ? "12px" : "14px";
+        if (cta) cta.style.fontSize = "var(--kc-type-body, 14px)";
       }
       // the scrim has to ride the phone frame too, otherwise the white wordmark sits
       // on bare photo and disappears over the light project shots

@@ -1,0 +1,23 @@
+:root {
+  --kc-type-heading-desktop: 56px;
+  --kc-type-project-desktop: 40px;
+  --kc-type-heading-tablet: 48px;
+  --kc-type-project-tablet: 32px;
+  --kc-type-heading-mobile: 32px;
+  --kc-type-project-mobile: 24px;
+  --kc-type-body: 14px;
+  --kc-type-label: 12px;
+  --kc-type-logo: 20px;
+}
+
+/* The navigation keeps its authored frame gutter while its text is no longer scaled. */
+.kc-responsive-nav {
+  left: 0;
+  right: 0;
+  width: 100%;
+  transform: none;
+}
+
+#kc-tablet-projets h1 {
+  font-size: var(--kc-type-heading-tablet, 48px);
+}

@@ -1,6 +1,6 @@
 # Phase 4 completion report
 
-Phase 4 is complete on the local development branch `phase-4/shared-bilingual-static`. It centralizes project and About content, generates French and English static routes from shared templates, and retires browser-side English page translation. This report is for review; it does not authorize Phase 5, a push, merge, deployment, or publication.
+Phase 4 is structurally complete on `phase-4/shared-bilingual-static` and pushed to GitHub for backup and review. It centralizes project and About content, generates French and English static routes from shared templates, and retires browser-side English page translation. This report does not authorize starting Phase 5, merging, deployment, or publication.
 
 ## Architecture delivered
 
@@ -13,6 +13,14 @@ The dependency-free Node build generates `/`, `/en/`, and both desktop iframe do
 `content/about.json` supplies five bilingual About records. The existing desktop, tablet, and mobile DOM structures and React refs remain distinct to preserve their geometry and animation ownership. Project, About, footer-curtain, media, controller, and `x-dc`/`support.js` runtime contracts remain in place.
 
 One legacy English About education description remains in French because that was the existing text; Phase 4 retains it verbatim rather than inventing or altering approved content.
+
+## Approved future tablet ticket design
+
+After reviewing the Phase 4 site, the user approved redesigning tablet portrait and landscape project cards to use a responsive version of the desktop layered ticket composition. The visual references are [tablet portrait Figma](https://www.figma.com/design/9vt2ATXB0UTz1sPESCNmWh/For-Claude?node-id=369-1778) and [tablet landscape Figma](https://www.figma.com/design/9vt2ATXB0UTz1sPESCNmWh/For-Claude?node-id=370-1905). The intended card has a large project background image with a smaller light-grey ticket layered above it, containing its image, title, description, tags and barcode.
+
+This is a Phase 5 milestone approved as a design direction; implementation has not started. Desktop stays unchanged, and mobile retains its intentionally distinct editorial presentation. Keep tablet page margins, Projects section geometry, scroll behavior and project navigation intact; the work is scoped to card composition. Address effective typography and responsive scaling as part of Phase 5 instead of adding temporary compensating transforms. Shared project data does not require identical markup across breakpoints.
+
+The old tablet appearance removed the outer background image and sometimes changed the inner ticket to pink or blue. That appearance is obsolete and must not be restored to satisfy historical screenshots. The old tablet comparisons also reflected the separately approved unified project ordering. These facts do not mean every Phase 4 visual difference is approved: changes to media association, image crop, layout geometry, animation or behavior must be independently classified against the new Figma intent. Do not attribute unrelated differences to this redesign or alter their references without review. Existing historical references remain frozen.
 
 ## Measured simplification
 
@@ -56,4 +64,4 @@ Phase 2 and Phase 3 Lighthouse summaries have `servedSourceVerification: null`; 
 
 ## Checkpoint and deployment state
 
-The most recent implementation/reference checkpoint before this report is `5f42902cf3867997cf2ecfcd89e435476b036b59`; the final documentation/report commit follows on the same branch. Phase 2 and Phase 3 backup branches are preserved. Phase 4 has not been pushed. Nothing was merged or deployed/published, and `main` was not modified. Phase 5 has not started. Review this report and `docs/PROJECT-STATUS.md`; wait for explicit approval before Phase 5.
+The most recent implementation/reference checkpoint before this report is `5f42902cf3867997cf2ecfcd89e435476b036b59`; this documentation update follows on the same branch. Phase 4 is pushed to `phase-4/shared-bilingual-static` for backup and review only. Phase 2 and Phase 3 backup branches are preserved. Nothing was merged or deployed/published, and `main` was not modified. Phase 5 has not started. The French and English mobile Lighthouse TBT regression remains an unresolved release blocker.

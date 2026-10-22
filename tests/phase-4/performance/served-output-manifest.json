@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "measuredCommit": "5f42902cf3867997cf2ecfcd89e435476b036b59",
+  "origin": "http://127.0.0.1:8112",
+  "verification": "Served HTTP bytes exactly match committed generated static outputs in the measured checkout.",
+  "files": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "bytes": 88612,
+      "sha256": "e43b44481690ea51150066a320fc4af7aa8df05425b38c840bcf13d8f0f9d92c"
+    },
+    {
+      "file": "desktop-project-embedded.html",
+      "status": 200,
+      "bytes": 24587,
+      "sha256": "eb25fa2927d6c4626ef199630e02f31e5b433b1ed63d78b797ccf8f054078bcd"
+    },
+    {
+      "file": "en/index.html",
+      "status": 200,
+      "bytes": 88346,
+      "sha256": "84f9d68e8a02b3518a7df9b0b0944b3c1cdd168f0a21a682faa2b0fd30e77230"
+    },
+    {
+      "file": "en/desktop-project-embedded.html",
+      "status": 200,
+      "bytes": 24636,
+      "sha256": "410a6e0a67f2ad277f6683b35a123e515cc4a0ce24ee3dc47e213b4021d7d443"
+    }
+  ]
+}

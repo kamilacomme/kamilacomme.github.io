@@ -1,0 +1,52 @@
+[
+  {
+    "label": "original",
+    "baselineFile": "tests/baseline/performance/summary.json",
+    "candidateFile": "tests/phase-4/performance/summary.json",
+    "exitCode": 1,
+    "status": "failed",
+    "failures": [
+      "fr/mobile tbtMs: 885.4999999999964 exceeds 308.5 (baseline 208.5)",
+      "fr/mobile: median score fell from 56.00000000000001 to 41",
+      "en/mobile fcpMs: 4791.45081875679 exceeds 4593.364958150911 (baseline 3994.230398392096)",
+      "en/mobile lcpMs: 10566.637392945213 exceeds 10519.943475304426 (baseline 9147.776935047326)",
+      "en/mobile tbtMs: 966.5 exceeds 353.5 (baseline 253.5)",
+      "en/mobile speedIndexMs: 5488.416328414648 exceeds 4861.55770464157 (baseline 4227.4414822970175)",
+      "en/mobile: median score fell from 60 to 40",
+      "en/desktop fcpMs: 1357.9074941583624 exceeds 1169.505422709597 (baseline 1016.96123713878)",
+      "en/desktop speedIndexMs: 1741.7712685575075 exceeds 1624.0958273367987 (baseline 1374.0958273367987)"
+    ]
+  },
+  {
+    "label": "phase-2",
+    "baselineFile": "tests/phase-2/performance/summary.json",
+    "candidateFile": "tests/phase-4/performance/summary.json",
+    "exitCode": 1,
+    "status": "failed",
+    "failures": [
+      "Baseline has no verified original served-source provenance.",
+      "fr/mobile tbtMs: 885.4999999999964 exceeds 480.5 (baseline 380.5)",
+      "fr/mobile: median score fell from 53 to 41",
+      "en/mobile tbtMs: 966.5 exceeds 384.5 (baseline 284.5)",
+      "en/mobile: median score fell from 56.99999999999999 to 40",
+      "en/desktop fcpMs: 1357.9074941583624 exceeds 1234.814996352164 (baseline 1073.7521707410122)",
+      "en/desktop lcpMs: 2841.12500785275 exceeds 2201.296104957935 (baseline 1914.1705260503782)",
+      "en/desktop speedIndexMs: 1741.7712685575075 exceeds 1623.7273468658802 (baseline 1373.7273468658802)",
+      "en/desktop: median score fell from 88 to 79"
+    ]
+  },
+  {
+    "label": "phase-3",
+    "baselineFile": "tests/phase-3/performance/summary.json",
+    "candidateFile": "tests/phase-4/performance/summary.json",
+    "exitCode": 1,
+    "status": "failed",
+    "failures": [
+      "Baseline has no verified original served-source provenance.",
+      "en/mobile tbtMs: 966.5 exceeds 844.8 (baseline 704)",
+      "en/desktop fcpMs: 1357.9074941583624 exceeds 1179.4466472625697 (baseline 1025.6057802283215)",
+      "en/desktop lcpMs: 2841.12500785275 exceeds 2179.0396731260275 (baseline 1894.817107066111)",
+      "en/desktop: median score fell from 87 to 79"
+    ]
+  }
+]

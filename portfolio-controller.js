@@ -536,7 +536,11 @@ class Component extends DCLogic {
         this.nav.classList.toggle("kc-tablet-nav", tablet);
         // The navigation frame fills the viewport directly. Keep its spacing in the
         // previous effective layout units while typography remains independently sized.
-        const navScale = mobile ? sm : tablet ? st : s;
+        // Tablet controls are authored as fixed CSS-pixel hit targets. Scaling the
+        // navbar frame by the tablet's height-fit factor made its 72px frame smaller
+        // than the 44px buttons at short/wide tablet sizes, pushing them against the
+        // top edge and shifting the CTA's gutter inward from the Projects rail.
+        const navScale = mobile ? sm : tablet ? 1 : s;
         this.nav.style.setProperty("--kc-nav-scale", String(navScale));
         this.nav.style.setProperty("--kc-nav-gutter", ((mobile ? 16 : 32) * navScale).toFixed(3) + "px");
         this.nav.style.setProperty("--kc-nav-block-padding", ((mobile ? 12 : 15) * navScale).toFixed(3) + "px");

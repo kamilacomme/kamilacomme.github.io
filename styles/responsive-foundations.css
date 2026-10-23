@@ -24,11 +24,6 @@
 
 /* Tablet controls retain full hit areas; the nav reflows only when one row no longer fits. */
 @media (min-width: 500px) and (max-width: 833px) {
-  .kc-responsive-nav.kc-tablet-nav {
-    --kc-nav-scale: 1 !important;
-    --kc-nav-gutter: 32px !important;
-    --kc-nav-block-padding: 15px !important;
-  }
   .kc-responsive-nav.kc-tablet-nav > span:first-child,
   .kc-responsive-nav.kc-tablet-nav > div:last-child {
     flex: none !important;

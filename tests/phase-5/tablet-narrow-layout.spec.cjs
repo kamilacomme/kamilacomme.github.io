@@ -312,3 +312,94 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
     body: Buffer.from(JSON.stringify(records, null, 2)), contentType: 'application/json',
   });
 });
+
+test('tablet navbar top inset shares the page gutter and aligns with the landscape Projects endpoint', async ({ page, context }, info) => {
+  const { mode, language } = info.project.metadata;
+  test.skip(mode !== 'tablet-portrait', 'Run controlled CSS viewport changes through the tablet browser profile.');
+  await qa.routes(context);
+  await qa.seed(page);
+  await qa.ready(page, language);
+
+  const cases = [
+    { width: 834, height: 555, landscape: true },
+    { width: 960, height: 555, landscape: true },
+    { width: 1100, height: 700, landscape: true },
+    { width: 834, height: 1112, landscape: false },
+  ];
+  const snapshots = [];
+  for (const viewport of cases) {
+    await page.setViewportSize(viewport);
+    await page.clock.runFor(300);
+    const snapshot = await page.evaluate(async ({ landscape }) => {
+      const nav = document.querySelector('.kc-responsive-nav');
+      const logo = nav.firstElementChild;
+      const cta = nav.querySelector('a[href^="mailto"]');
+      const section = document.querySelector('#kc-tablet-projets');
+      const card = section.querySelector('[data-project-id="napoli"]');
+      const rect = (element) => {
+        const box = element.getBoundingClientRect();
+        return { left: box.left, right: box.right, top: box.top, bottom: box.bottom, width: box.width, height: box.height };
+      };
+      if (landscape) {
+        const end = section.getBoundingClientRect().top + scrollY + section.offsetHeight - innerHeight;
+        scrollTo({ top: end, behavior: 'instant' });
+        dispatchEvent(new Event('scroll'));
+      }
+      const ctaBox = rect(cta);
+      const cardBox = rect(card);
+      return {
+        language: document.documentElement.lang,
+        viewport: { width: innerWidth, height: innerHeight },
+        tablet: window.__kcTabletLayout?.tablet,
+        navScale: parseFloat(getComputedStyle(nav).getPropertyValue('--kc-nav-scale')),
+        navGutter: parseFloat(getComputedStyle(nav).getPropertyValue('--kc-nav-gutter')),
+        navBox: rect(nav), logo: rect(logo), cta: ctaBox, card: cardBox,
+        sectionClass: section.className,
+        hireRightGutter: innerWidth - ctaBox.right,
+        projectRightGutter: innerWidth - cardBox.right,
+        endpointDifference: Math.abs(ctaBox.right - cardBox.right),
+      };
+    }, { landscape: viewport.landscape });
+    await page.clock.runFor(50);
+    if (viewport.landscape) {
+      const endpoint = await page.locator('#kc-tablet-projets [data-project-id="napoli"]').evaluate((element) => {
+        const card = element.getBoundingClientRect();
+        const button = document.querySelector('.kc-responsive-nav a[href^="mailto"]').getBoundingClientRect();
+        return { cardRight: card.right, hireRight: button.right, difference: Math.abs(card.right - button.right) };
+      });
+      snapshot.card.right = endpoint.cardRight;
+      snapshot.endpointDifference = endpoint.difference;
+    }
+    snapshots.push(snapshot);
+
+    expect(snapshot.language).toBe(language);
+    expect(snapshot.viewport).toEqual({ width: viewport.width, height: viewport.height });
+    expect(snapshot.tablet).toBe(true);
+    expect(snapshot.navScale).toBe(1);
+    expect(snapshot.navGutter).toBe(32);
+    expect(snapshot.cta.height).toBe(44);
+    expect(snapshot.cta.top).toBeGreaterThanOrEqual(13);
+    expect(snapshot.logo.left).toBeCloseTo(32, 0);
+    if (viewport.landscape) {
+      expect(snapshot.sectionClass).toContain('kc-landscape-rail');
+      expect(snapshot.card.right).toBeCloseTo(viewport.width - 32, 0);
+      expect(snapshot.hireRightGutter).toBeCloseTo(32, 0);
+      expect(snapshot.endpointDifference).toBeLessThanOrEqual(1);
+    }
+  }
+
+  // Exercise the same 960×555 layout on a fresh load and after resizing away and
+  // back, so the navbar/rail geometry cannot depend on stale controller state.
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.clock.runFor(200);
+  await page.setViewportSize({ width: 960, height: 555 });
+  await page.clock.runFor(300);
+  const afterResize = await page.evaluate(() => ({
+    navScale: parseFloat(getComputedStyle(document.querySelector('.kc-responsive-nav')).getPropertyValue('--kc-nav-scale')),
+    navGutter: parseFloat(getComputedStyle(document.querySelector('.kc-responsive-nav')).getPropertyValue('--kc-nav-gutter')),
+    ctaTop: document.querySelector('.kc-responsive-nav a[href^="mailto"]').getBoundingClientRect().top,
+  }));
+  expect(afterResize.navScale).toBe(1);
+  expect(afterResize.navGutter).toBe(32);
+  expect(afterResize.ctaTop).toBeGreaterThanOrEqual(13);
+});

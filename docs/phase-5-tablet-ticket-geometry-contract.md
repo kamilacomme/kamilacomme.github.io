@@ -31,7 +31,7 @@ The authoritative shared ticket measurements are outer card 770 × 310px with 8p
 
 ## Narrow-tablet Option 2 geometry
 
-The user supplied authoritative measurements from Figma node 387:4523. These apply only to the tablet presentation from 500 through 659 CSS px; below 500px the existing mobile editorial layout remains unchanged. Standard tablet at 660px and above retains the approved horizontal ticket, and desktop retains its existing ticket.
+The user supplied authoritative measurements from Figma node 387:4523. The responsive vertical variant applies to the tablet presentation from 500 through 799 CSS px; below 500px the existing mobile editorial layout remains unchanged. The standard horizontal ticket begins at 800px, where the six project titles fit comfortably in both languages; desktop retains its existing ticket.
 
 - The outer image card uses a maximum reference size of 596 × 572px, 8px radius, and 120px horizontal / 64px vertical insets around its inner ticket. At the 659px viewport, the existing 32px page gutters yield a 595px outer card; at 500px the outer width is 436px. Outer card width adapts to the available rail content width without transform scaling.
 - Center a compact `#F2EEF2` inner ticket with a maximum reference size of 356 × 444px, 4px radius, 24px padding and 20px vertical section gaps. It remains narrower than the outer image card. The card has a 572px minimum height and grows with content when translated descriptions need more room.
@@ -39,7 +39,7 @@ The user supplied authoritative measurements from Figma node 387:4523. These app
 - Narrow-tablet project titles are an explicitly approved 24px exception. Description and tags remain 14px and 12px. The barcode is horizontal and 38px high. Standard-tablet titles remain 32px.
 - The single layered-ticket template and existing tablet geometry owner remain in use. Portrait section height is measured from resulting card heights; landscape rail position and scroll allocation are recalculated from its measured card/rail height. This change does not alter the shared section wrapper, margins, mobile editorial template, or desktop behavior.
 
-Focused tests at widths 500, 560, 607, 608, 640, 659, 660, 680 and 834px verify the variant boundary, measured panel/image/barcode bounds, title size (24px narrow / 32px standard), body/tags, all six projects, navigation, gutters and the Projects-to-About boundary in French and English. The next user visual review is required before any reference capture.
+Focused tests at widths 500, 560, 607, 608, 640, 659, 660, 680, 686, 687, 700, 720, 760, 780, 799, 800 and 834px verify the variant boundary, measured panel/image/barcode bounds, title size (24px vertical / 32px horizontal), body/tags, all six projects, navigation, French punctuation and the Projects-to-About boundary in French and English. Browser text-range measurements show `Tour de parole` still wraps at 780px and fits on one line at 800px; the former proposed 687px start for the horizontal layout is therefore insufficient. The next user visual review is required before any reference capture.
 
 ## Acceptance measurements
 

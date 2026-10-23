@@ -36,6 +36,45 @@ function polishEnglishLineBreaks(value) {
   return value.replace(/\b(a|an|of|to|in|on|at|by|for|with|the) ([A-Za-z][A-Za-z’'-]*)/gi, (_, word, next) => `${word}\u00a0${next}`);
 }
 
+function normalizeFrenchTypography(value) {
+  return value
+    .replace(/[ \t\u00a0\u202f]+([?!:;])/g, '\u202f$1')
+    .replace(/«[ \t\u00a0\u202f]*/g, '«\u202f')
+    .replace(/[ \t\u00a0\u202f]*»/g, '\u202f»');
+}
+
+function normalizeFrenchMarkup(html) {
+  let result = '', cursor = 0;
+  while (cursor < html.length) {
+    const open = html.indexOf('<', cursor);
+    if (open < 0) { result += normalizeFrenchTypography(html.slice(cursor)); break; }
+    result += normalizeFrenchTypography(html.slice(cursor, open));
+    if (html.startsWith('<!--', open)) {
+      const end = html.indexOf('-->', open + 4);
+      const stop = end < 0 ? html.length : end + 3;
+      result += html.slice(open, stop); cursor = stop; continue;
+    }
+    const end = findTagEnd(html, open);
+    let tag = html.slice(open, end);
+    tag = tag.replace(/\b(aria-label|title|placeholder|alt|content)=("([^"]*)"|'([^']*)')/g,
+      (whole, name, quoted, doubleValue, singleValue) => {
+        const value = normalizeFrenchTypography(doubleValue ?? singleValue ?? '');
+        const quote = quoted[0];
+        return `${name}=${quote}${value}${quote}`;
+      });
+    result += tag;
+    const rawTag = /^<\s*(script|style)\b/i.exec(tag);
+    cursor = end;
+    if (rawTag && !/^<\s*\//.test(tag)) {
+      const close = new RegExp(`<\\/\\s*${rawTag[1]}\\s*>`, 'ig');
+      close.lastIndex = cursor;
+      const match = close.exec(html);
+      if (match) { result += html.slice(cursor, match.index) + match[0]; cursor = close.lastIndex; }
+    }
+  }
+  return result;
+}
+
 function renderMedia(items, layout) {
   return items.map((item, index) => {
     if (layout === 'desktop') {
@@ -203,6 +242,7 @@ async function buildPage(templatePath, cardSlots, locale, layoutKind) {
     if (layoutKind === 'desktop-embed') html = html.replace(/<title>[\s\S]*?<\/title>/, '<title>Portfolio — Projects</title>');
     if (layoutKind === 'page') html = html.replace('</body>', '<script src="/scripts/projects/english-tablet-footer-alignment.js"></script>\n</body>');
   } else html = addLocaleMetadata(html, locale);
+  if (locale === 'fr') html = normalizeFrenchMarkup(html);
   return `${html.trimEnd()}\n`;
 }
 

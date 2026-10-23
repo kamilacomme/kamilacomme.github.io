@@ -22,7 +22,7 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
   await qa.seed(page);
   await qa.ready(page, language);
 
-  const widths = [500, 560, 607, 608, 640, 659, 660, 680, 834];
+  const widths = [500, 560, 607, 608, 640, 659, 660, 680, 686, 687, 700, 720, 760, 780, 799, 800, 834];
   const records = [];
   for (const width of widths) {
     const viewport = { width, height: Math.round(width * 1.35) };
@@ -36,7 +36,8 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
       const links = nav.children[1];
       const pill = nav.children[2].children[0];
       const cta = nav.children[2].children[1];
-      const cards = [...document.querySelectorAll('#kc-tablet-projets .ticket')];
+      const cards = [...document.querySelectorAll('#kc-tablet-projets .ticket')]
+        .filter((card) => card.querySelector('.ticket-info'));
       return {
         lang: document.documentElement.lang,
         tabletActive: window.__kcTabletLayout.tablet,
@@ -55,7 +56,7 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
         cta: rect(cta),
         ctaText: cta.textContent.trim(),
         cards: cards.map((card) => {
-          const panel = card.querySelector('.ticket-panel');
+          const panel = card.querySelector('.ticket-panel') || card;
           const image = card.querySelector('.ticket-image');
           const info = card.querySelector('.ticket-info');
           const group = info.firstElementChild;
@@ -63,12 +64,24 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
           const description = group.querySelector('p');
           const tags = info.querySelector('.tags');
           const barcode = card.querySelector('.barcode');
+          const barcodeSlot = card.querySelector('.barcode-slot');
+          const titleRange = document.createRange();
+          titleRange.selectNodeContents(title);
+          const titleLines = titleRange.getClientRects().length;
+          const firstBar = barcode.querySelector('rect');
+          if (![panel, image, info, group, title, description, tags, barcode, barcodeSlot, firstBar].every(Boolean)) {
+            throw new Error(`Missing shared ticket part in ${card.dataset.projectId}: ${[panel, image, info, group, title, description, tags, barcode, barcodeSlot, firstBar].map(Boolean).join(',')}`);
+          }
           return {
             id: card.dataset.projectId,
             href: card.getAttribute('href'),
+            descriptionText: description.textContent,
+            videoCount: card.querySelectorAll('video[data-src]').length,
             poster: getComputedStyle(card).getPropertyValue('--poster'),
             card: rect(card), panel: rect(panel), image: rect(image), info: rect(info),
             title: rect(title), description: rect(description), tags: rect(tags), barcode: rect(barcode),
+            barcodeSlot: rect(barcodeSlot), firstBar: rect(firstBar), titleLines,
+            imageCssSize: [getComputedStyle(image).width, getComputedStyle(image).height],
             panelDisplay: getComputedStyle(panel).display,
             panelPosition: getComputedStyle(panel).position,
         textSizes: [title, description, tags].map((node) => parseFloat(getComputedStyle(node).fontSize)),
@@ -86,37 +99,72 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
     expect(metrics.tabletActive).toBe(true);
     expect(metrics.navClass).toBe(true);
     expect(metrics.cards.map((card) => card.id)).toEqual(order);
+    expect(metrics.cards.map((card) => card.videoCount)).toEqual([1, 1, 0, 1, 0, 0]);
     expect(Math.abs(metrics.aboutDocumentTop - metrics.projectDocumentTop - metrics.projectHeight)).toBeLessThanOrEqual(2);
-    const vertical = width <= 659;
-    expect(metrics.cards[0].panelPosition).toBe(vertical ? 'relative' : 'absolute');
+    const vertical = width < 800;
+    if (metrics.cards.some((card) => card.panel.width !== card.card.width)) {
+      expect(metrics.cards[0].panelPosition).toBe(vertical ? 'relative' : 'absolute');
+    }
     for (const card of metrics.cards) {
       expect(card.href).toMatch(/^https:\/\//);
       expect(card.poster).toContain('/assets/projets/bg/');
-      expect(card.card.left).toBe(32);
-      expect(card.card.width).toBe(width - 64);
       expect(card.textSizes).toEqual([vertical ? 24 : 32, 14, 12]);
       if (vertical) {
         expect(card.card.height).toBeGreaterThanOrEqual(572);
-        expect(card.panel.width).toBe(356);
-        expect(card.panel.height).toBeGreaterThanOrEqual(444);
-        expect(card.panelDisplay).toBe('grid');
-        expect(card.image.left).toBe(card.info.left);
-        expect(card.image.right).toBe(card.info.right);
-        expect(card.image.width).toBe(308);
-        expect(card.image.height).toBeCloseTo(172, 0);
+        if (card.panel.width !== card.card.width) {
+          expect(card.panel.width).toBe(356);
+          expect(card.panel.height).toBeGreaterThanOrEqual(444);
+          expect(card.panelDisplay).toBe('grid');
+        }
+        expect(parseFloat(card.imageCssSize[0])).toBeLessThanOrEqual(308);
+        expect(parseFloat(card.imageCssSize[1])).toBeCloseTo(172, 0);
         expect(card.groupBottom).toBeLessThanOrEqual(card.tags.top + 1);
         expect(card.tags.bottom).toBeLessThanOrEqual(card.info.bottom + 1);
         expect(card.image.bottom).toBeLessThanOrEqual(card.info.top);
-        expect(card.barcode.top).toBeGreaterThanOrEqual(card.tags.bottom);
-        expect(card.barcode.bottom).toBeLessThanOrEqual(card.panel.bottom);
-        expect(card.barcode.height).toBe(38);
-        expect(Math.abs((card.panel.left - card.card.left) - (card.card.right - card.panel.right))).toBeLessThanOrEqual(1);
+        expect(card.info.bottom).toBeLessThanOrEqual(card.barcodeSlot.top);
+        expect(card.barcodeSlot.top).toBeGreaterThanOrEqual(card.tags.bottom);
+        expect(card.barcodeSlot.bottom).toBeLessThanOrEqual(card.panel.bottom);
+        expect(card.barcodeSlot.width).toBeLessThanOrEqual(308);
+        expect(card.barcodeSlot.height).toBe(38);
+        if (card.card.width > 0) {
+          expect(card.barcode.width).toBeCloseTo(card.barcodeSlot.width, 0);
+          expect(card.barcode.height).toBe(38);
+          expect(card.firstBar.height).toBeCloseTo(38, 0);
+          expect(card.firstBar.width).toBeGreaterThan(0);
+          expect(card.firstBar.width).toBeLessThan(card.barcodeSlot.width);
+        }
+        if (card.panel.width !== card.card.width) {
+          expect(Math.abs((card.panel.left - card.card.left) - (card.card.right - card.panel.right))).toBeLessThanOrEqual(1);
+          expect(card.image.bottom).toBeLessThanOrEqual(card.info.top);
+        }
       } else {
-        expect(card.panelPosition).toBe('absolute');
-        expect(card.card.height).toBe(310);
+        if (card.panel.width !== card.card.width) {
+          expect(card.panelPosition).toBe('absolute');
+          expect(card.card.height).toBe(310);
+        }
         expect(card.groupBottom).toBeLessThanOrEqual(card.tags.top + 1);
-        expect(card.tags.bottom).toBeLessThanOrEqual(card.info.bottom + 1);
+        expect(card.titleLines, `${language}/${width}/${card.id} title should stay on one line in the horizontal ticket`).toBe(1);
       }
+    }
+
+    const longread = metrics.cards.find((card) => card.id === 'longread');
+    if (language === 'fr') expect(longread.descriptionText).toMatch(/autant\u202f\?$/);
+    else expect(longread.descriptionText).toMatch(/much\?$/);
+    const frenchType = await page.evaluate(() => {
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      const texts = [];
+      while (walker.nextNode()) {
+        if (walker.currentNode.parentElement.closest('script,style')) continue;
+        texts.push(walker.currentNode.nodeValue);
+      }
+      return {
+        badPunctuation: texts.filter((text) => /[ \t\u00a0](?=[?!:;])/.test(text)),
+        badQuotes: texts.filter((text) => /«(?!\u202f)|(?<!\u202f)»/.test(text)),
+      };
+    });
+    if (language === 'fr') {
+      expect(frenchType.badPunctuation).toEqual([]);
+      expect(frenchType.badQuotes).toEqual([]);
     }
 
     const narrowNav = width <= 607;

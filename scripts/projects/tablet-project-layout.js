@@ -82,7 +82,7 @@
     // Portrait cards fill the content width between the established 32px gutters.
     // Landscape intentionally retains its separate 770px Figma composition below.
     const cardWidth = Math.max(0, window.innerWidth - 64);
-    const narrowTickets = window.innerWidth <= 659;
+    const narrowTickets = window.innerWidth < 800;
     frame.classList.toggle('kc-narrow-ticket', narrowTickets);
     const cardHeight = 310;
     const cardGap = 32;
@@ -132,7 +132,7 @@
     setStyle(viewport, 'height', window.innerHeight + 'px');
 
     const cardWidth = Math.min(770, Math.max(0, width - 64));
-    const narrowTickets = width <= 659;
+    const narrowTickets = width < 800;
     section.classList.toggle('kc-narrow-ticket', narrowTickets);
     const fixedCardHeight = 310;
     const cardGap = 32;

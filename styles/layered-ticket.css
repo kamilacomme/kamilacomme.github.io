@@ -71,9 +71,14 @@
   letter-spacing: .04em;
   text-transform: uppercase;
 }
-.ticket .barcode {
+.ticket .barcode-slot {
   width: 72px;
   height: 234px;
+  flex: none;
+}
+.ticket .barcode {
+  width: 100%;
+  height: 100%;
   flex: none;
   display: block;
   fill: #2b3b37;
@@ -145,12 +150,13 @@
   font: 400 12px/1.35 Inter, Arial, sans-serif;
   letter-spacing: .04em;
 }
-#kc-tablet-projets .ticket .barcode {
+#kc-tablet-projets .ticket .barcode-slot {
   width: 52px;
   height: 100%;
   min-width: 0;
   max-width: none;
 }
+#kc-tablet-projets .ticket .barcode { width: 100%; height: 100%; }
 #kc-tablet-projets .ticket:focus-visible { outline: 2px solid #222; outline-offset: 2px; }
 #kc-tablet-projets .ticket.playing .motion { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
@@ -158,16 +164,27 @@
 }
 
 /* Narrow-tablet fallback: keep the shared layered ticket, changing only its layout. */
-@media (min-width: 500px) and (max-width: 659px) {
+@media (min-width: 500px) and (max-width: 799px) {
   #kc-tablet-projets.kc-narrow-ticket .ticket {
     height: auto;
     min-height: 572px;
     padding: 64px 0;
     overflow: hidden;
     display: flex;
+    flex-direction: column;
+    gap: 20px;
     align-items: center;
     justify-content: center;
   }
+  #kc-tablet-projets.kc-narrow-ticket .ticket::after {
+    inset: 64px auto 64px 50%;
+    width: min(356px, calc(100% - 48px));
+    height: auto;
+    transform: translateX(-50%);
+    background: #f2eef2;
+    z-index: 0;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket > * { position: relative; z-index: 1; }
   #kc-tablet-projets.kc-narrow-ticket .ticket-panel {
     position: relative;
     inset: auto;
@@ -190,7 +207,7 @@
     justify-self: center;
   }
   #kc-tablet-projets.kc-narrow-ticket .ticket-info {
-    width: 100%;
+    width: min(100%, 308px);
     height: auto;
     min-height: 0;
     flex: none;
@@ -205,9 +222,24 @@
   #kc-tablet-projets.kc-narrow-ticket .ticket-info h2 {
     font-size: 24px;
   }
-  #kc-tablet-projets.kc-narrow-ticket .ticket .barcode {
-    width: 100%;
+  #kc-tablet-projets.kc-narrow-ticket .ticket .barcode-slot {
+    position: relative;
+    width: min(100%, 308px);
     height: 38px;
+    container-type: inline-size;
+    justify-self: center;
+    align-self: center;
+    flex: none;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket .barcode {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 38px;
+    height: 100cqi;
+    transform: translate(-50%, -50%) rotate(90deg);
+    transform-origin: center;
+    max-width: none;
     flex: none;
   }
 }

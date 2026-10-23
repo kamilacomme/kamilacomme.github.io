@@ -1,6 +1,6 @@
 # Project status
 
-Updated: 2026-10-22. Milestones are marked complete only after their stated checks pass.
+Updated: 2026-10-23. Milestones are marked complete only after their stated checks pass.
 
 **Current branch:** `phase-5/fluid-responsive` (implementation branch; based on `phase-4/shared-bilingual-static`)
 
@@ -113,7 +113,7 @@ The old tablet design omitted the outer background image and sometimes used pink
 
 ## Deployment and checkpoint state
 
-Phase 4 is on `phase-4/shared-bilingual-static` at `0422402b46bb814d4202abd0e8266d95c03685d3`, pushed to GitHub for backup and review. Latest Phase 5 implementation checkpoint is `ee8979594fd901620c8243225047079292fa1bba` on `phase-5/fluid-responsive`. Phase 5 changes have not been pushed. Nothing was merged, deployed or published; `main` is unchanged. French and English mobile Lighthouse TBT remain unresolved release blockers.
+Phase 4 is on `phase-4/shared-bilingual-static` at `0422402b46bb814d4202abd0e8266d95c03685d3`, pushed to GitHub for backup and review. Latest verified Phase 5 correction checkpoint is `8ad9df4402891c0b132a931db235341f62644778` on `phase-5/fluid-responsive`; it contains the narrow-tablet barcode, responsive breakpoint and generated French punctuation fixes. The Phase 5 branch is being pushed for the user's local interactive review only. Nothing was merged, deployed or published; `main` is unchanged. French and English mobile Lighthouse TBT remain unresolved release blockers.
 
 ## Phase 3 milestones
 

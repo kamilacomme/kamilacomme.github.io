@@ -22,7 +22,7 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
   await qa.seed(page);
   await qa.ready(page, language);
 
-  const widths = [500, 560, 607, 608, 640, 659, 660, 680, 686, 687, 700, 720, 760, 780, 799, 800, 834];
+  const widths = [500, 560, 607, 608, 640, 659, 660, 680, 686, 687, 700, 716, 720, 760, 780, 799, 800, 834];
   const records = [];
   for (const width of widths) {
     const viewport = { width, height: Math.round(width * 1.35) };
@@ -101,7 +101,7 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
     expect(metrics.cards.map((card) => card.id)).toEqual(order);
     expect(metrics.cards.map((card) => card.videoCount)).toEqual([1, 1, 0, 1, 0, 0]);
     expect(Math.abs(metrics.aboutDocumentTop - metrics.projectDocumentTop - metrics.projectHeight)).toBeLessThanOrEqual(2);
-    const vertical = width < 800;
+    const vertical = width < 687;
     if (metrics.cards.some((card) => card.panel.width !== card.card.width)) {
       expect(metrics.cards[0].panelPosition).toBe(vertical ? 'relative' : 'absolute');
     }
@@ -201,6 +201,79 @@ test('narrow tablet tickets and navigation reflow without scaling text', async (
   expect(rotated.cardWidth).toBe(770);
   expect(rotated.cardHeight).toBe(310);
   expect(rotated.titleSize).toBe(32);
+
+  // A short 716px landscape viewport has enough room for the standard horizontal
+  // ticket. Verify the live geometry and that the unchanged rail still lands at About.
+  await settleViewport(page, { width: 716, height: 555 });
+  await qa.scrollSection(page, '#kc-tablet-projets', 0);
+  await page.clock.runFor(100);
+  const shortLandscape = await page.evaluate(() => {
+    const section = document.querySelector('#kc-tablet-projets');
+    const rail = section.querySelector('.tickets');
+    const cards = [...rail.querySelectorAll('.ticket')];
+    const rect = (el) => {
+      const r = el.getBoundingClientRect();
+      return { left: r.left, right: r.right, top: r.top, bottom: r.bottom, width: r.width, height: r.height };
+    };
+    return {
+      viewport: { width: innerWidth, height: innerHeight },
+      narrow: section.classList.contains('kc-narrow-ticket'),
+      landscape: section.classList.contains('kc-landscape-rail'),
+      sectionHeight: section.getBoundingClientRect().height,
+      aboutTop: section.parentElement.querySelector('#apropos-t').getBoundingClientRect().top + scrollY,
+      projectTop: section.getBoundingClientRect().top + scrollY,
+      cardCount: cards.length,
+      cards: cards.map((card) => {
+        const title = card.querySelector('.ticket-info h2');
+        const range = document.createRange();
+        range.selectNodeContents(title);
+        const info = card.querySelector('.ticket-info');
+        const description = info.querySelector('p');
+        const group = info.firstElementChild;
+        const tags = info.querySelector('.tags');
+        return {
+          id: card.dataset.projectId,
+          card: rect(card), panel: rect(card.querySelector('.ticket-panel')),
+          image: rect(card.querySelector('.ticket-image')), info: rect(info),
+          title: rect(title), titleLines: new Set([...range.getClientRects()].map(r => Math.round(r.top))).size,
+          description: rect(description), tags: rect(tags), barcode: rect(card.querySelector('.barcode-slot')),
+          groupBottom: rect(group).bottom,
+          sizes: [title, description, tags].map(node => parseFloat(getComputedStyle(node).fontSize)),
+        };
+      }),
+    };
+  });
+  expect(shortLandscape.viewport).toEqual({ width: 716, height: 555 });
+  expect(shortLandscape.narrow).toBe(false);
+  expect(shortLandscape.landscape).toBe(true);
+  expect(shortLandscape.cardCount).toBe(6);
+  expect(shortLandscape.sectionHeight).toBe(3975);
+  expect(Math.abs(shortLandscape.aboutTop - shortLandscape.projectTop - shortLandscape.sectionHeight)).toBeLessThanOrEqual(1);
+  for (const [index, card] of shortLandscape.cards.entries()) {
+    expect(card.card).toMatchObject({ top: 213, width: 652, height: 310 });
+    expect(card.card.left).toBe(32 + index * 684);
+    expect(card.panel.width).toBe(556);
+    expect(card.panel.height).toBe(246);
+    expect(card.image.width).toBe(212);
+    expect(card.image.height).toBe(206);
+    expect(card.info.width).toBe(212);
+    expect(card.barcode.width).toBe(52);
+    expect(card.sizes).toEqual([32, 14, 12]);
+    expect(card.titleLines, `${language}/${card.id} title should fit on one line`).toBe(1);
+    expect(card.groupBottom).toBeLessThanOrEqual(card.tags.top + 1);
+  }
+  const shortLandscapeTop = shortLandscape.projectTop;
+  await page.evaluate((top) => {
+    scrollTo({ top: top + 3420, behavior: 'instant' });
+    dispatchEvent(new Event('scroll'));
+  }, shortLandscapeTop);
+  await page.clock.runFor(100);
+  const shortLandscapeEnd = await page.locator('#kc-tablet-projets .tickets').evaluate((rail) => ({
+    transform: new DOMMatrixReadOnly(getComputedStyle(rail).transform).m41,
+    lastCardRight: rail.lastElementChild.getBoundingClientRect().right,
+  }));
+  expect(shortLandscapeEnd.transform).toBeCloseTo(-3420, 0);
+  expect(shortLandscapeEnd.lastCardRight).toBe(684);
 
   // Returning to phone width still selects the unchanged editorial mobile presentation.
   await settleViewport(page, { width: 393, height: 852 });

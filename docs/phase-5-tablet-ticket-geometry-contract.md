@@ -31,7 +31,7 @@ The authoritative shared ticket measurements are outer card 770 × 310px with 8p
 
 ## Narrow-tablet Option 2 geometry
 
-The user supplied authoritative measurements from Figma node 387:4523. The responsive vertical variant applies to the tablet presentation from 500 through 799 CSS px; below 500px the existing mobile editorial layout remains unchanged. The standard horizontal ticket begins at 800px, where the six project titles fit comfortably in both languages; desktop retains its existing ticket.
+The user supplied authoritative measurements from Figma node 387:4523. The responsive vertical variant applies to the tablet presentation from 500 through 686 CSS px; below 500px the existing mobile editorial layout remains unchanged. At 687px and above, use the standard horizontal ticket. Desktop retains its existing ticket.
 
 - The outer image card uses a maximum reference size of 596 × 572px, 8px radius, and 120px horizontal / 64px vertical insets around its inner ticket. At the 659px viewport, the existing 32px page gutters yield a 595px outer card; at 500px the outer width is 436px. Outer card width adapts to the available rail content width without transform scaling.
 - Center a compact `#F2EEF2` inner ticket with a maximum reference size of 356 × 444px, 4px radius, 24px padding and 20px vertical section gaps. It remains narrower than the outer image card. The card has a 572px minimum height and grows with content when translated descriptions need more room.

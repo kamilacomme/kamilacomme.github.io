@@ -1403,7 +1403,10 @@ class Component extends DCLogic {
         const avatarHeight = avatar ? avatar.getBoundingClientRect().height : 0;
         const introGap = intro ? parseFloat(getComputedStyle(intro).gap) || 0 : 0;
         const availableTextHeight = Math.max(0, fh - avatarHeight - introGap - 112);
-        let shortCopy = compact && fh <= 700 && textHeight > availableTextHeight;
+        // The short introduction is a height-fit decision, not a width/device label.
+        // This also handles short wide-tablet viewports where a full 48px statement
+        // would collide with the first animated cards despite having a wide text measure.
+        let shortCopy = textHeight > availableTextHeight;
         if (shortCopy) {
           const sentenceEnds = [];
           let accumulated = "";
@@ -1433,6 +1436,78 @@ class Component extends DCLogic {
         this._tAboutCopyLayout = copyLayoutKey;
       }
       const shortCopy = !!this._tAboutShortCopy;
+
+      // Keep the same five card nodes and animation owner. A layout-mode change restores
+      // authored inline sizing before applying either the short stack or normal grid;
+      // this prevents short-screen styles from lingering after an orientation/resize.
+      const cardLayoutKey = [Wt, fh, compact, shortCopy].join(":");
+      cards.forEach((el) => {
+        if (!el) return;
+        if (!el._tAboutBaseStyles) {
+          const properties = ["left", "width", "height", "padding", "gap", "align-items"];
+          el._tAboutBaseStyles = Object.fromEntries(properties.map((property) => [
+            property,
+            [el.style.getPropertyValue(property), el.style.getPropertyPriority(property)]
+          ]));
+          el.querySelectorAll("span").forEach((node) => {
+            const textProperties = ["max-width", "overflow-wrap"];
+            node._tAboutBaseStyles = Object.fromEntries(textProperties.map((property) => [
+              property,
+              [node.style.getPropertyValue(property), node.style.getPropertyPriority(property)]
+            ]));
+          });
+        }
+        if (el._tAboutCardLayoutKey === cardLayoutKey) return;
+        const restore = (node, saved) => Object.entries(saved || {}).forEach(([property, [value, priority]]) => {
+          if (value) node.style.setProperty(property, value, priority);
+          else node.style.removeProperty(property);
+        });
+        restore(el, el._tAboutBaseStyles);
+        el.querySelectorAll("span").forEach((node) => restore(node, node._tAboutBaseStyles));
+        delete el._l;
+        delete el._sq;
+        delete el._t;
+        el._tAboutCardLayoutKey = cardLayoutKey;
+      });
+
+      if (shortCopy) {
+        // Let the complete opening sentence clear the sticky frame before the first
+        // card enters. This is scroll-linked in the existing About controller.
+        if (intro) {
+          const introExitEnd = 0.35;
+          let introExit = Math.max(0, Math.min(1, prog / introExitEnd));
+          introExit = this.ease ? this.ease(introExit) : introExit;
+          intro.style.translate = "0 " + (-fh * introExit).toFixed(1) + "px";
+        }
+
+        // Keep the same five authored cards and reveal them one at a time in a stack.
+        const stackW = Math.min(264, Math.max(210, Wt - 64));
+        const stackH = Math.min(264, Math.max(210, fh - 2 * 112));
+        const stackTop = Math.max(88, (fh - stackH - 40) / 2);
+        const stackStart = fh + 48;
+        const arrivalStart = 0.4, arrivalStep = 0.3, travel = 0.2, stackStep = 10;
+        const stackLeft = (Wt - stackW) / 2;
+        cards.forEach((el, i) => {
+          if (!el) return;
+          el.style.width = stackW.toFixed(1) + "px";
+          el.style.height = stackH.toFixed(1) + "px";
+          el.style.padding = "20px";
+          el.style.gap = "12px";
+          el.style.alignItems = "flex-start";
+          if (el._l !== stackLeft) { el._l = stackLeft; el.style.left = stackLeft.toFixed(1) + "px"; }
+          const target = stackTop + i * stackStep;
+          let e = (prog - arrivalStart - i * arrivalStep) / travel;
+          e = e < 0 ? 0 : e > 1 ? 1 : e;
+          e = this.ease ? this.ease(e) : e;
+          const top = stackStart + (target - stackStart) * e;
+          const t = "translateY(" + top.toFixed(1) + "px)";
+          if (el._t !== t) { el._t = t; el.style.transform = t; }
+        });
+        return;
+      }
+
+      if (intro) intro.style.removeProperty("translate");
+
       if (compact) {
         // At narrow tablet widths the regular 12-column cards would leave less than a
         // comfortable text measure. Use a centered two-column/three-row arrangement of
@@ -1467,34 +1542,6 @@ class Component extends DCLogic {
           return Math.ceil(titleH + descriptionH + 32);
         }));
         const H = Math.max(Math.min(cardW, maxH), required);
-        if (shortCopy) {
-          // On narrow, short tablets the cards take turns in the same centered stack used
-          // by the mobile presentation. Only their movement changes; the five authored card
-          // nodes and their existing localized content stay shared with the normal layout.
-          const stackW = Math.min(264, Math.max(210, Wt - 64));
-          const stackH = Math.min(264, Math.max(210, fh - 2 * 112));
-          const stackTop = Math.max(88, (fh - stackH - 40) / 2);
-          const stackStart = fh + 48;
-          const arrivalStart = 0.18, arrivalStep = 0.34, travel = 0.2, stackStep = 10;
-          const stackLeft = (Wt - stackW) / 2;
-          cards.forEach((el, i) => {
-            if (!el) return;
-            el.style.width = stackW.toFixed(1) + "px";
-            el.style.height = stackH.toFixed(1) + "px";
-            el.style.padding = "20px";
-            el.style.gap = "12px";
-            el.style.alignItems = "flex-start";
-            if (el._l !== stackLeft) { el._l = stackLeft; el.style.left = stackLeft.toFixed(1) + "px"; }
-            const target = stackTop + i * stackStep;
-            let e = (prog - arrivalStart - i * arrivalStep) / travel;
-            e = e < 0 ? 0 : e > 1 ? 1 : e;
-            e = this.ease ? this.ease(e) : e;
-            const top = stackStart + (target - stackStart) * e;
-            const t = "translateY(" + top.toFixed(1) + "px)";
-            if (el._t !== t) { el._t = t; el.style.transform = t; }
-          });
-          return;
-        }
         const gridTop = Math.max(topReserve, Math.round((fh - (nR * H + (nR - 1) * gapY)) / 2));
         cards.forEach((el, i) => {
           if (!el) return;

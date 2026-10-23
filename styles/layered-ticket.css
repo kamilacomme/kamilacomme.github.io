@@ -167,7 +167,7 @@
 }
 
 /* Narrow-tablet fallback: keep the shared layered ticket, changing only its layout. */
-@media (min-width: 500px) and (max-width: 799px) {
+@media (min-width: 500px) and (max-width: 686px) {
   #kc-tablet-projets.kc-narrow-ticket .ticket {
     height: auto;
     min-height: 572px;

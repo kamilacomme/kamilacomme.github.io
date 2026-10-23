@@ -150,6 +150,10 @@ class Component extends DCLogic {
     // Old 3D Projects RAF loop removed: active Projects run in the separate iframe.
 
     this.fit = () => {
+      // fit() is also the owner of section geometry. Resolve the shared DOM root before
+      // measuring About so the first visible tablet layout does not depend on the later
+      // embed-pruning timer to initialize this.root.
+      if (!this.root) this.root = document.querySelector("[data-kc-root]") || document.body;
       this.vh = this.vhNow();
       // one scene scale for the whole site: 1440x844 design frame fitted into the viewport.
       // width AND height are both respected, so nothing is cropped on short screens;
@@ -482,14 +486,16 @@ class Component extends DCLogic {
       window.__kcTabletScale = st;
       // the tablet stage height follows the window too, so the ticket is centred on the
       // SCREEN rather than inside a 1112 frame that may be taller than the viewport
-      const tFrameH = Math.max(200, Math.round(this.vhNow() / st));
+      // Tablet About now lays out in viewport CSS pixels. Keep the section's existing
+      // height latch and shared tablet scale for other components, but do not use that
+      // design scale to size or shrink About text.
+      const tFrameH = Math.max(200, Math.round(this.vhNow()));
       this.tFrameH = tFrameH;
       if (tablet) {
-        // same treatment as desktop: the bar spans the window, so the content frames span it
-        // too and their 24px margin lands on the bar's. The forced preview keeps the real
-        // 834 frame so the tablet can still be reviewed at its designed width.
-        const Wt = force === "auto" ? Math.round(window.innerWidth / st) : 834;
         const layoutWidth = document.documentElement.clientWidth || window.innerWidth;
+        // About is laid out directly in the visible CSS viewport. Other tablet regions keep
+        // their existing shared scale policy; About's statement and cards do not inherit it.
+        const Wt = layoutWidth;
         // the projets frame spans the window like the hero's, so its 32 margin lands on the
         // same real pixels as the navbar's K and the drag caption sits on the window edges
         if (this.tAStage) this.tAStage.style.width = Wt + "px";
@@ -523,7 +529,7 @@ class Component extends DCLogic {
         try { this.renderAbout(); } catch (e) {}
         this.fitProjLabels(st, force);
         this.showTGrid(st, force);
-        if (this.tAStage) this.tAStage.style.transform = "translate(-50%,-50%) scale(" + st + ")";
+        if (this.tAStage) this.tAStage.style.transform = "translate(-50%,-50%)";
       }
       // navbar rides whichever frame is active
       if (this.nav) {
@@ -1365,7 +1371,8 @@ class Component extends DCLogic {
       return;
     }
     if (this.tablet) {
-      // same behaviour as desktop, on a 2-column / 3-row grid centred in the frame
+      // Keep the tablet About height latch and animation, but calculate card geometry in
+      // actual viewport CSS pixels so typography remains at its authored effective size.
       const GAP = 24, fh = this.tFrameH || 1112;
       const Wt = (this.tAStage && this.tAStage.offsetWidth) || 834;
       // the frame's own 12-column grid: 32 margin, 24 gutter, and that gutter is the gap
@@ -1375,6 +1382,136 @@ class Component extends DCLogic {
       const colW = (Wt - 64 - 11 * GAP) / 12;
       const span4 = 4 * colW + 3 * GAP;
       const span3 = 3 * colW + 2 * GAP;
+      const compact = span4 < 200;
+      const intro = this.tAStage && this.tAStage.firstElementChild;
+      const statement = intro && intro.querySelector("p");
+      const avatar = intro && intro.firstElementChild;
+      const statementSpans = statement ? Array.from(statement.querySelectorAll(":scope > span")) : [];
+      const copyLayoutKey = [Wt, fh, compact, document.fonts ? document.fonts.status : "unknown"].join(":");
+      if (statement && statementSpans.length && this._tAboutCopyLayout !== copyLayoutKey) {
+        // Reset the visual excerpt before measuring so resizing/orientation changes always
+        // reconsider the full localized statement.
+        statementSpans.forEach((span) => {
+          if (!Object.prototype.hasOwnProperty.call(span, "_kcAboutOriginalStyle")) {
+            span._kcAboutOriginalStyle = span.getAttribute("style");
+          }
+          const original = span._kcAboutOriginalStyle;
+          if (original === null) span.removeAttribute("style");
+          else span.setAttribute("style", original);
+        });
+        const textHeight = statement.scrollHeight;
+        const avatarHeight = avatar ? avatar.getBoundingClientRect().height : 0;
+        const introGap = intro ? parseFloat(getComputedStyle(intro).gap) || 0 : 0;
+        const availableTextHeight = Math.max(0, fh - avatarHeight - introGap - 112);
+        let shortCopy = compact && fh <= 700 && textHeight > availableTextHeight;
+        if (shortCopy) {
+          const sentenceEnds = [];
+          let accumulated = "";
+          statementSpans.forEach((span, index) => {
+            accumulated += span.textContent || "";
+            if (/[.!?][\u00a0\u202f\s”’»']*$/u.test(accumulated)) sentenceEnds.push(index);
+          });
+          const visuallyHideAfter = (lastVisible) => {
+            statementSpans.forEach((span, index) => {
+              if (index <= lastVisible) return;
+              Object.assign(span.style, {
+                position: "absolute", width: "1px", height: "1px", margin: "-1px",
+                padding: "0", overflow: "hidden", clip: "rect(0, 0, 0, 0)",
+                clipPath: "inset(50%)", whiteSpace: "nowrap", border: "0"
+              });
+            });
+          };
+          let chosenEnd = sentenceEnds[0] ?? statementSpans.length - 1;
+          for (const end of sentenceEnds) {
+            visuallyHideAfter(end);
+            if (statement.scrollHeight <= availableTextHeight) chosenEnd = end;
+            else break;
+          }
+          visuallyHideAfter(chosenEnd);
+        }
+        this._tAboutShortCopy = shortCopy;
+        this._tAboutCopyLayout = copyLayoutKey;
+      }
+      const shortCopy = !!this._tAboutShortCopy;
+      if (compact) {
+        // At narrow tablet widths the regular 12-column cards would leave less than a
+        // comfortable text measure. Use a centered two-column/three-row arrangement of
+        // the same five cards, with compact internal spacing and naturally wrapping copy.
+        const gapX = 16, gapY = 12, side = 32, topReserve = 88, bottomReserve = 12;
+        const cardW = Math.min(264, (Wt - side * 2 - gapX) / 2);
+        const rows = [0, 0, 1, 2, 2], cols = [0, 1, 0, 1, 0], nR = 3;
+        const leftStart = (Wt - (cardW * 2 + gapX)) / 2;
+        const maxH = (fh - topReserve - bottomReserve - gapY * (nR - 1)) / nR;
+        const START = fh + 80, STEP = 0.34;
+        // Measure natural title and description wrapping after the width is set. If a
+        // supported short viewport cannot contain the copy, keep the natural content height
+        // visible and let the existing About scroll section provide the vertical travel.
+        cards.forEach((el) => {
+          if (!el) return;
+          el.style.width = cardW.toFixed(1) + "px";
+          el.style.height = "auto";
+          el.style.padding = "12px";
+          el.style.gap = "8px";
+          el.style.alignItems = "stretch";
+          const [title, description] = el.querySelectorAll("span");
+          [title, description].forEach((node) => {
+            if (!node) return;
+            node.style.maxWidth = "100%";
+            node.style.overflowWrap = "normal";
+          });
+        });
+        const required = Math.max(0, ...cards.filter(Boolean).map((el) => {
+          const [title, description] = el.querySelectorAll("span");
+          const titleH = title ? title.getBoundingClientRect().height : 0;
+          const descriptionH = description ? description.getBoundingClientRect().height : 0;
+          return Math.ceil(titleH + descriptionH + 32);
+        }));
+        const H = Math.max(Math.min(cardW, maxH), required);
+        if (shortCopy) {
+          // On narrow, short tablets the cards take turns in the same centered stack used
+          // by the mobile presentation. Only their movement changes; the five authored card
+          // nodes and their existing localized content stay shared with the normal layout.
+          const stackW = Math.min(264, Math.max(210, Wt - 64));
+          const stackH = Math.min(264, Math.max(210, fh - 2 * 112));
+          const stackTop = Math.max(88, (fh - stackH - 40) / 2);
+          const stackStart = fh + 48;
+          const arrivalStart = 0.18, arrivalStep = 0.34, travel = 0.2, stackStep = 10;
+          const stackLeft = (Wt - stackW) / 2;
+          cards.forEach((el, i) => {
+            if (!el) return;
+            el.style.width = stackW.toFixed(1) + "px";
+            el.style.height = stackH.toFixed(1) + "px";
+            el.style.padding = "20px";
+            el.style.gap = "12px";
+            el.style.alignItems = "flex-start";
+            if (el._l !== stackLeft) { el._l = stackLeft; el.style.left = stackLeft.toFixed(1) + "px"; }
+            const target = stackTop + i * stackStep;
+            let e = (prog - arrivalStart - i * arrivalStep) / travel;
+            e = e < 0 ? 0 : e > 1 ? 1 : e;
+            e = this.ease ? this.ease(e) : e;
+            const top = stackStart + (target - stackStart) * e;
+            const t = "translateY(" + top.toFixed(1) + "px)";
+            if (el._t !== t) { el._t = t; el.style.transform = t; }
+          });
+          return;
+        }
+        const gridTop = Math.max(topReserve, Math.round((fh - (nR * H + (nR - 1) * gapY)) / 2));
+        cards.forEach((el, i) => {
+          if (!el) return;
+          const left = leftStart + cols[i] * (cardW + gapX);
+          el._sq = H;
+          el.style.height = H.toFixed(1) + "px";
+          if (el._l !== left) { el._l = left; el.style.left = left.toFixed(1) + "px"; }
+          const target = gridTop + rows[i] * (H + gapY);
+          let e = prog + 0.45 - this.A_ORDER[i] * STEP;
+          e = e < 0 ? 0 : e > 1 ? 1 : e;
+          e = this.ease ? this.ease(e) : e;
+          const top = START + (target - START) * e;
+          const t = "translateY(" + top.toFixed(1) + "px)";
+          if (el._t !== t) { el._t = t; el.style.transform = t; }
+        });
+        return;
+      }
       const tall = fh >= 3 * span4 + 2 * GAP + 24;
       // portrait: cards 4 columns wide on three slots (columns 1 / 5 / 9), three rows.
       // landscape: 4 columns would make them huge, so a card is 3 columns wide and the

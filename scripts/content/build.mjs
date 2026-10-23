@@ -3,6 +3,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import { validateGeneratedHTML } from './validate-generated-html.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const args = process.argv.slice(2);
@@ -21,6 +22,7 @@ const ui = JSON.parse(await readFile(path.join(root, 'content/ui.en.json'), 'utf
 const site = JSON.parse(await readFile(path.join(root, 'content/site.en.json'), 'utf8'));
 const projects = new Map(projectsData.projects.map(project => [project.id, project]));
 const canonicalOrder = projectsData.canonicalOrder;
+const layeredTicketCSS = await readFile(path.join(root, 'styles/layered-ticket.css'), 'utf8');
 
 const escapeText = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 const escapeAttribute = value => escapeText(value).replaceAll('"', '&quot;');
@@ -254,6 +256,7 @@ for (const locale of requestedLocales) {
   const mobileCards = await renderCards('mobile', locale);
   const page = await buildPage(path.join(root, 'templates/page.html'), { tabletCards, mobileCards }, locale, 'page');
   const desktop = await buildPage(path.join(root, 'templates/desktop-project-embedded.html'), { desktopCards }, locale, 'desktop-embed');
+  validateGeneratedHTML({ pageHTML: page, desktopHTML: desktop, locale, canonicalOrder, css: layeredTicketCSS });
   await writeFile(path.join(folder, 'index.html'), page);
   await writeFile(path.join(folder, 'desktop-project-embedded.html'), desktop);
 }

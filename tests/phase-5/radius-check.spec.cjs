@@ -20,14 +20,14 @@ test('shared ticket radii and rendered media clipping', async ({ page, context }
     const rect = (el) => { const r = el.getBoundingClientRect(); return { width: r.width, height: r.height }; };
     return {
       outer: { radius: getComputedStyle(outer).borderTopLeftRadius, overflow: getComputedStyle(outer).overflow, rect: rect(outer) },
-      panel: { radius: getComputedStyle(panel).borderTopLeftRadius, overflow: getComputedStyle(panel).overflow, rect: rect(panel) },
+      panel: { radius: getComputedStyle(panel).borderTopLeftRadius, overflow: getComputedStyle(panel).overflow, background: getComputedStyle(panel).backgroundColor, rect: rect(panel) },
       image: { radius: getComputedStyle(image).borderTopLeftRadius, overflow: getComputedStyle(image).overflow, rect: rect(image) },
       media: { radius: getComputedStyle(media).borderTopLeftRadius, rect: rect(media), tag: media.tagName },
     };
   });
   expect(values.outer).toMatchObject({ radius: '8px', overflow: 'hidden' });
   expect(values.outer.rect.width).toBeGreaterThan(0);
-  expect(values.panel).toMatchObject({ radius: '4px', overflow: 'hidden' });
+  expect(values.panel).toMatchObject({ radius: '4px', overflow: 'hidden', background: 'rgb(242, 238, 242)' });
   expect(values.panel.rect.width).toBeGreaterThan(0);
   expect(values.image).toMatchObject({ radius: '2px', overflow: 'hidden' });
   expect(values.image.rect.width).toBeGreaterThan(0);
@@ -48,13 +48,14 @@ test('shared ticket radii and rendered media clipping', async ({ page, context }
     await expect.poll(() => page.locator('#kc-tablet-projets').evaluate((el) => el.classList.contains('kc-narrow-ticket'))).toBe(true);
     const narrow = await ticket.evaluate((outer) => ({
       outer: getComputedStyle(outer).borderTopLeftRadius,
-      pseudo: getComputedStyle(outer, '::after').borderTopLeftRadius,
+      pseudoRadius: getComputedStyle(outer, '::after').borderTopLeftRadius,
+      pseudoTint: getComputedStyle(outer, '::after').backgroundColor,
       panel: getComputedStyle(outer.querySelector('.ticket-panel')).borderTopLeftRadius,
       image: getComputedStyle(outer.querySelector('.ticket-image')).borderTopLeftRadius,
       media: getComputedStyle(outer.querySelector('.ticket-image .media-layer')).borderTopLeftRadius,
       boxes: [outer, outer.querySelector('.ticket-panel'), outer.querySelector('.ticket-image')].map((el) => { const r = el.getBoundingClientRect(); return [r.width, r.height]; }),
     }));
-    expect(narrow).toMatchObject({ outer: '8px', pseudo: '4px', panel: '4px', image: '2px', media: '2px' });
+    expect(narrow).toMatchObject({ outer: '8px', pseudoRadius: '0px', pseudoTint: 'rgba(255, 255, 255, 0.04)', panel: '4px', image: '2px', media: '2px' });
     expect(narrow.boxes.every((box) => box[0] > 0 && box[1] > 0)).toBe(true);
     const narrowPath = info.outputPath(`ticket-radius-${language}-narrow.png`);
     await ticket.screenshot({ path: narrowPath });

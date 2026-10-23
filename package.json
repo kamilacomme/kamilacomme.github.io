@@ -15,11 +15,13 @@
     "content:check": "node scripts/content/validate-project-data.mjs",
     "build:content:preview": "node scripts/content/build.mjs",
     "content:build": "node scripts/content/build.mjs --site",
-    "content:build:check": "node scripts/content/build.mjs --check"
+    "content:build:check": "node scripts/content/build.mjs --check",
+    "test:ticket-contract": "node --test tests/phase-5/shared-ticket-validation.test.mjs && node scripts/content/build.mjs --check && playwright test --config tests/phase-5/playwright.config.cjs tests/phase-5/radius-check.spec.cjs"
   },
   "devDependencies": {
     "@playwright/test": "1.62.1",
     "chrome-launcher": "1.2.2",
-    "lighthouse": "13.5.0"
+    "lighthouse": "13.5.0",
+    "parse5": "7.3.0"
   }
 }

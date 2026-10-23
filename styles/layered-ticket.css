@@ -3,6 +3,7 @@
   --ticket-outer-radius: 8px;
   --ticket-panel-radius: 4px;
   --ticket-media-radius: 2px;
+  --ticket-panel-background: #f2eef2;
   width: 1142px;
   height: 393.453px;
   flex: none;
@@ -31,7 +32,7 @@
   height: 274px;
   padding: 20px;
   border-radius: var(--ticket-panel-radius);
-  background: #fff;
+  background: var(--ticket-panel-background);
   overflow: hidden;
   display: flex;
   gap: 23.85px;
@@ -125,7 +126,6 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 52px;
   grid-template-rows: minmax(0, 1fr);
   gap: 20px;
-  background: #f6f2f6;
 }
 #kc-tablet-projets .ticket-image {
   width: auto;
@@ -179,16 +179,6 @@
     align-items: center;
     justify-content: center;
   }
-  #kc-tablet-projets.kc-narrow-ticket .ticket::after {
-    inset: 64px auto 64px 50%;
-    width: min(356px, calc(100% - 48px));
-    height: auto;
-    transform: translateX(-50%);
-    background: #f2eef2;
-    border-radius: var(--ticket-panel-radius);
-    z-index: 0;
-  }
-  #kc-tablet-projets.kc-narrow-ticket .ticket > * { position: relative; z-index: 1; }
   #kc-tablet-projets.kc-narrow-ticket .ticket-panel {
     position: relative;
     inset: auto;
@@ -201,7 +191,6 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 20px;
     align-content: start;
-    background: #f2eef2;
   }
   #kc-tablet-projets.kc-narrow-ticket .ticket-image {
     width: min(100%, 308px);

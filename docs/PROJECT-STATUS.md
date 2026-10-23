@@ -6,7 +6,7 @@ Updated: 2026-10-23. Milestones are marked complete only after their stated chec
 
 **Phase 5 branch point:** `0422402b46bb814d4202abd0e8266d95c03685d3` — completed Phase 4 branch checkpoint, including its latest reviewed documentation. Phase 4 remains preserved on its own branch.
 
-**Latest Phase 5 implementation checkpoint:** `6e5bb2864b04cf59751f9e6ef2a770aa9b1ae0a6` — shared ticket media radius is 4px, with the contract, generated-CSS validator and focused browser expectations updated. Four review captures are committed separately from regression references. The remote branch is backed up; nothing is merged, deployed or published.
+**Latest pushed Phase 5 checkpoint:** `6e5bb2864b04cf59751f9e6ef2a770aa9b1ae0a6` — shared ticket media radius is 4px, with its contract and focused tests updated. **Latest local Milestone 5 code checkpoint:** `dd409c0b8d9c9ca59712b21028a359f18d0da433` — desktop typography/rail work and review captures. This local checkpoint is not pushed; Milestone 5 awaits visual review. Nothing has been merged, deployed or published.
 
 **Current task:** Milestone 5 desktop Projects implementation and focused validation are complete; the milestone remains **In progress** while the user reviews the new desktop screenshots and interactive preview. Milestone 4 is complete and visually approved, including the shared 8px outer, 4px panel and 4px media radii. Original reference screenshots remain unchanged.
 
@@ -21,7 +21,7 @@ Updated: 2026-10-23. Milestones are marked complete only after their stated chec
 | 2 | Behavior-preserving CSS and JavaScript extraction, then parity review | Complete — structural extraction and user inspection passed; French mobile TBT remains unresolved and blocks release readiness |
 | 3 | Simplify duplicated page/layout behavior while preserving four responsive modes | Complete for structural scope — approved tablet scale retained, initialization dependency resolved, eight-profile gate and review passed; mobile Lighthouse regression remains a release blocker |
 | 4 | Centralize project data and French/English translations; generate static routes | Complete — final acceptance recorded below; mobile Lighthouse remains a release blocker |
-| 5 | Hybrid fluid-responsive layout, readable typography and accessibility review | In progress — Milestones 1–4 complete; Milestones 5–10 remain |
+| 5 | Hybrid fluid-responsive layout, readable typography and accessibility review | In progress — Milestones 1–4 complete; Milestone 5 implementation is awaiting visual review; Milestones 6–10 remain |
 | 6 | Review asset loading and make separately approved performance improvements | Not started |
 | 7 | Cross-browser/device validation and release-candidate regression | Not started |
 | 8 | Final documentation, independent acceptance and release decision | Not started |

@@ -1,0 +1,104 @@
+diff --git a/portfolio-controller.js b/portfolio-controller.js
+index 663f1e8..027fdff 100644
+--- a/portfolio-controller.js
++++ b/portfolio-controller.js
+@@ -482,14 +482,16 @@ class Component extends DCLogic {
+       window.__kcTabletScale = st;
+       // the tablet stage height follows the window too, so the ticket is centred on the
+       // SCREEN rather than inside a 1112 frame that may be taller than the viewport
+-      const tFrameH = Math.max(200, Math.round(this.vhNow() / st));
++      // Tablet About now lays out in viewport CSS pixels. Keep the section's existing
++      // height latch and shared tablet scale for other components, but do not use that
++      // design scale to size or shrink About text.
++      const tFrameH = Math.max(200, Math.round(this.vhNow()));
+       this.tFrameH = tFrameH;
+       if (tablet) {
+-        // same treatment as desktop: the bar spans the window, so the content frames span it
+-        // too and their 24px margin lands on the bar's. The forced preview keeps the real
+-        // 834 frame so the tablet can still be reviewed at its designed width.
+-        const Wt = force === "auto" ? Math.round(window.innerWidth / st) : 834;
+         const layoutWidth = document.documentElement.clientWidth || window.innerWidth;
++        // About is laid out directly in the visible CSS viewport. Other tablet regions keep
++        // their existing shared scale policy; About's statement and cards do not inherit it.
++        const Wt = layoutWidth;
+         // the projets frame spans the window like the hero's, so its 32 margin lands on the
+         // same real pixels as the navbar's K and the drag caption sits on the window edges
+         if (this.tAStage) this.tAStage.style.width = Wt + "px";
+@@ -523,7 +525,7 @@ class Component extends DCLogic {
+         try { this.renderAbout(); } catch (e) {}
+         this.fitProjLabels(st, force);
+         this.showTGrid(st, force);
+-        if (this.tAStage) this.tAStage.style.transform = "translate(-50%,-50%) scale(" + st + ")";
++        if (this.tAStage) this.tAStage.style.transform = "translate(-50%,-50%)";
+       }
+       // navbar rides whichever frame is active
+       if (this.nav) {
+@@ -1365,7 +1367,8 @@ class Component extends DCLogic {
+       return;
+     }
+     if (this.tablet) {
+-      // same behaviour as desktop, on a 2-column / 3-row grid centred in the frame
++      // Keep the tablet About height latch and animation, but calculate card geometry in
++      // actual viewport CSS pixels so typography remains at its authored effective size.
+       const GAP = 24, fh = this.tFrameH || 1112;
+       const Wt = (this.tAStage && this.tAStage.offsetWidth) || 834;
+       // the frame's own 12-column grid: 32 margin, 24 gutter, and that gutter is the gap
+@@ -1375,6 +1378,58 @@ class Component extends DCLogic {
+       const colW = (Wt - 64 - 11 * GAP) / 12;
+       const span4 = 4 * colW + 3 * GAP;
+       const span3 = 3 * colW + 2 * GAP;
++      const compact = span4 < 200;
++      if (compact) {
++        // At narrow tablet widths the regular 12-column cards would leave less than a
++        // comfortable text measure. Use a centered two-column/three-row arrangement of
++        // the same five cards, with compact internal spacing and naturally wrapping copy.
++        const gapX = 16, gapY = 12, side = 32, topReserve = 88, bottomReserve = 12;
++        const cardW = Math.min(264, (Wt - side * 2 - gapX) / 2);
++        const rows = [0, 0, 1, 2, 2], cols = [0, 1, 0, 1, 0], nR = 3;
++        const leftStart = (Wt - (cardW * 2 + gapX)) / 2;
++        const maxH = (fh - topReserve - bottomReserve - gapY * (nR - 1)) / nR;
++        const START = fh + 80, STEP = 0.34;
++        // Measure natural title and description wrapping after the width is set. If a
++        // supported short viewport cannot contain the copy, keep the natural content height
++        // visible and let the existing About scroll section provide the vertical travel.
++        cards.forEach((el) => {
++          if (!el) return;
++          el.style.width = cardW.toFixed(1) + "px";
++          el.style.height = "auto";
++          el.style.padding = "12px";
++          el.style.gap = "8px";
++          el.style.alignItems = "stretch";
++          const [title, description] = el.querySelectorAll("span");
++          [title, description].forEach((node) => {
++            if (!node) return;
++            node.style.maxWidth = "100%";
++            node.style.overflowWrap = "normal";
++          });
++        });
++        const required = Math.max(0, ...cards.filter(Boolean).map((el) => {
++          const [title, description] = el.querySelectorAll("span");
++          const titleH = title ? title.getBoundingClientRect().height : 0;
++          const descriptionH = description ? description.getBoundingClientRect().height : 0;
++          return Math.ceil(titleH + descriptionH + 32);
++        }));
++        const H = Math.max(Math.min(cardW, maxH), required);
++        const gridTop = Math.max(topReserve, Math.round((fh - (nR * H + (nR - 1) * gapY)) / 2));
++        cards.forEach((el, i) => {
++          if (!el) return;
++          const left = leftStart + cols[i] * (cardW + gapX);
++          el._sq = H;
++          el.style.height = H.toFixed(1) + "px";
++          if (el._l !== left) { el._l = left; el.style.left = left.toFixed(1) + "px"; }
++          const target = gridTop + rows[i] * (H + gapY);
++          let e = prog + 0.45 - this.A_ORDER[i] * STEP;
++          e = e < 0 ? 0 : e > 1 ? 1 : e;
++          e = this.ease ? this.ease(e) : e;
++          const top = START + (target - START) * e;
++          const t = "translateY(" + top.toFixed(1) + "px)";
++          if (el._t !== t) { el._t = t; el.style.transform = t; }
++        });
++        return;
++      }
+       const tall = fh >= 3 * span4 + 2 * GAP + 24;
+       // portrait: cards 4 columns wide on three slots (columns 1 / 5 / 9), three rows.
+       // landscape: 4 columns would make them huge, so a card is 3 columns wide and the

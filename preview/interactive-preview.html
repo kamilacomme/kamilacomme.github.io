@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tablet About local review</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#252326;background:#f6f5f6}*{box-sizing:border-box}body{margin:0;padding:18px}h1{font-size:22px;margin:0 0 8px}.intro{margin:0 0 14px;max-width:900px}.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0}.group{display:flex;gap:5px;align-items:center;background:white;border:1px solid #ddd8df;border-radius:8px;padding:5px}button{font:inherit;padding:7px 11px;min-height:38px;background:#fff;border:1px solid #b9b3bc;border-radius:6px;color:#252326;cursor:pointer}button[aria-pressed=true]{background:#f5a4ed;border-color:#e287da}button:disabled{opacity:.48;cursor:not-allowed}label{font-size:14px}.status{font-size:14px;margin:8px 0}.frame-wrap{width:max-content;max-width:100%;overflow:auto;border:1px solid #bbb;background:white;box-shadow:0 2px 12px #0002}iframe{display:block;border:0;width:500px;height:600px;background:white}.hint{font-size:13px;color:#555;max-width:850px}.warning{font-weight:600;color:#6b435f}
+</style>
+</head>
+<body>
+<h1>Tablet About — local interactive review</h1>
+<p class="intro">This loads the actual Phase 5 website inside the frame. Choose the current layout (A) or temporary proposed reflow (B), switch language, then use the scroll controls or scroll inside the website frame.</p>
+<div class="toolbar">
+  <div class="group" aria-label="Language"><button id="fr" aria-pressed="true">Français</button><button id="en" aria-pressed="false">English</button></div>
+  <div class="group" aria-label="Layout"><button id="current" aria-pressed="true">A · Current</button><button id="proposal" aria-pressed="false">B · Proposed</button></div>
+  <div class="group" aria-label="Viewport"><button id="narrow" aria-pressed="true">500 × 600</button><button id="normal" aria-pressed="false">834 × 1112</button></div>
+</div>
+<div class="toolbar" id="steps">
+  <button data-p="0">Intro start</button><button data-p="0.50">Intro end</button><button data-p="1.08">First card enters</button><button data-p="1.72">All five cards</button><button data-p="1.96">Section end</button>
+</div>
+<div class="toolbar"><label for="progress">About scroll position:</label><input id="progress" type="range" min="0" max="2" step="0.01" value="0"><output id="position">p=0.00</output></div>
+<p id="status" class="status">Loading current French site at 500 × 600…</p>
+<div class="frame-wrap"><iframe id="site" title="Actual portfolio site preview"></iframe></div>
+<p class="hint"><strong>Option B is temporary:</strong> its layout is applied only inside this preview frame by the helper page. It keeps the current 48px introduction and the five existing card elements, and it does not edit the site source. At normal-height 834 × 1112, use Option A to see the unchanged composition.</p>
+<script>
+(()=>{
+ const frame=document.getElementById('site'),status=document.getElementById('status'),slider=document.getElementById('progress'),output=document.getElementById('position');
+ const state={lang:'fr',mode:'current',viewport:'narrow',sectionTop:0,ready:false,guard:false};
+ const buttons={fr:document.getElementById('fr'),en:document.getElementById('en'),current:document.getElementById('current'),proposal:document.getElementById('proposal'),narrow:document.getElementById('narrow'),normal:document.getElementById('normal')};
+ const dims=()=>state.viewport==='narrow'?{w:500,h:600}:{w:834,h:1112};
+ function pressed(){for(const id of ['fr','en','current','proposal','narrow','normal'])buttons[id].setAttribute('aria-pressed',String(({fr:state.lang==='fr',en:state.lang==='en',current:state.mode==='current',proposal:state.mode==='proposal',narrow:state.viewport==='narrow',normal:state.viewport==='normal'})[id]));buttons.proposal.disabled=state.viewport!=='narrow';}
+ function frameUrl(){return location.origin+(state.lang==='en'?'/en/':'/');}
+ function setFrameSize(){const d=dims();frame.style.width=d.w+'px';frame.style.height=d.h+'px';}
+ function setStatus(msg){status.textContent=msg;}
+ function frameDoc(){try{return frame.contentDocument}catch{return null}}
+ function clearB(){const w=frame.contentWindow;if(!w)return;w.__tabletAboutReviewProposal=false;}
+ function applyB(progress){
+   const w=frame.contentWindow,d=frameDoc();if(!w||!d)return;
+   const section=d.querySelector('#apropos-t');if(!section)return;
+   const stage=section.querySelector(':scope > div > div'),intro=stage?.firstElementChild,cards=stage?[...stage.querySelectorAll(':scope > [data-i]')]:[];
+   if(!stage||!intro||cards.length!==5)return;
+   stage.style.setProperty('overflow','hidden','important');stage.style.setProperty('clip-path','inset(72px 0 0 0)','important');
+   intro.style.setProperty('left','32px','important');intro.style.setProperty('top','88px','important');intro.style.setProperty('width',(w.innerWidth-64)+'px','important');intro.style.setProperty('height','auto','important');intro.style.setProperty('transition','none','important');
+   const gapX=16,gapY=12,side=32,top=88,bottom=12,cardW=Math.min(264,(w.innerWidth-side*2-gapX)/2),cardH=Math.min(158.7,(w.innerHeight-top-bottom-gapY*2)/3),left=(w.innerWidth-(cardW*2+gapX))/2;
+   const rows=[0,0,1,2,2],cols=[0,1,0,1,0],order=[0,2,1,4,3],start=1.03,stagger=.12,duration=.2;
+   cards.forEach((card,i)=>{card.style.setProperty('width',cardW+'px','important');card.style.setProperty('height',cardH+'px','important');card.style.setProperty('left',(left+cols[i]*(cardW+gapX))+'px','important');card.style.setProperty('padding','12px','important');card.style.setProperty('gap','8px','important');card.style.setProperty('align-items','stretch','important');card.style.setProperty('transition','none','important');});
+   const readTravel=Math.max(0,intro.getBoundingClientRect().height-(w.innerHeight-88-24)),exitTravel=intro.getBoundingClientRect().height+88;
+   const introTravel=progress<=.5?progress/.5*readTravel:progress<.72?readTravel+(progress-.5)/.22*(exitTravel-readTravel):exitTravel;
+   intro.style.setProperty('transform',`translateY(${-introTravel}px)`,'important');
+   cards.forEach((card,i)=>{let e=Math.max(0,Math.min(1,(progress-start-order[i]*stagger)/duration));e=e*e*(3-2*e);const y=w.innerHeight+80+(top+rows[i]*(cardH+gapY)-(w.innerHeight+80))*e;card.style.setProperty('transform',`translateY(${y}px)`,'important');});
+   w.__tabletAboutReviewProposal=true;
+ }
+ function progressNow(){const w=frame.contentWindow,d=frameDoc(),s=d?.querySelector('#apropos-t');if(!w||!s)return 0;const top=s.getBoundingClientRect().top+w.scrollY;return Math.max(0,Math.min(2,(w.scrollY-top)/w.innerHeight));}
+ function go(p){const w=frame.contentWindow,d=frameDoc(),s=d?.querySelector('#apropos-t');if(!w||!s)return;const top=s.getBoundingClientRect().top+w.scrollY;state.sectionTop=top;state.guard=true;w.scrollTo({top:top+p*w.innerHeight,behavior:'instant'});setTimeout(()=>{if(state.mode==='proposal')applyB(p);state.guard=false;update(p);},130);}
+ function update(p){const q=Math.max(0,Math.min(2,p));slider.value=q;output.value='p='+q.toFixed(2);output.textContent='p='+q.toFixed(2);}
+ async function waitForSite(){setStatus('Loading the actual '+(state.lang==='fr'?'French':'English')+' website…');for(let i=0;i<160;i++){try{const d=frameDoc();if(d&&d.querySelector('#apropos-t [data-i]')&&d.querySelectorAll('#apropos-t [data-i]').length===5){await new Promise(r=>setTimeout(r,700));state.ready=true;state.sectionTop=d.querySelector('#apropos-t').getBoundingClientRect().top+frame.contentWindow.scrollY;if(state.mode==='proposal'&&state.viewport==='narrow')applyB(0);go(0);setStatus('Ready · '+(state.lang==='fr'?'French':'English')+' · '+dims().w+' × '+dims().h+' · '+(state.mode==='current'?'current layout':'temporary proposal'));return;}}catch{}await new Promise(r=>setTimeout(r,250));}setStatus('The site did not finish initializing. Check that the local server is running, then reload this page.');}
+ frame.addEventListener('load',()=>{state.ready=false;waitForSite();});
+ buttons.fr.onclick=()=>{state.lang='fr';pressed();frame.src=frameUrl()};buttons.en.onclick=()=>{state.lang='en';pressed();frame.src=frameUrl()};
+ buttons.current.onclick=()=>{state.mode='current';pressed();frame.src=frameUrl()};buttons.proposal.onclick=()=>{if(state.viewport!=='narrow')return;state.mode='proposal';pressed();frame.src=frameUrl()};
+ buttons.narrow.onclick=()=>{state.viewport='narrow';if(state.mode==='proposal'){}pressed();setFrameSize();frame.src=frameUrl()};buttons.normal.onclick=()=>{state.viewport='normal';state.mode='current';pressed();setFrameSize();frame.src=frameUrl()};
+ document.querySelectorAll('#steps [data-p]').forEach(b=>b.onclick=()=>go(Number(b.dataset.p)));
+ slider.oninput=()=>go(Number(slider.value));
+ setFrameSize();pressed();frame.src=frameUrl();
+ setInterval(()=>{if(!state.ready||state.guard)return;const p=progressNow();update(p);if(state.mode==='proposal'&&state.viewport==='narrow')applyB(p);},160);
+})();
+</script>
+</body></html>

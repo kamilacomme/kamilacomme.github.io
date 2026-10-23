@@ -1,10 +1,13 @@
 /* Shared layered project ticket. Desktop geometry matches the existing iframe. */
 .ticket {
+  --ticket-outer-radius: 8px;
+  --ticket-panel-radius: 4px;
+  --ticket-media-radius: 2px;
   width: 1142px;
   height: 393.453px;
   flex: none;
   position: relative;
-  border-radius: 8px;
+  border-radius: var(--ticket-outer-radius);
   overflow: hidden;
   background: #ddd;
   text-decoration: none;
@@ -27,8 +30,9 @@
   width: 908px;
   height: 274px;
   padding: 20px;
-  border-radius: 4px;
+  border-radius: var(--ticket-panel-radius);
   background: #fff;
+  overflow: hidden;
   display: flex;
   gap: 23.85px;
   align-items: stretch;
@@ -39,7 +43,7 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  border-radius: 2px;
+  border-radius: var(--ticket-media-radius);
   background: var(--poster) center / cover no-repeat;
 }
 .ticket-info {
@@ -95,6 +99,7 @@
   background-size: cover;
   background-position: center;
   pointer-events: none;
+  border-radius: inherit;
 }
 .ticket-image .media-layer.active { opacity: 1; }
 .ticket:focus-visible { outline: 4px solid #7c4ff6; outline-offset: -4px; }
@@ -108,7 +113,6 @@
   height: 310px;
   display: block;
   padding: 0;
-  border-radius: 8px;
   background: #ddd;
 }
 #kc-tablet-projets .ticket::after { background: rgba(255, 255, 255, .04); }
@@ -128,7 +132,6 @@
   min-width: 0;
   min-height: 0;
   height: auto;
-  border-radius: 2px;
 }
 #kc-tablet-projets .ticket-info {
   width: auto;
@@ -182,6 +185,7 @@
     height: auto;
     transform: translateX(-50%);
     background: #f2eef2;
+    border-radius: var(--ticket-panel-radius);
     z-index: 0;
   }
   #kc-tablet-projets.kc-narrow-ticket .ticket > * { position: relative; z-index: 1; }

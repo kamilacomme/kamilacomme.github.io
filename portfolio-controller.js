@@ -158,6 +158,28 @@ class Component extends DCLogic {
       // width fit is a hard ceiling (never crop sideways); height only shrinks, down to 0.72.
       const s = Math.min(fw, Math.min(1.08, Math.max(0.72, Math.min(fw, fh))));
       this.s = s;
+      // Keep the Hero preview image-only responsive: size it in effective CSS pixels,
+      // then account for its existing art-frame scale. If a very short viewport leaves
+      // less vertical room below the heading, fit to that measured space rather than
+      // letting the preview cover Hero copy.
+      const fitHeroPreview = (plate, candidateWidth, scale, gutter, bottomInset, title) => {
+        if (!plate || !scale) return;
+        let titleBottom = title ? title.getBoundingClientRect().bottom : 0;
+        if (title) {
+          for (const child of title.children) {
+            const range = document.createRange();
+            range.selectNodeContents(child);
+            for (const rect of range.getClientRects()) titleBottom = Math.max(titleBottom, rect.bottom);
+          }
+        }
+        const availableWidth = Math.max(0, (document.documentElement.clientWidth || window.innerWidth) - 2 * gutter);
+        const availableHeight = Math.max(0, this.vhNow() - bottomInset - titleBottom - 8);
+        const effectiveWidth = Math.min(325, Math.max(230, candidateWidth), availableWidth, availableHeight * 326 / 204);
+        const cssWidth = effectiveWidth / scale;
+        plate.style.width = cssWidth.toFixed(2) + "px";
+        plate.style.height = (cssWidth * 204 / 326).toFixed(2) + "px";
+        plate.style.right = (gutter / scale).toFixed(2) + "px";
+      };
       // the ticket cursor lives outside the scaled stage, so its label is sized by hand to
       // the same 44 design px as the "Me recruter" button (43 tall in the authored art)
       if (this.ticketCursorImg) {
@@ -335,15 +357,12 @@ class Component extends DCLogic {
           el.style.height = aboutCardD + "px";
         });
         this.CARD_H = aboutCardD;
-        // hero preview plate: exactly three columns, its 314x196 proportion kept
+        // Hero preview remains image-only art; clamp its visible width while keeping its
+        // 326:204 ratio and existing bottom/right anchor.
         const hPlate = this.heroBottom && this.heroBottom.querySelector("[data-hplate]");
         if (hPlate) {
-          // The visible plate inherits heroBottom's scale. Cap its rendered width,
-          // while retaining the original 326:204 aspect ratio and bottom-right anchor.
-          const plateWidth = Math.min(cardD, 325 / s);
-          hPlate.style.width = plateWidth.toFixed(1) + "px";
-          hPlate.style.height = (plateWidth * 204 / 326).toFixed(1) + "px";
-          hPlate.style.right = "32px";
+          fitHeroPreview(hPlate, cardD * s, s, 32 * s, 32 * s,
+            this.heroTop && this.heroTop.querySelector(".kc-desktop-hero-title"));
         }
       }
       if (this.tHero) this.tHero.style.display = tablet ? "block" : "none";
@@ -520,22 +539,16 @@ class Component extends DCLogic {
         const layoutWidth = document.documentElement.clientWidth || window.innerWidth;
         const navGutter = parseFloat(getComputedStyle(this.nav).getPropertyValue("--kc-nav-gutter")) || 32;
         const tPlate = this.tHero.firstElementChild;
+        const tabletHeroTitle = document.querySelector("[data-kc-tablet-hero-title]");
         if (tPlate) {
           const pw = Math.max(0, 4 * ((layoutWidth - 2 * navGutter - 11 * 24) / 12) + 3 * 24);
-          if (tPlate._pw !== pw || tPlate._pr !== navGutter) {
-            tPlate._pw = pw;
-            tPlate._pr = navGutter;
-            tPlate.style.width = pw.toFixed(1) + "px";
-            tPlate.style.height = (pw * 196 / 314).toFixed(1) + "px";
-            tPlate.style.right = navGutter.toFixed(2) + "px";
-          }
+          fitHeroPreview(tPlate, pw, 1, navGutter, 32, tabletHeroTitle);
         }
         const tControls = this.tHero.querySelector("[data-kc-tablet-hero-controls]");
         if (tControls) {
           tControls.style.left = navGutter.toFixed(2) + "px";
           tControls.style.bottom = navGutter.toFixed(2) + "px";
         }
-        const tabletHeroTitle = document.querySelector("[data-kc-tablet-hero-title]");
         if (tabletHeroTitle) {
           tabletHeroTitle.style.left = navGutter.toFixed(2) + "px";
           tabletHeroTitle.style.top = "128px";

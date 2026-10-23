@@ -65,7 +65,8 @@ test('desktop and tablet Hero headings keep their approved effective sizes', asy
     await expect.poll(() => slides.evaluateAll(elements => elements.findIndex(element => parseFloat(getComputedStyle(element).opacity) > 0.9))).toBe((activeBefore + 1) % 6);
 
     const viewports = [
-      { width: 500, height: 834 }, { width: 560, height: 800 },
+      { width: 500, height: 834 }, { width: 500, height: 600 }, { width: 500, height: 400 },
+      { width: 560, height: 800 },
       { width: 659, height: 834 }, { width: 799, height: 1112 },
       { width: 834, height: 1112 }, { width: 839, height: 834 },
       { width: 1024, height: 600 }, { width: 1194, height: 834 },
@@ -91,6 +92,11 @@ test('desktop and tablet Hero headings keep their approved effective sizes', asy
           return scale;
         };
         const slideshow = document.querySelector('[data-kc-tablet-hero-slideshow]').getBoundingClientRect();
+        const titleTextRects = [...element.children].flatMap(child => {
+          const range = document.createRange();
+          range.selectNodeContents(child);
+          return [...range.getClientRects()].map(rect => ({ left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom }));
+        });
         return {
           titleLeft: box.left, titleWidth: box.width, logoLeft: navLogo.left,
           titleTop: box.top, titleFont: parseFloat(getComputedStyle(element).fontSize),
@@ -98,7 +104,9 @@ test('desktop and tablet Hero headings keep their approved effective sizes', asy
           childOverflow: [...element.children].map(child => child.scrollWidth - child.clientWidth),
           cueLeft: cueRect.left, cueFont: parseFloat(getComputedStyle(cue).fontSize),
           cueScale: transformScale(cue), controlsLeft: controlsRect.left,
-          slideshow: { left: slideshow.left, right: slideshow.right, width: slideshow.width },
+          slideshow: { left: slideshow.left, right: slideshow.right, top: slideshow.top, bottom: slideshow.bottom, width: slideshow.width, height: slideshow.height, ratio: slideshow.width / slideshow.height },
+          titleTextRects,
+          scrollWidth: document.documentElement.scrollWidth,
         };
       });
       expect(resized.titleLeft).toBeCloseTo(resized.logoLeft, 1);
@@ -113,6 +121,20 @@ test('desktop and tablet Hero headings keep their approved effective sizes', asy
       expect(resized.slideshow.left).toBeGreaterThanOrEqual(resized.logoLeft);
       expect(resized.slideshow.right).toBeLessThanOrEqual(viewport.width - resized.logoLeft + 0.75);
       expect(resized.slideshow.width).toBeGreaterThan(0);
+      expect(resized.slideshow.width).toBeLessThanOrEqual(325.1);
+      expect(resized.slideshow.ratio).toBeCloseTo(326 / 204, 2);
+      expect(resized.scrollWidth).toBeLessThanOrEqual(viewport.width + 1);
+      const titleCollision = resized.titleTextRects.some(line =>
+        line.left < resized.slideshow.right && line.right > resized.slideshow.left &&
+        line.top < resized.slideshow.bottom && line.bottom > resized.slideshow.top);
+      expect(titleCollision).toBe(false);
+      if (viewport.width === 500 && viewport.height === 400) {
+        // At this exceptionally short narrow-tablet viewport, 230px would cover the
+        // wrapped heading. The image-only fit therefore yields to the measured free area.
+        expect(resized.slideshow.width).toBeLessThan(230);
+      } else {
+        expect(resized.slideshow.width).toBeGreaterThanOrEqual(229.9);
+      }
     }
   }
 });

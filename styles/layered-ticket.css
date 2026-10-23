@@ -2,7 +2,7 @@
 .ticket {
   --ticket-outer-radius: 8px;
   --ticket-panel-radius: 4px;
-  --ticket-media-radius: 2px;
+  --ticket-media-radius: 4px;
   --ticket-panel-background: #f2eef2;
   width: 1142px;
   height: 393.453px;

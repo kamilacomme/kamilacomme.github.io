@@ -29,9 +29,9 @@ test('shared ticket radii and rendered media clipping', async ({ page, context }
   expect(values.outer.rect.width).toBeGreaterThan(0);
   expect(values.panel).toMatchObject({ radius: '4px', overflow: 'hidden', background: 'rgb(242, 238, 242)' });
   expect(values.panel.rect.width).toBeGreaterThan(0);
-  expect(values.image).toMatchObject({ radius: '2px', overflow: 'hidden' });
+  expect(values.image).toMatchObject({ radius: '4px', overflow: 'hidden' });
   expect(values.image.rect.width).toBeGreaterThan(0);
-  expect(values.media.radius).toBe('2px');
+  expect(values.media.radius).toBe('4px');
   if (mode !== 'desktop') {
     const pseudo = await ticket.evaluate((el) => getComputedStyle(el, '::after').borderTopLeftRadius);
     if (await page.locator('#kc-tablet-projets').evaluate((el) => el.classList.contains('kc-narrow-ticket'))) {
@@ -55,7 +55,7 @@ test('shared ticket radii and rendered media clipping', async ({ page, context }
       media: getComputedStyle(outer.querySelector('.ticket-image .media-layer')).borderTopLeftRadius,
       boxes: [outer, outer.querySelector('.ticket-panel'), outer.querySelector('.ticket-image')].map((el) => { const r = el.getBoundingClientRect(); return [r.width, r.height]; }),
     }));
-    expect(narrow).toMatchObject({ outer: '8px', pseudoRadius: '0px', pseudoTint: 'rgba(255, 255, 255, 0.04)', panel: '4px', image: '2px', media: '2px' });
+    expect(narrow).toMatchObject({ outer: '8px', pseudoRadius: '0px', pseudoTint: 'rgba(255, 255, 255, 0.04)', panel: '4px', image: '4px', media: '4px' });
     expect(narrow.boxes.every((box) => box[0] > 0 && box[1] > 0)).toBe(true);
     const narrowPath = info.outputPath(`ticket-radius-${language}-narrow.png`);
     await ticket.screenshot({ path: narrowPath });

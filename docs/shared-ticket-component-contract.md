@@ -25,7 +25,7 @@ The outer link remains the single interaction target. Do not nest links or add a
 - `.ticket::before` paints the outer project background image from `--poster`.
 - `.ticket::after` is the translucent image tint. Desktop and tablet retain their existing tint strengths.
 - `.ticket-panel` is the only light-grey panel. It owns the 4px radius, `#F2EEF2` background and panel clipping.
-- `.ticket-image` is the media viewport and owns the 2px radius and overflow clip. Its poster background is a loading/failure fallback behind the actual media layers. Each image/video layer inherits the same radius so composited media cannot paint square corners.
+- `.ticket-image` is the media viewport and owns the 4px radius and overflow clip. Its poster background is a loading/failure fallback behind the actual media layers. Each image/video layer inherits the same radius so composited media cannot paint square corners.
 - `.barcode-slot` provides the layout box; the existing SVG is the barcode artwork.
 
 The radius tokens and panel color are declared once on `.ticket` in `styles/layered-ticket.css`. Responsive rules change placement, sizing, grid/flex arrangement, and the already-approved typography exceptions. They must not add a second panel, duplicate media, or redefine the shared surface tokens.

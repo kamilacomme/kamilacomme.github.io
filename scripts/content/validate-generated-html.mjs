@@ -119,7 +119,7 @@ export function validateTicketCSS(css, label = 'ticket CSS') {
   const variables = [
     ['--ticket-outer-radius', '8px'],
     ['--ticket-panel-radius', '4px'],
-    ['--ticket-media-radius', '2px'],
+    ['--ticket-media-radius', '4px'],
     ['--ticket-panel-background', '#f2eef2'],
   ];
   for (const [name, value] of variables) {

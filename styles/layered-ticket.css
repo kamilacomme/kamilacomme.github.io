@@ -236,3 +236,31 @@
     flex: none;
   }
 }
+
+/* Desktop iframe fluid geometry: retain the 1440px design, fit its card below that width,
+   and scale visual columns proportionally while keeping ticket typography untransformed. */
+.portfolio .ticket {
+  width: var(--kc-desktop-ticket-width, 1142px);
+  height: auto;
+  aspect-ratio: 1142 / 393.453;
+}
+.portfolio .ticket-panel {
+  left: 10.2452%;
+  top: 14.9822%;
+  width: 79.5096%;
+  height: 69.643%;
+  padding: 2.203%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.293fr) minmax(0, 1fr) 8.3%;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 2.625%;
+}
+.portfolio .ticket-image,
+.portfolio .ticket-info {
+  width: auto;
+  min-width: 0;
+}
+.portfolio .ticket .barcode-slot {
+  width: auto;
+  height: auto;
+}

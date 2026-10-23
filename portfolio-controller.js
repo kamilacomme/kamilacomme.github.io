@@ -171,7 +171,10 @@ class Component extends DCLogic {
         this.heroTop.style.transform = "translateX(-50%)";
         this.heroTop.style.setProperty("--kc-desktop-hero-scale", String(s));
       }
-      if (this.heroBottom) this.heroBottom.style.transform = "translateX(-50%) scale(" + s + ")";
+      if (this.heroBottom) {
+        this.heroBottom.style.transform = "translateX(-50%)";
+        this.heroBottom.style.setProperty("--kc-desktop-hero-scale", String(s));
+      }
       if (this.heroContainer) {
         // width-fit stage: the plate is 1440 design px wide and as tall as the window needs,
         // so the photo is cover-cropped ONCE (no double zoom from scaling a 16:9 box up)
@@ -297,8 +300,13 @@ class Component extends DCLogic {
       // without squeezing the copy into a narrower 1440 island.
       if (big) {
         const Wd = Math.round(window.innerWidth / s);
-        [this.heroTop, this.heroBottom, this.aStage].forEach((el) => { if (el) el.style.width = Wd + "px"; });
+        [this.heroTop, this.aStage].forEach((el) => { if (el) el.style.width = Wd + "px"; });
         if (this.heroTop) this.heroTop.style.width = window.innerWidth + "px";
+        if (this.heroBottom) {
+          this.heroBottom.style.width = window.innerWidth + "px";
+          const heroArt = this.heroBottom.querySelector(".kc-desktop-hero-art");
+          if (heroArt) heroArt.style.width = Wd + "px";
+        }
         const stmt = this.aStage && this.aStage.firstElementChild;
         if (stmt) stmt.style.width = (Wd - 64) + "px";
         // the fact cards sit on the frame's own 12-column grid: a card is 3 columns wide and

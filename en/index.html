@@ -115,7 +115,8 @@
     <h1 class="kc-desktop-hero-title" style="position: absolute; left: calc(32px * var(--kc-desktop-hero-scale, 1)); top: calc(130px * var(--kc-desktop-hero-scale, 1)); width: calc(900px * var(--kc-desktop-hero-scale, 1)); margin: 0; font-family: 'Figtree', sans-serif; font-size: var(--kc-type-heading-desktop, 56px); line-height: 1.1; letter-spacing: -0.03em; color: rgb(255,255,255);"><span style="display: block; font-weight: 700; font-style: normal; white-space: nowrap; margin-left: calc(-3.3px * var(--kc-desktop-hero-scale, 1));">Hello, I'm Kamila,</span><span style="display: block; font-weight: 400; font-style: italic; white-space: nowrap; margin-left: calc(-1.8px * var(--kc-desktop-hero-scale, 1));">Brand &amp; Digital designer.</span></h1>
   </div>
   <!-- bottom group: pinned to the bottom edge, on the same 1440 grid -->
-  <div ref="{{ heroBottomRef }}" style="position: absolute; left: 50%; bottom: 0; width: 1440px; height: 353px; overflow: visible; pointer-events: none; transform-origin: bottom center; transform: translateX(-50%); font-family: 'Inter', sans-serif;">
+  <div ref="{{ heroBottomRef }}" style="position: absolute; left: 50%; bottom: 0; width: 1440px; height: 353px; overflow: visible; pointer-events: none; transform: translateX(-50%); font-family: 'Inter', sans-serif;">
+    <div class="kc-desktop-hero-art" style="position: absolute; left: 50%; bottom: 0; width: 1440px; height: 353px; overflow: visible; pointer-events: none; transform-origin: bottom center; transform: translateX(-50%) scale(var(--kc-desktop-hero-scale, 1));">
     <!-- Project preview: 6 photos cycling on a loop -->
     <div data-hplate="1" style="position: absolute; right: 32px; bottom: 32px; width: 326px; height: 204px; border-radius: 4px; overflow: hidden; background: rgb(238,236,236);">
       <div ref="{{ heroSlideRef }}" style="position: absolute; inset: 0; opacity: 1; background: url(assets/preview-1.webp) center / cover no-repeat;"></div>
@@ -125,10 +126,11 @@
       <div ref="{{ heroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-5.webp) center / cover no-repeat;"></div>
       <div ref="{{ heroSlideRef }}" style="position: absolute; inset: 0; opacity: 0; background: url(assets/preview-6.webp) center / cover no-repeat;"></div>
     </div>
-    <div style="position: absolute; left: 32px; bottom: 32px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
+    <div class="kc-desktop-hero-portrait" style="position: absolute; left: 32px; bottom: 60px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
       <div style="width: 48px; height: 48px; flex: 0 0 auto; border-radius: 4px; overflow: hidden; background: url(assets/portrait.webp) center / cover no-repeat;"></div>
-      <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); text-transform: uppercase;">Scroll down ↓</span>
     </div>
+    </div>
+    <span class="kc-desktop-hero-scroll-cue" style="position: absolute; left: calc(32px * var(--kc-desktop-hero-scale, 1)); bottom: calc(44px * var(--kc-desktop-hero-scale, 1) - 12px); font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); text-transform: uppercase;">Scroll down ↓</span>
   </div>
   <div ref="{{ mHeroRef }}" style="position: absolute; left: 50%; top: 50%; width: 390px; height: 844px; transform-origin: center; transform: translate(-50%,-50%); display: none;">
     <div style="position: absolute; right: 16px; bottom: 24px; width: 171px; height: 107px; border-radius: 4px; overflow: hidden; background: rgb(238,236,236);">

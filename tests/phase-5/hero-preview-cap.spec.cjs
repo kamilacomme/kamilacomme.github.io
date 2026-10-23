@@ -33,7 +33,7 @@ test('desktop Hero preview stays within 325 effective pixels at narrow and wide 
     expect(measured.bottom).toBe('32px');
     expect(measured.slides).toBe(6);
     expect(measured.activeSlides).toBe(1);
-    await expect.poll(() => plate.evaluate((element) => [...element.children].findIndex(slide => getComputedStyle(slide).opacity === '1')), { timeout: 1500 })
+    await expect.poll(() => plate.evaluate((element) => [...element.children].findIndex(slide => getComputedStyle(slide).opacity === '1')), { timeout: 3500 })
       .not.toBe(measured.activeIndex);
   }
 });

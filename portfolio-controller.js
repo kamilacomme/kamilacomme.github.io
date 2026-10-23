@@ -229,7 +229,7 @@ class Component extends DCLogic {
       // tablet — where the window is much narrower than the 1440 design frame — the stage grew
       // wider than the screen and the deck was cropped sideways. Touch devices fit by WIDTH;
       // the stage's height follows the section, so nothing is cropped in either direction.
-      if (this.aStage) this.aStage.style.transform = "translate(-50%,-50%) scale(" + s + ")";
+      if (this.aStage) this.aStage.style.transform = "translate(-50%,-50%)";
       if (this.wordmark) this.wordmark.style.transform = "translateX(-50%) scale(" + s + ")";
 
       // ---- tablet frame (834 x 1112) ----
@@ -327,7 +327,14 @@ class Component extends DCLogic {
         // half the scrollbar width while the fixed navbar stays on the layout edge.
         const layoutWidth = document.documentElement.clientWidth || window.innerWidth;
         const Wd = Math.round(layoutWidth / s);
-        [this.heroTop, this.aStage].forEach((el) => { if (el) el.style.width = Wd + "px"; });
+        if (this.heroTop) this.heroTop.style.width = Wd + "px";
+        // About text and cards now use the real desktop viewport as their layout space.
+        // Keep the stage centered, but don't scale its descendants with the Hero/Projects
+        // scene factor: that factor made all About typography smaller on compact desktops.
+        if (this.aStage) {
+          this.aStage.style.width = layoutWidth + "px";
+          this.aStage.style.height = this.vhNow() + "px";
+        }
         if (this.heroTop) this.heroTop.style.width = layoutWidth + "px";
         if (this.heroBottom) {
           this.heroBottom.style.width = layoutWidth + "px";
@@ -335,7 +342,7 @@ class Component extends DCLogic {
           if (heroArt) heroArt.style.width = Wd + "px";
         }
         const stmt = this.aStage && this.aStage.firstElementChild;
-        if (stmt) stmt.style.width = (Wd - 64) + "px";
+        if (stmt) stmt.style.width = (layoutWidth - 64) + "px";
         // the fact cards sit on the frame's own 12-column grid: a card is 3 columns wide and
         // the slots step 3 columns, so every gap between cards is the 24 gutter
         const GAPd = 24;
@@ -345,18 +352,30 @@ class Component extends DCLogic {
         // The host stage still uses its existing desktop scale, but column
         // offsets must not expand with Wd while card widths remain 326px.
         const figmaCardLeft = { "0": 29.523, "1": 846.523, "2": 379.523, "3": 1082, "4": 32.5 };
-        const aboutCardD = 326;
+        const aboutTopInset = 96;
+        this.ABOUT_TOP_INSET = aboutTopInset;
+        const aboutCardD = Math.min(326,
+          Math.max(180, (Math.min(this.vhNow(), layoutWidth) - aboutTopInset - 24 - GAPd) / 2),
+          (layoutWidth - 64 - 2 * GAPd) / 3);
         (this.cards || []).forEach((el) => {
           if (!el) return;
-          // Behance belongs to the rightmost grid column. The desktop stage
-          // expands to Wd, so anchor its right edge to that stage's 32px inset.
-          // Other card positions stay as previously approved.
-          const left = el.dataset.i === "3" ? Wd - 32 - aboutCardD : figmaCardLeft[el.dataset.i];
+          // Preserve the approved 1440px coordinates where they fit, while keeping the
+          // right-hand cards inside compact desktop widths. Card 2 follows card 0's
+          // width and gutter so that the three-card first row remains fluid.
+          const leftByIndex = {
+            "0": figmaCardLeft["0"],
+            "1": Math.min(figmaCardLeft["1"], layoutWidth - 32 - aboutCardD),
+            "2": figmaCardLeft["0"] + aboutCardD + GAPd,
+            "3": layoutWidth - 32 - aboutCardD,
+            "4": figmaCardLeft["4"]
+          };
+          const left = leftByIndex[el.dataset.i];
           el.style.left = left.toFixed(1) + "px";
           el.style.width = aboutCardD + "px";
           el.style.height = aboutCardD + "px";
         });
         this.CARD_H = aboutCardD;
+        this.frameH = this.vhNow();
         // Hero preview remains image-only art; clamp its visible width while keeping its
         // 326:204 ratio and existing bottom/right anchor.
         const hPlate = this.heroBottom && this.heroBottom.querySelector("[data-hplate]");
@@ -1325,7 +1344,7 @@ class Component extends DCLogic {
       const H = this.CARD_H;
       const gap = 24;
       const gridHeight = 2 * H + gap;
-      const firstRow = Math.max(24, (frameH - gridHeight) / 2);
+      const firstRow = Math.max(this.ABOUT_TOP_INSET || 24, (frameH - gridHeight) / 2);
       const targetTops = [firstRow, firstRow + H + gap, firstRow,
                           firstRow, firstRow + H + gap];
       const entryY = frameH + 60;

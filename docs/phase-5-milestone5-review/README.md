@@ -2,6 +2,8 @@
 
 These are review captures from the current Milestone 5 implementation. They are not regression references, are not used as baselines, and do not replace or alter any historical screenshot.
 
+The later viewport-policy comparison, including measured differences between regular desktop and touch-emulated tablet at the same 1100 × 700 CSS viewport, is documented in [viewport-policy.md](viewport-policy.md). Its captures are kept separately and do not replace the earlier review images.
+
 The browser was Chromium 154.0.8037.57 at 100% zoom and device scale factor 1. The screenshots show the initial desktop Projects rail position at `1440 × 900` and `1100 × 700`, plus the desktop Hero and the reached final project at `1440 × 900`. French and English pages were measured independently.
 
 ## Captures
@@ -53,7 +55,7 @@ cd ~/Downloads/portfolio-phase5-preview
 git fetch origin phase-5/fluid-responsive
 git switch phase-5/fluid-responsive
 git pull --ff-only origin phase-5/fluid-responsive
-PORT=8002 node tests/runtime/server.mjs
+PORT=8011 node tests/runtime/server.mjs
 ```
 
-Open `http://127.0.0.1:8002/` for French or `http://127.0.0.1:8002/en/` for English. Use a fresh port if `8002` is already occupied. This is a local static preview; it does not change GitHub Pages, `main`, or deployment configuration.
+Open `http://127.0.0.1:8011/` for French or `http://127.0.0.1:8011/en/` for English. If `8011` is already occupied, stop the old preview or choose another available port and use that port in both the command and URLs. This is a local static preview; it does not change GitHub Pages, `main`, or deployment configuration.

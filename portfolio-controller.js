@@ -440,8 +440,6 @@ class Component extends DCLogic {
       let st = Math.min(ST_MAX, window.innerWidth / 834, Math.max(0.62, this.vhNow() / 900));
       if (force !== "auto" && this.devW) st = Math.min(ST_MAX, this.devW / 834, Math.max(0.62, this.devH / 900));
       this.st = st;
-      const tabletHeroTitle = document.querySelector("[data-kc-tablet-hero-title]");
-      if (tabletHeroTitle) tabletHeroTitle.style.setProperty("--kc-tablet-hero-scale", String(st));
       // Shared tablet design-to-screen scale for the active portfolio block.
       window.__kcTabletScale = st;
       // the tablet stage height follows the window too, so the ticket is centred on the
@@ -453,25 +451,22 @@ class Component extends DCLogic {
         // too and their 24px margin lands on the bar's. The forced preview keeps the real
         // 834 frame so the tablet can still be reviewed at its designed width.
         const Wt = force === "auto" ? Math.round(window.innerWidth / st) : 834;
+        const layoutWidth = document.documentElement.clientWidth || window.innerWidth;
         // the projets frame spans the window like the hero's, so its 32 margin lands on the
         // same real pixels as the navbar's K and the drag caption sits on the window edges
-        [this.tHero, this.tAStage].forEach((el) => { if (el) el.style.width = Wt + "px"; });
+        if (this.tAStage) this.tAStage.style.width = Wt + "px";
+        // The Hero art still uses its viewport-aware image geometry, but the surrounding
+        // frame is now in screen CSS pixels. This keeps its portrait and 12px cue out of
+        // the tablet design-fit scale used by the animated About stage.
+        if (this.tHero) {
+          this.tHero.style.width = layoutWidth + "px";
+          this.tHero.style.height = this.vhNow() + "px";
+          this.tHero.style.transform = "translate(-50%,-50%)";
+        }
         this.tFrameW = Wt;
         // the statement keeps a real margin off both edges instead of running to the frame
         const tStmt = this.tAStage && this.tAStage.firstElementChild;
         if (tStmt) { tStmt.style.left = "32px"; tStmt.style.width = (Wt - 64) + "px"; }
-        // hero preview plate: scaled down to the four rightmost columns instead of a fixed
-        // 314 that runs past the margin. Its 314x196 proportion is kept.
-        const tPlate = this.tHero && this.tHero.firstElementChild;
-        if (tPlate) {
-          const pw = 4 * ((Wt - 64 - 11 * 24) / 12) + 3 * 24;
-          if (tPlate._pw !== pw) {
-            tPlate._pw = pw;
-            tPlate.style.width = pw.toFixed(1) + "px";
-            tPlate.style.height = (pw * 196 / 314).toFixed(1) + "px";
-            tPlate.style.right = "32px";
-          }
-        }
         // the projector plate is the heaviest thing on an iPad: a smaller blur radius on the
         // beam mask is what lets the walk run at frame rate instead of stepping
         if (this.beamBlur) {
@@ -485,14 +480,12 @@ class Component extends DCLogic {
         // overwrote left the grid never restored it and 450k stayed on top of Mastère.
         // the hero frame follows the window height too, so its bottom cluster (portrait +
         // scroll cue) rides the window edge instead of a fixed 1112 frame that can overflow
-        [this.tAStage, this.tHero].forEach((el) => { if (el) el.style.height = tFrameH + "px"; });
+        if (this.tAStage) this.tAStage.style.height = tFrameH + "px";
         // Active tablet layout and About frame.
         try { this.renderAbout(); } catch (e) {}
         this.fitProjLabels(st, force);
         this.showTGrid(st, force);
-        [this.tHero, this.tAStage].forEach((el) => {
-          if (el) el.style.transform = "translate(-50%,-50%) scale(" + st + ")";
-        });
+        if (this.tAStage) this.tAStage.style.transform = "translate(-50%,-50%) scale(" + st + ")";
       }
       // navbar rides whichever frame is active
       if (this.nav) {
@@ -520,6 +513,34 @@ class Component extends DCLogic {
         if (pill) pill.style.display = mobile ? "none" : "inline-flex";
         const cta = this.nav.querySelector("a[href^='mailto'] > span");
         if (cta) cta.style.fontSize = "var(--kc-type-body, 14px)";
+      }
+      if (tablet && this.tHero && this.nav) {
+        // Reuse the navbar's resolved page gutter, including its measured narrow-tablet
+        // variant, so every Hero anchor follows the same responsive shell policy.
+        const layoutWidth = document.documentElement.clientWidth || window.innerWidth;
+        const navGutter = parseFloat(getComputedStyle(this.nav).getPropertyValue("--kc-nav-gutter")) || 32;
+        const tPlate = this.tHero.firstElementChild;
+        if (tPlate) {
+          const pw = Math.max(0, 4 * ((layoutWidth - 2 * navGutter - 11 * 24) / 12) + 3 * 24);
+          if (tPlate._pw !== pw || tPlate._pr !== navGutter) {
+            tPlate._pw = pw;
+            tPlate._pr = navGutter;
+            tPlate.style.width = pw.toFixed(1) + "px";
+            tPlate.style.height = (pw * 196 / 314).toFixed(1) + "px";
+            tPlate.style.right = navGutter.toFixed(2) + "px";
+          }
+        }
+        const tControls = this.tHero.querySelector("[data-kc-tablet-hero-controls]");
+        if (tControls) {
+          tControls.style.left = navGutter.toFixed(2) + "px";
+          tControls.style.bottom = navGutter.toFixed(2) + "px";
+        }
+        const tabletHeroTitle = document.querySelector("[data-kc-tablet-hero-title]");
+        if (tabletHeroTitle) {
+          tabletHeroTitle.style.left = navGutter.toFixed(2) + "px";
+          tabletHeroTitle.style.top = "128px";
+          tabletHeroTitle.style.width = Math.max(0, layoutWidth - 2 * navGutter).toFixed(2) + "px";
+        }
       }
       // the scrim has to ride the phone frame too, otherwise the white wordmark sits
       // on bare photo and disappears over the light project shots

@@ -1,0 +1,458 @@
+[
+  {
+    "locale": "fr",
+    "profile": "narrow",
+    "screenshot": "fr-500x834.png",
+    "viewport": [
+      500,
+      834
+    ],
+    "type": "48px",
+    "title": {
+      "x": 32,
+      "y": 128,
+      "width": 436,
+      "height": 158.39
+    },
+    "titleScale": 1,
+    "titleLines": [
+      {
+        "text": "Hello, je suis Kamila,",
+        "height": 52.8,
+        "overflow": false
+      },
+      {
+        "text": "Brand & Digital designer.",
+        "height": 105.59,
+        "overflow": false
+      }
+    ],
+    "logo": {
+      "x": 32,
+      "y": 24,
+      "width": 142.7,
+      "height": 24
+    },
+    "controls": {
+      "x": 32,
+      "y": 726,
+      "width": 108.64,
+      "height": 76
+    },
+    "cue": {
+      "x": 32,
+      "y": 790,
+      "width": 108.64,
+      "height": 12,
+      "font": "12px",
+      "scale": 1
+    },
+    "slideshow": {
+      "x": 338.7,
+      "y": 721.31,
+      "width": 129.3,
+      "height": 80.69
+    },
+    "slideCount": 6,
+    "activeSlides": 1
+  },
+  {
+    "locale": "fr",
+    "profile": "portrait",
+    "screenshot": "fr-834x1112.png",
+    "viewport": [
+      834,
+      1112
+    ],
+    "type": "48px",
+    "title": {
+      "x": 32,
+      "y": 128,
+      "width": 770,
+      "height": 105.59
+    },
+    "titleScale": 1,
+    "titleLines": [
+      {
+        "text": "Hello, je suis Kamila,",
+        "height": 52.8,
+        "overflow": false
+      },
+      {
+        "text": "Brand & Digital designer.",
+        "height": 52.8,
+        "overflow": false
+      }
+    ],
+    "logo": {
+      "x": 32,
+      "y": 24,
+      "width": 142.7,
+      "height": 24
+    },
+    "controls": {
+      "x": 32,
+      "y": 1004,
+      "width": 108.64,
+      "height": 76
+    },
+    "cue": {
+      "x": 32,
+      "y": 1068,
+      "width": 108.64,
+      "height": 12,
+      "font": "12px",
+      "scale": 1
+    },
+    "slideshow": {
+      "x": 561.31,
+      "y": 929.81,
+      "width": 240.69,
+      "height": 150.19
+    },
+    "slideCount": 6,
+    "activeSlides": 1
+  },
+  {
+    "locale": "fr",
+    "profile": "landscape",
+    "screenshot": "fr-1194x834.png",
+    "viewport": [
+      1194,
+      834
+    ],
+    "type": "48px",
+    "title": {
+      "x": 29.64,
+      "y": 128,
+      "width": 1134.69,
+      "height": 105.59
+    },
+    "titleScale": 1,
+    "titleLines": [
+      {
+        "text": "Hello, je suis Kamila,",
+        "height": 52.8,
+        "overflow": false
+      },
+      {
+        "text": "Brand & Digital designer.",
+        "height": 52.8,
+        "overflow": false
+      }
+    ],
+    "logo": {
+      "x": 29.64,
+      "y": 21.36,
+      "width": 142.47,
+      "height": 24
+    },
+    "controls": {
+      "x": 29.64,
+      "y": 728.36,
+      "width": 108.64,
+      "height": 76
+    },
+    "cue": {
+      "x": 29.64,
+      "y": 792.36,
+      "width": 108.64,
+      "height": 12,
+      "font": "12px",
+      "scale": 1
+    },
+    "slideshow": {
+      "x": 864.36,
+      "y": 614.75,
+      "width": 300,
+      "height": 187.25
+    },
+    "slideCount": 6,
+    "activeSlides": 1
+  },
+  {
+    "locale": "fr",
+    "profile": "short-landscape",
+    "screenshot": "fr-1024x600.png",
+    "viewport": [
+      1024,
+      600
+    ],
+    "type": "48px",
+    "title": {
+      "x": 21.33,
+      "y": 128,
+      "width": 981.33,
+      "height": 105.59
+    },
+    "titleScale": 1,
+    "titleLines": [
+      {
+        "text": "Hello, je suis Kamila,",
+        "height": 52.8,
+        "overflow": false
+      },
+      {
+        "text": "Brand & Digital designer.",
+        "height": 52.8,
+        "overflow": false
+      }
+    ],
+    "logo": {
+      "x": 21.33,
+      "y": 12,
+      "width": 141.7,
+      "height": 24
+    },
+    "controls": {
+      "x": 21.33,
+      "y": 502.67,
+      "width": 108.64,
+      "height": 76
+    },
+    "cue": {
+      "x": 21.33,
+      "y": 566.67,
+      "width": 108.64,
+      "height": 12,
+      "font": "12px",
+      "scale": 1
+    },
+    "slideshow": {
+      "x": 702.67,
+      "y": 380.75,
+      "width": 300,
+      "height": 187.25
+    },
+    "slideCount": 6,
+    "activeSlides": 1
+  },
+  {
+    "locale": "en",
+    "profile": "narrow",
+    "screenshot": "en-500x834.png",
+    "viewport": [
+      500,
+      834
+    ],
+    "type": "48px",
+    "title": {
+      "x": 32,
+      "y": 128,
+      "width": 436,
+      "height": 158.39
+    },
+    "titleScale": 1,
+    "titleLines": [
+      {
+        "text": "Hello, I'm Kamila,",
+        "height": 52.8,
+        "overflow": false
+      },
+      {
+        "text": "Brand & Digital designer.",
+        "height": 105.59,
+        "overflow": false
+      }
+    ],
+    "logo": {
+      "x": 32,
+      "y": 24,
+      "width": 142.7,
+      "height": 24
+    },
+    "controls": {
+      "x": 32,
+      "y": 726,
+      "width": 108.64,
+      "height": 76
+    },
+    "cue": {
+      "x": 32,
+      "y": 790,
+      "width": 108.64,
+      "height": 12,
+      "font": "12px",
+      "scale": 1
+    },
+    "slideshow": {
+      "x": 338.7,
+      "y": 721.31,
+      "width": 129.3,
+      "height": 80.69
+    },
+    "slideCount": 6,
+    "activeSlides": 1
+  },
+  {
+    "locale": "en",
+    "profile": "portrait",
+    "screenshot": "en-834x1112.png",
+    "viewport": [
+      834,
+      1112
+    ],
+    "type": "48px",
+    "title": {
+      "x": 32,
+      "y": 128,
+      "width": 770,
+      "height": 105.59
+    },
+    "titleScale": 1,
+    "titleLines": [
+      {
+        "text": "Hello, I'm Kamila,",
+        "height": 52.8,
+        "overflow": false
+      },
+      {
+        "text": "Brand & Digital designer.",
+        "height": 52.8,
+        "overflow": false
+      }
+    ],
+    "logo": {
+      "x": 32,
+      "y": 24,
+      "width": 142.7,
+      "height": 24
+    },
+    "controls": {
+      "x": 32,
+      "y": 1004,
+      "width": 108.64,
+      "height": 76
+    },
+    "cue": {
+      "x": 32,
+      "y": 1068,
+      "width": 108.64,
+      "height": 12,
+      "font": "12px",
+      "scale": 1
+    },
+    "slideshow": {
+      "x": 561.31,
+      "y": 929.81,
+      "width": 240.69,
+      "height": 150.19
+    },
+    "slideCount": 6,
+    "activeSlides": 1
+  },
+  {
+    "locale": "en",
+    "profile": "landscape",
+    "screenshot": "en-1194x834.png",
+    "viewport": [
+      1194,
+      834
+    ],
+    "type": "48px",
+    "title": {
+      "x": 29.64,
+      "y": 128,
+      "width": 1134.69,
+      "height": 105.59
+    },
+    "titleScale": 1,
+    "titleLines": [
+      {
+        "text": "Hello, I'm Kamila,",
+        "height": 52.8,
+        "overflow": false
+      },
+      {
+        "text": "Brand & Digital designer.",
+        "height": 52.8,
+        "overflow": false
+      }
+    ],
+    "logo": {
+      "x": 29.64,
+      "y": 21.36,
+      "width": 142.47,
+      "height": 24
+    },
+    "controls": {
+      "x": 29.64,
+      "y": 728.36,
+      "width": 108.64,
+      "height": 76
+    },
+    "cue": {
+      "x": 29.64,
+      "y": 792.36,
+      "width": 108.64,
+      "height": 12,
+      "font": "12px",
+      "scale": 1
+    },
+    "slideshow": {
+      "x": 864.36,
+      "y": 614.75,
+      "width": 300,
+      "height": 187.25
+    },
+    "slideCount": 6,
+    "activeSlides": 1
+  },
+  {
+    "locale": "en",
+    "profile": "short-landscape",
+    "screenshot": "en-1024x600.png",
+    "viewport": [
+      1024,
+      600
+    ],
+    "type": "48px",
+    "title": {
+      "x": 21.33,
+      "y": 128,
+      "width": 981.33,
+      "height": 105.59
+    },
+    "titleScale": 1,
+    "titleLines": [
+      {
+        "text": "Hello, I'm Kamila,",
+        "height": 52.8,
+        "overflow": false
+      },
+      {
+        "text": "Brand & Digital designer.",
+        "height": 52.8,
+        "overflow": false
+      }
+    ],
+    "logo": {
+      "x": 21.33,
+      "y": 12,
+      "width": 141.7,
+      "height": 24
+    },
+    "controls": {
+      "x": 21.33,
+      "y": 502.67,
+      "width": 108.64,
+      "height": 76
+    },
+    "cue": {
+      "x": 21.33,
+      "y": 566.67,
+      "width": 108.64,
+      "height": 12,
+      "font": "12px",
+      "scale": 1
+    },
+    "slideshow": {
+      "x": 702.67,
+      "y": 380.75,
+      "width": 300,
+      "height": 187.25
+    },
+    "slideCount": 6,
+    "activeSlides": 1
+  }
+]

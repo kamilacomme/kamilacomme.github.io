@@ -7,6 +7,7 @@ const viewports = [
   { width: 560, height: 800, name: 'narrow' },
   { width: 659, height: 834, name: 'narrow-wide' },
   { width: 700, height: 900, name: 'intermediate' },
+  { width: 863, height: 555, name: 'wide-short' },
   { width: 716, height: 555, name: 'landscape-short-fit' },
   { width: 834, height: 1112, name: 'portrait-reference' },
   { width: 1032, height: 1376, name: 'portrait-large' },
@@ -117,6 +118,10 @@ test('Tablet About uses viewport geometry, readable five-card layouts and preser
       expect(card.description.scrollWidth).toBeLessThanOrEqual(card.description.clientWidth + 1);
       expect(card.title.scrollHeight).toBeLessThanOrEqual(card.title.clientHeight + 1);
       expect(card.description.scrollHeight).toBeLessThanOrEqual(card.description.clientHeight + 1);
+      expect(card.box.height).toBeGreaterThanOrEqual(card.title.box.height + card.description.box.height + 1,
+        `About card ${card.index} must contain its title and description.`);
+      expect(card.box.bottom).toBeGreaterThanOrEqual(card.description.box.bottom - 1,
+        `About card ${card.index} description must stay inside the colored card.`);
       expect(card.box.left).toBeGreaterThanOrEqual(-1);
       expect(card.box.right).toBeLessThanOrEqual(viewport.width + 1);
       expect(card.box.top).toBeGreaterThanOrEqual(-1);
@@ -127,7 +132,7 @@ test('Tablet About uses viewport geometry, readable five-card layouts and preser
       }
     }
 
-    if ([500, 560, 716, 834, 1024, 1194].includes(viewport.width)) {
+    if ([500, 560, 716, 834, 863, 1024, 1194].includes(viewport.width)) {
       await page.screenshot({ path: info.outputPath(`tablet-about-${language}-${viewport.name}-${viewport.width}x${viewport.height}.png`) });
     }
     measurements.push({ name: viewport.name, ...result });
@@ -172,7 +177,7 @@ test('Tablet About uses viewport geometry, readable five-card layouts and preser
     expect(excerpt.completeText).toContain(language === 'fr' ? 'Je' : 'I');
     const visibleCardCounts = [];
     const introBoxes = [];
-    for (const progress of [0, 0.35, 0.7, 1.05, 1.4, 1.8, 2.35]) {
+    for (const progress of [0, 0.1, 0.2, 0.35, 0.7, 1.05, 1.4, 1.8, 2.35]) {
       await page.evaluate(({ top, progress }) => {
         scrollTo({ top: top + progress * innerHeight, behavior: 'instant' });
         dispatchEvent(new Event('scroll'));
@@ -188,9 +193,10 @@ test('Tablet About uses viewport geometry, readable five-card layouts and preser
     expect(visibleCardCounts.at(-1)).toBe(5);
     expect(visibleCardCounts.every((count, index) => index === 0 || count >= visibleCardCounts[index - 1])).toBe(true);
     expect(introBoxes[0].bottom).toBeGreaterThan(0);
-    expect(introBoxes[1].bottom).toBeLessThan(0);
-    expect(visibleCardCounts[1]).toBe(0);
+    expect(introBoxes[1].top).toBeCloseTo(introBoxes[0].top, 0);
+    expect(introBoxes[2].top).toBeCloseTo(introBoxes[0].top, 0);
     expect(visibleCardCounts[2]).toBeGreaterThan(0);
+    expect(visibleCardCounts[3]).toBeGreaterThan(0);
   }
 
   const measurementPath = info.outputPath(`tablet-about-${language}-measurements.json`);

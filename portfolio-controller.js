@@ -1406,7 +1406,35 @@ class Component extends DCLogic {
         // The short introduction is a height-fit decision, not a width/device label.
         // This also handles short wide-tablet viewports where a full 48px statement
         // would collide with the first animated cards despite having a wide text measure.
-        let shortCopy = textHeight > availableTextHeight;
+        // A short, wide tablet can fit the introduction by itself while the normal
+        // landscape grid still forces its square cards below the height their copy
+        // needs. Measure each card at the grid's actual candidate side with natural
+        // content height; when any card would overflow, use the existing compact
+        // stack and its readable 264px maximum instead of clipping the description.
+        const normalGap = 24;
+        const normalColW = (Wt - 64 - 11 * normalGap) / 12;
+        const normalSpan4 = 4 * normalColW + 3 * normalGap;
+        const normalSpan3 = 3 * normalColW + 2 * normalGap;
+        const normalTall = fh >= 3 * normalSpan4 + 2 * normalGap + 24;
+        const normalRows = normalTall ? 3 : 2;
+        const normalSide = Math.min(normalTall ? normalSpan4 : normalSpan3,
+          Math.max(180, (fh - 24 - (normalRows - 1) * normalGap) / normalRows));
+        const cardCopyFits = () => {
+          let fits = true;
+          (cards || []).filter(Boolean).forEach((card) => {
+            const originalStyle = card.getAttribute("style");
+            card.style.width = normalSide.toFixed(1) + "px";
+            card.style.height = "auto";
+            card.style.padding = "24px";
+            card.style.gap = "16px";
+            if (card.scrollHeight > normalSide + 1) fits = false;
+            if (originalStyle === null) card.removeAttribute("style");
+            else card.setAttribute("style", originalStyle);
+          });
+          return fits;
+        };
+        const cardsNeedStack = !cardCopyFits();
+        let shortCopy = textHeight > availableTextHeight || cardsNeedStack;
         if (shortCopy) {
           const sentenceEnds = [];
           let accumulated = "";
@@ -1425,7 +1453,8 @@ class Component extends DCLogic {
             });
           };
           let chosenEnd = sentenceEnds[0] ?? statementSpans.length - 1;
-          for (const end of sentenceEnds) {
+          const excerptEnds = cardsNeedStack ? sentenceEnds.slice(0, 1) : sentenceEnds;
+          for (const end of excerptEnds) {
             visuallyHideAfter(end);
             if (statement.scrollHeight <= availableTextHeight) chosenEnd = end;
             else break;
@@ -1471,21 +1500,17 @@ class Component extends DCLogic {
       });
 
       if (shortCopy) {
-        // Let the complete opening sentence clear the sticky frame before the first
-        // card enters. This is scroll-linked in the existing About controller.
-        if (intro) {
-          const introExitEnd = 0.35;
-          let introExit = Math.max(0, Math.min(1, prog / introExitEnd));
-          introExit = this.ease ? this.ease(introExit) : introExit;
-          intro.style.translate = "0 " + (-fh * introExit).toFixed(1) + "px";
-        }
+        // Keep the readable opening excerpt in place while the first card rises
+        // over it. This follows the approved mobile-like overlap and avoids an
+        // empty-background pause between the introduction and the card sequence.
+        if (intro) intro.style.removeProperty("translate");
 
         // Keep the same five authored cards and reveal them one at a time in a stack.
         const stackW = Math.min(264, Math.max(210, Wt - 64));
         const stackH = Math.min(264, Math.max(210, fh - 2 * 112));
         const stackTop = Math.max(88, (fh - stackH - 40) / 2);
         const stackStart = fh + 48;
-        const arrivalStart = 0.4, arrivalStep = 0.3, travel = 0.2, stackStep = 10;
+        const arrivalStart = 0.1, arrivalStep = 0.3, travel = 0.2, stackStep = 10;
         const stackLeft = (Wt - stackW) / 2;
         cards.forEach((el, i) => {
           if (!el) return;

@@ -182,17 +182,22 @@ test('desktop Projects keeps target typography and maps its fluid rail at respon
       const first = rail.firstElementChild.getBoundingClientRect();
       return { x: matrix.m41, firstLeft: first.left, lastRight: last.right };
     });
+    const hireRight = await page.locator('.kc-responsive-nav a[href^="mailto:"]').evaluate(el => el.getBoundingClientRect().right);
     const sectionHeight = result.section.height;
     await page.evaluate((y) => { window.scrollTo({ top: y + 10, behavior: 'instant' }); window.dispatchEvent(new Event('scroll')); }, sectionTop);
     await page.clock.runFor(100);
     const start = await railState();
     expect(Math.abs(start.x)).toBeLessThanOrEqual(1);
-    await page.evaluate(({ y, h, vh }) => { window.scrollTo({ top: y + h - vh - 1, behavior: 'instant' }); window.dispatchEvent(new Event('scroll')); }, { y: sectionTop, h: sectionHeight, vh: viewport.height });
+    await page.evaluate(({ y, h, vh }) => { window.scrollTo({ top: y + h - vh, behavior: 'instant' }); window.dispatchEvent(new Event('scroll')); }, { y: sectionTop, h: sectionHeight, vh: viewport.height });
     await page.clock.runFor(100);
     const end = await railState();
     expect(end.lastRight).toBeLessThanOrEqual(viewport.width + 1);
     expect(end.lastRight).toBeGreaterThanOrEqual(viewport.width - 64);
+    expect(Math.abs(end.lastRight - hireRight)).toBeLessThanOrEqual(0.5);
     expect(end.firstLeft).toBeLessThan(0);
+    if ([1440, 1100].includes(viewport.width)) {
+      await page.screenshot({ path: info.outputPath(`desktop-projects-rail-end-${language}-${viewport.width}x${viewport.height}.png`), fullPage: false });
+    }
     frames.push({ viewport, result, start, end });
   }
 

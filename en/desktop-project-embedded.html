@@ -45,9 +45,13 @@
    rail.style.top=`${vh-targetLeft-cardHeight}px`;
    // Read the responsive rail after the CSS card width has resolved, then allocate
    // exactly its remaining physical travel to the parent section's vertical scroll span.
-   const railWidth=rail.scrollWidth;
+   // scrollWidth is integer-rounded and can leave a fractional final gap when
+   // responsive card widths are fractional CSS pixels.
+   const railWidth=rail.getBoundingClientRect().width;
    const railEnd=stageLeft+rail.offsetLeft+railWidth;
-   maxTravel=Math.max(0,railEnd-(vw-rightInset));
+   // Keep the established card/toolbar sizing inset, but end the rail at the
+   // shared page gutter used by the navbar's Hire control.
+   maxTravel=Math.max(0,railEnd-(vw-targetLeft));
    scrollable=maxTravel;
    introHold=Math.min(120,Math.round(vh*0.14));
    section.style.height=`${vh+introHold+scrollable}px`;

@@ -299,11 +299,16 @@ class Component extends DCLogic {
       // headline up with the wordmark and the preview card up with the Hire-me pill —
       // without squeezing the copy into a narrower 1440 island.
       if (big) {
-        const Wd = Math.round(window.innerWidth / s);
+        // Absolutely positioned Hero/Projects frames use the document's layout
+        // containing block. On browsers with classic scrollbars this is narrower
+        // than innerWidth; using innerWidth here shifts a centered frame left by
+        // half the scrollbar width while the fixed navbar stays on the layout edge.
+        const layoutWidth = document.documentElement.clientWidth || window.innerWidth;
+        const Wd = Math.round(layoutWidth / s);
         [this.heroTop, this.aStage].forEach((el) => { if (el) el.style.width = Wd + "px"; });
-        if (this.heroTop) this.heroTop.style.width = window.innerWidth + "px";
+        if (this.heroTop) this.heroTop.style.width = layoutWidth + "px";
         if (this.heroBottom) {
-          this.heroBottom.style.width = window.innerWidth + "px";
+          this.heroBottom.style.width = layoutWidth + "px";
           const heroArt = this.heroBottom.querySelector(".kc-desktop-hero-art");
           if (heroArt) heroArt.style.width = Wd + "px";
         }

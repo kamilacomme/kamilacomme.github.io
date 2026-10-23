@@ -55,4 +55,53 @@ test('responsive navigation keeps target type at effective size in every profile
     expect(measured.status.scale.y).toBeCloseTo(1, 4);
   }
   expect(measured.gutter).toBeCloseTo((mode === 'mobile' ? 16 : 32) * measured.navScale, 2);
+
+  const sharedEdges = await page.evaluate(() => {
+    const nav = document.querySelector('.kc-responsive-nav');
+    const logo = nav.querySelector(':scope > span');
+    const hero = document.querySelector('.kc-desktop-hero-title')?.getClientRects().length
+      ? document.querySelector('.kc-desktop-hero-title')
+      : document.querySelector('[data-kc-tablet-hero-title]');
+    const box = element => {
+      const rect = element.getBoundingClientRect();
+      return { left: rect.left, right: rect.right, width: rect.width, height: rect.height };
+    };
+    const status = nav.querySelector(':scope > div:last-child > span[data-fixed-ink]');
+    const hire = nav.querySelector('a[href^="mailto:"]');
+    return {
+      logo: box(logo), hero: hero ? box(hero) : null,
+      status: status && getComputedStyle(status).display !== 'none' ? box(status) : null,
+      hire: box(hire), viewport: { width: innerWidth, height: innerHeight },
+    };
+  });
+  if (mode !== 'mobile') {
+    expect(sharedEdges.hero).not.toBeNull();
+    expect(Math.abs(sharedEdges.hero.left - sharedEdges.logo.left)).toBeLessThanOrEqual(0.75);
+  }
+  expect(sharedEdges.hire.height).toBeGreaterThanOrEqual(44);
+  if (sharedEdges.status) expect(sharedEdges.status.height).toBeGreaterThanOrEqual(44);
+
+  // Model the 15px classic-scrollbar difference between window.innerWidth and the
+  // layout containing block. This catches centered Hero frames sized from the former.
+  if (mode === 'desktop') {
+    await page.evaluate(() => new Promise(resolve => {
+      const nav = document.querySelector('.kc-responsive-nav');
+      const hero = document.querySelector('.kc-desktop-hero-title');
+      Object.defineProperty(document.documentElement, 'clientWidth', {
+        configurable: true, get: () => window.innerWidth - 15,
+      });
+      nav.style.width = 'calc(100vw - 15px)';
+      hero.parentElement.parentElement.style.width = 'calc(100vw - 15px)';
+      window.dispatchEvent(new Event('resize'));
+      requestAnimationFrame(() => requestAnimationFrame(resolve));
+    }));
+    const modeledEdges = await page.evaluate(() => {
+      const nav = document.querySelector('.kc-responsive-nav');
+      const logo = nav.querySelector(':scope > span').getBoundingClientRect();
+      const hero = document.querySelector('.kc-desktop-hero-title').getBoundingClientRect();
+      return { logoLeft: logo.left, heroLeft: hero.left, clientWidth: document.documentElement.clientWidth, innerWidth };
+    });
+    expect(modeledEdges.clientWidth).toBe(modeledEdges.innerWidth - 15);
+    expect(Math.abs(modeledEdges.heroLeft - modeledEdges.logoLeft)).toBeLessThanOrEqual(0.75);
+  }
 });

@@ -38,8 +38,8 @@
   }
   .kc-responsive-nav.kc-tablet-nav > div:last-child > span[data-fixed-ink] {
     min-height: 44px !important;
-    height: 44px !important;
-    padding: 12px 24px !important;
+    height: auto !important;
+    padding: 10px 24px !important;
     flex: none !important;
   }
   .kc-responsive-nav.kc-tablet-nav a[href^="mailto"] {

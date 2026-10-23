@@ -6,6 +6,7 @@
   let activeLandscape = false;
   let travel = 0;
   let scrollLength = 0;
+  let introShift = 0;
   let scrollScale = 1;
   let layoutFrame = 0;
   let lastLayoutKey = '';
@@ -46,7 +47,10 @@
         card.style.height = '';
       });
     }
+    const heading = stage?.querySelector('h1');
+    if (heading) heading.style.transform = '';
     if (stage) stage.style.removeProperty('height');
+    introShift = 0;
     activeLandscape = false;
   }
 
@@ -148,8 +152,13 @@
     const visibleBottom = viewport.getBoundingClientRect().bottom;
     const stageTop = stage.getBoundingClientRect().top;
     const cardHeight = narrowTickets ? Math.ceil(rail.getBoundingClientRect().height) : fixedCardHeight;
-    const rowTop = visibleBottom - stageTop - 32 - cardHeight;
-    setImportantStyle(rail, 'top', Math.max(0, rowTop).toFixed(2) + 'px');
+    const heading = stage.querySelector('h1');
+    const headingBottom = heading ? heading.offsetTop + heading.offsetHeight : 0;
+    const safeRailTop = headingBottom + 24;
+    const bottomRailTop = visibleBottom - stageTop - 32 - cardHeight;
+    const rowTop = Math.max(bottomRailTop, safeRailTop);
+    introShift = Math.max(0, safeRailTop - bottomRailTop);
+    setImportantStyle(rail, 'top', rowTop.toFixed(2) + 'px');
     setImportantStyle(rail, 'bottom', 'auto');
 
     const fullWidth = cards.length * cardWidth + (cards.length - 1) * cardGap;
@@ -157,7 +166,9 @@
     const visibleWidth = viewport.getBoundingClientRect().width;
     const sideMargin = 32;
     travel = Math.max(0, sideMargin + fullWidth + sideMargin - visibleWidth);
-    scrollLength = travel;
+    // The leading part of the existing rail scroll clears the heading on short
+    // landscape viewports; horizontal travel starts once the full ticket fits.
+    scrollLength = introShift + travel;
     setStyle(section, 'height', (height + scrollLength) + 'px');
     updateLandscapeScroll();
     return true;
@@ -169,7 +180,11 @@
     if (!rail) return;
     const rect = frame.getBoundingClientRect();
     const moved = Math.max(0, Math.min(scrollLength, -rect.top));
-    rail.style.transform = 'translate3d(' + (-moved / scrollScale).toFixed(2) + 'px,0,0)';
+    const vertical = Math.min(introShift, moved);
+    const horizontal = Math.max(0, moved - introShift) / scrollScale;
+    const heading = $('kc-t-stage')?.querySelector('h1');
+    if (heading) heading.style.transform = 'translate3d(0,' + (-vertical).toFixed(2) + 'px,0)';
+    rail.style.transform = 'translate3d(' + (-horizontal).toFixed(2) + 'px,' + (-vertical).toFixed(2) + 'px,0)';
   }
 
   function fitTabletProjectGeometry() {

@@ -8,7 +8,7 @@
  if(embed){try{outer=window.parent.document.getElementById('projets')}catch(e){outer=null}}
  const section=outer||standalone;
  const scrollWindow=outer?window.parent:window;
- let maxTravel=0,scrollable=0,start=0,scheduled=false,introHold=0;
+ let maxTravel=0,scrollable=0,start=0,scheduled=false,introHold=0,introShift=0;
  const margin=32,designTicketWidth=1142;
  function measure(){
    const host=outer?scrollWindow:window;
@@ -38,7 +38,16 @@
    stage.style.setProperty('--kc-desktop-ticket-width',`${ticketWidth}px`);
    const firstTicket=rail.querySelector('.ticket');
    const cardHeight=firstTicket?firstTicket.getBoundingClientRect().height:393.453;
-   rail.style.top=`${vh-targetLeft-cardHeight}px`;
+   const heading=stage.querySelector('.heading');
+   // On short landscape screens, the bottom-anchored ticket can rise into the
+   // two-line heading. Reserve a clear reading gap, then use the existing intro
+   // scroll interval to move the heading and rail upward together until the full
+   // ticket fits. This keeps the authored ticket dimensions and rail controller.
+   const headingBottom=(heading?heading.offsetTop+heading.offsetHeight:0);
+   const safeRailTop=headingBottom+24;
+   const bottomRailTop=vh-targetLeft-cardHeight;
+   rail.style.top=`${Math.max(bottomRailTop,safeRailTop)}px`;
+   introShift=Math.max(0,safeRailTop-bottomRailTop);
    // Read the responsive rail after the CSS card width has resolved, then allocate
    // exactly its remaining physical travel to the parent section's vertical scroll span.
    // scrollWidth is integer-rounded and can leave a fractional final gap when
@@ -49,13 +58,21 @@
    // shared page gutter used by the navbar's Hire control.
    maxTravel=Math.max(0,railEnd-(vw-targetLeft));
    scrollable=maxTravel;
-   introHold=Math.min(120,Math.round(vh*0.14));
+   introHold=Math.max(introShift,Math.min(120,Math.round(vh*0.14)));
    section.style.height=`${vh+introHold+scrollable}px`;
    if(outer)standalone.style.height=`${vh}px`;
    start=section.getBoundingClientRect().top+scrollWindow.scrollY;
    update();
  }
- function update(){scheduled=false;let progress=Math.max(0,Math.min(scrollable,scrollWindow.scrollY-start-introHold));rail.style.transform=`translate3d(${-progress}px,0,0)`}
+ function update(){
+   scheduled=false;
+   const sectionProgress=Math.max(0,scrollWindow.scrollY-start);
+   const introProgress=introHold?Math.min(1,sectionProgress/introHold):1;
+   const verticalShift=introShift*introProgress;
+   const progress=Math.max(0,Math.min(scrollable,sectionProgress-introHold));
+   stage.querySelector('.heading').style.transform=`translate3d(0,${-verticalShift}px,0)`;
+   rail.style.transform=`translate3d(${-progress}px,${-verticalShift}px,0)`;
+ }
  function onScroll(){if(!scheduled){scheduled=true;requestAnimationFrame(update)}}
  scrollWindow.addEventListener('scroll',onScroll,{passive:true});
  (outer?scrollWindow:window).addEventListener('resize',measure);

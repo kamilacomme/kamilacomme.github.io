@@ -10,6 +10,7 @@ const viewports = [
   { width: 1280, height: 800 },
   { width: 1200, height: 800 },
   { width: 1100, height: 700 },
+  { width: 1422, height: 600 },
 ];
 
 test('desktop Projects keeps target typography and maps its fluid rail at responsive widths', async ({ page, context }, info) => {
@@ -135,6 +136,7 @@ test('desktop Projects keeps target typography and maps its fluid rail at respon
     expect(result.stage.transform).toBe('none');
     expect(result.heading.fontSize).toBe(56);
     expect(result.heading.effective).toBe(56);
+    expect(result.cards[0].boxes.card.top).toBeGreaterThanOrEqual(result.heading.rect.bottom + 23.9);
     expect(result.toolbar.fontSize).toBe(12);
     expect(result.toolbar.effective).toBe(12);
     expect(result.cards.map(card => card.id)).toEqual(order);

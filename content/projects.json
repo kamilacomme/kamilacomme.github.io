@@ -119,12 +119,12 @@
             "en": []
           },
           "geometry": {
-            "card": "left:16.0791px;top:215.784px;width:360.879px;height:517.732px",
-            "visual": "height:245px",
-            "title": "top:269px",
-            "description": "top:301px",
-            "categories": "top:367px",
-            "barcodeTop": "436.366",
+            "card": "width:min(360.879px, 100%);height:auto",
+            "visual": "height:auto;aspect-ratio:360.879 / 245",
+            "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
+            "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
+            "categories": "position:relative;left:auto;top:auto;margin-top:24px",
+            "barcodeTop": "auto",
             "barcodeProfile": "wide"
           }
         }
@@ -248,12 +248,12 @@
             "en": []
           },
           "geometry": {
-            "card": "left:16.0791px;top:812.15px;width:266px;height:450.732px",
-            "visual": "height:157px",
-            "title": "top:181px",
-            "description": "top:213px",
-            "categories": "top:300px",
-            "barcodeTop": "369.366",
+            "card": "width:min(266px, 100%);height:auto",
+            "visual": "height:auto;aspect-ratio:266 / 157",
+            "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
+            "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
+            "categories": "position:relative;left:auto;top:auto;margin-top:24px",
+            "barcodeTop": "auto",
             "barcodeProfile": "narrow"
           }
         }
@@ -372,12 +372,12 @@
             ]
           },
           "geometry": {
-            "card": "left:16.0791px;top:1341.516px;width:360.879px;height:669.091px",
-            "visual": "height:396.359px",
-            "title": "top:420.359px",
-            "description": "top:452.359px",
-            "categories": "top:518.359px",
-            "barcodeTop": "587.725",
+            "card": "width:min(360.879px, 100%);height:auto",
+            "visual": "height:auto;aspect-ratio:360.879 / 396.359",
+            "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
+            "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
+            "categories": "position:relative;left:auto;top:auto;margin-top:24px",
+            "barcodeTop": "auto",
             "barcodeProfile": "wide"
           }
         }
@@ -505,12 +505,12 @@
             "en": []
           },
           "geometry": {
-            "card": "left:110.2676px;top:2089.242px;width:266px;height:429.732px",
-            "visual": "height:157px",
-            "title": "top:181px",
-            "description": "top:213px",
-            "categories": "top:279px",
-            "barcodeTop": "348.366",
+            "card": "width:min(266px, 100%);height:auto",
+            "visual": "height:auto;aspect-ratio:266 / 157",
+            "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
+            "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
+            "categories": "position:relative;left:auto;top:auto;margin-top:24px",
+            "barcodeTop": "auto",
             "barcodeProfile": "narrow"
           }
         }
@@ -655,12 +655,12 @@
             ]
           },
           "geometry": {
-            "card": "left:16.0791px;top:2597.608px;width:360.879px;height:517.732px",
-            "visual": "height:245px",
-            "title": "top:269px",
-            "description": "top:301px",
-            "categories": "top:367px",
-            "barcodeTop": "436.366",
+            "card": "width:min(360.879px, 100%);height:auto",
+            "visual": "height:auto;aspect-ratio:360.879 / 245",
+            "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
+            "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
+            "categories": "position:relative;left:auto;top:auto;margin-top:24px",
+            "barcodeTop": "auto",
             "barcodeProfile": "wide"
           }
         }
@@ -813,12 +813,12 @@
             ]
           },
           "geometry": {
-            "card": "left:16.0791px;top:3193.974px;width:266px;height:450.732px",
-            "visual": "height:157px",
-            "title": "top:181px",
-            "description": "top:213px",
-            "categories": "top:300px",
-            "barcodeTop": "369.366",
+            "card": "width:min(266px, 100%);height:auto",
+            "visual": "height:auto;aspect-ratio:266 / 157",
+            "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
+            "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
+            "categories": "position:relative;left:auto;top:auto;margin-top:24px",
+            "barcodeTop": "auto",
             "barcodeProfile": "narrow"
           }
         }

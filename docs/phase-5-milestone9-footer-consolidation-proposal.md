@@ -75,4 +75,10 @@ This removes one script, one generated-English-only controller hook, two mutatio
 - `npm run content:check`, `npm run content:build:check`, and `npm run test:baseline-integrity` passed. All 230 frozen baseline hashes are unchanged.
 - The first combined `npm run test:ticket-contract` attempt failed only because its expected preview server on port 8001 was not running. With the server started, the same focused Playwright radius check passed 6/6; its four shared-ticket parser/contract tests and deterministic build check also passed.
 
-Milestone 9 remains open: this completes only the approved, bounded English tablet Footer ownership consolidation. Other audit findings remain classified as deferred, retained, or requiring separate approval. M10A–M10C remain unstarted.
+## Milestone 9 closure review
+
+**Status: complete (2026-10-24).** The ownership contract and finding classifications are recorded in [PROJECT-STATUS.md](PROJECT-STATUS.md). The user visually approved the decorative Footer video removal across desktop, tablet and mobile in both languages; details and local captures are in [the video-removal review](phase-5-milestone9-footer-media-removal/README.md). `fitFooter()` remains the single Footer geometry owner, the tablet Projects `box-sizing` rule remains shared, and the curtain animation and generic shared video lifecycle are intact.
+
+Closure evidence: focused responsive checks passed (10 passed; 6 profile skips), bilingual Footer/navigation/legal-dialog checks passed 8/8, `npm run content:check` and `npm run content:build:check` passed, and `npm run test:baseline-integrity` confirmed all 230 frozen-reference hashes unchanged. No other confirmed high-priority ownership conflict remains unresolved.
+
+Remaining audit findings are classified and deferred: distinct responsive templates, approved ticket pseudo-elements and profile media handlers are **intentionally retained**; identified dead branches and repeated mobile CSS are **safe cleanup, deferred**; legal-dialog sizing, listener teardown and English generator substitutions are **deferred** pending targeted evidence; Projects extreme-short resilience is **deferred to M10B**. French and English mobile Lighthouse TBT remain release blockers. M10A–M10C are unstarted; this closure does not authorize M10A.

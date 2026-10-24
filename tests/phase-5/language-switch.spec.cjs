@@ -17,6 +17,20 @@ test('shared FR/EN language link stays aligned, keyboard reachable and preserves
   await expect(link).toHaveAttribute('aria-label', expectedLabel);
   await expect(page.locator('[data-kc-language-switch]')).toHaveCount(1);
 
+  const assertViewportGutters = async () => {
+    const state = await link.evaluate(el => {
+      const r=el.getBoundingClientRect(),root=getComputedStyle(document.documentElement);
+      return {position:getComputedStyle(el).position,right:r.right,bottom:r.bottom,
+        rightInset:parseFloat(root.getPropertyValue('--kc-page-gutter-x')),
+        bottomInset:parseFloat(root.getPropertyValue('--kc-page-gutter-bottom')),
+        width:innerWidth,height:innerHeight};
+    });
+    expect(state.position).toBe('fixed');
+    expect(state.right).toBeCloseTo(state.width-state.rightInset,1);
+    expect(state.bottom).toBeCloseTo(state.height-state.bottomInset,1);
+  };
+  await assertViewportGutters();
+
   const measure = async (width, height) => {
     await page.setViewportSize({ width, height });
     await expect.poll(() => page.evaluate(mode => {
@@ -38,8 +52,8 @@ test('shared FR/EN language link stays aligned, keyboard reachable and preserves
       return {
         rect: { left:r.left, right:r.right, top:r.top, bottom:r.bottom, width:r.width, height:r.height },
         viewport: [innerWidth, innerHeight], clientWidth:document.documentElement.clientWidth,
-        pageGutter:parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--kc-page-gutter')),
-        bottomGutter:parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--kc-language-bottom-gutter')),
+        pageGutter:parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--kc-page-gutter-x')),
+        bottomGutter:parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--kc-page-gutter-bottom')),
         hireRight:document.querySelector('[role="navigation"] a[href^="mailto"]').getBoundingClientRect().right,
         heroPreview:preview.width>0?{right:preview.right,bottom:preview.bottom}:null,
         position:cs.position, font:parseFloat(cs.fontSize), color:cs.color, bg:cs.backgroundColor,
@@ -86,6 +100,7 @@ test('shared FR/EN language link stays aligned, keyboard reachable and preserves
   const projectSection = page.locator(`#${projectId}`);
   const projectTop = await projectSection.evaluate(el=>el.getBoundingClientRect().top+scrollY);
   await qa.scrollTo(page, projectTop + Math.min(80, page.viewportSize().height*.15));
+  await assertViewportGutters();
   const titleOverlap = await page.evaluate(mode => {
     const sw=document.querySelector('[data-kc-language-switch]').getBoundingClientRect();
     const intersects=r=>r.width>0&&r.height>0&&r.left<sw.right&&r.right>sw.left&&r.top<sw.bottom&&r.bottom>sw.top;
@@ -112,6 +127,7 @@ test('shared FR/EN language link stays aligned, keyboard reachable and preserves
 
   const aboutTop = await page.locator(`#${aboutId}`).evaluate(el=>el.getBoundingClientRect().top+scrollY);
   await qa.scrollTo(page, aboutTop + Math.min(80, page.viewportSize().height*.15));
+  await assertViewportGutters();
   const aboutScrollY = await page.evaluate(() => scrollY);
   await page.locator('[data-kc-language-switch]').click();
   await expect(page).toHaveURL(new RegExp(`${nextPath.replaceAll('/','\\/')}#${aboutId}$`));
@@ -122,6 +138,7 @@ test('shared FR/EN language link stays aligned, keyboard reachable and preserves
 
   await page.locator('#contact').scrollIntoViewIfNeeded();
   await page.waitForTimeout(100);
+  await assertViewportGutters();
   const contactState = await page.evaluate(() => {
     const sw=document.querySelector('[data-kc-language-switch]').getBoundingClientRect();
     const overlaps = el => { const r=el.getBoundingClientRect(); return r.width>0&&r.height>0&&r.left<sw.right&&r.right>sw.left&&r.top<sw.bottom&&r.bottom>sw.top; };

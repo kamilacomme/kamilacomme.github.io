@@ -207,6 +207,7 @@ class Component extends DCLogic {
         plate.style.width = cssWidth.toFixed(2) + "px";
         plate.style.height = (cssWidth * 204 / 326).toFixed(2) + "px";
         plate.style.right = (gutter / scale).toFixed(2) + "px";
+        plate.style.bottom = (bottomInset / scale).toFixed(2) + "px";
       };
       // the ticket cursor lives outside the scaled stage, so its label is sized by hand to
       // the same 44 design px as the "Me recruter" button (43 tall in the authored art)
@@ -302,6 +303,8 @@ class Component extends DCLogic {
       const tablet = !mobile && (force === "tablet" || (force === "auto" && window.innerWidth < 1080)
         || (force === "auto" && window.innerWidth <= 1366 && ((touch && !fineHover) || iPadish)));
       this.tablet = tablet; this.mobile = mobile;
+      const pageGutterX = mobile ? 16 : tablet ? 32 : 32 * s;
+      const pageGutterBottom = mobile ? 24 : (tablet ? 32 : 32 * s);
       const big = !tablet && !mobile;
       // desktop projets is 1 screen (carousel); tablet/phone still scroll 6 panels
       this.ABOUT_TOP = big || tablet ? 2.35 : 7;
@@ -408,7 +411,7 @@ class Component extends DCLogic {
         // 326:204 ratio and existing bottom/right anchor.
         const hPlate = this.heroBottom && this.heroBottom.querySelector("[data-hplate]");
         if (hPlate) {
-          fitHeroPreview(hPlate, cardD * s, s, 32 * s, 32 * s,
+          fitHeroPreview(hPlate, cardD * s, s, pageGutterX, pageGutterBottom,
             this.heroTop && this.heroTop.querySelector(".kc-desktop-hero-title"));
         }
       }
@@ -580,23 +583,13 @@ class Component extends DCLogic {
         // top edge and shifting the CTA's gutter inward from the Projects rail.
         const navScale = mobile ? sm : tablet ? 1 : s;
         this.nav.style.setProperty("--kc-nav-scale", String(navScale));
-        this.nav.style.setProperty("--kc-nav-gutter", ((mobile ? 16 : 32) * navScale).toFixed(3) + "px");
+        this.nav.style.setProperty("--kc-nav-gutter", pageGutterX.toFixed(3) + "px");
         this.nav.style.setProperty("--kc-nav-block-padding", ((mobile ? 12 : 15) * navScale).toFixed(3) + "px");
-        // Share the resolved navbar gutter with the fixed language link. Desktop's
-        // effective inset follows the existing scene scale; tablet/mobile CSS policies
-        // resolve their own fixed gutters before this value is copied to the page root.
-        const pageGutter = parseFloat(getComputedStyle(this.nav).getPropertyValue("--kc-nav-gutter"));
-        if (Number.isFinite(pageGutter)) document.documentElement.style.setProperty("--kc-page-gutter", pageGutter.toFixed(3) + "px");
-        // The mobile Hero preview sits 24px above the phone frame's bottom edge,
-        // while the mobile page gutter is 16px. Keep the fixed language button on
-        // that existing preview edge; desktop/tablet already use the shared gutter.
-        let switchBottomGutter = pageGutter;
-        const mobilePreview = mobile && this.mHero && this.mHero.querySelector(".kc-mobile-hero-slideshow");
-        if (mobilePreview) {
-          const previewInset = parseFloat(getComputedStyle(mobilePreview).bottom);
-          if (Number.isFinite(previewInset)) switchBottomGutter = previewInset;
-        }
-        if (Number.isFinite(switchBottomGutter)) document.documentElement.style.setProperty("--kc-language-bottom-gutter", switchBottomGutter.toFixed(3) + "px");
+        // Publish both page-edge values from this existing responsive geometry owner.
+        // The Navbar, Hero, Footer and fixed language link consume the shared values
+        // independently; the switcher never measures a component to find its inset.
+        document.documentElement.style.setProperty("--kc-page-gutter-x", pageGutterX.toFixed(3) + "px");
+        document.documentElement.style.setProperty("--kc-page-gutter-bottom", pageGutterBottom.toFixed(3) + "px");
         // the phone / tablet frame is centred in the window — the navbar has to ride
         // its top edge, not the window's, otherwise it floats above the design
         const boxH = mobile ? (this.devH ? this.devH * kFit : this.vhNow())
@@ -614,22 +607,33 @@ class Component extends DCLogic {
         if (pill) pill.style.display = mobile ? "none" : "inline-flex";
         const cta = this.nav.querySelector("a[href^='mailto'] > span");
         if (cta) cta.style.fontSize = "var(--kc-type-body, 14px)";
+        // Preserve the desktop Footer legal group's approved alignment with the first
+        // section link while publishing it once for Footer to consume as shared geometry.
+        const projectsLink = this.nav.querySelector("a[href$='#projets']");
+        if (projectsLink) {
+          document.documentElement.style.setProperty("--kc-nav-project-start", projectsLink.getBoundingClientRect().left.toFixed(3) + "px");
+        }
+        const mobilePreview = mobile && this.mHero && this.mHero.querySelector(".kc-mobile-hero-slideshow");
+        if (mobilePreview) {
+          mobilePreview.style.right = pageGutterX.toFixed(3) + "px";
+          mobilePreview.style.bottom = pageGutterBottom.toFixed(3) + "px";
+        }
       }
       if (tablet && this.tHero && this.nav) {
         // Reuse the navbar's resolved page gutter, including its measured narrow-tablet
         // variant, so every Hero anchor follows the same responsive shell policy.
         const layoutWidth = document.documentElement.clientWidth || window.innerWidth;
-        const navGutter = parseFloat(getComputedStyle(this.nav).getPropertyValue("--kc-nav-gutter")) || 32;
+        const navGutter = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--kc-page-gutter-x")) || 32;
         const tPlate = this.tHero.firstElementChild;
         const tabletHeroTitle = document.querySelector("[data-kc-tablet-hero-title]");
         if (tPlate) {
           const pw = Math.max(0, 4 * ((layoutWidth - 2 * navGutter - 11 * 24) / 12) + 3 * 24);
-          fitHeroPreview(tPlate, pw, 1, navGutter, 32, tabletHeroTitle);
+          fitHeroPreview(tPlate, pw, 1, navGutter, pageGutterBottom, tabletHeroTitle);
         }
         const tControls = this.tHero.querySelector("[data-kc-tablet-hero-controls]");
         if (tControls) {
           tControls.style.left = navGutter.toFixed(2) + "px";
-          tControls.style.bottom = navGutter.toFixed(2) + "px";
+          tControls.style.bottom = pageGutterBottom.toFixed(2) + "px";
         }
         if (tabletHeroTitle) {
           tabletHeroTitle.style.left = navGutter.toFixed(2) + "px";
@@ -766,11 +770,10 @@ class Component extends DCLogic {
     if (!this.footer) return;
     const mob = this.mobile;
     const sc = (mob ? this.sm : tablet ? this.st : this.s) || 1;
-    const margin = mob ? 16 : 32;
-    const nr = this.nav ? this.nav.getBoundingClientRect() : null;
-    const edgeL = nr ? nr.left + margin * sc : margin * sc;
-    const edgeR = nr ? window.innerWidth - nr.right + margin * sc : margin * sc;
-    const edge = edgeL;
+    const pageGeometry = getComputedStyle(document.documentElement);
+    const edgeL = parseFloat(pageGeometry.getPropertyValue("--kc-page-gutter-x")) || (mob ? 16 : 32);
+    const edgeR = edgeL;
+    const pageGutterBottom = parseFloat(pageGeometry.getPropertyValue("--kc-page-gutter-bottom")) || (mob ? 24 : 32);
     const px = (v) => (v * sc).toFixed(1) + "px";
     const typePx = (v) => v + "px";
     const q = (sel) => this.footer.querySelector(sel);
@@ -805,7 +808,7 @@ class Component extends DCLogic {
       // former phone-frame scale reduced the 32px contact heading to 26px at 320px
       // and the 11px legal links to 9px; keep geometry responsive without shrinking
       // text-bearing groups.
-      const L = (bl + 16).toFixed(1) + "px";
+      const L = (bl + edgeL).toFixed(1) + "px";
       if (this.cloth) {
         Object.assign(this.cloth.style, { left: "0px", top: "0px",
           width: "100vw", height: scrH + "px" });
@@ -824,10 +827,10 @@ class Component extends DCLogic {
       if (gif) Object.assign(gif.style, { left: L, right: "auto", top: headTop.toFixed(1) + "px",
         bottom: "auto", width: "48px", height: "48px" });
       if (head) Object.assign(head.style, { left: L, right: "auto", top: (headTop + 72).toFixed(1) + "px",
-        bottom: "auto", fontSize: "32px", width: Math.max(0, boxW - 32).toFixed(1) + "px" });
+        bottom: "auto", fontSize: "32px", width: Math.max(0, boxW - 2 * edgeL).toFixed(1) + "px" });
       if (legal) {
         Object.assign(legal.style, { left: L, right: L, top: "auto",
-          bottom: (bb + 14).toFixed(1) + "px",
+          bottom: (bb + pageGutterBottom).toFixed(1) + "px",
           flexDirection: "row", alignItems: "flex-end", gap: "16px" });
         // the footer sits outside the mobile root, so the phone type-scale rule there
         // never reached it: body copy 14, labels 11
@@ -847,7 +850,7 @@ class Component extends DCLogic {
       }
       if (info) {
         Object.assign(info.style, { left: L, right: "auto", top: "auto",
-          bottom: (bb + 64).toFixed(1) + "px", alignItems: "flex-start", gap: "8px" });
+          bottom: (bb + pageGutterBottom + 50).toFixed(1) + "px", alignItems: "flex-start", gap: "8px" });
         info.querySelectorAll("span").forEach((el) => { el.style.fontSize = "14px"; el.style.textAlign = "left"; });
       }
       return;
@@ -874,31 +877,24 @@ class Component extends DCLogic {
     // Keep the headline/email inside the same two-sided page gutter as the navbar.
     // At narrow tablet widths the email then wraps at its authored <wbr> instead of
     // allowing its final glyph to sit against the viewport/scrollbar edge.
-    if (head) Object.assign(head.style, { left: edgeL.toFixed(1) + "px", right: edgeR.toFixed(1) + "px", bottom: "auto",
-      top: px(tablet ? 128 : 118), fontSize: typePx(tablet ? 48 : 56), width: "auto" });
+    if (head) Object.assign(head.style, { left: edgeL.toFixed(1) + "px", right: "auto", bottom: "auto",
+      top: px(tablet ? 128 : 118), fontSize: typePx(tablet ? 48 : 56), width: "auto",
+      maxWidth: `calc(100vw - ${2 * edgeL}px)` });
     if (info) {
       Object.assign(info.style, { left: edgeL.toFixed(1) + "px", right: "auto", top: "auto",
-        bottom: px(21), alignItems: "flex-start", gap: px(8) });
+        bottom: pageGutterBottom.toFixed(1) + "px", alignItems: "flex-start", gap: px(8) });
       info.querySelectorAll("span").forEach((el) => { el.style.fontSize = typePx(14); el.style.textAlign = "left"; });
     }
-    // the gif's right edge is taken from the Hire me pill itself, not recomputed from the
-    // margin: whatever the bar's own edge is, the corner element lands on it exactly.
-    // The bar has two mailto links (the Contact nav item first), so pick the LAST one.
-    const hires = this.nav ? this.nav.querySelectorAll("a[href^='mailto']") : null;
-    const hire = hires && hires.length ? hires[hires.length - 1] : null;
-    const pr = hire ? hire.getBoundingClientRect() : null;
-    const edgeR2 = pr && pr.width ? Math.max(0, window.innerWidth - pr.right) : edgeR;
-    if (gif) Object.assign(gif.style, { left: "auto", right: edgeR2.toFixed(1) + "px", top: "auto",
-      bottom: px(27), width: px(48), height: px(48) });
+    if (gif) Object.assign(gif.style, { left: "auto", right: edgeR.toFixed(1) + "px", top: "auto",
+      bottom: pageGutterBottom.toFixed(1) + "px", width: px(48), height: px(48) });
     if (legal) {
-      Object.assign(legal.style, { left: X(583), right: "auto", top: "auto", bottom: px(22),
+      Object.assign(legal.style, { left: X(583), right: "auto", top: "auto", bottom: pageGutterBottom.toFixed(1) + "px",
         flexDirection: "row", alignItems: "flex-start", gap: px(32) });
-      // desktop: the legal column starts on the PROJETS link in the navbar, measured
-      const np = this.nav && this.nav.querySelector("a[href^='#projets']");
-      const fr = this.footer.getBoundingClientRect();
-      if (!tablet && !mob && np) {
-        const nl2 = np.getBoundingClientRect().left - fr.left;
-        if (nl2 > 0) legal.style.left = nl2.toFixed(1) + "px";
+      // The existing fit() pass publishes this alignment for both local and
+      // route-prefixed section links, so Footer consumes the shared value directly.
+      const projectStart = parseFloat(pageGeometry.getPropertyValue("--kc-nav-project-start"));
+      if (!tablet && !mob && Number.isFinite(projectStart) && projectStart > 0) {
+        legal.style.left = projectStart.toFixed(1) + "px";
       }
       const row = legal.querySelector(":scope > div");
       if (row) { row.style.flex = "0 0 auto"; row.style.gap = px(32); }
@@ -910,17 +906,15 @@ class Component extends DCLogic {
       // left column: phone + city, then each legal link on its own line. Gif keeps the
       // opposite corner. Steps are 8, 16, 32 off the base unit.
       if (legal) {
-        Object.assign(legal.style, { left: edgeL.toFixed(1) + "px", right: "auto", bottom: px(32),
+        Object.assign(legal.style, { left: edgeL.toFixed(1) + "px", right: "auto", bottom: pageGutterBottom.toFixed(1) + "px",
           flexDirection: "column", alignItems: "flex-start", gap: px(8) });
         const row = legal.querySelector(":scope > div");
         if (row) { row.style.flexDirection = "column"; row.style.alignItems = "flex-start"; row.style.gap = px(8); }
       }
       const lh = legal ? legal.offsetHeight : 0;
-      if (info) Object.assign(info.style, { bottom: (32 * sc + lh + 32 * sc).toFixed(1) + "px", gap: px(8) });
-      // gif: smaller square, bottom edge flush with the bottom of the privacy line
-      // (32 base + the 12/1.5 half-leading of that line)
-      if (gif) Object.assign(gif.style, { left: "auto", right: edgeR2.toFixed(1) + "px", top: "auto",
-        bottom: px(35), width: px(64), height: px(64) });
+      if (info) Object.assign(info.style, { bottom: (pageGutterBottom + lh + 32 * sc).toFixed(1) + "px", gap: px(8) });
+      if (gif) Object.assign(gif.style, { left: "auto", right: edgeR.toFixed(1) + "px", top: "auto",
+        bottom: pageGutterBottom.toFixed(1) + "px", width: px(64), height: px(64) });
     }
   }
 

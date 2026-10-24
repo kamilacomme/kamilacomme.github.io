@@ -1,8 +1,8 @@
 .kc-language-switch {
   position: fixed;
   z-index: 510;
-  right: calc(var(--kc-page-gutter, 32px) + env(safe-area-inset-right, 0px));
-  bottom: calc(var(--kc-language-bottom-gutter, var(--kc-page-gutter, 32px)) + env(safe-area-inset-bottom, 0px));
+  right: calc(var(--kc-page-gutter-x, 32px) + env(safe-area-inset-right, 0px));
+  bottom: calc(var(--kc-page-gutter-bottom, 32px) + env(safe-area-inset-bottom, 0px));
   display: inline-flex;
   width: 44px;
   height: 44px;

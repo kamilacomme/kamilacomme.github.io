@@ -1,8 +1,8 @@
 .kc-language-switch {
   position: fixed;
   z-index: 510;
-  right: calc(32px + env(safe-area-inset-right, 0px));
-  bottom: calc(32px + env(safe-area-inset-bottom, 0px));
+  right: calc(var(--kc-page-gutter, 32px) + env(safe-area-inset-right, 0px));
+  bottom: calc(var(--kc-page-gutter, 32px) + env(safe-area-inset-bottom, 0px));
   display: inline-flex;
   width: 44px;
   height: 44px;
@@ -34,11 +34,4 @@
 .kc-language-switch:focus-visible {
   outline: 3px solid #fdb4f5;
   outline-offset: 3px;
-}
-
-@media (max-width: 499px) {
-  .kc-language-switch {
-    right: calc(16px + env(safe-area-inset-right, 0px));
-    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-  }
 }

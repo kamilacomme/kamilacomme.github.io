@@ -582,6 +582,11 @@ class Component extends DCLogic {
         this.nav.style.setProperty("--kc-nav-scale", String(navScale));
         this.nav.style.setProperty("--kc-nav-gutter", ((mobile ? 16 : 32) * navScale).toFixed(3) + "px");
         this.nav.style.setProperty("--kc-nav-block-padding", ((mobile ? 12 : 15) * navScale).toFixed(3) + "px");
+        // Share the resolved navbar gutter with the fixed language link. Desktop's
+        // effective inset follows the existing scene scale; tablet/mobile CSS policies
+        // resolve their own fixed gutters before this value is copied to the page root.
+        const pageGutter = parseFloat(getComputedStyle(this.nav).getPropertyValue("--kc-nav-gutter"));
+        if (Number.isFinite(pageGutter)) document.documentElement.style.setProperty("--kc-page-gutter", pageGutter.toFixed(3) + "px");
         // the phone / tablet frame is centred in the window — the navbar has to ride
         // its top edge, not the window's, otherwise it floats above the design
         const boxH = mobile ? (this.devH ? this.devH * kFit : this.vhNow())

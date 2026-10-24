@@ -719,6 +719,7 @@ class Component extends DCLogic {
     const edgeR = nr ? window.innerWidth - nr.right + margin * sc : margin * sc;
     const edge = edgeL;
     const px = (v) => (v * sc).toFixed(1) + "px";
+    const typePx = (v) => v + "px";
     const q = (sel) => this.footer.querySelector(sel);
     if (mob) {
       // phone: one left-aligned column inside the phone frame — headline, contact
@@ -814,11 +815,11 @@ class Component extends DCLogic {
     const head = q("[data-c='0']"), info = q("[data-c='1']"), gif = q("[data-c='3']"), legal = q("[data-c='4']");
     const X = (v) => (edgeL + (v - 33) * sc).toFixed(1) + "px";
     if (head) Object.assign(head.style, { left: edgeL.toFixed(1) + "px", right: "auto", bottom: "auto",
-      top: px(tablet ? 128 : 118), fontSize: px(tablet ? 48 : 56), width: "auto" });
+      top: px(tablet ? 128 : 118), fontSize: typePx(tablet ? 48 : 56), width: "auto" });
     if (info) {
       Object.assign(info.style, { left: edgeL.toFixed(1) + "px", right: "auto", top: "auto",
         bottom: px(21), alignItems: "flex-start", gap: px(8) });
-      info.querySelectorAll("span").forEach((el) => { el.style.fontSize = px(14); el.style.textAlign = "left"; });
+      info.querySelectorAll("span").forEach((el) => { el.style.fontSize = typePx(14); el.style.textAlign = "left"; });
     }
     // the gif's right edge is taken from the Hire me pill itself, not recomputed from the
     // margin: whatever the bar's own edge is, the corner element lands on it exactly.
@@ -841,7 +842,7 @@ class Component extends DCLogic {
       }
       const row = legal.querySelector(":scope > div");
       if (row) { row.style.flex = "0 0 auto"; row.style.gap = px(32); }
-      legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = px(12); });
+      legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = typePx(12); });
     }
     // tablet: one left column at the bottom — contacts, then the legal links under them;
     // the gif keeps the opposite corner

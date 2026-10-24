@@ -1,0 +1,1261 @@
+{
+  "commit": "local uncommitted Milestone 6 Footer change",
+  "server": "8056",
+  "browser": "Chromium / Playwright; DPR 1; external scripts/fonts served from local cached files",
+  "results": [
+    {
+      "lang": "fr",
+      "viewport": [
+        1440,
+        900
+      ],
+      "documentScrollWidth": 1440,
+      "footerBox": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 900,
+        "clientHeight": 900
+      },
+      "heading": {
+        "x": 32,
+        "y": 118,
+        "width": 656.5625,
+        "height": 123.1875,
+        "fontSize": "56px",
+        "effectiveFontPx": 56,
+        "scale": 1,
+        "scrollHeight": 126,
+        "clientHeight": 123
+      },
+      "contact": [
+        {
+          "x": 32,
+          "y": 829,
+          "width": 131.34375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        },
+        {
+          "x": 32,
+          "y": 858,
+          "width": 81.4375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        }
+      ],
+      "legal": [
+        {
+          "x": 595.09375,
+          "y": 860,
+          "width": 88.140625,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        },
+        {
+          "x": 715.234375,
+          "y": 860,
+          "width": 136.078125,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        }
+      ],
+      "video": {
+        "x": 1360,
+        "y": 825,
+        "width": 48,
+        "height": 48,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 48,
+        "clientHeight": 48
+      },
+      "videoReadyState": 4,
+      "overlapPairs": [],
+      "navBox": null,
+      "errors": []
+    },
+    {
+      "lang": "fr",
+      "viewport": [
+        1100,
+        700
+      ],
+      "documentScrollWidth": 1100,
+      "footerBox": {
+        "x": 0,
+        "y": -0.375,
+        "width": 1100,
+        "height": 700,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 700,
+        "clientHeight": 700
+      },
+      "heading": {
+        "x": 24.390625,
+        "y": 89.71875,
+        "width": 656.5625,
+        "height": 123.1875,
+        "fontSize": "56px",
+        "effectiveFontPx": 56,
+        "scale": 1,
+        "scrollHeight": 126,
+        "clientHeight": 123
+      },
+      "contact": [
+        {
+          "x": 24.390625,
+          "y": 635.53125,
+          "width": 131.34375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        },
+        {
+          "x": 24.390625,
+          "y": 662.625,
+          "width": 81.4375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        }
+      ],
+      "legal": [
+        {
+          "x": 432.6875,
+          "y": 664.828125,
+          "width": 88.140625,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        },
+        {
+          "x": 545.21875,
+          "y": 664.828125,
+          "width": 136.078125,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        }
+      ],
+      "video": {
+        "x": 1038.921875,
+        "y": 642.34375,
+        "width": 36.6875,
+        "height": 36.6875,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 37,
+        "clientHeight": 37
+      },
+      "videoReadyState": 4,
+      "overlapPairs": [],
+      "navBox": null,
+      "errors": []
+    },
+    {
+      "lang": "fr",
+      "viewport": [
+        834,
+        1112
+      ],
+      "documentScrollWidth": 834,
+      "footerBox": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 1112,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 1112,
+        "clientHeight": 1112
+      },
+      "heading": {
+        "x": 32,
+        "y": 128,
+        "width": 562.765625,
+        "height": 105.59375,
+        "fontSize": "48px",
+        "effectiveFontPx": 48,
+        "scale": 1,
+        "scrollHeight": 108,
+        "clientHeight": 106
+      },
+      "contact": [
+        {
+          "x": 32,
+          "y": 954,
+          "width": 131.34375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        },
+        {
+          "x": 32,
+          "y": 983,
+          "width": 81.4375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        }
+      ],
+      "legal": [
+        {
+          "x": 32,
+          "y": 1036,
+          "width": 88.140625,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        },
+        {
+          "x": 32,
+          "y": 1062,
+          "width": 136.078125,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        }
+      ],
+      "video": {
+        "x": 738,
+        "y": 1013,
+        "width": 64,
+        "height": 64,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 64,
+        "clientHeight": 64
+      },
+      "videoReadyState": 4,
+      "overlapPairs": [],
+      "navBox": null,
+      "errors": []
+    },
+    {
+      "lang": "fr",
+      "viewport": [
+        1194,
+        834
+      ],
+      "documentScrollWidth": 1194,
+      "footerBox": {
+        "x": 0,
+        "y": -0.3125,
+        "width": 1194,
+        "height": 834,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 834,
+        "clientHeight": 834
+      },
+      "heading": {
+        "x": 26.5,
+        "y": 97.484375,
+        "width": 656.5625,
+        "height": 123.1875,
+        "fontSize": "56px",
+        "effectiveFontPx": 56,
+        "scale": 1,
+        "scrollHeight": 126,
+        "clientHeight": 123
+      },
+      "contact": [
+        {
+          "x": 26.5,
+          "y": 767.703125,
+          "width": 131.34375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        },
+        {
+          "x": 26.5,
+          "y": 795.296875,
+          "width": 81.4375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        }
+      ],
+      "legal": [
+        {
+          "x": 477.59375,
+          "y": 797.5,
+          "width": 88.140625,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        },
+        {
+          "x": 592.234375,
+          "y": 797.5,
+          "width": 136.078125,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        }
+      ],
+      "video": {
+        "x": 1127.703125,
+        "y": 771.5,
+        "width": 39.796875,
+        "height": 39.796875,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 40,
+        "clientHeight": 40
+      },
+      "videoReadyState": 4,
+      "overlapPairs": [],
+      "navBox": null,
+      "errors": []
+    },
+    {
+      "lang": "fr",
+      "viewport": [
+        1024,
+        600
+      ],
+      "documentScrollWidth": 1024,
+      "footerBox": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 600,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 600,
+        "clientHeight": 600
+      },
+      "heading": {
+        "x": 21.296875,
+        "y": 85.296875,
+        "width": 562.765625,
+        "height": 105.59375,
+        "fontSize": "48px",
+        "effectiveFontPx": 48,
+        "scale": 1,
+        "scrollHeight": 108,
+        "clientHeight": 106
+      },
+      "contact": [
+        {
+          "x": 21.296875,
+          "y": 469.015625,
+          "width": 131.34375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        },
+        {
+          "x": 21.296875,
+          "y": 495.3125,
+          "width": 81.4375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        }
+      ],
+      "legal": [
+        {
+          "x": 21.296875,
+          "y": 537.40625,
+          "width": 88.140625,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        },
+        {
+          "x": 21.296875,
+          "y": 560.703125,
+          "width": 136.078125,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        }
+      ],
+      "video": {
+        "x": 949.3125,
+        "y": 534.015625,
+        "width": 42.6875,
+        "height": 42.6875,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 43,
+        "clientHeight": 43
+      },
+      "videoReadyState": 4,
+      "overlapPairs": [],
+      "navBox": null,
+      "errors": []
+    },
+    {
+      "lang": "fr",
+      "viewport": [
+        500,
+        600
+      ],
+      "documentScrollWidth": 500,
+      "footerBox": {
+        "x": 0,
+        "y": 0.296875,
+        "width": 500,
+        "height": 600,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 600,
+        "clientHeight": 600
+      },
+      "heading": {
+        "x": 19.1875,
+        "y": 76.984375,
+        "width": 480.8125,
+        "height": 158.390625,
+        "fontSize": "48px",
+        "effectiveFontPx": 48,
+        "scale": 1,
+        "scrollHeight": 161,
+        "clientHeight": 158
+      },
+      "contact": [
+        {
+          "x": 19.1875,
+          "y": 474.109375,
+          "width": 131.34375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        },
+        {
+          "x": 19.1875,
+          "y": 499.90625,
+          "width": 81.4375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        }
+      ],
+      "legal": [
+        {
+          "x": 19.1875,
+          "y": 540.3125,
+          "width": 88.140625,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        },
+        {
+          "x": 19.1875,
+          "y": 563.109375,
+          "width": 136.078125,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        }
+      ],
+      "video": {
+        "x": 429.609375,
+        "y": 540.90625,
+        "width": 38.390625,
+        "height": 38.390625,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 38,
+        "clientHeight": 38
+      },
+      "videoReadyState": 4,
+      "overlapPairs": [],
+      "navBox": null,
+      "errors": []
+    },
+    {
+      "lang": "en",
+      "viewport": [
+        1440,
+        900
+      ],
+      "documentScrollWidth": 1440,
+      "footerBox": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 900,
+        "clientHeight": 900
+      },
+      "heading": {
+        "x": 32,
+        "y": 118,
+        "width": 797.5625,
+        "height": 123.1875,
+        "fontSize": "56px",
+        "effectiveFontPx": 56,
+        "scale": 1,
+        "scrollHeight": 126,
+        "clientHeight": 123
+      },
+      "contact": [
+        {
+          "x": 32,
+          "y": 829,
+          "width": 131.34375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        },
+        {
+          "x": 32,
+          "y": 858,
+          "width": 81.4375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        }
+      ],
+      "legal": [
+        {
+          "x": 582,
+          "y": 860,
+          "width": 63.28125,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        },
+        {
+          "x": 677.28125,
+          "y": 860,
+          "width": 71.6875,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        }
+      ],
+      "video": {
+        "x": 1360,
+        "y": 825,
+        "width": 48,
+        "height": 48,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 48,
+        "clientHeight": 48
+      },
+      "videoReadyState": 4,
+      "overlapPairs": [],
+      "navBox": null,
+      "errors": []
+    },
+    {
+      "lang": "en",
+      "viewport": [
+        1100,
+        700
+      ],
+      "documentScrollWidth": 1100,
+      "footerBox": {
+        "x": 0,
+        "y": -0.375,
+        "width": 1100,
+        "height": 700,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 700,
+        "clientHeight": 700
+      },
+      "heading": {
+        "x": 24.390625,
+        "y": 89.71875,
+        "width": 797.5625,
+        "height": 123.1875,
+        "fontSize": "56px",
+        "effectiveFontPx": 56,
+        "scale": 1,
+        "scrollHeight": 126,
+        "clientHeight": 123
+      },
+      "contact": [
+        {
+          "x": 24.390625,
+          "y": 635.53125,
+          "width": 131.34375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        },
+        {
+          "x": 24.390625,
+          "y": 662.625,
+          "width": 81.4375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        }
+      ],
+      "legal": [
+        {
+          "x": 444.59375,
+          "y": 664.828125,
+          "width": 63.28125,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        },
+        {
+          "x": 532.265625,
+          "y": 664.828125,
+          "width": 71.6875,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        }
+      ],
+      "video": {
+        "x": 1038.921875,
+        "y": 642.34375,
+        "width": 36.6875,
+        "height": 36.6875,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 37,
+        "clientHeight": 37
+      },
+      "videoReadyState": 4,
+      "overlapPairs": [],
+      "navBox": null,
+      "errors": []
+    },
+    {
+      "lang": "en",
+      "viewport": [
+        834,
+        1112
+      ],
+      "documentScrollWidth": 834,
+      "footerBox": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 1112,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 1112,
+        "clientHeight": 1112
+      },
+      "heading": {
+        "x": 32,
+        "y": 128,
+        "width": 683.625,
+        "height": 105.59375,
+        "fontSize": "48px",
+        "effectiveFontPx": 48,
+        "scale": 1,
+        "scrollHeight": 108,
+        "clientHeight": 106
+      },
+      "contact": [
+        {
+          "x": 32,
+          "y": 954,
+          "width": 131.34375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        },
+        {
+          "x": 32,
+          "y": 983,
+          "width": 81.4375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        }
+      ],
+      "legal": [
+        {
+          "x": 32,
+          "y": 1036,
+          "width": 63.28125,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        },
+        {
+          "x": 32,
+          "y": 1062,
+          "width": 71.6875,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        }
+      ],
+      "video": {
+        "x": 738,
+        "y": 1013,
+        "width": 64,
+        "height": 64,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 64,
+        "clientHeight": 64
+      },
+      "videoReadyState": 4,
+      "overlapPairs": [],
+      "navBox": null,
+      "errors": []
+    },
+    {
+      "lang": "en",
+      "viewport": [
+        1194,
+        834
+      ],
+      "documentScrollWidth": 1194,
+      "footerBox": {
+        "x": 0,
+        "y": -0.3125,
+        "width": 1194,
+        "height": 834,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 834,
+        "clientHeight": 834
+      },
+      "heading": {
+        "x": 26.5,
+        "y": 97.484375,
+        "width": 797.5625,
+        "height": 123.1875,
+        "fontSize": "56px",
+        "effectiveFontPx": 56,
+        "scale": 1,
+        "scrollHeight": 126,
+        "clientHeight": 123
+      },
+      "contact": [
+        {
+          "x": 26.5,
+          "y": 767.703125,
+          "width": 131.34375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        },
+        {
+          "x": 26.5,
+          "y": 795.296875,
+          "width": 81.4375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        }
+      ],
+      "legal": [
+        {
+          "x": 482.59375,
+          "y": 797.5,
+          "width": 63.28125,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        },
+        {
+          "x": 572.375,
+          "y": 797.5,
+          "width": 71.6875,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        }
+      ],
+      "video": {
+        "x": 1127.703125,
+        "y": 771.5,
+        "width": 39.796875,
+        "height": 39.796875,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 40,
+        "clientHeight": 40
+      },
+      "videoReadyState": 4,
+      "overlapPairs": [],
+      "navBox": null,
+      "errors": []
+    },
+    {
+      "lang": "en",
+      "viewport": [
+        1024,
+        600
+      ],
+      "documentScrollWidth": 1024,
+      "footerBox": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 600,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 600,
+        "clientHeight": 600
+      },
+      "heading": {
+        "x": 21.296875,
+        "y": 85.296875,
+        "width": 683.625,
+        "height": 105.59375,
+        "fontSize": "48px",
+        "effectiveFontPx": 48,
+        "scale": 1,
+        "scrollHeight": 108,
+        "clientHeight": 106
+      },
+      "contact": [
+        {
+          "x": 21.296875,
+          "y": 469.015625,
+          "width": 131.34375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        },
+        {
+          "x": 21.296875,
+          "y": 495.3125,
+          "width": 81.4375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        }
+      ],
+      "legal": [
+        {
+          "x": 21.296875,
+          "y": 537.40625,
+          "width": 63.28125,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        },
+        {
+          "x": 21.296875,
+          "y": 560.703125,
+          "width": 71.6875,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        }
+      ],
+      "video": {
+        "x": 949.3125,
+        "y": 534.015625,
+        "width": 42.6875,
+        "height": 42.6875,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 43,
+        "clientHeight": 43
+      },
+      "videoReadyState": 4,
+      "overlapPairs": [],
+      "navBox": null,
+      "errors": []
+    },
+    {
+      "lang": "en",
+      "viewport": [
+        500,
+        600
+      ],
+      "documentScrollWidth": 500,
+      "footerBox": {
+        "x": 0,
+        "y": -0.234375,
+        "width": 500,
+        "height": 600,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 600,
+        "clientHeight": 600
+      },
+      "heading": {
+        "x": 19.1875,
+        "y": 76.453125,
+        "width": 480.8125,
+        "height": 211.1875,
+        "fontSize": "48px",
+        "effectiveFontPx": 48,
+        "scale": 1,
+        "scrollHeight": 213,
+        "clientHeight": 211
+      },
+      "contact": [
+        {
+          "x": 19.1875,
+          "y": 473.578125,
+          "width": 131.34375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        },
+        {
+          "x": 19.1875,
+          "y": 499.375,
+          "width": 81.4375,
+          "height": 21,
+          "fontSize": "14px",
+          "effectiveFontPx": 14,
+          "scale": 1,
+          "scrollHeight": 21,
+          "clientHeight": 21
+        }
+      ],
+      "legal": [
+        {
+          "x": 19.1875,
+          "y": 539.78125,
+          "width": 63.28125,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        },
+        {
+          "x": 19.1875,
+          "y": 562.578125,
+          "width": 71.6875,
+          "height": 18,
+          "fontSize": "12px",
+          "effectiveFontPx": 12,
+          "scale": 1,
+          "scrollHeight": 18,
+          "clientHeight": 18
+        }
+      ],
+      "video": {
+        "x": 429.609375,
+        "y": 540.375,
+        "width": 38.390625,
+        "height": 38.390625,
+        "fontSize": "16px",
+        "effectiveFontPx": 16,
+        "scale": 1,
+        "scrollHeight": 38,
+        "clientHeight": 38
+      },
+      "videoReadyState": 4,
+      "overlapPairs": [],
+      "navBox": null,
+      "errors": []
+    },
+    {
+      "lang": "fr",
+      "resize": [
+        {
+          "viewport": [
+            1100,
+            700
+          ],
+          "heading": "56px",
+          "contact": [
+            "14px",
+            "14px"
+          ],
+          "legal": [
+            "12px",
+            "12px"
+          ],
+          "scrollWidth": 1100
+        },
+        {
+          "viewport": [
+            1194,
+            834
+          ],
+          "heading": "56px",
+          "contact": [
+            "14px",
+            "14px"
+          ],
+          "legal": [
+            "12px",
+            "12px"
+          ],
+          "scrollWidth": 1194
+        },
+        {
+          "viewport": [
+            1024,
+            600
+          ],
+          "heading": "48px",
+          "contact": [
+            "14px",
+            "14px"
+          ],
+          "legal": [
+            "12px",
+            "12px"
+          ],
+          "scrollWidth": 1024
+        },
+        {
+          "viewport": [
+            1440,
+            900
+          ],
+          "heading": "56px",
+          "contact": [
+            "14px",
+            "14px"
+          ],
+          "legal": [
+            "12px",
+            "12px"
+          ],
+          "scrollWidth": 1440
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "resize": [
+        {
+          "viewport": [
+            1100,
+            700
+          ],
+          "heading": "56px",
+          "contact": [
+            "14px",
+            "14px"
+          ],
+          "legal": [
+            "12px",
+            "12px"
+          ],
+          "scrollWidth": 1100
+        },
+        {
+          "viewport": [
+            1194,
+            834
+          ],
+          "heading": "56px",
+          "contact": [
+            "14px",
+            "14px"
+          ],
+          "legal": [
+            "12px",
+            "12px"
+          ],
+          "scrollWidth": 1194
+        },
+        {
+          "viewport": [
+            1024,
+            600
+          ],
+          "heading": "48px",
+          "contact": [
+            "14px",
+            "14px"
+          ],
+          "legal": [
+            "12px",
+            "12px"
+          ],
+          "scrollWidth": 1024
+        },
+        {
+          "viewport": [
+            1440,
+            900
+          ],
+          "heading": "56px",
+          "contact": [
+            "14px",
+            "14px"
+          ],
+          "legal": [
+            "12px",
+            "12px"
+          ],
+          "scrollWidth": 1440
+        }
+      ]
+    }
+  ]
+}

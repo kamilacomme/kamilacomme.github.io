@@ -250,7 +250,6 @@ async function buildPage(templatePath, cardSlots, locale, layoutKind) {
   if (locale === 'en') {
     html = addLocaleMetadata(html, locale);
     if (layoutKind === 'desktop-embed') html = html.replace(/<title>[\s\S]*?<\/title>/, '<title>Portfolio — Projects</title>');
-    if (layoutKind === 'page') html = html.replace('</body>', '<script src="/scripts/projects/english-tablet-footer-alignment.js"></script>\n</body>');
   } else html = addLocaleMetadata(html, locale);
   if (locale === 'fr') html = normalizeFrenchMarkup(html);
   return `${html.trimEnd()}\n`;

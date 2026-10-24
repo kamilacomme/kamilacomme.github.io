@@ -1,0 +1,107 @@
+{
+  "source": "current branch 3a34ed9; full-copy failure is a browser-only override on current markup; no source changes",
+  "results": [
+    {
+      "label": "full-copy-failure-reproduction",
+      "language": "fr",
+      "width": 500,
+      "height": 600,
+      "state": {
+        "language": "fr",
+        "viewport": [
+          500,
+          600
+        ],
+        "cards": 5,
+        "statementFont": "48px",
+        "hiddenStatementSpans": 0
+      },
+      "errors": []
+    },
+    {
+      "label": "candidate-current-branch",
+      "language": "fr",
+      "width": 500,
+      "height": 600,
+      "state": {
+        "language": "fr",
+        "viewport": [
+          500,
+          600
+        ],
+        "cards": 5,
+        "statementFont": "48px",
+        "hiddenStatementSpans": 2
+      },
+      "errors": []
+    },
+    {
+      "label": "normal-current-branch",
+      "language": "fr",
+      "width": 834,
+      "height": 1112,
+      "state": {
+        "language": "fr",
+        "viewport": [
+          834,
+          1112
+        ],
+        "cards": 5,
+        "statementFont": "48px",
+        "hiddenStatementSpans": 0
+      },
+      "errors": []
+    },
+    {
+      "label": "full-copy-failure-reproduction",
+      "language": "en",
+      "width": 500,
+      "height": 600,
+      "state": {
+        "language": "en",
+        "viewport": [
+          500,
+          600
+        ],
+        "cards": 5,
+        "statementFont": "48px",
+        "hiddenStatementSpans": 0
+      },
+      "errors": []
+    },
+    {
+      "label": "candidate-current-branch",
+      "language": "en",
+      "width": 500,
+      "height": 600,
+      "state": {
+        "language": "en",
+        "viewport": [
+          500,
+          600
+        ],
+        "cards": 5,
+        "statementFont": "48px",
+        "hiddenStatementSpans": 2
+      },
+      "errors": []
+    },
+    {
+      "label": "normal-current-branch",
+      "language": "en",
+      "width": 834,
+      "height": 1112,
+      "state": {
+        "language": "en",
+        "viewport": [
+          834,
+          1112
+        ],
+        "cards": 5,
+        "statementFont": "48px",
+        "hiddenStatementSpans": 0
+      },
+      "errors": []
+    }
+  ]
+}

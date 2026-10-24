@@ -222,6 +222,14 @@ function addLocaleMetadata(html, locale) {
 
 async function buildPage(templatePath, cardSlots, locale, layoutKind) {
   let html = await readFile(templatePath, 'utf8');
+  if (layoutKind === 'page') {
+    const switchFields = locale === 'fr'
+      ? { languageSwitchHref: '/en/', languageSwitchLabel: 'Langue actuelle : français. Passer en anglais.', languageSwitchLocale: 'fr', languageSwitchText: 'FR' }
+      : { languageSwitchHref: '/', languageSwitchLabel: 'Current language: English. Switch to French.', languageSwitchLocale: 'en', languageSwitchText: 'EN' };
+    for (const [key, value] of Object.entries(switchFields)) {
+      html = html.replaceAll(`{{${key}}}`, escapeAttribute(value));
+    }
+  }
   for (const [slot, markup] of Object.entries(cardSlots)) {
     if (!html.includes(`{{${slot}}}`)) throw new Error(`Missing card slot ${slot} in ${templatePath}`);
     html = html.replace(`{{${slot}}}`, markup);

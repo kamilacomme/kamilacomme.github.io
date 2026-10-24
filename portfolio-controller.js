@@ -130,6 +130,30 @@ class Component extends DCLogic {
       this.openSheet(a.dataset.legal);
     };
     document.addEventListener("click", this._onLegal, true);
+    // Keep the language control a normal static-route link. When a visitor is
+    // already in a section, carry its existing profile-specific anchor to the
+    // other locale; the browser performs the route navigation itself.
+    this._onLanguageSwitch = (e) => {
+      const a = e.target && e.target.closest && e.target.closest("a[data-kc-language-switch]");
+      if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const base = a.dataset.kcSwitchTo;
+      if (!base) return;
+      const suffix = this.mobile ? "-m" : this.tablet ? "-t" : "";
+      const candidates = ["#projets" + suffix, "#apropos" + suffix, "#contact"];
+      const currentY = window.scrollY;
+      const threshold = window.scrollY + Math.min(window.innerHeight * 0.42, 360);
+      let current = "";
+      for (const id of candidates) {
+        const section = document.getElementById(id.slice(1));
+        if (section && section.getBoundingClientRect().top + window.scrollY <= threshold) current = id;
+      }
+      // Static route loads can initially land at the top before the custom scroll-linked
+      // layouts are measured. Preserve the actual position through the controller's
+      // existing kc-scroll restore path; the hash keeps the corresponding section explicit.
+      try { sessionStorage.setItem("kc-scroll", String(currentY)); } catch (err) {}
+      a.setAttribute("href", current ? base + current : base);
+    };
+    document.addEventListener("click", this._onLanguageSwitch, true);
     this._onKey = (e) => { if (e.key === "Escape") this.closeSheet(); };
     document.addEventListener("keydown", this._onKey);
     if (!this.heroSlides) this.heroSlides = [];
@@ -889,6 +913,7 @@ class Component extends DCLogic {
     if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
     if (this._onMail) document.removeEventListener("click", this._onMail, true);
     if (this._onLegal) document.removeEventListener("click", this._onLegal, true);
+    if (this._onLanguageSwitch) document.removeEventListener("click", this._onLanguageSwitch, true);
     if (this._onKey) document.removeEventListener("keydown", this._onKey);
     if (this.raf) cancelAnimationFrame(this.raf);
     if (this.heroTimer) clearInterval(this.heroTimer);

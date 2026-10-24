@@ -762,7 +762,11 @@ class Component extends DCLogic {
       // slab of dead space between the last card and the curtain
       if (this.cloth) this.cloth.style.backgroundColor = "#000000";
       const contH = Math.min(boxH, this.vhNow() * kFit);
-      const L = (bl + 16 * sc).toFixed(1) + "px";
+      // Mobile Footer typography and its 16px inset are effective CSS pixels. The
+      // former phone-frame scale reduced the 32px contact heading to 26px at 320px
+      // and the 11px legal links to 9px; keep geometry responsive without shrinking
+      // text-bearing groups.
+      const L = (bl + 16).toFixed(1) + "px";
       if (this.cloth) {
         Object.assign(this.cloth.style, { left: "0px", top: "0px",
           width: "100vw", height: scrH + "px" });
@@ -777,15 +781,15 @@ class Component extends DCLogic {
       // short screen the box top can sit level with the bar, which is what put the gif
       // right under the links. A measured gap keeps clear of it at any screen height.
       const navB = this.nav ? this.nav.getBoundingClientRect().bottom : 0;
-      const headTop = Math.max(bt + 96 * sc, navB + 24 * sc);
+      const headTop = Math.max(bt + 96, navB + 24);
       if (gif) Object.assign(gif.style, { left: L, right: "auto", top: headTop.toFixed(1) + "px",
-        bottom: "auto", width: px(48), height: px(48) });
-      if (head) Object.assign(head.style, { left: L, right: "auto", top: (headTop + 72 * sc).toFixed(1) + "px",
-        bottom: "auto", fontSize: px(32), width: px(358) });
+        bottom: "auto", width: "48px", height: "48px" });
+      if (head) Object.assign(head.style, { left: L, right: "auto", top: (headTop + 72).toFixed(1) + "px",
+        bottom: "auto", fontSize: "32px", width: Math.max(0, boxW - 32).toFixed(1) + "px" });
       if (legal) {
         Object.assign(legal.style, { left: L, right: L, top: "auto",
-          bottom: (bb + 14 * sc).toFixed(1) + "px",
-          flexDirection: "row", alignItems: "flex-end", gap: px(16) });
+          bottom: (bb + 14).toFixed(1) + "px",
+          flexDirection: "row", alignItems: "flex-end", gap: "16px" });
         // the footer sits outside the mobile root, so the phone type-scale rule there
         // never reached it: body copy 14, labels 11
         [legal, info].forEach((box) => {
@@ -793,19 +797,19 @@ class Component extends DCLogic {
           box.querySelectorAll("span, a").forEach((el) => {
             const w = getComputedStyle(el).fontWeight;
             const body = w === "400" || w === "normal";
-            el.style.fontSize = px(body ? 14 : 11);
+            el.style.fontSize = (body ? 14 : 11) + "px";
           });
         });
         const cr = legal.querySelector(":scope > span");
         if (cr) cr.style.display = "none";
         const row = legal.querySelector(":scope > div");
-        if (row) { row.style.flex = "0 0 auto"; row.style.flexDirection = "row"; row.style.justifyContent = "flex-start"; row.style.alignItems = "flex-end"; row.style.gap = px(16); }
-        legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = px(11); });
+        if (row) { row.style.flex = "0 0 auto"; row.style.flexDirection = "row"; row.style.justifyContent = "flex-start"; row.style.alignItems = "flex-end"; row.style.gap = "16px"; }
+        legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = "11px"; });
       }
       if (info) {
         Object.assign(info.style, { left: L, right: "auto", top: "auto",
-          bottom: (bb + 64 * sc).toFixed(1) + "px", alignItems: "flex-start", gap: px(8) });
-        info.querySelectorAll("span").forEach((el) => { el.style.fontSize = Math.max(14, 16 * sc).toFixed(1) + "px"; el.style.textAlign = "left"; });
+          bottom: (bb + 64).toFixed(1) + "px", alignItems: "flex-start", gap: "8px" });
+        info.querySelectorAll("span").forEach((el) => { el.style.fontSize = "14px"; el.style.textAlign = "left"; });
       }
       return;
     }

@@ -415,15 +415,17 @@ class Component extends DCLogic {
       const heroViewH = this.devH || stableH;
       const viewH = this.devH || fullH;
       let sm = (viewW / 390) * kFit;
-      const mHeroFrameH = Math.round(heroViewH / (viewW / 390));
+      const mHeroFrameH = Math.round(heroViewH * kFit);
       const mFrameH = Math.round(viewH / (viewW / 390));
       this.sm = sm; this.mFrameH = mFrameH; this.mHeroFrameH = mHeroFrameH;
-      if (this.mHero) this.mHero.style.height = mHeroFrameH + "px";
+      if (this.mHero) Object.assign(this.mHero.style, {
+        width: Math.round(viewW * kFit) + "px",
+        height: mHeroFrameH + "px",
+        transform: "translate(-50%,-50%)",
+      });
       [this.mAStage].forEach((el) => { if (el) el.style.height = mFrameH + "px"; });
       if (mobile) {
-        [this.mHero, this.mAStage].forEach((el) => {
-          if (el) el.style.transform = "translate(-50%,-50%) scale(" + sm + ")";
-        });
+        if (this.mAStage) this.mAStage.style.transform = "translate(-50%,-50%) scale(" + sm + ")";
         const bw = (this.devW || window.innerWidth) * kFit;
         const bh = (this.devH || fullH) * kFit;
         const bl = (window.innerWidth - bw) / 2;

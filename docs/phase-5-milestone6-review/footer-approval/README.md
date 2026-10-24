@@ -14,6 +14,7 @@ Open the paired French and English images for each profile:
 - `tablet-landscape-{fr,en}-1194x834.png`
 - `tablet-short-{fr,en}-1024x600.png`
 - `tablet-narrow-{fr,en}-500x600.png`
+- `email-wrap-fr-588x963.png` — the narrow-window case from the reported screenshot
 
 From the repository root on Ubuntu, for example:
 
@@ -21,6 +22,8 @@ From the repository root on Ubuntu, for example:
 xdg-open docs/phase-5-milestone6-review/footer-approval/desktop-normal-fr-1440x900.png
 xdg-open docs/phase-5-milestone6-review/footer-approval/tablet-short-fr-1024x600.png
 ```
+
+The reported narrow case was about 588 CSS pixels wide. Before the follow-up, the final email glyph was technically inside the box but only 2.6px from its right edge. The shared Footer headline/email now uses the existing responsive right page gutter too; at 588px the address wraps at its authored break opportunity and remains fully visible. French and English were checked at 574px, 588px and 600px; the full address stayed inside the Footer with no page overflow.
 
 The measured bounding boxes, computed/effective font sizes, resize sequence, media ready state and overflow/collision results are in `measurements.json`.
 

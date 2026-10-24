@@ -814,7 +814,10 @@ class Component extends DCLogic {
     // top, contacts bottom-left, legal links at x 583, gif bottom-right
     const head = q("[data-c='0']"), info = q("[data-c='1']"), gif = q("[data-c='3']"), legal = q("[data-c='4']");
     const X = (v) => (edgeL + (v - 33) * sc).toFixed(1) + "px";
-    if (head) Object.assign(head.style, { left: edgeL.toFixed(1) + "px", right: "auto", bottom: "auto",
+    // Keep the headline/email inside the same two-sided page gutter as the navbar.
+    // At narrow tablet widths the email then wraps at its authored <wbr> instead of
+    // allowing its final glyph to sit against the viewport/scrollbar edge.
+    if (head) Object.assign(head.style, { left: edgeL.toFixed(1) + "px", right: edgeR.toFixed(1) + "px", bottom: "auto",
       top: px(tablet ? 128 : 118), fontSize: typePx(tablet ? 48 : 56), width: "auto" });
     if (info) {
       Object.assign(info.style, { left: edgeL.toFixed(1) + "px", right: "auto", top: "auto",

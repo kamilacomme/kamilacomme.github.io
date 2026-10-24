@@ -24,7 +24,7 @@
       "heading": {
         "x": 32,
         "y": 118,
-        "width": 656.5625,
+        "width": 1376,
         "height": 123.1875,
         "fontSize": "56px",
         "effectiveFontPx": 56,
@@ -117,7 +117,7 @@
       "heading": {
         "x": 24.390625,
         "y": 89.71875,
-        "width": 656.5625,
+        "width": 1051.21875,
         "height": 123.1875,
         "fontSize": "56px",
         "effectiveFontPx": 56,
@@ -210,7 +210,7 @@
       "heading": {
         "x": 32,
         "y": 128,
-        "width": 562.765625,
+        "width": 770,
         "height": 105.59375,
         "fontSize": "48px",
         "effectiveFontPx": 48,
@@ -303,7 +303,7 @@
       "heading": {
         "x": 26.5,
         "y": 97.484375,
-        "width": 656.5625,
+        "width": 1141,
         "height": 123.1875,
         "fontSize": "56px",
         "effectiveFontPx": 56,
@@ -396,7 +396,7 @@
       "heading": {
         "x": 21.296875,
         "y": 85.296875,
-        "width": 562.765625,
+        "width": 981.40625,
         "height": 105.59375,
         "fontSize": "48px",
         "effectiveFontPx": 48,
@@ -489,7 +489,7 @@
       "heading": {
         "x": 19.1875,
         "y": 76.984375,
-        "width": 480.8125,
+        "width": 461.625,
         "height": 158.390625,
         "fontSize": "48px",
         "effectiveFontPx": 48,
@@ -582,7 +582,7 @@
       "heading": {
         "x": 32,
         "y": 118,
-        "width": 797.5625,
+        "width": 1376,
         "height": 123.1875,
         "fontSize": "56px",
         "effectiveFontPx": 56,
@@ -675,7 +675,7 @@
       "heading": {
         "x": 24.390625,
         "y": 89.71875,
-        "width": 797.5625,
+        "width": 1051.21875,
         "height": 123.1875,
         "fontSize": "56px",
         "effectiveFontPx": 56,
@@ -768,7 +768,7 @@
       "heading": {
         "x": 32,
         "y": 128,
-        "width": 683.625,
+        "width": 770,
         "height": 105.59375,
         "fontSize": "48px",
         "effectiveFontPx": 48,
@@ -861,7 +861,7 @@
       "heading": {
         "x": 26.5,
         "y": 97.484375,
-        "width": 797.5625,
+        "width": 1141,
         "height": 123.1875,
         "fontSize": "56px",
         "effectiveFontPx": 56,
@@ -954,7 +954,7 @@
       "heading": {
         "x": 21.296875,
         "y": 85.296875,
-        "width": 683.625,
+        "width": 981.40625,
         "height": 105.59375,
         "fontSize": "48px",
         "effectiveFontPx": 48,
@@ -1047,13 +1047,13 @@
       "heading": {
         "x": 19.1875,
         "y": 76.453125,
-        "width": 480.8125,
-        "height": 211.1875,
+        "width": 461.625,
+        "height": 263.984375,
         "fontSize": "48px",
         "effectiveFontPx": 48,
         "scale": 1,
-        "scrollHeight": 213,
-        "clientHeight": 211
+        "scrollHeight": 266,
+        "clientHeight": 264
       },
       "contact": [
         {

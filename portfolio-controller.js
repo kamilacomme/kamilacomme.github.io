@@ -416,16 +416,28 @@ class Component extends DCLogic {
       const viewH = this.devH || fullH;
       let sm = (viewW / 390) * kFit;
       const mHeroFrameH = Math.round(heroViewH * kFit);
-      const mFrameH = Math.round(viewH / (viewW / 390));
+      const mFrameH = Math.round(viewH * kFit);
       this.sm = sm; this.mFrameH = mFrameH; this.mHeroFrameH = mHeroFrameH;
       if (this.mHero) Object.assign(this.mHero.style, {
         width: Math.round(viewW * kFit) + "px",
         height: mHeroFrameH + "px",
         transform: "translate(-50%,-50%)",
       });
-      [this.mAStage].forEach((el) => { if (el) el.style.height = mFrameH + "px"; });
+      [this.mAStage].forEach((el) => {
+        if (!el) return;
+        el.style.width = Math.round(viewW * kFit) + "px";
+        el.style.height = mFrameH + "px";
+      });
       if (mobile) {
-        if (this.mAStage) this.mAStage.style.transform = "translate(-50%,-50%) scale(" + sm + ")";
+        // Mobile About uses the measured viewport as its layout frame. Scaling the
+        // authored 390x844 stage also shrank its text (and made the paragraph wrap
+        // differently at each phone width); size the stage itself and keep type at its
+        // authored effective pixels instead.
+        if (this.mAStage) {
+          this.mAStage.style.transform = "translate(-50%,-50%)";
+          const intro = this.mAStage.firstElementChild;
+          if (intro) intro.style.width = Math.max(0, viewW * kFit - 32) + "px";
+        }
         const bw = (this.devW || window.innerWidth) * kFit;
         const bh = (this.devH || fullH) * kFit;
         const bl = (window.innerWidth - bw) / 2;
@@ -1625,7 +1637,8 @@ class Component extends DCLogic {
     // Mobile About: one pinned screen. The introduction stays centered while
     // five square cards rise from below and layer in the middle of the screen.
     const H = this.mFrameH || 844;
-    const CARD = Math.min(264, Math.max(196, H - 144));
+    const W = (this.mAStage && this.mAStage.offsetWidth) || window.innerWidth;
+    const CARD = Math.min(264, Math.max(196, H - 144), Math.max(0, W - 32));
     const n = cards.length;
     const stackStep = 10;
     const stackTop = Math.max(24, (H - CARD - (n - 1) * stackStep) / 2);
@@ -1634,7 +1647,7 @@ class Component extends DCLogic {
     const step = span * 0.72 / n;
     cards.forEach((el, i) => {
       if (!el) return;
-      el.style.left = ((390 - CARD) / 2).toFixed(1) + "px";
+      el.style.left = ((W - CARD) / 2).toFixed(1) + "px";
       el.style.width = CARD.toFixed(1) + "px";
       if (el._h !== CARD) { el._h = CARD; el.style.height = CARD.toFixed(1) + "px"; }
       let e = (prog - span * 0.06 - i * step) / (step * 1.8);

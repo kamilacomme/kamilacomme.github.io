@@ -4,7 +4,6 @@ class Component extends DCLogic {
   // tag — lets the standalone/offline export swap in the inlined blob URL at runtime
   RESOURCE_MAP = {
     "assets/about/avatar.mp4": "avatarVid",
-    "assets/about/footer-walk.mp4": "footerWalkVid",
     "assets/projets/pilates.mp4": "pilatesVid",
     "assets/projets/longread.mp4": "longreadVid",
     "assets/projets/inside-out.mp4": "insideoutVid",
@@ -772,14 +771,13 @@ class Component extends DCLogic {
     const sc = (mob ? this.sm : tablet ? this.st : this.s) || 1;
     const pageGeometry = getComputedStyle(document.documentElement);
     const edgeL = parseFloat(pageGeometry.getPropertyValue("--kc-page-gutter-x")) || (mob ? 16 : 32);
-    const edgeR = edgeL;
     const pageGutterBottom = parseFloat(pageGeometry.getPropertyValue("--kc-page-gutter-bottom")) || (mob ? 24 : 32);
     const px = (v) => (v * sc).toFixed(1) + "px";
     const typePx = (v) => v + "px";
     const q = (sel) => this.footer.querySelector(sel);
     if (mob) {
-      // phone: one left-aligned column inside the phone frame — headline, contact
-      // details, gif, then the address pinned to the frame's bottom edge
+      // phone: the headline/email sit below the navbar; contact details and legal links
+      // stay anchored to the frame's bottom edge
       const kFit = this.kFit || 1;
       const boxW = (this.devW || window.innerWidth) * kFit;
       const boxH = (this.devH || this.lvhNow()) * kFit;
@@ -816,17 +814,12 @@ class Component extends DCLogic {
       }
       this.showCookies();
       this.fitSheets({ left: bl, top: bt, w: boxW, h: boxH, sc: sc });
-      const head = q("[data-c='0']"), info = q("[data-c='1']"), gif = q("[data-c='3']"), legal = q("[data-c='4']");
-      // gif at the top under the navbar, headline and email as one 32px block below it,
-      // contacts and legal links pinned to the bottom edge
-      // the head group hangs off the NAVBAR's real bottom edge, not off the box top: on a
-      // short screen the box top can sit level with the bar, which is what put the gif
-      // right under the links. A measured gap keeps clear of it at any screen height.
+      const head = q("[data-c='0']"), info = q("[data-c='1']"), legal = q("[data-c='4']");
+      // Keep the heading below the navbar and inside the Footer frame, while contacts and
+      // legal links remain pinned to the existing bottom gutter.
       const navB = this.nav ? this.nav.getBoundingClientRect().bottom : 0;
       const headTop = Math.max(bt + 96, navB + 24);
-      if (gif) Object.assign(gif.style, { left: L, right: "auto", top: headTop.toFixed(1) + "px",
-        bottom: "auto", width: "48px", height: "48px" });
-      if (head) Object.assign(head.style, { left: L, right: "auto", top: (headTop + 72).toFixed(1) + "px",
+      if (head) Object.assign(head.style, { left: L, right: "auto", top: headTop.toFixed(1) + "px",
         bottom: "auto", fontSize: "32px", width: Math.max(0, boxW - 2 * edgeL).toFixed(1) + "px" });
       if (legal) {
         Object.assign(legal.style, { left: L, right: L, top: "auto",
@@ -870,9 +863,9 @@ class Component extends DCLogic {
     }
     this.fitSheets(null);
     this.showCookies();
-    // laid out on the 1440x813 footer frame from the file: 64 italic headline at the
-    // top, contacts bottom-left, legal links at x 583, gif bottom-right
-    const head = q("[data-c='0']"), info = q("[data-c='1']"), gif = q("[data-c='3']"), legal = q("[data-c='4']");
+    // laid out on the 1440x813 Footer frame: headline at the top, contacts bottom-left,
+    // legal links at x 583
+    const head = q("[data-c='0']"), info = q("[data-c='1']"), legal = q("[data-c='4']");
     const X = (v) => (edgeL + (v - 33) * sc).toFixed(1) + "px";
     // Keep the headline/email inside the same two-sided page gutter as the navbar.
     // At narrow tablet widths the email then wraps at its authored <wbr> instead of
@@ -885,8 +878,6 @@ class Component extends DCLogic {
         bottom: pageGutterBottom.toFixed(1) + "px", alignItems: "flex-start", gap: px(8) });
       info.querySelectorAll("span").forEach((el) => { el.style.fontSize = typePx(14); el.style.textAlign = "left"; });
     }
-    if (gif) Object.assign(gif.style, { left: "auto", right: edgeR.toFixed(1) + "px", top: "auto",
-      bottom: pageGutterBottom.toFixed(1) + "px", width: px(48), height: px(48) });
     if (legal) {
       Object.assign(legal.style, { left: X(583), right: "auto", top: "auto", bottom: pageGutterBottom.toFixed(1) + "px",
         flexDirection: "row", alignItems: "flex-start", gap: px(32) });
@@ -900,11 +891,9 @@ class Component extends DCLogic {
       if (row) { row.style.flex = "0 0 auto"; row.style.gap = px(32); }
       legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = typePx(12); });
     }
-    // tablet: one left column at the bottom — contacts, then the legal links under them;
-    // the gif keeps the opposite corner
+    // tablet: one left column at the bottom — contacts, then the legal links under them
     if (tablet) {
-      // left column: phone + city, then each legal link on its own line. Gif keeps the
-      // opposite corner. Steps are 8, 16, 32 off the base unit.
+      // left column: phone + city, then each legal link on its own line. Steps are 8, 16, 32 off the base unit.
       if (legal) {
         Object.assign(legal.style, { left: edgeL.toFixed(1) + "px", right: "auto", bottom: pageGutterBottom.toFixed(1) + "px",
           flexDirection: "column", alignItems: "flex-start", gap: px(8) });
@@ -913,8 +902,6 @@ class Component extends DCLogic {
       }
       const lh = legal ? legal.offsetHeight : 0;
       if (info) Object.assign(info.style, { bottom: (pageGutterBottom + lh + 32 * sc).toFixed(1) + "px", gap: px(8) });
-      if (gif) Object.assign(gif.style, { left: "auto", right: edgeR.toFixed(1) + "px", top: "auto",
-        bottom: pageGutterBottom.toFixed(1) + "px", width: px(64), height: px(64) });
     }
   }
 
@@ -1103,7 +1090,7 @@ class Component extends DCLogic {
     // plain src on all 13 tags made the browser download every clip up to six times
     // iPadOS gives a page only a handful of hardware video decoders. Every clip in the
     // layout is "live" by offsetParent even when it is four screens away, and the ones that
-    // asked last (the About avatar, the footer gif) then never decoded at all. On tablet and
+    // asked last (the About avatar) then never decoded at all. On tablet and
     // mobile a clip counts as live only while its own card is near the viewport (both axes,
     // since the tablet deck and the mobile ticket rail scroll horizontally) — this is what
     // keeps mobile from starting every project's mp4 the moment the ticket rail exists.

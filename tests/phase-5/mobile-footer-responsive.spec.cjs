@@ -21,7 +21,6 @@ test('mobile Footer keeps readable text, usable links and curtain scroll behavio
       const footer = document.querySelector('#contact');
       const head = footer.querySelector('[data-c="0"]');
       const info = footer.querySelector('[data-c="1"]');
-      const gif = footer.querySelector('[data-c="3"]');
       const legal = footer.querySelector('[data-c="4"]');
       const email = head.querySelector('a');
       const rect = element => {
@@ -50,11 +49,11 @@ test('mobile Footer keeps readable text, usable links and curtain scroll behavio
         footer:rect(footer), head:{...rect(head),font:parseFloat(getComputedStyle(head).fontSize),scale:scale(head),scrollWidth:head.scrollWidth,clientWidth:head.clientWidth,lines:lines(head)},
         email:{...rect(email),font:parseFloat(getComputedStyle(email).fontSize),scale:scale(email),lines:lines(email),href:email.getAttribute('href')},
         contacts:[...info.querySelectorAll('span')].map(el=>({ ...rect(el),font:parseFloat(getComputedStyle(el).fontSize),scale:scale(el) })),
-        info:rect(info),gif:rect(gif),legal:{...rect(legal),links:links.map(el=>({ ...rect(el),font:parseFloat(getComputedStyle(el).fontSize),scale:scale(el),href:el.getAttribute('href') }))},
+        info:rect(info),footerMediaCount:footer.querySelectorAll('[data-c="3"],video[data-src*="footer-walk"]').length,legal:{...rect(legal),links:links.map(el=>({ ...rect(el),font:parseFloat(getComputedStyle(el).fontSize),scale:scale(el),href:el.getAttribute('href') }))},
         navBottom:document.querySelector('.kc-responsive-nav').getBoundingClientRect().bottom,
         curtainProgress:document.querySelector('curtain-cloth')?.progress,
         curtainTarget:document.querySelector('curtain-cloth')?.target,
-        video:{src:footer.querySelector('video')?.getAttribute('src'),dataSrc:footer.querySelector('video')?.getAttribute('data-src'),readyState:footer.querySelector('video')?.readyState},
+        footerWalkResource:document.querySelector('meta[data-resource-id="footerWalkVid"]') !== null,
       };
     });
 
@@ -67,7 +66,8 @@ test('mobile Footer keeps readable text, usable links and curtain scroll behavio
     expect(state.head.font).toBe(32);
     expect(state.head.scale).toBeCloseTo(1,4);
     expect(state.head.scrollWidth).toBeLessThanOrEqual(state.head.clientWidth+1);
-    expect(state.head.top).toBeGreaterThanOrEqual(state.navBottom+70);
+    expect(state.head.top).toBeGreaterThanOrEqual(state.navBottom+23);
+    expect(state.head.top).toBeLessThan(state.navBottom+70);
     expect(state.email.font).toBe(32);
     expect(state.email.scale).toBeCloseTo(1,4);
     expect(state.email.href).toContain('mailto:comme.kamila@gmail.com');
@@ -90,14 +90,12 @@ test('mobile Footer keeps readable text, usable links and curtain scroll behavio
       expect(link.right).toBeLessThanOrEqual(width-15);
     }
     expect(state.info.bottom).toBeLessThanOrEqual(state.legal.top);
-    expect(state.gif.width).toBe(48);
-    expect(state.gif.height).toBe(48);
+    expect(state.footerMediaCount).toBe(0);
+    expect(state.footerWalkResource).toBe(false);
     expect(state.curtainTarget).toBeGreaterThan(0.05);
     expect(state.curtainTarget).toBeGreaterThan(curtainTargetAtTop);
     expect(state.curtainProgress).toBeGreaterThanOrEqual(0);
     expect(state.curtainProgress).toBeLessThanOrEqual(1);
-    expect(state.video.dataSrc).toContain('assets/about/footer-walk.mp4');
-    expect(state.video.src).toContain('assets/about/footer-walk.mp4');
     return state;
   }
 

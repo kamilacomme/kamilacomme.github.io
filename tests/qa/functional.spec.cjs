@@ -95,8 +95,7 @@ test('navigation, About animation, footer and legal dialog interactions',async({
  await h.scrollTo(page,await page.evaluate(()=>document.documentElement.scrollHeight));
  await expect(page.locator('#contact')).toBeVisible();
  await expect.poll(()=>page.locator('curtain-cloth').evaluate(el=>el.progress),{timeout:15000}).toBeGreaterThan(.1);
- const footerVideo=page.locator('video[data-src="assets/about/footer-walk.mp4"]');
- await expect.poll(()=>footerVideo.evaluate(v=>v.readyState)).toBeGreaterThanOrEqual(2);
+ await expect(page.locator('#contact [data-c="3"], #contact video[data-src*="footer-walk"]')).toHaveCount(0);
  for(const key of ['legal','privacy']){
    await page.locator(`a[data-legal="${key}"]:visible`).first().click();
    const dialog=page.locator(`[role="dialog"][data-sheet="${key}"]`);

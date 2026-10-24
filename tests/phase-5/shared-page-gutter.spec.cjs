@@ -58,7 +58,6 @@ test('shared page-edge gutters align Navbar, Hero, Footer and the language switc
       const email = heading.querySelector('a');
       const info = footer.querySelector('[data-c="1"]');
       const legal = footer.querySelector('[data-c="4"]');
-      const gif = footer.querySelector('[data-c="3"]');
       const legalLinks = [...legal.querySelectorAll('a')];
       const lines = el => {
         const range = document.createRange();
@@ -71,7 +70,7 @@ test('shared page-edge gutters align Navbar, Hero, Footer and the language switc
         nav:{ box:rect(nav), logo:rect(nav.querySelector(':scope > span:first-child')), hire:rect(nav.querySelector("a[href^='mailto']")) },
         preview:{ box:rect(preview), right:css(preview).right, bottom:css(preview).bottom, scale:scale(preview) },
         switcher:{ box:rect(switcher), font:css(switcher).fontSize, scale:scale(switcher) },
-        footer:{ box:rect(footer), heading:{ box:rect(heading), font:css(heading).fontSize, scale:scale(heading), lines:lines(heading) }, email:{ box:rect(email), font:css(email).fontSize, scale:scale(email), lines:lines(email) }, info:{ box:rect(info), children:[...info.querySelectorAll('span')].map(el=>({ box:rect(el), font:css(el).fontSize, scale:scale(el) })) }, legal:{ box:rect(legal), links:legalLinks.map(el=>({ text:el.textContent.trim(), box:rect(el), font:css(el).fontSize, scale:scale(el) })) }, gif:rect(gif), curtainTarget:document.querySelector('curtain-cloth')?.target },
+        footer:{ box:rect(footer), heading:{ box:rect(heading), font:css(heading).fontSize, scale:scale(heading), lines:lines(heading) }, email:{ box:rect(email), font:css(email).fontSize, scale:scale(email), lines:lines(email) }, info:{ box:rect(info), children:[...info.querySelectorAll('span')].map(el=>({ box:rect(el), font:css(el).fontSize, scale:scale(el) })) }, legal:{ box:rect(legal), links:legalLinks.map(el=>({ text:el.textContent.trim(), box:rect(el), font:css(el).fontSize, scale:scale(el) })) }, mediaCount:footer.querySelectorAll('[data-c="3"],video[data-src*="footer-walk"]').length, curtainTarget:document.querySelector('curtain-cloth')?.target },
       navProjects:nav.querySelector("a[href$='#projets']") ? rect(nav.querySelector("a[href$='#projets']")) : null,
     };
     }, mode);
@@ -131,6 +130,7 @@ test('shared page-edge gutters align Navbar, Hero, Footer and the language switc
     expect(footer.switcherHitsFooterText).toEqual([]);
     expect(footer.legalLinks).toHaveLength(2);
     expect(footer.contactLinks).toHaveLength(1);
+    expect(state.footer.mediaCount).toBe(0);
     expect(footer.fonts.heading).toBe(mode === 'desktop' ? '56px' : mode === 'mobile' ? '32px' : '48px');
     expect(footer.fonts.email).toBe(footer.fonts.heading);
     expect(footer.fonts.contacts).toEqual(['14px', '14px']);

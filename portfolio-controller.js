@@ -587,6 +587,16 @@ class Component extends DCLogic {
         // resolve their own fixed gutters before this value is copied to the page root.
         const pageGutter = parseFloat(getComputedStyle(this.nav).getPropertyValue("--kc-nav-gutter"));
         if (Number.isFinite(pageGutter)) document.documentElement.style.setProperty("--kc-page-gutter", pageGutter.toFixed(3) + "px");
+        // The mobile Hero preview sits 24px above the phone frame's bottom edge,
+        // while the mobile page gutter is 16px. Keep the fixed language button on
+        // that existing preview edge; desktop/tablet already use the shared gutter.
+        let switchBottomGutter = pageGutter;
+        const mobilePreview = mobile && this.mHero && this.mHero.querySelector(".kc-mobile-hero-slideshow");
+        if (mobilePreview) {
+          const previewInset = parseFloat(getComputedStyle(mobilePreview).bottom);
+          if (Number.isFinite(previewInset)) switchBottomGutter = previewInset;
+        }
+        if (Number.isFinite(switchBottomGutter)) document.documentElement.style.setProperty("--kc-language-bottom-gutter", switchBottomGutter.toFixed(3) + "px");
         // the phone / tablet frame is centred in the window — the navbar has to ride
         // its top edge, not the window's, otherwise it floats above the design
         const boxH = mobile ? (this.devH ? this.devH * kFit : this.vhNow())

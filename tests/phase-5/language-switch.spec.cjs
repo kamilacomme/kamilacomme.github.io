@@ -19,16 +19,17 @@ test('shared FR/EN language link stays aligned, keyboard reachable and preserves
 
   const measure = async (width, height) => {
     await page.setViewportSize({ width, height });
-    if (mode === 'desktop') {
-      await expect.poll(() => page.evaluate(() => {
+    await expect.poll(() => page.evaluate(mode => {
+        const selector=mode==='desktop'?'[data-hplate]':mode==='mobile'?'.kc-mobile-hero-slideshow':'[data-kc-tablet-hero-slideshow]';
         const sw=document.querySelector('[data-kc-language-switch]').getBoundingClientRect();
-        const plate=document.querySelector('[data-hplate]').getBoundingClientRect();
+        const plate=document.querySelector(selector).getBoundingClientRect();
         return Math.max(Math.abs(sw.right-plate.right),Math.abs(sw.bottom-plate.bottom));
-      }), { timeout:5000 }).toBeLessThan(0.5);
-    } else await page.waitForTimeout(120);
-    const state = await link.evaluate(el => {
+      },mode), { timeout:5000 }).toBeLessThan(0.5);
+    const state = await link.evaluate((el,mode) => {
       const r = el.getBoundingClientRect();
       const cs = getComputedStyle(el);
+      const previewSelector=mode==='desktop'?'[data-hplate]':mode==='mobile'?'.kc-mobile-hero-slideshow':'[data-kc-tablet-hero-slideshow]';
+      const preview=document.querySelector(previewSelector).getBoundingClientRect();
       let scale = 1;
       for (let n = el; n && n.nodeType === 1; n = n.parentElement) {
         const t = getComputedStyle(n).transform;
@@ -38,21 +39,23 @@ test('shared FR/EN language link stays aligned, keyboard reachable and preserves
         rect: { left:r.left, right:r.right, top:r.top, bottom:r.bottom, width:r.width, height:r.height },
         viewport: [innerWidth, innerHeight], clientWidth:document.documentElement.clientWidth,
         pageGutter:parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--kc-page-gutter')),
+        bottomGutter:parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--kc-language-bottom-gutter')),
         hireRight:document.querySelector('[role="navigation"] a[href^="mailto"]').getBoundingClientRect().right,
-        heroPreview:(()=>{const p=document.querySelector('[data-hplate]')?.getBoundingClientRect();return p&&p.width>0?{right:p.right,bottom:p.bottom}:null})(),
+        heroPreview:preview.width>0?{right:preview.right,bottom:preview.bottom}:null,
         position:cs.position, font:parseFloat(cs.fontSize), color:cs.color, bg:cs.backgroundColor,
         borderRadius:cs.borderRadius, outlineStyle:cs.outlineStyle, outlineWidth:cs.outlineWidth, scale,
       };
-    });
+    },mode);
     expect(state.viewport).toEqual([width,height]);
     expect(state.position).toBe('fixed');
     expect(state.rect.width).toBe(44);
     expect(state.rect.height).toBe(44);
     expect(state.pageGutter).toBeGreaterThan(0);
+    expect(state.bottomGutter).toBeGreaterThan(0);
     expect(state.rect.right).toBeCloseTo(state.clientWidth-state.pageGutter,1);
-    expect(state.rect.bottom).toBeCloseTo(height-state.pageGutter,1);
+    expect(state.rect.bottom).toBeCloseTo(height-state.bottomGutter,1);
     expect(state.hireRight).toBeCloseTo(state.rect.right,1);
-    if (mode === 'desktop' && state.heroPreview) {
+    if (state.heroPreview) {
       expect(state.heroPreview.right).toBeCloseTo(state.rect.right,0);
       expect(state.heroPreview.bottom).toBeCloseTo(state.rect.bottom,0);
     }
@@ -69,7 +72,7 @@ test('shared FR/EN language link stays aligned, keyboard reachable and preserves
     ? [[320,568],[375,812],[390,844],[430,932]]
     : mode === 'desktop'
       ? [[profileSize.width,profileSize.height], [Math.max(500,profileSize.width-40),Math.max(600,profileSize.height-80)], [1905,963], [1920,1080]]
-      : [[profileSize.width,profileSize.height], [Math.max(500,profileSize.width-40),Math.max(600,profileSize.height-80)]];
+      : [[profileSize.width,profileSize.height], [Math.max(500,profileSize.width-40),Math.max(600,profileSize.height-80)], [560,800], [716,555]];
   for (const [w,h] of widths) await measure(w,h);
 
   await link.focus();

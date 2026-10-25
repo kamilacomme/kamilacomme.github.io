@@ -1,0 +1,77 @@
+{
+  "aboutRecords": [
+    {
+      "viewport": {
+        "width": 1194,
+        "height": 834
+      },
+      "actualProfile": {
+        "mode": "tablet",
+        "detection": {
+          "mobileDomActive": false,
+          "tabletHeroActive": true,
+          "desktopHeroActive": false,
+          "tabletLayoutPublished": {
+            "tablet": true,
+            "scale": 0.9266666666666666,
+            "width": 1194,
+            "height": 834
+          },
+          "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+          "touchPoints": 1,
+          "coarsePointer": true,
+          "finePointer": false,
+          "coarseHover": true,
+          "fineHover": false
+        }
+      },
+      "activeAbout": {
+        "id": "apropos-t",
+        "top": -219,
+        "bottom": 2283,
+        "documentTop": 5318,
+        "documentBottom": 7820,
+        "scrollY": 5537
+      },
+      "stillInAbout": true,
+      "scrollY": 5537
+    },
+    {
+      "viewport": {
+        "width": 834,
+        "height": 1112
+      },
+      "actualProfile": {
+        "mode": "tablet",
+        "detection": {
+          "mobileDomActive": false,
+          "tabletHeroActive": true,
+          "desktopHeroActive": false,
+          "tabletLayoutPublished": {
+            "tablet": true,
+            "scale": 1,
+            "width": 834,
+            "height": 1112
+          },
+          "userAgent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+          "touchPoints": 1,
+          "coarsePointer": true,
+          "finePointer": false,
+          "coarseHover": true,
+          "fineHover": false
+        }
+      },
+      "activeAbout": {
+        "id": "apropos-t",
+        "top": -139,
+        "bottom": 3197,
+        "documentTop": 3433,
+        "documentBottom": 6769,
+        "scrollY": 3572
+      },
+      "stillInAbout": true,
+      "scrollY": 3572
+    }
+  ],
+  "failures": []
+}

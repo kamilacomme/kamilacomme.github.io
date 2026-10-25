@@ -72,7 +72,7 @@ The source extraction inspected Figma node properties, not thumbnails. Figma sec
 
 ## Footer legal-link proposal and read-only owner audit
 
-The user initially requested vertical mobile links and horizontal tablet/desktop links. After reviewing the browser-only comparison, the user cancelled that proposed change because the current layout looks better. Keep the current Footer legal-link orientation as the visual target: desktop horizontal, tablet vertical, and mobile horizontal. Do not implement the proposed orientation change unless the user reopens it. Preserve anchors, typography, focus behavior, shared gutters and the curtain.
+The earlier mobile proposal with only 1px between contacts and legal links was rejected. The user has now clarified a fresh mobile direction: vertical legal links, with the gap between links smaller than the gap between contacts and the legal group. This fresh proposal uses an 8px internal link gap and a 32px contact-to-legal gap; it moves contacts up 23px in the two mobile examples to preserve that outer gap. Tablet and desktop are unchanged from the current implementation. This new mobile composition awaits visual approval before any code change. Preserve anchors, typography, focus behavior, shared gutters and the curtain.
 
 The existing owner is `PortfolioController.fitFooter()` in `portfolio-controller.js`; generated anchors originate in `templates/page.html`. The template has one legal group (`data-c="4"`) with an inner row containing the two canonical anchors. There is no separate legal-link CSS owner or media query. `fitFooter()` currently writes inline directions: desktop row/row; tablet column/column at every tablet width; mobile row/row at every mobile width. It also owns the mobile 11px legal-link sizing and shared bottom anchoring. The main `fit()` pass publishes `--kc-page-gutter-x` and `--kc-page-gutter-bottom`; `fitFooter()` consumes these shared values. The current mobile row and tablet column differ from the subsequently proposed orientations; those orientations were rejected during visual review, so this difference does not authorize a change. Desktop is already horizontal.
 
@@ -125,7 +125,7 @@ The proposed geometry was rejected in visual review. The user explicitly said th
 
 ### Browser-only approval prototype
 
-The requested FR/EN before/after browser captures and measured bounds are available in the [local Footer legal-link review gallery](phase-5-m10-footer-legal-review/README.md). The prototype uses runtime-only browser style overrides; application source and historical screenshot baselines were not changed.
+The initial comparison was cancelled; the refreshed mobile-specific comparison is in the [local fresh proposal gallery](phase-5-m10-footer-legal-review/restarted-mobile/README.md). Both previews use runtime-only browser style overrides; application source and historical screenshot baselines were not changed.
 
 ## M10B planning implications
 

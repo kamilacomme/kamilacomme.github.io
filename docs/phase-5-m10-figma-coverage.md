@@ -1,6 +1,6 @@
 # M10 Figma-to-implementation coverage
 
-This matrix maps the measured Figma Responsive page to the current Phase 5 site and the bounded M10 plan. It records outcomes for the meaningful width and height stages; it does not turn Figma frame sizes into CSS breakpoints. M10B remains unstarted. “Investigate” below means measure the existing owner and present a grouped proposal before making a design change.
+This matrix maps the measured Figma Responsive page to the current Phase 5 site and the bounded M10 plan. It records outcomes for the meaningful width and height stages; it does not turn Figma frame sizes into CSS breakpoints. M10B is in progress with the approved mobile Footer legal-link correction implemented. Other “Investigate” entries still require measuring the existing owner and presenting a grouped proposal before changing behavior.
 
 ## How to read the classifications
 
@@ -64,68 +64,23 @@ The source extraction inspected Figma node properties, not thumbnails. Figma sec
 | Figma stages and measured evidence | Outcome | Decision |
 | --- | --- | --- |
 | Width `408:8558` “Contact page vert 1”, 1376.5×814. Contact/legal groups horizontal. | **1 — Already supported** | Current desktop Footer retains its approved horizontal legal links, content, curtain and shared gutters. |
-| `408:8608` “Contact page vert 2 (legal links vert)”, 544×1086. Footer groups stack and legal links are vertical with a 16px gap. | **2 — M10B** | This supports the user's new mobile-vertical design decision. The requested Tablet rule differs: preserve horizontal links when their content fits; the current 544px frame is a design reference, not proof of a required tablet breakpoint. Use measured content fit, not its frame width. |
+| `408:8608` “Contact page vert 2 (legal links vert)”, 544×1086. Footer groups stack and legal links are vertical with a 16px gap. | **2 — M10B complete for the approved mobile behavior** | The mobile legal links now stack using the existing Footer owner, with an 8px internal gap and 32px contact separation. Desktop remains horizontal and tablet remains in its approved vertical composition. The Figma 16px gap is a reference, not copied as a breakpoint or value. |
 | `408:8618` “Contact page vert 3”, 197×1188; `408:8628` “Contact page vert 4 (margins 0)”, 64×2158. Contact/legal text wraps extensively and outer margins are removed. | **4 — Stress only** | These widths are below the supported minimum. Preserve the supported shared gutters and do not make legal-copy breakpoints for these stages. |
 | Height `408:8568` “Contact page horiz 1”, 2206×386. Message above the horizontal footer. | **1 — Already supported** | Current Footer supports its approved normal-height desktop composition. |
 | `408:8578` “Contact page horiz 2 (contact details vertical, small margins)”, 2206×164; `408:8588` “Contact page horiz 3”, 2206×102. Footer/message rearrange horizontally. The extraction notes that `408:8581` Contact Details is horizontal despite the stage name. | **3 — Simpler behavior** | Prefer current Footer document flow and its existing geometry/curtain owners for short heights. The stage-name/property discrepancy means the Figma label alone is not an implementation specification. |
 | `408:8598` “Contact page horiz 4 (margins 0)”, 2206×50. The 62px message overflows y=−6..56. | **4 — Stress only** | This stage is visibly taller in content than its 50px frame, with clipping disabled. It is a resilience warning, not a required Footer size or margin rule. |
 
-## Footer legal-link proposal and read-only owner audit
+## Footer legal-link orientation and implementation record
 
-The earlier mobile proposal with only 1px between contacts and legal links was rejected. The user has now clarified a fresh mobile direction: vertical legal links, with the gap between links smaller than the gap between contacts and the legal group. This fresh proposal uses an 8px internal link gap and a 32px contact-to-legal gap; it moves contacts up 23px in the two mobile examples to preserve that outer gap. Tablet and desktop are unchanged from the current implementation. This new mobile composition awaits visual approval before any code change. Preserve anchors, typography, focus behavior, shared gutters and the curtain.
+The approved design is now implemented within the existing `PortfolioController.fitFooter()` geometry owner. Mobile legal links are vertical with an 8px gap; the contact group ends 32px above the first legal link. The link group remains aligned to the shared 16px horizontal and 24px bottom gutters and grows upward. At 320×568 and 390×844, the contact group moves up 23px to preserve that visible separation. Typography remains 11px for legal links, and the 44px language switcher stays fixed at its shared gutter position. The curtain, links, dialogs and content are unchanged.
 
-The existing owner is `PortfolioController.fitFooter()` in `portfolio-controller.js`; generated anchors originate in `templates/page.html`. The template has one legal group (`data-c="4"`) with an inner row containing the two canonical anchors. There is no separate legal-link CSS owner or media query. `fitFooter()` currently writes inline directions: desktop row/row; tablet column/column at every tablet width; mobile row/row at every mobile width. It also owns the mobile 11px legal-link sizing and shared bottom anchoring. The main `fit()` pass publishes `--kc-page-gutter-x` and `--kc-page-gutter-bottom`; `fitFooter()` consumes these shared values. The current mobile row and tablet column differ from the subsequently proposed orientations; those orientations were rejected during visual review, so this difference does not authorize a change. Desktop is already horizontal.
+Tablet keeps its existing vertical arrangement (including the 500×600 narrow-tablet reference); desktop keeps its existing horizontal arrangement. A real-browser wide desktop control at 2991×643 with fine-pointer input selects the desktop profile and renders horizontal links. The user's capture at the same nominal viewport appeared vertical, so its active responsive profile or local runtime state remains uncertain; the vertical arrangement could not be reproduced in the controlled desktop profile.
 
-### Measured current geometry
+No new template, controller, stylesheet rule or layout owner was added. The mobile branch now sets the legal stack to `column` with an 8px gap and derives the contact group's bottom position from the measured legal-group height, shared bottom gutter and 32px inter-group spacing. Desktop/tablet assignments are unchanged.
 
-Read-only Chromium run against the actual generated FR/EN routes with the existing runtime fixtures, Chromium touch/iPad contexts for tablet and iPhone contexts for mobile, at 800px height. The curtain was allowed to settle before measurements. Link widths include rendered font metrics; group widths include current gaps.
+Actual FR/EN captures at mobile 320×568 and 390×844 and desktop 1440×900 and 2991×643, together with bounds and active input/profile data, are in the [local implementation gallery](phase-5-m10-footer-legal-implementation-review/README.md). The tablet arrangement was focused-tested at 500×600 and 1194×834. The test `footer-legal-orientation.spec.cjs` verifies mobile stack/gaps, desktop horizontal behavior including 2991×643, and retained tablet orientation in both locales; the existing `mobile-footer-responsive.spec.cjs` additionally covers its width/height resize sequence. Eight focused cases passed (four profile skips). `content:check`, deterministic `content:build:check` and the 230-entry frozen-reference hash check passed. No historical screenshots changed.
 
-| Profile / viewport sample | FR link boxes / row width | EN link boxes / row width | Current arrangement and implication |
-| --- | --- | --- | --- |
-| Desktop 1440 and 1905px | 94.1px + 146.7px; 271.1px with 32px gap | 67.7px + 77.4px; 175.4px with 32px gap | Row/row already; outer desktop anchor follows the shared Navbar section-link alignment, bottom uses shared gutter. |
-| Tablet 500, 716, 834, 1194px | 94.1px + 146.7px; 272.8px with 32px gap | 67.7px + 77.4px; 177.1px with 32px gap | Column/column at every tested width. At the narrowest 500px viewport, 436px remains between 32px gutters, so the French row fits with about 163px spare and the English row with about 259px spare. No width-based narrow-tablet constraint was found. |
-| Mobile 320, 393, 430px | 86.2px + 134.5px; 236.7px with 16px gap | 62.1px + 71.0px; 149px with 16px gap | Row/row at every width. The current French row fits in 288px at 320px, but the new rule requires vertical arrangement regardless of this available space. |
-
-The sample confirms that the tablet horizontal composition fits down through 500px: 32px gutters leave 436px content width. Browser prototype checks at the requested viewports show no collision with the switcher or content. The review gallery records actual bounds and curtain-settled captures. Mobile height variation does not alter vertical direction.
-
-### Exact proposed adjustment — not implemented
-
-Keep `fitFooter()` as the only geometry owner and make no stylesheet or template changes:
-
-- **Desktop:** leave current outer and inner legal directions horizontal; retain 32px gap, existing link alignment, typography and bottom gutter.
-- **Tablet:** use a horizontal row with a 32px scaled gap. Bound the outer group by shared gutters and allow the inner anchor row to wrap naturally within available width. The browser prototype fits without wrapping at 500px in both locales. Keep contact geometry unchanged where it does not collide.
-- **Mobile:** use a vertical anchor row with a 16px gap, retaining the existing shared left/right/bottom anchors and 11px typography. Let the legal group grow upward. In the actual browser prototype at 320×568 and 390×844, the contact group remains at exactly its existing position with 1px box-to-box clearance; no overlap occurs. The legal group grows upward by 32.5px. Moving contacts upward by about 32.5px to recreate the old 33.5px gap is unnecessary for collision avoidance and is not included in this proposal.
-
-The intended owner-level style assignments would be equivalent to:
-
-```js
-// fitFooter(tablet): keep the existing shared geometry owner
-Object.assign(legal.style, {
-  left: `${edgeL}px`, right: `${edgeL}px`, bottom: `${pageGutterBottom}px`,
-  flexDirection: 'row', alignItems: 'flex-start', gap: px(32),
-});
-Object.assign(row.style, {
-  flex: '0 1 auto', flexDirection: 'row', flexWrap: 'wrap',
-  alignItems: 'flex-start', gap: px(32), maxWidth: '100%',
-});
-
-// fitFooter() mobile branch: preserve contact position; let legal links grow upward
-Object.assign(legal.style, { flexDirection: 'column', alignItems: 'flex-start' });
-Object.assign(row.style, {
-  flex: '0 1 auto', flexDirection: 'column', flexWrap: 'nowrap',
-  alignItems: 'flex-start', gap: '16px', maxWidth: '100%',
-});
-```
-
-This is a proposal snippet, not implemented code. It intentionally leaves desktop assignments, anchors, font sizes, links, focus rules and curtain code untouched. The tablet gap continues to use the existing geometry factor through `px(32)`.
-
-The proposed geometry was rejected in visual review. The user explicitly said the current “before” layout looks better than the “after.” Keep the captures as a record of the cancelled proposal only; do not change application code or visual references for this proposal.
-
-
-
-### Browser-only approval prototype
-
-The initial comparison was cancelled; the refreshed mobile-specific comparison is in the [local fresh proposal gallery](phase-5-m10-footer-legal-review/restarted-mobile/README.md). Both previews use runtime-only browser style overrides; application source and historical screenshot baselines were not changed.
+The earlier browser-only 1px-clearance proposal was rejected. It is retained in the previous review folder only as a record of that discarded attempt; it is not an implementation target.
 
 ## M10B planning implications
 

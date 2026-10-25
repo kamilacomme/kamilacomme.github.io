@@ -824,7 +824,7 @@ class Component extends DCLogic {
       if (legal) {
         Object.assign(legal.style, { left: L, right: L, top: "auto",
           bottom: (bb + pageGutterBottom).toFixed(1) + "px",
-          flexDirection: "row", alignItems: "flex-end", gap: "16px" });
+          flexDirection: "column", alignItems: "flex-start", gap: "8px" });
         // the footer sits outside the mobile root, so the phone type-scale rule there
         // never reached it: body copy 14, labels 11
         [legal, info].forEach((box) => {
@@ -838,12 +838,13 @@ class Component extends DCLogic {
         const cr = legal.querySelector(":scope > span");
         if (cr) cr.style.display = "none";
         const row = legal.querySelector(":scope > div");
-        if (row) { row.style.flex = "0 0 auto"; row.style.flexDirection = "row"; row.style.justifyContent = "flex-start"; row.style.alignItems = "flex-end"; row.style.gap = "16px"; }
+        if (row) { row.style.flex = "0 1 auto"; row.style.flexDirection = "column"; row.style.flexWrap = "nowrap"; row.style.justifyContent = "flex-start"; row.style.alignItems = "flex-start"; row.style.gap = "8px"; }
         legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = "11px"; });
       }
       if (info) {
         Object.assign(info.style, { left: L, right: "auto", top: "auto",
-          bottom: (bb + pageGutterBottom + 50).toFixed(1) + "px", alignItems: "flex-start", gap: "8px" });
+          // Keep a clear 32px group gap; the legal stack grows upward from its shared bottom gutter.
+          bottom: (bb + pageGutterBottom + (legal ? legal.getBoundingClientRect().height : 0) + 32).toFixed(1) + "px", alignItems: "flex-start", gap: "8px" });
         info.querySelectorAll("span").forEach((el) => { el.style.fontSize = "14px"; el.style.textAlign = "left"; });
       }
       return;

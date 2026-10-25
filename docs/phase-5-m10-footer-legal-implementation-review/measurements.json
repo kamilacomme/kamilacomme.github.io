@@ -1,0 +1,598 @@
+{
+  "generatedAt": "2026-10-25T01:29:46.737Z",
+  "captureMethod": "Actual generated FR/EN application, Playwright Chromium with existing runtime replay fixture. Fine-pointer desktop, touch/iPhone mobile; no DOM overrides.",
+  "cases": [
+    {
+      "language": "fr",
+      "profile": "mobile",
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "input": {
+        "coarse": true,
+        "touchPoints": 1
+      },
+      "gutters": {
+        "x": "16.000px",
+        "bottom": "24.000px"
+      },
+      "legalDirections": [
+        "column",
+        "column"
+      ],
+      "linkGap": "8px",
+      "links": [
+        {
+          "text": "Mentions légales",
+          "font": "11px",
+          "left": 16,
+          "right": 102.23,
+          "top": 503.28,
+          "bottom": 519.78,
+          "width": 86.23,
+          "height": 16.5
+        },
+        {
+          "text": "Politique de confidentialité",
+          "font": "11px",
+          "left": 16,
+          "right": 150.5,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 134.5,
+          "height": 16.5
+        }
+      ],
+      "contact": {
+        "left": 16,
+        "right": 158.8,
+        "top": 421.28,
+        "bottom": 471.28,
+        "width": 142.8,
+        "height": 50
+      },
+      "legal": {
+        "left": 16,
+        "right": 304,
+        "top": 503.28,
+        "bottom": 544.28,
+        "width": 288,
+        "height": 41
+      },
+      "contactToLegal": 32,
+      "switcher": {
+        "left": 260,
+        "right": 304,
+        "top": 500,
+        "bottom": 544,
+        "width": 44,
+        "height": 44
+      },
+      "curtainProgress": 0,
+      "curtainTarget": 0,
+      "horizontalOverflow": 0,
+      "scrollY": 6252,
+      "screenshot": "fr-mobile-320x568.png",
+      "errors": []
+    },
+    {
+      "language": "fr",
+      "profile": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "input": {
+        "coarse": true,
+        "touchPoints": 1
+      },
+      "gutters": {
+        "x": "16.000px",
+        "bottom": "24.000px"
+      },
+      "legalDirections": [
+        "column",
+        "column"
+      ],
+      "linkGap": "8px",
+      "links": [
+        {
+          "text": "Mentions légales",
+          "font": "11px",
+          "left": 16,
+          "right": 102.23,
+          "top": 779.48,
+          "bottom": 795.98,
+          "width": 86.23,
+          "height": 16.5
+        },
+        {
+          "text": "Politique de confidentialité",
+          "font": "11px",
+          "left": 16,
+          "right": 150.5,
+          "top": 803.98,
+          "bottom": 820.48,
+          "width": 134.5,
+          "height": 16.5
+        }
+      ],
+      "contact": {
+        "left": 16,
+        "right": 158.8,
+        "top": 697.48,
+        "bottom": 747.48,
+        "width": 142.8,
+        "height": 50
+      },
+      "legal": {
+        "left": 16,
+        "right": 374,
+        "top": 779.48,
+        "bottom": 820.48,
+        "width": 358,
+        "height": 41
+      },
+      "contactToLegal": 32,
+      "switcher": {
+        "left": 330,
+        "right": 374,
+        "top": 776,
+        "bottom": 820,
+        "width": 44,
+        "height": 44
+      },
+      "curtainProgress": 0,
+      "curtainTarget": 0,
+      "horizontalOverflow": 0,
+      "scrollY": 7682,
+      "screenshot": "fr-mobile-390x844.png",
+      "errors": []
+    },
+    {
+      "language": "fr",
+      "profile": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "input": {
+        "coarse": false,
+        "touchPoints": 0
+      },
+      "gutters": {
+        "x": "32.000px",
+        "bottom": "32.000px"
+      },
+      "legalDirections": [
+        "row",
+        "row"
+      ],
+      "linkGap": "32px",
+      "links": [
+        {
+          "text": "Mentions légales",
+          "font": "12px",
+          "left": 596.3,
+          "right": 690.38,
+          "top": 850,
+          "bottom": 868,
+          "width": 94.08,
+          "height": 18
+        },
+        {
+          "text": "Politique de confidentialité",
+          "font": "12px",
+          "left": 722.38,
+          "right": 869.11,
+          "top": 850,
+          "bottom": 868,
+          "width": 146.73,
+          "height": 18
+        }
+      ],
+      "contact": {
+        "left": 32,
+        "right": 174.8,
+        "top": 818,
+        "bottom": 868,
+        "width": 142.8,
+        "height": 50
+      },
+      "legal": {
+        "left": 596.3,
+        "right": 869.11,
+        "top": 850,
+        "bottom": 868,
+        "width": 272.81,
+        "height": 18
+      },
+      "contactToLegal": -18,
+      "switcher": {
+        "left": 1364,
+        "right": 1408,
+        "top": 824,
+        "bottom": 868,
+        "width": 44,
+        "height": 44
+      },
+      "curtainProgress": 0,
+      "curtainTarget": 0,
+      "horizontalOverflow": 0,
+      "scrollY": 14721,
+      "screenshot": "fr-desktop-1440x900.png",
+      "errors": []
+    },
+    {
+      "language": "fr",
+      "profile": "desktop",
+      "viewport": {
+        "width": 2991,
+        "height": 643
+      },
+      "input": {
+        "coarse": false,
+        "touchPoints": 0
+      },
+      "gutters": {
+        "x": "24.379px",
+        "bottom": "24.379px"
+      },
+      "legalDirections": [
+        "row",
+        "row"
+      ],
+      "linkGap": "24.4px",
+      "links": [
+        {
+          "text": "Mentions légales",
+          "font": "12px",
+          "left": 1379.39,
+          "right": 1473.47,
+          "top": 600.36,
+          "bottom": 618.36,
+          "width": 94.08,
+          "height": 18
+        },
+        {
+          "text": "Politique de confidentialité",
+          "font": "12px",
+          "left": 1497.86,
+          "right": 1644.59,
+          "top": 600.36,
+          "bottom": 618.36,
+          "width": 146.73,
+          "height": 18
+        }
+      ],
+      "contact": {
+        "left": 24.39,
+        "right": 167.19,
+        "top": 570.27,
+        "bottom": 618.36,
+        "width": 142.8,
+        "height": 48.09
+      },
+      "legal": {
+        "left": 1379.39,
+        "right": 1644.59,
+        "top": 600.36,
+        "bottom": 618.36,
+        "width": 265.2,
+        "height": 18
+      },
+      "contactToLegal": -18,
+      "switcher": {
+        "left": 2922.63,
+        "right": 2966.63,
+        "top": 574.63,
+        "bottom": 618.63,
+        "width": 44,
+        "height": 44
+      },
+      "curtainProgress": 0,
+      "curtainTarget": 0,
+      "horizontalOverflow": 0,
+      "scrollY": 10555,
+      "screenshot": "fr-desktop-2991x643.png",
+      "errors": []
+    },
+    {
+      "language": "en",
+      "profile": "mobile",
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "input": {
+        "coarse": true,
+        "touchPoints": 1
+      },
+      "gutters": {
+        "x": "16.000px",
+        "bottom": "24.000px"
+      },
+      "legalDirections": [
+        "column",
+        "column"
+      ],
+      "linkGap": "8px",
+      "links": [
+        {
+          "text": "Legal notice",
+          "font": "11px",
+          "left": 16,
+          "right": 78.06,
+          "top": 503.28,
+          "bottom": 519.78,
+          "width": 62.06,
+          "height": 16.5
+        },
+        {
+          "text": "Privacy policy",
+          "font": "11px",
+          "left": 16,
+          "right": 86.97,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 70.97,
+          "height": 16.5
+        }
+      ],
+      "contact": {
+        "left": 16,
+        "right": 158.8,
+        "top": 421.28,
+        "bottom": 471.28,
+        "width": 142.8,
+        "height": 50
+      },
+      "legal": {
+        "left": 16,
+        "right": 304,
+        "top": 503.28,
+        "bottom": 544.28,
+        "width": 288,
+        "height": 41
+      },
+      "contactToLegal": 32,
+      "switcher": {
+        "left": 260,
+        "right": 304,
+        "top": 500,
+        "bottom": 544,
+        "width": 44,
+        "height": 44
+      },
+      "curtainProgress": 0,
+      "curtainTarget": 0,
+      "horizontalOverflow": 0,
+      "scrollY": 6231,
+      "screenshot": "en-mobile-320x568.png",
+      "errors": []
+    },
+    {
+      "language": "en",
+      "profile": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "input": {
+        "coarse": true,
+        "touchPoints": 1
+      },
+      "gutters": {
+        "x": "16.000px",
+        "bottom": "24.000px"
+      },
+      "legalDirections": [
+        "column",
+        "column"
+      ],
+      "linkGap": "8px",
+      "links": [
+        {
+          "text": "Legal notice",
+          "font": "11px",
+          "left": 16,
+          "right": 78.06,
+          "top": 779.48,
+          "bottom": 795.98,
+          "width": 62.06,
+          "height": 16.5
+        },
+        {
+          "text": "Privacy policy",
+          "font": "11px",
+          "left": 16,
+          "right": 86.97,
+          "top": 803.98,
+          "bottom": 820.48,
+          "width": 70.97,
+          "height": 16.5
+        }
+      ],
+      "contact": {
+        "left": 16,
+        "right": 158.8,
+        "top": 697.48,
+        "bottom": 747.48,
+        "width": 142.8,
+        "height": 50
+      },
+      "legal": {
+        "left": 16,
+        "right": 374,
+        "top": 779.48,
+        "bottom": 820.48,
+        "width": 358,
+        "height": 41
+      },
+      "contactToLegal": 32,
+      "switcher": {
+        "left": 330,
+        "right": 374,
+        "top": 776,
+        "bottom": 820,
+        "width": 44,
+        "height": 44
+      },
+      "curtainProgress": 0,
+      "curtainTarget": 0,
+      "horizontalOverflow": 0,
+      "scrollY": 7682,
+      "screenshot": "en-mobile-390x844.png",
+      "errors": []
+    },
+    {
+      "language": "en",
+      "profile": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "input": {
+        "coarse": false,
+        "touchPoints": 0
+      },
+      "gutters": {
+        "x": "32.000px",
+        "bottom": "32.000px"
+      },
+      "legalDirections": [
+        "row",
+        "row"
+      ],
+      "linkGap": "32px",
+      "links": [
+        {
+          "text": "Legal notice",
+          "font": "12px",
+          "left": 601.69,
+          "right": 669.39,
+          "top": 850,
+          "bottom": 868,
+          "width": 67.7,
+          "height": 18
+        },
+        {
+          "text": "Privacy policy",
+          "font": "12px",
+          "left": 701.39,
+          "right": 778.81,
+          "top": 850,
+          "bottom": 868,
+          "width": 77.42,
+          "height": 18
+        }
+      ],
+      "contact": {
+        "left": 32,
+        "right": 174.8,
+        "top": 818,
+        "bottom": 868,
+        "width": 142.8,
+        "height": 50
+      },
+      "legal": {
+        "left": 601.69,
+        "right": 778.81,
+        "top": 850,
+        "bottom": 868,
+        "width": 177.13,
+        "height": 18
+      },
+      "contactToLegal": -18,
+      "switcher": {
+        "left": 1364,
+        "right": 1408,
+        "top": 824,
+        "bottom": 868,
+        "width": 44,
+        "height": 44
+      },
+      "curtainProgress": 0,
+      "curtainTarget": 0,
+      "horizontalOverflow": 0,
+      "scrollY": 14721,
+      "screenshot": "en-desktop-1440x900.png",
+      "errors": []
+    },
+    {
+      "language": "en",
+      "profile": "desktop",
+      "viewport": {
+        "width": 2991,
+        "height": 643
+      },
+      "input": {
+        "coarse": false,
+        "touchPoints": 0
+      },
+      "gutters": {
+        "x": "24.379px",
+        "bottom": "24.379px"
+      },
+      "legalDirections": [
+        "row",
+        "row"
+      ],
+      "linkGap": "24.4px",
+      "links": [
+        {
+          "text": "Legal notice",
+          "font": "12px",
+          "left": 1384.89,
+          "right": 1452.59,
+          "top": 600.36,
+          "bottom": 618.36,
+          "width": 67.7,
+          "height": 18
+        },
+        {
+          "text": "Privacy policy",
+          "font": "12px",
+          "left": 1476.98,
+          "right": 1554.41,
+          "top": 600.36,
+          "bottom": 618.36,
+          "width": 77.42,
+          "height": 18
+        }
+      ],
+      "contact": {
+        "left": 24.39,
+        "right": 167.19,
+        "top": 570.27,
+        "bottom": 618.36,
+        "width": 142.8,
+        "height": 48.09
+      },
+      "legal": {
+        "left": 1384.89,
+        "right": 1554.41,
+        "top": 600.36,
+        "bottom": 618.36,
+        "width": 169.52,
+        "height": 18
+      },
+      "contactToLegal": -18,
+      "switcher": {
+        "left": 2922.63,
+        "right": 2966.63,
+        "top": 574.63,
+        "bottom": 618.63,
+        "width": 44,
+        "height": 44
+      },
+      "curtainProgress": 0,
+      "curtainTarget": 0,
+      "horizontalOverflow": 0,
+      "scrollY": 10555,
+      "screenshot": "en-desktop-2991x643.png",
+      "errors": []
+    }
+  ]
+}

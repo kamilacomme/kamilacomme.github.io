@@ -38,7 +38,7 @@ Geometry records CSS/layout viewport dimensions, DPR, UA and pointer features, s
 
 Rail viewport clipping is an intentional rendering behavior, not an accessibility pass by itself. The interaction probe samples the existing scroll-driven rail and marks a card reachable only when the whole ticket rectangle is within the rail viewport. It separately checks the six canonical destinations, ticket count and Projects-to-About adjacency. Clipped neighboring cards are accepted only when every full ticket can be brought into view. Text/media internal bounds are measured by the existing component-specific tests, which remain authoritative for ticket template geometry.
 
-Reports distinguish confirmed failures, review-required captures, explicitly approved behavior, and known deferred M10B failures. The extreme-short Projects assertion remains active and is expected to report the already deferred full-card vertical access issue if reproduced; it is not silently skipped, suppressed, or counted as passing. No automated result constitutes user visual approval.
+Reports distinguish confirmed failures, review-required captures and explicitly approved behavior. The Projects mode and reachability assertions remain active; the approved EXTREME-SHORT mode uses the existing ticket nodes in natural vertical flow when a full ticket cannot fit below the navbar. No automated result constitutes user visual approval.
 
 ## Evidence and preservation
 

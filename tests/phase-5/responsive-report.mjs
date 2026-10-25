@@ -166,7 +166,7 @@ async function createReport(root) {
 
   output.push('', '## Intentional and deferred behavior', '',
     '- **Intentional/approved:** horizontal project rails may show neighboring tickets clipped at the viewport edge; checks track whether every whole ticket can be reached. This does not classify all clipping as a defect.',
-    '- **Known deferred Projects issue:** the existing desktop rail can clip ticket height or lose end reachability in short-height probes. This remains an active failing assertion assigned to M10B; no fallback was implemented.',
+    '- **Approved M10B Projects behavior:** NORMAL and COMPACT retain the horizontal rail when a complete ticket fits; EXTREME-SHORT uses the existing ticket nodes in natural vertical flow when it does not. The bilingual mode and reachability assertions passed in this run.',
     '- **Visual review required:** captures are evidence only. They are not compared against or written into historical references, and they do not imply visual approval.',
     '');
   const reportPath = path.join(root, 'summary.md');

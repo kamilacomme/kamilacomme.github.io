@@ -18,3 +18,25 @@ Before captures are not included because they were removed by the Playwright out
 - Deterministic FR/EN build check and `git diff --check` passed.
 
 No historical visual references were changed. This folder is review evidence only; application and test changes remain outside the review-artifact commit.
+
+## Run the working implementation in your local browser
+
+The source changes are deliberately not part of the review-artifact commit. The patch file contains the current uncommitted M10B Projects implementation and focused test changes so you can try them in your local checkout without committing them.
+
+From the repository root, update the review artifacts and apply the patch:
+
+```bash
+git pull --ff-only origin phase-5/fluid-responsive
+git apply --check docs/phase-5-m10b-project-resize-review/m10b-projects-working-tree.patch
+git apply docs/phase-5-m10b-project-resize-review/m10b-projects-working-tree.patch
+```
+
+Start the local static server in a terminal:
+
+```bash
+PORT=8033 node tests/runtime/server.mjs
+```
+
+Open `http://127.0.0.1:8033/` in Chrome. Resize the window to review the live French page; `/en/` opens English. The Projects geometry changes across NORMAL, COMPACT, and EXTREME-SHORT based on available space.
+
+The patch leaves the changes in your local working tree, uncommitted. To discard only this preview patch afterward, run `git apply -R docs/phase-5-m10b-project-resize-review/m10b-projects-working-tree.patch` from the repository root, provided you have not edited the patched files.

@@ -1,6 +1,6 @@
-# Footer legal-link orientation review
+# Footer legal-link orientation review — cancelled proposal
 
-This is a browser-only visual proposal, not an application change. It contains before/after Chromium captures of the actual generated French and English site routes after the Footer curtain settled. The proposed after-state was applied as a temporary in-browser DOM style override; no application files or historical screenshot baselines were changed.
+This is a browser-only visual proposal, not an application change. The user reviewed it and cancelled the proposed after-state, preferring the current before-state. Keep these captures as historical review evidence only; do not implement the after-state. It contains before/after Chromium captures of the actual generated French and English site routes after the Footer curtain settled. The proposed after-state was applied as a temporary in-browser DOM style override; no application files or historical screenshot baselines were changed.
 
 ## Open locally
 
@@ -27,4 +27,4 @@ Each French and English capture records the actual responsive profile, pointer/t
 - Desktop remains unchanged with horizontal links.
 - The 44×44px switcher is unchanged in every capture.
 
-The narrow mobile clearance is visibly tight. This is the requested contact-position-preserving proposal; the preview does not move the contact group. Please review the captures locally before implementation.
+The narrow mobile clearance is visibly tight. This is the requested contact-position-preserving proposal; the preview does not move the contact group. The user concluded that the current before-state looks better; the after-state is rejected.

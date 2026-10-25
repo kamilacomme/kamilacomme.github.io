@@ -70,11 +70,11 @@ The source extraction inspected Figma node properties, not thumbnails. Figma sec
 | `408:8578` “Contact page horiz 2 (contact details vertical, small margins)”, 2206×164; `408:8588` “Contact page horiz 3”, 2206×102. Footer/message rearrange horizontally. The extraction notes that `408:8581` Contact Details is horizontal despite the stage name. | **3 — Simpler behavior** | Prefer current Footer document flow and its existing geometry/curtain owners for short heights. The stage-name/property discrepancy means the Figma label alone is not an implementation specification. |
 | `408:8598` “Contact page horiz 4 (margins 0)”, 2206×50. The 62px message overflows y=−6..56. | **4 — Stress only** | This stage is visibly taller in content than its 50px frame, with clipping disabled. It is a resilience warning, not a required Footer size or margin rule. |
 
-## New Footer legal-link decision and read-only owner audit
+## Footer legal-link proposal and read-only owner audit
 
-The approved rule for M10B is: mobile links are always vertical with a 16px gap; desktop links are always horizontal; tablet portrait, landscape and narrow tablet links remain horizontal, wrapping naturally only if necessary. Viewport height must not switch mobile links to a row. Preserve anchors, typography, focus behavior, shared gutters and the curtain.
+The user initially requested vertical mobile links and horizontal tablet/desktop links. After reviewing the browser-only comparison, the user cancelled that proposed change because the current layout looks better. Keep the current Footer legal-link orientation as the visual target: desktop horizontal, tablet vertical, and mobile horizontal. Do not implement the proposed orientation change unless the user reopens it. Preserve anchors, typography, focus behavior, shared gutters and the curtain.
 
-The existing owner is `PortfolioController.fitFooter()` in `portfolio-controller.js`; generated anchors originate in `templates/page.html`. The template has one legal group (`data-c="4"`) with an inner row containing the two canonical anchors. There is no separate legal-link CSS owner or media query. `fitFooter()` currently writes inline directions: desktop row/row; tablet column/column at every tablet width; mobile row/row at every mobile width. It also owns the mobile 11px legal-link sizing and shared bottom anchoring. The main `fit()` pass publishes `--kc-page-gutter-x` and `--kc-page-gutter-bottom`; `fitFooter()` consumes these shared values. Thus the mobile row is a confirmed mismatch with the new design rule, while desktop is already compliant and tablet is currently always vertical.
+The existing owner is `PortfolioController.fitFooter()` in `portfolio-controller.js`; generated anchors originate in `templates/page.html`. The template has one legal group (`data-c="4"`) with an inner row containing the two canonical anchors. There is no separate legal-link CSS owner or media query. `fitFooter()` currently writes inline directions: desktop row/row; tablet column/column at every tablet width; mobile row/row at every mobile width. It also owns the mobile 11px legal-link sizing and shared bottom anchoring. The main `fit()` pass publishes `--kc-page-gutter-x` and `--kc-page-gutter-bottom`; `fitFooter()` consumes these shared values. The current mobile row and tablet column differ from the subsequently proposed orientations; those orientations were rejected during visual review, so this difference does not authorize a change. Desktop is already horizontal.
 
 ### Measured current geometry
 
@@ -119,7 +119,7 @@ Object.assign(row.style, {
 
 This is a proposal snippet, not implemented code. It intentionally leaves desktop assignments, anchors, font sizes, links, focus rules and curtain code untouched. The tablet gap continues to use the existing geometry factor through `px(32)`.
 
-The proposed mobile geometry is an intentional visible change to the user-approved Footer design. The user approved the orientation direction and requested browser-only before/after evidence before implementation. The comparison is now captured in the linked gallery; await the user’s visual approval of this composition before changing application code. No visual reference should be updated.
+The proposed geometry was rejected in visual review. The user explicitly said the current “before” layout looks better than the “after.” Keep the captures as a record of the cancelled proposal only; do not change application code or visual references for this proposal.
 
 
 

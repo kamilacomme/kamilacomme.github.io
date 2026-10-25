@@ -4,3 +4,18 @@
 #kc-tablet-projets.kc-landscape-rail #kc-t-viewport { position:relative !important; top:auto; height:100vh; overflow:hidden; }
 #kc-tablet-projets.kc-landscape-rail #kc-t-stage .tickets { display:flex; flex-direction:row; align-items:stretch; gap:32px; width:max-content; max-width:none; bottom:auto !important; }
 #kc-tablet-projets.kc-landscape-rail #kc-t-stage .ticket { flex:none; height:310px; }
+
+/* Geometry-owned extreme-short mode: keep the same tickets in readable document flow. */
+.kc-projects-heading-hidden {
+  position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;
+  overflow:hidden!important;clip:rect(0,0,0,0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important;
+}
+#kc-tablet-projets.kc-projects-flow #projets-t { position:relative!important;top:auto!important;height:auto!important;overflow:visible!important; }
+#kc-tablet-projets.kc-projects-flow #kc-t-viewport { position:relative!important;top:auto!important;height:auto!important;overflow:visible!important; }
+#kc-tablet-projets.kc-projects-flow #kc-t-stage { position:relative!important;left:0!important;top:0!important;height:auto!important;overflow:visible!important; }
+#kc-tablet-projets.kc-projects-flow #kc-t-stage .tickets {
+  position:relative!important;left:32px!important;top:32px!important;bottom:auto!important;width:calc(100% - 64px)!important;
+  max-width:none!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:32px!important;
+  transform:none!important;
+}
+#kc-tablet-projets.kc-projects-flow #kc-t-stage .ticket { flex:none!important; }

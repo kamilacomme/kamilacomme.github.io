@@ -17,18 +17,15 @@ Before captures are not included because they were removed by the Playwright out
 - Six-project reachability and Projects-to-About checks: 8 passed across FR/EN and desktop, tablet portrait, tablet landscape, and mobile.
 - Deterministic FR/EN build check and `git diff --check` passed.
 
-No historical visual references were changed. This folder is review evidence only; application and test changes remain outside the review-artifact commit.
+No historical visual references were changed. The captures and measurements in this folder are review evidence; the application changes are now part of the approved branch checkpoint.
 
 ## Run the working implementation in your local browser
 
-The source changes are deliberately not part of the review-artifact commit. The patch file contains the current uncommitted M10B Projects implementation and focused test changes so you can try them in your local checkout without committing them.
-
-From the repository root, update the review artifacts and apply the patch:
+From the repository root, update your checkout. If you applied the temporary preview patch before approval, first reverse it while the patch file is still present, then pull the approved source commit:
 
 ```bash
+git apply -R docs/phase-5-m10b-project-resize-review/m10b-projects-working-tree.patch
 git pull --ff-only origin phase-5/fluid-responsive
-git apply --check docs/phase-5-m10b-project-resize-review/m10b-projects-working-tree.patch
-git apply docs/phase-5-m10b-project-resize-review/m10b-projects-working-tree.patch
 ```
 
 Start the local static server in a terminal:
@@ -39,4 +36,4 @@ PORT=8033 node tests/runtime/server.mjs
 
 Open `http://127.0.0.1:8033/` in Chrome. Resize the window to review the live French page; `/en/` opens English. The Projects geometry changes across NORMAL, COMPACT, and EXTREME-SHORT based on available space.
 
-The patch leaves the changes in your local working tree, uncommitted. To discard only this preview patch afterward, run `git apply -R docs/phase-5-m10b-project-resize-review/m10b-projects-working-tree.patch` from the repository root, provided you have not edited the patched files.
+If you did not apply the temporary preview patch, just run the pull command. The approved checkpoint includes the Projects implementation and focused tests; no patch application is needed.

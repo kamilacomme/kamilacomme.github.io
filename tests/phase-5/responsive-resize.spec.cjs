@@ -5,13 +5,13 @@ const responsive = require('./responsive-qa.helpers.cjs');
 
 function resizeSequence(mode) {
   if (mode === 'desktop') return [
-    { width: 1280, height: 800 }, { width: 1440, height: 900 },
+    { width: 1280, height: 800 }, { width: 1268, height: 409 }, { width: 2102, height: 289 }, { width: 1440, height: 900 },
   ];
   if (mode === 'tablet-portrait') return [
     { width: 1194, height: 834 }, { width: 834, height: 1112 },
   ];
   if (mode === 'tablet-landscape') return [
-    { width: 716, height: 555 }, { width: 716, height: 800 }, { width: 1194, height: 834 },
+    { width: 716, height: 555 }, { width: 716, height: 300 }, { width: 716, height: 555 }, { width: 716, height: 800 }, { width: 1194, height: 834 },
   ];
   return [
     { width: 320, height: 568 }, { width: 844, height: 390 }, { width: 393, height: 852 },
@@ -21,6 +21,13 @@ function resizeSequence(mode) {
 async function waitForResponsiveSettle(page, viewport) {
   await page.setViewportSize(viewport);
   await page.waitForFunction(({ width, height }) => innerWidth === width && innerHeight === height, viewport);
+  // Viewport metrics update before the shared profile controller publishes the
+  // responsive geometry consumed by the Projects owner. Wait for that handoff
+  // before measuring a resize destination.
+  await page.waitForFunction(({ width, height }) => {
+    const layout = window.__kcTabletLayout;
+    return layout && layout.width === width && layout.height === height;
+  }, viewport);
   await responsive.settleLayout(page, 80);
 }
 
@@ -42,17 +49,25 @@ async function visibleProject(page, mode) {
     const doc = frame?.contentDocument || document;
     const outer = frame?.getBoundingClientRect();
     const cards = [...doc.querySelectorAll(modeName === 'mobile' ? '#kc-mobile-projets .project' : modeName === 'desktop' ? '#rail .ticket' : '#kc-t-stage .ticket')];
+    const horizontalRail = modeName === 'desktop'
+      ? document.querySelector('#projets')?.dataset.kcProjectsMode !== 'flow'
+      : modeName.startsWith('tablet') && document.querySelector('#kc-tablet-projets')?.classList.contains('kc-landscape-rail');
     const candidates = cards.map((card, index) => {
-      const r = card.getBoundingClientRect();
+      const visibleContent = card.querySelector('.ticket-panel') || card;
+      const r = visibleContent.getBoundingClientRect();
       const left = r.left + (outer?.left || 0), right = r.right + (outer?.left || 0);
       const top = r.top + (outer?.top || 0), bottom = r.bottom + (outer?.top || 0);
       const width = Math.max(0, Math.min(right, innerWidth) - Math.max(left, 0));
       const height = Math.max(0, Math.min(bottom, innerHeight) - Math.max(top, 0));
       const title = card.querySelector('h2');
+      const centerDistance = horizontalRail
+        ? Math.abs((left + right) / 2 - innerWidth / 2)
+        : Math.hypot((left + right) / 2 - innerWidth / 2, (top + bottom) / 2 - innerHeight / 2);
       return { index, href: (card.matches('a') ? card : card.closest('a'))?.href || card.getAttribute('href') || null,
         name: card.getAttribute('data-project-id') || title?.textContent?.trim() || `project-${index + 1}`,
-        intersection: width * height, titleVisible: !!title && title.getClientRects().length > 0 && title.getBoundingClientRect().bottom > 0 && title.getBoundingClientRect().top < innerHeight };
-    }).filter(item => item.intersection > 0).sort((a, b) => b.intersection - a.intersection);
+        intersection: width * height, centerDistance, panelBounds:{left,top,right,bottom},
+        title: title?.textContent?.trim(), titleVisible: !!title && title.getClientRects().length > 0 && title.getBoundingClientRect().bottom > 0 && title.getBoundingClientRect().top < innerHeight };
+    }).filter(item => item.intersection > 0).sort((a, b) => a.centerDistance - b.centerDistance || b.intersection - a.intersection);
     return candidates[0] || null;
   }, mode);
 }
@@ -65,9 +80,19 @@ test('resizing preserves the active project and About section across width, heig
   const projectRoot = mode === 'desktop' ? '#projets' : mode === 'mobile' ? '#projets-m' : '#kc-tablet-projets';
   const aboutRoot = mode === 'desktop' ? '#apropos' : mode === 'mobile' ? '#apropos-m' : '#apropos-t';
   const projectBox = await page.locator(projectRoot).evaluate(el => { const r=el.getBoundingClientRect(); return {top:r.top+scrollY,height:r.height}; });
-  await page.evaluate(({ top, height }) => scrollTo(0, top + Math.max(0, height - innerHeight) * 0.42), projectBox);
+  await page.evaluate(({ top, height }) => {
+    scrollTo(0, top + Math.max(0, height - innerHeight) * 0.42);
+    // The frozen QA clock suppresses Chromium's queued scroll event. Use the
+    // same explicit event path as the shared QA scroll helper.
+    window.dispatchEvent(new Event('scroll'));
+  }, projectBox);
   await responsive.settleLayout(page);
   const initialProject = await visibleProject(page, mode);
+  if (mode === 'tablet-landscape') {
+    const initialCapture = info.outputPath(`resize-project-${language}-${mode}-before-sequence.png`);
+    await page.screenshot({ path: initialCapture, animations: 'disabled' });
+    await info.attach('resize-initial-project-before-resize', { path: initialCapture, contentType: 'image/png' });
+  }
   expect(initialProject, 'a current project should be visible before resizing').not.toBeNull();
 
   const records = [];
@@ -82,6 +107,7 @@ test('resizing preserves the active project and About section across width, heig
       viewport, language, configuredContext: info.project.metadata, actualProfile,
       activeSection: active, priorProject: prior, currentProject: project,
       sameProjectStillVisible: !!prior && !!project && prior.href === project.href,
+      activeProjectDefinition: 'readable ticket panel nearest the rail focus center; visible area breaks distance ties; vertical flow uses the viewport focal center',
       documentScrollWidth: state.viewport.documentScrollWidth,
     };
     records.push(record);

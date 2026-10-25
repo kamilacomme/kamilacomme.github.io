@@ -34,6 +34,8 @@ test('short tablet landscape keeps all ticket content clear of the Projects head
       viewport: { width: innerWidth, height: innerHeight },
       heading: rect(heading), rail: rect(rail), cards: cards.map(rect),
       headingFont: getComputedStyle(heading).fontSize,
+      mode: section.dataset.kcProjectsMode,
+      headingClip: getComputedStyle(heading).clipPath,
       transform: getComputedStyle(rail).transform,
       horizontalTranslation: new DOMMatrixReadOnly(getComputedStyle(rail).transform).m41,
       introShift, horizontalTravel: scrollLength - introShift,
@@ -49,22 +51,25 @@ test('short tablet landscape keeps all ticket content clear of the Projects head
 
   const start = await measure();
   expect(start.headingFont).toBe('48px');
+  expect(start.mode).toBe('compact');
+  expect(start.headingClip).toBe('inset(50%)');
+  await expect(page.getByRole('heading', { name: language === 'en' ? /A selection of my recent projects/i : /Une sélection de mes projets récents/i })).toHaveCount(1);
   expect(start.cards).toHaveLength(6);
   expect(start.cards[0].width).toBe(770);
   expect(start.cards[0].height).toBe(310);
-  expect(start.cards[0].top).toBeGreaterThanOrEqual(start.heading.bottom + 23.9);
-  expect(start.cards[0].bottom).toBeGreaterThan(viewport.height);
+  expect(start.cards[0].top).toBeGreaterThanOrEqual(95.9);
+  expect(start.cards[0].bottom).toBeLessThanOrEqual(viewport.height - 31.5);
   await page.screenshot({ path: info.outputPath(`tablet-projects-${language}-960x455-start.png`) });
 
   await setScroll(start.projectTop + start.introShift / 2);
   const middle = await measure();
-  expect(middle.cards[0].top).toBeGreaterThanOrEqual(middle.heading.bottom + 23.9);
-  expect(middle.cards[0].top).toBeLessThan(start.cards[0].top);
+  expect(middle.cards[0].top).toBeGreaterThanOrEqual(95.9);
+  expect(middle.horizontalTranslation).toBeLessThanOrEqual(0);
   await page.screenshot({ path: info.outputPath(`tablet-projects-${language}-960x455-reflow.png`) });
 
   await setScroll(start.projectTop + start.introShift);
   const settled = await measure();
-  expect(settled.cards[0].top).toBeGreaterThanOrEqual(settled.heading.bottom + 23.9);
+  expect(settled.cards[0].top).toBeGreaterThanOrEqual(95.9);
   expect(settled.cards[0].bottom).toBeLessThanOrEqual(viewport.height - 31.5);
   expect(Math.abs(settled.cards[0].top - (viewport.height - 32 - 310))).toBeLessThanOrEqual(1);
   await page.screenshot({ path: info.outputPath(`tablet-projects-${language}-960x455-ticket-visible.png`) });
@@ -73,7 +78,7 @@ test('short tablet landscape keeps all ticket content clear of the Projects head
   await setScroll(endY);
   const end = await measure();
   expect(end.horizontalTranslation).toBeCloseTo(-start.horizontalTravel, 0);
-  expect(end.cards[0].top).toBeGreaterThanOrEqual(end.heading.bottom + 23.9);
+  expect(end.cards[0].top).toBeGreaterThanOrEqual(95.9);
   expect(Math.abs(end.cards.at(-1).right - (viewport.width - 32))).toBeLessThanOrEqual(1);
   expect(Math.abs(end.aboutTop - (end.projectTop + end.projectHeight))).toBeLessThanOrEqual(2);
   await page.screenshot({ path: info.outputPath(`tablet-projects-${language}-960x455-rail-end.png`) });

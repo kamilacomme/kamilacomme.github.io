@@ -189,60 +189,57 @@ test('all six projects remain reachable at the narrow-tablet and minimum-mobile 
   }
 });
 
-test('short-height project reachability probe reports known deferred vertical clipping', async ({ page, context }, info) => {
+test('extreme-short desktop Projects exposes every ticket through natural document scrolling', async ({ page, context }, info) => {
   const { mode, language } = info.project.metadata;
   test.skip(mode !== 'desktop', 'The short-height risk probe uses the fine-pointer desktop profile.');
-  const knownDeferredFailures = [];
   for (const entry of responsive.resilienceMatrix) {
     await responsive.initialize(page, context, language, entry.viewport);
     await page.frameLocator('#kc-desktop-project-frame').locator('#rail .ticket').nth(5).waitFor({ state: 'attached' });
-    const section = await page.locator('#projets').evaluate(el => { const r=el.getBoundingClientRect(); return { top:r.top+scrollY,height:r.height }; });
-    const span = Math.max(0, section.height - entry.viewport.height);
-    const reached = new Set();
-    const fullyReached = new Set();
-    let verticalOverflow = false;
-    const observations = [];
-    for (let i = 0; i <= 18; i += 1) {
-      await page.evaluate(y => { scrollTo(0,y); dispatchEvent(new Event('scroll')); }, section.top + span * i / 18);
-      await responsive.settleLayout(page);
-      const state = await snapshotRail(page, 'desktop');
-      state.cards.forEach(card => {
-        if (card.box.left >= state.viewport.left - 0.5 && card.box.right <= state.viewport.right + 0.5) reached.add(card.index);
-        if (card.fullyVisible) fullyReached.add(card.index);
-        if (card.box.height > state.viewport.bottom - state.viewport.top) verticalOverflow = true;
-      });
-      if ([0, 9, 18].includes(i)) {
-        const file = info.outputPath(`${language}-${entry.id}-scroll-${i}.png`);
-        await page.screenshot({ path: file, animations: 'disabled' });
-        await info.attach(`${entry.id}-scroll-${i}`, { path: file, contentType: 'image/png' });
-        observations.push({ index: i, scrollY: section.top + span * i / 18, visible: state.cards.filter(card => card.fullyVisible).map(card => card.index) });
+    const base = await page.locator('#projets').evaluate(el => ({ top:el.getBoundingClientRect().top+scrollY,height:el.getBoundingClientRect().height }));
+    const frame = page.locator('#kc-desktop-project-frame');
+    const modeValue = await page.locator('#projets').getAttribute('data-kc-projects-mode');
+    expect(modeValue, `${entry.id} selects natural flow from ticket-fit geometry`).toBe('flow');
+    expect(await frame.evaluate(el => getComputedStyle(el).position)).toBe('relative');
+    expect(await page.locator('.kc-responsive-nav').evaluate(el => getComputedStyle(el).position)).toBe('absolute');
+    const headingName = language === 'fr' ? /Une sélection des projets/i : /A selection of my most recent projects/i;
+    await expect(page.frameLocator('#kc-desktop-project-frame').getByRole('heading', { name: headingName })).toHaveCount(1);
+
+    const cards = page.frameLocator('#kc-desktop-project-frame').locator('#rail .ticket');
+    await expect(cards).toHaveCount(6);
+    const reachedText = [];
+    for (let index = 0; index < 6; index += 1) {
+      const card = cards.nth(index);
+      const href = await card.getAttribute('href');
+      expect(href).toBe(Object.values(qa.links)[index]);
+      expect(await card.locator('.media-layer').count()).toBeGreaterThan(0);
+      await card.focus();
+      expect(await card.evaluate(el => el===el.ownerDocument.activeElement)).toBe(true);
+      for (const selector of ['.ticket-info h2','.ticket-info p','.ticket-info .tags']) {
+        const element=card.locator(selector);
+        const child=await element.evaluate(el=>{const r=el.getBoundingClientRect();return {top:r.top,height:r.height};});
+        const frameTop=await frame.evaluate(el=>el.getBoundingClientRect().top);
+        const documentTop=frameTop+child.top+await page.evaluate(()=>scrollY);
+        const scrollTarget=Math.max(0,documentTop+child.height/2-entry.viewport.height/2);
+        await page.evaluate(y=>scrollTo(0,y),scrollTarget);
+        await responsive.settleLayout(page,60);
+        const visible=await element.evaluate(el=>{const r=el.getBoundingClientRect();const frameRect=el.ownerDocument.defaultView.frameElement.getBoundingClientRect();const top=frameRect.top+r.top;return top<innerHeight&&top+r.height>0;});
+        expect(visible,`${entry.id} ticket ${index+1} ${selector} remains visible while scrolling`).toBe(true);
+        reachedText.push({index,selector,scrollY:await page.evaluate(()=>scrollY)});
+        if ((index===0&&selector==='.ticket-info h2')||(index===2&&selector==='.ticket-info p')||(index===5&&selector==='.ticket-info .tags')) {
+          const capture=info.outputPath(`${language}-${entry.id}-ticket-${index+1}-${selector.split(' ').at(-1)}.png`);
+          await page.screenshot({path:capture,animations:'disabled'});
+          await info.attach(`${entry.id}-ticket-${index+1}-${selector}`,{path:capture,contentType:'image/png'});
+        }
       }
     }
-    const data = {
-      id: entry.id, viewport: entry.viewport, language,
-      configuredContext: info.project.metadata, actualProfile: await responsive.readProfile(page),
-      horizontallyReachableIndices: [...reached].sort((a,b)=>a-b),
-      fullyReachableIndices: [...fullyReached].sort((a,b)=>a-b),
-      fullTicketReachability: fullyReached.size === 6 && !verticalOverflow,
-      ticketExceedsViewportHeight: verticalOverflow,
-      classification: 'known deferred M10B short-height Projects fallback; no visual-baseline target',
-      observations,
-      owner: 'desktop-project-embedded.html iframe rail geometry',
-    };
-    const file = info.outputPath(`${language}-${entry.id}-reachability.json`);
-    await require('node:fs/promises').writeFile(file, JSON.stringify(data, null, 2));
-    await info.attach(`${entry.id}-reachability`, { path: file, contentType: 'application/json' });
-    if (!data.fullTicketReachability) knownDeferredFailures.push({
-      viewport: entry.viewport,
-      language,
-      fullTicketReachability: data.fullTicketReachability,
-      horizontallyReachableIndices: data.horizontallyReachableIndices,
-      fullyReachableIndices: data.fullyReachableIndices,
-      ticketExceedsViewportHeight: data.ticketExceedsViewportHeight,
-      owner: data.owner,
-    });
+    const aboutTop=await page.locator('#apropos').evaluate(el=>el.getBoundingClientRect().top+scrollY);
+    expect(aboutTop).toBeCloseTo(base.top+base.height,0);
+    await page.evaluate(y=>scrollTo(0,y+16),aboutTop);
+    await responsive.settleLayout(page,80);
+    expect(await page.locator('#apropos').evaluate(el=>{const r=el.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0;})).toBe(true);
+    const data={id:entry.id,viewport:entry.viewport,language,actualProfile:await responsive.readProfile(page),mode:modeValue,reachedText,aboutTop,projectBottom:base.top+base.height,owner:'desktop-project-embedded.html iframe rail geometry'};
+    const report=info.outputPath(`${language}-${entry.id}-flow-reachability.json`);
+    await require('node:fs/promises').writeFile(report,JSON.stringify(data,null,2));
+    await info.attach(`${entry.id}-flow-reachability`,{path:report,contentType:'application/json'});
   }
-  // Keep the known acceptance assertion active, but finish both resilience probes
-  // and retain evidence for each before reporting the expected baseline failure.
-  expect(knownDeferredFailures, 'known M10B short-height Projects issues remain visible to acceptance').toEqual([]);
 });

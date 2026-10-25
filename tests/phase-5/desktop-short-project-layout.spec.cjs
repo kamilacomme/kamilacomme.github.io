@@ -24,16 +24,13 @@ test('short desktop Projects keeps the heading clear and reveals full tickets be
         const r = el.getBoundingClientRect();
         return { left: r.left, top: r.top, right: r.right, bottom: r.bottom, width: r.width, height: r.height };
       };
-      const headingBottom = heading.offsetTop + heading.offsetHeight;
-      const bottomTop = innerHeight - 32 - first.getBoundingClientRect().height;
-      const safeTop = headingBottom + 24;
-      const shift = Math.max(0, safeTop - bottomTop);
-      const intro = Math.max(shift, Math.min(120, Math.round(innerHeight * 0.14)));
       const travel = Math.max(0, rail.getBoundingClientRect().width - innerWidth + 64);
       return {
         heading: rect(heading), rail: rect(rail), first: rect(first), last: rect(last),
         headingFont: getComputedStyle(heading).fontSize,
-        shift, intro, travel,
+        mode: document.querySelector('#stage').dataset.kcProjectsMode,
+        headingClip: getComputedStyle(heading).clipPath,
+        travel,
       };
     });
     const setScroll = async (y) => {
@@ -43,23 +40,27 @@ test('short desktop Projects keeps the heading clear and reveals full tickets be
 
     const start = await measure();
     expect(start.headingFont).toBe('56px');
-    expect(start.first.top).toBeGreaterThanOrEqual(start.heading.bottom + 23.9);
+    expect(start.mode).toBe('compact');
+    expect(start.headingClip).toBe('inset(50%)');
+    expect(await page.getByRole('heading', { name: language === 'en' ? /A selection of my most recent projects/i : /Une sélection des projets/i }).count()).toBe(1);
+    expect(start.first.top).toBeGreaterThanOrEqual(23.9);
+    expect(start.first.bottom).toBeLessThanOrEqual(viewport.height - 31.5);
     await page.screenshot({ path: info.outputPath(`projects-short-${language}-${viewport.width}x${viewport.height}-start.png`) });
 
-    await setScroll(start.intro / 2);
+    await setScroll(start.travel / 2);
     const middle = await measure();
-    expect(middle.first.top).toBeGreaterThanOrEqual(middle.heading.bottom + 23.9);
+    expect(middle.first.top).toBeGreaterThanOrEqual(23.9);
     await page.screenshot({ path: info.outputPath(`projects-short-${language}-${viewport.width}x${viewport.height}-reflow.png`) });
 
-    await setScroll(start.intro);
+    await setScroll(0);
     const settled = await measure();
-    expect(settled.first.top).toBeGreaterThanOrEqual(settled.heading.bottom + 23.9);
+    expect(settled.first.top).toBeGreaterThanOrEqual(23.9);
     expect(settled.first.bottom).toBeLessThanOrEqual(viewport.height - 31.5);
     await page.screenshot({ path: info.outputPath(`projects-short-${language}-${viewport.width}x${viewport.height}-ticket-visible.png`) });
 
-    await setScroll(start.intro + start.travel);
+    await setScroll(start.travel);
     const end = await measure();
-    expect(end.first.top).toBeGreaterThanOrEqual(end.heading.bottom + 23.9);
+    expect(end.first.top).toBeGreaterThanOrEqual(23.9);
     expect(end.last.right).toBeLessThanOrEqual(viewport.width - 31.5);
     expect(end.last.right).toBeGreaterThanOrEqual(viewport.width - 32.5);
     expect(end.first.right).toBeLessThan(end.last.right);

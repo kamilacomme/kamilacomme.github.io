@@ -301,6 +301,13 @@ class Component extends DCLogic {
       // whichever pointer happens to be plugged in.
       const tablet = !mobile && (force === "tablet" || (force === "auto" && window.innerWidth < 1080)
         || (force === "auto" && window.innerWidth <= 1366 && ((touch && !fineHover) || iPadish)));
+      const responsiveProfile = mobile ? "mobile" : tablet ? "tablet" : "desktop";
+      const profileChanged = !!this._layoutProfile && this._layoutProfile !== responsiveProfile;
+      const handoffProjectIndex = profileChanged && this._lastScrollSection === "projects"
+        ? this._pendingResizeProjectIndex : null;
+      const handoffAboutTop = profileChanged ? this._pendingResizeAboutTop : null;
+      if (profileChanged) this._pendingResizeProjectIndex = null;
+      if (profileChanged) this._pendingResizeAboutTop = null;
       this.tablet = tablet; this.mobile = mobile;
       const pageGutterX = mobile ? 16 : tablet ? 32 : 32 * s;
       const pageGutterBottom = mobile ? 24 : (tablet ? 32 : 32 * s);
@@ -700,6 +707,22 @@ class Component extends DCLogic {
         if (nl !== this._navL) { this._navL = nl; this.fitFooter(this.tablet); }
       }
       if (this._measureAbout) this._measureAbout();
+      // Profile changes are coordinated here because this controller already owns
+      // which responsive Projects root is active. The destination geometry remains
+      // with its existing owner: the tablet rail consumes a one-shot anchor, while
+      // the mobile editorial list is returned to the same canonical project node.
+      if (Number.isInteger(handoffProjectIndex)) {
+        if (tablet) window.__kcPendingProjectAnchor = handoffProjectIndex;
+        else if (mobile) this.focusMobileProject(handoffProjectIndex);
+      }
+      if (Number.isFinite(handoffAboutTop)) {
+        if (tablet) window.__kcPendingAboutAnchor = handoffAboutTop;
+        else {
+          const about = document.querySelector(mobile ? "#apropos-m" : "#apropos");
+          if (about) window.scrollTo(0, Math.max(0, window.scrollY + about.getBoundingClientRect().top - handoffAboutTop));
+        }
+        this._lastScrollSection = "about";
+      }
       // Publish the completed shared tablet viewport policy. Projects owns its own
       // geometry and consumes this only after the controller has written the Hero,
       // About frame, and navigation dimensions for this layout pass.
@@ -715,7 +738,71 @@ class Component extends DCLogic {
         this._tabletLayoutKey = tabletLayoutKey;
         window.dispatchEvent(new CustomEvent('kc:tablet-layout-change', { detail: tabletLayout }));
       }
+      this._layoutProfile = responsiveProfile;
     };
+    this._rememberProjectsFocus = () => {
+      const profile = this.mobile ? "mobile" : this.tablet ? "tablet" : "desktop";
+      const projects = document.querySelector(profile === "mobile" ? "#projets-m"
+        : profile === "tablet" ? "#kc-tablet-projets" : "#projets");
+      const about = document.querySelector(profile === "mobile" ? "#apropos-m"
+        : profile === "tablet" ? "#apropos-t" : "#apropos");
+      if (about && about.getBoundingClientRect().top <= 1 && about.getBoundingClientRect().bottom > 0) {
+        this._lastScrollSection = "about";
+        return;
+      }
+      const sectionRect = projects?.getBoundingClientRect();
+      if (!sectionRect || sectionRect.top >= innerHeight || sectionRect.bottom <= 0) {
+        this._lastScrollSection = "other";
+        return;
+      }
+      this._lastScrollSection = "projects";
+      // Tablet and desktop rails publish their primary readable ticket from their
+      // existing geometry owners. Only the mobile editorial layout needs a local
+      // focus calculation here because it has no separate Projects controller.
+      if (profile !== "mobile") return;
+      const cards = [...document.querySelectorAll("#kc-mobile-projets .project")];
+      let best = null;
+      cards.forEach((card, index) => {
+        const r = card.getBoundingClientRect();
+        const visibleWidth = Math.max(0, Math.min(r.right, innerWidth) - Math.max(r.left, 0));
+        const visibleHeight = Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0));
+        const area = visibleWidth * visibleHeight;
+        const distance = Math.hypot((r.left + r.right) / 2 - innerWidth / 2,
+          (r.top + r.bottom) / 2 - innerHeight / 2);
+        if (area > 0 && (!best || distance < best.distance - 0.5
+          || (Math.abs(distance - best.distance) <= 0.5 && area > best.area))) best = { index, distance, area };
+      });
+      if (best) window.__kcFocusedProjectIndex = best.index;
+    };
+    this.focusMobileProject = (index) => {
+      const card = document.querySelectorAll("#kc-mobile-projets .project")[index];
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+      window.scrollTo(0, Math.max(0, window.scrollY + (rect.top + rect.bottom) / 2 - innerHeight / 2));
+    };
+    this._captureResponsiveResize = () => {
+      // This capture-phase snapshot runs before fit() changes visible profile roots.
+      // Scroll events generated while the viewport is being reconfigured cannot
+      // overwrite the project that was focused in the previous settled layout.
+      const currentAbout = document.querySelector(this.mobile ? "#apropos-m"
+        : this.tablet ? "#apropos-t" : "#apropos");
+      const aboutRect = currentAbout?.getBoundingClientRect();
+      if (aboutRect && aboutRect.top <= 1 && aboutRect.bottom > 0) {
+        this._lastScrollSection = "about";
+        this._pendingResizeAboutTop = aboutRect.top;
+        this._pendingResizeProjectIndex = null;
+        return;
+      }
+      // A viewport resize itself can clamp the old document before the destination
+      // profile is measured. Keep the last About anchor through same-profile resize
+      // steps so the ensuing profile switch can restore that section.
+      if (!Number.isFinite(this._pendingResizeAboutTop)) this._pendingResizeAboutTop = null;
+      if (this._lastScrollSection === "projects" && Number.isInteger(window.__kcFocusedProjectIndex)) {
+        this._pendingResizeProjectIndex = window.__kcFocusedProjectIndex;
+      } else if (this._lastScrollSection !== "about") this._pendingResizeProjectIndex = null;
+    };
+    window.addEventListener("scroll", this._rememberProjectsFocus, { passive: true });
+    window.addEventListener("resize", this._captureResponsiveResize, { passive: true, capture: true });
     this.fit();
     // Safari keeps the page in its freeze/back-forward cache: coming back from another app
     // restores it WITHOUT a resize event, so every measured layout (the projets block, the

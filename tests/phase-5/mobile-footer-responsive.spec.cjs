@@ -6,13 +6,39 @@ test('mobile Footer keeps readable text, usable links and curtain scroll behavio
   test.skip(mode !== 'mobile', 'Mobile Footer runs in the mobile browser profile only.');
   await qa.routes(context);
 
+  async function scrollToSettledFooter() {
+    // A resize publishes viewport dimensions before all section owners finish
+    // updating preceding section heights. Entering the final scroll interval may
+    // also publish one more geometry update. Re-measure after each settled scroll
+    // instead of reusing the pre-resize document coordinate.
+    for (let attempt = 0; attempt < 5; attempt += 1) {
+      await page.clock.runFor(300);
+      await page.waitForFunction(async () => {
+        await new Promise(requestAnimationFrame);
+        const footer = document.querySelector('#contact');
+        const r = footer.getBoundingClientRect();
+        const layout = window.__kcTabletLayout;
+        const signature = `${layout?.width}x${layout?.height}:${r.top + scrollY}:${r.height}:${document.scrollingElement.scrollHeight}`;
+        const previous = window.__qaFooterGeometry || { signature: '', count: 0 };
+        const count = previous.signature === signature ? previous.count + 1 : 0;
+        window.__qaFooterGeometry = { signature, count };
+        const bottom = r.top + scrollY + r.height;
+        return count >= 2 && document.scrollingElement.scrollHeight >= bottom - 1;
+      });
+      const footer = await qa.documentBox(page, '#contact');
+      const currentTop = await page.locator('#contact').evaluate(el => el.getBoundingClientRect().top);
+      if (Math.abs(currentTop) <= 1) return;
+      await page.evaluate((top) => window.scrollTo({ top, behavior: 'instant' }), footer.top);
+    }
+    await expect.poll(() => page.locator('#contact').evaluate(el => el.getBoundingClientRect().top)).toBeCloseTo(0, 0);
+  }
+
   async function openAt(width, height) {
     await page.setViewportSize({ width, height });
     await qa.ready(page, language);
     await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; document.scrollingElement.scrollTop = 0; });
     const curtainTargetAtTop = await page.locator('curtain-cloth').evaluate(el => el.target ?? 0);
-    const footer = await qa.documentBox(page, '#contact');
-    await qa.scrollTo(page, footer.top, true);
+    await scrollToSettledFooter();
     return curtainTargetAtTop;
   }
 
@@ -114,9 +140,12 @@ test('mobile Footer keeps readable text, usable links and curtain scroll behavio
   await openAt(320,568);
   for (const [width,height] of [[430,740],[390,568],[375,932],[320,700]]) {
     await page.setViewportSize({width,height});
-    await page.waitForTimeout(180);
-    // Reposition to the footer after layout-height changes while preserving its section.
-    await page.locator('#contact').scrollIntoViewIfNeeded();
+    // Wait for the profile and its new document extent before measuring the section.
+    await page.waitForFunction(({ width, height }) => {
+      const layout = window.__kcTabletLayout;
+      return layout && layout.width === width && layout.height === height;
+    }, { width, height });
+    await scrollToSettledFooter();
     await inspect(width,height);
   }
 });

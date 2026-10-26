@@ -1074,7 +1074,96 @@ class Component extends DCLogic {
     const pageGutterBottom = parseFloat(pageGeometry.getPropertyValue("--kc-page-gutter-bottom")) || (mob ? 24 : 32);
     const px = (v) => (v * sc).toFixed(1) + "px";
     const typePx = (v) => v + "px";
+    const footerGeometryKey = `${tablet ? "tablet" : mob ? "mobile" : "desktop"}:${window.innerWidth}x${window.innerHeight}:${Math.round(this.vhNow())}x${Math.round(this.lvhNow())}:${sc}:${edgeL}:${pageGutterBottom}`;
     const q = (sel) => this.footer.querySelector(sel);
+    const head = q("[data-c='0']"), info = q("[data-c='1']"), legal = q("[data-c='4']");
+    const syncFooterClothHeight = (height) => {
+      if (!this.cloth) return;
+      const normalizedHeight = height || "100svh";
+      Object.assign(this.cloth.style, { left: "0px", top: "0px", width: "100vw",
+        height: normalizedHeight, backgroundColor: "#000000" });
+      const width = document.documentElement.clientWidth || window.innerWidth;
+      const key = `${width}:${normalizedHeight}`;
+      if (this._footerClothSizeKey !== key) {
+        this._footerClothSizeKey = key;
+        if (this.clothEl && this.clothEl.resize) this.clothEl.resize();
+      }
+    };
+    // Scroll-triggered navbar alignment can call fitFooter() without changing
+    // viewport geometry. Keep an already-expanded Footer stable so reading it
+    // cannot trigger a second absolute-to-flow reflow or browser scroll anchoring.
+    if (this._footerNaturalFlow && this._footerNaturalFlowKey === footerGeometryKey) {
+      syncFooterClothHeight(this.footer.style.height);
+      return;
+    }
+    // A prior short-height fit may have changed the same authored nodes into natural
+    // document flow. Reset only those flow-owned properties before measuring the
+    // regular composition for this viewport; the profile branch below reapplies its
+    // normal geometry and typography.
+    if (this._footerNaturalFlow) {
+      Object.assign(this.footer.style, { display: "", flexDirection: "", alignItems: "",
+        overflow: "hidden", minHeight: "", padding: "", boxSizing: "" });
+      [head, info, legal].forEach((el) => {
+        if (!el) return;
+        Object.assign(el.style, { position: "absolute", margin: "", flex: "", alignSelf: "",
+          left: "", right: "", top: "", bottom: "", width: "", maxWidth: "" });
+      });
+      this.footer.removeAttribute("data-kc-footer-mode");
+      this._footerNaturalFlow = false;
+      this._footerNaturalFlowKey = null;
+    }
+    const naturalFlowIfNeeded = (topInset) => {
+      if (!head || !info || !legal) return false;
+      const section = this.footer.getBoundingClientRect();
+      const sectionHeight = this.footer.clientHeight;
+      const boxes = [head, info, legal].map((el) => {
+        const r = el.getBoundingClientRect();
+        return { left: r.left, right: r.right, top: r.top - section.top,
+          bottom: r.bottom - section.top };
+      });
+      // A previously tall mobile viewport can leave lvh latched after the browser
+      // window shrinks. Test the authored composition against the live viewport as
+      // well as its section bounds so the short-height fallback engages on resize.
+      const availableHeight = mob ? Math.min(sectionHeight, window.innerHeight) : sectionHeight;
+      const outside = boxes.some((r) => r.top < -1 || r.bottom > availableHeight + 1);
+      const overlaps = boxes.some((a, i) => boxes.slice(i + 1).some((b) =>
+        a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top));
+      if (!outside && !overlaps) {
+        this._footerNaturalFlowHeight = null;
+        this._footerNaturalFlowKey = null;
+        syncFooterClothHeight(this.footer.style.height);
+        return false;
+      }
+
+      // The absolute composition no longer fits. Reuse its three content groups in
+      // their semantic order, keep authored type sizes and profile-specific link
+      // direction, then let the existing Footer section and curtain grow with them.
+      Object.assign(this.footer.style, { display: "flex", flexDirection: "column",
+        alignItems: "stretch", height: "auto", minHeight: `${Math.max(0, window.innerHeight)}px`, overflow: "visible",
+        padding: `0px 0px ${pageGutterBottom}px`, boxSizing: "border-box" });
+      Object.assign(head.style, { position: "relative", left: "auto", right: "auto", top: "auto",
+        bottom: "auto", width: "auto", maxWidth: `calc(100vw - ${2 * edgeL}px)`,
+        margin: `${Math.max(0, topInset)}px ${edgeL}px 0px`, flex: "0 0 auto" });
+      Object.assign(info.style, { position: "relative", left: "auto", right: "auto", top: "auto",
+        bottom: "auto", width: "auto", margin: `32px ${edgeL}px 0px`, flex: "0 0 auto" });
+      Object.assign(legal.style, { position: "relative", left: "auto", right: "auto", top: "auto",
+        bottom: "auto", width: "auto", margin: `32px ${edgeL}px 0px`, flex: "0 0 auto" });
+      // The curtain is absolutely positioned and can retain the previous tall
+      // viewport's height after a mobile resize. Collapse it while measuring the
+      // natural content height, then sync it to the expanded section below.
+      if (this.cloth) this.cloth.style.height = "0px";
+      // Reading scrollHeight after flex layout includes wrapped bilingual text and
+      // the shared bottom gutter. Setting that measured height keeps the section and
+      // the existing scroll-driven curtain on one stable geometry.
+      const naturalHeight = Math.max(window.innerHeight, this.footer.scrollHeight);
+      this.footer.style.height = Math.ceil(naturalHeight) + "px";
+      this.footer.setAttribute("data-kc-footer-mode", "natural-flow");
+      this._footerNaturalFlow = true;
+      this._footerNaturalFlowKey = footerGeometryKey;
+      this._footerNaturalFlowHeight = Math.ceil(naturalHeight) + "px";
+      syncFooterClothHeight(this.footer.style.height);
+      return true;
+    };
     if (mob) {
       // phone: the headline/email sit below the navbar; contact details and legal links
       // stay anchored to the frame's bottom edge
@@ -1107,14 +1196,9 @@ class Component extends DCLogic {
       // and the 11px legal links to 9px; keep geometry responsive without shrinking
       // text-bearing groups.
       const L = (bl + edgeL).toFixed(1) + "px";
-      if (this.cloth) {
-        Object.assign(this.cloth.style, { left: "0px", top: "0px",
-          width: "100vw", height: scrH + "px" });
-        if (this.clothEl && this.clothEl.resize) this.clothEl.resize();
-      }
+      if (this.cloth) this.cloth.style.backgroundColor = "#000000";
       this.showCookies();
       this.fitSheets({ left: bl, top: bt, w: boxW, h: boxH, sc: sc });
-      const head = q("[data-c='0']"), info = q("[data-c='1']"), legal = q("[data-c='4']");
       // Keep the heading below the navbar and inside the Footer frame, while contacts and
       // legal links remain pinned to the existing bottom gutter.
       const navB = this.nav ? this.nav.getBoundingClientRect().bottom : 0;
@@ -1147,6 +1231,7 @@ class Component extends DCLogic {
           bottom: (bb + pageGutterBottom + (legal ? legal.getBoundingClientRect().height : 0) + 32).toFixed(1) + "px", alignItems: "flex-start", gap: "8px" });
         info.querySelectorAll("span").forEach((el) => { el.style.fontSize = "14px"; el.style.textAlign = "left"; });
       }
+      naturalFlowIfNeeded(head ? parseFloat(getComputedStyle(head).top) : bt + 96);
       return;
     }
     // iPad Safari: 100svh is the SHORT viewport (address bar showing) — once the bar hides a
@@ -1156,17 +1241,11 @@ class Component extends DCLogic {
     if (tablet) this._fhT = Math.max(this._fhT || 0, this.lvhNow(), this.vhNow());
     const fH = tablet ? this._fhT + "px" : "100svh";
     Object.assign(this.footer.style, { position: "relative", left: "0px", top: "0px", width: "100vw", height: fH, margin: "0", backgroundColor: "#000000" });
-    if (this.cloth) {
-      const same = this._clothH === fH;
-      this._clothH = fH;
-      Object.assign(this.cloth.style, { left: "0px", top: "0px", width: "100vw", height: fH, backgroundColor: "#000000" });
-      if (!same && this.clothEl && this.clothEl.resize) this.clothEl.resize();
-    }
+    if (this.cloth) Object.assign(this.cloth.style, { left: "0px", top: "0px", width: "100vw", backgroundColor: "#000000" });
     this.fitSheets(null);
     this.showCookies();
     // laid out on the 1440x813 Footer frame: headline at the top, contacts bottom-left,
     // legal links at x 583
-    const head = q("[data-c='0']"), info = q("[data-c='1']"), legal = q("[data-c='4']");
     const X = (v) => (edgeL + (v - 33) * sc).toFixed(1) + "px";
     // Keep the headline/email inside the same two-sided page gutter as the navbar.
     // At narrow tablet widths the email then wraps at its authored <wbr> instead of
@@ -1204,6 +1283,7 @@ class Component extends DCLogic {
       const lh = legal ? legal.offsetHeight : 0;
       if (info) Object.assign(info.style, { bottom: (pageGutterBottom + lh + 32 * sc).toFixed(1) + "px", gap: px(8) });
     }
+    naturalFlowIfNeeded(head ? parseFloat(getComputedStyle(head).top) : 118 * sc);
   }
 
   componentWillUnmount() {

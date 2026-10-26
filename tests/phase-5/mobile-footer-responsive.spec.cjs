@@ -27,17 +27,24 @@ test('mobile Footer keeps readable text, usable links and curtain scroll behavio
       });
       const footer = await qa.documentBox(page, '#contact');
       const currentTop = await page.locator('#contact').evaluate(el => el.getBoundingClientRect().top);
-      if (Math.abs(currentTop) <= 1) return;
+      if (Math.abs(currentTop) <= 1) {
+        await qa.waitForCurtain(page);
+        return;
+      }
       await page.evaluate((top) => window.scrollTo({ top, behavior: 'instant' }), footer.top);
     }
     await expect.poll(() => page.locator('#contact').evaluate(el => el.getBoundingClientRect().top)).toBeCloseTo(0, 0);
+    await qa.waitForCurtain(page);
   }
 
   async function openAt(width, height) {
     await page.setViewportSize({ width, height });
     await qa.ready(page, language);
+    // The shared controller intentionally performs its final startup geometry pass
+    // at 2000ms. Wait for that pass before measuring document-space Footer bounds.
+    await page.waitForFunction(() => performance.now() >= 2200);
     await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; document.scrollingElement.scrollTop = 0; });
-    const curtainTargetAtTop = await page.locator('curtain-cloth').evaluate(el => el.target ?? 0);
+    const curtainTargetAtTop = await page.evaluate(() => document.querySelector('curtain-cloth')?.target ?? 0);
     await scrollToSettledFooter();
     return curtainTargetAtTop;
   }

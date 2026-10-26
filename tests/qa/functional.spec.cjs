@@ -74,6 +74,10 @@ test('rendering, localized content, responsive branch and all project links',asy
 
 test('navigation, About animation, footer and legal dialog interactions',async({page},info)=>{
  const {mode,language}=info.project.metadata;await h.ready(page,language);
+ // Let the controller's existing 200/800/2000 ms startup measurements settle
+ // before this long multi-section interaction sequence.
+ await page.waitForFunction(()=>performance.now()>=2200);
+ await page.addStyleTag({content:'html { scroll-behavior:auto !important; }'});
  const nav=page.locator('[role="navigation"]');
  if(mode==='desktop') for(const label of language==='en'?['Projects','About','Contact']:['Projets','À propos','Contact']){
   const link=nav.getByRole('link',{name:label,exact:true});await link.click();
@@ -92,8 +96,18 @@ test('navigation, About animation, footer and legal dialog interactions',async({
  await h.scrollSection(page,about,.7);
  const final=await cards.evaluateAll(es=>es.map(e=>({top:e.getBoundingClientRect().top,transform:e.style.transform})));
  expect(initial.length).toBe(5);expect(final.some((v,i)=>v.transform!==initial[i].transform)).toBe(true);
- await h.scrollTo(page,await page.evaluate(()=>document.documentElement.scrollHeight));
+ // Set the browser's root scroll position directly after the section checks. The
+ // helper's smooth section scroll can otherwise still be in flight on mobile.
+ await page.evaluate(()=>{const root=document.scrollingElement;root.scrollTop=root.scrollHeight;});
+ await expect.poll(()=>page.locator('#contact').evaluate(el=>el.getBoundingClientRect().top),{timeout:5000}).toBeLessThan(page.viewportSize().height);
+ await h.waitForCurtain(page);
  await expect(page.locator('#contact')).toBeVisible();
+ // Keep the existing visual-progress assertion deterministic under SwiftShader:
+ // the cloth solver is intentionally expensive, so drive 1s of its existing rAF
+ // animation clock rather than waiting on host GPU speed.
+ await page.clock.install();
+ await page.clock.runFor(1000);
+ await page.clock.resume();
  await expect.poll(()=>page.locator('curtain-cloth').evaluate(el=>el.progress),{timeout:15000}).toBeGreaterThan(.1);
  await expect(page.locator('#contact [data-c="3"], #contact video[data-src*="footer-walk"]')).toHaveCount(0);
  for(const key of ['legal','privacy']){

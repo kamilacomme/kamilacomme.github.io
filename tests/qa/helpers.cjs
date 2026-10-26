@@ -16,14 +16,26 @@ async function ready(page,language){
   await expect(page.locator('[role="navigation"]')).toBeVisible();
   await page.evaluate(async()=>{await document.fonts.ready;await Promise.all(['400 16px Figtree','700 16px Figtree','italic 400 16px Figtree','400 16px Inter','500 16px Inter','600 16px Inter'].map(font=>document.fonts.load(font,'Kamila Comme — à propos')));});
   await expect.poll(()=>page.evaluate(()=>document.fonts.check('400 16px Figtree')&&document.fonts.check('700 16px Figtree')&&document.fonts.check('400 16px Inter'))).toBe(true);
-  await expect(page.locator('curtain-cloth canvas')).toHaveCount(1);
-  await expect.poll(()=>page.locator('curtain-cloth').evaluate(el=>!!el.left?.mat?.map?.image?.complete&&el.left.mat.map.image.naturalWidth>0)).toBe(true);
+}
+async function waitForCurtain(page){
+  await expect(page.locator('curtain-cloth canvas')).toHaveCount(1,{timeout:30000});
+  await expect.poll(()=>page.locator('curtain-cloth').evaluate(el=>!!el.left?.mat?.map?.image?.complete&&el.left.mat.map.image.naturalWidth>0),{timeout:30000}).toBe(true);
+}
+async function waitForCurtainIfNear(page){
+  const near=await page.evaluate(()=>{
+    const footer=document.querySelector('#contact');
+    if(!footer)return false;
+    const r=footer.getBoundingClientRect();
+    const lead=innerHeight;
+    return r.bottom>-lead&&r.top<innerHeight+lead;
+  });
+  if(near)await waitForCurtain(page);
 }
 function selectors(mode){return mode==='desktop'?{projects:'#kc-desktop-projets',about:'#apropos',cards:'#apropos [data-i]'}:mode==='mobile'?{projects:'#kc-mobile-projets',about:'#apropos-m',cards:'#apropos-m [data-i]'}:{projects:'#kc-tablet-projets',about:'#apropos-t',cards:'#apropos-t [data-i]'};}
 function projectScope(page,mode){return mode==='desktop'?page.frameLocator('#kc-desktop-project-frame'):page.locator(selectors(mode).projects);}
 function projectCards(page,mode){return projectScope(page,mode).locator(mode==='mobile'?'.project':'.ticket');}
 async function documentBox(page,selector){return page.locator(selector).evaluate(el=>{const r=el.getBoundingClientRect();return {top:r.top+scrollY,height:r.height,width:r.width};});}
-async function scrollTo(page,y,visual=false){await page.evaluate(y=>{window.scrollTo(0,y);window.dispatchEvent(new Event('scroll'));},Math.max(0,y));if(visual){await new Promise(r=>setTimeout(r,40));await page.clock.runFor(160)}else await page.waitForTimeout(160);}
+async function scrollTo(page,y,visual=false){await page.evaluate(y=>{window.scrollTo(0,y);window.dispatchEvent(new Event('scroll'));},Math.max(0,y));if(visual){await new Promise(r=>setTimeout(r,40));await page.clock.runFor(160)}else await page.waitForTimeout(160);await waitForCurtainIfNear(page);}
 async function scrollSection(page,selector,progress=0,visual=false){const r=await documentBox(page,selector);const h=page.viewportSize().height;await scrollTo(page,r.top+progress*Math.max(0,r.height-h),visual);return r;}
 async function seed(page){
  await page.addInitScript(()=>{let value=123456789;Math.random=()=>{value=(1664525*value+1013904223)>>>0;return value/4294967296;};});
@@ -42,6 +54,7 @@ async function prepareVisualCapture(page){
  await freezeMedia(page);
 }
 async function capture(page,testInfo,name,records){
+ await waitForCurtainIfNear(page);
  await prepareVisualCapture(page);
  if(process.env.REGRESSION_PROBE==='1'){if(process.env.UPDATE_BASELINE==='1')throw new Error('Refuse baseline update during negative-control probe');await page.addStyleTag({content:'h1 { color: #ff0000 !important; }'});}
  await expect(page).toHaveScreenshot(`${name}.png`,{animations:'disabled',timeout:60000});
@@ -58,4 +71,4 @@ async function saveManifest(page,testInfo,records){
  const file=testInfo.outputPath('capture-manifest.json');await fs.writeFile(file,JSON.stringify(metadata,null,2));await testInfo.attach('capture-manifest',{path:file,contentType:'application/json'});
  if(process.env.UPDATE_BASELINE==='1') {const dir=path.join(__dirname,'references',testInfo.project.name);await fs.mkdir(dir,{recursive:true});await fs.writeFile(path.join(dir,'capture-manifest.json'),JSON.stringify(metadata,null,2));}
 }
-module.exports={ORIGIN_COMMIT,expectedOrder,links,routes,ready,selectors,projectScope,projectCards,documentBox,scrollTo,scrollSection,seed,freezeMedia,prepareVisualCapture,capture,saveManifest};
+module.exports={ORIGIN_COMMIT,expectedOrder,links,routes,ready,waitForCurtain,waitForCurtainIfNear,selectors,projectScope,projectCards,documentBox,scrollTo,scrollSection,seed,freezeMedia,prepareVisualCapture,capture,saveManifest};

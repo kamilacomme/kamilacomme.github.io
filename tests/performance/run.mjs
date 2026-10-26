@@ -96,10 +96,10 @@ for(const {locale,route,profile,iteration} of targets){
       await preflight.setViewportSize({width:settings.screenEmulation.width,height:settings.screenEmulation.height});
       await preflight.goto(origin+route, {waitUntil:'load', timeout:60000});
       await preflight.waitForFunction(()=>!!document.body && document.body.innerText.length>300, undefined, {timeout:30000});
-      await preflight.waitForFunction(()=>!!customElements.get('curtain-cloth') && !!document.querySelector('curtain-cloth canvas'), undefined, {timeout:30000});
+      await preflight.waitForFunction(()=>!!window.React && !document.querySelector('curtain-cloth') && performance.getEntriesByType('resource').every(entry=>!/curtain-cloth\.js|footer-curtain\.webp|three@0\.160\.0/i.test(entry.name)), undefined, {timeout:30000});
       await preflight.evaluate(()=>document.fonts.ready);
-      const readiness = await preflight.evaluate(()=>({lang:document.documentElement.lang, title:document.title, textLength:document.body.innerText.length, react:!!window.React, fonts:document.fonts.status, curtainDefined:!!customElements.get('curtain-cloth')}));
-      if (readiness.lang!==locale || !readiness.react || !readiness.curtainDefined || pageErrors.length) throw new Error('Render preflight failed: '+JSON.stringify({readiness,pageErrors}));
+      const readiness = await preflight.evaluate(()=>({lang:document.documentElement.lang, title:document.title, textLength:document.body.innerText.length, react:!!window.React, fonts:document.fonts.status, curtainDeferred:!document.querySelector('curtain-cloth')&&performance.getEntriesByType('resource').every(entry=>!/curtain-cloth\.js|footer-curtain\.webp|three@0\.160\.0/i.test(entry.name))}));
+      if (readiness.lang!==locale || !readiness.react || !readiness.curtainDeferred || pageErrors.length) throw new Error('Render preflight failed: '+JSON.stringify({readiness,pageErrors}));
       await preflight.close();
       const auditedResourceErrors=[];
       const abortedRequests=[];
@@ -118,7 +118,7 @@ for(const {locale,route,profile,iteration} of targets){
       });
       if (!result || result.lhr.runtimeError || !Number.isFinite(result.lhr.categories.performance.score)) throw new Error('Lighthouse failed: '+JSON.stringify(result?.lhr.runtimeError));
       const auditedReadiness=result.lhr.audits['portfolio-render-ready']?.details?.readiness;
-      if(!auditedReadiness || auditedReadiness.lang!==locale || result.lhr.audits['portfolio-render-ready'].score!==1 || auditPageErrors.length || auditConsoleErrors.length || auditedResourceErrors.length) throw new Error('Audited page did not fully render: '+JSON.stringify({audit:result.lhr.audits['portfolio-render-ready'],auditedReadiness,auditPageErrors,auditConsoleErrors,auditedResourceErrors}));
+      if(!auditedReadiness || auditedReadiness.lang!==locale || !auditedReadiness.curtainDeferred || result.lhr.audits['portfolio-render-ready'].score!==1 || auditPageErrors.length || auditConsoleErrors.length || auditedResourceErrors.length) throw new Error('Audited page did not render with the below-fold curtain deferred: '+JSON.stringify({audit:result.lhr.audits['portfolio-render-ready'],auditedReadiness,auditPageErrors,auditConsoleErrors,auditedResourceErrors}));
       const id=`${locale}-${profile}-${iteration}`;
       await fs.writeFile(path.join(output,id+'.json'),JSON.stringify(result.lhr,null,2)+'\n');
       await fs.writeFile(path.join(output,id+'.html'),result.report[1]);

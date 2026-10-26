@@ -2489,17 +2489,45 @@ class Component extends DCLogic {
         this.cloth = el;
         // the standalone/offline build inlines curtain-cloth.js and the curtain image as
         // blob URLs (see the ext-resource-dependency meta tags in <head>) so both still
-        // load when this page is hosted with no assets/ folder alongside it
+        // load when this page is hosted with no assets/ folder alongside it. Defer this
+        // module chain and the WebGL mount until the Footer approaches the viewport.
         const url = this.resolveRes("./curtain-cloth.js");
         // a bare relative specifier fails to import from some hosting contexts, so resolve it
         // against the document first and keep the raw path as a second try
         let abs = url;
         try { abs = new URL(url, document.baseURI).href; } catch (e) {}
-        const mount = (m) => { this.clothEl = m.mountCurtain(el, this.resolveRes("assets/about/footer-curtain.webp")); };
-        import(abs)
-          .then(mount)
-          .catch(() => import(url).then(mount))
-          .catch((err) => console.error("curtain load failed", err && (err.message || err)));
+        let activated = false;
+        const activate = () => {
+          if (activated || this.clothEl) return;
+          activated = true;
+          if (this._clothObserver) {
+            this._clothObserver.disconnect();
+            this._clothObserver = null;
+          }
+          const mount = (m) => {
+            if (!el.isConnected || this.cloth !== el || this.clothEl) return;
+            this.clothEl = m.mountCurtain(el, this.resolveRes("assets/about/footer-curtain.webp"));
+            // renderFooter owns the scroll-derived progress; publish its current target
+            // immediately so a quick jump into the Footer does not start from stale state.
+            this.renderFooter();
+          };
+          import(abs)
+            .then(mount)
+            .catch(() => import(url).then(mount))
+            .catch((err) => console.error("curtain load failed", err && (err.message || err)));
+        };
+        if (typeof IntersectionObserver === "undefined") {
+          // Keep the existing eager behavior on browsers without IntersectionObserver.
+          activate();
+          return;
+        }
+        const prefetchDistance = Math.ceil(Math.max(window.innerHeight || 0, el.clientHeight || 0));
+        this._clothObserver = new IntersectionObserver((entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) activate();
+        }, { rootMargin: `${prefetchDistance}px 0px` });
+        // Observe the whole Footer, rather than only the viewport-sized canvas slot, so
+        // a fast jump to the bottom still activates the curtain at the page end.
+        this._clothObserver.observe(this.footer || el);
       },
     };
   }

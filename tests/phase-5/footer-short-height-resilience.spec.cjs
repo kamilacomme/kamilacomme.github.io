@@ -41,6 +41,7 @@ async function goToFooter(page) {
     window.dispatchEvent(new Event('scroll'));
   }, footer.top);
   await page.waitForTimeout(40);
+  await qa.waitForCurtain(page);
 }
 
 async function footerState(page) {

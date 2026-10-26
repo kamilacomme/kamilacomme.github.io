@@ -5,16 +5,16 @@ import os from 'node:os';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 
-function fixture(){
+function fixture(curtainState='deferred'){
   const metrics={score:90,fcpMs:1000,lcpMs:1500,tbtMs:100,cls:0,speedIndexMs:1200,totalByteWeight:100000};
   const aggregate=[];const measurements=[];
   for(const locale of ['fr','en']) for(const profile of ['mobile','desktop']){
     aggregate.push({locale,profile,runs:3,scoreRange:[90,90],...metrics});
-    for(let iteration=1;iteration<=3;iteration++) measurements.push({id:`${locale}-${profile}-${iteration}`,locale,profile,iteration,lighthouseVersion:'13.5.0',userAgent:'Synthetic gate fixture',...metrics,auditedReadiness:{curtainTextureLoaded:true,requiredFontsLoaded:true},auditPageErrors:[],auditedResourceErrors:[]});
+    for(let iteration=1;iteration<=3;iteration++) measurements.push({id:`${locale}-${profile}-${iteration}`,locale,profile,iteration,lighthouseVersion:'13.5.0',userAgent:'Synthetic gate fixture',...metrics,auditedReadiness:{curtainTextureLoaded:curtainState==='loaded',curtainDeferred:curtainState==='deferred',requiredFontsLoaded:true},auditPageErrors:[],auditedResourceErrors:[]});
   }
   return {schemaVersion:1,status:'complete',diagnostic:false,mode:'controlled-local-runtime-replay',referenceCommit:'synthetic-original',servedSourceVerification:{status:'passed'},runtimeManifestSha256:'a'.repeat(64),serverSha256:'b'.repeat(64),profiles:{mobile:{},desktop:{}},measurementSettings:{cpuQuietThresholdMs:0},chromeFlags:[],launcherDefaultFlags:[],aggregate,measurements};
 }
-async function run(candidate,baseline=fixture()){
+async function run(candidate,baseline=fixture('loaded')){
   const temporary=await fs.mkdtemp(path.join(os.tmpdir(),'portfolio-performance-gate-'));
   try{
     const baseFile=path.join(temporary,'baseline.json'),candidateFile=path.join(temporary,'candidate.json');
@@ -24,6 +24,7 @@ async function run(candidate,baseline=fixture()){
   }finally{await fs.rm(temporary,{recursive:true,force:true});}
 }
 test('identical complete synthetic measurements pass',async()=>assert.equal((await run(fixture())).status,0));
+test('candidate without deferred curtain readiness fails',async()=>{const c=fixture();for(const m of c.measurements)m.auditedReadiness.curtainDeferred=false;assert.equal((await run(c)).status,1);});
 test('diagnostic output cannot serve as a baseline',async()=>{const b=fixture();b.diagnostic=true;assert.equal((await run(fixture(),b)).status,1);});
 test('missing target fails rather than passing a partial result',async()=>{const c=fixture();c.measurements=c.measurements.filter(m=>m.locale!=='en');assert.equal((await run(c)).status,1);});
 test('nonfinite metrics fail',async()=>{const c=fixture();c.measurements[0].lcpMs=NaN;assert.equal((await run(c)).status,1);});

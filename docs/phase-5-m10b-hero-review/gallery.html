@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>M10B Hero short-height review</title>
+  <style>
+    :root { color-scheme: light; font: 16px/1.5 system-ui, sans-serif; background: #eef3fb; color: #202126; }
+    body { max-width: 1500px; margin: 0 auto; padding: 24px; }
+    h1 { margin: 0 0 8px; } p { max-width: 80ch; }
+    section { margin: 32px 0; padding: 20px; background: white; border-radius: 12px; }
+    h2 { font-size: 1.25rem; margin: 0 0 14px; }
+    figure { margin: 0 0 22px; } img { display: block; width: 100%; height: auto; border: 1px solid #d5d9e1; }
+    figcaption { margin-top: 6px; color: #5b5d64; }
+    .sequence { max-width: 1000px; }
+  </style>
+</head>
+<body>
+  <h1>M10B Hero short-height review</h1>
+  <p>Actual Chromium captures for French and English. NORMAL compositions remain unchanged. Short heights use horizontal reflow when the existing composition fits, otherwise natural vertical scrolling. The fixed 44×44 language switcher remains unchanged; its overlap at exceptionally short heights is an accepted limitation.</p>
+  <section>
+    <h2>Short desktop: 1440×289 — horizontal reflow</h2>
+    <figure><img src="captures/desktop-1440x289-pair.png" alt="French and English Hero at 1440 by 289"><figcaption>Both Hero headings, slideshow and controls fit side by side.</figcaption></figure>
+  </section>
+  <section>
+    <h2>Very short desktop: 1707×188 — natural flow</h2>
+    <figure><img src="captures/desktop-1707x188-pair.png" alt="French and English Hero at 1707 by 188"><figcaption>The short-height image is reduced to 249.3×156px while retaining the existing image ratio.</figcaption></figure>
+    <figure class="sequence"><img src="captures/progress-1707x188.png" alt="French and English successive scroll positions at 1707 by 188"><figcaption>Successive scroll positions: heading, portrait and cue, then slideshow.</figcaption></figure>
+  </section>
+  <section>
+    <h2>Narrow tablet: 500×188 — natural flow</h2>
+    <figure><img src="captures/tablet-500x188-pair.png" alt="French and English Hero at 500 by 188"><figcaption>The Navbar scrolls away with the natural-flow Hero.</figcaption></figure>
+    <figure class="sequence"><img src="captures/progress-500x188.png" alt="French and English successive scroll positions at 500 by 188"><figcaption>Each essential Hero element can be scrolled into view; Projects follows the Hero.</figcaption></figure>
+  </section>
+  <section>
+    <h2>Minimum supported mobile width: 320×188 — natural flow</h2>
+    <figure><img src="captures/mobile-320x188-pair.png" alt="French and English Hero at 320 by 188"></figure>
+    <figure class="sequence"><img src="captures/progress-320x188.png" alt="French and English successive scroll positions at 320 by 188"><figcaption>Successive scroll positions for the same Hero content in the mobile layout.</figcaption></figure>
+  </section>
+  <section>
+    <h2>Normal-height controls</h2>
+    <figure><img src="captures/desktop-normal-1440x900-pair.png" alt="French and English normal desktop Hero at 1440 by 900"><figcaption>Desktop: 1440×900.</figcaption></figure>
+    <figure><img src="captures/tablet-normal-834x1112-pair.png" alt="French and English normal tablet Hero at 834 by 1112"><figcaption>Tablet: 834×1112.</figcaption></figure>
+    <figure><img src="captures/mobile-normal-393x852-pair.png" alt="French and English normal mobile Hero at 393 by 852"><figcaption>Mobile: 393×852.</figcaption></figure>
+  </section>
+  <p><a href="README.md">Test details, measurements and local commands</a></p>
+</body>
+</html>

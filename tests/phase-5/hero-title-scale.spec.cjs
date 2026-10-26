@@ -1,9 +1,33 @@
 const { test, expect } = require('@playwright/test');
 const qa = require('../qa/helpers.cjs');
 
-test('desktop and tablet Hero headings keep their approved effective sizes', async ({ page, context }, info) => {
+test('desktop and tablet Hero headings keep their approved effective sizes', async ({ page: fixturePage, context: fixtureContext, browser }, info) => {
   const { mode, language } = info.project.metadata;
   test.skip(mode === 'mobile', 'Mobile Hero typography remains in the mobile layout milestone.');
+  let page = fixturePage;
+  let context = fixtureContext;
+  if (mode !== 'desktop') {
+    // Resize sweeps need stable CSS-pixel dimensions. The legacy tablet project
+    // used iPad isMobile + DPR 2 emulation; Chromium can retain a device-scaled
+    // layout viewport during page.setViewportSize(), so the geometry owner never
+    // observes the exact requested width/height. Keep the tablet's coarse pointer
+    // capability while using exact CSS viewport dimensions, as in the focused
+    // short-height Hero suite.
+    context = await browser.newContext({
+      baseURL: process.env.BASE_URL || 'http://127.0.0.1:8001',
+      viewport: info.project.metadata.viewport,
+      screen: info.project.metadata.viewport,
+      isMobile: false,
+      hasTouch: true,
+      deviceScaleFactor: 1,
+      locale: 'en-GB',
+      timezoneId: 'Europe/Paris',
+      colorScheme: 'light',
+      reducedMotion: 'no-preference',
+      serviceWorkers: 'block',
+    });
+    page = await context.newPage();
+  }
   await qa.routes(context);
   await qa.ready(page, language);
 
@@ -110,7 +134,6 @@ test('desktop and tablet Hero headings keep their approved effective sizes', asy
         };
       });
       expect(resized.titleLeft).toBeCloseTo(resized.logoLeft, 1);
-      expect(resized.titleTop).toBeCloseTo(128, 1);
       expect(resized.titleFont).toBe(48);
       expect(resized.titleScale).toBeCloseTo(1, 4);
       expect(resized.cueLeft).toBeCloseTo(resized.logoLeft, 1);
@@ -127,12 +150,23 @@ test('desktop and tablet Hero headings keep their approved effective sizes', asy
       const titleCollision = resized.titleTextRects.some(line =>
         line.left < resized.slideshow.right && line.right > resized.slideshow.left &&
         line.top < resized.slideshow.bottom && line.bottom > resized.slideshow.top);
-      expect(titleCollision).toBe(false);
+      // getAttribute() on a locator waits for a matching element. In the normal
+      // state this marker is intentionally absent, so read it synchronously from
+      // the document and treat absence as the null (normal) mode.
+      const heroMode = await page.evaluate(() =>
+        document.querySelector('[data-kc-hero-mode]')?.getAttribute('data-kc-hero-mode') ?? null,
+      );
       if (viewport.width === 500 && viewport.height === 400) {
-        // At this exceptionally short narrow-tablet viewport, 230px would cover the
-        // wrapped heading. The image-only fit therefore yields to the measured free area.
-        expect(resized.slideshow.width).toBeLessThan(230);
+        // The measured heading + controls + readable slideshow no longer fit in the
+        // viewport, so this case uses the same natural-flow fallback as other constrained heights.
+        expect(heroMode).toBe('flow');
+        expect(resized.titleTop).toBeGreaterThanOrEqual(72);
+        expect(resized.slideshow.width).toBeGreaterThanOrEqual(229.9);
+        expect(titleCollision).toBe(false);
       } else {
+        expect(resized.titleTop).toBeCloseTo(128, 1);
+        expect(titleCollision).toBe(false);
+        expect(heroMode).toBeNull();
         expect(resized.slideshow.width).toBeGreaterThanOrEqual(229.9);
       }
     }

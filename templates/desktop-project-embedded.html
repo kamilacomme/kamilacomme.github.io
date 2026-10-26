@@ -40,7 +40,7 @@
    if(rect.top<scrollWindow.innerHeight&&rect.bottom>0){const index=lastActiveProjectIndex??projectIndex();if(index!==null)return {kind:'project',index};}
    return null;
  }
- function setNavbarFlow(flow){const nav=navbar();if(nav)nav.style.position=flow?'absolute':'fixed'}
+ function setNavbarFlow(flow){const nav=navbar();if(nav)nav.style.position=(flow||scrollWindow.__kcHeroNaturalFlow)?'absolute':'fixed'}
  function applyMode(nextMode,values){
    mode=nextMode;
    stage.dataset.kcProjectsMode=mode;

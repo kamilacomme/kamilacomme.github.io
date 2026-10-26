@@ -173,6 +173,19 @@ class Component extends DCLogic {
     // Old 3D Projects RAF loop removed: active Projects run in the separate iframe.
 
     this.fit = () => {
+      // Restore any short-height Hero presentation before the normal profile geometry
+      // owner measures this pass. The same existing Hero nodes are then laid out again;
+      // no second template or resize controller is involved.
+      if (this._heroShortSnapshot && this._heroShortMode) {
+        this._heroShortSnapshot.forEach(({ element, cssText }) => { if (element) element.style.cssText = cssText; });
+        if (this._heroShortRoot) this._heroShortRoot.removeAttribute("data-kc-hero-mode");
+        if (this._heroShortNavFlow && this.nav) this.nav.style.position = "fixed";
+        this._heroShortSnapshot = null;
+        this._heroShortRoot = null;
+        this._heroShortNavFlow = false;
+        this._heroShortMode = null;
+        window.__kcHeroNaturalFlow = false;
+      }
       // fit() is also the owner of section geometry. Resolve the shared DOM root before
       // measuring About so the first visible tablet layout does not depend on the later
       // embed-pruning timer to initialize this.root.
@@ -645,6 +658,179 @@ class Component extends DCLogic {
           tabletHeroTitle.style.left = navGutter.toFixed(2) + "px";
           tabletHeroTitle.style.top = "128px";
           tabletHeroTitle.style.width = Math.max(0, layoutWidth - 2 * navGutter).toFixed(2) + "px";
+        }
+      }
+      // On very short viewports, preserve the approved full-size text and image
+      // geometry by changing only the arrangement of the existing Hero nodes.
+      // A horizontal composition is used when its measured content fits; otherwise
+      // the Hero becomes ordinary document flow so every element can be scrolled to.
+      const heroRoot = this.heroContainer && this.heroContainer.parentElement;
+      const activeHeroTitle = mobile
+        ? this.mHero && this.mHero.querySelector(".kc-mobile-hero-title")
+        : tablet ? document.querySelector("[data-kc-tablet-hero-title]")
+          : this.heroTop && this.heroTop.querySelector(".kc-desktop-hero-title");
+      const activePlate = mobile
+        ? this.mHero && this.mHero.querySelector(".kc-mobile-hero-slideshow")
+        : tablet ? this.tHero && this.tHero.querySelector("[data-kc-tablet-hero-slideshow]")
+          : this.heroBottom && this.heroBottom.querySelector("[data-hplate]");
+      const activePortrait = mobile
+        ? this.mHero && this.mHero.querySelector(".kc-mobile-hero-portrait")
+        : tablet ? this.tHero && this.tHero.querySelector("[data-kc-tablet-hero-controls] > div")
+          : this.heroBottom && this.heroBottom.querySelector(".kc-desktop-hero-portrait");
+      const activeCue = mobile
+        ? this.mHero && this.mHero.querySelector(".kc-mobile-hero-scroll-cue")
+        : tablet ? this.tHero && this.tHero.querySelector("[data-kc-tablet-hero-controls] > span")
+          : this.heroBottom && this.heroBottom.querySelector(".kc-desktop-hero-scroll-cue");
+      if (heroRoot && activeHeroTitle && activePlate && activePortrait && activeCue) {
+        const heroTop = heroRoot.getBoundingClientRect().top;
+        const bounds = (el) => {
+          const rect = el.getBoundingClientRect();
+          return { left: rect.left, right: rect.right, width: rect.width, height: rect.height,
+            top: rect.top - heroTop, bottom: rect.bottom - heroTop };
+        };
+        const titleBox = bounds(activeHeroTitle), plateBox = bounds(activePlate);
+        const portraitBox = bounds(activePortrait), cueBox = bounds(activeCue);
+        const gutter = pageGutterX, bottomGutter = pageGutterBottom;
+        const plateMinimum = mobile ? 171 : 230;
+        const titleTextBottom = (() => {
+          let bottom = titleBox.bottom;
+          for (const child of activeHeroTitle.children) {
+            const range = document.createRange();
+            range.selectNodeContents(child);
+            for (const rect of range.getClientRects()) bottom = Math.max(bottom, rect.bottom - heroTop);
+          }
+          return bottom;
+        })();
+        const overlap = (a, b) => a.width > 0 && a.height > 0 && b.width > 0 && b.height > 0
+          && a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+        const titleCollision = overlap(titleBox, plateBox) || overlap(titleBox, portraitBox) || overlap(titleBox, cueBox);
+        const needsShortLayout = (
+          titleTextBottom > this.vhNow() - bottomGutter
+          || plateBox.width < plateMinimum - 0.5
+          || titleCollision
+          || overlap(portraitBox, cueBox)
+        );
+        if (needsShortLayout) {
+          // Use the navbar's own box height, not its viewport bottom: the Hero may
+          // already be below the fold when a visitor resizes the page.
+          const navBottom = this.nav ? this.nav.getBoundingClientRect().height : 0;
+          const topInset = Math.max(navBottom + 16, gutter);
+          const usableHeight = Math.max(0, this.vhNow() - topInset - bottomGutter);
+          const titleHeight = titleBox.height;
+          const titleWidth = (() => {
+            let width = titleBox.width;
+            for (const child of activeHeroTitle.children) {
+              const range = document.createRange();
+              range.selectNodeContents(child);
+              for (const rect of range.getClientRects()) width = Math.max(width, rect.width);
+            }
+            return width;
+          })();
+          const compactPlateHeight = Math.min(204, usableHeight);
+          const compactPlateWidth = compactPlateHeight * 326 / 204;
+          const horizontalWidth = titleWidth + 24 + Math.max(compactPlateWidth, plateMinimum) + 2 * gutter;
+          const horizontalHeight = titleHeight + 12 + 48;
+          const horizontalFits = !mobile && !tablet && usableHeight >= horizontalHeight
+            && (document.documentElement.clientWidth || innerWidth) >= horizontalWidth
+            && compactPlateWidth >= plateMinimum;
+          const mode = horizontalFits ? "horizontal" : "flow";
+          if (!this._heroShortSnapshot) {
+            const art = this.heroBottom && this.heroBottom.querySelector(".kc-desktop-hero-art");
+            const nodes = [heroRoot, this.heroContainer, this.heroTop, activeHeroTitle,
+              ...(activeHeroTitle.children || []), this.heroBottom, art,
+              this.heroBottom && this.heroBottom.querySelector("[data-hplate]"),
+              this.heroBottom && this.heroBottom.querySelector(".kc-desktop-hero-portrait"),
+              this.heroBottom && this.heroBottom.querySelector(".kc-desktop-hero-scroll-cue"),
+              this.tHero, this.tHero && this.tHero.firstElementChild,
+              this.tHero && this.tHero.querySelector("[data-kc-tablet-hero-controls]"),
+              this.tHero && this.tHero.querySelector("[data-kc-tablet-hero-controls]")?.firstElementChild,
+              document.querySelector("[data-kc-tablet-hero-title]"),
+              this.mHero, this.mHero && this.mHero.querySelector(".kc-mobile-hero-title"),
+              this.mHero && this.mHero.querySelector(".kc-mobile-hero-title")?.children,
+              this.mHero && this.mHero.querySelector(".kc-mobile-hero-slideshow"),
+              this.mHero && this.mHero.querySelector(".kc-mobile-hero-portrait"),
+              this.mHero && this.mHero.querySelector(".kc-mobile-hero-scroll-cue")]
+              .flatMap((node) => node && typeof node.length === "number" && !node.style ? [...node] : [node])
+              .filter((node, index, all) => node && node.style && all.indexOf(node) === index);
+            this._heroShortSnapshot = nodes.map((element) => ({ element, cssText: element.style.cssText }));
+            this._heroShortRoot = heroRoot;
+          }
+          this._heroShortMode = mode;
+          heroRoot.dataset.kcHeroMode = mode;
+          window.__kcHeroNaturalFlow = mode === "flow";
+          const gap = mobile ? 16 : 16;
+          const setBox = (el, values) => { if (el) Object.assign(el.style, values); };
+          const resetPosition = (el) => setBox(el, { position: "relative", left: "auto", right: "auto", top: "auto", bottom: "auto", transform: "none", width: "auto", height: "auto", margin: "0" });
+          if (mode === "horizontal") {
+            const titleLineWidth = titleWidth;
+            const imageHeight = Math.min(204, usableHeight, titleHeight + 12 + 48);
+            const imageWidth = imageHeight * 326 / 204;
+            setBox(heroRoot, { height: "100svh", minHeight: "0px", overflow: "hidden", display: "block" });
+            setBox(this.heroTop, { position: "absolute", left: "0px", top: topInset + "px", width: "100%", height: "auto", transform: "none" });
+            setBox(activeHeroTitle, { position: "absolute", left: gutter + "px", top: "0px", width: Math.max(titleLineWidth, (document.documentElement.clientWidth || innerWidth) - 2 * gutter - imageWidth - 24) + "px", height: "auto", whiteSpace: "normal", overflow: "visible" });
+            [...activeHeroTitle.children].forEach((span) => { span.style.whiteSpace = "nowrap"; });
+            setBox(this.heroBottom, { position: "absolute", left: "0px", right: "0px", top: topInset + "px", bottom: bottomGutter + "px", width: "100%", height: "auto", transform: "none" });
+            const art = this.heroBottom.querySelector(".kc-desktop-hero-art");
+            setBox(art, { position: "absolute", inset: "0px", width: "100%", height: "auto", transform: "none", display: "block" });
+            setBox(activePlate, { position: "absolute", right: gutter + "px", top: "0px", bottom: "auto", width: imageWidth + "px", height: imageHeight + "px" });
+            setBox(activePortrait, { position: "absolute", left: gutter + "px", top: titleHeight + 12 + "px", bottom: "auto" });
+            setBox(activeCue, { position: "absolute", left: (gutter + 56) + "px", top: (titleHeight + 12 + 18) + "px", bottom: "auto" });
+          } else {
+            setBox(heroRoot, { height: "auto", minHeight: "100svh", overflow: "visible", display: "flex", flexDirection: "column", alignItems: "stretch", gap: gap + "px", padding: topInset + "px 0px 0px" });
+            const sh = (document.documentElement.clientWidth || innerWidth) / 1440;
+            setBox(this.heroContainer, { position: "absolute", left: "50%", top: "0px", bottom: "0px", width: "1440px", height: "100%", transform: "translateX(-50%) scale(" + sh + ")", transformOrigin: "top center" });
+            this.heroTop && (this.heroTop.style.order = "0");
+            setBox(this.heroTop, { position: "relative", left: "auto", top: "auto", width: "100%", height: "auto", transform: "none", flex: "0 0 auto" });
+            setBox(activeHeroTitle, { position: "relative", left: "auto", top: "auto", width: "calc(100% - " + (2 * gutter) + "px)", height: "auto", margin: "0px " + gutter + "px", whiteSpace: "normal", overflow: "visible" });
+            [...activeHeroTitle.children].forEach((span) => { span.style.whiteSpace = "normal"; });
+            setBox(this.heroBottom, { position: "relative", left: "auto", right: "auto", top: "auto", bottom: "auto", width: "100%", height: "auto", transform: "none", display: !tablet && !mobile ? "grid" : "none", gridTemplateColumns: "minmax(0, 1fr) auto", gridTemplateRows: "auto", rowGap: "8px", padding: "0px " + gutter + "px", boxSizing: "border-box", flex: "0 0 auto" });
+            const art = this.heroBottom && this.heroBottom.querySelector(".kc-desktop-hero-art");
+            setBox(art, { position: "static", left: "auto", bottom: "auto", width: "auto", height: "auto", transform: "none", display: "contents" });
+            const flowPlateHeight = Math.min(204, Math.max(100, this.vhNow() - 32));
+            const desktopPlateWidth = Math.max(230, Math.min(325,
+              ((document.documentElement.clientWidth || innerWidth) - 2 * gutter) * 0.45,
+              flowPlateHeight * 326 / 204));
+            setBox(activePlate, { position: "relative", left: "auto", right: "auto", top: "auto", bottom: "auto", width: desktopPlateWidth + "px", height: "auto", aspectRatio: "326 / 204", gridColumn: "2", gridRow: "1", alignSelf: "start" });
+            setBox(activePortrait, { position: "relative", left: "auto", top: "auto", bottom: "auto", width: "48px", height: "48px", gridColumn: "1", gridRow: "1", alignSelf: "start" });
+            setBox(activeCue, { position: "absolute", left: (gutter + 56) + "px", top: "18px", bottom: "auto", width: "max-content", gridColumn: "1", gridRow: "1", alignSelf: "start" });
+            if (tablet) {
+              resetPosition(activeHeroTitle);
+              setBox(activeHeroTitle, { order: "0", alignSelf: "stretch", margin: "0px " + gutter + "px", width: "auto", position: "relative", left: "auto", top: "auto" });
+              [...activeHeroTitle.children].forEach((span) => { span.style.whiteSpace = "normal"; });
+              resetPosition(this.tHero);
+              const controls = this.tHero.querySelector("[data-kc-tablet-hero-controls]");
+              const controlsWidth = Math.max(109, controls?.getBoundingClientRect().width || 0);
+              const tabletMaxHeight = Math.min(204, Math.max(100, this.vhNow() - 32));
+              const tabletPlateWidth = Math.max(230, Math.min(325,
+                (document.documentElement.clientWidth || innerWidth) - 2 * gutter - controlsWidth - 24,
+                tabletMaxHeight * 326 / 204));
+              setBox(this.tHero, { order: "1", display: "grid", gridTemplateColumns: "auto minmax(0, 1fr)", alignItems: "start", gap: "24px", padding: "0px " + gutter + "px", boxSizing: "border-box", width: "100%", height: "auto", flex: "0 0 auto" });
+              setBox(this.tHero.firstElementChild, { position: "relative", left: "auto", right: "auto", top: "auto", bottom: "auto", width: tabletPlateWidth + "px", height: "auto", aspectRatio: "326 / 204", gridColumn: "2", gridRow: "1" });
+              setBox(controls, { position: "relative", left: "auto", top: "auto", bottom: "auto", gridColumn: "1", gridRow: "1", alignSelf: "center" });
+              setBox(activeCue, { position: "relative", left: "auto", top: "auto", bottom: "auto", width: "max-content", margin: "0" });
+            } else if (mobile) {
+              setBox(this.mHero, { position: "relative", left: "auto", top: "auto", width: "100%", height: "auto", transform: "none", display: "flex", flexDirection: "column", alignItems: "stretch", gap: "16px", padding: "0px 16px 24px", boxSizing: "border-box", flex: "0 0 auto" });
+              setBox(this.mHero.querySelector(".kc-mobile-hero-portrait"), { order: "0", position: "relative", left: "auto", top: "auto", bottom: "auto" });
+              setBox(activeHeroTitle, { order: "1", position: "relative", left: "auto", top: "auto", width: "100%", height: "auto", margin: "0", whiteSpace: "normal" });
+              [...activeHeroTitle.children].forEach((span) => { span.style.whiteSpace = "normal"; });
+              setBox(activePlate, { order: "2", position: "relative", left: "auto", right: "auto", top: "auto", bottom: "auto", width: "171px", height: "107px", alignSelf: "flex-end", flex: "0 0 auto" });
+              setBox(activeCue, { order: "3", position: "relative", left: "auto", top: "auto", bottom: "auto", alignSelf: "flex-start" });
+            }
+            // The background, spotlight mask and canvas keep the same existing nodes;
+            // expand their design-space height to the natural-flow Hero height.
+            requestAnimationFrame(() => {
+              if (!this._heroShortMode || this._heroShortMode !== "flow" || !heroRoot.isConnected) return;
+              const height = heroRoot.scrollHeight;
+              const designHeight = Math.ceil(height / sh);
+              this.heroH = designHeight;
+              this.heroContainer.style.height = designHeight + "px";
+              if (this.heroSvg) this.heroSvg.setAttribute("viewBox", "0 0 1440 " + designHeight);
+              if (this.maskRect) this.maskRect.setAttribute("height", designHeight);
+              if (this.heroImg) this.heroImg.setAttribute("height", designHeight);
+              if (this.heroCanvas && this.heroCanvas.height !== designHeight) this.heroCanvas.height = designHeight;
+            });
+            if (this.nav) { this.nav.style.position = "absolute"; this._heroShortNavFlow = true; }
+          }
         }
       }
       // the scrim has to ride the phone frame too, otherwise the white wordmark sits

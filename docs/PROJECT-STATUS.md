@@ -1,6 +1,6 @@
 # Project status
 
-Updated: 2026-10-25. Milestones are marked complete only after their stated checks pass.
+Updated: 2026-10-26. Milestones are marked complete only after their stated checks pass.
 
 **Current branch:** `phase-5/fluid-responsive` (implementation branch; based on `phase-4/shared-bilingual-static`)
 
@@ -8,7 +8,7 @@ Updated: 2026-10-25. Milestones are marked complete only after their stated chec
 
 **Latest approved checkpoint:** M10B Projects NORMAL / COMPACT / EXTREME-SHORT modes and resize continuity are implemented, tested and visually approved at `3db8f4497b83230c3d3bbfe49ab581e89f4ec9b4` on `phase-5/fluid-responsive`. Nothing has been merged, deployed or published.
 
-**Current task:** The Projects resilience group in M10B is complete and visually approved. The focused and bounded responsive QA runs pass; other section resilience work has not started. The mobile Footer legal-link design remains approved, with desktop horizontal and mobile/tablet vertical arrangements.
+**Current task:** The Projects resilience group in M10B is complete and visually approved. The approved Hero short-height fallback is implemented and focused-tested, and is waiting for local visual review. The fixed 44×44 language-switcher overlap at exceptionally short heights is an accepted limitation; no switcher correction is planned. About and Footer resilience work has not started. The mobile Footer legal-link design remains approved, with desktop horizontal and mobile/tablet vertical arrangements.
 
 **Next task:** Continue M10B only with a separately approved component group. Preserve the remaining mobile Lighthouse TBT regressions as M10C release blockers.
 
@@ -30,7 +30,7 @@ Phase 5 architecture and incremental implementation sequence are documented in [
 
 ## Phase 5 milestones
 
-**Progress:** Milestones 1–9 and M10A are complete. M10B includes the approved mobile Footer legal-link correction and the approved Projects height-mode/resize-continuity group. Focused tests and the bounded bilingual responsive QA pass; 230 frozen baseline hashes are unchanged. Other responsive behavior is not implied approved. No M10C work has started. Mobile Lighthouse TBT remains a release blocker.
+**Progress:** Milestones 1–9 and M10A are complete. M10B includes the approved mobile Footer legal-link correction and approved Projects height-mode/resize-continuity group. The Hero horizontal-reflow/natural-flow fallback is now implemented and bilingual focused checks pass, pending local visual approval. The fixed 44×44 language switcher may overlap Hero content at exceptionally short heights; the user accepted this limitation and directed that the switcher remain unchanged. Focused tests and the bounded bilingual responsive QA pass; 230 frozen baseline hashes are unchanged. About and Footer resilience work has not started. No M10C work has started. Mobile Lighthouse TBT remains a release blocker.
 
 | Milestone | Acceptance criteria | Status |
 | --- | --- | --- |

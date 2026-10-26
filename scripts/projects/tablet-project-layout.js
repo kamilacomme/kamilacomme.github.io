@@ -70,7 +70,7 @@
     activeFlow = false;
     heading?.classList.remove('kc-projects-heading-hidden');
     const nav = document.querySelector('.kc-responsive-nav');
-    if (nav) nav.style.position = 'fixed';
+    if (nav) nav.style.position = window.__kcHeroNaturalFlow ? 'absolute' : 'fixed';
   }
 
   function captureViewportAnchor() {
@@ -132,7 +132,7 @@
 
   function setNavbarFlow(flow) {
     const nav = document.querySelector('.kc-responsive-nav');
-    if (nav) nav.style.position = flow ? 'absolute' : 'fixed';
+    if (nav) nav.style.position = (flow || window.__kcHeroNaturalFlow) ? 'absolute' : 'fixed';
   }
 
   function fitExtremeFlow(section, viewport, stage, rail, cards, width, gap, narrowTickets) {

@@ -64,7 +64,16 @@ const measurements = [];
 const host={platform:os.platform(),release:os.release(),architecture:os.arch(),cpuModel:os.cpus()[0]?.model,cpuCount:os.cpus().length,memoryBytes:os.totalmem(),nodeVersion:process.version};
 await fs.mkdir(output, {recursive:true});
 const targets=[];
-if(process.env.LIGHTHOUSE_INTERLEAVE_MOBILE==='1'){
+if(process.env.LIGHTHOUSE_INTERLEAVE_TARGETS==='1'){
+  // Alternate locale and profile on every run to reduce time/load bias across
+  // the complete FR/EN mobile/desktop matrix.
+  for(let iteration=1;iteration<=runs;iteration++){
+    for(const [profile] of Object.entries(profiles)){
+      targets.push({locale:'fr',route:'/',profile,iteration});
+      targets.push({locale:'en',route:'/en/',profile,iteration});
+    }
+  }
+}else if(process.env.LIGHTHOUSE_INTERLEAVE_MOBILE==='1'){
   for(let iteration=1;iteration<=runs;iteration++){
     targets.push({locale:'fr',route:'/',profile:'mobile',iteration});
     targets.push({locale:'en',route:'/en/',profile:'mobile',iteration});

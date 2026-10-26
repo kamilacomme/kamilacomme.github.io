@@ -16,7 +16,8 @@ for(const [name,summary] of [['baseline',baseline],['candidate',candidate]]){
    if(versionSignature(row)!==referenceSignature)failures.push(`${name}/${row.id}: browser/Lighthouse version differs`);
    if(JSON.stringify(row.configSettings)!==JSON.stringify(referenceSettings[profile]))failures.push(`${name}/${row.id}: actual Lighthouse settings differ for ${profile}`);
    for(const key of ['score','fcpMs','lcpMs','tbtMs','cls','speedIndexMs','totalByteWeight'])if(!Number.isFinite(row[key]))failures.push(`${name}/${row.id}: invalid ${key}`);
-   if(!row.auditedReadiness?.curtainTextureLoaded||!row.auditedReadiness?.requiredFontsLoaded||row.auditPageErrors?.length||row.auditConsoleErrors?.length||row.auditedResourceErrors?.length)failures.push(`${name}/${row.id}: failed audited rendering health`);
+   const curtainStateReady=name==='baseline'?row.auditedReadiness?.curtainTextureLoaded:row.auditedReadiness?.curtainDeferred;
+   if(!curtainStateReady||!row.auditedReadiness?.requiredFontsLoaded||row.auditPageErrors?.length||row.auditConsoleErrors?.length||row.auditedResourceErrors?.length)failures.push(`${name}/${row.id}: failed audited rendering health`);
   }
  }
 }

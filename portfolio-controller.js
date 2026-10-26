@@ -1135,26 +1135,51 @@ class Component extends DCLogic {
         return false;
       }
 
-      // The absolute composition no longer fits. Reuse its three content groups in
-      // their semantic order, keep authored type sizes and profile-specific link
-      // direction, then let the existing Footer section and curtain grow with them.
-      Object.assign(this.footer.style, { display: "flex", flexDirection: "column",
-        alignItems: "stretch", height: "auto", minHeight: `${Math.max(0, window.innerHeight)}px`, overflow: "visible",
-        padding: `0px 0px ${pageGutterBottom}px`, boxSizing: "border-box" });
-      Object.assign(head.style, { position: "relative", left: "auto", right: "auto", top: "auto",
-        bottom: "auto", width: "auto", maxWidth: `calc(100vw - ${2 * edgeL}px)`,
-        margin: `${Math.max(0, topInset)}px ${edgeL}px 0px`, flex: "0 0 auto" });
-      Object.assign(info.style, { position: "relative", left: "auto", right: "auto", top: "auto",
-        bottom: "auto", width: "auto", margin: `32px ${edgeL}px 0px`, flex: "0 0 auto" });
-      Object.assign(legal.style, { position: "relative", left: "auto", right: "auto", top: "auto",
-        bottom: "auto", width: "auto", margin: `32px ${edgeL}px 0px`, flex: "0 0 auto" });
       // The curtain is absolutely positioned and can retain the previous tall
-      // viewport's height after a mobile resize. Collapse it while measuring the
-      // natural content height, then sync it to the expanded section below.
+      // viewport's height after a mobile resize. Collapse it while measuring either
+      // short-height arrangement, then sync it to the final section below.
       if (this.cloth) this.cloth.style.height = "0px";
-      // Reading scrollHeight after flex layout includes wrapped bilingual text and
-      // the shared bottom gutter. Setting that measured height keeps the section and
-      // the existing scroll-driven curtain on one stable geometry.
+
+      // Try the Figma short-wide composition first: keep the heading at the left and
+      // bottom-align contacts and legal links in one row. It is used only when the
+      // actual rendered groups fit inside the shared gutters at their authored sizes.
+      Object.assign(this.footer.style, { display: "flex", flexDirection: "row",
+        alignItems: "flex-end", justifyContent: "flex-start", gap: "32px", height: "auto",
+        minHeight: `${Math.max(0, window.innerHeight)}px`, overflow: "visible",
+        padding: `16px ${edgeL}px ${pageGutterBottom}px`, boxSizing: "border-box" });
+      [head, info, legal].forEach((el) => Object.assign(el.style, { position: "relative", left: "auto",
+        right: "auto", top: "auto", bottom: "auto", width: "auto", maxWidth: "none",
+        margin: "0px", flex: "0 0 auto", alignSelf: "auto" }));
+      head.style.maxWidth = `calc(100vw - ${2 * edgeL}px)`;
+      const rowBoxes = [head, info, legal].map((el) => {
+        const r = el.getBoundingClientRect(), fr = this.footer.getBoundingClientRect();
+        return { left: r.left - fr.left, right: r.right - fr.left,
+          top: r.top - fr.top, bottom: r.bottom - fr.top };
+      });
+      const rowWidthFits = rowBoxes.every((r) => r.left >= edgeL - 1 && r.right <= window.innerWidth - edgeL + 1)
+        && rowBoxes.every((r, i) => i === 0 || rowBoxes[i - 1].right + 1 <= r.left);
+      const rowHeight = this.footer.scrollHeight;
+      if (rowWidthFits && rowHeight <= window.innerHeight + 1) {
+        this.footer.style.height = Math.ceil(Math.max(window.innerHeight, rowHeight)) + "px";
+        this.footer.setAttribute("data-kc-footer-mode", "natural-flow-row");
+        this._footerNaturalFlow = true;
+        this._footerNaturalFlowKey = footerGeometryKey;
+        this._footerNaturalFlowHeight = this.footer.style.height;
+        syncFooterClothHeight(this.footer.style.height);
+        return true;
+      }
+
+      // If that row cannot fit at this viewport's actual width and height, retain the
+      // natural vertical scroll fallback, preserving the existing group hierarchy.
+      Object.assign(this.footer.style, { flexDirection: "column", alignItems: "stretch", gap: "0px",
+        height: "auto", minHeight: `${Math.max(0, window.innerHeight)}px`,
+        padding: `0px 0px ${pageGutterBottom}px` });
+      Object.assign(head.style, { maxWidth: `calc(100vw - ${2 * edgeL}px)`,
+        margin: `${Math.max(0, topInset)}px ${edgeL}px 0px`, flex: "0 0 auto" });
+      Object.assign(info.style, { margin: `32px ${edgeL}px 0px`, flex: "0 0 auto" });
+      Object.assign(legal.style, { margin: `32px ${edgeL}px 0px`, flex: "0 0 auto" });
+      // Reading scrollHeight includes wrapped bilingual text and the shared bottom
+      // gutter. Use it to keep the section and existing scroll-driven curtain aligned.
       const naturalHeight = Math.max(window.innerHeight, this.footer.scrollHeight);
       this.footer.style.height = Math.ceil(naturalHeight) + "px";
       this.footer.setAttribute("data-kc-footer-mode", "natural-flow");

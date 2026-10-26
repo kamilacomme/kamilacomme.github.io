@@ -2,60 +2,60 @@
 <html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>M10B Footer resilience review</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f2f4f8;color:#222;font:16px/1.5 Inter,Arial,sans-serif}main{max-width:1600px;margin:auto;padding:32px}h1{margin:0 0 8px;font:700 32px/1.1 Figtree,Arial,sans-serif}p{color:#555}section{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px;margin-top:24px}.capture{min-width:0;padding:16px;background:#fff;border:1px solid #d9dce3;border-radius:6px}.capture h3{margin:0;font-size:18px}.capture p{font-size:13px}.capture img{display:block;max-width:100%;height:auto;background:#000;border:1px solid #bbb}.capture details{margin-top:12px}pre{max-height:320px;overflow:auto;padding:12px;background:#f5f5f5;font-size:11px;white-space:pre-wrap}code{padding:2px 4px;background:#eee;border-radius:3px}
-</style><main><h1>M10B Footer resilience · local visual review</h1><p>Actual Chromium captures from the current bilingual site. Short-height panels are separate scroll positions so you can inspect the full heading/email, contact block and legal links. Normal controls show the unchanged composed Footer. Geometry is listed under each capture; no frozen visual references were updated.</p><p>Short-height modes use natural document flow inside the existing Footer owner. Use the browser’s image zoom or open any image in a new tab to inspect its full CSS-pixel resolution.</p><section>
+</style><main><h1>M10B Footer resilience · local visual review</h1><p>Actual Chromium captures from the current bilingual site. At 1707×188, one compact horizontal composition shows the heading/email, contact details and legal links together. At 320×188, successive scroll positions show the heading, email, contacts and legal links. Normal controls show the unchanged composed Footer. Geometry is listed under each capture; no frozen visual references were updated.</p><p>Short-height layouts use the existing Footer owner: a bottom-aligned row when its measured groups fit, otherwise natural document flow. Use the browser’s image zoom or open any image in a new tab to inspect its full CSS-pixel resolution.</p><section>
     <article class="capture">
-      <h3>FR · fr-desktop-short-heading-email.png</h3>
-      <p>1707×188 CSS px · desktop · natural-flow · heading-email · scrollY 4486px</p>
-      <img src="fr-desktop-short-heading-email.png" alt="FR Footer at 1707 by 188, heading-email view">
+      <h3>FR · fr-desktop-short-compact-composition.png</h3>
+      <p>1707×188 CSS px · desktop · natural-flow-row · compact-composition · scrollY 4417px</p>
+      <img src="fr-desktop-short-compact-composition.png" alt="FR Footer at 1707 by 188, compact-composition view">
       <details><summary>Measured geometry</summary><pre>{
-  "capture": "fr-desktop-short-heading-email.png",
+  "capture": "fr-desktop-short-compact-composition.png",
   "language": "fr",
   "viewport": {
     "width": 1707,
     "height": 188
   },
-  "scrollY": 4486,
+  "scrollY": 4417,
   "footer": {
     "x": 0,
-    "y": -69.375,
+    "y": -0.375,
     "width": 1707,
-    "height": 361,
-    "scrollHeight": 361,
-    "mode": "natural-flow",
+    "height": 188,
+    "scrollHeight": 188,
+    "mode": "natural-flow-row",
     "overflow": "visible"
   },
   "heading": {
     "x": 23.03125,
-    "y": 15.625,
-    "width": 1660.90625,
+    "y": 41.40625,
+    "width": 656.71875,
     "height": 123.1875,
-    "relativeY": 85,
-    "relativeBottom": 208.1875,
+    "relativeY": 41.78125,
+    "relativeBottom": 164.96875,
     "fontSize": "56px"
   },
   "contact": {
-    "x": 23.03125,
-    "y": 170.8125,
-    "width": 1660.9375,
+    "x": 711.75,
+    "y": 116.796875,
+    "width": 142.796875,
     "height": 47.796875,
-    "relativeY": 240.1875,
-    "relativeBottom": 287.984375,
+    "relativeY": 117.171875,
+    "relativeBottom": 164.96875,
     "fontSize": "16px"
   },
   "legal": {
-    "x": 23.03125,
-    "y": 250.609375,
-    "width": 1660.9375,
+    "x": 886.546875,
+    "y": 146.59375,
+    "width": 263.8125,
     "height": 18,
-    "relativeY": 319.984375,
-    "relativeBottom": 337.984375,
+    "relativeY": 146.96875,
+    "relativeBottom": 164.96875,
     "fontSize": "16px"
   },
   "legalLinks": [
     {
       "text": "Mentions légales",
-      "x": 23.03125,
-      "y": 250.609375,
+      "x": 886.546875,
+      "y": 146.59375,
       "width": 94.078125,
       "height": 18,
       "fontSize": "12px",
@@ -63,8 +63,8 @@
     },
     {
       "text": "Politique de confidentialité",
-      "x": 140.109375,
-      "y": 250.609375,
+      "x": 1003.625,
+      "y": 146.59375,
       "width": 146.734375,
       "height": 18,
       "fontSize": "12px",
@@ -80,196 +80,16 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.956245352416036,
-    "target": 0.9654147580954611
-  },
-  "document": {
-    "width": 1707,
-    "height": 4778
-  },
-  "profile": "desktop",
-  "region": "heading-email",
-  "image": "fr-desktop-short-heading-email.png"
-}</pre></details>
-    </article>
-
-    <article class="capture">
-      <h3>FR · fr-desktop-short-contacts.png</h3>
-      <p>1707×188 CSS px · desktop · natural-flow · contacts · scrollY 4590px</p>
-      <img src="fr-desktop-short-contacts.png" alt="FR Footer at 1707 by 188, contacts view">
-      <details><summary>Measured geometry</summary><pre>{
-  "capture": "fr-desktop-short-contacts.png",
-  "language": "fr",
-  "viewport": {
-    "width": 1707,
-    "height": 188
-  },
-  "scrollY": 4590,
-  "footer": {
-    "x": 0,
-    "y": -173.375,
-    "width": 1707,
-    "height": 361,
-    "scrollHeight": 361,
-    "mode": "natural-flow",
-    "overflow": "visible"
-  },
-  "heading": {
-    "x": 23.03125,
-    "y": -88.375,
-    "width": 1660.90625,
-    "height": 123.1875,
-    "relativeY": 85,
-    "relativeBottom": 208.1875,
-    "fontSize": "56px"
-  },
-  "contact": {
-    "x": 23.03125,
-    "y": 66.8125,
-    "width": 1660.9375,
-    "height": 47.796875,
-    "relativeY": 240.1875,
-    "relativeBottom": 287.984375,
-    "fontSize": "16px"
-  },
-  "legal": {
-    "x": 23.03125,
-    "y": 146.609375,
-    "width": 1660.9375,
-    "height": 18,
-    "relativeY": 319.984375,
-    "relativeBottom": 337.984375,
-    "fontSize": "16px"
-  },
-  "legalLinks": [
-    {
-      "text": "Mentions légales",
-      "x": 23.03125,
-      "y": 146.609375,
-      "width": 94.078125,
-      "height": 18,
-      "fontSize": "12px",
-      "href": "#mentions-legales"
-    },
-    {
-      "text": "Politique de confidentialité",
-      "x": 140.109375,
-      "y": 146.609375,
-      "width": 146.734375,
-      "height": 18,
-      "fontSize": "12px",
-      "href": "#politique-de-confidentialite"
-    }
-  ],
-  "switcher": {
-    "x": 1639.96875,
-    "y": 120.96875,
-    "rightInset": 23.03125,
-    "bottomInset": 23.03125,
-    "width": 44,
-    "height": 44
-  },
-  "curtain": {
-    "progress": 0.9888046379686224,
+    "progress": 0.9843211538712481,
     "target": 1
   },
   "document": {
     "width": 1707,
-    "height": 4778
+    "height": 4605
   },
   "profile": "desktop",
-  "region": "contacts",
-  "image": "fr-desktop-short-contacts.png"
-}</pre></details>
-    </article>
-
-    <article class="capture">
-      <h3>FR · fr-desktop-short-legal-links.png</h3>
-      <p>1707×188 CSS px · desktop · natural-flow · legal-links · scrollY 4590px</p>
-      <img src="fr-desktop-short-legal-links.png" alt="FR Footer at 1707 by 188, legal-links view">
-      <details><summary>Measured geometry</summary><pre>{
-  "capture": "fr-desktop-short-legal-links.png",
-  "language": "fr",
-  "viewport": {
-    "width": 1707,
-    "height": 188
-  },
-  "scrollY": 4590,
-  "footer": {
-    "x": 0,
-    "y": -173.375,
-    "width": 1707,
-    "height": 361,
-    "scrollHeight": 361,
-    "mode": "natural-flow",
-    "overflow": "visible"
-  },
-  "heading": {
-    "x": 23.03125,
-    "y": -88.375,
-    "width": 1660.90625,
-    "height": 123.1875,
-    "relativeY": 85,
-    "relativeBottom": 208.1875,
-    "fontSize": "56px"
-  },
-  "contact": {
-    "x": 23.03125,
-    "y": 66.8125,
-    "width": 1660.9375,
-    "height": 47.796875,
-    "relativeY": 240.1875,
-    "relativeBottom": 287.984375,
-    "fontSize": "16px"
-  },
-  "legal": {
-    "x": 23.03125,
-    "y": 146.609375,
-    "width": 1660.9375,
-    "height": 18,
-    "relativeY": 319.984375,
-    "relativeBottom": 337.984375,
-    "fontSize": "16px"
-  },
-  "legalLinks": [
-    {
-      "text": "Mentions légales",
-      "x": 23.03125,
-      "y": 146.609375,
-      "width": 94.078125,
-      "height": 18,
-      "fontSize": "12px",
-      "href": "#mentions-legales"
-    },
-    {
-      "text": "Politique de confidentialité",
-      "x": 140.109375,
-      "y": 146.609375,
-      "width": 146.734375,
-      "height": 18,
-      "fontSize": "12px",
-      "href": "#politique-de-confidentialite"
-    }
-  ],
-  "switcher": {
-    "x": 1639.96875,
-    "y": 120.96875,
-    "rightInset": 23.03125,
-    "bottomInset": 23.03125,
-    "width": 44,
-    "height": 44
-  },
-  "curtain": {
-    "progress": 0.9966891342623511,
-    "target": 1
-  },
-  "document": {
-    "width": 1707,
-    "height": 4778
-  },
-  "profile": "desktop",
-  "region": "legal-links",
-  "image": "fr-desktop-short-legal-links.png"
+  "region": "compact-composition",
+  "image": "fr-desktop-short-compact-composition.png"
 }</pre></details>
     </article>
 
@@ -350,7 +170,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.9440253073444365,
+    "progress": 0.945641565243867,
     "target": 0.9581371849619195
   },
   "document": {
@@ -440,7 +260,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.9859265447695458,
+    "progress": 0.9866170561467074,
     "target": 0.9999085572591089
   },
   "document": {
@@ -530,7 +350,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.9942290933015494,
+    "progress": 0.9949428994968907,
     "target": 1
   },
   "document": {
@@ -620,7 +440,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.9977676625726443,
+    "progress": 0.9979563301716351,
     "target": 1
   },
   "document": {
@@ -710,7 +530,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.9891698353139641,
+    "progress": 0.9907347589775009,
     "target": 1
   },
   "document": {
@@ -800,7 +620,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.9881860856183343,
+    "progress": 0.9835644430561409,
     "target": 1
   },
   "document": {
@@ -890,7 +710,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.9810838726733345,
+    "progress": 0.9836283573445975,
     "target": 1
   },
   "document": {
@@ -904,58 +724,58 @@
     </article>
 
     <article class="capture">
-      <h3>EN · en-desktop-short-heading-email.png</h3>
-      <p>1707×188 CSS px · desktop · natural-flow · heading-email · scrollY 4486px</p>
-      <img src="en-desktop-short-heading-email.png" alt="EN Footer at 1707 by 188, heading-email view">
+      <h3>EN · en-desktop-short-compact-composition.png</h3>
+      <p>1707×188 CSS px · desktop · natural-flow-row · compact-composition · scrollY 4417px</p>
+      <img src="en-desktop-short-compact-composition.png" alt="EN Footer at 1707 by 188, compact-composition view">
       <details><summary>Measured geometry</summary><pre>{
-  "capture": "en-desktop-short-heading-email.png",
+  "capture": "en-desktop-short-compact-composition.png",
   "language": "en",
   "viewport": {
     "width": 1707,
     "height": 188
   },
-  "scrollY": 4486,
+  "scrollY": 4417,
   "footer": {
     "x": 0,
-    "y": -69.375,
+    "y": -0.375,
     "width": 1707,
-    "height": 361,
-    "scrollHeight": 361,
-    "mode": "natural-flow",
+    "height": 188,
+    "scrollHeight": 188,
+    "mode": "natural-flow-row",
     "overflow": "visible"
   },
   "heading": {
     "x": 23.03125,
-    "y": 15.625,
-    "width": 1660.90625,
+    "y": 41.40625,
+    "width": 797.5625,
     "height": 123.1875,
-    "relativeY": 85,
-    "relativeBottom": 208.1875,
+    "relativeY": 41.78125,
+    "relativeBottom": 164.96875,
     "fontSize": "56px"
   },
   "contact": {
-    "x": 23.03125,
-    "y": 170.8125,
-    "width": 1660.9375,
+    "x": 852.59375,
+    "y": 116.796875,
+    "width": 142.796875,
     "height": 47.796875,
-    "relativeY": 240.1875,
-    "relativeBottom": 287.984375,
+    "relativeY": 117.171875,
+    "relativeBottom": 164.96875,
     "fontSize": "16px"
   },
   "legal": {
-    "x": 23.03125,
-    "y": 250.609375,
-    "width": 1660.9375,
+    "x": 1027.390625,
+    "y": 146.59375,
+    "width": 168.125,
     "height": 18,
-    "relativeY": 319.984375,
-    "relativeBottom": 337.984375,
+    "relativeY": 146.96875,
+    "relativeBottom": 164.96875,
     "fontSize": "16px"
   },
   "legalLinks": [
     {
       "text": "Legal notice",
-      "x": 23.03125,
-      "y": 250.609375,
+      "x": 1027.390625,
+      "y": 146.59375,
       "width": 67.703125,
       "height": 18,
       "fontSize": "12px",
@@ -963,8 +783,8 @@
     },
     {
       "text": "Privacy policy",
-      "x": 113.734375,
-      "y": 250.609375,
+      "x": 1118.09375,
+      "y": 146.59375,
       "width": 77.421875,
       "height": 18,
       "fontSize": "12px",
@@ -980,196 +800,16 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.956708747242912,
-    "target": 0.9654147580954611
-  },
-  "document": {
-    "width": 1707,
-    "height": 4778
-  },
-  "profile": "desktop",
-  "region": "heading-email",
-  "image": "en-desktop-short-heading-email.png"
-}</pre></details>
-    </article>
-
-    <article class="capture">
-      <h3>EN · en-desktop-short-contacts.png</h3>
-      <p>1707×188 CSS px · desktop · natural-flow · contacts · scrollY 4590px</p>
-      <img src="en-desktop-short-contacts.png" alt="EN Footer at 1707 by 188, contacts view">
-      <details><summary>Measured geometry</summary><pre>{
-  "capture": "en-desktop-short-contacts.png",
-  "language": "en",
-  "viewport": {
-    "width": 1707,
-    "height": 188
-  },
-  "scrollY": 4590,
-  "footer": {
-    "x": 0,
-    "y": -173.375,
-    "width": 1707,
-    "height": 361,
-    "scrollHeight": 361,
-    "mode": "natural-flow",
-    "overflow": "visible"
-  },
-  "heading": {
-    "x": 23.03125,
-    "y": -88.375,
-    "width": 1660.90625,
-    "height": 123.1875,
-    "relativeY": 85,
-    "relativeBottom": 208.1875,
-    "fontSize": "56px"
-  },
-  "contact": {
-    "x": 23.03125,
-    "y": 66.8125,
-    "width": 1660.9375,
-    "height": 47.796875,
-    "relativeY": 240.1875,
-    "relativeBottom": 287.984375,
-    "fontSize": "16px"
-  },
-  "legal": {
-    "x": 23.03125,
-    "y": 146.609375,
-    "width": 1660.9375,
-    "height": 18,
-    "relativeY": 319.984375,
-    "relativeBottom": 337.984375,
-    "fontSize": "16px"
-  },
-  "legalLinks": [
-    {
-      "text": "Legal notice",
-      "x": 23.03125,
-      "y": 146.609375,
-      "width": 67.703125,
-      "height": 18,
-      "fontSize": "12px",
-      "href": "/en/#mentions-legales"
-    },
-    {
-      "text": "Privacy policy",
-      "x": 113.734375,
-      "y": 146.609375,
-      "width": 77.421875,
-      "height": 18,
-      "fontSize": "12px",
-      "href": "/en/#politique-de-confidentialite"
-    }
-  ],
-  "switcher": {
-    "x": 1639.96875,
-    "y": 120.96875,
-    "rightInset": 23.03125,
-    "bottomInset": 23.03125,
-    "width": 44,
-    "height": 44
-  },
-  "curtain": {
-    "progress": 0.9970092816405873,
+    "progress": 0.9839341527734137,
     "target": 1
   },
   "document": {
     "width": 1707,
-    "height": 4778
+    "height": 4605
   },
   "profile": "desktop",
-  "region": "contacts",
-  "image": "en-desktop-short-contacts.png"
-}</pre></details>
-    </article>
-
-    <article class="capture">
-      <h3>EN · en-desktop-short-legal-links.png</h3>
-      <p>1707×188 CSS px · desktop · natural-flow · legal-links · scrollY 4590px</p>
-      <img src="en-desktop-short-legal-links.png" alt="EN Footer at 1707 by 188, legal-links view">
-      <details><summary>Measured geometry</summary><pre>{
-  "capture": "en-desktop-short-legal-links.png",
-  "language": "en",
-  "viewport": {
-    "width": 1707,
-    "height": 188
-  },
-  "scrollY": 4590,
-  "footer": {
-    "x": 0,
-    "y": -173.375,
-    "width": 1707,
-    "height": 361,
-    "scrollHeight": 361,
-    "mode": "natural-flow",
-    "overflow": "visible"
-  },
-  "heading": {
-    "x": 23.03125,
-    "y": -88.375,
-    "width": 1660.90625,
-    "height": 123.1875,
-    "relativeY": 85,
-    "relativeBottom": 208.1875,
-    "fontSize": "56px"
-  },
-  "contact": {
-    "x": 23.03125,
-    "y": 66.8125,
-    "width": 1660.9375,
-    "height": 47.796875,
-    "relativeY": 240.1875,
-    "relativeBottom": 287.984375,
-    "fontSize": "16px"
-  },
-  "legal": {
-    "x": 23.03125,
-    "y": 146.609375,
-    "width": 1660.9375,
-    "height": 18,
-    "relativeY": 319.984375,
-    "relativeBottom": 337.984375,
-    "fontSize": "16px"
-  },
-  "legalLinks": [
-    {
-      "text": "Legal notice",
-      "x": 23.03125,
-      "y": 146.609375,
-      "width": 67.703125,
-      "height": 18,
-      "fontSize": "12px",
-      "href": "/en/#mentions-legales"
-    },
-    {
-      "text": "Privacy policy",
-      "x": 113.734375,
-      "y": 146.609375,
-      "width": 77.421875,
-      "height": 18,
-      "fontSize": "12px",
-      "href": "/en/#politique-de-confidentialite"
-    }
-  ],
-  "switcher": {
-    "x": 1639.96875,
-    "y": 120.96875,
-    "rightInset": 23.03125,
-    "bottomInset": 23.03125,
-    "width": 44,
-    "height": 44
-  },
-  "curtain": {
-    "progress": 0.999453715910198,
-    "target": 1
-  },
-  "document": {
-    "width": 1707,
-    "height": 4778
-  },
-  "profile": "desktop",
-  "region": "legal-links",
-  "image": "en-desktop-short-legal-links.png"
+  "region": "compact-composition",
+  "image": "en-desktop-short-compact-composition.png"
 }</pre></details>
     </article>
 
@@ -1250,7 +890,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.8137686843224152,
+    "progress": 0.8138396852146313,
     "target": 0.8284604456564076
   },
   "document": {
@@ -1340,7 +980,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.9848003866435098,
+    "progress": 0.9855846310099913,
     "target": 1
   },
   "document": {
@@ -1430,7 +1070,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.9936020572147014,
+    "progress": 0.9943909308204022,
     "target": 1
   },
   "document": {
@@ -1520,7 +1160,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.9974498943217582,
+    "progress": 0.9976997362947037,
     "target": 1
   },
   "document": {
@@ -1610,7 +1250,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.9903962354103577,
+    "progress": 0.9890177158054871,
     "target": 1
   },
   "document": {
@@ -1700,7 +1340,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.9865218421532945,
+    "progress": 0.986711980742675,
     "target": 1
   },
   "document": {
@@ -1790,7 +1430,7 @@
     "height": 44
   },
   "curtain": {
-    "progress": 0.983675398428403,
+    "progress": 0.9846735784484933,
     "target": 1
   },
   "document": {

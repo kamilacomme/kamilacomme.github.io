@@ -157,10 +157,10 @@ async function measurement(page, name) {
         if (!entry.short) await settleFooter(page);
 
         const regions = entry.short
-          ? entry.input === 'mobile'
-            ? [ ['heading', '#contact [data-c="0"] > span'], ['email', '#contact [data-c="0"] > a'],
+          ? entry.id === 'desktop-short'
+            ? [ ['compact-composition', null] ]
+            : [ ['heading', '#contact [data-c="0"] > span'], ['email', '#contact [data-c="0"] > a'],
               ['contacts', '#contact [data-c="1"]'], ['legal-links', '#contact [data-c="4"]'] ]
-            : [ ['heading-email', '#contact [data-c="0"]'], ['contacts', '#contact [data-c="1"]'], ['legal-links', '#contact [data-c="4"]'] ]
           : [ ['composition', null] ];
         for (const [region, selector] of regions) {
           if (selector) {
@@ -208,7 +208,7 @@ async function measurement(page, name) {
 <html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>M10B Footer resilience review</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f2f4f8;color:#222;font:16px/1.5 Inter,Arial,sans-serif}main{max-width:1600px;margin:auto;padding:32px}h1{margin:0 0 8px;font:700 32px/1.1 Figtree,Arial,sans-serif}p{color:#555}section{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px;margin-top:24px}.capture{min-width:0;padding:16px;background:#fff;border:1px solid #d9dce3;border-radius:6px}.capture h3{margin:0;font-size:18px}.capture p{font-size:13px}.capture img{display:block;max-width:100%;height:auto;background:#000;border:1px solid #bbb}.capture details{margin-top:12px}pre{max-height:320px;overflow:auto;padding:12px;background:#f5f5f5;font-size:11px;white-space:pre-wrap}code{padding:2px 4px;background:#eee;border-radius:3px}
-</style><main><h1>M10B Footer resilience · local visual review</h1><p>Actual Chromium captures from the current bilingual site. Short-height panels are separate scroll positions so you can inspect the full heading/email, contact block and legal links. Normal controls show the unchanged composed Footer. Geometry is listed under each capture; no frozen visual references were updated.</p><p>Short-height modes use natural document flow inside the existing Footer owner. Use the browser’s image zoom or open any image in a new tab to inspect its full CSS-pixel resolution.</p><section>${cards}</section></main></html>`;
+</style><main><h1>M10B Footer resilience · local visual review</h1><p>Actual Chromium captures from the current bilingual site. At 1707×188, one compact horizontal composition shows the heading/email, contact details and legal links together. At 320×188, successive scroll positions show the heading, email, contacts and legal links. Normal controls show the unchanged composed Footer. Geometry is listed under each capture; no frozen visual references were updated.</p><p>Short-height layouts use the existing Footer owner: a bottom-aligned row when its measured groups fit, otherwise natural document flow. Use the browser’s image zoom or open any image in a new tab to inspect its full CSS-pixel resolution.</p><section>${cards}</section></main></html>`;
   await fs.writeFile(path.join(outDir, 'gallery.html'), html);
 })().catch(error => { console.error(error); process.exitCode = 1; });
 

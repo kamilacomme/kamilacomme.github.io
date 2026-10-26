@@ -5,7 +5,7 @@ const profiles = {
   desktop: {
     normal: [{ width: 1440, height: 900 }],
     short: [{ width: 1707, height: 188 }],
-    heading: 56, legal: 12, x: null, bottom: null,
+    heading: 56, legal: 12, x: null, bottom: null, shortRow: true,
   },
   'tablet-portrait': {
     normal: [{ width: 834, height: 1112 }, { width: 1194, height: 834 }, { width: 716, height: 555 }],
@@ -114,8 +114,15 @@ for (const [mode, policy] of Object.entries(profiles)) {
         await waitForLayout(page, shortViewport);
         await goToFooter(page);
         const shortState = await footerState(page);
-        expect(shortState.footer.mode).toBe('natural-flow');
-        expect(shortState.footer.height).toBeGreaterThan(shortViewport.height);
+        expect(shortState.footer.mode).toBe(policy.shortRow ? 'natural-flow-row' : 'natural-flow');
+        if (policy.shortRow) {
+          expect(shortState.footer.height).toBeLessThanOrEqual(shortViewport.height + 1);
+          expect(shortState.head.top).toBeGreaterThanOrEqual(15);
+          expect(shortState.head.bottom).toBeCloseTo(shortState.info.bottom, 0);
+          expect(shortState.head.bottom).toBeCloseTo(shortState.legal.bottom, 0);
+        } else {
+          expect(shortState.footer.height).toBeGreaterThan(shortViewport.height);
+        }
         expect(shortState.footer.overflow).toBe('visible');
         expect(shortState.viewport.scrollWidth).toBeLessThanOrEqual(shortViewport.width + 1);
         expect(shortState.head.font).toBe(`${policy.heading}px`);

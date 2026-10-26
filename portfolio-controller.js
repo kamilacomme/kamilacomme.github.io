@@ -318,9 +318,14 @@ class Component extends DCLogic {
       const profileChanged = !!this._layoutProfile && this._layoutProfile !== responsiveProfile;
       const handoffProjectIndex = profileChanged && this._lastScrollSection === "projects"
         ? this._pendingResizeProjectIndex : null;
-      const handoffAboutTop = profileChanged ? this._pendingResizeAboutTop : null;
+      // The browser may clamp scrollY as soon as a viewport resize changes the
+      // document geometry, before the resize event reaches this controller. Keep
+      // About position as normalized section progress captured on the last settled
+      // scroll, then let the destination layout restore that semantic position.
+      const handoffAboutProgress = this._lastScrollSection === "about"
+        && Number.isFinite(this._pendingResizeAboutProgress)
+        ? this._pendingResizeAboutProgress : null;
       if (profileChanged) this._pendingResizeProjectIndex = null;
-      if (profileChanged) this._pendingResizeAboutTop = null;
       this.tablet = tablet; this.mobile = mobile;
       const pageGutterX = mobile ? 16 : tablet ? 32 : 32 * s;
       const pageGutterBottom = mobile ? 24 : (tablet ? 32 : 32 * s);
@@ -901,11 +906,13 @@ class Component extends DCLogic {
         if (tablet) window.__kcPendingProjectAnchor = handoffProjectIndex;
         else if (mobile) this.focusMobileProject(handoffProjectIndex);
       }
-      if (Number.isFinite(handoffAboutTop)) {
-        if (tablet) window.__kcPendingAboutAnchor = handoffAboutTop;
-        else {
-          const about = document.querySelector(mobile ? "#apropos-m" : "#apropos");
-          if (about) window.scrollTo(0, Math.max(0, window.scrollY + about.getBoundingClientRect().top - handoffAboutTop));
+      if (Number.isFinite(handoffAboutProgress) && !tablet) {
+        const about = document.querySelector(mobile ? "#apropos-m" : "#apropos");
+        if (about) {
+          const rect = about.getBoundingClientRect();
+          const documentTop = rect.top + window.scrollY;
+          const travel = Math.max(0, rect.height - window.innerHeight);
+          window.scrollTo(0, Math.max(0, documentTop + travel * handoffAboutProgress));
         }
         this._lastScrollSection = "about";
       }
@@ -922,11 +929,24 @@ class Component extends DCLogic {
       const tabletLayoutKey = [tablet, st, tabletLayout.width, tabletLayout.height].join(':');
       if (this._tabletLayoutKey !== tabletLayoutKey) {
         this._tabletLayoutKey = tabletLayoutKey;
+        // Tablet Projects already owns deferred resize-anchor restoration. Hand it
+        // the About section's semantic progress only after About's destination
+        // geometry has been written by this fit pass.
+        if (tablet && Number.isFinite(handoffAboutProgress)) {
+          window.__kcPendingAboutAnchor = { progress: handoffAboutProgress };
+          this._lastScrollSection = "about";
+        }
         window.dispatchEvent(new CustomEvent('kc:tablet-layout-change', { detail: tabletLayout }));
       }
       this._layoutProfile = responsiveProfile;
     };
     this._rememberProjectsFocus = () => {
+      // Ignore scroll events caused by the browser clamping the old page after the
+      // viewport changed but before fit() publishes the destination geometry. The
+      // last settled scroll already holds the reliable semantic anchor.
+      const publishedLayout = window.__kcTabletLayout;
+      if (publishedLayout && (publishedLayout.width !== window.innerWidth
+        || publishedLayout.height !== window.innerHeight)) return;
       const profile = this.mobile ? "mobile" : this.tablet ? "tablet" : "desktop";
       const projects = document.querySelector(profile === "mobile" ? "#projets-m"
         : profile === "tablet" ? "#kc-tablet-projets" : "#projets");
@@ -934,8 +954,12 @@ class Component extends DCLogic {
         : profile === "tablet" ? "#apropos-t" : "#apropos");
       if (about && about.getBoundingClientRect().top <= 1 && about.getBoundingClientRect().bottom > 0) {
         this._lastScrollSection = "about";
+        const rect = about.getBoundingClientRect();
+        const travel = Math.max(1, rect.height - window.innerHeight);
+        this._pendingResizeAboutProgress = Math.max(0, Math.min(1, -rect.top / travel));
         return;
       }
+      this._pendingResizeAboutProgress = null;
       const sectionRect = projects?.getBoundingClientRect();
       if (!sectionRect || sectionRect.top >= innerHeight || sectionRect.bottom <= 0) {
         this._lastScrollSection = "other";
@@ -970,19 +994,22 @@ class Component extends DCLogic {
       // This capture-phase snapshot runs before fit() changes visible profile roots.
       // Scroll events generated while the viewport is being reconfigured cannot
       // overwrite the project that was focused in the previous settled layout.
-      const currentAbout = document.querySelector(this.mobile ? "#apropos-m"
-        : this.tablet ? "#apropos-t" : "#apropos");
-      const aboutRect = currentAbout?.getBoundingClientRect();
-      if (aboutRect && aboutRect.top <= 1 && aboutRect.bottom > 0) {
-        this._lastScrollSection = "about";
-        this._pendingResizeAboutTop = aboutRect.top;
+      // Prefer the About progress captured by the normal scroll owner. Reading the
+      // old section rect here is too late: Chromium can already have clamped scrollY
+      // to the shorter destination document before dispatching resize.
+      if (this._lastScrollSection === "about" && Number.isFinite(this._pendingResizeAboutProgress)) {
         this._pendingResizeProjectIndex = null;
         return;
       }
-      // A viewport resize itself can clamp the old document before the destination
-      // profile is measured. Keep the last About anchor through same-profile resize
-      // steps so the ensuing profile switch can restore that section.
-      if (!Number.isFinite(this._pendingResizeAboutTop)) this._pendingResizeAboutTop = null;
+      const publishedLayout = window.__kcTabletLayout;
+      const viewportAlreadyChanged = publishedLayout && (publishedLayout.width !== window.innerWidth
+        || publishedLayout.height !== window.innerHeight);
+      if (viewportAlreadyChanged) {
+        if (this._lastScrollSection === "projects" && Number.isInteger(window.__kcFocusedProjectIndex)) {
+          this._pendingResizeProjectIndex = window.__kcFocusedProjectIndex;
+        }
+        return;
+      }
       if (this._lastScrollSection === "projects" && Number.isInteger(window.__kcFocusedProjectIndex)) {
         this._pendingResizeProjectIndex = window.__kcFocusedProjectIndex;
       } else if (this._lastScrollSection !== "about") this._pendingResizeProjectIndex = null;

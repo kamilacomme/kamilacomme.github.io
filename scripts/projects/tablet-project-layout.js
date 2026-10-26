@@ -111,7 +111,12 @@
     if (!anchor || !frame) return;
     if (anchor.kind === 'about') {
       const about = $('apropos-t');
-      if (about) window.scrollTo(0, about.getBoundingClientRect().top + window.scrollY - anchor.top);
+      if (about) {
+        const rect = about.getBoundingClientRect();
+        const documentTop = rect.top + window.scrollY;
+        const travel = Math.max(0, rect.height - window.innerHeight);
+        window.scrollTo(0, documentTop + travel * anchor.progress);
+      }
       return;
     }
     const cards = [...($('kc-t-stage')?.querySelectorAll('.ticket') || [])];
@@ -401,12 +406,13 @@
         resetLandscape();
         hasLayout = false;
         resizeAnchor = null;
+        window.__kcPendingAboutAnchor = null;
         return;
       }
       const usedPendingProjectAnchor = window.__kcPendingProjectAnchor != null;
-      const usedPendingAboutAnchor = Number.isFinite(window.__kcPendingAboutAnchor);
+      const usedPendingAboutAnchor = Number.isFinite(window.__kcPendingAboutAnchor?.progress);
       const anchor = usedPendingAboutAnchor
-        ? { kind: 'about', top: window.__kcPendingAboutAnchor }
+        ? { kind: 'about', progress: window.__kcPendingAboutAnchor.progress }
         : resizeAnchor || (usedPendingProjectAnchor
         ? { kind: 'project', index: window.__kcPendingProjectAnchor }
         : captureViewportAnchor());

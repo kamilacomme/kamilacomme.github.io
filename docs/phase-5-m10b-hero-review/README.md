@@ -1,6 +1,6 @@
 # M10B Hero short-height review
 
-This is the unapproved-for-final-acceptance Hero checkpoint, prepared for local visual review. It uses the existing Hero geometry owner and existing responsive DOM. The fixed 44×44 language switcher is unchanged; the user accepted that it may overlap Hero content at exceptionally short heights.
+This Hero checkpoint received the user's visual approval. It uses the existing Hero geometry owner and existing responsive DOM. The fixed 44×44 language switcher is unchanged; the user accepted that it may overlap Hero content at exceptionally short heights.
 
 ## Open the captures locally
 

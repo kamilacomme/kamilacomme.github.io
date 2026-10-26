@@ -126,7 +126,7 @@ class Component extends DCLogic {
       const a = e.target && e.target.closest && e.target.closest("a[data-legal]");
       if (!a) return;
       e.preventDefault();
-      this.openSheet(a.dataset.legal);
+      this.openSheet(a.dataset.legal, a);
     };
     document.addEventListener("click", this._onLegal, true);
     // Keep the language control a normal static-route link. When a visitor is
@@ -153,7 +153,36 @@ class Component extends DCLogic {
       a.setAttribute("href", current ? base + current : base);
     };
     document.addEventListener("click", this._onLanguageSwitch, true);
-    this._onKey = (e) => { if (e.key === "Escape") this.closeSheet(); };
+    this._onKey = (e) => {
+      const activeSheet = this._activeSheet;
+      if (!activeSheet) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        this.closeSheet();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const focusable = [...activeSheet.querySelectorAll(
+        'a[href], area[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])'
+      )].filter((el) => !el.hidden && el.getAttribute("aria-hidden") !== "true" && el.getClientRects().length > 0);
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      let current = document.activeElement;
+      while (current && current.shadowRoot && current.shadowRoot.activeElement) current = current.shadowRoot.activeElement;
+      if (!first) {
+        e.preventDefault();
+        activeSheet.focus();
+      } else if (!activeSheet.contains(current)) {
+        e.preventDefault();
+        (e.shiftKey ? last : first).focus();
+      } else if (e.shiftKey && current === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && current === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     document.addEventListener("keydown", this._onKey);
     if (!this.heroSlides) this.heroSlides = [];
     if (!this.tHeroSlides) this.tHeroSlides = [];
@@ -1713,19 +1742,53 @@ class Component extends DCLogic {
       if (el._fade) requestAnimationFrame(el._fade);
     });
   }
-  openSheet(key) {
+  openSheet(key, trigger) {
     const el = this.sheets && this.sheets[key];
     if (!el) return;
+    if (!this._activeSheet) {
+      this._sheetTrigger = trigger || document.activeElement;
+      this._sheetInertState = new Map();
+      // Inert every sibling branch between the dialog and the document. Walking the
+      // composed tree also covers the portfolio's shadow-root host when present.
+      let branch = el;
+      while (branch) {
+        const parent = branch.parentElement;
+        if (parent) {
+          [...parent.children].forEach((sibling) => {
+            if (sibling === branch) return;
+            if (!this._sheetInertState.has(sibling)) this._sheetInertState.set(sibling, sibling.inert);
+            sibling.inert = true;
+          });
+          branch = parent;
+        } else {
+          const root = branch.getRootNode();
+          if (!(root instanceof ShadowRoot)) break;
+          [...root.children].forEach((sibling) => {
+            if (sibling === branch) return;
+            if (!this._sheetInertState.has(sibling)) this._sheetInertState.set(sibling, sibling.inert);
+            sibling.inert = true;
+          });
+          branch = root.host;
+        }
+      }
+    }
     const sc2 = el.querySelector("[data-scroll]");
     if (sc2) sc2.scrollTop = 0;
     if (el._fade) requestAnimationFrame(el._fade);
     Object.values(this.sheets).forEach((s2) => { s2.style.display = "none"; });
     el.style.display = "flex";
+    this._activeSheet = el;
     const btn = el.querySelector("[data-close]");
-    if (btn) btn.focus();
+    (btn || el).focus();
   }
   closeSheet() {
     Object.values(this.sheets || {}).forEach((el) => { el.style.display = "none"; });
+    this._activeSheet = null;
+    (this._sheetInertState || new Map()).forEach((wasInert, el) => { el.inert = wasInert; });
+    this._sheetInertState = null;
+    const trigger = this._sheetTrigger;
+    this._sheetTrigger = null;
+    if (trigger && trigger.isConnected && typeof trigger.focus === "function") trigger.focus();
   }
   // one link per project, keyed by the ticket index. Everything except Longread is a
   // placeholder for now — swap the URL here and all three breakpoints follow.

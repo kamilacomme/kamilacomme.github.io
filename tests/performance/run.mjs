@@ -63,9 +63,20 @@ const profiles = {
 const measurements = [];
 const host={platform:os.platform(),release:os.release(),architecture:os.arch(),cpuModel:os.cpus()[0]?.model,cpuCount:os.cpus().length,memoryBytes:os.totalmem(),nodeVersion:process.version};
 await fs.mkdir(output, {recursive:true});
-for (const [locale, route] of [['fr', '/'], ['en', '/en/']]) for (const [profile, settings] of Object.entries(profiles)) {
-  if(diagnostic&&(locale!=='fr'||profile!=='desktop'))continue;
-  for (let iteration=1; iteration<=runs; iteration++) {
+const targets=[];
+if(process.env.LIGHTHOUSE_INTERLEAVE_MOBILE==='1'){
+  for(let iteration=1;iteration<=runs;iteration++){
+    targets.push({locale:'fr',route:'/',profile:'mobile',iteration});
+    targets.push({locale:'en',route:'/en/',profile:'mobile',iteration});
+  }
+}else{
+  for(const [locale,route] of [['fr','/'],['en','/en/']]) for(const [profile] of Object.entries(profiles)){
+    if(diagnostic&&(locale!=='fr'||profile!=='desktop'))continue;
+    for(let iteration=1;iteration<=runs;iteration++)targets.push({locale,route,profile,iteration});
+  }
+}
+for(const {locale,route,profile,iteration} of targets){
+    const settings=profiles[profile];
     const chrome = await chromeLauncher.launch({chromePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium', chromeFlags});
     let browser;
     try {
@@ -117,7 +128,6 @@ for (const [locale, route] of [['fr', '/'], ['en', '/en/']]) for (const [profile
       measurements.push(entry);
       console.log(JSON.stringify({id,score:entry.score,lcpMs:entry.lcpMs,tbtMs:entry.tbtMs,cls:entry.cls}));
     } finally {if(browser) await browser.close(); await chrome.kill();}
-  }
 }
 const median=values=>{const s=values.filter(Number.isFinite).sort((a,b)=>a-b);if(!s.length)return null;const mid=Math.floor(s.length/2);return s.length%2?s[mid]:(s[mid-1]+s[mid])/2;};
 const aggregate=[];

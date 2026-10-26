@@ -27,12 +27,45 @@
     advance();
     state.timer = setInterval(advance,1900);
   }
+  function inPlaybackRegion(visual) {
+    const rect = visual.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return false;
+    const width = Math.max(0, Math.min(rect.right, innerWidth) - Math.max(rect.left, 0));
+    const height = Math.max(0, Math.min(rect.bottom, innerHeight) - Math.max(rect.top, 0));
+    return width * height / (rect.width * rect.height) >= .32;
+  }
+  function loadSequence(visual) {
+    const state = states.get(visual);
+    if (!state || state.loaded) return;
+    state.loaded = true;
+    state.layers.slice(1).forEach(function(img) {
+      const src = img.dataset.sequenceSrc;
+      if (!src) return;
+      img.loading = 'eager';
+      img.src = src;
+      delete img.dataset.sequenceSrc;
+    });
+  }
+  function syncPlayback(visual) {
+    const state = states.get(visual);
+    if (!state || !state.loaded) return;
+    if (!document.hidden && inPlaybackRegion(visual)) start(visual);
+    else stop(visual);
+  }
+  let syncFrame = 0;
+  function schedulePlaybackSync() {
+    if (syncFrame) return;
+    syncFrame = requestAnimationFrame(function() {
+      syncFrame = 0;
+      targets.forEach(syncPlayback);
+    });
+  }
   const io = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
-      if(entry.isIntersecting && entry.intersectionRatio >= .32 && !document.hidden) start(entry.target);
-      else stop(entry.target);
+      if (entry.isIntersecting) loadSequence(entry.target);
+      syncPlayback(entry.target);
     });
-  }, {threshold:[0,.32,.6]});
+  }, {rootMargin:'100% 0px',threshold:0});
   function bindImages() {
     document.querySelectorAll('#kc-mobile-projets .project').forEach(function(ticket) {
       const sequence = (ticket.dataset.sequence || '').split(/\s+/).filter(Boolean);
@@ -46,17 +79,16 @@
       sequence.slice(1).forEach(function(src) {
         const img = document.createElement('img');
         img.className='poster kc-mobile-slide';
-        img.src=src;
+        img.dataset.sequenceSrc=src;
         img.alt='';
         img.decoding='async';
-        img.loading='eager';
         img.style.opacity='0';
         img.style.transition='opacity .32s ease';
         img.style.pointerEvents='none';
         visual.appendChild(img);
         layers.push(img);
       });
-      states.set(visual,{layers:layers,index:0,timer:null});
+      states.set(visual,{layers:layers,index:0,timer:null,loaded:false});
       targets.add(visual);
       io.observe(visual);
     });
@@ -65,14 +97,14 @@
   mounts.observe(document.documentElement,{childList:true,subtree:true});
   document.addEventListener('DOMContentLoaded',bindImages,{once:true});
   document.addEventListener('visibilitychange',function() {
-    targets.forEach(function(visual) {
-      if (document.hidden) stop(visual);
-      else if (visual.getBoundingClientRect().bottom > 0 &&
-        visual.getBoundingClientRect().top < innerHeight) start(visual);
-    });
+    if (document.hidden) targets.forEach(stop);
+    else schedulePlaybackSync();
   });
   reduced.addEventListener?.('change',function() {
-    targets.forEach(stop);
+    if (reduced.matches) targets.forEach(stop);
+    else schedulePlaybackSync();
   });
+  window.addEventListener('scroll',schedulePlaybackSync,{passive:true});
+  window.addEventListener('resize',schedulePlaybackSync,{passive:true});
   bindImages();
 })();

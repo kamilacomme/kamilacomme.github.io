@@ -40,9 +40,9 @@ test('mobile image sequences remain locale-specific and data-driven',async({page
  const base=require('../baseline/content-inventory.json').mobileImageSequences;
  for(const id of Object.keys(base)){
    const card=page.locator(`#kc-mobile-projets .project[data-project-id="${id}"]`);
-   await card.scrollIntoViewIfNeeded();
+   await card.locator('.visual').scrollIntoViewIfNeeded();
    const expected=language==='en'?[...base[id],...base[id].slice(1)]:base[id];
-   await expect.poll(()=>card.locator('.visual img').count()).toBe(expected.length);
-   expect(await card.locator('.visual img').evaluateAll(images=>images.map(image=>image.getAttribute('src')))).toEqual(expected);
+   await expect.poll(()=>card.locator('.visual img').evaluateAll(images=>images.map(image=>image.getAttribute('src'))),{timeout:15000}).toEqual(expected);
+   await expect.poll(()=>card.locator('.visual img').evaluateAll(images=>images.every(image=>image.complete&&image.naturalWidth>0)),{timeout:15000}).toBe(true);
  }
 });

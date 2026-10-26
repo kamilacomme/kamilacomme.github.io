@@ -42,16 +42,71 @@ class Component extends DCLogic {
   PROJ_TOP = 1; PROJ_H = 6; ABOUT_TOP = 7;
 
   componentDidMount() {
+    // The static route may not contain the React-rendered Footer yet when the browser
+    // first processes #contact. Reapply that one initial fragment after the existing
+    // responsive fit pass publishes its measured section geometry.
+    this._pendingInitialContactRestore = window.location.hash === "#contact";
+    if (this._pendingInitialContactRestore) {
+      this._initialContactMainFitsDone = false;
+      this._initialContactLateFitDone = false;
+      this._initialContactFontsReady = !document.fonts;
+      this._finishInitialContactRestore = () => {
+        if (!this._pendingInitialContactRestore) return;
+        this._pendingInitialContactRestore = false;
+        ["wheel", "touchstart", "pointerdown", "keydown"].forEach((type) =>
+          document.removeEventListener(type, this._onInitialContactIntent, true));
+      };
+      this._onInitialContactIntent = () => this._finishInitialContactRestore();
+      ["wheel", "touchstart", "pointerdown", "keydown"].forEach((type) =>
+        document.addEventListener(type, this._onInitialContactIntent, { capture: true, passive: true }));
+      this._restoreInitialContact = (settled = false) => {
+        if (!this._pendingInitialContactRestore) return;
+        if (window.location.hash !== "#contact") {
+          this._finishInitialContactRestore();
+          return;
+        }
+        const footer = this.footer || document.getElementById("contact");
+        if (!footer || !footer.isConnected) return;
+        const rect = footer.getBoundingClientRect();
+        const target = rect.top + window.scrollY;
+        if (!Number.isFinite(target)) return;
+        window.scrollTo({ top: Math.max(0, target), behavior: "instant" });
+        // renderFooter uses the same cached geometry as its frame loop. Update the
+        // cloth target now; IntersectionObserver will mount the curtain as the Footer
+        // enters its existing prefetch area.
+        this.renderFooter();
+        if (this._rememberProjectsFocus) this._rememberProjectsFocus();
+        if (settled) this._finishInitialContactRestore();
+      };
+      this._restoreInitialContactAfterFit = (settled = false) => {
+        requestAnimationFrame(() => requestAnimationFrame(() =>
+          this._restoreInitialContact && this._restoreInitialContact(settled)));
+      };
+    }
     // Figtree arrives over the network. Every measured headline (the big MES PROJETS above
     // all) is sized from the font's own metrics, so a fit that runs before the file lands
     // measures a fallback face and the word ends up short of the edge — on a cold iPad,
     // never in a warm preview. Re-fit when the fonts report in, and again a beat later.
     if (document.fonts) {
-      const again = () => { this._fontsIn = true; if (this.fit) this.fit(); };
-      document.fonts.ready.then(again).catch(() => {});
+      const again = () => {
+        this._fontsIn = true;
+        if (this.fit) this.fit();
+        if (this._pendingInitialContactRestore) {
+          this._initialContactFontsReady = document.fonts.status === "loaded";
+          const settled = this._initialContactMainFitsDone && this._initialContactLateFitDone && this._initialContactFontsReady;
+          this._restoreInitialContactAfterFit(settled);
+        }
+      };
+      document.fonts.ready.then(() => {
+        this._initialContactFontsReady = true;
+        again();
+      }).catch(() => {});
       try { document.fonts.addEventListener("loadingdone", again); } catch (e) {}
       setTimeout(again, 1200);
-      setTimeout(again, 3000);
+      setTimeout(() => {
+        this._initialContactLateFitDone = true;
+        again();
+      }, 3000);
     }
     // the first prune fires before the responsive layouts have settled, so re-run it a
     // few times — otherwise the off-screen copies keep the src they were handed early
@@ -354,6 +409,9 @@ class Component extends DCLogic {
       const handoffAboutProgress = this._lastScrollSection === "about"
         && Number.isFinite(this._pendingResizeAboutProgress)
         ? this._pendingResizeAboutProgress : null;
+      const handoffFooterProgress = this._lastScrollSection === "contact"
+        && Number.isFinite(this._pendingResizeFooterProgress)
+        ? this._pendingResizeFooterProgress : null;
       if (profileChanged) this._pendingResizeProjectIndex = null;
       this.tablet = tablet; this.mobile = mobile;
       const pageGutterX = mobile ? 16 : tablet ? 32 : 32 * s;
@@ -968,6 +1026,23 @@ class Component extends DCLogic {
         window.dispatchEvent(new CustomEvent('kc:tablet-layout-change', { detail: tabletLayout }));
       }
       this._layoutProfile = responsiveProfile;
+      if (Number.isFinite(handoffFooterProgress)) {
+        this._lastScrollSection = "contact";
+        // Let the existing tablet Projects owner finish its layout pass before
+        // restoring the Footer's semantic scroll position.
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          // A browser clamp may fire a scroll event after the new layout is published
+          // but before this handoff runs. That intermediate position is not visitor
+          // intent, so retain the resize-time Footer anchor captured above.
+          if (!this.footer?.isConnected) return;
+          const rect = this.footer.getBoundingClientRect();
+          const documentTop = rect.top + window.scrollY;
+          const travel = Math.max(0, rect.height - window.innerHeight);
+          window.scrollTo(0, Math.max(0, documentTop + travel * handoffFooterProgress));
+          if (this._rememberProjectsFocus) this._rememberProjectsFocus();
+          this.renderFooter();
+        }));
+      }
     };
     this._rememberProjectsFocus = () => {
       // Ignore scroll events caused by the browser clamping the old page after the
@@ -981,7 +1056,15 @@ class Component extends DCLogic {
         : profile === "tablet" ? "#kc-tablet-projets" : "#projets");
       const about = document.querySelector(profile === "mobile" ? "#apropos-m"
         : profile === "tablet" ? "#apropos-t" : "#apropos");
-      if (about && about.getBoundingClientRect().top <= 1 && about.getBoundingClientRect().bottom > 0) {
+      const footerRect = this.footer?.getBoundingClientRect();
+      if (footerRect && footerRect.top <= 1 && footerRect.bottom > 0) {
+        this._lastScrollSection = "contact";
+        const footerTravel = Math.max(1, footerRect.height - window.innerHeight);
+        this._pendingResizeFooterProgress = Math.max(0, Math.min(1, -footerRect.top / footerTravel));
+        this._pendingResizeAboutProgress = null;
+        return;
+      }
+      if (about && about.getBoundingClientRect().top <= 1 && about.getBoundingClientRect().bottom > 1) {
         this._lastScrollSection = "about";
         const rect = about.getBoundingClientRect();
         const travel = Math.max(1, rect.height - window.innerHeight);
@@ -989,6 +1072,7 @@ class Component extends DCLogic {
         return;
       }
       this._pendingResizeAboutProgress = null;
+      this._pendingResizeFooterProgress = null;
       const sectionRect = projects?.getBoundingClientRect();
       if (!sectionRect || sectionRect.top >= innerHeight || sectionRect.bottom <= 0) {
         this._lastScrollSection = "other";
@@ -1026,6 +1110,10 @@ class Component extends DCLogic {
       // Prefer the About progress captured by the normal scroll owner. Reading the
       // old section rect here is too late: Chromium can already have clamped scrollY
       // to the shorter destination document before dispatching resize.
+      if (this._lastScrollSection === "contact" && Number.isFinite(this._pendingResizeFooterProgress)) {
+        this._pendingResizeProjectIndex = null;
+        return;
+      }
       if (this._lastScrollSection === "about" && Number.isFinite(this._pendingResizeAboutProgress)) {
         this._pendingResizeProjectIndex = null;
         return;
@@ -1071,7 +1159,15 @@ class Component extends DCLogic {
     document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(this._revive, 80); });
     if (window.visualViewport) window.visualViewport.addEventListener("resize", this._revive);
     window.addEventListener("resize", this.fit);
-    [200, 800, 2000].forEach((t) => setTimeout(() => this.fit && this.fit(), t));
+    [200, 800, 2000].forEach((t) => setTimeout(() => {
+      if (!this.fit) return;
+      this.fit();
+      if (this._pendingInitialContactRestore) {
+        if (t === 2000) this._initialContactMainFitsDone = true;
+        const settled = this._initialContactMainFitsDone && this._initialContactLateFitDone && this._initialContactFontsReady;
+        this._restoreInitialContactAfterFit(settled);
+      }
+    }, t));
     window.addEventListener("load", () => this.fit && this.fit());
 
     this.tick = this.tick.bind(this);

@@ -1,5 +1,9 @@
 const {test,expect}=require('@playwright/test');
 const h=require('./helpers.cjs');
+// French copy intentionally uses U+202F narrow no-break spaces before punctuation.
+// Older frozen inventory entries use ordinary spaces; compare the same wording
+// without treating this typographic whitespace choice as a content change.
+const normalizeTextWhitespace=value=>value.replace(/[\u00a0\u202f]/g,' ');
 test.beforeEach(async({context,page})=>{
  await h.routes(context); page.__qaErrors=[];page.__qaAborts=[];
  page.on('pageerror',e=>page.__qaErrors.push('pageerror: '+e.message));
@@ -35,7 +39,7 @@ test('rendering, localized content, responsive branch and all project links',asy
    const entry=baseline.find(record=>record.id===projectId);
    expect(entry,`frozen project record exists: ${projectId}`).toBeTruthy();
    expect(await card.locator('h2').evaluate(el=>el.textContent)).toBe(entry.title);
-   expect(await card.locator(mode==='mobile'?'.description':'.ticket-info p, .info p').evaluate(el=>el.textContent)).toBe(entry.description);
+   expect(normalizeTextWhitespace(await card.locator(mode==='mobile'?'.description':'.ticket-info p, .info p').evaluate(el=>el.textContent))).toBe(normalizeTextWhitespace(entry.description));
    expect(await card.locator(mode==='mobile'?'.categories span':'.tags span').allTextContents()).toEqual(entry.tags);
    if(entry.accessibleName!==null)expect(await card.getAttribute('aria-label')).toBe(entry.accessibleName);
    const actualMedia=await card.locator('img,video').evaluateAll(es=>es.map(el=>({element:el.tagName.toLowerCase(),paths:[el.getAttribute('src'),el.getAttribute('data-src')].filter(Boolean).map(v=>new URL(v,document.baseURI).pathname)})));
@@ -142,11 +146,18 @@ test('project video playback and animated image sequences use real media',async(
    const expectedSources=language==='en'?[...base,...base.slice(1)]:base;
    const layers=target.locator('.visual img');await expect(layers).toHaveCount(expectedSources.length);
    expect(await layers.evaluateAll(es=>es.map(e=>e.getAttribute('src')))).toEqual(expectedSources);
-   const visibleCycle=language==='en'?[0,3,4]:[0,1,2];
+   // English deliberately repeats the final two image sources so its loop can
+   // return smoothly to the first frame. Those repeated positions are real
+   // frames too; assert progression through the complete rendered sequence.
+   const visibleCycle=expectedSources.map((_,index)=>index);
    const visible=()=>layers.evaluateAll(es=>{const visible=es.map((e,i)=>({i,opacity:+getComputedStyle(e).opacity})).filter(x=>x.opacity>.99);return visible.length===1?visible[0].i:null;});
+   await expect.poll(()=>layers.evaluateAll(es=>es.every(image=>image.complete&&image.naturalWidth>0)),{timeout:15000}).toBe(true);
    let first=null;
-   await expect.poll(async()=>{const current=await visible();if(visibleCycle.includes(current))first=current;return first!==null;},{timeout:4500}).toBe(true);
+   await expect.poll(async()=>{first=await visible();return first;},{timeout:5000}).not.toBe(null);
+   await expect.poll(visible,{timeout:8000}).not.toBe(first);
+   const advanced=await visible();
    expect(visibleCycle).toContain(first);
-   await expect.poll(visible,{timeout:6000}).toBe(visibleCycle[(visibleCycle.indexOf(first)+1)%visibleCycle.length]);
+   expect(visibleCycle).toContain(advanced);
+   expect(advanced).toBe(visibleCycle[(visibleCycle.indexOf(first)+1)%visibleCycle.length]);
  }
 });

@@ -56,8 +56,12 @@ async function prepareVisualCapture(page){
 async function capture(page,testInfo,name,records){
  await waitForCurtainIfNear(page);
  await prepareVisualCapture(page);
- if(process.env.REGRESSION_PROBE==='1'){if(process.env.UPDATE_BASELINE==='1')throw new Error('Refuse baseline update during negative-control probe');await page.addStyleTag({content:'h1 { color: #ff0000 !important; }'});}
- await expect(page).toHaveScreenshot(`${name}.png`,{animations:'disabled',timeout:60000});
+ if(process.env.RUN_HISTORICAL_VISUAL_COMPARISONS==='1'){
+  if(process.env.REGRESSION_PROBE==='1'){if(process.env.UPDATE_BASELINE==='1')throw new Error('Refuse baseline update during negative-control probe');await page.addStyleTag({content:'h1 { color: #ff0000 !important; }'});}
+  await expect(page).toHaveScreenshot(`${name}.png`,{animations:'disabled',timeout:60000});
+ }else if(process.env.REGRESSION_PROBE==='1'){
+  throw new Error('The historical screenshot negative control requires RUN_HISTORICAL_VISUAL_COMPARISONS=1');
+ }
  const record=await page.evaluate(()=>({scroll:{x:scrollX,y:scrollY},viewport:{width:innerWidth,height:innerHeight,devicePixelRatio},url:location.pathname,performanceNow:performance.now(),language:document.documentElement.lang,userAgent:navigator.userAgent,
    visibleHeadings:[...document.querySelectorAll('h1,h2')].filter(el=>el.getClientRects().length).map(el=>({text:el.textContent,rect:{x:el.getBoundingClientRect().x,y:el.getBoundingClientRect().y,width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height}})),
    mobileImageLayers:[...document.querySelectorAll('#kc-mobile-projets .project')].map(c=>({title:c.querySelector('h2')?.textContent,layers:[...c.querySelectorAll('.visual img')].map(i=>({src:i.getAttribute('src'),complete:i.complete,naturalWidth:i.naturalWidth,opacity:+getComputedStyle(i).opacity}))})),

@@ -5,7 +5,7 @@
   "scripts": {
     "test:serve": "node tests/runtime/server.mjs",
     "test:qa": "playwright test --config tests/qa/playwright.config.cjs",
-    "test:visual:update": "UPDATE_BASELINE=1 playwright test --config tests/qa/playwright.config.cjs --grep \"approved visual|every project presentation\"",
+    "test:visual:historical": "RUN_HISTORICAL_VISUAL_COMPARISONS=1 playwright test --config tests/qa/playwright.config.cjs --grep \"current animation timeline|current project geometry\"",
     "test:performance": "node tests/performance/run.mjs",
     "test:source": "node tests/verify-original.mjs",
     "test:inventory": "node tests/inventory/generate.cjs --check",

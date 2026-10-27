@@ -9,4 +9,5 @@ run(['tests/artifact-lock.mjs']);
 run(['tests/verify-lab.cjs']);
 run(['--test','tests/performance/compare.test.mjs']);
 run(['node_modules/@playwright/test/cli.js','test','--config','tests/qa/playwright.config.cjs',...process.argv.slice(2)]);
+run(['tests/phase-5/run-responsive-qa.mjs']);
 run(['tests/artifact-lock.mjs']);

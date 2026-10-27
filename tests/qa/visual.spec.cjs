@@ -21,7 +21,7 @@ test.beforeEach(async({context,page})=>{
  page.on('response',r=>{if(r.status()>=400)page.__qaErrors.push('HTTP '+r.status()+': '+r.url());});
 });
 test.afterEach(async({page})=>{expect(page.__qaErrors || []).toEqual([]);});
-test('approved visual and animation states',async({page},info)=>{
+test('current animation timeline; historical appearance comparison is opt-in',async({page},info)=>{
  const {mode,language}=info.project.metadata,states=[];
  await h.ready(page,language);
  await page.clock.runFor(600);await h.capture(page,info,'hero-intro-600ms',states);

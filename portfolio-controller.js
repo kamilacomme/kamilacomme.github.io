@@ -295,8 +295,13 @@ class Component extends DCLogic {
     document.addEventListener("keydown", this._onKey);
     if (!this.heroSlides) this.heroSlides = [];
     if (!this.tHeroSlides) this.tHeroSlides = [];
+    this.heroMotionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
     this.heroIdx = 0;
     this.heroTimer = setInterval(() => {
+      // Keep the currently composed Hero frame while the visitor requests reduced
+      // motion. The same timer naturally resumes at the existing cadence if the
+      // preference changes back during this page session.
+      if (this.heroMotionQuery && this.heroMotionQuery.matches) return;
       const arr = this.mobile ? this.mHeroSlides : this.tablet ? this.tHeroSlides : this.heroSlides;
       if (!arr || !arr.length) return;
       const prev = this.heroIdx % arr.length;

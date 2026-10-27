@@ -1,0 +1,770 @@
+[
+  {
+    "language": "fr",
+    "viewport": {
+      "width": 1377,
+      "height": 852
+    },
+    "profile": "desktop",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "column",
+    "gap": "30.6px",
+    "links": [
+      {
+        "text": "Mentions légales",
+        "rect": {
+          "x": 566.19,
+          "y": 755,
+          "width": 94.08,
+          "height": 18,
+          "right": 660.27,
+          "bottom": 773
+        }
+      },
+      {
+        "text": "Politique de confidentialité",
+        "rect": {
+          "x": 566.19,
+          "y": 803.59,
+          "width": 146.73,
+          "height": 18,
+          "right": 712.92,
+          "bottom": 821.59
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0.19,
+      "width": 1377,
+      "height": 852,
+      "right": 1377,
+      "bottom": 852.19
+    },
+    "label": "tablet-to-desktop-resize",
+    "screenshot": "assets/before/fr-tablet-to-desktop-resize.png"
+  },
+  {
+    "language": "fr",
+    "viewport": {
+      "width": 1377,
+      "height": 852
+    },
+    "profile": "desktop",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "30.6px",
+    "links": [
+      {
+        "text": "Mentions légales",
+        "rect": {
+          "x": 566.19,
+          "y": 803.59,
+          "width": 94.08,
+          "height": 18,
+          "right": 660.27,
+          "bottom": 821.59
+        }
+      },
+      {
+        "text": "Politique de confidentialité",
+        "rect": {
+          "x": 690.86,
+          "y": 803.59,
+          "width": 146.73,
+          "height": 18,
+          "right": 837.59,
+          "bottom": 821.59
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0.19,
+      "width": 1377,
+      "height": 852,
+      "right": 1377,
+      "bottom": 852.19
+    },
+    "label": "tablet-to-desktop-resize",
+    "screenshot": "assets/after/fr-tablet-to-desktop-resize.png"
+  },
+  {
+    "language": "fr",
+    "viewport": {
+      "width": 1377,
+      "height": 852
+    },
+    "profile": "desktop",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "30.6px",
+    "links": [
+      {
+        "text": "Mentions légales",
+        "rect": {
+          "x": 566.19,
+          "y": 803.59,
+          "width": 94.08,
+          "height": 18,
+          "right": 660.27,
+          "bottom": 821.59
+        }
+      },
+      {
+        "text": "Politique de confidentialité",
+        "rect": {
+          "x": 690.86,
+          "y": 803.59,
+          "width": 146.73,
+          "height": 18,
+          "right": 837.59,
+          "bottom": 821.59
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0.19,
+      "width": 1377,
+      "height": 852,
+      "right": 1377,
+      "bottom": 852.19
+    },
+    "label": "desktop-refresh",
+    "screenshot": "assets/after/fr-desktop-refresh.png"
+  },
+  {
+    "language": "fr",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "profile": "desktop",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "32px",
+    "links": [
+      {
+        "text": "Mentions légales",
+        "rect": {
+          "x": 596.3,
+          "y": 850,
+          "width": 94.08,
+          "height": 18,
+          "right": 690.38,
+          "bottom": 868
+        }
+      },
+      {
+        "text": "Politique de confidentialité",
+        "rect": {
+          "x": 722.38,
+          "y": 850,
+          "width": 146.73,
+          "height": 18,
+          "right": 869.11,
+          "bottom": 868
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "right": 1440,
+      "bottom": 900
+    },
+    "label": "desktop-control-1440",
+    "screenshot": "assets/after/fr-desktop-control-1440.png"
+  },
+  {
+    "language": "fr",
+    "viewport": {
+      "width": 1024,
+      "height": 852
+    },
+    "profile": "tablet",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "7.6px",
+    "links": [
+      {
+        "text": "Mentions légales",
+        "rect": {
+          "x": 32,
+          "y": 802,
+          "width": 94.08,
+          "height": 18,
+          "right": 126.08,
+          "bottom": 820
+        }
+      },
+      {
+        "text": "Politique de confidentialité",
+        "rect": {
+          "x": 133.67,
+          "y": 802,
+          "width": 146.73,
+          "height": 18,
+          "right": 280.41,
+          "bottom": 820
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0,
+      "width": 1024,
+      "height": 852,
+      "right": 1024,
+      "bottom": 852
+    },
+    "label": "tablet-1024",
+    "screenshot": "assets/after/fr-tablet-1024.png"
+  },
+  {
+    "language": "fr",
+    "viewport": {
+      "width": 500,
+      "height": 600
+    },
+    "profile": "tablet",
+    "motionPreference": "reduce",
+    "curtainProgress": 0,
+    "curtainTarget": 0,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "4.8px",
+    "links": [
+      {
+        "text": "Mentions légales",
+        "rect": {
+          "x": 32,
+          "y": 550.06,
+          "width": 94.08,
+          "height": 18,
+          "right": 126.08,
+          "bottom": 568.06
+        }
+      },
+      {
+        "text": "Politique de confidentialité",
+        "rect": {
+          "x": 130.88,
+          "y": 550.06,
+          "width": 146.73,
+          "height": 18,
+          "right": 277.61,
+          "bottom": 568.06
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0.06,
+      "width": 500,
+      "height": 600,
+      "right": 500,
+      "bottom": 600.06
+    },
+    "label": "narrow-tablet-500",
+    "screenshot": "assets/after/fr-narrow-tablet-500.png"
+  },
+  {
+    "language": "fr",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    },
+    "profile": "mobile",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "8px",
+    "links": [
+      {
+        "text": "Mentions légales",
+        "rect": {
+          "x": 16,
+          "y": 811.63,
+          "width": 86.23,
+          "height": 16.5,
+          "right": 102.23,
+          "bottom": 828.13
+        }
+      },
+      {
+        "text": "Politique de confidentialité",
+        "rect": {
+          "x": 110.23,
+          "y": 811.63,
+          "width": 134.5,
+          "height": 16.5,
+          "right": 244.73,
+          "bottom": 828.13
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0.13,
+      "width": 393,
+      "height": 852,
+      "right": 393,
+      "bottom": 852.13
+    },
+    "label": "mobile-393",
+    "screenshot": "assets/after/fr-mobile-393.png"
+  },
+  {
+    "language": "fr",
+    "viewport": {
+      "width": 320,
+      "height": 568
+    },
+    "profile": "mobile",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "8px",
+    "links": [
+      {
+        "text": "Mentions légales",
+        "rect": {
+          "x": 16,
+          "y": 527.78,
+          "width": 86.23,
+          "height": 16.5,
+          "right": 102.23,
+          "bottom": 544.28
+        }
+      },
+      {
+        "text": "Politique de confidentialité",
+        "rect": {
+          "x": 110.23,
+          "y": 527.78,
+          "width": 134.5,
+          "height": 16.5,
+          "right": 244.73,
+          "bottom": 544.28
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0.28,
+      "width": 320,
+      "height": 568,
+      "right": 320,
+      "bottom": 568.28
+    },
+    "label": "mobile-320",
+    "screenshot": "assets/after/fr-mobile-320.png"
+  },
+  {
+    "language": "en",
+    "viewport": {
+      "width": 1377,
+      "height": 852
+    },
+    "profile": "desktop",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "column",
+    "gap": "30.6px",
+    "links": [
+      {
+        "text": "Legal notice",
+        "rect": {
+          "x": 571.59,
+          "y": 755,
+          "width": 67.7,
+          "height": 18,
+          "right": 639.3,
+          "bottom": 773
+        }
+      },
+      {
+        "text": "Privacy policy",
+        "rect": {
+          "x": 571.59,
+          "y": 803.59,
+          "width": 77.42,
+          "height": 18,
+          "right": 649.02,
+          "bottom": 821.59
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0.19,
+      "width": 1377,
+      "height": 852,
+      "right": 1377,
+      "bottom": 852.19
+    },
+    "label": "tablet-to-desktop-resize",
+    "screenshot": "assets/before/en-tablet-to-desktop-resize.png"
+  },
+  {
+    "language": "en",
+    "viewport": {
+      "width": 1377,
+      "height": 852
+    },
+    "profile": "desktop",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "30.6px",
+    "links": [
+      {
+        "text": "Legal notice",
+        "rect": {
+          "x": 571.59,
+          "y": 803.59,
+          "width": 67.7,
+          "height": 18,
+          "right": 639.3,
+          "bottom": 821.59
+        }
+      },
+      {
+        "text": "Privacy policy",
+        "rect": {
+          "x": 669.89,
+          "y": 803.59,
+          "width": 77.42,
+          "height": 18,
+          "right": 747.31,
+          "bottom": 821.59
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0.19,
+      "width": 1377,
+      "height": 852,
+      "right": 1377,
+      "bottom": 852.19
+    },
+    "label": "tablet-to-desktop-resize",
+    "screenshot": "assets/after/en-tablet-to-desktop-resize.png"
+  },
+  {
+    "language": "en",
+    "viewport": {
+      "width": 1377,
+      "height": 852
+    },
+    "profile": "desktop",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "30.6px",
+    "links": [
+      {
+        "text": "Legal notice",
+        "rect": {
+          "x": 571.59,
+          "y": 803.59,
+          "width": 67.7,
+          "height": 18,
+          "right": 639.3,
+          "bottom": 821.59
+        }
+      },
+      {
+        "text": "Privacy policy",
+        "rect": {
+          "x": 669.89,
+          "y": 803.59,
+          "width": 77.42,
+          "height": 18,
+          "right": 747.31,
+          "bottom": 821.59
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0.19,
+      "width": 1377,
+      "height": 852,
+      "right": 1377,
+      "bottom": 852.19
+    },
+    "label": "desktop-refresh",
+    "screenshot": "assets/after/en-desktop-refresh.png"
+  },
+  {
+    "language": "en",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "profile": "desktop",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "32px",
+    "links": [
+      {
+        "text": "Legal notice",
+        "rect": {
+          "x": 601.69,
+          "y": 850,
+          "width": 67.7,
+          "height": 18,
+          "right": 669.39,
+          "bottom": 868
+        }
+      },
+      {
+        "text": "Privacy policy",
+        "rect": {
+          "x": 701.39,
+          "y": 850,
+          "width": 77.42,
+          "height": 18,
+          "right": 778.81,
+          "bottom": 868
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "right": 1440,
+      "bottom": 900
+    },
+    "label": "desktop-control-1440",
+    "screenshot": "assets/after/en-desktop-control-1440.png"
+  },
+  {
+    "language": "en",
+    "viewport": {
+      "width": 1024,
+      "height": 852
+    },
+    "profile": "tablet",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "7.6px",
+    "links": [
+      {
+        "text": "Legal notice",
+        "rect": {
+          "x": 32,
+          "y": 802,
+          "width": 67.7,
+          "height": 18,
+          "right": 99.7,
+          "bottom": 820
+        }
+      },
+      {
+        "text": "Privacy policy",
+        "rect": {
+          "x": 107.3,
+          "y": 802,
+          "width": 77.42,
+          "height": 18,
+          "right": 184.72,
+          "bottom": 820
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0,
+      "width": 1024,
+      "height": 852,
+      "right": 1024,
+      "bottom": 852
+    },
+    "label": "tablet-1024",
+    "screenshot": "assets/after/en-tablet-1024.png"
+  },
+  {
+    "language": "en",
+    "viewport": {
+      "width": 500,
+      "height": 600
+    },
+    "profile": "tablet",
+    "motionPreference": "reduce",
+    "curtainProgress": 0,
+    "curtainTarget": 0,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "4.8px",
+    "links": [
+      {
+        "text": "Legal notice",
+        "rect": {
+          "x": 32,
+          "y": 549.53,
+          "width": 67.7,
+          "height": 18,
+          "right": 99.7,
+          "bottom": 567.53
+        }
+      },
+      {
+        "text": "Privacy policy",
+        "rect": {
+          "x": 104.5,
+          "y": 549.53,
+          "width": 77.42,
+          "height": 18,
+          "right": 181.92,
+          "bottom": 567.53
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": -0.47,
+      "width": 500,
+      "height": 600,
+      "right": 500,
+      "bottom": 599.53
+    },
+    "label": "narrow-tablet-500",
+    "screenshot": "assets/after/en-narrow-tablet-500.png"
+  },
+  {
+    "language": "en",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    },
+    "profile": "mobile",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "8px",
+    "links": [
+      {
+        "text": "Legal notice",
+        "rect": {
+          "x": 16,
+          "y": 811.63,
+          "width": 62.06,
+          "height": 16.5,
+          "right": 78.06,
+          "bottom": 828.13
+        }
+      },
+      {
+        "text": "Privacy policy",
+        "rect": {
+          "x": 86.06,
+          "y": 811.63,
+          "width": 70.97,
+          "height": 16.5,
+          "right": 157.03,
+          "bottom": 828.13
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0.13,
+      "width": 393,
+      "height": 852,
+      "right": 393,
+      "bottom": 852.13
+    },
+    "label": "mobile-393",
+    "screenshot": "assets/after/en-mobile-393.png"
+  },
+  {
+    "language": "en",
+    "viewport": {
+      "width": 320,
+      "height": 568
+    },
+    "profile": "mobile",
+    "motionPreference": "reduce",
+    "curtainProgress": 1,
+    "curtainTarget": 1,
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "gap": "8px",
+    "links": [
+      {
+        "text": "Legal notice",
+        "rect": {
+          "x": 16,
+          "y": 527.78,
+          "width": 62.06,
+          "height": 16.5,
+          "right": 78.06,
+          "bottom": 544.28
+        }
+      },
+      {
+        "text": "Privacy policy",
+        "rect": {
+          "x": 86.06,
+          "y": 527.78,
+          "width": 70.97,
+          "height": 16.5,
+          "right": 157.03,
+          "bottom": 544.28
+        }
+      }
+    ],
+    "footer": {
+      "x": 0,
+      "y": 0.28,
+      "width": 320,
+      "height": 568,
+      "right": 320,
+      "bottom": 568.28
+    },
+    "label": "mobile-320",
+    "screenshot": "assets/after/en-mobile-320.png"
+  }
+]

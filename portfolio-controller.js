@@ -1443,7 +1443,7 @@ class Component extends DCLogic {
       if (legal) {
         Object.assign(legal.style, { left: L, right: L, top: "auto",
           bottom: (bb + pageGutterBottom).toFixed(1) + "px",
-          flexDirection: "column", alignItems: "flex-start", gap: "8px" });
+          flexDirection: "row", alignItems: "flex-start", gap: "8px" });
         // the footer sits outside the mobile root, so the phone type-scale rule there
         // never reached it: body copy 14, labels 11
         [legal, info].forEach((box) => {
@@ -1457,7 +1457,7 @@ class Component extends DCLogic {
         const cr = legal.querySelector(":scope > span");
         if (cr) cr.style.display = "none";
         const row = legal.querySelector(":scope > div");
-        if (row) { row.style.flex = "0 1 auto"; row.style.flexDirection = "column"; row.style.flexWrap = "nowrap"; row.style.justifyContent = "flex-start"; row.style.alignItems = "flex-start"; row.style.gap = "8px"; }
+        if (row) { row.style.flex = "0 1 auto"; row.style.flexDirection = "row"; row.style.flexWrap = "nowrap"; row.style.justifyContent = "flex-start"; row.style.alignItems = "flex-start"; row.style.gap = "8px"; }
         legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = "11px"; });
       }
       if (info) {
@@ -1503,7 +1503,7 @@ class Component extends DCLogic {
         legal.style.left = projectStart.toFixed(1) + "px";
       }
       const row = legal.querySelector(":scope > div");
-      if (row) { row.style.flex = "0 0 auto"; row.style.gap = px(32); }
+      if (row) { row.style.flex = "0 0 auto"; row.style.flexDirection = "row"; row.style.flexWrap = "nowrap"; row.style.gap = px(32); }
       legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = typePx(12); });
     }
     // tablet: one left column at the bottom — contacts, then the legal links under them
@@ -1511,9 +1511,9 @@ class Component extends DCLogic {
       // left column: phone + city, then each legal link on its own line. Steps are 8, 16, 32 off the base unit.
       if (legal) {
         Object.assign(legal.style, { left: edgeL.toFixed(1) + "px", right: "auto", bottom: pageGutterBottom.toFixed(1) + "px",
-          flexDirection: "column", alignItems: "flex-start", gap: px(8) });
+          flexDirection: "row", alignItems: "flex-start", gap: px(8) });
         const row = legal.querySelector(":scope > div");
-        if (row) { row.style.flexDirection = "column"; row.style.alignItems = "flex-start"; row.style.gap = px(8); }
+        if (row) { row.style.flexDirection = "row"; row.style.flexWrap = "nowrap"; row.style.alignItems = "flex-start"; row.style.gap = px(8); }
       }
       const lh = legal ? legal.offsetHeight : 0;
       if (info) Object.assign(info.style, { bottom: (pageGutterBottom + lh + 32 * sc).toFixed(1) + "px", gap: px(8) });

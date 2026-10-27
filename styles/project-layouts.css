@@ -5,7 +5,7 @@
 #kc-tablet-projets h1 .kc-title-line{display:block}
 #kc-tablet-projets .tickets{position:absolute;left:32px;top:213px;width:calc(100% - 64px);display:flex;flex-direction:column;gap:18px}
 #kc-mobile-projets #kc-m-viewport{position:relative;width:100%;height:auto;overflow:visible}
-#kc-mobile-projets #kc-m-canvas{position:relative;display:flex;flex-direction:column;width:100%;height:auto;padding:120px 16px 80px;background:#fff;transform:none}
+#kc-mobile-projets #kc-m-canvas{position:relative;display:flex;flex-direction:column;width:100%;height:auto;padding:120px var(--kc-page-gutter-x,16px) 80px;background:#fff;transform:none}
 #kc-mobile-projets h1{position:relative;left:auto;top:auto;width:100%;margin:0 0 32px;font:700 32px/1 Figtree,Arial,sans-serif;letter-spacing:-.03em}
 #kc-mobile-projets h1 em{font-style:italic;font-weight:400}
 #kc-mobile-projets .project{position:relative;left:auto;right:auto;top:auto;display:flex;flex-direction:column;align-self:flex-start;width:min(360.879px,100%);height:auto;margin:78px 0 0;color:inherit;text-decoration:none}

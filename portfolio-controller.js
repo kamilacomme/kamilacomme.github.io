@@ -1284,9 +1284,30 @@ class Component extends DCLogic {
     const pageGutterBottom = parseFloat(pageGeometry.getPropertyValue("--kc-page-gutter-bottom")) || (mob ? 24 : 32);
     const px = (v) => (v * sc).toFixed(1) + "px";
     const typePx = (v) => v + "px";
-    const footerGeometryKey = `${tablet ? "tablet" : mob ? "mobile" : "desktop"}:${window.innerWidth}x${window.innerHeight}:${Math.round(this.vhNow())}x${Math.round(this.lvhNow())}:${sc}:${edgeL}:${pageGutterBottom}`;
     const q = (sel) => this.footer.querySelector(sel);
     const head = q("[data-c='0']"), info = q("[data-c='1']"), legal = q("[data-c='4']");
+    // The responsive fit may run before web fonts and legal copy dimensions settle.
+    // Key the natural-flow cache on the legal link line boxes so the existing
+    // fitFooter owner recalculates when those rendered dimensions change, without
+    // waiting for a viewport resize to invalidate stale positions.
+    const fontState = document.fonts ? document.fonts.status : "unknown";
+    const legalTextMetrics = legal ? [...legal.querySelectorAll("a[data-legal]")].map((el) => {
+      const rect = el.getBoundingClientRect();
+      return `${rect.width.toFixed(2)}x${rect.height.toFixed(2)}`;
+    }).join("|") : "missing";
+    const footerGeometryKey = `${tablet ? "tablet" : mob ? "mobile" : "desktop"}:${window.innerWidth}x${window.innerHeight}:${Math.round(this.vhNow())}x${Math.round(this.lvhNow())}:${sc}:${edgeL}:${pageGutterBottom}:${fontState}:${legalTextMetrics}`;
+    const applyLegalOrientation = (availableWidth, gap) => {
+      if (!legal) return false;
+      const row = legal.querySelector(":scope > div");
+      const links = [...legal.querySelectorAll("a[data-legal]")];
+      const requiredWidth = links.reduce((sum, link) => sum + link.getBoundingClientRect().width, 0)
+        + Math.max(0, links.length - 1) * gap;
+      const direction = requiredWidth <= availableWidth + 0.5 ? "row" : "column";
+      Object.assign(legal.style, { flexDirection: direction, alignItems: "flex-start", gap: `${gap}px` });
+      if (row) Object.assign(row.style, { display: "flex", flex: "0 1 auto", flexDirection: direction,
+        flexWrap: "nowrap", justifyContent: "flex-start", alignItems: "flex-start", gap: `${gap}px` });
+      return direction === "row";
+    };
     const syncFooterClothHeight = (height) => {
       if (!this.cloth) return;
       const normalizedHeight = height || "100svh";
@@ -1443,7 +1464,7 @@ class Component extends DCLogic {
       if (legal) {
         Object.assign(legal.style, { left: L, right: L, top: "auto",
           bottom: (bb + pageGutterBottom).toFixed(1) + "px",
-          flexDirection: "column", alignItems: "flex-start", gap: "8px" });
+          maxWidth: Math.max(0, boxW - 2 * edgeL).toFixed(1) + "px" });
         // the footer sits outside the mobile root, so the phone type-scale rule there
         // never reached it: body copy 14, labels 11
         [legal, info].forEach((box) => {
@@ -1456,9 +1477,8 @@ class Component extends DCLogic {
         });
         const cr = legal.querySelector(":scope > span");
         if (cr) cr.style.display = "none";
-        const row = legal.querySelector(":scope > div");
-        if (row) { row.style.flex = "0 1 auto"; row.style.flexDirection = "column"; row.style.flexWrap = "nowrap"; row.style.justifyContent = "flex-start"; row.style.alignItems = "flex-start"; row.style.gap = "8px"; }
         legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = "11px"; });
+        applyLegalOrientation(Math.max(0, boxW - 2 * edgeL), 16);
       }
       if (info) {
         Object.assign(info.style, { left: L, right: "auto", top: "auto",
@@ -1506,14 +1526,13 @@ class Component extends DCLogic {
       if (row) { row.style.flex = "0 0 auto"; row.style.gap = px(32); }
       legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = typePx(12); });
     }
-    // tablet: one left column at the bottom — contacts, then the legal links under them
+      // Tablet retains the approved Footer geometry. Keep legal links in one row
+      // whenever their rendered labels fit between the shared horizontal gutters.
     if (tablet) {
-      // left column: phone + city, then each legal link on its own line. Steps are 8, 16, 32 off the base unit.
       if (legal) {
         Object.assign(legal.style, { left: edgeL.toFixed(1) + "px", right: "auto", bottom: pageGutterBottom.toFixed(1) + "px",
-          flexDirection: "column", alignItems: "flex-start", gap: px(8) });
-        const row = legal.querySelector(":scope > div");
-        if (row) { row.style.flexDirection = "column"; row.style.alignItems = "flex-start"; row.style.gap = px(8); }
+          width: "auto", maxWidth: `calc(100vw - ${2 * edgeL}px)` });
+        applyLegalOrientation(Math.max(0, window.innerWidth - 2 * edgeL), 32 * sc);
       }
       const lh = legal ? legal.offsetHeight : 0;
       if (info) Object.assign(info.style, { bottom: (pageGutterBottom + lh + 32 * sc).toFixed(1) + "px", gap: px(8) });

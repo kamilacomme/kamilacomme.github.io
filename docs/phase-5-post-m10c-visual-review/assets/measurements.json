@@ -1,0 +1,5213 @@
+{
+  "footer": [
+    {
+      "state": "fresh",
+      "tag": "fr-320x568-fresh",
+      "viewport": [
+        320,
+        568
+      ],
+      "scrollY": 6252,
+      "profile": "mobile",
+      "gutterX": "16.000px",
+      "gutterBottom": "24.000px",
+      "footer": {
+        "left": 0,
+        "right": 320,
+        "top": 0.28,
+        "bottom": 568.28,
+        "width": 320,
+        "height": 568
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 16,
+          "right": 158.8,
+          "top": 445.78,
+          "bottom": 495.78,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 16,
+        "right": 304,
+        "top": 527.78,
+        "bottom": 544.28,
+        "width": 288,
+        "height": 16.5,
+        "direction": "row"
+      },
+      "row": {
+        "left": 16,
+        "right": 252.73,
+        "top": 527.78,
+        "bottom": 544.28,
+        "width": 236.73,
+        "height": 16.5,
+        "direction": "row",
+        "gap": "16px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 16,
+          "right": 102.23,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 86.23,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 118.23,
+          "right": 252.73,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 134.5,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 194.63,
+        "right": 304,
+        "top": 14,
+        "bottom": 58,
+        "width": 109.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 320,
+        "top": -5684,
+        "bottom": -2101.31,
+        "width": 320,
+        "height": 3582.69,
+        "paddingRight": "16px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 304,
+          "top": -5468,
+          "bottom": -4986.09,
+          "width": 288,
+          "height": 481.91
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "top": -4908.09,
+          "bottom": -4457.7,
+          "width": 266,
+          "height": 450.39
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 304,
+          "top": -4379.7,
+          "bottom": -3777,
+          "width": 288,
+          "height": 602.7
+        },
+        {
+          "id": "inside-out",
+          "left": 38,
+          "right": 304,
+          "top": -3699,
+          "bottom": -3269.61,
+          "width": 266,
+          "height": 429.39
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 304,
+          "top": -3191.61,
+          "bottom": -2709.7,
+          "width": 288,
+          "height": 481.91
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "top": -2631.7,
+          "bottom": -2181.31,
+          "width": 266,
+          "height": 450.39
+        }
+      ]
+    },
+    {
+      "state": "refresh",
+      "tag": "fr-320x568-refresh",
+      "viewport": [
+        320,
+        568
+      ],
+      "scrollY": 6252,
+      "profile": "mobile",
+      "gutterX": "16.000px",
+      "gutterBottom": "24.000px",
+      "footer": {
+        "left": 0,
+        "right": 320,
+        "top": 0.28,
+        "bottom": 568.28,
+        "width": 320,
+        "height": 568
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 16,
+          "right": 158.8,
+          "top": 445.78,
+          "bottom": 495.78,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 16,
+        "right": 304,
+        "top": 527.78,
+        "bottom": 544.28,
+        "width": 288,
+        "height": 16.5,
+        "direction": "row"
+      },
+      "row": {
+        "left": 16,
+        "right": 252.73,
+        "top": 527.78,
+        "bottom": 544.28,
+        "width": 236.73,
+        "height": 16.5,
+        "direction": "row",
+        "gap": "16px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 16,
+          "right": 102.23,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 86.23,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 118.23,
+          "right": 252.73,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 134.5,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 194.63,
+        "right": 304,
+        "top": 14,
+        "bottom": 58,
+        "width": 109.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 320,
+        "top": -5684,
+        "bottom": -2101.31,
+        "width": 320,
+        "height": 3582.69,
+        "paddingRight": "16px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 304,
+          "top": -5468,
+          "bottom": -4986.09,
+          "width": 288,
+          "height": 481.91
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "top": -4908.09,
+          "bottom": -4457.7,
+          "width": 266,
+          "height": 450.39
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 304,
+          "top": -4379.7,
+          "bottom": -3777,
+          "width": 288,
+          "height": 602.7
+        },
+        {
+          "id": "inside-out",
+          "left": 38,
+          "right": 304,
+          "top": -3699,
+          "bottom": -3269.61,
+          "width": 266,
+          "height": 429.39
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 304,
+          "top": -3191.61,
+          "bottom": -2709.7,
+          "width": 288,
+          "height": 481.91
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "top": -2631.7,
+          "bottom": -2181.31,
+          "width": 266,
+          "height": 450.39
+        }
+      ]
+    },
+    {
+      "state": "resize",
+      "tag": "fr-320x568-resize",
+      "viewport": [
+        320,
+        568
+      ],
+      "scrollY": 6252,
+      "profile": "mobile",
+      "gutterX": "16.000px",
+      "gutterBottom": "24.000px",
+      "footer": {
+        "left": 0,
+        "right": 320,
+        "top": 0.28,
+        "bottom": 568.28,
+        "width": 320,
+        "height": 568
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 16,
+          "right": 158.8,
+          "top": 445.78,
+          "bottom": 495.78,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 16,
+        "right": 304,
+        "top": 527.78,
+        "bottom": 544.28,
+        "width": 288,
+        "height": 16.5,
+        "direction": "row"
+      },
+      "row": {
+        "left": 16,
+        "right": 252.73,
+        "top": 527.78,
+        "bottom": 544.28,
+        "width": 236.73,
+        "height": 16.5,
+        "direction": "row",
+        "gap": "16px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 16,
+          "right": 102.23,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 86.23,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 118.23,
+          "right": 252.73,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 134.5,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 194.63,
+        "right": 304,
+        "top": 14,
+        "bottom": 58,
+        "width": 109.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 320,
+        "top": -5684,
+        "bottom": -2101.31,
+        "width": 320,
+        "height": 3582.69,
+        "paddingRight": "16px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 304,
+          "top": -5468,
+          "bottom": -4986.09,
+          "width": 288,
+          "height": 481.91
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "top": -4908.09,
+          "bottom": -4457.7,
+          "width": 266,
+          "height": 450.39
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 304,
+          "top": -4379.7,
+          "bottom": -3777,
+          "width": 288,
+          "height": 602.7
+        },
+        {
+          "id": "inside-out",
+          "left": 38,
+          "right": 304,
+          "top": -3699,
+          "bottom": -3269.61,
+          "width": 266,
+          "height": 429.39
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 304,
+          "top": -3191.61,
+          "bottom": -2709.7,
+          "width": 288,
+          "height": 481.91
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "top": -2631.7,
+          "bottom": -2181.31,
+          "width": 266,
+          "height": 450.39
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "fr-390x844-fresh",
+      "viewport": [
+        390,
+        844
+      ],
+      "scrollY": 7682,
+      "profile": "mobile",
+      "gutterX": "16.000px",
+      "gutterBottom": "24.000px",
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "top": 0.48,
+        "bottom": 844.48,
+        "width": 390,
+        "height": 844
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 16,
+          "right": 158.8,
+          "top": 721.98,
+          "bottom": 771.98,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 16,
+        "right": 374,
+        "top": 803.98,
+        "bottom": 820.48,
+        "width": 358,
+        "height": 16.5,
+        "direction": "row"
+      },
+      "row": {
+        "left": 16,
+        "right": 252.73,
+        "top": 803.98,
+        "bottom": 820.48,
+        "width": 236.73,
+        "height": 16.5,
+        "direction": "row",
+        "gap": "16px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 16,
+          "right": 102.23,
+          "top": 803.98,
+          "bottom": 820.48,
+          "width": 86.23,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 118.23,
+          "right": 252.73,
+          "top": 803.98,
+          "bottom": 820.48,
+          "width": 134.5,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 264.63,
+        "right": 374,
+        "top": 14,
+        "bottom": 58,
+        "width": 109.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 390,
+        "top": -6838,
+        "bottom": -3122.31,
+        "width": 390,
+        "height": 3715.69,
+        "paddingRight": "16px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 374,
+          "top": -6622,
+          "bottom": -6105.55,
+          "width": 358,
+          "height": 516.45
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "top": -6027.55,
+          "bottom": -5577.16,
+          "width": 266,
+          "height": 450.39
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 374,
+          "top": -5499.16,
+          "bottom": -4832.55,
+          "width": 358,
+          "height": 666.61
+        },
+        {
+          "id": "inside-out",
+          "left": 108,
+          "right": 374,
+          "top": -4754.55,
+          "bottom": -4325.16,
+          "width": 266,
+          "height": 429.39
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 374,
+          "top": -4247.16,
+          "bottom": -3730.7,
+          "width": 358,
+          "height": 516.45
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "top": -3652.7,
+          "bottom": -3202.31,
+          "width": 266,
+          "height": 450.39
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "fr-430x932-fresh",
+      "viewport": [
+        430,
+        932
+      ],
+      "scrollY": 8208,
+      "profile": "mobile",
+      "gutterX": "16.000px",
+      "gutterBottom": "24.000px",
+      "footer": {
+        "left": 0,
+        "right": 430,
+        "top": 0.06,
+        "bottom": 932.06,
+        "width": 430,
+        "height": 932
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 16,
+          "right": 158.8,
+          "top": 809.56,
+          "bottom": 859.56,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 16,
+        "right": 414,
+        "top": 891.56,
+        "bottom": 908.06,
+        "width": 398,
+        "height": 16.5,
+        "direction": "row"
+      },
+      "row": {
+        "left": 16,
+        "right": 252.73,
+        "top": 891.56,
+        "bottom": 908.06,
+        "width": 236.73,
+        "height": 16.5,
+        "direction": "row",
+        "gap": "16px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 16,
+          "right": 102.23,
+          "top": 891.56,
+          "bottom": 908.06,
+          "width": 86.23,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 118.23,
+          "right": 252.73,
+          "top": 891.56,
+          "bottom": 908.06,
+          "width": 134.5,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 304.63,
+        "right": 414,
+        "top": 14,
+        "bottom": 58,
+        "width": 109.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 430,
+        "top": -7276,
+        "bottom": -3448.33,
+        "width": 430,
+        "height": 3827.67,
+        "paddingRight": "16px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 414,
+          "top": -7060,
+          "bottom": -6511.81,
+          "width": 398,
+          "height": 548.19
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "top": -6433.81,
+          "bottom": -5983.42,
+          "width": 266,
+          "height": 450.39
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 414,
+          "top": -5905.42,
+          "bottom": -5190.3,
+          "width": 398,
+          "height": 715.13
+        },
+        {
+          "id": "inside-out",
+          "left": 148,
+          "right": 414,
+          "top": -5112.3,
+          "bottom": -4682.91,
+          "width": 266,
+          "height": 429.39
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 414,
+          "top": -4604.91,
+          "bottom": -4056.72,
+          "width": 398,
+          "height": 548.19
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "top": -3978.72,
+          "bottom": -3528.33,
+          "width": 266,
+          "height": 450.39
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "fr-500x600-fresh",
+      "viewport": [
+        500,
+        600
+      ],
+      "scrollY": 6332,
+      "profile": "tablet",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 500,
+        "top": 0.06,
+        "bottom": 600.06,
+        "width": 500,
+        "height": 600
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 484.08,
+          "bottom": 530.88,
+          "width": 142.8,
+          "height": 46.8
+        }
+      ],
+      "legal": {
+        "left": 32,
+        "right": 291.98,
+        "top": 550.06,
+        "bottom": 568.06,
+        "width": 259.98,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 32,
+        "right": 291.98,
+        "top": 550.06,
+        "bottom": 568.06,
+        "width": 259.98,
+        "height": 18,
+        "direction": "row",
+        "gap": "19.1847px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 32,
+          "right": 126.08,
+          "top": 550.06,
+          "bottom": 568.06,
+          "width": 94.08,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 145.25,
+          "right": 291.98,
+          "top": 550.06,
+          "bottom": 568.06,
+          "width": 146.73,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 342.63,
+        "right": 468,
+        "top": 14,
+        "bottom": 58,
+        "width": 125.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "refresh",
+      "tag": "fr-500x600-refresh",
+      "viewport": [
+        500,
+        600
+      ],
+      "scrollY": 6332,
+      "profile": "tablet",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 500,
+        "top": 0.06,
+        "bottom": 600.06,
+        "width": 500,
+        "height": 600
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 484.08,
+          "bottom": 530.88,
+          "width": 142.8,
+          "height": 46.8
+        }
+      ],
+      "legal": {
+        "left": 32,
+        "right": 291.98,
+        "top": 550.06,
+        "bottom": 568.06,
+        "width": 259.98,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 32,
+        "right": 291.98,
+        "top": 550.06,
+        "bottom": 568.06,
+        "width": 259.98,
+        "height": 18,
+        "direction": "row",
+        "gap": "19.1847px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 32,
+          "right": 126.08,
+          "top": 550.06,
+          "bottom": 568.06,
+          "width": 94.08,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 145.25,
+          "right": 291.98,
+          "top": 550.06,
+          "bottom": 568.06,
+          "width": 146.73,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 342.63,
+        "right": 468,
+        "top": 14,
+        "bottom": 58,
+        "width": 125.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "resize",
+      "tag": "fr-500x600-resize",
+      "viewport": [
+        500,
+        600
+      ],
+      "scrollY": 6332,
+      "profile": "tablet",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 500,
+        "top": 0.06,
+        "bottom": 600.06,
+        "width": 500,
+        "height": 600
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 484.08,
+          "bottom": 530.88,
+          "width": 142.8,
+          "height": 46.8
+        }
+      ],
+      "legal": {
+        "left": 32,
+        "right": 291.98,
+        "top": 550.06,
+        "bottom": 568.06,
+        "width": 259.98,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 32,
+        "right": 291.98,
+        "top": 550.06,
+        "bottom": 568.06,
+        "width": 259.98,
+        "height": 18,
+        "direction": "row",
+        "gap": "19.1847px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 32,
+          "right": 126.08,
+          "top": 550.06,
+          "bottom": 568.06,
+          "width": 94.08,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 145.25,
+          "right": 291.98,
+          "top": 550.06,
+          "bottom": 568.06,
+          "width": 146.73,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 342.63,
+        "right": 468,
+        "top": 14,
+        "bottom": 58,
+        "width": 125.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "fr-716x555-fresh",
+      "viewport": [
+        716,
+        555
+      ],
+      "scrollY": 6195,
+      "profile": "tablet",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 716,
+        "top": 0,
+        "bottom": 555,
+        "width": 716,
+        "height": 555
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 438.2,
+          "bottom": 485.2,
+          "width": 142.8,
+          "height": 47
+        }
+      ],
+      "legal": {
+        "left": 32,
+        "right": 292.64,
+        "top": 505,
+        "bottom": 523,
+        "width": 260.64,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 32,
+        "right": 292.64,
+        "top": 505,
+        "bottom": 523,
+        "width": 260.64,
+        "height": 18,
+        "direction": "row",
+        "gap": "19.84px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 32,
+          "right": 126.08,
+          "top": 505,
+          "bottom": 523,
+          "width": 94.08,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 145.91,
+          "right": 292.64,
+          "top": 505,
+          "bottom": 523,
+          "width": 146.73,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 558.63,
+        "right": 684,
+        "top": 14,
+        "bottom": 58,
+        "width": 125.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "fr-834x1112-fresh",
+      "viewport": [
+        834,
+        1112
+      ],
+      "scrollY": 6769,
+      "profile": "tablet",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 834,
+        "top": 0,
+        "bottom": 1112,
+        "width": 834,
+        "height": 1112
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 980,
+          "bottom": 1030,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 32,
+        "right": 304.81,
+        "top": 1062,
+        "bottom": 1080,
+        "width": 272.81,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 32,
+        "right": 304.81,
+        "top": 1062,
+        "bottom": 1080,
+        "width": 272.81,
+        "height": 18,
+        "direction": "row",
+        "gap": "32px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 32,
+          "right": 126.08,
+          "top": 1062,
+          "bottom": 1080,
+          "width": 94.08,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 158.08,
+          "right": 304.81,
+          "top": 1062,
+          "bottom": 1080,
+          "width": 146.73,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 676.63,
+        "right": 802,
+        "top": 14,
+        "bottom": 58,
+        "width": 125.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "fr-1194x834-fresh",
+      "viewport": [
+        1194,
+        834
+      ],
+      "scrollY": 14191,
+      "profile": "desktop",
+      "gutterX": "26.533px",
+      "gutterBottom": "26.533px",
+      "footer": {
+        "left": 0,
+        "right": 1194,
+        "top": -0.31,
+        "bottom": 833.69,
+        "width": 1194,
+        "height": 834
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 26.5,
+          "right": 169.3,
+          "top": 758.59,
+          "bottom": 807.19,
+          "width": 142.8,
+          "height": 48.59
+        }
+      ],
+      "legal": {
+        "left": 478.69,
+        "right": 746,
+        "top": 789.19,
+        "bottom": 807.19,
+        "width": 267.31,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 478.69,
+        "right": 746,
+        "top": 789.19,
+        "bottom": 807.19,
+        "width": 267.31,
+        "height": 18,
+        "direction": "row",
+        "gap": "26.5px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 478.69,
+          "right": 572.77,
+          "top": 789.19,
+          "bottom": 807.19,
+          "width": 94.08,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 599.27,
+          "right": 746,
+          "top": 789.19,
+          "bottom": 807.19,
+          "width": 146.73,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 1042.09,
+        "right": 1167.47,
+        "top": 7.84,
+        "bottom": 51.84,
+        "width": 125.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "26.533px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "fr-1440x900-fresh",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scrollY": 14721,
+      "profile": "desktop",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 900,
+        "width": 1440,
+        "height": 900
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 818,
+          "bottom": 868,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 596.3,
+        "right": 869.11,
+        "top": 850,
+        "bottom": 868,
+        "width": 272.81,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 596.3,
+        "right": 869.11,
+        "top": 850,
+        "bottom": 868,
+        "width": 272.81,
+        "height": 18,
+        "direction": "row",
+        "gap": "32px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 596.3,
+          "right": 690.38,
+          "top": 850,
+          "bottom": 868,
+          "width": 94.08,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 722.38,
+          "right": 869.11,
+          "top": 850,
+          "bottom": 868,
+          "width": 146.73,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 1282.63,
+        "right": 1408,
+        "top": 14,
+        "bottom": 58,
+        "width": 125.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "refresh",
+      "tag": "fr-1440x900-refresh",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scrollY": 14721,
+      "profile": "desktop",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 900,
+        "width": 1440,
+        "height": 900
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 818,
+          "bottom": 868,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 596.3,
+        "right": 869.11,
+        "top": 850,
+        "bottom": 868,
+        "width": 272.81,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 596.3,
+        "right": 869.11,
+        "top": 850,
+        "bottom": 868,
+        "width": 272.81,
+        "height": 18,
+        "direction": "row",
+        "gap": "32px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 596.3,
+          "right": 690.38,
+          "top": 850,
+          "bottom": 868,
+          "width": 94.08,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 722.38,
+          "right": 869.11,
+          "top": 850,
+          "bottom": 868,
+          "width": 146.73,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 1282.63,
+        "right": 1408,
+        "top": 14,
+        "bottom": 58,
+        "width": 125.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "resize",
+      "tag": "fr-1440x900-resize",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scrollY": 14721,
+      "profile": "desktop",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 900,
+        "width": 1440,
+        "height": 900
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 818,
+          "bottom": 868,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 596.3,
+        "right": 869.11,
+        "top": 850,
+        "bottom": 868,
+        "width": 272.81,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 596.3,
+        "right": 869.11,
+        "top": 850,
+        "bottom": 868,
+        "width": 272.81,
+        "height": 18,
+        "direction": "row",
+        "gap": "32px"
+      },
+      "links": [
+        {
+          "text": "Mentions légales",
+          "left": 596.3,
+          "right": 690.38,
+          "top": 850,
+          "bottom": 868,
+          "width": 94.08,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Politique de confidentialité",
+          "left": 722.38,
+          "right": 869.11,
+          "top": 850,
+          "bottom": 868,
+          "width": 146.73,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 1282.63,
+        "right": 1408,
+        "top": 14,
+        "bottom": 58,
+        "width": 125.38,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "en-320x568-fresh",
+      "viewport": [
+        320,
+        568
+      ],
+      "scrollY": 6263,
+      "profile": "mobile",
+      "gutterX": "16.000px",
+      "gutterBottom": "24.000px",
+      "footer": {
+        "left": 0,
+        "right": 320,
+        "top": 0.28,
+        "bottom": 568.28,
+        "width": 320,
+        "height": 568
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 16,
+          "right": 158.8,
+          "top": 445.78,
+          "bottom": 495.78,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 16,
+        "right": 304,
+        "top": 527.78,
+        "bottom": 544.28,
+        "width": 288,
+        "height": 16.5,
+        "direction": "row"
+      },
+      "row": {
+        "left": 16,
+        "right": 165.03,
+        "top": 527.78,
+        "bottom": 544.28,
+        "width": 149.03,
+        "height": 16.5,
+        "direction": "row",
+        "gap": "16px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 16,
+          "right": 78.06,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 62.06,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 94.06,
+          "right": 165.03,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 70.97,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 220.64,
+        "right": 304,
+        "top": 14,
+        "bottom": 58,
+        "width": 83.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 320,
+        "top": -5695,
+        "bottom": -2101.31,
+        "width": 320,
+        "height": 3593.69,
+        "paddingRight": "16px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 304,
+          "top": -5447,
+          "bottom": -4965.09,
+          "width": 288,
+          "height": 481.91
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "top": -4887.09,
+          "bottom": -4457.7,
+          "width": 266,
+          "height": 429.39
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 304,
+          "top": -4379.7,
+          "bottom": -3777,
+          "width": 288,
+          "height": 602.7
+        },
+        {
+          "id": "inside-out",
+          "left": 38,
+          "right": 304,
+          "top": -3699,
+          "bottom": -3248.61,
+          "width": 266,
+          "height": 450.39
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 304,
+          "top": -3170.61,
+          "bottom": -2709.7,
+          "width": 288,
+          "height": 460.91
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "top": -2631.7,
+          "bottom": -2181.31,
+          "width": 266,
+          "height": 450.39
+        }
+      ]
+    },
+    {
+      "state": "refresh",
+      "tag": "en-320x568-refresh",
+      "viewport": [
+        320,
+        568
+      ],
+      "scrollY": 6263,
+      "profile": "mobile",
+      "gutterX": "16.000px",
+      "gutterBottom": "24.000px",
+      "footer": {
+        "left": 0,
+        "right": 320,
+        "top": 0.28,
+        "bottom": 568.28,
+        "width": 320,
+        "height": 568
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 16,
+          "right": 158.8,
+          "top": 445.78,
+          "bottom": 495.78,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 16,
+        "right": 304,
+        "top": 527.78,
+        "bottom": 544.28,
+        "width": 288,
+        "height": 16.5,
+        "direction": "row"
+      },
+      "row": {
+        "left": 16,
+        "right": 165.03,
+        "top": 527.78,
+        "bottom": 544.28,
+        "width": 149.03,
+        "height": 16.5,
+        "direction": "row",
+        "gap": "16px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 16,
+          "right": 78.06,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 62.06,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 94.06,
+          "right": 165.03,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 70.97,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 220.64,
+        "right": 304,
+        "top": 14,
+        "bottom": 58,
+        "width": 83.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 320,
+        "top": -5695,
+        "bottom": -2101.31,
+        "width": 320,
+        "height": 3593.69,
+        "paddingRight": "16px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 304,
+          "top": -5447,
+          "bottom": -4965.09,
+          "width": 288,
+          "height": 481.91
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "top": -4887.09,
+          "bottom": -4457.7,
+          "width": 266,
+          "height": 429.39
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 304,
+          "top": -4379.7,
+          "bottom": -3777,
+          "width": 288,
+          "height": 602.7
+        },
+        {
+          "id": "inside-out",
+          "left": 38,
+          "right": 304,
+          "top": -3699,
+          "bottom": -3248.61,
+          "width": 266,
+          "height": 450.39
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 304,
+          "top": -3170.61,
+          "bottom": -2709.7,
+          "width": 288,
+          "height": 460.91
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "top": -2631.7,
+          "bottom": -2181.31,
+          "width": 266,
+          "height": 450.39
+        }
+      ]
+    },
+    {
+      "state": "resize",
+      "tag": "en-320x568-resize",
+      "viewport": [
+        320,
+        568
+      ],
+      "scrollY": 6263,
+      "profile": "mobile",
+      "gutterX": "16.000px",
+      "gutterBottom": "24.000px",
+      "footer": {
+        "left": 0,
+        "right": 320,
+        "top": 0.28,
+        "bottom": 568.28,
+        "width": 320,
+        "height": 568
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 16,
+          "right": 158.8,
+          "top": 445.78,
+          "bottom": 495.78,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 16,
+        "right": 304,
+        "top": 527.78,
+        "bottom": 544.28,
+        "width": 288,
+        "height": 16.5,
+        "direction": "row"
+      },
+      "row": {
+        "left": 16,
+        "right": 165.03,
+        "top": 527.78,
+        "bottom": 544.28,
+        "width": 149.03,
+        "height": 16.5,
+        "direction": "row",
+        "gap": "16px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 16,
+          "right": 78.06,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 62.06,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 94.06,
+          "right": 165.03,
+          "top": 527.78,
+          "bottom": 544.28,
+          "width": 70.97,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 220.64,
+        "right": 304,
+        "top": 14,
+        "bottom": 58,
+        "width": 83.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 320,
+        "top": -5695,
+        "bottom": -2101.31,
+        "width": 320,
+        "height": 3593.69,
+        "paddingRight": "16px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 304,
+          "top": -5447,
+          "bottom": -4965.09,
+          "width": 288,
+          "height": 481.91
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "top": -4887.09,
+          "bottom": -4457.7,
+          "width": 266,
+          "height": 429.39
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 304,
+          "top": -4379.7,
+          "bottom": -3777,
+          "width": 288,
+          "height": 602.7
+        },
+        {
+          "id": "inside-out",
+          "left": 38,
+          "right": 304,
+          "top": -3699,
+          "bottom": -3248.61,
+          "width": 266,
+          "height": 450.39
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 304,
+          "top": -3170.61,
+          "bottom": -2709.7,
+          "width": 288,
+          "height": 460.91
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "top": -2631.7,
+          "bottom": -2181.31,
+          "width": 266,
+          "height": 450.39
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "en-390x844-fresh",
+      "viewport": [
+        390,
+        844
+      ],
+      "scrollY": 7682,
+      "profile": "mobile",
+      "gutterX": "16.000px",
+      "gutterBottom": "24.000px",
+      "footer": {
+        "left": 0,
+        "right": 390,
+        "top": 0.48,
+        "bottom": 844.48,
+        "width": 390,
+        "height": 844
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 16,
+          "right": 158.8,
+          "top": 721.98,
+          "bottom": 771.98,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 16,
+        "right": 374,
+        "top": 803.98,
+        "bottom": 820.48,
+        "width": 358,
+        "height": 16.5,
+        "direction": "row"
+      },
+      "row": {
+        "left": 16,
+        "right": 165.03,
+        "top": 803.98,
+        "bottom": 820.48,
+        "width": 149.03,
+        "height": 16.5,
+        "direction": "row",
+        "gap": "16px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 16,
+          "right": 78.06,
+          "top": 803.98,
+          "bottom": 820.48,
+          "width": 62.06,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 94.06,
+          "right": 165.03,
+          "top": 803.98,
+          "bottom": 820.48,
+          "width": 70.97,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 290.64,
+        "right": 374,
+        "top": 14,
+        "bottom": 58,
+        "width": 83.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 390,
+        "top": -6838,
+        "bottom": -3122.31,
+        "width": 390,
+        "height": 3715.69,
+        "paddingRight": "16px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 374,
+          "top": -6622,
+          "bottom": -6105.55,
+          "width": 358,
+          "height": 516.45
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "top": -6027.55,
+          "bottom": -5598.16,
+          "width": 266,
+          "height": 429.39
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 374,
+          "top": -5520.16,
+          "bottom": -4853.55,
+          "width": 358,
+          "height": 666.61
+        },
+        {
+          "id": "inside-out",
+          "left": 108,
+          "right": 374,
+          "top": -4775.55,
+          "bottom": -4325.16,
+          "width": 266,
+          "height": 450.39
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 374,
+          "top": -4247.16,
+          "bottom": -3730.7,
+          "width": 358,
+          "height": 516.45
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "top": -3652.7,
+          "bottom": -3202.31,
+          "width": 266,
+          "height": 450.39
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "en-430x932-fresh",
+      "viewport": [
+        430,
+        932
+      ],
+      "scrollY": 8208,
+      "profile": "mobile",
+      "gutterX": "16.000px",
+      "gutterBottom": "24.000px",
+      "footer": {
+        "left": 0,
+        "right": 430,
+        "top": 0.06,
+        "bottom": 932.06,
+        "width": 430,
+        "height": 932
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 16,
+          "right": 158.8,
+          "top": 809.56,
+          "bottom": 859.56,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 16,
+        "right": 414,
+        "top": 891.56,
+        "bottom": 908.06,
+        "width": 398,
+        "height": 16.5,
+        "direction": "row"
+      },
+      "row": {
+        "left": 16,
+        "right": 165.03,
+        "top": 891.56,
+        "bottom": 908.06,
+        "width": 149.03,
+        "height": 16.5,
+        "direction": "row",
+        "gap": "16px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 16,
+          "right": 78.06,
+          "top": 891.56,
+          "bottom": 908.06,
+          "width": 62.06,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 94.06,
+          "right": 165.03,
+          "top": 891.56,
+          "bottom": 908.06,
+          "width": 70.97,
+          "height": 16.5,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 330.64,
+        "right": 414,
+        "top": 14,
+        "bottom": 58,
+        "width": 83.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 430,
+        "top": -7276,
+        "bottom": -3448.33,
+        "width": 430,
+        "height": 3827.67,
+        "paddingRight": "16px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 414,
+          "top": -7060,
+          "bottom": -6511.81,
+          "width": 398,
+          "height": 548.19
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "top": -6433.81,
+          "bottom": -6004.42,
+          "width": 266,
+          "height": 429.39
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 414,
+          "top": -5926.42,
+          "bottom": -5211.3,
+          "width": 398,
+          "height": 715.13
+        },
+        {
+          "id": "inside-out",
+          "left": 148,
+          "right": 414,
+          "top": -5133.3,
+          "bottom": -4682.91,
+          "width": 266,
+          "height": 450.39
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 414,
+          "top": -4604.91,
+          "bottom": -4056.72,
+          "width": 398,
+          "height": 548.19
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "top": -3978.72,
+          "bottom": -3528.33,
+          "width": 266,
+          "height": 450.39
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "en-500x600-fresh",
+      "viewport": [
+        500,
+        600
+      ],
+      "scrollY": 6313,
+      "profile": "tablet",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 500,
+        "top": -0.47,
+        "bottom": 599.53,
+        "width": 500,
+        "height": 600
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 483.55,
+          "bottom": 530.34,
+          "width": 142.8,
+          "height": 46.8
+        }
+      ],
+      "legal": {
+        "left": 32,
+        "right": 196.3,
+        "top": 549.53,
+        "bottom": 567.53,
+        "width": 164.3,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 32,
+        "right": 196.3,
+        "top": 549.53,
+        "bottom": 567.53,
+        "width": 164.3,
+        "height": 18,
+        "direction": "row",
+        "gap": "19.1847px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 32,
+          "right": 99.7,
+          "top": 549.53,
+          "bottom": 567.53,
+          "width": 67.7,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 118.88,
+          "right": 196.3,
+          "top": 549.53,
+          "bottom": 567.53,
+          "width": 77.42,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 368.64,
+        "right": 468,
+        "top": 14,
+        "bottom": 58,
+        "width": 99.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "refresh",
+      "tag": "en-500x600-refresh",
+      "viewport": [
+        500,
+        600
+      ],
+      "scrollY": 6313,
+      "profile": "tablet",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 500,
+        "top": -0.47,
+        "bottom": 599.53,
+        "width": 500,
+        "height": 600
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 483.55,
+          "bottom": 530.34,
+          "width": 142.8,
+          "height": 46.8
+        }
+      ],
+      "legal": {
+        "left": 32,
+        "right": 196.3,
+        "top": 549.53,
+        "bottom": 567.53,
+        "width": 164.3,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 32,
+        "right": 196.3,
+        "top": 549.53,
+        "bottom": 567.53,
+        "width": 164.3,
+        "height": 18,
+        "direction": "row",
+        "gap": "19.1847px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 32,
+          "right": 99.7,
+          "top": 549.53,
+          "bottom": 567.53,
+          "width": 67.7,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 118.88,
+          "right": 196.3,
+          "top": 549.53,
+          "bottom": 567.53,
+          "width": 77.42,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 368.64,
+        "right": 468,
+        "top": 14,
+        "bottom": 58,
+        "width": 99.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "resize",
+      "tag": "en-500x600-resize",
+      "viewport": [
+        500,
+        600
+      ],
+      "scrollY": 6313,
+      "profile": "tablet",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 500,
+        "top": -0.47,
+        "bottom": 599.53,
+        "width": 500,
+        "height": 600
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 483.55,
+          "bottom": 530.34,
+          "width": 142.8,
+          "height": 46.8
+        }
+      ],
+      "legal": {
+        "left": 32,
+        "right": 196.3,
+        "top": 549.53,
+        "bottom": 567.53,
+        "width": 164.3,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 32,
+        "right": 196.3,
+        "top": 549.53,
+        "bottom": 567.53,
+        "width": 164.3,
+        "height": 18,
+        "direction": "row",
+        "gap": "19.1847px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 32,
+          "right": 99.7,
+          "top": 549.53,
+          "bottom": 567.53,
+          "width": 67.7,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 118.88,
+          "right": 196.3,
+          "top": 549.53,
+          "bottom": 567.53,
+          "width": 77.42,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 368.64,
+        "right": 468,
+        "top": 14,
+        "bottom": 58,
+        "width": 99.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "en-716x555-fresh",
+      "viewport": [
+        716,
+        555
+      ],
+      "scrollY": 6195,
+      "profile": "tablet",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 716,
+        "top": 0,
+        "bottom": 555,
+        "width": 716,
+        "height": 555
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 438.2,
+          "bottom": 485.2,
+          "width": 142.8,
+          "height": 47
+        }
+      ],
+      "legal": {
+        "left": 32,
+        "right": 196.95,
+        "top": 505,
+        "bottom": 523,
+        "width": 164.95,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 32,
+        "right": 196.95,
+        "top": 505,
+        "bottom": 523,
+        "width": 164.95,
+        "height": 18,
+        "direction": "row",
+        "gap": "19.84px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 32,
+          "right": 99.7,
+          "top": 505,
+          "bottom": 523,
+          "width": 67.7,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 119.53,
+          "right": 196.95,
+          "top": 505,
+          "bottom": 523,
+          "width": 77.42,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 584.64,
+        "right": 684,
+        "top": 14,
+        "bottom": 58,
+        "width": 99.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "en-834x1112-fresh",
+      "viewport": [
+        834,
+        1112
+      ],
+      "scrollY": 6769,
+      "profile": "tablet",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 834,
+        "top": 0,
+        "bottom": 1112,
+        "width": 834,
+        "height": 1112
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 980,
+          "bottom": 1030,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 32,
+        "right": 209.13,
+        "top": 1062,
+        "bottom": 1080,
+        "width": 177.13,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 32,
+        "right": 209.13,
+        "top": 1062,
+        "bottom": 1080,
+        "width": 177.13,
+        "height": 18,
+        "direction": "row",
+        "gap": "32px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 32,
+          "right": 99.7,
+          "top": 1062,
+          "bottom": 1080,
+          "width": 67.7,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 131.7,
+          "right": 209.13,
+          "top": 1062,
+          "bottom": 1080,
+          "width": 77.42,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 702.64,
+        "right": 802,
+        "top": 14,
+        "bottom": 58,
+        "width": 99.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "en-1194x834-fresh",
+      "viewport": [
+        1194,
+        834
+      ],
+      "scrollY": 14191,
+      "profile": "desktop",
+      "gutterX": "26.533px",
+      "gutterBottom": "26.533px",
+      "footer": {
+        "left": 0,
+        "right": 1194,
+        "top": -0.31,
+        "bottom": 833.69,
+        "width": 1194,
+        "height": 834
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 26.5,
+          "right": 169.3,
+          "top": 758.59,
+          "bottom": 807.19,
+          "width": 142.8,
+          "height": 48.59
+        }
+      ],
+      "legal": {
+        "left": 484.19,
+        "right": 655.81,
+        "top": 789.19,
+        "bottom": 807.19,
+        "width": 171.63,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 484.19,
+        "right": 655.81,
+        "top": 789.19,
+        "bottom": 807.19,
+        "width": 171.63,
+        "height": 18,
+        "direction": "row",
+        "gap": "26.5px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 484.19,
+          "right": 551.89,
+          "top": 789.19,
+          "bottom": 807.19,
+          "width": 67.7,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 578.39,
+          "right": 655.81,
+          "top": 789.19,
+          "bottom": 807.19,
+          "width": 77.42,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 1068.11,
+        "right": 1167.47,
+        "top": 7.84,
+        "bottom": 51.84,
+        "width": 99.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "26.533px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "fresh",
+      "tag": "en-1440x900-fresh",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scrollY": 14721,
+      "profile": "desktop",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 900,
+        "width": 1440,
+        "height": 900
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 818,
+          "bottom": 868,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 601.69,
+        "right": 778.81,
+        "top": 850,
+        "bottom": 868,
+        "width": 177.13,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 601.69,
+        "right": 778.81,
+        "top": 850,
+        "bottom": 868,
+        "width": 177.13,
+        "height": 18,
+        "direction": "row",
+        "gap": "32px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 601.69,
+          "right": 669.39,
+          "top": 850,
+          "bottom": 868,
+          "width": 67.7,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 701.39,
+          "right": 778.81,
+          "top": 850,
+          "bottom": 868,
+          "width": 77.42,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 1308.64,
+        "right": 1408,
+        "top": 14,
+        "bottom": 58,
+        "width": 99.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "refresh",
+      "tag": "en-1440x900-refresh",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scrollY": 14721,
+      "profile": "desktop",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 900,
+        "width": 1440,
+        "height": 900
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 818,
+          "bottom": 868,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 601.69,
+        "right": 778.81,
+        "top": 850,
+        "bottom": 868,
+        "width": 177.13,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 601.69,
+        "right": 778.81,
+        "top": 850,
+        "bottom": 868,
+        "width": 177.13,
+        "height": 18,
+        "direction": "row",
+        "gap": "32px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 601.69,
+          "right": 669.39,
+          "top": 850,
+          "bottom": 868,
+          "width": 67.7,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 701.39,
+          "right": 778.81,
+          "top": 850,
+          "bottom": 868,
+          "width": 77.42,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 1308.64,
+        "right": 1408,
+        "top": 14,
+        "bottom": 58,
+        "width": 99.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "state": "resize",
+      "tag": "en-1440x900-resize",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scrollY": 14721,
+      "profile": "desktop",
+      "gutterX": "32.000px",
+      "gutterBottom": "32.000px",
+      "footer": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 900,
+        "width": 1440,
+        "height": 900
+      },
+      "footerMode": "normal",
+      "contactGroups": [
+        {
+          "left": 32,
+          "right": 174.8,
+          "top": 818,
+          "bottom": 868,
+          "width": 142.8,
+          "height": 50
+        }
+      ],
+      "legal": {
+        "left": 601.69,
+        "right": 778.81,
+        "top": 850,
+        "bottom": 868,
+        "width": 177.13,
+        "height": 18,
+        "direction": "row"
+      },
+      "row": {
+        "left": 601.69,
+        "right": 778.81,
+        "top": 850,
+        "bottom": 868,
+        "width": 177.13,
+        "height": 18,
+        "direction": "row",
+        "gap": "32px"
+      },
+      "links": [
+        {
+          "text": "Legal notice",
+          "left": 601.69,
+          "right": 669.39,
+          "top": 850,
+          "bottom": 868,
+          "width": 67.7,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        },
+        {
+          "text": "Privacy policy",
+          "left": 701.39,
+          "right": 778.81,
+          "top": 850,
+          "bottom": 868,
+          "width": 77.42,
+          "height": 18,
+          "visibility": "visible",
+          "display": "block"
+        }
+      ],
+      "navbarCta": {
+        "left": 1308.64,
+        "right": 1408,
+        "top": 14,
+        "bottom": 58,
+        "width": 99.36,
+        "height": 44
+      },
+      "projectCanvas": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "paddingRight": "32px"
+      },
+      "projects": [
+        {
+          "id": "pilates",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "longread",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "inside-out",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "celimax",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "id": "napoli",
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "tag": "projects-fr-320x568-after.png",
+      "viewport": [
+        320,
+        568
+      ],
+      "gutter": 16,
+      "cta": {
+        "left": 194.625,
+        "right": 304,
+        "width": 109.375
+      },
+      "cards": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 304,
+          "width": 288
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "width": 266
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 304,
+          "width": 288
+        },
+        {
+          "id": "inside-out",
+          "left": 38,
+          "right": 304,
+          "width": 266
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 304,
+          "width": 288
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "width": 266
+        }
+      ]
+    },
+    {
+      "tag": "projects-fr-393x852-after.png",
+      "viewport": [
+        393,
+        852
+      ],
+      "gutter": 16,
+      "cta": {
+        "left": 267.625,
+        "right": 377,
+        "width": 109.375
+      },
+      "cards": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 377,
+          "width": 361
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "width": 266
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 377,
+          "width": 361
+        },
+        {
+          "id": "inside-out",
+          "left": 111,
+          "right": 377,
+          "width": 266
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 377,
+          "width": 361
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "width": 266
+        }
+      ]
+    },
+    {
+      "tag": "projects-fr-430x932-after.png",
+      "viewport": [
+        430,
+        932
+      ],
+      "gutter": 16,
+      "cta": {
+        "left": 304.625,
+        "right": 414,
+        "width": 109.375
+      },
+      "cards": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 414,
+          "width": 398
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "width": 266
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 414,
+          "width": 398
+        },
+        {
+          "id": "inside-out",
+          "left": 148,
+          "right": 414,
+          "width": 266
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 414,
+          "width": 398
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "width": 266
+        }
+      ]
+    },
+    {
+      "tag": "projects-en-320x568-after.png",
+      "viewport": [
+        320,
+        568
+      ],
+      "gutter": 16,
+      "cta": {
+        "left": 220.641,
+        "right": 304,
+        "width": 83.359
+      },
+      "cards": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 304,
+          "width": 288
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "width": 266
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 304,
+          "width": 288
+        },
+        {
+          "id": "inside-out",
+          "left": 38,
+          "right": 304,
+          "width": 266
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 304,
+          "width": 288
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "width": 266
+        }
+      ]
+    },
+    {
+      "tag": "projects-en-393x852-after.png",
+      "viewport": [
+        393,
+        852
+      ],
+      "gutter": 16,
+      "cta": {
+        "left": 293.641,
+        "right": 377,
+        "width": 83.359
+      },
+      "cards": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 377,
+          "width": 361
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "width": 266
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 377,
+          "width": 361
+        },
+        {
+          "id": "inside-out",
+          "left": 111,
+          "right": 377,
+          "width": 266
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 377,
+          "width": 361
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "width": 266
+        }
+      ]
+    },
+    {
+      "tag": "projects-en-430x932-after.png",
+      "viewport": [
+        430,
+        932
+      ],
+      "gutter": 16,
+      "cta": {
+        "left": 330.641,
+        "right": 414,
+        "width": 83.359
+      },
+      "cards": [
+        {
+          "id": "pilates",
+          "left": 16,
+          "right": 414,
+          "width": 398
+        },
+        {
+          "id": "longread",
+          "left": 16,
+          "right": 282,
+          "width": 266
+        },
+        {
+          "id": "tour-de-parole",
+          "left": 16,
+          "right": 414,
+          "width": 398
+        },
+        {
+          "id": "inside-out",
+          "left": 148,
+          "right": 414,
+          "width": 266
+        },
+        {
+          "id": "celimax",
+          "left": 16,
+          "right": 414,
+          "width": 398
+        },
+        {
+          "id": "napoli",
+          "left": 16,
+          "right": 282,
+          "width": 266
+        }
+      ]
+    }
+  ],
+  "switcher": [
+    {
+      "tag": "switch-fr-1440x900",
+      "before": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(34, 32, 34)",
+        "opacity": "0.7",
+        "border": "rgb(255, 255, 255)",
+        "outline": "rgb(253, 180, 245) solid 2px"
+      },
+      "after": {
+        "background": "rgb(92, 87, 92)",
+        "color": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "border": "rgb(92, 87, 92)",
+        "outline": "rgb(255, 255, 255) none 3px"
+      }
+    },
+    {
+      "tag": "switch-fr-393x852",
+      "before": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(34, 32, 34)",
+        "opacity": "0.7",
+        "border": "rgb(255, 255, 255)",
+        "outline": "rgb(253, 180, 245) solid 2px"
+      },
+      "after": {
+        "background": "rgb(92, 87, 92)",
+        "color": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "border": "rgb(92, 87, 92)",
+        "outline": "rgb(255, 255, 255) none 3px"
+      }
+    },
+    {
+      "tag": "switch-en-1440x900",
+      "before": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(34, 32, 34)",
+        "opacity": "0.7",
+        "border": "rgb(255, 255, 255)",
+        "outline": "rgb(253, 180, 245) solid 2px"
+      },
+      "after": {
+        "background": "rgb(92, 87, 92)",
+        "color": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "border": "rgb(92, 87, 92)",
+        "outline": "rgb(255, 255, 255) none 3px"
+      }
+    },
+    {
+      "tag": "switch-en-393x852",
+      "before": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(34, 32, 34)",
+        "opacity": "0.7",
+        "border": "rgb(255, 255, 255)",
+        "outline": "rgb(253, 180, 245) solid 2px"
+      },
+      "after": {
+        "background": "rgb(92, 87, 92)",
+        "color": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "border": "rgb(92, 87, 92)",
+        "outline": "rgb(255, 255, 255) none 3px"
+      }
+    }
+  ],
+  "about": [
+    {
+      "variant": "current",
+      "lang": "fr",
+      "viewport": [
+        716,
+        555
+      ],
+      "progress": 0.35,
+      "file": "about-current-fr-716x555-p35.png",
+      "cards": [
+        {
+          "id": "0",
+          "width": 264,
+          "height": 264,
+          "top": 125.5,
+          "bottom": 389.5,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "1",
+          "width": 264,
+          "height": 264,
+          "top": 135.5,
+          "bottom": 399.5,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "2",
+          "width": 264,
+          "height": 264,
+          "top": 603,
+          "bottom": 867,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "3",
+          "width": 264,
+          "height": 264,
+          "top": 603,
+          "bottom": 867,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "4",
+          "width": 264,
+          "height": 264,
+          "top": 603,
+          "bottom": 867,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        }
+      ]
+    },
+    {
+      "variant": "current",
+      "lang": "fr",
+      "viewport": [
+        716,
+        555
+      ],
+      "progress": 0.62,
+      "file": "about-current-fr-716x555-p62.png",
+      "cards": [
+        {
+          "id": "0",
+          "width": 264,
+          "height": 264,
+          "top": 125.5,
+          "bottom": 389.5,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "1",
+          "width": 264,
+          "height": 264,
+          "top": 135.5,
+          "bottom": 399.5,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "2",
+          "width": 264,
+          "height": 264,
+          "top": 145.5,
+          "bottom": 409.5,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "3",
+          "width": 264,
+          "height": 264,
+          "top": 155.5,
+          "bottom": 419.5,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "4",
+          "width": 264,
+          "height": 264,
+          "top": 603,
+          "bottom": 867,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        }
+      ]
+    },
+    {
+      "variant": "browser-only-flow-proposal",
+      "lang": "fr",
+      "viewport": [
+        716,
+        555
+      ],
+      "file": "about-flow-proposal-fr-716x555.png",
+      "section": {
+        "height": 1059.9,
+        "cards": [
+          {
+            "id": "0",
+            "top": 491.9,
+            "bottom": 579.9,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          },
+          {
+            "id": "1",
+            "top": 603.9,
+            "bottom": 691.9,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          },
+          {
+            "id": "2",
+            "top": 715.9,
+            "bottom": 803.9,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          },
+          {
+            "id": "3",
+            "top": 827.9,
+            "bottom": 915.9,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          },
+          {
+            "id": "4",
+            "top": 939.9,
+            "bottom": 1027.9,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          }
+        ]
+      }
+    },
+    {
+      "variant": "current",
+      "lang": "fr",
+      "viewport": [
+        500,
+        600
+      ],
+      "progress": 0.35,
+      "file": "about-current-fr-500x600-p35.png",
+      "cards": [
+        {
+          "id": "0",
+          "width": 264,
+          "height": 264,
+          "top": 148,
+          "bottom": 412,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "1",
+          "width": 264,
+          "height": 264,
+          "top": 158,
+          "bottom": 422,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "2",
+          "width": 264,
+          "height": 264,
+          "top": 168,
+          "bottom": 432,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "3",
+          "width": 264,
+          "height": 264,
+          "top": 178,
+          "bottom": 442,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "4",
+          "width": 264,
+          "height": 264,
+          "top": 188,
+          "bottom": 452,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        }
+      ]
+    },
+    {
+      "variant": "current",
+      "lang": "fr",
+      "viewport": [
+        500,
+        600
+      ],
+      "progress": 0.62,
+      "file": "about-current-fr-500x600-p62.png",
+      "cards": [
+        {
+          "id": "0",
+          "width": 264,
+          "height": 264,
+          "top": 148,
+          "bottom": 412,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "1",
+          "width": 264,
+          "height": 264,
+          "top": 158,
+          "bottom": 422,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "2",
+          "width": 264,
+          "height": 264,
+          "top": 168,
+          "bottom": 432,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "3",
+          "width": 264,
+          "height": 264,
+          "top": 178,
+          "bottom": 442,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "4",
+          "width": 264,
+          "height": 264,
+          "top": 188,
+          "bottom": 452,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        }
+      ]
+    },
+    {
+      "variant": "browser-only-flow-proposal",
+      "lang": "fr",
+      "viewport": [
+        500,
+        600
+      ],
+      "file": "about-flow-proposal-fr-500x600.png",
+      "section": {
+        "height": 1191.3,
+        "cards": [
+          {
+            "id": "0",
+            "top": 602.4,
+            "bottom": 697.4,
+            "height": 95,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 95,
+            "clientHeight": 95
+          },
+          {
+            "id": "1",
+            "top": 721.4,
+            "bottom": 816.4,
+            "height": 95,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 95,
+            "clientHeight": 95
+          },
+          {
+            "id": "2",
+            "top": 840.4,
+            "bottom": 928.4,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          },
+          {
+            "id": "3",
+            "top": 952.4,
+            "bottom": 1047.4,
+            "height": 95,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 95,
+            "clientHeight": 95
+          },
+          {
+            "id": "4",
+            "top": 1071.4,
+            "bottom": 1159.4,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          }
+        ]
+      }
+    },
+    {
+      "variant": "current",
+      "lang": "en",
+      "viewport": [
+        716,
+        555
+      ],
+      "progress": 0.35,
+      "file": "about-current-en-716x555-p35.png",
+      "cards": [
+        {
+          "id": "0",
+          "width": 264,
+          "height": 264,
+          "top": 125.5,
+          "bottom": 389.5,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "1",
+          "width": 264,
+          "height": 264,
+          "top": 135.5,
+          "bottom": 399.5,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "2",
+          "width": 264,
+          "height": 264,
+          "top": 603,
+          "bottom": 867,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "3",
+          "width": 264,
+          "height": 264,
+          "top": 603,
+          "bottom": 867,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "4",
+          "width": 264,
+          "height": 264,
+          "top": 603,
+          "bottom": 867,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        }
+      ]
+    },
+    {
+      "variant": "current",
+      "lang": "en",
+      "viewport": [
+        716,
+        555
+      ],
+      "progress": 0.62,
+      "file": "about-current-en-716x555-p62.png",
+      "cards": [
+        {
+          "id": "0",
+          "width": 264,
+          "height": 264,
+          "top": 125.5,
+          "bottom": 389.5,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "1",
+          "width": 264,
+          "height": 264,
+          "top": 135.5,
+          "bottom": 399.5,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "2",
+          "width": 264,
+          "height": 264,
+          "top": 145.5,
+          "bottom": 409.5,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "3",
+          "width": 264,
+          "height": 264,
+          "top": 155.5,
+          "bottom": 419.5,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "4",
+          "width": 264,
+          "height": 264,
+          "top": 603,
+          "bottom": 867,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        }
+      ]
+    },
+    {
+      "variant": "browser-only-flow-proposal",
+      "lang": "en",
+      "viewport": [
+        716,
+        555
+      ],
+      "file": "about-flow-proposal-en-716x555.png",
+      "section": {
+        "height": 1004.8,
+        "cards": [
+          {
+            "id": "0",
+            "top": 436.8,
+            "bottom": 524.8,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          },
+          {
+            "id": "1",
+            "top": 548.8,
+            "bottom": 636.8,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          },
+          {
+            "id": "2",
+            "top": 660.8,
+            "bottom": 748.8,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          },
+          {
+            "id": "3",
+            "top": 772.8,
+            "bottom": 860.8,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          },
+          {
+            "id": "4",
+            "top": 884.8,
+            "bottom": 972.8,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          }
+        ]
+      }
+    },
+    {
+      "variant": "current",
+      "lang": "en",
+      "viewport": [
+        500,
+        600
+      ],
+      "progress": 0.35,
+      "file": "about-current-en-500x600-p35.png",
+      "cards": [
+        {
+          "id": "0",
+          "width": 264,
+          "height": 264,
+          "top": 148,
+          "bottom": 412,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "1",
+          "width": 264,
+          "height": 264,
+          "top": 158,
+          "bottom": 422,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "2",
+          "width": 264,
+          "height": 264,
+          "top": 648,
+          "bottom": 912,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "3",
+          "width": 264,
+          "height": 264,
+          "top": 648,
+          "bottom": 912,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "4",
+          "width": 264,
+          "height": 264,
+          "top": 648,
+          "bottom": 912,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        }
+      ]
+    },
+    {
+      "variant": "current",
+      "lang": "en",
+      "viewport": [
+        500,
+        600
+      ],
+      "progress": 0.62,
+      "file": "about-current-en-500x600-p62.png",
+      "cards": [
+        {
+          "id": "0",
+          "width": 264,
+          "height": 264,
+          "top": 148,
+          "bottom": 412,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "1",
+          "width": 264,
+          "height": 264,
+          "top": 158,
+          "bottom": 422,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "2",
+          "width": 264,
+          "height": 264,
+          "top": 168,
+          "bottom": 432,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "3",
+          "width": 264,
+          "height": 264,
+          "top": 178,
+          "bottom": 442,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        },
+        {
+          "id": "4",
+          "width": 264,
+          "height": 264,
+          "top": 648,
+          "bottom": 912,
+          "scrollHeight": 264,
+          "clientHeight": 264
+        }
+      ]
+    },
+    {
+      "variant": "browser-only-flow-proposal",
+      "lang": "en",
+      "viewport": [
+        500,
+        600
+      ],
+      "file": "about-flow-proposal-en-500x600.png",
+      "section": {
+        "height": 1153.7,
+        "cards": [
+          {
+            "id": "0",
+            "top": 546.7,
+            "bottom": 641.7,
+            "height": 95,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 95,
+            "clientHeight": 95
+          },
+          {
+            "id": "1",
+            "top": 665.7,
+            "bottom": 760.7,
+            "height": 95,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 95,
+            "clientHeight": 95
+          },
+          {
+            "id": "2",
+            "top": 784.7,
+            "bottom": 872.7,
+            "height": 88,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 88,
+            "clientHeight": 88
+          },
+          {
+            "id": "3",
+            "top": 896.7,
+            "bottom": 991.7,
+            "height": 95,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 95,
+            "clientHeight": 95
+          },
+          {
+            "id": "4",
+            "top": 1015.7,
+            "bottom": 1121.3,
+            "height": 105.6,
+            "titleSize": "32px",
+            "descriptionSize": "14px",
+            "scrollHeight": 106,
+            "clientHeight": 106
+          }
+        ]
+      }
+    }
+  ],
+  "beforeFooterMeasurements": "before-footer-measurements.json"
+}

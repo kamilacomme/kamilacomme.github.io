@@ -83,7 +83,7 @@ test('mobile Footer keeps readable text, usable links and curtain scroll behavio
         footer:rect(footer), head:{...rect(head),font:parseFloat(getComputedStyle(head).fontSize),scale:scale(head),scrollWidth:head.scrollWidth,clientWidth:head.clientWidth,lines:lines(head)},
         email:{...rect(email),font:parseFloat(getComputedStyle(email).fontSize),scale:scale(email),lines:lines(email),href:email.getAttribute('href')},
         contacts:[...info.querySelectorAll('span')].map(el=>({ ...rect(el),font:parseFloat(getComputedStyle(el).fontSize),scale:scale(el) })),
-        info:rect(info),footerMediaCount:footer.querySelectorAll('[data-c="3"],video[data-src*="footer-walk"]').length,legal:{...rect(legal),direction:getComputedStyle(legal).flexDirection,rowDirection:getComputedStyle(legalRow).flexDirection,columnGap:getComputedStyle(legalRow).columnGap,links:links.map(el=>({ ...rect(el),font:parseFloat(getComputedStyle(el).fontSize),scale:scale(el),href:el.getAttribute('href') }))},
+        info:rect(info),footerMediaCount:footer.querySelectorAll('[data-c="3"],video[data-src*="footer-walk"]').length,legal:{...rect(legal),direction:getComputedStyle(legal).flexDirection,rowDirection:getComputedStyle(legalRow).flexDirection,rowGap:getComputedStyle(legalRow).rowGap,links:links.map(el=>({ ...rect(el),font:parseFloat(getComputedStyle(el).fontSize),scale:scale(el),href:el.getAttribute('href') }))},
         navBottom:document.querySelector('.kc-responsive-nav').getBoundingClientRect().bottom,
         curtainProgress:document.querySelector('curtain-cloth')?.progress,
         curtainTarget:document.querySelector('curtain-cloth')?.target,
@@ -116,11 +116,11 @@ test('mobile Footer keeps readable text, usable links and curtain scroll behavio
     expect(state.legal.left).toBeCloseTo(16,1);
     expect(state.legal.right).toBeCloseTo(width-16,1);
     expect(state.legal.links).toHaveLength(2);
-    expect(state.legal.direction).toBe('row');
-    expect(state.legal.rowDirection).toBe('row');
-    expect(parseFloat(state.legal.columnGap)).toBe(16);
-    expect(state.legal.links[1].left - state.legal.links[0].right).toBeCloseTo(16,1);
-    expect(state.legal.links[0].top).toBeCloseTo(state.legal.links[1].top,1);
+    expect(state.legal.direction).toBe('column');
+    expect(state.legal.rowDirection).toBe('column');
+    expect(parseFloat(state.legal.rowGap)).toBe(8);
+    expect(state.legal.links[0].left).toBeCloseTo(state.legal.links[1].left,1);
+    expect(state.legal.links[1].top - state.legal.links[0].bottom).toBeCloseTo(8,1);
     expect(state.legal.top - state.info.bottom).toBeCloseTo(32,1);
     for (const link of state.legal.links) {
       expect(link.font).toBe(11);

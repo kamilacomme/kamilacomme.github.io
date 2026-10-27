@@ -119,7 +119,7 @@
             "en": []
           },
           "geometry": {
-            "card": "width:100%;height:auto",
+            "card": "width:min(360.879px, 100%);height:auto",
             "visual": "height:auto;aspect-ratio:360.879 / 245",
             "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
             "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
@@ -372,7 +372,7 @@
             ]
           },
           "geometry": {
-            "card": "width:100%;height:auto",
+            "card": "width:min(360.879px, 100%);height:auto",
             "visual": "height:auto;aspect-ratio:360.879 / 396.359",
             "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
             "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
@@ -655,7 +655,7 @@
             ]
           },
           "geometry": {
-            "card": "width:100%;height:auto",
+            "card": "width:min(360.879px, 100%);height:auto",
             "visual": "height:auto;aspect-ratio:360.879 / 245",
             "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
             "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",

@@ -459,16 +459,23 @@ class Component extends DCLogic {
         || (force === "auto" && window.innerWidth <= 1366 && ((touch && !fineHover) || iPadish)));
       const responsiveProfile = mobile ? "mobile" : tablet ? "tablet" : "desktop";
       const profileChanged = !!this._layoutProfile && this._layoutProfile !== responsiveProfile;
+      // Refs, font readiness, and component updates also call fit(). Only carry a
+      // semantic scroll anchor across a real geometry/profile change; otherwise a
+      // routine Footer update can queue a stale scroll after browser history moves on.
+      const publishedLayout = window.__kcTabletLayout;
+      const viewportGeometryChanged = !!publishedLayout
+        && (publishedLayout.width !== window.innerWidth || publishedLayout.height !== window.innerHeight);
+      const geometryChanged = profileChanged || viewportGeometryChanged;
       const handoffProjectIndex = profileChanged && this._lastScrollSection === "projects"
         ? this._pendingResizeProjectIndex : null;
       // The browser may clamp scrollY as soon as a viewport resize changes the
       // document geometry, before the resize event reaches this controller. Keep
       // About position as normalized section progress captured on the last settled
       // scroll, then let the destination layout restore that semantic position.
-      const handoffAboutProgress = this._lastScrollSection === "about"
+      const handoffAboutProgress = geometryChanged && this._lastScrollSection === "about"
         && Number.isFinite(this._pendingResizeAboutProgress)
         ? this._pendingResizeAboutProgress : null;
-      const handoffFooterProgress = this._lastScrollSection === "contact"
+      const handoffFooterProgress = geometryChanged && this._lastScrollSection === "contact"
         && Number.isFinite(this._pendingResizeFooterProgress)
         ? this._pendingResizeFooterProgress : null;
       if (profileChanged) this._pendingResizeProjectIndex = null;
@@ -1087,9 +1094,13 @@ class Component extends DCLogic {
       this._layoutProfile = responsiveProfile;
       if (Number.isFinite(handoffFooterProgress)) {
         this._lastScrollSection = "contact";
+        const handoffLocation = window.location.href;
         // Let the existing tablet Projects owner finish its layout pass before
         // restoring the Footer's semantic scroll position.
         requestAnimationFrame(() => requestAnimationFrame(() => {
+          // A history or in-page navigation after the resize owns the new
+          // destination; never let this captured Footer anchor pull the visitor back.
+          if (window.location.href !== handoffLocation) return;
           // A browser clamp may fire a scroll event after the new layout is published
           // but before this handoff runs. That intermediate position is not visitor
           // intent, so retain the resize-time Footer anchor captured above.

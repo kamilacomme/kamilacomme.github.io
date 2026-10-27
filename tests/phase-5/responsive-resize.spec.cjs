@@ -29,7 +29,36 @@ async function waitForResponsiveSettle(page, viewport) {
     return layout && layout.width === width && layout.height === height;
   }, viewport);
   await responsive.settleLayout(page, 80);
-  await waitForProjectsGeometry(page);
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const before = await waitForStableProfile(page);
+    await waitForProjectsGeometry(page);
+    const after = await waitForStableProfile(page);
+    if (before.mode === after.mode
+      && before.detection.tabletLayoutPublished.width === after.detection.tabletLayoutPublished.width
+      && before.detection.tabletLayoutPublished.height === after.detection.tabletLayoutPublished.height) return after;
+  }
+  throw new Error(`Responsive profile and Projects geometry did not settle for ${viewport.width}×${viewport.height}`);
+}
+
+async function waitForStableProfile(page) {
+  let previous = null;
+  for (let frame = 0; frame < 8; frame += 1) {
+    await responsive.settleLayout(page, 34);
+    const profile = await responsive.readProfile(page);
+    const published = profile.detection.tabletLayoutPublished;
+    const profileMatchesPublishedGeometry = published
+      && published.width === profile.detection.viewport.width
+      && published.height === profile.detection.viewport.height
+      && published.tablet === (profile.mode === 'tablet');
+    if (!profileMatchesPublishedGeometry) {
+      previous = null;
+      continue;
+    }
+    const signature = `${profile.mode}:${published.width}x${published.height}`;
+    if (signature === previous) return profile;
+    previous = signature;
+  }
+  throw new Error(`Responsive profile did not stabilize: ${JSON.stringify(await responsive.readProfile(page))}`);
 }
 
 async function waitForProjectsGeometry(page) {
@@ -149,10 +178,14 @@ test('resizing preserves the active project and About section across width, heig
   const records = [];
   let prior = initialProject;
   for (const viewport of resizeSequence(mode)) {
-    await waitForResponsiveSettle(page, viewport);
-    const actualProfile = await responsive.readProfile(page);
+    const actualProfile = await waitForResponsiveSettle(page, viewport);
     const active = await activeSection(page, 'projects');
-    const project = await visibleProject(page, actualProfile.mode);
+    // Ticket boxes can become geometrically stable one frame before the
+    // tablet rail owner publishes its restored focused ticket. Wait for both
+    // observations to agree before comparing semantic project continuity.
+    const project = actualProfile.mode === 'tablet'
+      ? await waitForTabletFocusOwner(page, actualProfile.mode)
+      : await visibleProject(page, actualProfile.mode);
     const state = await responsive.measurePage(page, viewport, language, 'continuous-resize');
     const record = {
       viewport, language, configuredContext: info.project.metadata, actualProfile,

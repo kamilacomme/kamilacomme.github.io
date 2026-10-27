@@ -53,6 +53,7 @@ async function readProfile(page) {
     return {
       mode,
       detection: {
+        viewport: { width: window.innerWidth, height: window.innerHeight },
         mobileDomActive: mobile,
         tabletHeroActive: tablet,
         desktopHeroActive: !mobile && !tablet && visible('.kc-desktop-hero-title'),

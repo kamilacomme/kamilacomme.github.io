@@ -224,8 +224,8 @@ async function buildPage(templatePath, cardSlots, locale, layoutKind) {
   let html = await readFile(templatePath, 'utf8');
   if (layoutKind === 'page') {
     const switchFields = locale === 'fr'
-      ? { languageSwitchHref: '/en/', languageSwitchLabel: 'Langue actuelle : français. Passer en anglais.', languageSwitchLocale: 'fr', languageSwitchText: 'FR' }
-      : { languageSwitchHref: '/', languageSwitchLabel: 'Current language: English. Switch to French.', languageSwitchLocale: 'en', languageSwitchText: 'EN' };
+      ? { languageSwitchHref: '/en/', languageSwitchLabel: 'FR — Langue actuelle : français. Passer en anglais.', languageSwitchLocale: 'fr', languageSwitchText: 'FR', navHireLabel: 'Me recruter — m’écrire à comme.kamila@gmail.com', navLabel: 'Navigation principale' }
+      : { languageSwitchHref: '/', languageSwitchLabel: 'EN — Current language: English. Switch to French.', languageSwitchLocale: 'en', languageSwitchText: 'EN', navHireLabel: 'Hire me — email comme.kamila@gmail.com', navLabel: 'Main navigation' };
     for (const [key, value] of Object.entries(switchFields)) {
       html = html.replaceAll(`{{${key}}}`, escapeAttribute(value));
     }

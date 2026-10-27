@@ -56,10 +56,27 @@
   <link rel="stylesheet" href="/styles/base-and-accessibility.css">
 </helmet>
 
-<p style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;">Kamila Comme — designer Brand &amp; Digital à Paris, en recherche d’un CDI pour 2026</p>
 <div ref="{{ vhProbeRef }}" aria-hidden="true" style="position: fixed; left: 0; top: 0; width: 0; height: 100svh; visibility: hidden; pointer-events: none;"></div>
 <div ref="{{ lvhProbeRef }}" aria-hidden="true" style="position: fixed; left: 0; top: 0; width: 0; height: 100lvh; visibility: hidden; pointer-events: none;"></div>
 
+<!-- Shared navbar precedes page content in source order so keyboard navigation starts at the visible navigation. -->
+<div ref="{{ navScrimRef }}" style="position: fixed; left: 0; top: 0; width: 100vw; height: 128px; z-index: 499; pointer-events: none; background: linear-gradient(to bottom, rgba(8,8,10,0.62) 0%, rgba(8,8,10,0.34) 45%, rgba(8,8,10,0) 100%); transition: opacity 0.25s ease;"></div>
+<link rel="stylesheet" href="/styles/nav-scrim.css" id="kc-no-nav-gradient">
+<div class="kc-responsive-nav" ref="{{ navRef }}" role="navigation" aria-label="{{navLabel}}" style="position: fixed; left: 0; right: 0; top: 0; width: 100%; height: calc(72px * var(--kc-nav-scale, 1)); z-index: 500; box-sizing: border-box; padding: var(--kc-nav-block-padding, 15px) var(--kc-nav-gutter, 32px); display: flex; flex-direction: row; justify-content: space-between; align-items: center; pointer-events: none;">
+  <span style="display: inline-flex; align-items: flex-start; gap: calc(3px * var(--kc-nav-scale, 1)); font-family: 'Figtree', sans-serif; font-weight: 700; font-size: var(--kc-type-logo, 20px); white-space: nowrap; line-height: 1.2; letter-spacing: -0.02em; color: rgb(255,255,255); pointer-events: auto;">Kamila Comme<span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 9px; line-height: 1.4; letter-spacing: 0;">®</span></span>
+  <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); display: flex; flex-direction: row; gap: calc(32px * var(--kc-nav-scale, 1)); align-items: center; pointer-events: auto;">
+    <a href="#projets" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-label, 12px); white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">Projets</a>
+    <a href="#apropos" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-label, 12px); white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">À propos</a>
+    <a href="#contact" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-label, 12px); white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">Contact</a>
+  </div>
+  <div style="display: flex; flex-direction: row; gap: calc(16px * var(--kc-nav-scale, 1)); align-items: center; pointer-events: auto;">
+    <span ref="{{ pillRef }}" data-fixed-ink="1" style="display: inline-flex; flex: 0 0 auto; flex-direction: row; gap: 8px; align-items: center; min-height: 44px; height: auto; box-sizing: border-box; padding: 10px 24px; border-radius: 4px; background-color: rgba(34,32,34,0.55); border: 1px solid rgba(255,255,255,0.14); backdrop-filter: blur(calc(16px * var(--kc-nav-scale, 1))) saturate(1.4); -webkit-backdrop-filter: blur(calc(16px * var(--kc-nav-scale, 1))) saturate(1.4);"><span data-fixed-ink="1" style="width: calc(6px * var(--kc-nav-scale, 1)); height: calc(6px * var(--kc-nav-scale, 1)); flex: 0 0 auto; border-radius: 50%; background-color: rgb(202,229,108); animation: kcDot 1.8s ease-in-out infinite;"></span><span data-fixed-ink="1" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-label, 12px); white-space: nowrap; line-height: 1.667; letter-spacing: 0.04em; text-transform: uppercase; color: rgb(189,183,189);">En recherche de CDI 2026</span></span>
+    <a href="mailto:comme.kamila@gmail.com?subject=Un%20CDI%20chez%20nous%20%3F" aria-label="{{navHireLabel}}" data-fixed-ink="1" style="display: flex; flex: 0 0 auto; flex-direction: row; align-items: center; min-height: 44px; height: 44px; box-sizing: border-box; border-radius: 4px; background-color: rgb(253,180,245); padding: 12px 24px;"><span data-fixed-ink="1" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-body, 14px); white-space: nowrap; line-height: 1; color: rgb(34,32,34);">Me recruter</span></a>
+  </div>
+</div>
+
+<main id="kc-main-content">
+<p style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;">Kamila Comme — designer Brand &amp; Digital à Paris, en recherche d’un CDI pour 2026</p>
 <!-- 1. HERO -->
 <div style="position: relative; width: 100%; height: 100svh; overflow: hidden; background: #08080a; z-index: 0;">
   <!-- visual layer: cover-scaled so the cinema fills the screen edge to edge -->
@@ -208,7 +225,7 @@
 <!-- ============ TABLET LAYOUT (834 x 1112 frame) ============ -->
 <div ref="{{ tRootRef }}" style="display: none;">
 
-  <div id="kc-tablet-projets"><div id="projets-t"><div id="kc-t-viewport"><main class="stage" id="kc-t-stage"><h1><span class="kc-title-line">Une sélection de</span><span class="kc-title-line">mes <em>projets </em>récents.</span></h1><section class="tickets" aria-label="Projets">{{tabletCards}}</section></main></div></div></div>
+  <div id="kc-tablet-projets"><div id="projets-t"><div id="kc-t-viewport"><div class="stage" id="kc-t-stage"><h1><span class="kc-title-line">Une sélection de</span><span class="kc-title-line">mes <em>projets </em>récents.</span></h1><section class="tickets" aria-label="Projets">{{tabletCards}}</section></div></div></div></div>
 <!-- T3. ABOUT -->
   <div id="apropos-t" style="position: relative; width: 100%; height: 300svh; background: #ffffff; z-index: 3;">
     <div style="position: sticky; top: 0; height: 100svh; overflow: hidden; background: #ffffff;">
@@ -245,7 +262,7 @@
 <!-- ============ MOBILE LAYOUT (390 x 844 frame) ============ -->
 <div id="kc-mobile-root" ref="{{ mRootRef }}" style="display: none;">
 
-  <div id="kc-mobile-projets"><div id="projets-m"><div id="kc-m-viewport"><main id="kc-m-canvas"><h1>Une sélection de<br>mes <em>projets </em>récents.</h1>{{mobileCards}}</main></div></div></div>
+  <div id="kc-mobile-projets"><div id="projets-m"><div id="kc-m-viewport"><div id="kc-m-canvas"><h1>Une sélection de<br>mes <em>projets </em>récents.</h1>{{mobileCards}}</div></div></div></div>
 <!-- T3. ABOUT -->
   <div id="apropos-m" style="position: relative; width: 100%; height: 370lvh; background: #ffffff; z-index: 3;">
     <div style="position: sticky; top: 0; height: 100lvh; overflow: hidden; background: #ffffff;">
@@ -304,6 +321,8 @@
 
 </div>
 
+</main>
+
 <div ref="{{ legalRef }}" data-sheet="legal" role="dialog" aria-modal="true" aria-label="Mentions légales" tabindex="-1" style="position: fixed; inset: 0; z-index: 700; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(8,8,10,0.72);">
   <div data-card style="position: relative; box-sizing: border-box; width: 100%; max-width: 640px; max-height: 84vh; display: flex; flex-direction: column; padding: 32px; border-radius: 4px; background: rgb(255,255,255); overflow: hidden;">
     <div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: 24px;">
@@ -343,22 +362,6 @@
   <div style="display: flex; flex-direction: row; gap: 8px;">
     <button type="button" data-consent="deny" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.2; border-radius: 4px; cursor: pointer; white-space: nowrap; flex: 1 1 0; color: rgb(255,255,255); border: 1px solid rgb(255,255,255); padding: 8px 12px; background: none;">Refuser</button>
     <button type="button" data-consent="allow" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; line-height: 1.2; border-radius: 4px; cursor: pointer; white-space: nowrap; flex: 1 1 0; color: rgb(255,255,255); border: 1px solid rgb(255,255,255); padding: 8px 12px; background: none;">Accepter</button>
-  </div>
-</div>
-<!-- Nav scrim: keeps white nav text legible over light project photos -->
-<div ref="{{ navScrimRef }}" style="position: fixed; left: 0; top: 0; width: 100vw; height: 128px; z-index: 499; pointer-events: none; background: linear-gradient(to bottom, rgba(8,8,10,0.62) 0%, rgba(8,8,10,0.34) 45%, rgba(8,8,10,0) 100%); transition: opacity 0.25s ease;"></div>
-<link rel="stylesheet" href="/styles/nav-scrim.css" id="kc-no-nav-gradient">
-<!-- Shared navbar: one grid, one type scale, sits above every section -->
-<div class="kc-responsive-nav" ref="{{ navRef }}" role="navigation" aria-label="Navigation principale" style="position: fixed; left: 0; right: 0; top: 0; width: 100%; height: calc(72px * var(--kc-nav-scale, 1)); z-index: 500; box-sizing: border-box; padding: var(--kc-nav-block-padding, 15px) var(--kc-nav-gutter, 32px); display: flex; flex-direction: row; justify-content: space-between; align-items: center; pointer-events: none;">
-  <span style="display: inline-flex; align-items: flex-start; gap: calc(3px * var(--kc-nav-scale, 1)); font-family: 'Figtree', sans-serif; font-weight: 700; font-size: var(--kc-type-logo, 20px); white-space: nowrap; line-height: 1.2; letter-spacing: -0.02em; color: rgb(255,255,255); pointer-events: auto;">Kamila Comme<span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 9px; line-height: 1.4; letter-spacing: 0;">®</span></span>
-  <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); display: flex; flex-direction: row; gap: calc(32px * var(--kc-nav-scale, 1)); align-items: center; pointer-events: auto;">
-    <a href="#projets" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-label, 12px); white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">Projets</a>
-    <a href="#apropos" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-label, 12px); white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">À propos</a>
-    <a href="#contact" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-label, 12px); white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: rgb(255,255,255); text-transform: uppercase;">Contact</a>
-  </div>
-  <div style="display: flex; flex-direction: row; gap: calc(16px * var(--kc-nav-scale, 1)); align-items: center; pointer-events: auto;">
-    <span ref="{{ pillRef }}" data-fixed-ink="1" style="display: inline-flex; flex: 0 0 auto; flex-direction: row; gap: 8px; align-items: center; min-height: 44px; height: auto; box-sizing: border-box; padding: 10px 24px; border-radius: 4px; background-color: rgba(34,32,34,0.55); border: 1px solid rgba(255,255,255,0.14); backdrop-filter: blur(calc(16px * var(--kc-nav-scale, 1))) saturate(1.4); -webkit-backdrop-filter: blur(calc(16px * var(--kc-nav-scale, 1))) saturate(1.4);"><span data-fixed-ink="1" style="width: calc(6px * var(--kc-nav-scale, 1)); height: calc(6px * var(--kc-nav-scale, 1)); flex: 0 0 auto; border-radius: 50%; background-color: rgb(202,229,108); animation: kcDot 1.8s ease-in-out infinite;"></span><span data-fixed-ink="1" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-label, 12px); white-space: nowrap; line-height: 1.667; letter-spacing: 0.04em; text-transform: uppercase; color: rgb(189,183,189);">En recherche de CDI 2026</span></span>
-    <a href="mailto:comme.kamila@gmail.com?subject=Un%20CDI%20chez%20nous%20%3F" aria-label="M’écrire à comme.kamila@gmail.com" data-fixed-ink="1" style="display: flex; flex: 0 0 auto; flex-direction: row; align-items: center; min-height: 44px; height: 44px; box-sizing: border-box; border-radius: 4px; background-color: rgb(253,180,245); padding: 12px 24px;"><span data-fixed-ink="1" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-body, 14px); white-space: nowrap; line-height: 1; color: rgb(34,32,34);">Me recruter</span></a>
   </div>
 </div>
 </x-dc>

@@ -69,7 +69,7 @@
  }
  function restoreAnchor(anchor){
    if(!anchor)return;
-   if(anchor.kind==='about'&&outer){const about=scrollWindow.document.querySelector('#apropos');if(about){const top=about.getBoundingClientRect().top+scrollWindow.scrollY;scrollWindow.scrollTo(0,top-anchor.top);}return;}
+   if(anchor.kind==='about'&&outer){const about=scrollWindow.document.querySelector('#apropos');if(about){const r=about.getBoundingClientRect(),top=r.top+scrollWindow.scrollY;if(Number.isFinite(anchor.progress)){const travel=Math.max(0,r.height-scrollWindow.innerHeight);scrollWindow.scrollTo(0,top+travel*anchor.progress);}else scrollWindow.scrollTo(0,top-anchor.top);}return;}
    if(anchor.kind!=='project')return;
    if(mode==='flow'){
      const card=rail.querySelectorAll('.ticket')[anchor.index],frame=outer?window.frameElement:null;
@@ -83,7 +83,8 @@
    }
  }
  function measure(){
-   const anchor=captureAnchor();
+   const languageAnchor=outer&&desktopIsActive()?scrollWindow.__kcPendingLanguageAnchor:null;
+   const anchor=languageAnchor||captureAnchor();
    const host=outer?scrollWindow:window;
    const vw=host.innerWidth,vh=host.innerHeight;
    // Measure the authored heading box independently of the previous mode's
@@ -127,6 +128,7 @@
    applyMode(nextMode,{vw,vh,targetLeft,stageLeft,ticketWidth,rowTop,railHeight:flowRailHeight});
    start=section.getBoundingClientRect().top+scrollWindow.scrollY;
    restoreAnchor(anchor);
+   if(languageAnchor&&scrollWindow.__kcPendingLanguageAnchor===languageAnchor){scrollWindow.__kcPendingLanguageAnchor=null;scrollWindow.dispatchEvent(new scrollWindow.Event('kc:language-anchor-restored'));}
    update();
    hasMeasured=true;
  }
@@ -149,6 +151,7 @@
  }
  function onScroll(){if(!scheduled){scheduled=true;requestAnimationFrame(update)}}
  scrollWindow.addEventListener('scroll',onScroll,{passive:true});
+ if(outer)scrollWindow.addEventListener('kc:restore-language-anchor',measure);
  (outer?scrollWindow:window).addEventListener('resize',measure);
  window.addEventListener('load',measure,{once:true});
  document.fonts?.ready.then(measure);measure();

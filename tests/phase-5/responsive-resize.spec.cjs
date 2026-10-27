@@ -29,6 +29,43 @@ async function waitForResponsiveSettle(page, viewport) {
     return layout && layout.width === width && layout.height === height;
   }, viewport);
   await responsive.settleLayout(page, 80);
+  await waitForProjectsGeometry(page);
+}
+
+async function waitForProjectsGeometry(page) {
+  let previous = null;
+  for (let frame = 0; frame < 8; frame += 1) {
+    // Let the existing profile and section owners consume the resize event;
+    // readiness is determined from stable ticket geometry, not elapsed wall time.
+    await responsive.settleLayout(page, 34);
+    const profile = await responsive.readProfile(page);
+    const current = await page.evaluate(modeName => {
+      const round = value => Math.round(value * 100) / 100;
+      const rect = element => {
+        if (!element) return null;
+        const r = element.getBoundingClientRect();
+        return [r.left, r.top, r.width, r.height].map(round);
+      };
+      if (modeName === 'desktop') {
+        const frame = document.querySelector('#kc-desktop-project-frame');
+        const doc = frame?.contentDocument;
+        const rail = doc?.querySelector('#rail');
+        const cards = [...(rail?.querySelectorAll('.ticket') || [])];
+        return { mode: document.querySelector('#projets')?.dataset.kcProjectsMode || null,
+          frame: rect(frame), rail: rect(rail), transform: rail ? getComputedStyle(rail).transform : null,
+          cards: cards.map(rect) };
+      }
+      const root = document.querySelector(modeName === 'mobile' ? '#kc-mobile-projets' : '#kc-tablet-projets');
+      const stage = root?.querySelector(modeName === 'mobile' ? '#kc-m-canvas' : '#kc-t-stage');
+      const cards = [...(root?.querySelectorAll(modeName === 'mobile' ? '.project' : '.ticket') || [])];
+      const rail = modeName === 'mobile' ? stage : root?.querySelector('.tickets');
+      return { mode: root?.dataset.kcProjectsMode || null, root: rect(root), stage: rect(stage),
+        transform: rail ? getComputedStyle(rail).transform : null, cards: cards.map(rect) };
+    }, profile.mode);
+    if (current.cards.length === 6 && previous && JSON.stringify(current) === JSON.stringify(previous)) return current;
+    previous = current;
+  }
+  throw new Error(`Projects geometry did not settle after resize: ${JSON.stringify(previous)}`);
 }
 
 async function activeSection(page, section) {
@@ -68,8 +105,18 @@ async function visibleProject(page, mode) {
         intersection: width * height, centerDistance, panelBounds:{left,top,right,bottom},
         title: title?.textContent?.trim(), titleVisible: !!title && title.getClientRects().length > 0 && title.getBoundingClientRect().bottom > 0 && title.getBoundingClientRect().top < innerHeight };
     }).filter(item => item.intersection > 0).sort((a, b) => a.centerDistance - b.centerDistance || b.intersection - a.intersection);
-    return candidates[0] || null;
+    return candidates[0] ? { ...candidates[0], ownerFocusedIndex: window.__kcFocusedProjectIndex ?? null } : null;
   }, mode);
+}
+
+async function waitForTabletFocusOwner(page, mode) {
+  let measured = null;
+  for (let frame = 0; frame < 10; frame += 1) {
+    await responsive.settleLayout(page, 34);
+    measured = await visibleProject(page, mode);
+    if (measured && measured.ownerFocusedIndex === measured.index) return measured;
+  }
+  throw new Error(`Tablet Projects owner did not publish the centered readable ticket: ${JSON.stringify(measured)}`);
 }
 
 test('resizing preserves the active project and About section across width, height and orientation changes', async ({ page, context }, info) => {
@@ -87,7 +134,11 @@ test('resizing preserves the active project and About section across width, heig
     window.dispatchEvent(new Event('scroll'));
   }, projectBox);
   await responsive.settleLayout(page);
-  const initialProject = await visibleProject(page, mode);
+  let initialProject = await visibleProject(page, mode);
+  if (mode.startsWith('tablet')) {
+    initialProject = await waitForTabletFocusOwner(page, mode);
+    expect(initialProject.index, 'the Projects owner must recognize the primary readable ticket before resize').toBe(initialProject.ownerFocusedIndex);
+  }
   if (mode === 'tablet-landscape') {
     const initialCapture = info.outputPath(`resize-project-${language}-${mode}-before-sequence.png`);
     await page.screenshot({ path: initialCapture, animations: 'disabled' });

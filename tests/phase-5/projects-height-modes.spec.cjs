@@ -23,11 +23,69 @@ const tabletCases = [
   { id: 'flow-960x400', viewport: { width: 960, height: 400 }, mode: 'flow', orientation: 'landscape' },
 ];
 
-async function settled(page, viewport) {
+async function settled(page, viewport, owner = 'tablet') {
   await page.setViewportSize(viewport);
   await page.waitForFunction(({ width, height }) => innerWidth === width && innerHeight === height, viewport);
+  if (owner === 'tablet') {
+    await page.waitForFunction(({ width, height }) => {
+      const layout = window.__kcTabletLayout;
+      return layout?.width === width && layout?.height === height;
+    }, viewport);
+  }
   await responsive.settleLayout(page, 120);
-  await page.waitForTimeout(50);
+  if (owner === 'tablet') await waitForTabletProjectsGeometry(page);
+  else await waitForDesktopProjectsGeometry(page);
+}
+
+async function waitForTabletProjectsGeometry(page) {
+  let previous = null;
+  for (let frame = 0; frame < 8; frame += 1) {
+    // Advance the same frozen browser clock used by the layout tests, then
+    // compare actual ticket geometry across rendered owner updates.
+    await responsive.settleLayout(page, 34);
+    const current = await page.evaluate(() => {
+      const section = document.querySelector('#kc-tablet-projets');
+      const viewport = section?.querySelector('#kc-t-viewport');
+      const cards = [...(section?.querySelectorAll('#kc-t-stage .ticket') || [])];
+      const box = el => {
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        return [r.left, r.top, r.width, r.height].map(value => Math.round(value * 100) / 100);
+      };
+      return {
+        mode: section?.dataset.kcProjectsMode || null,
+        rail: section?.classList.contains('kc-landscape-rail') || false,
+        position: getComputedStyle(section?.querySelector('#projets-t') || document.body).position,
+        viewport: box(viewport),
+        cards: cards.map(box),
+      };
+    });
+    if (current.mode && current.cards.length === 6 && previous && JSON.stringify(current) === JSON.stringify(previous)) return current;
+    previous = current;
+  }
+  throw new Error(`Tablet Projects geometry did not settle: ${JSON.stringify(previous)}`);
+}
+
+async function waitForDesktopProjectsGeometry(page) {
+  let previous = null;
+  for (let frame = 0; frame < 8; frame += 1) {
+    await responsive.settleLayout(page, 34);
+    const current = await page.locator('#kc-desktop-project-frame').evaluate(frame => {
+      const doc = frame.contentDocument;
+      const stage = doc?.querySelector('#stage');
+      const rail = doc?.querySelector('#rail');
+      const cards = [...(rail?.querySelectorAll('.ticket') || [])];
+      const box = el => {
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        return [r.left, r.top, r.width, r.height].map(value => Math.round(value * 100) / 100);
+      };
+      return { mode: stage?.dataset.kcProjectsMode || null, rail: box(rail), cards: cards.map(box) };
+    });
+    if (current.mode && current.cards.length === 6 && previous && JSON.stringify(current) === JSON.stringify(previous)) return current;
+    previous = current;
+  }
+  throw new Error(`Desktop Projects geometry did not settle: ${JSON.stringify(previous)}`);
 }
 
 async function state(page, mode) {
@@ -67,8 +125,13 @@ async function state(page, mode) {
     const rect=(el)=>{const r=el.getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right,width:r.width,height:r.height};};
     return {
       mode:section.dataset.kcProjectsMode,
+      landscapeRail:section.classList.contains('kc-landscape-rail'),
       framePosition:getComputedStyle(section.querySelector('#projets-t')).position,
       navPosition:getComputedStyle(nav).position,
+      navBottom:nav.getBoundingClientRect().bottom,
+      viewportHeight:innerHeight,
+      cardHeight:cards[0]?.getBoundingClientRect().height,
+      publishedLayout:window.__kcTabletLayout,
       sectionHeight:section.getBoundingClientRect().height,
       viewportOverflow:getComputedStyle(viewport).overflow,
       heading:rect(heading),headingClip:getComputedStyle(heading).clipPath,headingFont:getComputedStyle(heading).fontSize,
@@ -87,7 +150,7 @@ test('desktop Projects geometry modes preserve content, media, links and About c
   await page.addStyleTag({content:'html{scroll-behavior:auto!important}'});
   const records=[];
   for(const entry of desktopCases){
-    await settled(page,entry.viewport);
+    await settled(page,entry.viewport,'desktop');
     await expect(page.locator('#kc-desktop-project-frame')).toBeVisible();
     const before=await state(page,'desktop');
     expect(before.mode,`${entry.id} geometry=${JSON.stringify({navBottom:before.navBottom,cardHeight:before.cardHeight,frameViewport:before.frameViewport,viewport:entry.viewport})}`).toBe(entry.mode);
@@ -153,14 +216,20 @@ test('tablet Projects modes preserve approved normal layouts and reflow only whe
     const active=await responsive.readProfile(page);
     expect(active.mode).toBe('tablet');
     const record=await state(page,'tablet-landscape');
-    expect(record.mode,entry.id).toBe(entry.mode);
+    expect(record.mode,`${entry.id} geometry=${JSON.stringify({mode:record.mode,navBottom:record.navBottom,cardHeight:record.cardHeight,viewportHeight:record.viewportHeight,publishedLayout:record.publishedLayout,position:record.framePosition,landscapeRail:record.landscapeRail})}`).toBe(entry.mode);
     expect(record.cardCount).toBe(6);
     expect(record.cards.every(card=>card.href.startsWith('https://')&&card.media>0)).toBe(true);
     expect(record.headingFont).toBe('48px');
     if(entry.mode==='normal'){
-      expect(record.framePosition).toBe('sticky');
       expect(record.navPosition).toBe('fixed');
       expect(record.headingClip).not.toBe('inset(50%)');
+      if(entry.orientation==='portrait'){
+        expect(record.landscapeRail).toBe(false);
+        expect(record.framePosition).toBe('static');
+      }else{
+        expect(record.landscapeRail).toBe(true);
+        expect(record.framePosition).toBe('sticky');
+      }
       if(entry.id==='normal-1194x834')expect(record.cards[0].rect.height).toBe(310);
     }else if(entry.mode==='compact'){
       expect(record.framePosition).toBe('sticky');

@@ -80,6 +80,10 @@
     // About may peek into view while the pinned Projects rail is still active.
     // Preserve About only after the visitor has reached its document start.
     if (aboutRect && aboutRect.top <= 1 && aboutRect.bottom > 0) return { kind: 'about', top: aboutRect.top };
+    // Resize events arrive after the browser has applied the new viewport size,
+    // so measuring card centers here can select a different panel in the old
+    // layout before its geometry owner runs. The scroll owner has already
+    // recorded the primary readable project from the settled source layout.
     if (lastViewportAnchor) return { ...lastViewportAnchor };
     const sectionRect = frame.getBoundingClientRect();
     const sectionDocumentTop = sectionRect.top + window.scrollY;
@@ -104,7 +108,7 @@
         best = { index, area, centerDistance };
       }
     });
-    return best ? { kind: 'project', index: lastActiveProjectIndex ?? best.index } : null;
+    return best ? { kind: 'project', index: best.index } : null;
   }
 
   function restoreViewportAnchor(anchor) {
@@ -115,7 +119,11 @@
         const rect = about.getBoundingClientRect();
         const documentTop = rect.top + window.scrollY;
         const travel = Math.max(0, rect.height - window.innerHeight);
-        window.scrollTo(0, documentTop + travel * anchor.progress);
+        // Language-route handoffs carry normalized semantic progress. Existing
+        // resize snapshots retain the About section's screen-relative top edge.
+        const target = Number.isFinite(anchor.progress)
+          ? documentTop + travel * anchor.progress : documentTop - anchor.top;
+        window.scrollTo(0, target);
       }
       return;
     }
@@ -126,6 +134,8 @@
       const panel = card.querySelector('.ticket-panel') || card;
       const r = panel.getBoundingClientRect();
       window.scrollTo(0, Math.max(0, window.scrollY + r.top + r.height / 2 - innerHeight / 2));
+      lastActiveProjectIndex = anchor.index;
+      window.__kcFocusedProjectIndex = anchor.index;
       return;
     }
     const sectionTop = frame.getBoundingClientRect().top + window.scrollY;
@@ -133,6 +143,8 @@
     const panelCenter = card.offsetLeft + panel.offsetLeft + panel.getBoundingClientRect().width / 2;
     const horizontal = Math.max(0, Math.min(travel, panelCenter - (innerWidth / 2 - 32)));
     window.scrollTo(0, sectionTop + introShift + horizontal);
+    lastActiveProjectIndex = anchor.index;
+    window.__kcFocusedProjectIndex = anchor.index;
   }
 
   function setNavbarFlow(flow) {
@@ -304,8 +316,13 @@
     const headingBottom = heading ? heading.offsetTop + heading.offsetHeight : 0;
     const safeRailTop = headingBottom + 24;
     const bottomRailTop = visibleBottom - stageTop - 32 - cardHeight;
-    const navBottom = document.querySelector('.kc-responsive-nav')?.getBoundingClientRect().bottom || 0;
-    const ticketFits = cardHeight <= height - navBottom - 24 - 32;
+    const nav = document.querySelector('.kc-responsive-nav');
+    // The Navbar may already have scrolled offscreen in short-height flow
+    // behavior. Its measured box height is the required clearance; its current
+    // viewport bottom is position-dependent and would falsely inflate the
+    // ticket's available height after scrolling.
+    const navClearance = nav?.getBoundingClientRect().height || 0;
+    const ticketFits = cardHeight <= height - navClearance - 24 - 32;
     if (!ticketFits) {
       fitExtremeFlow(section, viewport, stage, rail, cards, cardWidth, cardGap, narrowTickets);
       return true;
@@ -409,18 +426,25 @@
         window.__kcPendingAboutAnchor = null;
         return;
       }
+      const languageAnchor = window.__kcPendingLanguageAnchor || null;
       const usedPendingProjectAnchor = window.__kcPendingProjectAnchor != null;
       const usedPendingAboutAnchor = Number.isFinite(window.__kcPendingAboutAnchor?.progress);
-      const anchor = usedPendingAboutAnchor
+      const anchor = languageAnchor || (usedPendingAboutAnchor
         ? { kind: 'about', progress: window.__kcPendingAboutAnchor.progress }
         : resizeAnchor || (usedPendingProjectAnchor
         ? { kind: 'project', index: window.__kcPendingProjectAnchor }
-        : captureViewportAnchor());
+        : captureViewportAnchor()));
       resizeAnchor = null;
       preservingResizeAnchor = !!anchor;
       if (anchor) lastViewportAnchor = { ...anchor };
       fitTabletProjectGeometry();
-      restoreViewportAnchor(anchor);
+      // Cancellation is checked at the last possible point before the one-shot
+      // restore, so a wheel/touch/keyboard event during this layout frame wins.
+      if (!languageAnchor || window.__kcPendingLanguageAnchor === languageAnchor) restoreViewportAnchor(anchor);
+      if (languageAnchor && window.__kcPendingLanguageAnchor === languageAnchor) {
+        window.__kcPendingLanguageAnchor = null;
+        window.dispatchEvent(new Event('kc:language-anchor-restored'));
+      }
       if (usedPendingProjectAnchor) window.__kcPendingProjectAnchor = null;
       if (usedPendingAboutAnchor) window.__kcPendingAboutAnchor = null;
       if (preservingResizeAnchor) window.setTimeout(() => { preservingResizeAnchor = false; }, 120);
@@ -429,6 +453,7 @@
   }
 
   window.addEventListener('kc:tablet-layout-change', () => scheduleFit());
+  window.addEventListener('kc:restore-language-anchor', () => scheduleFit(true));
   // Snapshot before the profile controller writes new geometry. Chromium can emit a
   // scroll event while applying a resize, and that event must not replace the prior
   // focused project with a ticket selected by the intermediate viewport.

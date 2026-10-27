@@ -42,6 +42,34 @@ class Component extends DCLogic {
   PROJ_TOP = 1; PROJ_H = 6; ABOUT_TOP = 7;
 
   componentDidMount() {
+    // Language routes are full static-page navigations. Carry one semantic anchor
+    // through that load and let the current section geometry owner consume it.
+    try {
+      const saved = sessionStorage.getItem("kc-scroll");
+      if (saved) {
+        sessionStorage.removeItem("kc-scroll");
+        const anchor = JSON.parse(saved);
+        if (anchor?.version === 1 && anchor.hash === window.location.hash
+          && ["project", "about", "contact"].includes(anchor.kind)) {
+          window.__kcPendingLanguageAnchor = anchor;
+          this._finishLanguageAnchor = () => {
+            if (window.__kcPendingLanguageAnchor === anchor) window.__kcPendingLanguageAnchor = null;
+            ["wheel", "touchstart", "pointerdown", "keydown"].forEach((type) =>
+              document.removeEventListener(type, this._cancelLanguageAnchor, true));
+            window.removeEventListener("kc:language-anchor-restored", this._onLanguageAnchorRestored);
+          };
+          this._onLanguageAnchorRestored = () => this._finishLanguageAnchor();
+          window.addEventListener("kc:language-anchor-restored", this._onLanguageAnchorRestored);
+          this._cancelLanguageAnchor = (event) => {
+            if (event.type === "keydown"
+              && !["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) return;
+            this._finishLanguageAnchor();
+          };
+          ["wheel", "touchstart", "pointerdown", "keydown"].forEach((type) =>
+            document.addEventListener(type, this._cancelLanguageAnchor, { capture: true, passive: true }));
+        }
+      }
+    } catch (err) {}
     // The static route may not contain the React-rendered Footer yet when the browser
     // first processes #contact. Reapply that one initial fragment after the existing
     // responsive fit pass publishes its measured section geometry.
@@ -68,7 +96,10 @@ class Component extends DCLogic {
         const footer = this.footer || document.getElementById("contact");
         if (!footer || !footer.isConnected) return;
         const rect = footer.getBoundingClientRect();
-        const target = rect.top + window.scrollY;
+        const travel = Math.max(0, rect.height - window.innerHeight);
+        const progress = window.__kcPendingLanguageAnchor?.kind === "contact"
+          ? window.__kcPendingLanguageAnchor.progress : 0;
+        const target = rect.top + window.scrollY + travel * progress;
         if (!Number.isFinite(target)) return;
         window.scrollTo({ top: Math.max(0, target), behavior: "instant" });
         // renderFooter uses the same cached geometry as its frame loop. Update the
@@ -76,7 +107,10 @@ class Component extends DCLogic {
         // enters its existing prefetch area.
         this.renderFooter();
         if (this._rememberProjectsFocus) this._rememberProjectsFocus();
-        if (settled) this._finishInitialContactRestore();
+        if (settled) {
+          this._finishInitialContactRestore();
+          if (this._finishLanguageAnchor) this._finishLanguageAnchor();
+        }
       };
       this._restoreInitialContactAfterFit = (settled = false) => {
         requestAnimationFrame(() => requestAnimationFrame(() =>
@@ -201,10 +235,30 @@ class Component extends DCLogic {
         const section = document.getElementById(id.slice(1));
         if (section && section.getBoundingClientRect().top + window.scrollY <= threshold) current = id;
       }
-      // Static route loads can initially land at the top before the custom scroll-linked
-      // layouts are measured. Preserve the actual position through the controller's
-      // existing kc-scroll restore path; the hash keeps the corresponding section explicit.
-      try { sessionStorage.setItem("kc-scroll", String(currentY)); } catch (err) {}
+      let anchor = null;
+      try { sessionStorage.removeItem("kc-scroll"); } catch (err) {}
+      if (current) {
+        anchor = { version: 1, hash: current, kind: "", progress: 0 };
+        if (current.startsWith("#projets")) {
+          if (Number.isInteger(window.__kcFocusedProjectIndex)) {
+            anchor.kind = "project";
+            anchor.index = window.__kcFocusedProjectIndex;
+          } else anchor = null;
+        } else if (current.startsWith("#apropos")) {
+          const section = document.getElementById(current.slice(1));
+          const rect = section?.getBoundingClientRect();
+          const top = (rect?.top || 0) + currentY;
+          const travel = Math.max(1, (rect?.height || 0) - window.innerHeight);
+          anchor.kind = "about";
+          anchor.progress = Math.max(0, Math.min(1, (currentY - top) / travel));
+        } else {
+          const rect = document.getElementById("contact")?.getBoundingClientRect();
+          const travel = Math.max(1, (rect?.height || 0) - window.innerHeight);
+          anchor.kind = "contact";
+          anchor.progress = Math.max(0, Math.min(1, -(rect?.top || 0) / travel));
+        }
+        if (anchor) try { sessionStorage.setItem("kc-scroll", JSON.stringify(anchor)); } catch (err) {}
+      }
       a.setAttribute("href", current ? base + current : base);
     };
     document.addEventListener("click", this._onLanguageSwitch, true);
@@ -1102,6 +1156,7 @@ class Component extends DCLogic {
       if (!card) return;
       const rect = card.getBoundingClientRect();
       window.scrollTo(0, Math.max(0, window.scrollY + (rect.top + rect.bottom) / 2 - innerHeight / 2));
+      window.__kcFocusedProjectIndex = index;
     };
     this._captureResponsiveResize = () => {
       // This capture-phase snapshot runs before fit() changes visible profile roots.
@@ -1134,6 +1189,28 @@ class Component extends DCLogic {
     window.addEventListener("scroll", this._rememberProjectsFocus, { passive: true });
     window.addEventListener("resize", this._captureResponsiveResize, { passive: true, capture: true });
     this.fit();
+    const languageAnchor = window.__kcPendingLanguageAnchor;
+    if (languageAnchor && languageAnchor.kind !== "contact") {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (window.__kcPendingLanguageAnchor !== languageAnchor) return;
+        if (this.tablet || !this.mobile) {
+          // The tablet geometry owner and desktop iframe both subscribe to this
+          // one-shot request and restore only after publishing their measured rail.
+          window.dispatchEvent(new Event("kc:restore-language-anchor"));
+          return;
+        }
+        if (languageAnchor.kind === "project") this.focusMobileProject(languageAnchor.index);
+        else if (languageAnchor.kind === "about") {
+          const section = document.querySelector("#apropos-m");
+          if (section) {
+            const rect = section.getBoundingClientRect();
+            const travel = Math.max(0, rect.height - window.innerHeight);
+            window.scrollTo(0, rect.top + window.scrollY + travel * languageAnchor.progress);
+          }
+        }
+        if (this._finishLanguageAnchor) this._finishLanguageAnchor();
+      }));
+    }
     // Safari keeps the page in its freeze/back-forward cache: coming back from another app
     // restores it WITHOUT a resize event, so every measured layout (the projets block, the
     // wordmark) is still sized for the viewport it was laid out in — which is what cropped
@@ -1147,14 +1224,6 @@ class Component extends DCLogic {
     };
     window.addEventListener("pageshow", this._revive);
     // no focus listener: it fires on every tap into the page and duplicates visibilitychange
-    try {
-      const back = sessionStorage.getItem("kc-scroll");
-      if (back != null) {
-        sessionStorage.removeItem("kc-scroll");
-        const y = parseInt(back, 10) || 0;
-        [60, 300, 800].forEach((t) => setTimeout(() => window.scrollTo(0, y), t));
-      }
-    } catch (e) {}
     window.addEventListener("orientationchange", () => setTimeout(this._revive, 250));
     document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(this._revive, 80); });
     if (window.visualViewport) window.visualViewport.addEventListener("resize", this._revive);
@@ -1438,6 +1507,7 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
+    if (this._finishLanguageAnchor) this._finishLanguageAnchor();
     if (this._onMail) document.removeEventListener("click", this._onMail, true);
     if (this._onLegal) document.removeEventListener("click", this._onLegal, true);
     if (this._onLanguageSwitch) document.removeEventListener("click", this._onLanguageSwitch, true);

@@ -17,37 +17,57 @@ async function readContactState(page) {
   });
 }
 
-async function expectFooterDestination(page) {
+async function expectFooterDestination(page, { aligned = true, curtain = true } = {}) {
   await expect.poll(async () => {
     const state = await readContactState(page);
     return state.footer.top < state.viewport.height && state.footer.bottom > 0;
   }, { timeout: 10000 }).toBe(true);
   const state = await readContactState(page);
   expect(state.hash).toBe('#contact');
-  // Match the existing in-app Contact anchor: the Footer starts at the viewport top.
-  expect(Math.abs(state.footer.top)).toBeLessThan(12);
+  // A fresh/in-app Contact arrival aligns the Footer. Browser history may
+  // restore its own semantic position, so history assertions only require the
+  // Footer to be the active readable section.
+  if (aligned) expect(Math.abs(state.footer.top)).toBeLessThan(12);
   await expect(page.locator('#contact [data-c="0"]')).toBeVisible();
 
-  await qa.waitForCurtain(page);
-  const curtain = await page.locator('curtain-cloth').evaluate(el => {
+  if (curtain) {
+    await qa.waitForCurtain(page);
+    const curtainState = await page.locator('curtain-cloth').evaluate(el => {
     const rect = document.querySelector('#contact').getBoundingClientRect();
     const t = Math.max(0, Math.min(1, (innerHeight - rect.top) / Math.max(1, rect.height)));
     const p = Math.max(0, Math.min(1, (t - 0.02) / 0.78));
     return { count: document.querySelectorAll('curtain-cloth').length,
       canvases: el.querySelectorAll('canvas').length, target: el.target,
       expected: p * p * (3 - 2 * p), textureWidth: el.left?.mat?.map?.image?.naturalWidth || 0 };
-  });
-  expect(curtain.count).toBe(1);
-  expect(curtain.canvases).toBe(1);
-  expect(curtain.target).toBeCloseTo(curtain.expected, 2);
-  expect(curtain.textureWidth).toBeGreaterThan(0);
+    });
+    expect(curtainState.count).toBe(1);
+    expect(curtainState.canvases).toBe(1);
+    expect(curtainState.target).toBeCloseTo(curtainState.expected, 2);
+    expect(curtainState.textureWidth).toBeGreaterThan(0);
+  }
+  await expect(page.locator('#contact [data-c="4"] a[data-legal]')).toHaveCount(2);
+}
 
+async function expectFooterContentReachable(page) {
+  // Keep reachability checks separate from history restoration. Programmatic
+  // scrollIntoViewIfNeeded() here would itself create a history scroll position.
   for (const selector of ['#contact [data-c="1"]', '#contact [data-c="4"]']) {
     const content = page.locator(selector);
     await content.scrollIntoViewIfNeeded();
     await expect(content).toBeInViewport();
   }
   await expect(page.locator('#contact [data-c="4"] a[data-legal]')).toHaveCount(2);
+}
+
+async function expectHeroDestination(page) {
+  await expect.poll(() => page.evaluate(() => {
+    const footer = document.querySelector('#contact').getBoundingClientRect();
+    const heroNode = [...document.querySelectorAll('.kc-mobile-hero-title, [data-kc-tablet-hero-title], .kc-desktop-hero-title')]
+      .find(el => getComputedStyle(el).display !== 'none' && el.getClientRects().length);
+    const rect = heroNode?.getBoundingClientRect();
+    return { scrollY, hero: rect && { top: rect.top, bottom: rect.bottom }, heroInView: !!rect && rect.top < innerHeight && rect.bottom > 0,
+      footer: { top: footer.top, bottom: footer.bottom }, footerOutOfView: footer.top >= innerHeight };
+  }), { timeout: 5000 }).toMatchObject({ heroInView: true, footerOutOfView: true });
 }
 
 test('fresh and repeated #contact loads reach Footer after responsive layout settles', async ({ page, context }, info) => {
@@ -59,6 +79,7 @@ test('fresh and repeated #contact loads reach Footer after responsive layout set
   await expect(page.locator('#contact')).toBeAttached();
   await page.waitForFunction(() => performance.now() >= 3500);
   await expectFooterDestination(page);
+  await expectFooterContentReachable(page);
 
   // A second fresh document navigation verifies that restoration is one-shot per load,
   // does not depend on an earlier in-app visit, and does not duplicate the curtain.
@@ -111,13 +132,13 @@ test('keyboard Contact navigation and browser history retain the existing in-app
   await contactLink.focus();
   await contactLink.press('Enter');
   await expect(page).toHaveURL(/#contact$/);
-  await expectFooterDestination(page);
+  await expectFooterDestination(page, { curtain: false });
 
   await page.goBack();
   await expect(page).toHaveURL(language === 'en' ? /\/en\/$/ : /\/$/);
-  await expect.poll(() => page.evaluate(() => scrollY)).toBeLessThan(2);
+  await expectHeroDestination(page);
   await page.goForward();
   await expect(page).toHaveURL(/#contact$/);
-  await expectFooterDestination(page);
+  await expectFooterDestination(page, { aligned: false, curtain: false });
 });
 

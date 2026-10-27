@@ -98,8 +98,24 @@ test('shared FR/EN language link stays aligned, keyboard reachable and preserves
   const projectId = `projets${suffix}`;
   const aboutId = `apropos${suffix}`;
   const projectSection = page.locator(`#${projectId}`);
+  const activeProject = async () => page.evaluate(() => window.__kcFocusedProjectIndex);
+  const aboutProgress = async () => page.locator(`#${aboutId}`).evaluate(el => {
+    const r=el.getBoundingClientRect(),top=r.top+scrollY,travel=Math.max(1,r.height-innerHeight);
+    return {progress:Math.max(0,Math.min(1,(scrollY-top)/travel)),top:r.top,bottom:r.bottom};
+  });
+  const assertAboutContinuity = async expected => {
+    await expect.poll(async()=>{const value=await aboutProgress();return value.top<page.viewportSize().height*.55&&value.bottom>page.viewportSize().height*.45;},{timeout:10000}).toBe(true);
+    const actual=await aboutProgress();
+    expect(actual.top).toBeLessThan(page.viewportSize().height*.55);
+    expect(actual.bottom).toBeGreaterThan(page.viewportSize().height*.45);
+    expect(Math.abs(actual.progress-expected)).toBeLessThan(.12);
+  };
   const projectTop = await projectSection.evaluate(el=>el.getBoundingClientRect().top+scrollY);
   await qa.scrollTo(page, projectTop + Math.min(80, page.viewportSize().height*.15));
+  await expect.poll(activeProject,{timeout:5000}).toEqual(expect.any(Number));
+  const focusedProject = await activeProject();
+  expect(focusedProject).toBeGreaterThanOrEqual(0);
+  expect(focusedProject).toBeLessThan(6);
   await assertViewportGutters();
   const titleOverlap = await page.evaluate(mode => {
     const sw=document.querySelector('[data-kc-language-switch]').getBoundingClientRect();
@@ -113,28 +129,49 @@ test('shared FR/EN language link stays aligned, keyboard reachable and preserves
     return [...document.querySelectorAll(selector)].some(el=>intersects(el.getBoundingClientRect()));
   }, mode);
   expect(titleOverlap).toBe(false);
-  const projectScrollY = await page.evaluate(() => scrollY);
   await link.press('Enter');
   await expect(page).toHaveURL(new RegExp(`${nextPath.replaceAll('/','\\/')}#${projectId}$`));
-  await expect.poll(() => page.evaluate(() => scrollY), { timeout: 5000 }).toBeGreaterThan(projectScrollY - 5);
+  await expect.poll(activeProject,{timeout:10000}).toBe(focusedProject);
   await expect(page.locator('[data-kc-language-switch]')).toHaveText(language === 'fr' ? 'EN' : 'FR');
 
   // After the route change, the same one-click control returns to the prior locale
   // and preserves the active section through its corresponding static anchor.
   await page.locator('[data-kc-language-switch]').click();
   await expect(page).toHaveURL(new RegExp(`${initialPath.replaceAll('/','\\/')}#${projectId}$`));
-  await expect.poll(() => page.evaluate(() => scrollY), { timeout: 5000 }).toBeGreaterThan(projectScrollY - 5);
+  await expect.poll(activeProject,{timeout:10000}).toBe(focusedProject);
 
   const aboutTop = await page.locator(`#${aboutId}`).evaluate(el=>el.getBoundingClientRect().top+scrollY);
   await qa.scrollTo(page, aboutTop + Math.min(80, page.viewportSize().height*.15));
+  // A recent route restore can finish one owner frame after navigation. Re-read
+  // the section's current document geometry until the source position is actually
+  // reached; do not switch based on an earlier absolute top measurement.
+  for (let attempt=0;attempt<3;attempt++) {
+    const current=await aboutProgress();
+    if(current.top<page.viewportSize().height*.55&&current.bottom>page.viewportSize().height*.45)break;
+    const currentTop=await page.locator(`#${aboutId}`).evaluate(el=>el.getBoundingClientRect().top+scrollY);
+    await qa.scrollTo(page,currentTop+Math.min(80,page.viewportSize().height*.15));
+  }
   await assertViewportGutters();
-  const aboutScrollY = await page.evaluate(() => scrollY);
+  // A language-switch assertion is meaningful only once the requested source
+  // section is actually in the readable viewport region.
+  await expect.poll(async()=>{const value=await aboutProgress();return value.top<page.viewportSize().height*.55&&value.bottom>page.viewportSize().height*.45;},{timeout:10000}).toBe(true);
+  const settledSourceAbout = await aboutProgress();
   await page.locator('[data-kc-language-switch]').click();
   await expect(page).toHaveURL(new RegExp(`${nextPath.replaceAll('/','\\/')}#${aboutId}$`));
-  await expect.poll(() => page.evaluate(() => scrollY), { timeout: 5000 }).toBeGreaterThan(aboutScrollY - 5);
+  await assertAboutContinuity(settledSourceAbout.progress);
+  // The former 60–800ms callbacks could override scrolling after the route had
+  // become interactive. Wait beyond that window and assert semantic position again.
+  await page.waitForTimeout(950);
+  await assertAboutContinuity(settledSourceAbout.progress);
   await page.locator('[data-kc-language-switch]').click();
   await expect(page).toHaveURL(new RegExp(`${initialPath.replaceAll('/','\\/')}#${aboutId}$`));
-  await expect.poll(() => page.evaluate(() => scrollY), { timeout: 5000 }).toBeGreaterThan(aboutScrollY - 5);
+  await assertAboutContinuity(settledSourceAbout.progress);
+  await page.goBack();
+  await expect(page).toHaveURL(new RegExp(`${nextPath.replaceAll('/','\\/')}#${aboutId}$`));
+  await expect(page.locator('html')).toHaveAttribute('lang', language === 'fr' ? 'en' : 'fr');
+  await page.goForward();
+  await expect(page).toHaveURL(new RegExp(`${initialPath.replaceAll('/','\\/')}#${aboutId}$`));
+  await expect(page.locator('html')).toHaveAttribute('lang', language);
 
   await page.locator('#contact').scrollIntoViewIfNeeded();
   await page.waitForTimeout(100);

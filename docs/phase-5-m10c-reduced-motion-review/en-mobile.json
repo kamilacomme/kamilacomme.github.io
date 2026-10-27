@@ -1,0 +1,77 @@
+{
+  "language": "en",
+  "mode": "mobile",
+  "viewport": {
+    "width": 393,
+    "height": 852
+  },
+  "before": {
+    "frame": 435,
+    "p": 0.9999297829398901,
+    "target": 1,
+    "webgl": true,
+    "textureWidth": 1106
+  },
+  "bounds": {
+    "[data-c=\"0\"]": {
+      "x": 16,
+      "y": 96.125,
+      "width": 361,
+      "height": 140.75,
+      "text": "A full-time opportunity? Let's talk.\ncomme.kamila@gmail.com"
+    },
+    "[data-c=\"1\"]": {
+      "x": 16,
+      "y": 705.125,
+      "width": 142.796875,
+      "height": 50,
+      "text": "+33 (0) 7 45 67 03 83\nParis, France"
+    },
+    "[data-c=\"2\"]": null,
+    "[data-c=\"4\"]": {
+      "x": 16,
+      "y": 787.125,
+      "width": 361,
+      "height": 41,
+      "text": "Legal notice\nPrivacy policy"
+    },
+    ".kc-language-switch": {
+      "x": 333,
+      "y": 784,
+      "width": 44,
+      "height": 44,
+      "text": "EN"
+    }
+  },
+  "staticStart": {
+    "frame": 451,
+    "p": 0.9999672579562563,
+    "target": 1,
+    "canvas": true,
+    "sameInstance": true
+  },
+  "staticPaused": {
+    "frame": 451,
+    "p": 0.9999672579562563,
+    "target": 1,
+    "canvas": true
+  },
+  "resumed": {
+    "frame": 478,
+    "p": 0.9999903703610219,
+    "target": 1,
+    "canvas": true
+  },
+  "identity": true,
+  "finalPaused": {
+    "frame": 480,
+    "p": 0.999991160896635,
+    "target": 1
+  },
+  "finalPausedAgain": {
+    "frame": 480,
+    "p": 0.999991160896635,
+    "target": 1
+  },
+  "notes": "Preview-only instrumentation; no website files changed."
+}

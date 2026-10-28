@@ -1,0 +1,297 @@
+{
+  "schemaVersion": 1,
+  "status": "diagnostic",
+  "diagnostic": true,
+  "referenceCommit": "d8a37314ed7d2265f3f949c9e048b5e2beadfc20",
+  "measuredCommit": "1b0ddbbd0d49ec6e19fbd2ddd16b6901df37ffa2",
+  "mode": "controlled-local-runtime-replay",
+  "runtimeManifestSha256": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3",
+  "serverSha256": "6a59a4f13366674425f421b9ea7f72e2d5132741caef554ab574c1eb248b22fa",
+  "servedSourceVerification": null,
+  "host": {
+    "platform": "linux",
+    "release": "6.18.55",
+    "architecture": "x64",
+    "cpuModel": "AMD EPYC 9V74 80-Core Processor",
+    "cpuCount": 5,
+    "memoryBytes": 35743760384,
+    "nodeVersion": "v24.19.0"
+  },
+  "origin": "http://127.0.0.1:8000",
+  "runsPerTarget": 1,
+  "chromeFlags": [
+    "--headless=new",
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--enable-unsafe-swiftshader"
+  ],
+  "launcherDefaultFlags": [
+    "--disable-features=Translate,OptimizationHints,MediaRouter,DialMediaRouteProvider,CalculateNativeWinOcclusion,InterestFeedContentSuggestions,CertificateTransparencyComponentUpdater,AutofillServerCommunication,PrivacySandboxSettings4,RenderDocument",
+    "--disable-extensions",
+    "--disable-component-extensions-with-background-pages",
+    "--disable-background-networking",
+    "--disable-component-update",
+    "--disable-client-side-phishing-detection",
+    "--disable-sync",
+    "--metrics-recording-only",
+    "--disable-default-apps",
+    "--mute-audio",
+    "--no-default-browser-check",
+    "--no-first-run",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-renderer-backgrounding",
+    "--disable-background-timer-throttling",
+    "--disable-ipc-flooding-protection",
+    "--password-store=basic",
+    "--use-mock-keychain",
+    "--force-fieldtrials=*BackgroundTracing/default/",
+    "--disable-hang-monitor",
+    "--disable-prompt-on-repost",
+    "--disable-domain-reliability",
+    "--propagate-iph-for-testing"
+  ],
+  "measurementSettings": {
+    "throttlingMethod": "simulate",
+    "maxWaitForLoad": 45000,
+    "cpuQuietThresholdMs": 0,
+    "networkQuietThresholdMs": 1000,
+    "pauseAfterFcpMs": 1000,
+    "pauseAfterLoadMs": 1000
+  },
+  "profiles": {
+    "mobile": {
+      "formFactor": "mobile",
+      "screenEmulation": {
+        "mobile": true,
+        "width": 393,
+        "height": 852,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      },
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.56,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      }
+    },
+    "desktop": {
+      "formFactor": "desktop",
+      "screenEmulation": {
+        "mobile": false,
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      },
+      "emulatedUserAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      }
+    }
+  },
+  "notes": [
+    "Local origin is the unchanged checkout served by tests/runtime/server.mjs (HTTP/1.1, uncompressed, byte ranges for video); production transfer compression and CDN behavior are not reproduced.",
+    "Playwright routing disables HTTP cache; fresh browser profiles and Lighthouse storage reset also prevent warm-cache reuse.",
+    "CPU quiet waiting is explicitly zero because animation continues indefinitely; network quiet and post-load/FCP pauses remain1000ms. Effects are not disabled.",
+    "CDN dependencies are fulfilled from integrity-verified local replay, not measured over the production network.",
+    "Analytics is blocked by the test harness.",
+    "Lighthouse uses simulated throttling; scores are lab measurements and not directly comparable with public PageSpeed Insights.",
+    "Fresh Chrome profiles and reset storage are used per run. Render preflight precedes each audit; Lighthouse then performs its own navigation.",
+    "Performance measurements use natural animation timing: no clock, randomness or screenshot stabilization is injected."
+  ],
+  "aggregate": [
+    {
+      "locale": "fr",
+      "profile": "mobile",
+      "runs": 1,
+      "score": 52,
+      "fcpMs": 4757.815703536271,
+      "lcpMs": 10507.624595978392,
+      "tbtMs": 421,
+      "cls": 0.0016959008319673158,
+      "speedIndexMs": 4941.438183788076,
+      "totalByteWeight": 3485822,
+      "scoreRange": [
+        52,
+        52
+      ]
+    }
+  ],
+  "measurements": [
+    {
+      "id": "fr-mobile-1",
+      "locale": "fr",
+      "route": "/",
+      "profile": "mobile",
+      "iteration": 1,
+      "fetchTime": "2026-10-21T16:28:12.013Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.56,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 393,
+          "height": 852,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        3.16,
+        2.94,
+        1.82
+      ],
+      "loadAfter": [
+        2.98,
+        2.91,
+        1.81
+      ],
+      "readiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 1686,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 1686,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Inter",
+          "Figtree"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 393,
+          "height": 852,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Mobile Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 1,
+          "hover": false,
+          "coarsePointer": true
+        },
+        "url": "http://127.0.0.1:8000/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "http://127.0.0.1:8000/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/pilates.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/longread.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/inside-out.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        }
+      ],
+      "score": 52,
+      "fcpMs": 4757.815703536271,
+      "lcpMs": 10507.624595978392,
+      "tbtMs": 421,
+      "cls": 0.0016959008319673158,
+      "speedIndexMs": 4941.438183788076,
+      "totalByteWeight": 3485822,
+      "runWarnings": []
+    }
+  ]
+}

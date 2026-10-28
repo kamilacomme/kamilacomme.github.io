@@ -1,0 +1,113 @@
+{
+  "aboutRecords": [
+    {
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "actualProfile": {
+        "mode": "mobile",
+        "detection": {
+          "mobileDomActive": true,
+          "tabletHeroActive": false,
+          "desktopHeroActive": false,
+          "tabletLayoutPublished": {
+            "tablet": false,
+            "scale": 0.38369304556354916,
+            "width": 320,
+            "height": 568
+          },
+          "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+          "touchPoints": 1,
+          "coarsePointer": true,
+          "finePointer": false,
+          "coarseHover": true,
+          "fineHover": false
+        }
+      },
+      "activeAbout": {
+        "id": "apropos-m",
+        "top": -505.3125,
+        "bottom": 1596.28125,
+        "documentTop": 4150.6875,
+        "documentBottom": 6252.28125,
+        "scrollY": 4656
+      },
+      "stillInAbout": true,
+      "scrollY": 4656
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "actualProfile": {
+        "mode": "tablet",
+        "detection": {
+          "mobileDomActive": false,
+          "tabletHeroActive": true,
+          "desktopHeroActive": false,
+          "tabletLayoutPublished": {
+            "tablet": true,
+            "scale": 0.62,
+            "width": 844,
+            "height": 390
+          },
+          "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+          "touchPoints": 1,
+          "coarsePointer": true,
+          "finePointer": false,
+          "coarseHover": true,
+          "fineHover": false
+        }
+      },
+      "activeAbout": {
+        "id": "apropos-t",
+        "top": -542,
+        "bottom": 628,
+        "documentTop": 2474,
+        "documentBottom": 3644,
+        "scrollY": 3016
+      },
+      "stillInAbout": true,
+      "scrollY": 3016
+    },
+    {
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "actualProfile": {
+        "mode": "mobile",
+        "detection": {
+          "mobileDomActive": true,
+          "tabletHeroActive": false,
+          "desktopHeroActive": false,
+          "tabletLayoutPublished": {
+            "tablet": false,
+            "scale": 0.4712230215827338,
+            "width": 393,
+            "height": 852
+          },
+          "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+          "touchPoints": 1,
+          "coarsePointer": true,
+          "finePointer": false,
+          "coarseHover": true,
+          "fineHover": false
+        }
+      },
+      "activeAbout": {
+        "id": "apropos-m",
+        "top": -311.265625,
+        "bottom": 2841.125,
+        "documentTop": 4575.734375,
+        "documentBottom": 7728.125,
+        "scrollY": 4887
+      },
+      "stillInAbout": true,
+      "scrollY": 4887
+    }
+  ],
+  "failures": []
+}

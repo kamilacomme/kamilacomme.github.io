@@ -202,6 +202,9 @@ class CurtainCloth extends HTMLElement {
       // Когда текстура загрузится в Safari, принудительно пересчитываем нормали
       if (this.left) this.left.sync(true);
       if (this.right) this.right.sync(true);
+      // A reduced-motion curtain has no continuous frame loop. Refresh once when
+      // its texture arrives so the static canvas cannot remain on an empty frame.
+      if (this.isReducedMotion()) this.renderStaticFrame();
     });
     tex.colorSpace = THREE.SRGBColorSpace;
     tex.wrapS = tex.wrapT = THREE.ClampToEdgeWrapping;
@@ -239,6 +242,12 @@ class CurtainCloth extends HTMLElement {
       this.mouse.force = Math.min(0.6, this.mouse.force + d * 3.5 + 0.25);
     };
     this.onLeave = () => { this.mouse.active = false; };
+    this.motionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+    this.onMotionChange = () => this.syncMotionPreference();
+    if (this.motionQuery) {
+      if (this.motionQuery.addEventListener) this.motionQuery.addEventListener("change", this.onMotionChange);
+      else if (this.motionQuery.addListener) this.motionQuery.addListener(this.onMotionChange);
+    }
     window.addEventListener("resize", this.onResize);
     this.addEventListener("pointermove", this.onMove);
     this.addEventListener("pointerleave", this.onLeave);
@@ -256,13 +265,59 @@ class CurtainCloth extends HTMLElement {
     this.right.sync(true);
 
     this.tick = this.tick.bind(this);
-    this.raf = requestAnimationFrame(this.tick);
+    this.raf = null;
+    this.syncMotionPreference();
   }
 
   disconnectedCallback() {
     cancelAnimationFrame(this.raf);
+    this.raf = null;
+    this._running = false;
     clearTimeout(this._resizeT);
     window.removeEventListener("resize", this.onResize);
+    if (this.motionQuery) {
+      if (this.motionQuery.removeEventListener) this.motionQuery.removeEventListener("change", this.onMotionChange);
+      else if (this.motionQuery.removeListener) this.motionQuery.removeListener(this.onMotionChange);
+    }
+  }
+
+  isReducedMotion() {
+    return !!(this.motionQuery && this.motionQuery.matches);
+  }
+
+  startAnimation() {
+    if (this.raf !== null || !this.tick || this.isReducedMotion()) return;
+    if (!this._running) {
+      this._last = this._hasStarted ? performance.now() : 0;
+      this._hasStarted = true;
+    }
+    this._running = true;
+    this.raf = requestAnimationFrame(this.tick);
+  }
+
+  stopAnimation() {
+    if (this.raf !== null) cancelAnimationFrame(this.raf);
+    this.raf = null;
+    this._running = false;
+    this._last = 0;
+  }
+
+  syncMotionPreference() {
+    if (this.isReducedMotion()) {
+      this.stopAnimation();
+      this.renderStaticFrame();
+    } else {
+      this.startAnimation();
+    }
+  }
+
+  renderStaticFrame() {
+    if (!this.renderer || !this.left || !this.right || !this.scene || !this.camera) return;
+    this.left.setPins(this.p);
+    this.right.setPins(this.p);
+    this.left.sync(true);
+    this.right.sync(true);
+    this.renderer.render(this.scene, this.camera);
   }
 
   resize() {
@@ -293,19 +348,39 @@ class CurtainCloth extends HTMLElement {
     this.camera.bottom = -1;
     this.camera.updateProjectionMatrix();
 
-    if (!aspectChanged) return;
+    if (!aspectChanged) {
+      if (this.isReducedMotion()) this.renderStaticFrame();
+      return;
+    }
 
     const tex = this.left.mat.map;
     this.left.build(this.aspect, tex);
     this.right.build(this.aspect, tex);
     this.left.setPins(this.p);
     this.right.setPins(this.p);
+    if (this.isReducedMotion()) this.renderStaticFrame();
   }
 
-  set progress(v) { this.target = Math.max(0, Math.min(1, v)); }
+  set progress(v) {
+    const next = Math.max(0, Math.min(1, v));
+    const changed = next !== this.target;
+    this.target = next;
+    // With motion reduced, progress changes follow scrolling directly. Repeated
+    // controller frames at the same scroll position do not redraw the canvas.
+    if (this.isReducedMotion() && changed) {
+      this.p = next;
+      this.renderStaticFrame();
+    }
+  }
   get progress() { return this.p; }
 
   tick() {
+    this.raf = null;
+    if (this.isReducedMotion()) {
+      this._running = false;
+      this.renderStaticFrame();
+      return;
+    }
     if (this.target === undefined) this.target = 0;
     const now = performance.now();
     const dt = Math.min(0.05, (now - (this._last || now)) / 1000);

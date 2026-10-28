@@ -1,0 +1,15 @@
+
+  /* Desktop hire button: keep the normal pink, use lemon-500 on hover. */
+  .kc-responsive-nav a[href^="mailto:"][data-fixed-ink="1"]:hover,
+  .kc-responsive-nav a[href^="mailto:"][data-fixed-ink="1"]:focus-visible {
+    background-color: #cae56c !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+  .kc-responsive-nav a[href^="mailto:"][data-fixed-ink="1"]:hover span,
+  .kc-responsive-nav a[href^="mailto:"][data-fixed-ink="1"]:focus-visible span {
+    color: #222022 !important;
+    opacity: 1 !important;
+  }
+
+  [data-cookie] { display: none !important; }

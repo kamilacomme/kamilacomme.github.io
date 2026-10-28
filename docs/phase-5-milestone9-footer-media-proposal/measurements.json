@@ -1,0 +1,966 @@
+[
+  {
+    "variant": "current",
+    "viewport": [
+      320,
+      568
+    ],
+    "language": "fr",
+    "mediaNodeCount": 1,
+    "mediaBox": {
+      "x": 16,
+      "y": 96.28,
+      "right": 64,
+      "bottom": 144.28,
+      "width": 48,
+      "height": 48
+    },
+    "headingBox": {
+      "x": 16,
+      "y": 168.28,
+      "right": 304,
+      "bottom": 273.84,
+      "width": 288,
+      "height": 105.56
+    },
+    "headingTopInline": "168px",
+    "headingFont": "32px",
+    "headingText": "Un CDI ? Écrivez-moi.",
+    "emailBox": {
+      "x": 16,
+      "y": 203.47,
+      "right": 304,
+      "bottom": 273.84,
+      "width": 288,
+      "height": 70.38
+    },
+    "emailFont": "32px",
+    "contactBox": {
+      "x": 16,
+      "y": 444.28,
+      "right": 158.8,
+      "bottom": 494.28,
+      "width": 142.8,
+      "height": 50
+    },
+    "contactLines": [
+      {
+        "text": "+33 (0) 7 45 67 03 83",
+        "rect": {
+          "x": 16,
+          "y": 444.28,
+          "right": 158.8,
+          "bottom": 465.28,
+          "width": 142.8,
+          "height": 21
+        }
+      },
+      {
+        "text": "Paris, France",
+        "rect": {
+          "x": 16,
+          "y": 473.28,
+          "right": 100.56,
+          "bottom": 494.28,
+          "width": 84.56,
+          "height": 21
+        }
+      }
+    ],
+    "legalBox": {
+      "x": 16,
+      "y": 527.78,
+      "right": 304,
+      "bottom": 544.28,
+      "width": 288,
+      "height": 16.5
+    },
+    "legalLinks": [
+      {
+        "text": "Mentions légales",
+        "rect": {
+          "x": 16,
+          "y": 527.78,
+          "right": 102.23,
+          "bottom": 544.28,
+          "width": 86.23,
+          "height": 16.5
+        },
+        "href": "#mentions-legales"
+      },
+      {
+        "text": "Politique de confidentialité",
+        "rect": {
+          "x": 118.23,
+          "y": 527.78,
+          "right": 252.73,
+          "bottom": 544.28,
+          "width": 134.5,
+          "height": 16.5
+        },
+        "href": "#politique-de-confidentialite"
+      }
+    ],
+    "switchBox": {
+      "x": 260,
+      "y": 500,
+      "right": 304,
+      "bottom": 544,
+      "width": 44,
+      "height": 44
+    },
+    "gutterX": "16.000px",
+    "gutterBottom": "24.000px",
+    "horizontalOverflow": false,
+    "scrollY": 6252,
+    "scrollMax": 6252,
+    "curtainScript": false,
+    "curtainAsset": true,
+    "errors": [],
+    "transforms": {
+      "html": false,
+      "controller": false
+    },
+    "screenshot": "/workspace/kamilacomme.github.io/docs/phase-5-milestone9-footer-media-proposal/current-fr-320x568.png"
+  },
+  {
+    "variant": "proposed",
+    "viewport": [
+      320,
+      568
+    ],
+    "language": "fr",
+    "mediaNodeCount": 0,
+    "mediaBox": null,
+    "headingBox": {
+      "x": 16,
+      "y": 96.28,
+      "right": 304,
+      "bottom": 201.84,
+      "width": 288,
+      "height": 105.56
+    },
+    "headingTopInline": "96px",
+    "headingFont": "32px",
+    "headingText": "Un CDI ? Écrivez-moi.",
+    "emailBox": {
+      "x": 16,
+      "y": 131.47,
+      "right": 304,
+      "bottom": 201.84,
+      "width": 288,
+      "height": 70.38
+    },
+    "emailFont": "32px",
+    "contactBox": {
+      "x": 16,
+      "y": 444.28,
+      "right": 158.8,
+      "bottom": 494.28,
+      "width": 142.8,
+      "height": 50
+    },
+    "contactLines": [
+      {
+        "text": "+33 (0) 7 45 67 03 83",
+        "rect": {
+          "x": 16,
+          "y": 444.28,
+          "right": 158.8,
+          "bottom": 465.28,
+          "width": 142.8,
+          "height": 21
+        }
+      },
+      {
+        "text": "Paris, France",
+        "rect": {
+          "x": 16,
+          "y": 473.28,
+          "right": 100.56,
+          "bottom": 494.28,
+          "width": 84.56,
+          "height": 21
+        }
+      }
+    ],
+    "legalBox": {
+      "x": 16,
+      "y": 527.78,
+      "right": 304,
+      "bottom": 544.28,
+      "width": 288,
+      "height": 16.5
+    },
+    "legalLinks": [
+      {
+        "text": "Mentions légales",
+        "rect": {
+          "x": 16,
+          "y": 527.78,
+          "right": 102.23,
+          "bottom": 544.28,
+          "width": 86.23,
+          "height": 16.5
+        },
+        "href": "#mentions-legales"
+      },
+      {
+        "text": "Politique de confidentialité",
+        "rect": {
+          "x": 118.23,
+          "y": 527.78,
+          "right": 252.73,
+          "bottom": 544.28,
+          "width": 134.5,
+          "height": 16.5
+        },
+        "href": "#politique-de-confidentialite"
+      }
+    ],
+    "switchBox": {
+      "x": 260,
+      "y": 500,
+      "right": 304,
+      "bottom": 544,
+      "width": 44,
+      "height": 44
+    },
+    "gutterX": "16.000px",
+    "gutterBottom": "24.000px",
+    "horizontalOverflow": false,
+    "scrollY": 6252,
+    "scrollMax": 6252,
+    "curtainScript": false,
+    "curtainAsset": true,
+    "errors": [],
+    "transforms": {
+      "html": true,
+      "controller": true
+    },
+    "screenshot": "/workspace/kamilacomme.github.io/docs/phase-5-milestone9-footer-media-proposal/proposed-fr-320x568.png"
+  },
+  {
+    "variant": "current",
+    "viewport": [
+      390,
+      844
+    ],
+    "language": "fr",
+    "mediaNodeCount": 1,
+    "mediaBox": {
+      "x": 16,
+      "y": 96.48,
+      "right": 64,
+      "bottom": 144.48,
+      "width": 48,
+      "height": 48
+    },
+    "headingBox": {
+      "x": 16,
+      "y": 168.48,
+      "right": 374,
+      "bottom": 274.05,
+      "width": 358,
+      "height": 105.56
+    },
+    "headingTopInline": "168px",
+    "headingFont": "32px",
+    "headingText": "Un CDI ? Écrivez-moi.",
+    "emailBox": {
+      "x": 16,
+      "y": 203.67,
+      "right": 374,
+      "bottom": 274.05,
+      "width": 358,
+      "height": 70.38
+    },
+    "emailFont": "32px",
+    "contactBox": {
+      "x": 16,
+      "y": 720.48,
+      "right": 158.8,
+      "bottom": 770.48,
+      "width": 142.8,
+      "height": 50
+    },
+    "contactLines": [
+      {
+        "text": "+33 (0) 7 45 67 03 83",
+        "rect": {
+          "x": 16,
+          "y": 720.48,
+          "right": 158.8,
+          "bottom": 741.48,
+          "width": 142.8,
+          "height": 21
+        }
+      },
+      {
+        "text": "Paris, France",
+        "rect": {
+          "x": 16,
+          "y": 749.48,
+          "right": 100.56,
+          "bottom": 770.48,
+          "width": 84.56,
+          "height": 21
+        }
+      }
+    ],
+    "legalBox": {
+      "x": 16,
+      "y": 803.98,
+      "right": 374,
+      "bottom": 820.48,
+      "width": 358,
+      "height": 16.5
+    },
+    "legalLinks": [
+      {
+        "text": "Mentions légales",
+        "rect": {
+          "x": 16,
+          "y": 803.98,
+          "right": 102.23,
+          "bottom": 820.48,
+          "width": 86.23,
+          "height": 16.5
+        },
+        "href": "#mentions-legales"
+      },
+      {
+        "text": "Politique de confidentialité",
+        "rect": {
+          "x": 118.23,
+          "y": 803.98,
+          "right": 252.73,
+          "bottom": 820.48,
+          "width": 134.5,
+          "height": 16.5
+        },
+        "href": "#politique-de-confidentialite"
+      }
+    ],
+    "switchBox": {
+      "x": 330,
+      "y": 776,
+      "right": 374,
+      "bottom": 820,
+      "width": 44,
+      "height": 44
+    },
+    "gutterX": "16.000px",
+    "gutterBottom": "24.000px",
+    "horizontalOverflow": false,
+    "scrollY": 7682,
+    "scrollMax": 7682,
+    "curtainScript": false,
+    "curtainAsset": true,
+    "errors": [],
+    "transforms": {
+      "html": false,
+      "controller": false
+    },
+    "screenshot": "/workspace/kamilacomme.github.io/docs/phase-5-milestone9-footer-media-proposal/current-fr-390x844.png"
+  },
+  {
+    "variant": "proposed",
+    "viewport": [
+      390,
+      844
+    ],
+    "language": "fr",
+    "mediaNodeCount": 0,
+    "mediaBox": null,
+    "headingBox": {
+      "x": 16,
+      "y": 96.48,
+      "right": 374,
+      "bottom": 202.05,
+      "width": 358,
+      "height": 105.56
+    },
+    "headingTopInline": "96px",
+    "headingFont": "32px",
+    "headingText": "Un CDI ? Écrivez-moi.",
+    "emailBox": {
+      "x": 16,
+      "y": 131.67,
+      "right": 374,
+      "bottom": 202.05,
+      "width": 358,
+      "height": 70.38
+    },
+    "emailFont": "32px",
+    "contactBox": {
+      "x": 16,
+      "y": 720.48,
+      "right": 158.8,
+      "bottom": 770.48,
+      "width": 142.8,
+      "height": 50
+    },
+    "contactLines": [
+      {
+        "text": "+33 (0) 7 45 67 03 83",
+        "rect": {
+          "x": 16,
+          "y": 720.48,
+          "right": 158.8,
+          "bottom": 741.48,
+          "width": 142.8,
+          "height": 21
+        }
+      },
+      {
+        "text": "Paris, France",
+        "rect": {
+          "x": 16,
+          "y": 749.48,
+          "right": 100.56,
+          "bottom": 770.48,
+          "width": 84.56,
+          "height": 21
+        }
+      }
+    ],
+    "legalBox": {
+      "x": 16,
+      "y": 803.98,
+      "right": 374,
+      "bottom": 820.48,
+      "width": 358,
+      "height": 16.5
+    },
+    "legalLinks": [
+      {
+        "text": "Mentions légales",
+        "rect": {
+          "x": 16,
+          "y": 803.98,
+          "right": 102.23,
+          "bottom": 820.48,
+          "width": 86.23,
+          "height": 16.5
+        },
+        "href": "#mentions-legales"
+      },
+      {
+        "text": "Politique de confidentialité",
+        "rect": {
+          "x": 118.23,
+          "y": 803.98,
+          "right": 252.73,
+          "bottom": 820.48,
+          "width": 134.5,
+          "height": 16.5
+        },
+        "href": "#politique-de-confidentialite"
+      }
+    ],
+    "switchBox": {
+      "x": 330,
+      "y": 776,
+      "right": 374,
+      "bottom": 820,
+      "width": 44,
+      "height": 44
+    },
+    "gutterX": "16.000px",
+    "gutterBottom": "24.000px",
+    "horizontalOverflow": false,
+    "scrollY": 7682,
+    "scrollMax": 7682,
+    "curtainScript": false,
+    "curtainAsset": true,
+    "errors": [],
+    "transforms": {
+      "html": true,
+      "controller": true
+    },
+    "screenshot": "/workspace/kamilacomme.github.io/docs/phase-5-milestone9-footer-media-proposal/proposed-fr-390x844.png"
+  },
+  {
+    "variant": "current",
+    "viewport": [
+      320,
+      568
+    ],
+    "language": "en",
+    "mediaNodeCount": 1,
+    "mediaBox": {
+      "x": 16,
+      "y": 96.28,
+      "right": 64,
+      "bottom": 144.28,
+      "width": 48,
+      "height": 48
+    },
+    "headingBox": {
+      "x": 16,
+      "y": 168.28,
+      "right": 304,
+      "bottom": 344.22,
+      "width": 288,
+      "height": 175.94
+    },
+    "headingTopInline": "168px",
+    "headingFont": "32px",
+    "headingText": "A full-time opportunity? Let's talk.",
+    "emailBox": {
+      "x": 16,
+      "y": 273.84,
+      "right": 304,
+      "bottom": 344.22,
+      "width": 288,
+      "height": 70.38
+    },
+    "emailFont": "32px",
+    "contactBox": {
+      "x": 16,
+      "y": 444.28,
+      "right": 158.8,
+      "bottom": 494.28,
+      "width": 142.8,
+      "height": 50
+    },
+    "contactLines": [
+      {
+        "text": "+33 (0) 7 45 67 03 83",
+        "rect": {
+          "x": 16,
+          "y": 444.28,
+          "right": 158.8,
+          "bottom": 465.28,
+          "width": 142.8,
+          "height": 21
+        }
+      },
+      {
+        "text": "Paris, France",
+        "rect": {
+          "x": 16,
+          "y": 473.28,
+          "right": 100.56,
+          "bottom": 494.28,
+          "width": 84.56,
+          "height": 21
+        }
+      }
+    ],
+    "legalBox": {
+      "x": 16,
+      "y": 527.78,
+      "right": 304,
+      "bottom": 544.28,
+      "width": 288,
+      "height": 16.5
+    },
+    "legalLinks": [
+      {
+        "text": "Legal notice",
+        "rect": {
+          "x": 16,
+          "y": 527.78,
+          "right": 78.06,
+          "bottom": 544.28,
+          "width": 62.06,
+          "height": 16.5
+        },
+        "href": "/en/#mentions-legales"
+      },
+      {
+        "text": "Privacy policy",
+        "rect": {
+          "x": 94.06,
+          "y": 527.78,
+          "right": 165.03,
+          "bottom": 544.28,
+          "width": 70.97,
+          "height": 16.5
+        },
+        "href": "/en/#politique-de-confidentialite"
+      }
+    ],
+    "switchBox": {
+      "x": 260,
+      "y": 500,
+      "right": 304,
+      "bottom": 544,
+      "width": 44,
+      "height": 44
+    },
+    "gutterX": "16.000px",
+    "gutterBottom": "24.000px",
+    "horizontalOverflow": false,
+    "scrollY": 6231,
+    "scrollMax": 6231,
+    "curtainScript": false,
+    "curtainAsset": true,
+    "errors": [],
+    "transforms": {
+      "html": false,
+      "controller": false
+    },
+    "screenshot": "/workspace/kamilacomme.github.io/docs/phase-5-milestone9-footer-media-proposal/current-en-320x568.png"
+  },
+  {
+    "variant": "proposed",
+    "viewport": [
+      320,
+      568
+    ],
+    "language": "en",
+    "mediaNodeCount": 0,
+    "mediaBox": null,
+    "headingBox": {
+      "x": 16,
+      "y": 96.28,
+      "right": 304,
+      "bottom": 272.22,
+      "width": 288,
+      "height": 175.94
+    },
+    "headingTopInline": "96px",
+    "headingFont": "32px",
+    "headingText": "A full-time opportunity? Let's talk.",
+    "emailBox": {
+      "x": 16,
+      "y": 201.84,
+      "right": 304,
+      "bottom": 272.22,
+      "width": 288,
+      "height": 70.38
+    },
+    "emailFont": "32px",
+    "contactBox": {
+      "x": 16,
+      "y": 444.28,
+      "right": 158.8,
+      "bottom": 494.28,
+      "width": 142.8,
+      "height": 50
+    },
+    "contactLines": [
+      {
+        "text": "+33 (0) 7 45 67 03 83",
+        "rect": {
+          "x": 16,
+          "y": 444.28,
+          "right": 158.8,
+          "bottom": 465.28,
+          "width": 142.8,
+          "height": 21
+        }
+      },
+      {
+        "text": "Paris, France",
+        "rect": {
+          "x": 16,
+          "y": 473.28,
+          "right": 100.56,
+          "bottom": 494.28,
+          "width": 84.56,
+          "height": 21
+        }
+      }
+    ],
+    "legalBox": {
+      "x": 16,
+      "y": 527.78,
+      "right": 304,
+      "bottom": 544.28,
+      "width": 288,
+      "height": 16.5
+    },
+    "legalLinks": [
+      {
+        "text": "Legal notice",
+        "rect": {
+          "x": 16,
+          "y": 527.78,
+          "right": 78.06,
+          "bottom": 544.28,
+          "width": 62.06,
+          "height": 16.5
+        },
+        "href": "/en/#mentions-legales"
+      },
+      {
+        "text": "Privacy policy",
+        "rect": {
+          "x": 94.06,
+          "y": 527.78,
+          "right": 165.03,
+          "bottom": 544.28,
+          "width": 70.97,
+          "height": 16.5
+        },
+        "href": "/en/#politique-de-confidentialite"
+      }
+    ],
+    "switchBox": {
+      "x": 260,
+      "y": 500,
+      "right": 304,
+      "bottom": 544,
+      "width": 44,
+      "height": 44
+    },
+    "gutterX": "16.000px",
+    "gutterBottom": "24.000px",
+    "horizontalOverflow": false,
+    "scrollY": 6231,
+    "scrollMax": 6231,
+    "curtainScript": false,
+    "curtainAsset": true,
+    "errors": [],
+    "transforms": {
+      "html": true,
+      "controller": true
+    },
+    "screenshot": "/workspace/kamilacomme.github.io/docs/phase-5-milestone9-footer-media-proposal/proposed-en-320x568.png"
+  },
+  {
+    "variant": "current",
+    "viewport": [
+      390,
+      844
+    ],
+    "language": "en",
+    "mediaNodeCount": 1,
+    "mediaBox": {
+      "x": 16,
+      "y": 96.48,
+      "right": 64,
+      "bottom": 144.48,
+      "width": 48,
+      "height": 48
+    },
+    "headingBox": {
+      "x": 16,
+      "y": 168.48,
+      "right": 374,
+      "bottom": 309.23,
+      "width": 358,
+      "height": 140.75
+    },
+    "headingTopInline": "168px",
+    "headingFont": "32px",
+    "headingText": "A full-time opportunity? Let's talk.",
+    "emailBox": {
+      "x": 16,
+      "y": 238.86,
+      "right": 374,
+      "bottom": 309.23,
+      "width": 358,
+      "height": 70.38
+    },
+    "emailFont": "32px",
+    "contactBox": {
+      "x": 16,
+      "y": 720.48,
+      "right": 158.8,
+      "bottom": 770.48,
+      "width": 142.8,
+      "height": 50
+    },
+    "contactLines": [
+      {
+        "text": "+33 (0) 7 45 67 03 83",
+        "rect": {
+          "x": 16,
+          "y": 720.48,
+          "right": 158.8,
+          "bottom": 741.48,
+          "width": 142.8,
+          "height": 21
+        }
+      },
+      {
+        "text": "Paris, France",
+        "rect": {
+          "x": 16,
+          "y": 749.48,
+          "right": 100.56,
+          "bottom": 770.48,
+          "width": 84.56,
+          "height": 21
+        }
+      }
+    ],
+    "legalBox": {
+      "x": 16,
+      "y": 803.98,
+      "right": 374,
+      "bottom": 820.48,
+      "width": 358,
+      "height": 16.5
+    },
+    "legalLinks": [
+      {
+        "text": "Legal notice",
+        "rect": {
+          "x": 16,
+          "y": 803.98,
+          "right": 78.06,
+          "bottom": 820.48,
+          "width": 62.06,
+          "height": 16.5
+        },
+        "href": "/en/#mentions-legales"
+      },
+      {
+        "text": "Privacy policy",
+        "rect": {
+          "x": 94.06,
+          "y": 803.98,
+          "right": 165.03,
+          "bottom": 820.48,
+          "width": 70.97,
+          "height": 16.5
+        },
+        "href": "/en/#politique-de-confidentialite"
+      }
+    ],
+    "switchBox": {
+      "x": 330,
+      "y": 776,
+      "right": 374,
+      "bottom": 820,
+      "width": 44,
+      "height": 44
+    },
+    "gutterX": "16.000px",
+    "gutterBottom": "24.000px",
+    "horizontalOverflow": false,
+    "scrollY": 7682,
+    "scrollMax": 7682,
+    "curtainScript": false,
+    "curtainAsset": true,
+    "errors": [],
+    "transforms": {
+      "html": false,
+      "controller": false
+    },
+    "screenshot": "/workspace/kamilacomme.github.io/docs/phase-5-milestone9-footer-media-proposal/current-en-390x844.png"
+  },
+  {
+    "variant": "proposed",
+    "viewport": [
+      390,
+      844
+    ],
+    "language": "en",
+    "mediaNodeCount": 0,
+    "mediaBox": null,
+    "headingBox": {
+      "x": 16,
+      "y": 96.48,
+      "right": 374,
+      "bottom": 237.23,
+      "width": 358,
+      "height": 140.75
+    },
+    "headingTopInline": "96px",
+    "headingFont": "32px",
+    "headingText": "A full-time opportunity? Let's talk.",
+    "emailBox": {
+      "x": 16,
+      "y": 166.86,
+      "right": 374,
+      "bottom": 237.23,
+      "width": 358,
+      "height": 70.38
+    },
+    "emailFont": "32px",
+    "contactBox": {
+      "x": 16,
+      "y": 720.48,
+      "right": 158.8,
+      "bottom": 770.48,
+      "width": 142.8,
+      "height": 50
+    },
+    "contactLines": [
+      {
+        "text": "+33 (0) 7 45 67 03 83",
+        "rect": {
+          "x": 16,
+          "y": 720.48,
+          "right": 158.8,
+          "bottom": 741.48,
+          "width": 142.8,
+          "height": 21
+        }
+      },
+      {
+        "text": "Paris, France",
+        "rect": {
+          "x": 16,
+          "y": 749.48,
+          "right": 100.56,
+          "bottom": 770.48,
+          "width": 84.56,
+          "height": 21
+        }
+      }
+    ],
+    "legalBox": {
+      "x": 16,
+      "y": 803.98,
+      "right": 374,
+      "bottom": 820.48,
+      "width": 358,
+      "height": 16.5
+    },
+    "legalLinks": [
+      {
+        "text": "Legal notice",
+        "rect": {
+          "x": 16,
+          "y": 803.98,
+          "right": 78.06,
+          "bottom": 820.48,
+          "width": 62.06,
+          "height": 16.5
+        },
+        "href": "/en/#mentions-legales"
+      },
+      {
+        "text": "Privacy policy",
+        "rect": {
+          "x": 94.06,
+          "y": 803.98,
+          "right": 165.03,
+          "bottom": 820.48,
+          "width": 70.97,
+          "height": 16.5
+        },
+        "href": "/en/#politique-de-confidentialite"
+      }
+    ],
+    "switchBox": {
+      "x": 330,
+      "y": 776,
+      "right": 374,
+      "bottom": 820,
+      "width": 44,
+      "height": 44
+    },
+    "gutterX": "16.000px",
+    "gutterBottom": "24.000px",
+    "horizontalOverflow": false,
+    "scrollY": 7682,
+    "scrollMax": 7682,
+    "curtainScript": false,
+    "curtainAsset": true,
+    "errors": [],
+    "transforms": {
+      "html": true,
+      "controller": true
+    },
+    "screenshot": "/workspace/kamilacomme.github.io/docs/phase-5-milestone9-footer-media-proposal/proposed-en-390x844.png"
+  }
+]

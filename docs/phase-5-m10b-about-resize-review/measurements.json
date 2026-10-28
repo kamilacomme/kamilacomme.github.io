@@ -1,0 +1,458 @@
+[
+  {
+    "name": "fr-desktop-to-tablet-beginning-before.png",
+    "language": "fr",
+    "transition": "desktop-to-tablet",
+    "phase": "beginning",
+    "state": "before",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "progress": 0.05,
+    "region": "beginning",
+    "aboutTop": -315,
+    "aboutHeight": 7200,
+    "footerTop": 6885,
+    "introFont": "56px",
+    "cardCount": 5
+  },
+  {
+    "name": "fr-desktop-to-tablet-beginning-after.png",
+    "language": "fr",
+    "transition": "desktop-to-tablet",
+    "phase": "beginning",
+    "state": "after",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "progress": 0.0499,
+    "region": "beginning",
+    "aboutTop": -111,
+    "aboutHeight": 3336,
+    "footerTop": 3225,
+    "introFont": "48px",
+    "cardCount": 5
+  },
+  {
+    "name": "fr-desktop-to-tablet-middle-before.png",
+    "language": "fr",
+    "transition": "desktop-to-tablet",
+    "phase": "middle",
+    "state": "before",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "progress": 0.5,
+    "region": "middle",
+    "aboutTop": -3150,
+    "aboutHeight": 7200,
+    "footerTop": 4050,
+    "introFont": "56px",
+    "cardCount": 5
+  },
+  {
+    "name": "fr-desktop-to-tablet-middle-after.png",
+    "language": "fr",
+    "transition": "desktop-to-tablet",
+    "phase": "middle",
+    "state": "after",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "progress": 0.5,
+    "region": "middle",
+    "aboutTop": -1112,
+    "aboutHeight": 3336,
+    "footerTop": 2224,
+    "introFont": "48px",
+    "cardCount": 5
+  },
+  {
+    "name": "fr-desktop-to-tablet-end-before.png",
+    "language": "fr",
+    "transition": "desktop-to-tablet",
+    "phase": "end",
+    "state": "before",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "progress": 0.94,
+    "region": "end",
+    "aboutTop": -5922,
+    "aboutHeight": 7200,
+    "footerTop": 1278,
+    "introFont": "56px",
+    "cardCount": 5
+  },
+  {
+    "name": "fr-desktop-to-tablet-end-after.png",
+    "language": "fr",
+    "transition": "desktop-to-tablet",
+    "phase": "end",
+    "state": "after",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "progress": 0.9402,
+    "region": "end",
+    "aboutTop": -2091,
+    "aboutHeight": 3336,
+    "footerTop": 1245,
+    "introFont": "48px",
+    "cardCount": 5
+  },
+  {
+    "name": "fr-tablet-to-desktop-beginning-before.png",
+    "language": "fr",
+    "transition": "tablet-to-desktop",
+    "phase": "beginning",
+    "state": "before",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "progress": 0.0499,
+    "region": "beginning",
+    "aboutTop": -111,
+    "aboutHeight": 3336,
+    "footerTop": 3225,
+    "introFont": "48px",
+    "cardCount": 5
+  },
+  {
+    "name": "fr-tablet-to-desktop-beginning-after.png",
+    "language": "fr",
+    "transition": "tablet-to-desktop",
+    "phase": "beginning",
+    "state": "after",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "progress": 0.0498,
+    "region": "beginning",
+    "aboutTop": -314,
+    "aboutHeight": 7200,
+    "footerTop": 6886,
+    "introFont": "56px",
+    "cardCount": 5
+  },
+  {
+    "name": "fr-tablet-to-desktop-middle-before.png",
+    "language": "fr",
+    "transition": "tablet-to-desktop",
+    "phase": "middle",
+    "state": "before",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "progress": 0.5,
+    "region": "middle",
+    "aboutTop": -1112,
+    "aboutHeight": 3336,
+    "footerTop": 2224,
+    "introFont": "48px",
+    "cardCount": 5
+  },
+  {
+    "name": "fr-tablet-to-desktop-middle-after.png",
+    "language": "fr",
+    "transition": "tablet-to-desktop",
+    "phase": "middle",
+    "state": "after",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "progress": 0.5,
+    "region": "middle",
+    "aboutTop": -3150,
+    "aboutHeight": 7200,
+    "footerTop": 4050,
+    "introFont": "56px",
+    "cardCount": 5
+  },
+  {
+    "name": "fr-tablet-to-desktop-end-before.png",
+    "language": "fr",
+    "transition": "tablet-to-desktop",
+    "phase": "end",
+    "state": "before",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "progress": 0.9402,
+    "region": "end",
+    "aboutTop": -2091,
+    "aboutHeight": 3336,
+    "footerTop": 1245,
+    "introFont": "48px",
+    "cardCount": 5
+  },
+  {
+    "name": "fr-tablet-to-desktop-end-after.png",
+    "language": "fr",
+    "transition": "tablet-to-desktop",
+    "phase": "end",
+    "state": "after",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "progress": 0.9402,
+    "region": "end",
+    "aboutTop": -5923,
+    "aboutHeight": 7200,
+    "footerTop": 1277,
+    "introFont": "56px",
+    "cardCount": 5
+  },
+  {
+    "name": "en-desktop-to-tablet-beginning-before.png",
+    "language": "en",
+    "transition": "desktop-to-tablet",
+    "phase": "beginning",
+    "state": "before",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "progress": 0.05,
+    "region": "beginning",
+    "aboutTop": -315,
+    "aboutHeight": 7200,
+    "footerTop": 6885,
+    "introFont": "56px",
+    "cardCount": 5
+  },
+  {
+    "name": "en-desktop-to-tablet-beginning-after.png",
+    "language": "en",
+    "transition": "desktop-to-tablet",
+    "phase": "beginning",
+    "state": "after",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "progress": 0.0499,
+    "region": "beginning",
+    "aboutTop": -111,
+    "aboutHeight": 3336,
+    "footerTop": 3225,
+    "introFont": "48px",
+    "cardCount": 5
+  },
+  {
+    "name": "en-desktop-to-tablet-middle-before.png",
+    "language": "en",
+    "transition": "desktop-to-tablet",
+    "phase": "middle",
+    "state": "before",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "progress": 0.5,
+    "region": "middle",
+    "aboutTop": -3150,
+    "aboutHeight": 7200,
+    "footerTop": 4050,
+    "introFont": "56px",
+    "cardCount": 5
+  },
+  {
+    "name": "en-desktop-to-tablet-middle-after.png",
+    "language": "en",
+    "transition": "desktop-to-tablet",
+    "phase": "middle",
+    "state": "after",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "progress": 0.5,
+    "region": "middle",
+    "aboutTop": -1112,
+    "aboutHeight": 3336,
+    "footerTop": 2224,
+    "introFont": "48px",
+    "cardCount": 5
+  },
+  {
+    "name": "en-desktop-to-tablet-end-before.png",
+    "language": "en",
+    "transition": "desktop-to-tablet",
+    "phase": "end",
+    "state": "before",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "progress": 0.94,
+    "region": "end",
+    "aboutTop": -5922,
+    "aboutHeight": 7200,
+    "footerTop": 1278,
+    "introFont": "56px",
+    "cardCount": 5
+  },
+  {
+    "name": "en-desktop-to-tablet-end-after.png",
+    "language": "en",
+    "transition": "desktop-to-tablet",
+    "phase": "end",
+    "state": "after",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "progress": 0.9402,
+    "region": "end",
+    "aboutTop": -2091,
+    "aboutHeight": 3336,
+    "footerTop": 1245,
+    "introFont": "48px",
+    "cardCount": 5
+  },
+  {
+    "name": "en-tablet-to-desktop-beginning-before.png",
+    "language": "en",
+    "transition": "tablet-to-desktop",
+    "phase": "beginning",
+    "state": "before",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "progress": 0.0499,
+    "region": "beginning",
+    "aboutTop": -111,
+    "aboutHeight": 3336,
+    "footerTop": 3225,
+    "introFont": "48px",
+    "cardCount": 5
+  },
+  {
+    "name": "en-tablet-to-desktop-beginning-after.png",
+    "language": "en",
+    "transition": "tablet-to-desktop",
+    "phase": "beginning",
+    "state": "after",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "progress": 0.0498,
+    "region": "beginning",
+    "aboutTop": -314,
+    "aboutHeight": 7200,
+    "footerTop": 6886,
+    "introFont": "56px",
+    "cardCount": 5
+  },
+  {
+    "name": "en-tablet-to-desktop-middle-before.png",
+    "language": "en",
+    "transition": "tablet-to-desktop",
+    "phase": "middle",
+    "state": "before",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "progress": 0.5,
+    "region": "middle",
+    "aboutTop": -1112,
+    "aboutHeight": 3336,
+    "footerTop": 2224,
+    "introFont": "48px",
+    "cardCount": 5
+  },
+  {
+    "name": "en-tablet-to-desktop-middle-after.png",
+    "language": "en",
+    "transition": "tablet-to-desktop",
+    "phase": "middle",
+    "state": "after",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "progress": 0.5,
+    "region": "middle",
+    "aboutTop": -3150,
+    "aboutHeight": 7200,
+    "footerTop": 4050,
+    "introFont": "56px",
+    "cardCount": 5
+  },
+  {
+    "name": "en-tablet-to-desktop-end-before.png",
+    "language": "en",
+    "transition": "tablet-to-desktop",
+    "phase": "end",
+    "state": "before",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "progress": 0.9402,
+    "region": "end",
+    "aboutTop": -2091,
+    "aboutHeight": 3336,
+    "footerTop": 1245,
+    "introFont": "48px",
+    "cardCount": 5
+  },
+  {
+    "name": "en-tablet-to-desktop-end-after.png",
+    "language": "en",
+    "transition": "tablet-to-desktop",
+    "phase": "end",
+    "state": "after",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "progress": 0.9402,
+    "region": "end",
+    "aboutTop": -5923,
+    "aboutHeight": 7200,
+    "footerTop": 1277,
+    "introFont": "56px",
+    "cardCount": 5
+  }
+]

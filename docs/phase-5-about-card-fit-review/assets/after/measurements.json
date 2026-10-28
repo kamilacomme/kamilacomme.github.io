@@ -1,0 +1,1170 @@
+[
+  {
+    "name": "fr-desktop-short-1838x517",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1838,
+      "height": 517
+    },
+    "lang": "fr",
+    "stage": {
+      "x": 0,
+      "y": 0,
+      "width": 1838,
+      "height": 517,
+      "bottom": 517,
+      "overflow": "hidden"
+    },
+    "intro": {
+      "x": 32,
+      "y": 135.3,
+      "width": 1774,
+      "height": 246.4,
+      "bottom": 381.7
+    },
+    "cards": [
+      {
+        "index": 0,
+        "box": {
+          "x": 29.5,
+          "y": 96,
+          "width": 326,
+          "height": 326,
+          "bottom": 422
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 1,
+        "box": {
+          "x": 846.5,
+          "y": 446,
+          "width": 326,
+          "height": 326,
+          "bottom": 772
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 2,
+        "box": {
+          "x": 379.5,
+          "y": 96,
+          "width": 326,
+          "height": 326,
+          "bottom": 422
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 3,
+        "box": {
+          "x": 1480,
+          "y": 96,
+          "width": 326,
+          "height": 326,
+          "bottom": 422
+        },
+        "padding": 24,
+        "overflow": "hidden",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 4,
+        "box": {
+          "x": 32.5,
+          "y": 446,
+          "width": 326,
+          "height": 326,
+          "bottom": 772
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      }
+    ]
+  },
+  {
+    "name": "fr-desktop-normal-1440x900",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "lang": "fr",
+    "stage": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "bottom": 900,
+      "overflow": "hidden"
+    },
+    "intro": {
+      "x": 32,
+      "y": 296,
+      "width": 1376,
+      "height": 308,
+      "bottom": 604
+    },
+    "cards": [
+      {
+        "index": 0,
+        "box": {
+          "x": 29.5,
+          "y": 112,
+          "width": 326,
+          "height": 326,
+          "bottom": 438
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 1,
+        "box": {
+          "x": 846.5,
+          "y": 462,
+          "width": 326,
+          "height": 326,
+          "bottom": 788
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 2,
+        "box": {
+          "x": 379.5,
+          "y": 112,
+          "width": 326,
+          "height": 326,
+          "bottom": 438
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 3,
+        "box": {
+          "x": 1082,
+          "y": 112,
+          "width": 326,
+          "height": 326,
+          "bottom": 438
+        },
+        "padding": 24,
+        "overflow": "hidden",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 4,
+        "box": {
+          "x": 32.5,
+          "y": 462,
+          "width": 326,
+          "height": 326,
+          "bottom": 788
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      }
+    ]
+  },
+  {
+    "name": "fr-tablet-portrait-834x1112",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "lang": "fr",
+    "stage": {
+      "x": 0,
+      "y": -667,
+      "width": 834,
+      "height": 1112,
+      "bottom": 445,
+      "overflow": "hidden"
+    },
+    "intro": {
+      "x": 32,
+      "y": -260.2,
+      "width": 770,
+      "height": 386.3,
+      "bottom": 126.2
+    },
+    "cards": [
+      {
+        "index": 0,
+        "box": {
+          "x": 32,
+          "y": -496,
+          "width": 240.7,
+          "height": 240.7,
+          "bottom": -255.3
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "32px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 241,
+        "clientHeight": 241
+      },
+      {
+        "index": 1,
+        "box": {
+          "x": 296.7,
+          "y": -496,
+          "width": 240.7,
+          "height": 240.7,
+          "bottom": -255.3
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "32px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 4
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 241,
+        "clientHeight": 241
+      },
+      {
+        "index": 2,
+        "box": {
+          "x": 32,
+          "y": -231.3,
+          "width": 240.7,
+          "height": 240.7,
+          "bottom": 9.4
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "32px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 241,
+        "clientHeight": 241
+      },
+      {
+        "index": 3,
+        "box": {
+          "x": 561.3,
+          "y": 33.3,
+          "width": 240.7,
+          "height": 240.7,
+          "bottom": 274
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "32px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 4
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 241,
+        "clientHeight": 241
+      },
+      {
+        "index": 4,
+        "box": {
+          "x": 296.7,
+          "y": 33.3,
+          "width": 240.7,
+          "height": 240.7,
+          "bottom": 274
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "32px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 241,
+        "clientHeight": 241
+      }
+    ]
+  },
+  {
+    "name": "fr-mobile-393x852",
+    "profile": "mobile",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    },
+    "lang": "fr",
+    "stage": {
+      "x": 0,
+      "y": 0,
+      "width": 393,
+      "height": 852,
+      "bottom": 852,
+      "overflow": "hidden"
+    },
+    "intro": {
+      "x": 16,
+      "y": 334.8,
+      "width": 361,
+      "height": 246.3,
+      "bottom": 581.2
+    },
+    "cards": [
+      {
+        "index": 0,
+        "box": {
+          "x": 64.5,
+          "y": 274,
+          "width": 264,
+          "height": 264,
+          "bottom": 538
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "24px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 264,
+        "clientHeight": 264
+      },
+      {
+        "index": 1,
+        "box": {
+          "x": 64.5,
+          "y": 284,
+          "width": 264,
+          "height": 264,
+          "bottom": 548
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "24px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 264,
+        "clientHeight": 264
+      },
+      {
+        "index": 2,
+        "box": {
+          "x": 64.5,
+          "y": 294,
+          "width": 264,
+          "height": 264,
+          "bottom": 558
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "24px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 264,
+        "clientHeight": 264
+      },
+      {
+        "index": 3,
+        "box": {
+          "x": 64.5,
+          "y": 304,
+          "width": 264,
+          "height": 264,
+          "bottom": 568
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "24px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 264,
+        "clientHeight": 264
+      },
+      {
+        "index": 4,
+        "box": {
+          "x": 64.5,
+          "y": 314,
+          "width": 264,
+          "height": 264,
+          "bottom": 578
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "24px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 264,
+        "clientHeight": 264
+      }
+    ]
+  },
+  {
+    "name": "en-desktop-short-1838x517",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1838,
+      "height": 517
+    },
+    "lang": "en",
+    "stage": {
+      "x": 0,
+      "y": 0,
+      "width": 1838,
+      "height": 517,
+      "bottom": 517,
+      "overflow": "hidden"
+    },
+    "intro": {
+      "x": 32,
+      "y": 166.1,
+      "width": 1774,
+      "height": 184.8,
+      "bottom": 350.9
+    },
+    "cards": [
+      {
+        "index": 0,
+        "box": {
+          "x": 29.5,
+          "y": 96,
+          "width": 326,
+          "height": 326,
+          "bottom": 422
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 1,
+        "box": {
+          "x": 846.5,
+          "y": 446,
+          "width": 326,
+          "height": 326,
+          "bottom": 772
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 2,
+        "box": {
+          "x": 379.5,
+          "y": 96,
+          "width": 326,
+          "height": 326,
+          "bottom": 422
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 3,
+        "box": {
+          "x": 1480,
+          "y": 96,
+          "width": 326,
+          "height": 326,
+          "bottom": 422
+        },
+        "padding": 24,
+        "overflow": "hidden",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 4,
+        "box": {
+          "x": 32.5,
+          "y": 446,
+          "width": 326,
+          "height": 326,
+          "bottom": 772
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      }
+    ]
+  },
+  {
+    "name": "en-desktop-normal-1440x900",
+    "profile": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "lang": "en",
+    "stage": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "bottom": 900,
+      "overflow": "hidden"
+    },
+    "intro": {
+      "x": 32,
+      "y": 326.8,
+      "width": 1376,
+      "height": 246.4,
+      "bottom": 573.2
+    },
+    "cards": [
+      {
+        "index": 0,
+        "box": {
+          "x": 29.5,
+          "y": 112,
+          "width": 326,
+          "height": 326,
+          "bottom": 438
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 1,
+        "box": {
+          "x": 846.5,
+          "y": 462,
+          "width": 326,
+          "height": 326,
+          "bottom": 788
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 2,
+        "box": {
+          "x": 379.5,
+          "y": 112,
+          "width": 326,
+          "height": 326,
+          "bottom": 438
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 3,
+        "box": {
+          "x": 1082,
+          "y": 112,
+          "width": 326,
+          "height": 326,
+          "bottom": 438
+        },
+        "padding": 24,
+        "overflow": "hidden",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      },
+      {
+        "index": 4,
+        "box": {
+          "x": 32.5,
+          "y": 462,
+          "width": 326,
+          "height": 326,
+          "bottom": 788
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "40px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 326,
+        "clientHeight": 326
+      }
+    ]
+  },
+  {
+    "name": "en-tablet-portrait-834x1112",
+    "profile": "tablet",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "lang": "en",
+    "stage": {
+      "x": 0,
+      "y": -667,
+      "width": 834,
+      "height": 1112,
+      "bottom": 445,
+      "overflow": "hidden"
+    },
+    "intro": {
+      "x": 32,
+      "y": -232.6,
+      "width": 770,
+      "height": 331.1,
+      "bottom": 98.6
+    },
+    "cards": [
+      {
+        "index": 0,
+        "box": {
+          "x": 32,
+          "y": -496,
+          "width": 240.7,
+          "height": 240.7,
+          "bottom": -255.3
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "32px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 241,
+        "clientHeight": 241
+      },
+      {
+        "index": 1,
+        "box": {
+          "x": 296.7,
+          "y": -496,
+          "width": 240.7,
+          "height": 240.7,
+          "bottom": -255.3
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "32px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 4
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 241,
+        "clientHeight": 241
+      },
+      {
+        "index": 2,
+        "box": {
+          "x": 32,
+          "y": -231.3,
+          "width": 240.7,
+          "height": 240.7,
+          "bottom": 9.4
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "32px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 241,
+        "clientHeight": 241
+      },
+      {
+        "index": 3,
+        "box": {
+          "x": 561.3,
+          "y": 33.3,
+          "width": 240.7,
+          "height": 240.7,
+          "bottom": 274
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "32px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 4
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 241,
+        "clientHeight": 241
+      },
+      {
+        "index": 4,
+        "box": {
+          "x": 296.7,
+          "y": 33.3,
+          "width": 240.7,
+          "height": 240.7,
+          "bottom": 274
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "32px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 241,
+        "clientHeight": 241
+      }
+    ]
+  },
+  {
+    "name": "en-mobile-393x852",
+    "profile": "mobile",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    },
+    "lang": "en",
+    "stage": {
+      "x": 0,
+      "y": 0,
+      "width": 393,
+      "height": 852,
+      "bottom": 852,
+      "overflow": "hidden"
+    },
+    "intro": {
+      "x": 16,
+      "y": 352.4,
+      "width": 361,
+      "height": 211.1,
+      "bottom": 563.6
+    },
+    "cards": [
+      {
+        "index": 0,
+        "box": {
+          "x": 64.5,
+          "y": 274,
+          "width": 264,
+          "height": 264,
+          "bottom": 538
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "24px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 264,
+        "clientHeight": 264
+      },
+      {
+        "index": 1,
+        "box": {
+          "x": 64.5,
+          "y": 284,
+          "width": 264,
+          "height": 264,
+          "bottom": 548
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "24px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 4
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 264,
+        "clientHeight": 264
+      },
+      {
+        "index": 2,
+        "box": {
+          "x": 64.5,
+          "y": 294,
+          "width": 264,
+          "height": 264,
+          "bottom": 558
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "24px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 264,
+        "clientHeight": 264
+      },
+      {
+        "index": 3,
+        "box": {
+          "x": 64.5,
+          "y": 304,
+          "width": 264,
+          "height": 264,
+          "bottom": 568
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "24px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 3
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 264,
+        "clientHeight": 264
+      },
+      {
+        "index": 4,
+        "box": {
+          "x": 64.5,
+          "y": 314,
+          "width": 264,
+          "height": 264,
+          "bottom": 578
+        },
+        "padding": 24,
+        "overflow": "visible",
+        "title": {
+          "font": "24px",
+          "lines": 1
+        },
+        "copy": {
+          "font": "14px",
+          "lines": 2
+        },
+        "contentOverrun": -2,
+        "textOutsideCard": false,
+        "scrollHeight": 264,
+        "clientHeight": 264
+      }
+    ]
+  }
+]

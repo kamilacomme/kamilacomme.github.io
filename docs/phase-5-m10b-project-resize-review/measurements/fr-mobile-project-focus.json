@@ -1,0 +1,257 @@
+{
+  "initialProject": {
+    "index": 2,
+    "href": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+    "name": "tour-de-parole",
+    "intersection": 241820.08203125,
+    "centerDistance": 44.17191921646178,
+    "panelBounds": {
+      "left": 16,
+      "top": 135.125,
+      "right": 376.875,
+      "bottom": 805.21875
+    },
+    "title": "Tour de parole",
+    "titleVisible": true
+  },
+  "records": [
+    {
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "language": "fr",
+      "configuredContext": {
+        "mode": "mobile",
+        "language": "fr",
+        "viewport": {
+          "width": 393,
+          "height": 852
+        },
+        "isMobile": true,
+        "hasTouch": true,
+        "deviceScaleFactor": 2
+      },
+      "actualProfile": {
+        "mode": "mobile",
+        "detection": {
+          "mobileDomActive": true,
+          "tabletHeroActive": false,
+          "desktopHeroActive": false,
+          "tabletLayoutPublished": {
+            "tablet": false,
+            "scale": 0.38369304556354916,
+            "width": 320,
+            "height": 568
+          },
+          "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+          "touchPoints": 1,
+          "coarsePointer": true,
+          "finePointer": false,
+          "coarseHover": true,
+          "fineHover": false
+        }
+      },
+      "activeSection": {
+        "id": "projets-m",
+        "top": -1169,
+        "bottom": 2413.6875,
+        "documentTop": 568,
+        "documentBottom": 4150.6875,
+        "scrollY": 1737
+      },
+      "priorProject": {
+        "index": 2,
+        "href": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+        "name": "tour-de-parole",
+        "intersection": 241820.08203125,
+        "centerDistance": 44.17191921646178,
+        "panelBounds": {
+          "left": 16,
+          "top": 135.125,
+          "right": 376.875,
+          "bottom": 805.21875
+        },
+        "title": "Tour de parole",
+        "titleVisible": true
+      },
+      "currentProject": {
+        "index": 2,
+        "href": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+        "name": "tour-de-parole",
+        "intersection": 124618.5,
+        "centerDistance": 152.6484375,
+        "panelBounds": {
+          "left": 16,
+          "top": 135.296875,
+          "right": 304,
+          "bottom": 738
+        },
+        "title": "Tour de parole",
+        "titleVisible": true
+      },
+      "sameProjectStillVisible": true,
+      "activeProjectDefinition": "readable ticket panel nearest the rail focus center; visible area breaks distance ties; vertical flow uses the viewport focal center",
+      "documentScrollWidth": 320
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "language": "fr",
+      "configuredContext": {
+        "mode": "mobile",
+        "language": "fr",
+        "viewport": {
+          "width": 393,
+          "height": 852
+        },
+        "isMobile": true,
+        "hasTouch": true,
+        "deviceScaleFactor": 2
+      },
+      "actualProfile": {
+        "mode": "tablet",
+        "detection": {
+          "mobileDomActive": false,
+          "tabletHeroActive": true,
+          "desktopHeroActive": false,
+          "tabletLayoutPublished": {
+            "tablet": true,
+            "scale": 0.62,
+            "width": 844,
+            "height": 390
+          },
+          "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+          "touchPoints": 1,
+          "coarsePointer": true,
+          "finePointer": false,
+          "coarseHover": true,
+          "fineHover": false
+        }
+      },
+      "activeSection": {
+        "id": "kc-tablet-projets",
+        "top": -676,
+        "bottom": 1408,
+        "documentTop": 390,
+        "documentBottom": 2474,
+        "scrollY": 1066
+      },
+      "priorProject": {
+        "index": 2,
+        "href": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+        "name": "tour-de-parole",
+        "intersection": 124618.5,
+        "centerDistance": 152.6484375,
+        "panelBounds": {
+          "left": 16,
+          "top": 135.296875,
+          "right": 304,
+          "bottom": 738
+        },
+        "title": "Tour de parole",
+        "titleVisible": true
+      },
+      "currentProject": {
+        "index": 2,
+        "href": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+        "name": "tour-de-parole",
+        "intersection": 165804,
+        "centerDistance": 5,
+        "panelBounds": {
+          "left": 80,
+          "top": 72,
+          "right": 754,
+          "bottom": 318
+        },
+        "title": "Tour de parole",
+        "titleVisible": true
+      },
+      "sameProjectStillVisible": true,
+      "activeProjectDefinition": "readable ticket panel nearest the rail focus center; visible area breaks distance ties; vertical flow uses the viewport focal center",
+      "documentScrollWidth": 844
+    },
+    {
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "language": "fr",
+      "configuredContext": {
+        "mode": "mobile",
+        "language": "fr",
+        "viewport": {
+          "width": 393,
+          "height": 852
+        },
+        "isMobile": true,
+        "hasTouch": true,
+        "deviceScaleFactor": 2
+      },
+      "actualProfile": {
+        "mode": "mobile",
+        "detection": {
+          "mobileDomActive": true,
+          "tabletHeroActive": false,
+          "desktopHeroActive": false,
+          "tabletLayoutPublished": {
+            "tablet": false,
+            "scale": 0.4712230215827338,
+            "width": 393,
+            "height": 852
+          },
+          "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+          "touchPoints": 1,
+          "coarsePointer": true,
+          "finePointer": false,
+          "coarseHover": true,
+          "fineHover": false
+        }
+      },
+      "activeSection": {
+        "id": "projets-m",
+        "top": -1250,
+        "bottom": 2473.734375,
+        "documentTop": 852,
+        "documentBottom": 4575.734375,
+        "scrollY": 2102
+      },
+      "priorProject": {
+        "index": 2,
+        "href": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+        "name": "tour-de-parole",
+        "intersection": 165804,
+        "centerDistance": 5,
+        "panelBounds": {
+          "left": 80,
+          "top": 72,
+          "right": 754,
+          "bottom": 318
+        },
+        "title": "Tour de parole",
+        "titleVisible": true
+      },
+      "currentProject": {
+        "index": 2,
+        "href": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+        "name": "tour-de-parole",
+        "intersection": 241820.08203125,
+        "centerDistance": 0.18288593610499415,
+        "panelBounds": {
+          "left": 16,
+          "top": 91.125,
+          "right": 376.875,
+          "bottom": 761.21875
+        },
+        "title": "Tour de parole",
+        "titleVisible": true
+      },
+      "sameProjectStillVisible": true,
+      "activeProjectDefinition": "readable ticket panel nearest the rail focus center; visible area breaks distance ties; vertical flow uses the viewport focal center",
+      "documentScrollWidth": 393
+    }
+  ],
+  "failures": []
+}

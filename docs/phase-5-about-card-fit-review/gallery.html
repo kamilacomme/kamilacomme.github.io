@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About card fit — before and after review</title>
+  <style>
+    :root { color-scheme: light; font: 16px/1.5 system-ui, sans-serif; color: #201e22; background: #f2f1f5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 32px; }
+    main { max-width: 1440px; margin: auto; }
+    h1 { margin: 0 0 8px; font-size: clamp(28px, 4vw, 44px); }
+    h2 { margin: 40px 0 6px; font-size: 25px; }
+    p { max-width: 850px; margin: 8px 0 20px; }
+    .note { padding: 16px 20px; border-left: 4px solid #8858a8; background: white; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0; }
+    nav a, .open { color: #40304d; }
+    section { scroll-margin-top: 16px; }
+    .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    figure { min-width: 0; margin: 0; padding: 12px; background: white; border-radius: 10px; box-shadow: 0 2px 12px #201e2212; }
+    figcaption { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; font-weight: 650; }
+    img { display: block; width: 100%; height: auto; background: #111; }
+    .measure { color: #57515c; font-size: 14px; }
+    @media (max-width: 760px) { body { padding: 16px; } .pair { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>About cards: current layout and proposed fit fix</h1>
+  <p>Actual Chromium captures from the French and English routes. Each pair uses the same viewport and language: current implementation on the left, proposed geometry on the right.</p>
+  <p class="note"><strong>What changes:</strong> desktop About card size no longer shrinks to fit a short viewport's height. At 1838×517, all five cards retain their 326px square size, so titles and descriptions remain inside the card bounds at their existing 40px/14px typography. The overall composition can extend beyond a short viewport and be naturally cropped by the stage, as requested; the card text itself is not squeezed or clipped. Normal desktop, tablet and mobile control captures are included to show the unaffected sizes.</p>
+  <nav aria-label="Review sections">
+    <a href="#short-fr">Short desktop · FR</a><a href="#short-en">Short desktop · EN</a>
+    <a href="#controls-fr">Layout controls · FR</a><a href="#controls-en">Layout controls · EN</a>
+  </nav>
+
+  <section id="short-fr">
+    <h2>1838×517 · French</h2>
+    <p class="measure">Before: 186.5×186.5px cards; descriptions overran card bounds by up to 25.5px (Behance) and 4.5px (450k). After: 326×326px cards; all title and description line boxes are within their card bounds. Typography remains 40px / 14px.</p>
+    <div class="pair">
+      <figure><figcaption><span>Before</span><a class="open" href="assets/before/fr-desktop-short-1838x517.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/before/fr-desktop-short-1838x517.png" alt="French About page at 1838 by 517 before the fix; cards are compressed and copy runs outside some card boundaries"></figure>
+      <figure><figcaption><span>After</span><a class="open" href="assets/after/fr-desktop-short-1838x517.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/after/fr-desktop-short-1838x517.png" alt="French About page at 1838 by 517 after the fix; cards retain their readable square size and text fits inside"></figure>
+    </div>
+  </section>
+  <section id="short-en">
+    <h2>1838×517 · English</h2>
+    <p class="measure">Before: 186.5×186.5px cards; description overrun reached 25.5px. After: 326×326px cards; every measured title and description line box is inside its card. Typography remains 40px / 14px.</p>
+    <div class="pair">
+      <figure><figcaption><span>Before</span><a class="open" href="assets/before/en-desktop-short-1838x517.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/before/en-desktop-short-1838x517.png" alt="English About page at 1838 by 517 before the fix; card copy is squeezed and overflows card bounds"></figure>
+      <figure><figcaption><span>After</span><a class="open" href="assets/after/en-desktop-short-1838x517.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/after/en-desktop-short-1838x517.png" alt="English About page at 1838 by 517 after the fix; card text fits within full-sized cards"></figure>
+    </div>
+  </section>
+  <section id="controls-fr">
+    <h2>French · unchanged-size controls</h2>
+    <div class="pair">
+      <figure><figcaption><span>Desktop · 1440×900</span><a class="open" href="assets/before/fr-desktop-normal-1440x900.png" target="_blank" rel="noreferrer">Before</a></figcaption><div class="pair"><img src="assets/before/fr-desktop-normal-1440x900.png" alt="French desktop About before"><img src="assets/after/fr-desktop-normal-1440x900.png" alt="French desktop About after"></div><p class="measure">Both: 326px square cards.</p></figure>
+      <figure><figcaption><span>Tablet · 834×1112</span><a class="open" href="assets/after/fr-tablet-portrait-834x1112.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/after/fr-tablet-portrait-834x1112.png" alt="French tablet About after; 240.7px square cards"></figure>
+      <figure><figcaption><span>Mobile · 393×852</span><a class="open" href="assets/after/fr-mobile-393x852.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/after/fr-mobile-393x852.png" alt="French mobile About after; 264px square cards"></figure>
+    </div>
+  </section>
+  <section id="controls-en">
+    <h2>English · unchanged-size controls</h2>
+    <div class="pair">
+      <figure><figcaption><span>Desktop · 1440×900</span><a class="open" href="assets/before/en-desktop-normal-1440x900.png" target="_blank" rel="noreferrer">Before</a></figcaption><div class="pair"><img src="assets/before/en-desktop-normal-1440x900.png" alt="English desktop About before"><img src="assets/after/en-desktop-normal-1440x900.png" alt="English desktop About after"></div><p class="measure">Both: 326px square cards.</p></figure>
+      <figure><figcaption><span>Tablet · 834×1112</span><a class="open" href="assets/after/en-tablet-portrait-834x1112.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/after/en-tablet-portrait-834x1112.png" alt="English tablet About after; 240.7px square cards"></figure>
+      <figure><figcaption><span>Mobile · 393×852</span><a class="open" href="assets/after/en-mobile-393x852.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/after/en-mobile-393x852.png" alt="English mobile About after; 264px square cards"></figure>
+    </div>
+  </section>
+  <p class="measure">Measurements are also available in <a href="assets/before/measurements.json">before/measurements.json</a> and <a href="assets/after/measurements.json">after/measurements.json</a>. Historical visual references were not changed.</p>
+</main>
+</body>
+</html>

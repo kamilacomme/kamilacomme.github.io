@@ -1,0 +1,15 @@
+
+    #projets a[data-i]:focus-visible { outline: 3px solid rgb(202,229,108); outline-offset: 4px; }
+    html { scroll-behavior: auto; }
+    body { margin: 0; background: #08080a; overflow-x: hidden; font-family: 'Inter', sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { opacity: 0.7; }
+    a:focus-visible, [tabindex]:focus-visible { outline: 2px solid #fdb4f5; outline-offset: 3px; border-radius: 4px; }
+    [data-sheet] :focus { outline: 2px solid #7c4ff6; outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    }
+    @keyframes kcDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.28; transform: scale(0.82); } }
+    /* mobile: body copy 16→14, tag/label copy 12→11 */
+    #kc-mobile-root [style*="font-size: 16px"] { font-size: 14px !important; }
+    #kc-mobile-root [style*="font-size: 12px"] { font-size: 11px !important; }

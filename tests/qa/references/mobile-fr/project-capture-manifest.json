@@ -1,0 +1,272 @@
+{
+  "originalCommit": "d8a37314ed7d2265f3f949c9e048b5e2beadfc20",
+  "project": "mobile-fr",
+  "emulation": {
+    "mode": "mobile",
+    "language": "fr",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    },
+    "isMobile": true,
+    "hasTouch": true,
+    "deviceScaleFactor": 2
+  },
+  "browserVersion": "154.0.8037.57",
+  "playwrightVersion": "1.62.1",
+  "harnessSha256": "29abfe8b7970bfe2d1fab4555be3913354342d5a44cf754fa17b7c001ebf031c",
+  "runtimeManifestSha256": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3",
+  "serverSha256": "6a59a4f13366674425f421b9ea7f72e2d5132741caef554ab574c1eb248b22fa",
+  "configuration": {
+    "clockEpoch": "2026-01-01T00:00:00.000Z",
+    "randomSeed": 123456789,
+    "projectVideoVisualPolicy": "Original poster images shown in screenshots; project preview videos are verified under natural time in functional.spec.cjs.",
+    "screenshotScale": "css",
+    "cssAnimations": "disabled at screenshot only"
+  },
+  "cancelledRequests": [
+    "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+    "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+    "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap"
+  ],
+  "states": [
+    {
+      "name": "project-pilates",
+      "id": "pilates",
+      "title": "Pilates",
+      "clip": {
+        "x": 16.078125,
+        "y": 109.78125,
+        "width": 360.875,
+        "height": 517.71875
+      },
+      "scroll": {
+        "x": 0,
+        "y": 958
+      },
+      "performanceNow": 3163,
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+      "devicePixelRatio": 2,
+      "text": "PilatesPilates pour les hommes 28-50 ans, pas la cible habituelle. Construire le corps comme un architecte.web designillustration",
+      "url": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+      "images": [
+        {
+          "src": "assets/projets/opt/p1-bg.webp",
+          "complete": true,
+          "naturalWidth": 800,
+          "opacity": 1
+        }
+      ],
+      "videos": [
+        {
+          "src": "assets/projets/pilates.mp4",
+          "currentTime": 2.577714,
+          "readyState": 4,
+          "paused": true,
+          "playbackRate": 1
+        }
+      ]
+    },
+    {
+      "name": "project-longread",
+      "id": "longread",
+      "title": "Longread",
+      "clip": {
+        "x": 16.078125,
+        "y": 110.140625,
+        "width": 266,
+        "height": 450.71875
+      },
+      "scroll": {
+        "x": 0,
+        "y": 1554
+      },
+      "performanceNow": 3323,
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+      "devicePixelRatio": 2,
+      "text": "LongreadPourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ?web designreadymag animation",
+      "url": "https://readymag.website/u1448912666/perfectionism/",
+      "images": [
+        {
+          "src": "assets/projets/opt/p4-bg.webp",
+          "complete": true,
+          "naturalWidth": 800,
+          "opacity": 1
+        }
+      ],
+      "videos": [
+        {
+          "src": "assets/projets/longread.mp4",
+          "currentTime": 0.99115,
+          "readyState": 4,
+          "paused": true,
+          "playbackRate": 1
+        }
+      ]
+    },
+    {
+      "name": "project-tour-de-parole",
+      "id": "tour-de-parole",
+      "title": "Tour de parole",
+      "clip": {
+        "x": 16.078125,
+        "y": 109.515625,
+        "width": 360.875,
+        "height": 669.078125
+      },
+      "scroll": {
+        "x": 0,
+        "y": 2084
+      },
+      "performanceNow": 3483,
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+      "devicePixelRatio": 2,
+      "text": "Tour de paroleUne école en ligne enseigne aux jeunes à négocier : salaire, tarif, entretien de manière ludique.full brand identityapp & web design",
+      "url": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+      "images": [
+        {
+          "src": "assets/projets/opt/p3-bg.webp",
+          "complete": true,
+          "naturalWidth": 1000,
+          "opacity": 0
+        },
+        {
+          "src": "assets/projets/opt/p3-b.webp",
+          "complete": true,
+          "naturalWidth": 1000,
+          "opacity": 1
+        },
+        {
+          "src": "assets/projets/opt/p3-c.webp",
+          "complete": true,
+          "naturalWidth": 1000,
+          "opacity": 0
+        }
+      ],
+      "videos": []
+    },
+    {
+      "name": "project-inside-out",
+      "id": "inside-out",
+      "title": "Inside out",
+      "clip": {
+        "x": 110.265625,
+        "y": 110.234375,
+        "width": 266,
+        "height": 429.71875
+      },
+      "scroll": {
+        "x": 0,
+        "y": 2831
+      },
+      "performanceNow": 3643,
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+      "devicePixelRatio": 2,
+      "text": "Inside outUn motion sur la santé mentale : l'anxiété sociale et le sentiment d'être submergé.creative directionmotion design",
+      "url": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+      "images": [
+        {
+          "src": "assets/projets/opt/p5-bg.webp",
+          "complete": true,
+          "naturalWidth": 800,
+          "opacity": 1
+        }
+      ],
+      "videos": [
+        {
+          "src": "assets/projets/inside-out.mp4",
+          "currentTime": 0.12305,
+          "readyState": 4,
+          "paused": true,
+          "playbackRate": 1
+        }
+      ]
+    },
+    {
+      "name": "project-celimax",
+      "id": "celimax",
+      "title": "Celimax",
+      "clip": {
+        "x": 16.078125,
+        "y": 109.59375,
+        "width": 360.875,
+        "height": 517.71875
+      },
+      "scroll": {
+        "x": 0,
+        "y": 3340
+      },
+      "performanceNow": 3803,
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+      "devicePixelRatio": 2,
+      "text": "CelimaxUn pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j'adore.3d modelinglanding page",
+      "url": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+      "images": [
+        {
+          "src": "assets/projets/opt/p6-bg.webp",
+          "complete": true,
+          "naturalWidth": 1000,
+          "opacity": 0
+        },
+        {
+          "src": "assets/projets/opt/p6-b.webp",
+          "complete": true,
+          "naturalWidth": 1000,
+          "opacity": 1
+        },
+        {
+          "src": "assets/projets/opt/p6-c.webp",
+          "complete": true,
+          "naturalWidth": 1000,
+          "opacity": 0
+        }
+      ],
+      "videos": []
+    },
+    {
+      "name": "project-napoli",
+      "id": "napoli",
+      "title": "Napoli",
+      "clip": {
+        "x": 16.078125,
+        "y": 109.96875,
+        "width": 266,
+        "height": 450.71875
+      },
+      "scroll": {
+        "x": 0,
+        "y": 3936
+      },
+      "performanceNow": 3963,
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+      "devicePixelRatio": 2,
+      "text": "NapoliUn vrai bout d'Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.brand identityweb design",
+      "url": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+      "images": [
+        {
+          "src": "assets/projets/opt/p2-a.webp",
+          "complete": true,
+          "naturalWidth": 800,
+          "opacity": 0
+        },
+        {
+          "src": "assets/projets/opt/p2-b.webp",
+          "complete": true,
+          "naturalWidth": 800,
+          "opacity": 1
+        },
+        {
+          "src": "assets/projets/opt/p2-bg.webp",
+          "complete": true,
+          "naturalWidth": 800,
+          "opacity": 0
+        }
+      ],
+      "videos": []
+    }
+  ]
+}

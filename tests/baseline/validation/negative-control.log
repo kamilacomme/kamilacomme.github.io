@@ -1,0 +1,97 @@
+
+> test
+> node tests/gate.mjs --project=desktop-fr --grep=approved visual
+
+PASS: 230 frozen baseline artifacts retain their recorded SHA-256.
+PASS: Chromium 154.0.8037.57, Playwright, platform, launch flags and all eight device profiles match the reference lab.
+✔ identical complete synthetic measurements pass (44.431591ms)
+✔ diagnostic output cannot serve as a baseline (35.965292ms)
+✔ missing target fails rather than passing a partial result (39.800313ms)
+✔ nonfinite metrics fail (36.785656ms)
+✔ runtime dependency mismatch invalidates comparison (38.98029ms)
+✔ static server mismatch invalidates comparison (33.36959ms)
+✔ material LCP regression fails (34.604507ms)
+✔ required resource failure invalidates measurement (35.594405ms)
+✔ version drift in a later measurement cannot hide behind first-row equality (32.15222ms)
+✔ actual settings drift in a later measurement fails (36.269039ms)
+✔ caught animation failures logged to console invalidate measurement (36.322119ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 469.506858
+
+Running 1 test using 1 worker
+
+  ✘  1 [desktop-fr] › tests/qa/visual.spec.cjs:11:1 › approved visual and animation states (6.1s)
+
+
+  1) [desktop-fr] › tests/qa/visual.spec.cjs:11:1 › approved visual and animation states ───────────
+
+    Error: expect(page).toHaveScreenshot(expected) failed
+
+      12267 pixels (ratio 0.01 of all image pixels) are different.
+
+      Snapshot: hero-intro-600ms.png
+
+    Call log:
+      - Expect "toHaveScreenshot(hero-intro-600ms.png)" with timeout 60000ms
+        - verifying given screenshot expectation
+      - taking page screenshot
+        - disabled all CSS animations
+      - waiting for fonts to load...
+      - fonts loaded
+      - 12267 pixels (ratio 0.01 of all image pixels) are different.
+      - waiting 100ms before taking screenshot
+      - taking page screenshot
+        - disabled all CSS animations
+      - waiting for fonts to load...
+      - fonts loaded
+      - captured a stable screenshot
+      - 12267 pixels (ratio 0.01 of all image pixels) are different.
+
+
+       at helpers.cjs:43
+
+      41 |  await freezeMedia(page);
+      42 |  if(process.env.REGRESSION_PROBE==='1'){if(process.env.UPDATE_BASELINE==='1')throw new Error('Refuse baseline update during negative-control probe');await page.addStyleTag({content:'h1 { color: #ff0000 !important; }'});}
+    > 43 |  await expect(page).toHaveScreenshot(`${name}.png`,{animations:'disabled',timeout:60000});
+         |                     ^
+      44 |  const record=await page.evaluate(()=>({scroll:{x:scrollX,y:scrollY},viewport:{width:innerWidth,height:innerHeight,devicePixelRatio},url:location.pathname,performanceNow:performance.now(),language:document.documentElement.lang,userAgent:navigator.userAgent,
+      45 |    visibleHeadings:[...document.querySelectorAll('h1,h2')].filter(el=>el.getClientRects().length).map(el=>({text:el.textContent,rect:{x:el.getBoundingClientRect().x,y:el.getBoundingClientRect().y,width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height}})),
+      46 |    mobileImageLayers:[...document.querySelectorAll('#kc-mobile-projets .project')].map(c=>({title:c.querySelector('h2')?.textContent,layers:[...c.querySelectorAll('.visual img')].map(i=>({src:i.getAttribute('src'),complete:i.complete,naturalWidth:i.naturalWidth,opacity:+getComputedStyle(i).opacity}))})),
+        at Object.capture (/workspace/kamilacomme.github.io/tests/qa/helpers.cjs:43:21)
+        at /workspace/kamilacomme.github.io/tests/qa/visual.spec.cjs:14:31
+
+    attachment #1: hero-intro-600ms (image/png) ────────────────────────────────────────────────────
+    Expected: tests/qa/references/desktop-fr/hero-intro-600ms.png
+    Received: artifacts/playwright/results/visual-approved-visual-and-animation-states-desktop-fr/hero-intro-600ms-actual.png
+    Diff:     artifacts/playwright/results/visual-approved-visual-and-animation-states-desktop-fr/hero-intro-600ms-diff.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    artifacts/playwright/results/visual-approved-visual-and-animation-states-desktop-fr/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: artifacts/playwright/results/visual-approved-visual-and-animation-states-desktop-fr/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    artifacts/playwright/results/visual-approved-visual-and-animation-states-desktop-fr/trace.zip
+    Usage:
+
+        npx playwright show-trace artifacts/playwright/results/visual-approved-visual-and-animation-states-desktop-fr/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop-fr] › tests/qa/visual.spec.cjs:11:1 › approved visual and animation states ────────────
+(node:47581) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

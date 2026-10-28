@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "baselineFile": "tests/baseline/performance/summary.json",
+  "candidateFile": "tests/phase-2/performance/summary.json",
+  "failures": [
+    "fr/mobile tbtMs: 380.5 exceeds 308.5 (baseline 208.5)"
+  ]
+}

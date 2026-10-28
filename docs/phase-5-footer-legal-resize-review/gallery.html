@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Footer legal-link resize review</title>
+<style>
+  :root{color-scheme:light;font:16px/1.5 system-ui,sans-serif;color:#242124;background:#f4f3f5}
+  body{max-width:1280px;margin:0 auto;padding:32px}
+  h1{font-size:clamp(28px,4vw,48px);line-height:1.05;margin:0 0 16px}
+  h2{margin:48px 0 12px;font-size:24px}
+  p{max-width:900px}
+  .pair,.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:20px}
+  figure{margin:0;padding:14px;background:white;border:1px solid #dedbe0;border-radius:10px}
+  figcaption{font-weight:650;margin:0 0 10px}
+  img{display:block;width:100%;height:auto;background:#111}
+  table{border-collapse:collapse;background:white;margin:16px 0;width:100%;max-width:920px}
+  th,td{text-align:left;padding:9px 12px;border:1px solid #dedbe0}
+  code{background:#e8e5e9;padding:2px 5px;border-radius:4px}
+  .note{padding:14px 18px;background:#fff;border-left:4px solid #5c575c}
+  @media(max-width:600px){body{padding:18px}.pair,.grid{grid-template-columns:1fr}}
+</style>
+<body>
+<h1>Footer legal links — resize correction</h1>
+<p>This review isolates one `fitFooter()` state-reset issue. Resizing tablet → desktop left the nested link row vertical; a refresh rebuilt it horizontally. The fix explicitly restores the nested row in each existing profile branch. The Footer’s normal content, spacing, typography, shared gutters and curtain owner remain unchanged.</p>
+
+<h2>Before and after · French · 1024×852 → 1377×852</h2>
+<div class="pair">
+  <figure><figcaption>Before: resized without refresh — links stack vertically</figcaption><a href="assets/before/fr-tablet-to-desktop-resize.png"><img src="assets/before/fr-tablet-to-desktop-resize.png" alt="Before: French Footer legal links remain vertically stacked after resizing from tablet to desktop"></a></figure>
+  <figure><figcaption>After: same resize — links stay horizontal</figcaption><a href="assets/after/fr-tablet-to-desktop-resize.png"><img src="assets/after/fr-tablet-to-desktop-resize.png" alt="After: French Footer legal links remain in one horizontal row after resizing from tablet to desktop"></a></figure>
+</div>
+
+<h2>Before and after · English · 1024×852 → 1377×852</h2>
+<div class="pair">
+  <figure><figcaption>Before: resized without refresh — links stack vertically</figcaption><a href="assets/before/en-tablet-to-desktop-resize.png"><img src="assets/before/en-tablet-to-desktop-resize.png" alt="Before: English Footer legal links remain vertically stacked after resizing from tablet to desktop"></a></figure>
+  <figure><figcaption>After: same resize — links stay horizontal</figcaption><a href="assets/after/en-tablet-to-desktop-resize.png"><img src="assets/after/en-tablet-to-desktop-resize.png" alt="After: English Footer legal links remain in one horizontal row after resizing from tablet to desktop"></a></figure>
+</div>
+
+<h2>After · fresh load / refresh and responsive profiles</h2>
+<p>These captures are real Chromium renders after settling the Footer geometry. The legal links are aligned horizontally at every tested width; their existing profile-specific gaps are preserved. Screenshots use the curtain’s existing reduced-motion static renderer at settled progress for a repeatable comparison; the focused regression run also checks the mounted curtain instance and finite progress in normal motion while resizing.</p>
+<div class="grid">
+  <figure><figcaption>FR · desktop refresh · 1377×852</figcaption><a href="assets/after/fr-desktop-refresh.png"><img src="assets/after/fr-desktop-refresh.png" alt="French Footer after a fresh desktop refresh"></a></figure>
+  <figure><figcaption>EN · desktop refresh · 1377×852</figcaption><a href="assets/after/en-desktop-refresh.png"><img src="assets/after/en-desktop-refresh.png" alt="English Footer after a fresh desktop refresh"></a></figure>
+  <figure><figcaption>FR · desktop control · 1440×900</figcaption><a href="assets/after/fr-desktop-control-1440.png"><img src="assets/after/fr-desktop-control-1440.png" alt="French Footer at the normal desktop control size"></a></figure>
+  <figure><figcaption>EN · desktop control · 1440×900</figcaption><a href="assets/after/en-desktop-control-1440.png"><img src="assets/after/en-desktop-control-1440.png" alt="English Footer at the normal desktop control size"></a></figure>
+  <figure><figcaption>FR · tablet · 1024×852</figcaption><a href="assets/after/fr-tablet-1024.png"><img src="assets/after/fr-tablet-1024.png" alt="French Footer after resizing to tablet"></a></figure>
+  <figure><figcaption>EN · tablet · 1024×852</figcaption><a href="assets/after/en-tablet-1024.png"><img src="assets/after/en-tablet-1024.png" alt="English Footer after resizing to tablet"></a></figure>
+  <figure><figcaption>FR · narrow tablet · 500×600</figcaption><a href="assets/after/fr-narrow-tablet-500.png"><img src="assets/after/fr-narrow-tablet-500.png" alt="French Footer on a narrow tablet viewport"></a></figure>
+  <figure><figcaption>EN · narrow tablet · 500×600</figcaption><a href="assets/after/en-narrow-tablet-500.png"><img src="assets/after/en-narrow-tablet-500.png" alt="English Footer on a narrow tablet viewport"></a></figure>
+  <figure><figcaption>FR · mobile · 393×852</figcaption><a href="assets/after/fr-mobile-393.png"><img src="assets/after/fr-mobile-393.png" alt="French Footer on mobile at 393 pixels wide"></a></figure>
+  <figure><figcaption>EN · mobile · 393×852</figcaption><a href="assets/after/en-mobile-393.png"><img src="assets/after/en-mobile-393.png" alt="English Footer on mobile at 393 pixels wide"></a></figure>
+  <figure><figcaption>FR · minimum mobile · 320×568</figcaption><a href="assets/after/fr-mobile-320.png"><img src="assets/after/fr-mobile-320.png" alt="French Footer on mobile at 320 by 568 pixels"></a></figure>
+  <figure><figcaption>EN · minimum mobile · 320×568</figcaption><a href="assets/after/en-mobile-320.png"><img src="assets/after/en-mobile-320.png" alt="English Footer on mobile at 320 by 568 pixels"></a></figure>
+</div>
+
+<h2>Measured link bounds</h2>
+<table><thead><tr><th>Locale / viewport</th><th>Direction</th><th>Gap</th><th>First link (x, y)</th><th>Second link (x, y)</th></tr></thead><tbody>
+<tr><td>FR · resize result · 1377×852</td><td>row / row</td><td>30.6px</td><td>566.19, 803.59</td><td>690.86, 803.59</td></tr>
+<tr><td>EN · resize result · 1377×852</td><td>row / row</td><td>30.6px</td><td>571.59, 803.59</td><td>669.89, 803.59</td></tr>
+<tr><td>FR · desktop · 1440×900</td><td>row / row</td><td>32px</td><td>596.30, 850</td><td>722.38, 850</td></tr>
+<tr><td>EN · desktop · 1440×900</td><td>row / row</td><td>32px</td><td>601.69, 850</td><td>701.39, 850</td></tr>
+<tr><td>FR · tablet · 1024×852</td><td>row / row</td><td>7.6px</td><td>32, 802</td><td>133.67, 802</td></tr>
+<tr><td>EN · tablet · 1024×852</td><td>row / row</td><td>7.6px</td><td>32, 802</td><td>107.30, 802</td></tr>
+<tr><td>FR · narrow tablet · 500×600</td><td>row / row</td><td>4.8px</td><td>32, 550.06</td><td>130.88, 550.06</td></tr>
+<tr><td>EN · narrow tablet · 500×600</td><td>row / row</td><td>4.8px</td><td>32, 549.53</td><td>104.50, 549.53</td></tr>
+<tr><td>FR · mobile · 393×852</td><td>row / row</td><td>8px</td><td>16, 811.63</td><td>110.23, 811.63</td></tr>
+<tr><td>EN · mobile · 393×852</td><td>row / row</td><td>8px</td><td>16, 811.63</td><td>86.06, 811.63</td></tr>
+<tr><td>FR · mobile · 320×568</td><td>row / row</td><td>8px</td><td>16, 527.78</td><td>110.23, 527.78</td></tr>
+<tr><td>EN · mobile · 320×568</td><td>row / row</td><td>8px</td><td>16, 527.78</td><td>86.06, 527.78</td></tr>
+</tbody></table>
+<p class="note">The two numbers in “Direction” are the outer Footer legal group and its nested link row. The prior faulty resized state measured outer <code>row</code> / inner <code>column</code>; after the correction both are <code>row</code>. Exact measurements for every FR/EN capture are in <a href="assets/measurements.json">the JSON file</a>.</p>
+</body>
+</html>

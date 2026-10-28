@@ -1,0 +1,117 @@
+:root {
+  color-scheme: light;
+  --kc-ink: #222022;
+  --kc-muted: #5c575c;
+  --kc-pink: #fdb4f5;
+  --kc-page-gutter: clamp(16px, 2.22vw, 32px);
+  /* The shared Navbar falls back to the homepage colors. Only the 404 page
+     overrides them for its white surface. */
+  --kc-nav-ink: #222022;
+  --kc-nav-muted: #5c575c;
+  --kc-nav-pill-bg: #f8f7f8;
+  --kc-nav-pill-border: #e5e2e5;
+  font-family: Inter, Arial, sans-serif;
+  color: var(--kc-ink);
+  background: #fff;
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; min-height: 100%; background: #fff; }
+body {
+  min-width: 320px;
+  min-height: 100svh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+.site-header { flex: 0 0 72px; min-height: 72px; width: 100%; background: #fff; }
+.kc-404-nav { color: var(--kc-ink); }
+
+.not-found {
+  flex: 1 0 auto;
+  min-height: calc(100svh - 72px);
+  padding: clamp(28px, 6vh, 72px) 16px clamp(40px, 8vh, 88px);
+  display: grid;
+  place-items: center;
+}
+.message {
+  width: min(100%, 1080px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.code {
+  margin: 0 0 clamp(20px, 3vh, 36px);
+  color: var(--kc-muted);
+  font-family: Figtree, Arial, sans-serif;
+  font-size: clamp(112px, min(22vw, 34vh), 320px);
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.075em;
+}
+.statement {
+  max-width: 100%;
+  margin: 0;
+  font-family: Figtree, Arial, sans-serif;
+  font-size: 56px;
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.statement span { display: block; }
+.statement strong { font-weight: 700; }
+.statement em { font-weight: 400; }
+.home-button {
+  min-height: 44px;
+  margin-top: clamp(20px, 3vh, 32px);
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--kc-ink);
+  border-radius: 4px;
+  background: var(--kc-ink);
+  color: #fff;
+  font: 400 14px/1 Inter, Arial, sans-serif;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.kc-404-nav [data-kc-nav-section] { color: var(--kc-ink); text-decoration: none; }
+.kc-404-nav [data-kc-nav-hire] { text-decoration: none; }
+.home-button:hover { background: #3b373b; }
+[hidden] { display: none !important; }
+html[data-locale="fr"] .en,
+html[data-locale="en"] .fr { display: none; }
+
+/* Mirror the homepage's responsive Navbar profile without loading its
+   controller: tablets omit centered section links; narrow/tablet mobile use
+   the same logo + Hire action, and phone widths also hide availability. */
+@media (max-width: 1079px), (max-width: 1366px) and (any-pointer: coarse) {
+  .kc-404-nav > [data-kc-navbar-links] { display: none !important; }
+  .kc-404-nav { --kc-nav-gutter: 32px !important; --kc-nav-block-padding: 14px !important; }
+}
+@media (min-width: 608px) and (max-width: 833px) {
+  .kc-404-nav > [data-kc-nav-actions] { gap: 16px !important; }
+}
+@media (min-width: 500px) and (max-width: 607px) {
+  .kc-404-nav > [data-kc-nav-availability] { display: none !important; }
+  .kc-404-nav > [data-kc-nav-actions] { gap: 0 !important; }
+}
+@media (max-width: 499px) {
+  .kc-404-nav { --kc-nav-scale: 1 !important; --kc-nav-gutter: 16px !important; --kc-nav-block-padding: 14px !important; }
+  .kc-404-nav > [data-kc-navbar-links],
+  .kc-404-nav > [data-kc-nav-availability] { display: none !important; }
+  .kc-404-nav > [data-kc-nav-actions] { gap: 0 !important; }
+  .kc-404-nav a[href^="mailto"] { padding-inline: 16px !important; }
+}
+@media (min-width: 500px) and (max-width: 1079px), (max-width: 1366px) and (any-pointer: coarse) {
+  .statement { font-size: 48px; }
+}
+@media (max-width: 499px) {
+  .statement { font-size: 32px; }
+  .not-found { padding-inline: 16px; }
+}
+@media (max-height: 420px) { .not-found { place-items: start center; } }

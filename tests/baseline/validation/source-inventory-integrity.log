@@ -1,0 +1,26 @@
+verifiedAt=2026-10-21T11:50:47Z
+
+> test:source
+> node tests/verify-original.mjs
+
+PASS: all 51 original website files are byte-identical to d8a37314ed7d2265f3f949c9e048b5e2beadfc20
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> test:inventory
+> node tests/inventory/generate.cjs --check
+
+PASS: frozen inventory matches original-source extraction (read-only check)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> test:baseline-integrity
+> node tests/artifact-lock.mjs
+
+PASS: 230 frozen baseline artifacts retain their recorded SHA-256.

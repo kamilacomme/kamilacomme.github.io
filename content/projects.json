@@ -1,0 +1,828 @@
+{
+  "schemaVersion": 1,
+  "canonicalOrder": [
+    "pilates",
+    "longread",
+    "tour-de-parole",
+    "inside-out",
+    "celimax",
+    "napoli"
+  ],
+  "projects": [
+    {
+      "id": "pilates",
+      "url": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+      "locales": {
+        "fr": {
+          "title": "Pilates",
+          "description": "Pilates pour les hommes 28-50 ans, pas la cible habituelle. Construire le corps comme un architecte.",
+          "tags": [
+            "web design",
+            "illustration"
+          ],
+          "accessibleName": null,
+          "layoutOverrides": {
+            "mobile": {
+              "accessibleName": "Voir le projet Pilates"
+            }
+          },
+          "accessibility": {
+            "card": "Voir le projet Pilates",
+            "mediaPreview": "Aperçu animé du projet Pilates"
+          }
+        },
+        "en": {
+          "title": "Pilates",
+          "description": "Pilates for men aged 28–50, beyond the usual audience. Building the body like an architect.",
+          "tags": [
+            "web design",
+            "illustration"
+          ],
+          "accessibleName": null,
+          "layoutOverrides": {
+            "mobile": {
+              "accessibleName": "View the Pilates project"
+            }
+          },
+          "accessibility": {
+            "card": "View the Pilates project",
+            "mediaPreview": "Animated preview of the Pilates project"
+          }
+        }
+      },
+      "presentations": {
+        "desktop": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p1-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/pilates.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/pilates.webp"
+          ]
+        },
+        "tablet-portrait": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p1-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/pilates.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": []
+        },
+        "tablet-landscape": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p1-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/pilates.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": []
+        },
+        "mobile": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p1-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/pilates.mp4",
+              "poster": "assets/projets/opt/p1-bg.webp",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "sequence": [],
+          "sequenceByLocale": {
+            "fr": [],
+            "en": []
+          },
+          "geometry": {
+            "card": "width:min(360.879px, 100%);height:auto",
+            "visual": "height:auto;aspect-ratio:360.879 / 245",
+            "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
+            "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
+            "categories": "position:relative;left:auto;top:auto;margin-top:24px",
+            "barcodeTop": "auto",
+            "barcodeProfile": "wide"
+          }
+        }
+      }
+    },
+    {
+      "id": "longread",
+      "url": "https://readymag.website/u1448912666/perfectionism/",
+      "locales": {
+        "fr": {
+          "title": "Longread",
+          "description": "Pourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ?",
+          "tags": [
+            "Web design",
+            "readymag animation"
+          ],
+          "accessibleName": null,
+          "layoutOverrides": {
+            "mobile": {
+              "tags": [
+                "web design",
+                "readymag animation"
+              ],
+              "accessibleName": "Voir le projet Longread"
+            }
+          },
+          "accessibility": {
+            "card": "Voir le projet Longread",
+            "mediaPreview": "Aperçu animé du projet Longread"
+          }
+        },
+        "en": {
+          "title": "Longread",
+          "description": "Why does one slightly misaligned object in a perfect row bother us so much?",
+          "tags": [
+            "Web design",
+            "readymag animation"
+          ],
+          "accessibleName": null,
+          "layoutOverrides": {
+            "mobile": {
+              "tags": [
+                "web design",
+                "readymag animation"
+              ],
+              "accessibleName": "View the Longread project"
+            }
+          },
+          "accessibility": {
+            "card": "View the Longread project",
+            "mediaPreview": "Animated preview of the Longread project"
+          }
+        }
+      },
+      "presentations": {
+        "desktop": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p4-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/longread.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/longread.webp"
+          ]
+        },
+        "tablet-portrait": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p4-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/longread.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": []
+        },
+        "tablet-landscape": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p4-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/longread.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": []
+        },
+        "mobile": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p4-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/longread.mp4",
+              "poster": "assets/projets/opt/p4-bg.webp",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "sequence": [],
+          "sequenceByLocale": {
+            "fr": [],
+            "en": []
+          },
+          "geometry": {
+            "card": "width:min(266px, 100%);height:auto",
+            "visual": "height:auto;aspect-ratio:266 / 157",
+            "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
+            "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
+            "categories": "position:relative;left:auto;top:auto;margin-top:24px",
+            "barcodeTop": "auto",
+            "barcodeProfile": "narrow"
+          }
+        }
+      }
+    },
+    {
+      "id": "tour-de-parole",
+      "url": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+      "locales": {
+        "fr": {
+          "title": "Tour de parole",
+          "description": "Une école en ligne enseigne aux jeunes à négocier : salaire, tarif, entretien de manière ludique.",
+          "tags": [
+            "full brand identity",
+            "app & web design"
+          ],
+          "accessibleName": null,
+          "layoutOverrides": {
+            "mobile": {
+              "accessibleName": "Voir le projet Tour de parole"
+            }
+          },
+          "accessibility": {
+            "card": "Voir le projet Tour de parole",
+            "mediaPreview": "Aperçu animé du projet Tour de parole"
+          }
+        },
+        "en": {
+          "title": "Tour de parole",
+          "description": "An online school that teaches young people to negotiate salaries, rates and interviews through play.",
+          "tags": [
+            "full brand identity",
+            "app & web design"
+          ],
+          "accessibleName": null,
+          "layoutOverrides": {
+            "mobile": {
+              "accessibleName": "View the Tour de parole project"
+            }
+          },
+          "accessibility": {
+            "card": "View the Tour de parole project",
+            "mediaPreview": "Animated preview of the Tour de parole project"
+          }
+        }
+      },
+      "presentations": {
+        "desktop": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-b.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-c.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/tdp.webp"
+          ]
+        },
+        "tablet-portrait": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": []
+        },
+        "tablet-landscape": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": []
+        },
+        "mobile": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "sequence": [
+            "assets/projets/opt/p3-bg.webp",
+            "assets/projets/opt/p3-b.webp",
+            "assets/projets/opt/p3-c.webp"
+          ],
+          "sequenceByLocale": {
+            "fr": [
+              "assets/projets/opt/p3-bg.webp",
+              "assets/projets/opt/p3-b.webp",
+              "assets/projets/opt/p3-c.webp"
+            ],
+            "en": [
+              "assets/projets/opt/p3-bg.webp",
+              "assets/projets/opt/p3-b.webp",
+              "assets/projets/opt/p3-c.webp",
+              "assets/projets/opt/p3-b.webp",
+              "assets/projets/opt/p3-c.webp"
+            ]
+          },
+          "geometry": {
+            "card": "width:min(360.879px, 100%);height:auto",
+            "visual": "height:auto;aspect-ratio:360.879 / 396.359",
+            "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
+            "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
+            "categories": "position:relative;left:auto;top:auto;margin-top:24px",
+            "barcodeTop": "auto",
+            "barcodeProfile": "wide"
+          }
+        }
+      }
+    },
+    {
+      "id": "inside-out",
+      "url": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+      "locales": {
+        "fr": {
+          "title": "Inside out",
+          "description": "Un motion sur la santé mentale : l'anxiété sociale et le sentiment d'être submergé.",
+          "tags": [
+            "creative direction",
+            "motion design"
+          ],
+          "accessibleName": null,
+          "layoutOverrides": {
+            "tablet-portrait": {
+              "description": "Un motion sur la santé mentale : l’anxiété sociale et le sentiment d’être submergé par les émotions."
+            },
+            "tablet-landscape": {
+              "description": "Un motion sur la santé mentale : l’anxiété sociale et le sentiment d’être submergé par les émotions."
+            },
+            "mobile": {
+              "accessibleName": "Voir le projet Inside out"
+            }
+          },
+          "accessibility": {
+            "card": "Voir le projet Inside out",
+            "mediaPreview": "Aperçu animé du projet Inside out"
+          }
+        },
+        "en": {
+          "title": "Inside out",
+          "description": "A motion design piece about mental health: social anxiety and feeling overwhelmed.",
+          "tags": [
+            "creative direction",
+            "motion design"
+          ],
+          "accessibleName": null,
+          "layoutOverrides": {
+            "tablet-portrait": {
+              "description": "A motion design piece on mental health: social anxiety and feeling overwhelmed by emotions."
+            },
+            "tablet-landscape": {
+              "description": "A motion design piece on mental health: social anxiety and feeling overwhelmed by emotions."
+            },
+            "mobile": {
+              "accessibleName": "View the Inside out project"
+            }
+          },
+          "accessibility": {
+            "card": "View the Inside out project",
+            "mediaPreview": "Animated preview of the Inside out project"
+          }
+        }
+      },
+      "presentations": {
+        "desktop": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p5-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/inside-out.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/insideout.webp"
+          ]
+        },
+        "tablet-portrait": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p5-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/inside-out.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": []
+        },
+        "tablet-landscape": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p5-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/inside-out.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": []
+        },
+        "mobile": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p5-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/inside-out.mp4",
+              "poster": "assets/projets/opt/p5-bg.webp",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "sequence": [],
+          "sequenceByLocale": {
+            "fr": [],
+            "en": []
+          },
+          "geometry": {
+            "card": "width:min(266px, 100%);height:auto",
+            "visual": "height:auto;aspect-ratio:266 / 157",
+            "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
+            "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
+            "categories": "position:relative;left:auto;top:auto;margin-top:24px",
+            "barcodeTop": "auto",
+            "barcodeProfile": "narrow"
+          }
+        }
+      }
+    },
+    {
+      "id": "celimax",
+      "url": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+      "locales": {
+        "fr": {
+          "title": "Celimax",
+          "description": "Un pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j'adore.",
+          "tags": [
+            "3d modeling",
+            "landing page"
+          ],
+          "accessibleName": null,
+          "layoutOverrides": {
+            "tablet-portrait": {
+              "description": "Un pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j’adore.",
+              "tags": [
+                "branding",
+                "UX/UI"
+              ]
+            },
+            "tablet-landscape": {
+              "description": "Un pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j’adore.",
+              "tags": [
+                "branding",
+                "UX/UI"
+              ]
+            },
+            "mobile": {
+              "accessibleName": "Voir le projet Celimax"
+            }
+          },
+          "accessibility": {
+            "card": "Voir le projet Celimax",
+            "mediaPreview": "Aperçu animé du projet Celimax"
+          }
+        },
+        "en": {
+          "title": "Celimax",
+          "description": "A skincare jar reimagined as a mini record player for Celimax — a Korean brand I love.",
+          "tags": [
+            "3d modeling",
+            "landing page"
+          ],
+          "accessibleName": null,
+          "layoutOverrides": {
+            "tablet-portrait": {
+              "tags": [
+                "branding",
+                "UX/UI"
+              ]
+            },
+            "tablet-landscape": {
+              "tags": [
+                "branding",
+                "UX/UI"
+              ]
+            },
+            "mobile": {
+              "accessibleName": "View the Celimax project"
+            }
+          },
+          "accessibility": {
+            "card": "View the Celimax project",
+            "mediaPreview": "Animated preview of the Celimax project"
+          }
+        }
+      },
+      "presentations": {
+        "desktop": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-b.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-c.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/celimax.webp"
+          ]
+        },
+        "tablet-portrait": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": []
+        },
+        "tablet-landscape": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": []
+        },
+        "mobile": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "sequence": [
+            "assets/projets/opt/p6-bg.webp",
+            "assets/projets/opt/p6-b.webp",
+            "assets/projets/opt/p6-c.webp"
+          ],
+          "sequenceByLocale": {
+            "fr": [
+              "assets/projets/opt/p6-bg.webp",
+              "assets/projets/opt/p6-b.webp",
+              "assets/projets/opt/p6-c.webp"
+            ],
+            "en": [
+              "assets/projets/opt/p6-bg.webp",
+              "assets/projets/opt/p6-b.webp",
+              "assets/projets/opt/p6-c.webp",
+              "assets/projets/opt/p6-b.webp",
+              "assets/projets/opt/p6-c.webp"
+            ]
+          },
+          "geometry": {
+            "card": "width:min(360.879px, 100%);height:auto",
+            "visual": "height:auto;aspect-ratio:360.879 / 245",
+            "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
+            "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
+            "categories": "position:relative;left:auto;top:auto;margin-top:24px",
+            "barcodeTop": "auto",
+            "barcodeProfile": "wide"
+          }
+        }
+      }
+    },
+    {
+      "id": "napoli",
+      "url": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+      "locales": {
+        "fr": {
+          "title": "Napoli",
+          "description": "Un vrai bout d'Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.",
+          "tags": [
+            "brand identity",
+            "Web design"
+          ],
+          "accessibleName": null,
+          "layoutOverrides": {
+            "tablet-portrait": {
+              "description": "Un vrai bout d’Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.",
+              "tags": [
+                "full brand identity",
+                "Web design"
+              ]
+            },
+            "tablet-landscape": {
+              "description": "Un vrai bout d’Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.",
+              "tags": [
+                "full brand identity",
+                "Web design"
+              ]
+            },
+            "mobile": {
+              "tags": [
+                "brand identity",
+                "web design"
+              ],
+              "accessibleName": "Voir le projet Napoli"
+            }
+          },
+          "accessibility": {
+            "card": "Voir le projet Napoli",
+            "mediaPreview": "Aperçu animé du projet Napoli"
+          }
+        },
+        "en": {
+          "title": "Napoli",
+          "description": "An authentic taste of Italy in Montreuil — focaccia, Italian pastries and Neapolitan espresso.",
+          "tags": [
+            "brand identity",
+            "Web design"
+          ],
+          "accessibleName": null,
+          "layoutOverrides": {
+            "tablet-portrait": {
+              "tags": [
+                "full brand identity",
+                "Web design"
+              ]
+            },
+            "tablet-landscape": {
+              "tags": [
+                "full brand identity",
+                "Web design"
+              ]
+            },
+            "mobile": {
+              "tags": [
+                "brand identity",
+                "web design"
+              ],
+              "accessibleName": "View the Napoli project"
+            }
+          },
+          "accessibility": {
+            "card": "View the Napoli project",
+            "mediaPreview": "Animated preview of the Napoli project"
+          }
+        }
+      },
+      "presentations": {
+        "desktop": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-a.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-b.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/napoli.webp"
+          ]
+        },
+        "tablet-portrait": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-a.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": []
+        },
+        "tablet-landscape": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-a.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": []
+        },
+        "mobile": {
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-a.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "sequence": [
+            "assets/projets/opt/p2-a.webp",
+            "assets/projets/opt/p2-b.webp",
+            "assets/projets/opt/p2-bg.webp"
+          ],
+          "sequenceByLocale": {
+            "fr": [
+              "assets/projets/opt/p2-a.webp",
+              "assets/projets/opt/p2-b.webp",
+              "assets/projets/opt/p2-bg.webp"
+            ],
+            "en": [
+              "assets/projets/opt/p2-a.webp",
+              "assets/projets/opt/p2-b.webp",
+              "assets/projets/opt/p2-bg.webp",
+              "assets/projets/opt/p2-b.webp",
+              "assets/projets/opt/p2-bg.webp"
+            ]
+          },
+          "geometry": {
+            "card": "width:min(266px, 100%);height:auto",
+            "visual": "height:auto;aspect-ratio:266 / 157",
+            "title": "position:relative;left:auto;top:auto;width:100%;margin:24px 0 8px",
+            "description": "position:relative;left:auto;top:auto;width:100%;height:auto;margin:0",
+            "categories": "position:relative;left:auto;top:auto;margin-top:24px",
+            "barcodeTop": "auto",
+            "barcodeProfile": "narrow"
+          }
+        }
+      }
+    }
+  ]
+}

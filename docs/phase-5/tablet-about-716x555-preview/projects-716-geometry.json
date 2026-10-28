@@ -1,0 +1,1082 @@
+{
+  "projectStart": 834,
+  "projectHeight": 3932.0625,
+  "viewportHeight": 834,
+  "aboutTop": 4766.0625,
+  "samples": [
+    {
+      "progress": 0,
+      "data": {
+        "scrollY": 834,
+        "section": {
+          "left": 0,
+          "right": 716,
+          "top": 0,
+          "bottom": 3932.0625,
+          "width": 716,
+          "height": 3932.0625
+        },
+        "viewport": {
+          "left": 0,
+          "right": 716,
+          "top": 0,
+          "bottom": 3932.0625,
+          "width": 716,
+          "height": 3932.0625
+        },
+        "viewportOverflow": "hidden",
+        "rail": {
+          "left": 32,
+          "right": 684,
+          "top": 269,
+          "bottom": 3900.0625,
+          "width": 652,
+          "height": 3631.0625
+        },
+        "railTransform": "none",
+        "cards": [
+          {
+            "id": "pilates",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": 269,
+              "bottom": 850.765625,
+              "width": 652,
+              "height": 581.765625
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": 333,
+              "bottom": 786.765625,
+              "width": 356,
+              "height": 453.765625
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": 357,
+              "bottom": 529,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": 549,
+              "bottom": 704.765625,
+              "width": 308,
+              "height": 155.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": 666.390625,
+              "bottom": 704.765625,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": 724.765625,
+              "bottom": 762.765625,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "longread",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": 882.765625,
+              "bottom": 1454.765625,
+              "width": 652,
+              "height": 572
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": 946.765625,
+              "bottom": 1390.765625,
+              "width": 356,
+              "height": 444
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": 970.765625,
+              "bottom": 1142.765625,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": 1174,
+              "bottom": 1308.765625,
+              "width": 308,
+              "height": 134.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": 1270.390625,
+              "bottom": 1308.765625,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": 1328.765625,
+              "bottom": 1366.765625,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "tour-de-parole",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": 1486.765625,
+              "bottom": 2068.53125,
+              "width": 652,
+              "height": 581.765625
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": 1550.765625,
+              "bottom": 2004.53125,
+              "width": 356,
+              "height": 453.765625
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": 1574.765625,
+              "bottom": 1746.765625,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": 1766.765625,
+              "bottom": 1922.53125,
+              "width": 308,
+              "height": 155.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": 1884.15625,
+              "bottom": 1922.53125,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": 1942.53125,
+              "bottom": 1980.53125,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "inside-out",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": 2100.53125,
+              "bottom": 2682.296875,
+              "width": 652,
+              "height": 581.765625
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": 2164.53125,
+              "bottom": 2618.296875,
+              "width": 356,
+              "height": 453.765625
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": 2188.53125,
+              "bottom": 2360.53125,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": 2380.53125,
+              "bottom": 2536.296875,
+              "width": 308,
+              "height": 155.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": 2497.921875,
+              "bottom": 2536.296875,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": 2556.296875,
+              "bottom": 2594.296875,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "celimax",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": 2714.296875,
+              "bottom": 3286.296875,
+              "width": 652,
+              "height": 572
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": 2778.296875,
+              "bottom": 3222.296875,
+              "width": 356,
+              "height": 444
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": 2802.296875,
+              "bottom": 2974.296875,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": 3005.53125,
+              "bottom": 3140.296875,
+              "width": 308,
+              "height": 134.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": 3101.921875,
+              "bottom": 3140.296875,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": 3160.296875,
+              "bottom": 3198.296875,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "napoli",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": 3318.296875,
+              "bottom": 3900.0625,
+              "width": 652,
+              "height": 581.765625
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": 3382.296875,
+              "bottom": 3836.0625,
+              "width": 356,
+              "height": 453.765625
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": 3406.296875,
+              "bottom": 3578.296875,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": 3598.296875,
+              "bottom": 3754.0625,
+              "width": 308,
+              "height": 155.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": 3715.6875,
+              "bottom": 3754.0625,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": 3774.0625,
+              "bottom": 3812.0625,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          }
+        ]
+      }
+    },
+    {
+      "progress": 0.5,
+      "data": {
+        "scrollY": 2383,
+        "section": {
+          "left": 0,
+          "right": 716,
+          "top": -1549,
+          "bottom": 2383.0625,
+          "width": 716,
+          "height": 3932.0625
+        },
+        "viewport": {
+          "left": 0,
+          "right": 716,
+          "top": -1549,
+          "bottom": 2383.0625,
+          "width": 716,
+          "height": 3932.0625
+        },
+        "viewportOverflow": "hidden",
+        "rail": {
+          "left": 32,
+          "right": 684,
+          "top": -1280,
+          "bottom": 2351.0625,
+          "width": 652,
+          "height": 3631.0625
+        },
+        "railTransform": "none",
+        "cards": [
+          {
+            "id": "pilates",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": -1280,
+              "bottom": -698.234375,
+              "width": 652,
+              "height": 581.765625
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": -1216,
+              "bottom": -762.234375,
+              "width": 356,
+              "height": 453.765625
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": -1192,
+              "bottom": -1020,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": -1000,
+              "bottom": -844.234375,
+              "width": 308,
+              "height": 155.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": -882.609375,
+              "bottom": -844.234375,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": -824.234375,
+              "bottom": -786.234375,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "longread",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": -666.234375,
+              "bottom": -94.234375,
+              "width": 652,
+              "height": 572
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": -602.234375,
+              "bottom": -158.234375,
+              "width": 356,
+              "height": 444
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": -578.234375,
+              "bottom": -406.234375,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": -375,
+              "bottom": -240.234375,
+              "width": 308,
+              "height": 134.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": -278.609375,
+              "bottom": -240.234375,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": -220.234375,
+              "bottom": -182.234375,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "tour-de-parole",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": -62.234375,
+              "bottom": 519.53125,
+              "width": 652,
+              "height": 581.765625
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": 1.765625,
+              "bottom": 455.53125,
+              "width": 356,
+              "height": 453.765625
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": 25.765625,
+              "bottom": 197.765625,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": 217.765625,
+              "bottom": 373.53125,
+              "width": 308,
+              "height": 155.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": 335.15625,
+              "bottom": 373.53125,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": 393.53125,
+              "bottom": 431.53125,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "inside-out",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": 551.53125,
+              "bottom": 1133.296875,
+              "width": 652,
+              "height": 581.765625
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": 615.53125,
+              "bottom": 1069.296875,
+              "width": 356,
+              "height": 453.765625
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": 639.53125,
+              "bottom": 811.53125,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": 831.53125,
+              "bottom": 987.296875,
+              "width": 308,
+              "height": 155.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": 948.921875,
+              "bottom": 987.296875,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": 1007.296875,
+              "bottom": 1045.296875,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "celimax",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": 1165.296875,
+              "bottom": 1737.296875,
+              "width": 652,
+              "height": 572
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": 1229.296875,
+              "bottom": 1673.296875,
+              "width": 356,
+              "height": 444
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": 1253.296875,
+              "bottom": 1425.296875,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": 1456.53125,
+              "bottom": 1591.296875,
+              "width": 308,
+              "height": 134.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": 1552.921875,
+              "bottom": 1591.296875,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": 1611.296875,
+              "bottom": 1649.296875,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "napoli",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": 1769.296875,
+              "bottom": 2351.0625,
+              "width": 652,
+              "height": 581.765625
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": 1833.296875,
+              "bottom": 2287.0625,
+              "width": 356,
+              "height": 453.765625
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": 1857.296875,
+              "bottom": 2029.296875,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": 2049.296875,
+              "bottom": 2205.0625,
+              "width": 308,
+              "height": 155.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": 2166.6875,
+              "bottom": 2205.0625,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": 2225.0625,
+              "bottom": 2263.0625,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          }
+        ]
+      }
+    },
+    {
+      "progress": 1,
+      "data": {
+        "scrollY": 3932,
+        "section": {
+          "left": 0,
+          "right": 716,
+          "top": -3098,
+          "bottom": 834.0625,
+          "width": 716,
+          "height": 3932.0625
+        },
+        "viewport": {
+          "left": 0,
+          "right": 716,
+          "top": -3098,
+          "bottom": 834.0625,
+          "width": 716,
+          "height": 3932.0625
+        },
+        "viewportOverflow": "hidden",
+        "rail": {
+          "left": 32,
+          "right": 684,
+          "top": -2829,
+          "bottom": 802.0625,
+          "width": 652,
+          "height": 3631.0625
+        },
+        "railTransform": "none",
+        "cards": [
+          {
+            "id": "pilates",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": -2829,
+              "bottom": -2247.234375,
+              "width": 652,
+              "height": 581.765625
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": -2765,
+              "bottom": -2311.234375,
+              "width": 356,
+              "height": 453.765625
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": -2741,
+              "bottom": -2569,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": -2549,
+              "bottom": -2393.234375,
+              "width": 308,
+              "height": 155.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": -2431.609375,
+              "bottom": -2393.234375,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": -2373.234375,
+              "bottom": -2335.234375,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "longread",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": -2215.234375,
+              "bottom": -1643.234375,
+              "width": 652,
+              "height": 572
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": -2151.234375,
+              "bottom": -1707.234375,
+              "width": 356,
+              "height": 444
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": -2127.234375,
+              "bottom": -1955.234375,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": -1924,
+              "bottom": -1789.234375,
+              "width": 308,
+              "height": 134.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": -1827.609375,
+              "bottom": -1789.234375,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": -1769.234375,
+              "bottom": -1731.234375,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "tour-de-parole",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": -1611.234375,
+              "bottom": -1029.46875,
+              "width": 652,
+              "height": 581.765625
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": -1547.234375,
+              "bottom": -1093.46875,
+              "width": 356,
+              "height": 453.765625
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": -1523.234375,
+              "bottom": -1351.234375,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": -1331.234375,
+              "bottom": -1175.46875,
+              "width": 308,
+              "height": 155.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": -1213.84375,
+              "bottom": -1175.46875,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": -1155.46875,
+              "bottom": -1117.46875,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "inside-out",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": -997.46875,
+              "bottom": -415.703125,
+              "width": 652,
+              "height": 581.765625
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": -933.46875,
+              "bottom": -479.703125,
+              "width": 356,
+              "height": 453.765625
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": -909.46875,
+              "bottom": -737.46875,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": -717.46875,
+              "bottom": -561.703125,
+              "width": 308,
+              "height": 155.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": -600.078125,
+              "bottom": -561.703125,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": -541.703125,
+              "bottom": -503.703125,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "celimax",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": -383.703125,
+              "bottom": 188.296875,
+              "width": 652,
+              "height": 572
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": -319.703125,
+              "bottom": 124.296875,
+              "width": 356,
+              "height": 444
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": -295.703125,
+              "bottom": -123.703125,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": -92.46875,
+              "bottom": 42.296875,
+              "width": 308,
+              "height": 134.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": 3.921875,
+              "bottom": 42.296875,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": 62.296875,
+              "bottom": 100.296875,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          },
+          {
+            "id": "napoli",
+            "card": {
+              "left": 32,
+              "right": 684,
+              "top": 220.296875,
+              "bottom": 802.0625,
+              "width": 652,
+              "height": 581.765625
+            },
+            "panel": {
+              "left": 180,
+              "right": 536,
+              "top": 284.296875,
+              "bottom": 738.0625,
+              "width": 356,
+              "height": 453.765625
+            },
+            "image": {
+              "left": 204,
+              "right": 512,
+              "top": 308.296875,
+              "bottom": 480.296875,
+              "width": 308,
+              "height": 172
+            },
+            "info": {
+              "left": 204,
+              "right": 512,
+              "top": 500.296875,
+              "bottom": 656.0625,
+              "width": 308,
+              "height": 155.765625
+            },
+            "tags": {
+              "left": 204,
+              "right": 512,
+              "top": 617.6875,
+              "bottom": 656.0625,
+              "width": 308,
+              "height": 38.375
+            },
+            "barcode": {
+              "left": 204,
+              "right": 512,
+              "top": 676.0625,
+              "bottom": 714.0625,
+              "width": 308,
+              "height": 38
+            },
+            "cardVisible": true,
+            "panelWithinCard": true,
+            "mediaWithinPanel": true
+          }
+        ]
+      }
+    }
+  ]
+}

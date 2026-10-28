@@ -1,0 +1,338 @@
+[
+  {
+    "language": "fr",
+    "id": "narrow-tablet-716x800",
+    "viewport": {
+      "width": 716,
+      "height": 800
+    },
+    "profile": "tablet",
+    "outerDirection": "column",
+    "innerDirection": "column",
+    "rowGap": "6.9px",
+    "columnGap": "6.9px",
+    "links": [
+      {
+        "text": "Mentions légales",
+        "x": 32,
+        "y": 725.109375,
+        "width": 94.078125,
+        "height": 18,
+        "right": 126.078125,
+        "bottom": 743.109375
+      },
+      {
+        "text": "Politique de confidentialité",
+        "x": 32,
+        "y": 750,
+        "width": 146.734375,
+        "height": 18,
+        "right": 178.734375,
+        "bottom": 768
+      }
+    ],
+    "contactBox": {
+      "x": 32,
+      "y": 648.609375,
+      "width": 142.796875,
+      "height": 48.890625,
+      "right": 174.796875,
+      "bottom": 697.5
+    },
+    "footerTop": 0
+  },
+  {
+    "language": "fr",
+    "id": "large-tablet-834x1112",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "profile": "tablet",
+    "outerDirection": "column",
+    "innerDirection": "column",
+    "rowGap": "8px",
+    "columnGap": "8px",
+    "links": [
+      {
+        "text": "Mentions légales",
+        "x": 32,
+        "y": 1036,
+        "width": 94.078125,
+        "height": 18,
+        "right": 126.078125,
+        "bottom": 1054
+      },
+      {
+        "text": "Politique de confidentialité",
+        "x": 32,
+        "y": 1062,
+        "width": 146.734375,
+        "height": 18,
+        "right": 178.734375,
+        "bottom": 1080
+      }
+    ],
+    "contactBox": {
+      "x": 32,
+      "y": 954,
+      "width": 142.796875,
+      "height": 50,
+      "right": 174.796875,
+      "bottom": 1004
+    },
+    "footerTop": 0
+  },
+  {
+    "language": "fr",
+    "id": "mobile-393x852",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    },
+    "profile": "mobile",
+    "outerDirection": "column",
+    "innerDirection": "column",
+    "rowGap": "8px",
+    "columnGap": "8px",
+    "links": [
+      {
+        "text": "Mentions légales",
+        "x": 16,
+        "y": 787.125,
+        "width": 86.234375,
+        "height": 16.5,
+        "right": 102.234375,
+        "bottom": 803.625
+      },
+      {
+        "text": "Politique de confidentialité",
+        "x": 16,
+        "y": 811.625,
+        "width": 134.5,
+        "height": 16.5,
+        "right": 150.5,
+        "bottom": 828.125
+      }
+    ],
+    "contactBox": {
+      "x": 16,
+      "y": 705.125,
+      "width": 142.796875,
+      "height": 50,
+      "right": 158.796875,
+      "bottom": 755.125
+    },
+    "footerTop": 0.125
+  },
+  {
+    "language": "fr",
+    "id": "desktop-1440x900",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "profile": "desktop",
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "rowGap": "32px",
+    "columnGap": "32px",
+    "links": [
+      {
+        "text": "Mentions légales",
+        "x": 596.296875,
+        "y": 850,
+        "width": 94.078125,
+        "height": 18,
+        "right": 690.375,
+        "bottom": 868
+      },
+      {
+        "text": "Politique de confidentialité",
+        "x": 722.375,
+        "y": 850,
+        "width": 146.734375,
+        "height": 18,
+        "right": 869.109375,
+        "bottom": 868
+      }
+    ],
+    "contactBox": {
+      "x": 32,
+      "y": 818,
+      "width": 142.796875,
+      "height": 50,
+      "right": 174.796875,
+      "bottom": 868
+    },
+    "footerTop": 0
+  },
+  {
+    "language": "en",
+    "id": "narrow-tablet-716x800",
+    "viewport": {
+      "width": 716,
+      "height": 800
+    },
+    "profile": "tablet",
+    "outerDirection": "column",
+    "innerDirection": "column",
+    "rowGap": "6.9px",
+    "columnGap": "6.9px",
+    "links": [
+      {
+        "text": "Legal notice",
+        "x": 32,
+        "y": 725.109375,
+        "width": 67.703125,
+        "height": 18,
+        "right": 99.703125,
+        "bottom": 743.109375
+      },
+      {
+        "text": "Privacy policy",
+        "x": 32,
+        "y": 750,
+        "width": 77.421875,
+        "height": 18,
+        "right": 109.421875,
+        "bottom": 768
+      }
+    ],
+    "contactBox": {
+      "x": 32,
+      "y": 648.609375,
+      "width": 142.796875,
+      "height": 48.890625,
+      "right": 174.796875,
+      "bottom": 697.5
+    },
+    "footerTop": 0
+  },
+  {
+    "language": "en",
+    "id": "large-tablet-834x1112",
+    "viewport": {
+      "width": 834,
+      "height": 1112
+    },
+    "profile": "tablet",
+    "outerDirection": "column",
+    "innerDirection": "column",
+    "rowGap": "8px",
+    "columnGap": "8px",
+    "links": [
+      {
+        "text": "Legal notice",
+        "x": 32,
+        "y": 1036,
+        "width": 67.703125,
+        "height": 18,
+        "right": 99.703125,
+        "bottom": 1054
+      },
+      {
+        "text": "Privacy policy",
+        "x": 32,
+        "y": 1062,
+        "width": 77.421875,
+        "height": 18,
+        "right": 109.421875,
+        "bottom": 1080
+      }
+    ],
+    "contactBox": {
+      "x": 32,
+      "y": 954,
+      "width": 142.796875,
+      "height": 50,
+      "right": 174.796875,
+      "bottom": 1004
+    },
+    "footerTop": 0
+  },
+  {
+    "language": "en",
+    "id": "mobile-393x852",
+    "viewport": {
+      "width": 393,
+      "height": 852
+    },
+    "profile": "mobile",
+    "outerDirection": "column",
+    "innerDirection": "column",
+    "rowGap": "8px",
+    "columnGap": "8px",
+    "links": [
+      {
+        "text": "Legal notice",
+        "x": 16,
+        "y": 787.125,
+        "width": 62.0625,
+        "height": 16.5,
+        "right": 78.0625,
+        "bottom": 803.625
+      },
+      {
+        "text": "Privacy policy",
+        "x": 16,
+        "y": 811.625,
+        "width": 70.96875,
+        "height": 16.5,
+        "right": 86.96875,
+        "bottom": 828.125
+      }
+    ],
+    "contactBox": {
+      "x": 16,
+      "y": 705.125,
+      "width": 142.796875,
+      "height": 50,
+      "right": 158.796875,
+      "bottom": 755.125
+    },
+    "footerTop": 0.125
+  },
+  {
+    "language": "en",
+    "id": "desktop-1440x900",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "profile": "desktop",
+    "outerDirection": "row",
+    "innerDirection": "row",
+    "rowGap": "32px",
+    "columnGap": "32px",
+    "links": [
+      {
+        "text": "Legal notice",
+        "x": 601.6875,
+        "y": 850,
+        "width": 67.703125,
+        "height": 18,
+        "right": 669.390625,
+        "bottom": 868
+      },
+      {
+        "text": "Privacy policy",
+        "x": 701.390625,
+        "y": 850,
+        "width": 77.421875,
+        "height": 18,
+        "right": 778.8125,
+        "bottom": 868
+      }
+    ],
+    "contactBox": {
+      "x": 32,
+      "y": 818,
+      "width": 142.796875,
+      "height": 50,
+      "right": 174.796875,
+      "bottom": 868
+    },
+    "footerTop": 0
+  }
+]

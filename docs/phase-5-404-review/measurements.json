@@ -1,0 +1,1706 @@
+[
+  {
+    "locale": "fr",
+    "viewport": "desktop-1440x900",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 72,
+        "right": 1440
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 596.25,
+        "y": 28.8,
+        "width": 247.5,
+        "height": 14.39,
+        "right": 843.75
+      },
+      "actions": {
+        "x": 1022.72,
+        "y": 14,
+        "width": 385.28,
+        "height": 44,
+        "right": 1408
+      },
+      "availability": {
+        "x": 1022.72,
+        "y": 14,
+        "width": 243.91,
+        "height": 44,
+        "right": 1266.63
+      },
+      "hire": {
+        "x": 1282.63,
+        "y": 14,
+        "width": 125.38,
+        "height": 44,
+        "right": 1408
+      },
+      "linksDisplay": "flex",
+      "navLabel": "Navigation principale"
+    },
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 72,
+        "right": 1440
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 596.25,
+        "y": 28.8,
+        "width": 247.5,
+        "height": 14.39,
+        "right": 843.75
+      },
+      "actions": {
+        "x": 1022.72,
+        "y": 14,
+        "width": 385.28,
+        "height": 44,
+        "right": 1408
+      },
+      "availability": {
+        "x": 1022.72,
+        "y": 14,
+        "width": 243.91,
+        "height": 44,
+        "right": 1266.63
+      },
+      "hire": {
+        "x": 1282.63,
+        "y": 14,
+        "width": 125.38,
+        "height": 44,
+        "right": 1408
+      },
+      "linksDisplay": "flex",
+      "navLabel": "Navigation principale"
+    },
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 72,
+        "right": 1440
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 174.69
+      },
+      "links": {
+        "x": 596.25,
+        "y": 28.8,
+        "width": 247.5,
+        "height": 14.39,
+        "right": 843.75
+      },
+      "actions": {
+        "x": 1022.72,
+        "y": 14,
+        "width": 385.28,
+        "height": 44,
+        "right": 1408
+      },
+      "availability": {
+        "x": 1022.72,
+        "y": 14,
+        "width": 243.91,
+        "height": 44,
+        "right": 1266.63
+      },
+      "hire": {
+        "x": 1282.63,
+        "y": 14,
+        "width": 125.38,
+        "height": 44,
+        "right": 1408
+      },
+      "linksDisplay": "flex",
+      "navLabel": "Navigation principale"
+    },
+    "navText": {
+      "label": "Navigation principale",
+      "sections": [
+        {
+          "text": "Projets",
+          "href": "/#projets"
+        },
+        {
+          "text": "À propos",
+          "href": "/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/#contact"
+        }
+      ],
+      "availability": "En recherche de CDI 2026",
+      "hire": "Me recruter",
+      "hireLabel": "Me recruter — envoyer un e-mail à comme.kamila@gmail.com"
+    },
+    "typography": {
+      "message": {
+        "fontSize": "56px",
+        "rect": {
+          "x": 352.97,
+          "y": 511.61,
+          "width": 734.06,
+          "height": 125.44,
+          "right": 1087.03
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "306px",
+        "rect": {
+          "x": 461.58,
+          "y": 245.94,
+          "width": 516.84,
+          "height": 238.67,
+          "right": 978.42
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 642.11,
+          "y": 664.05,
+          "width": 155.77,
+          "height": 44
+        },
+        "text": "Retour à l'accueil",
+        "href": "http://127.0.0.1:8015/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
+    },
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
+    },
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
+  },
+  {
+    "locale": "fr",
+    "viewport": "tablet-834x1112",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 72,
+        "right": 834
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 416.72,
+        "y": 14,
+        "width": 385.28,
+        "height": 44,
+        "right": 802
+      },
+      "availability": {
+        "x": 416.72,
+        "y": 14,
+        "width": 243.91,
+        "height": 44,
+        "right": 660.63
+      },
+      "hire": {
+        "x": 676.63,
+        "y": 14,
+        "width": 125.38,
+        "height": 44,
+        "right": 802
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
+    },
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 72,
+        "right": 834
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 416.72,
+        "y": 14,
+        "width": 385.28,
+        "height": 44,
+        "right": 802
+      },
+      "availability": {
+        "x": 416.72,
+        "y": 14,
+        "width": 243.91,
+        "height": 44,
+        "right": 660.63
+      },
+      "hire": {
+        "x": 676.63,
+        "y": 14,
+        "width": 125.38,
+        "height": 44,
+        "right": 802
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
+    },
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 72,
+        "right": 834
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 174.69
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 416.72,
+        "y": 14,
+        "width": 385.28,
+        "height": 44,
+        "right": 802
+      },
+      "availability": {
+        "x": 416.72,
+        "y": 14,
+        "width": 243.91,
+        "height": 44,
+        "right": 660.63
+      },
+      "hire": {
+        "x": 676.63,
+        "y": 14,
+        "width": 125.38,
+        "height": 44,
+        "right": 802
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
+    },
+    "navText": {
+      "label": "Navigation principale",
+      "sections": [
+        {
+          "text": "Projets",
+          "href": "/#projets"
+        },
+        {
+          "text": "À propos",
+          "href": "/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/#contact"
+        }
+      ],
+      "availability": "En recherche de CDI 2026",
+      "hire": "Me recruter",
+      "hireLabel": "Me recruter — envoyer un e-mail à comme.kamila@gmail.com"
+    },
+    "typography": {
+      "message": {
+        "fontSize": "48px",
+        "rect": {
+          "x": 102.39,
+          "y": 577.84,
+          "width": 629.22,
+          "height": 107.5,
+          "right": 731.61
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "183.48px",
+        "rect": {
+          "x": 262.05,
+          "y": 401.38,
+          "width": 309.89,
+          "height": 143.11,
+          "right": 571.94
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 339.11,
+          "y": 717.34,
+          "width": 155.77,
+          "height": 44
+        },
+        "text": "Retour à l'accueil",
+        "href": "http://127.0.0.1:8015/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
+    },
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
+    },
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
+  },
+  {
+    "locale": "fr",
+    "viewport": "mobile-393x852",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 72,
+        "right": 393
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 267.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 377
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 267.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 377
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
+    },
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 72,
+        "right": 393
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 267.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 377
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 267.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 377
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
+    },
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 72,
+        "right": 393
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 158.69
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 267.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 377
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 267.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 377
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
+    },
+    "navText": {
+      "label": "Navigation principale",
+      "sections": [
+        {
+          "text": "Projets",
+          "href": "/#projets"
+        },
+        {
+          "text": "À propos",
+          "href": "/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/#contact"
+        }
+      ],
+      "availability": "En recherche de CDI 2026",
+      "hire": "Me recruter",
+      "hireLabel": "Me recruter — envoyer un e-mail à comme.kamila@gmail.com"
+    },
+    "typography": {
+      "message": {
+        "fontSize": "32px",
+        "rect": {
+          "x": 16,
+          "y": 421.41,
+          "width": 361,
+          "height": 107.48,
+          "right": 377
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "112px",
+        "rect": {
+          "x": 101.91,
+          "y": 308.5,
+          "width": 189.17,
+          "height": 87.36,
+          "right": 291.08
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 118.61,
+          "y": 554.44,
+          "width": 155.77,
+          "height": 44
+        },
+        "text": "Retour à l'accueil",
+        "href": "http://127.0.0.1:8015/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
+    },
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
+    },
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
+  },
+  {
+    "locale": "fr",
+    "viewport": "mobile-320x568",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 72,
+        "right": 320
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 194.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 304
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 194.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 304
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
+    },
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 72,
+        "right": 320
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 194.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 304
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 194.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 304
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
+    },
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 72,
+        "right": 320
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 158.69
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 194.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 304
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 194.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 304
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
+    },
+    "navText": {
+      "label": "Navigation principale",
+      "sections": [
+        {
+          "text": "Projets",
+          "href": "/#projets"
+        },
+        {
+          "text": "À propos",
+          "href": "/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/#contact"
+        }
+      ],
+      "availability": "En recherche de CDI 2026",
+      "hire": "Me recruter",
+      "hireLabel": "Me recruter — envoyer un e-mail à comme.kamila@gmail.com"
+    },
+    "typography": {
+      "message": {
+        "fontSize": "32px",
+        "rect": {
+          "x": 16,
+          "y": 264.34,
+          "width": 288,
+          "height": 143.31,
+          "right": 304
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "112px",
+        "rect": {
+          "x": 65.41,
+          "y": 156.98,
+          "width": 189.17,
+          "height": 87.36,
+          "right": 254.58
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 82.11,
+          "y": 427.66,
+          "width": 155.77,
+          "height": 44
+        },
+        "text": "Retour à l'accueil",
+        "href": "http://127.0.0.1:8015/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
+    },
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
+    },
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
+  },
+  {
+    "locale": "en",
+    "viewport": "desktop-1440x900",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 72,
+        "right": 1440
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 601.73,
+        "y": 28.8,
+        "width": 236.53,
+        "height": 14.39,
+        "right": 838.27
+      },
+      "actions": {
+        "x": 1056.58,
+        "y": 14,
+        "width": 351.42,
+        "height": 44,
+        "right": 1408
+      },
+      "availability": {
+        "x": 1056.58,
+        "y": 14,
+        "width": 236.06,
+        "height": 44,
+        "right": 1292.64
+      },
+      "hire": {
+        "x": 1308.64,
+        "y": 14,
+        "width": 99.36,
+        "height": 44,
+        "right": 1408
+      },
+      "linksDisplay": "flex",
+      "navLabel": "Main navigation"
+    },
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 72,
+        "right": 1440
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 601.73,
+        "y": 28.8,
+        "width": 236.53,
+        "height": 14.39,
+        "right": 838.27
+      },
+      "actions": {
+        "x": 1056.58,
+        "y": 14,
+        "width": 351.42,
+        "height": 44,
+        "right": 1408
+      },
+      "availability": {
+        "x": 1056.58,
+        "y": 14,
+        "width": 236.06,
+        "height": 44,
+        "right": 1292.64
+      },
+      "hire": {
+        "x": 1308.64,
+        "y": 14,
+        "width": 99.36,
+        "height": 44,
+        "right": 1408
+      },
+      "linksDisplay": "flex",
+      "navLabel": "Main navigation"
+    },
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 72,
+        "right": 1440
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 174.69
+      },
+      "links": {
+        "x": 601.73,
+        "y": 28.8,
+        "width": 236.53,
+        "height": 14.39,
+        "right": 838.27
+      },
+      "actions": {
+        "x": 1056.58,
+        "y": 14,
+        "width": 351.42,
+        "height": 44,
+        "right": 1408
+      },
+      "availability": {
+        "x": 1056.58,
+        "y": 14,
+        "width": 236.06,
+        "height": 44,
+        "right": 1292.64
+      },
+      "hire": {
+        "x": 1308.64,
+        "y": 14,
+        "width": 99.36,
+        "height": 44,
+        "right": 1408
+      },
+      "linksDisplay": "flex",
+      "navLabel": "Main navigation"
+    },
+    "navText": {
+      "label": "Main navigation",
+      "sections": [
+        {
+          "text": "Projects",
+          "href": "/en/#projets"
+        },
+        {
+          "text": "About",
+          "href": "/en/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/en/#contact"
+        }
+      ],
+      "availability": "Open to full-time roles",
+      "hire": "Hire me",
+      "hireLabel": "Hire me — email comme.kamila@gmail.com"
+    },
+    "typography": {
+      "message": {
+        "fontSize": "56px",
+        "rect": {
+          "x": 393.63,
+          "y": 511.61,
+          "width": 652.75,
+          "height": 125.44,
+          "right": 1046.38
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "306px",
+        "rect": {
+          "x": 461.58,
+          "y": 245.94,
+          "width": 516.84,
+          "height": 238.67,
+          "right": 978.42
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 653.73,
+          "y": 664.05,
+          "width": 132.52,
+          "height": 44
+        },
+        "text": "Back to home",
+        "href": "http://127.0.0.1:8015/en/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
+    },
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
+    },
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
+  },
+  {
+    "locale": "en",
+    "viewport": "tablet-834x1112",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 72,
+        "right": 834
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 450.58,
+        "y": 14,
+        "width": 351.42,
+        "height": 44,
+        "right": 802
+      },
+      "availability": {
+        "x": 450.58,
+        "y": 14,
+        "width": 236.06,
+        "height": 44,
+        "right": 686.64
+      },
+      "hire": {
+        "x": 702.64,
+        "y": 14,
+        "width": 99.36,
+        "height": 44,
+        "right": 802
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
+    },
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 72,
+        "right": 834
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 450.58,
+        "y": 14,
+        "width": 351.42,
+        "height": 44,
+        "right": 802
+      },
+      "availability": {
+        "x": 450.58,
+        "y": 14,
+        "width": 236.06,
+        "height": 44,
+        "right": 686.64
+      },
+      "hire": {
+        "x": 702.64,
+        "y": 14,
+        "width": 99.36,
+        "height": 44,
+        "right": 802
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
+    },
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 72,
+        "right": 834
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 174.69
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 450.58,
+        "y": 14,
+        "width": 351.42,
+        "height": 44,
+        "right": 802
+      },
+      "availability": {
+        "x": 450.58,
+        "y": 14,
+        "width": 236.06,
+        "height": 44,
+        "right": 686.64
+      },
+      "hire": {
+        "x": 702.64,
+        "y": 14,
+        "width": 99.36,
+        "height": 44,
+        "right": 802
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
+    },
+    "navText": {
+      "label": "Main navigation",
+      "sections": [
+        {
+          "text": "Projects",
+          "href": "/en/#projets"
+        },
+        {
+          "text": "About",
+          "href": "/en/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/en/#contact"
+        }
+      ],
+      "availability": "Open to full-time roles",
+      "hire": "Hire me",
+      "hireLabel": "Hire me — email comme.kamila@gmail.com"
+    },
+    "typography": {
+      "message": {
+        "fontSize": "48px",
+        "rect": {
+          "x": 137.23,
+          "y": 577.84,
+          "width": 559.52,
+          "height": 107.5,
+          "right": 696.75
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "183.48px",
+        "rect": {
+          "x": 262.05,
+          "y": 401.38,
+          "width": 309.89,
+          "height": 143.11,
+          "right": 571.94
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 350.73,
+          "y": 717.34,
+          "width": 132.52,
+          "height": 44
+        },
+        "text": "Back to home",
+        "href": "http://127.0.0.1:8015/en/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
+    },
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
+    },
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
+  },
+  {
+    "locale": "en",
+    "viewport": "mobile-393x852",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 72,
+        "right": 393
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 293.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 377
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 293.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 377
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
+    },
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 72,
+        "right": 393
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 293.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 377
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 293.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 377
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
+    },
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 72,
+        "right": 393
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 158.69
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 293.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 377
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 293.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 377
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
+    },
+    "navText": {
+      "label": "Main navigation",
+      "sections": [
+        {
+          "text": "Projects",
+          "href": "/en/#projets"
+        },
+        {
+          "text": "About",
+          "href": "/en/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/en/#contact"
+        }
+      ],
+      "availability": "Open to full-time roles",
+      "hire": "Hire me",
+      "hireLabel": "Hire me — email comme.kamila@gmail.com"
+    },
+    "typography": {
+      "message": {
+        "fontSize": "32px",
+        "rect": {
+          "x": 16,
+          "y": 403.5,
+          "width": 361,
+          "height": 143.31,
+          "right": 377
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "112px",
+        "rect": {
+          "x": 101.91,
+          "y": 290.59,
+          "width": 189.17,
+          "height": 87.36,
+          "right": 291.08
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 130.23,
+          "y": 572.36,
+          "width": 132.52,
+          "height": 44
+        },
+        "text": "Back to home",
+        "href": "http://127.0.0.1:8015/en/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
+    },
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
+    },
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
+  },
+  {
+    "locale": "en",
+    "viewport": "mobile-320x568",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 72,
+        "right": 320
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 220.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 304
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 220.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 304
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
+    },
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 72,
+        "right": 320
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 220.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 304
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 220.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 304
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
+    },
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 72,
+        "right": 320
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 158.69
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 220.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 304
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 220.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 304
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
+    },
+    "navText": {
+      "label": "Main navigation",
+      "sections": [
+        {
+          "text": "Projects",
+          "href": "/en/#projets"
+        },
+        {
+          "text": "About",
+          "href": "/en/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/en/#contact"
+        }
+      ],
+      "availability": "Open to full-time roles",
+      "hire": "Hire me",
+      "hireLabel": "Hire me — email comme.kamila@gmail.com"
+    },
+    "typography": {
+      "message": {
+        "fontSize": "32px",
+        "rect": {
+          "x": 16,
+          "y": 264.34,
+          "width": 288,
+          "height": 143.31,
+          "right": 304
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "112px",
+        "rect": {
+          "x": 65.41,
+          "y": 156.98,
+          "width": 189.17,
+          "height": 87.36,
+          "right": 254.58
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 93.73,
+          "y": 427.66,
+          "width": 132.52,
+          "height": 44
+        },
+        "text": "Back to home",
+        "href": "http://127.0.0.1:8015/en/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
+    },
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
+    },
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
+  }
+]

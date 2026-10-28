@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "order": [
+    "education",
+    "employer",
+    "readymag",
+    "behance",
+    "languages"
+  ],
+  "cards": [
+    {
+      "id": "education",
+      "locales": {
+        "fr": {
+          "title": "Mastère",
+          "description": "Direction Artistique, 2026. Avant : Bachelor Designer Print & Digital, 2024"
+        },
+        "en": {
+          "title": "Master’s in",
+          "description": "Direction Artistique, 2026. Avant : Bachelor Designer Print & Digital, 2024"
+        }
+      },
+      "layoutOverrides": {
+        "tablet": {
+          "fr": {
+            "description": "Direction Artistique, 2026. Avant : Bachelor Designer Print & Digital, 2024"
+          },
+          "en": {
+            "description": "Direction Artistique, 2026. Avant : Bachelor Designer Print & Digital, 2024"
+          }
+        }
+      }
+    },
+    {
+      "id": "employer",
+      "locales": {
+        "fr": {
+          "title": "Greenly",
+          "description": "Ma dernière entreprise, de 2024 à 2026. Avant, j’étais chez Bene Bono, de 2023 à 2024."
+        },
+        "en": {
+          "title": "Greenly",
+          "description": "My most recent company, from 2024 to 2026. Previously, I worked at Bene Bono from 2023 to 2024."
+        }
+      },
+      "layoutOverrides": {
+        "tablet": {
+          "fr": {
+            "description": "Ma dernière entreprise, de 2024 à 2026. Avant, j’étais chez Bene Bono, de 2023 à 2024."
+          }
+        },
+        "mobile": {
+          "fr": {
+            "description": "Ma dernière entreprise, de 2024 à 2026. Avant, j’étais chez Bene Bono, de 2023 à 2024."
+          }
+        }
+      }
+    },
+    {
+      "id": "readymag",
+      "locales": {
+        "fr": {
+          "title": "450k",
+          "description": "vues sur TikTok, pour une vidéo sur mon portfolio sur Readymag."
+        },
+        "en": {
+          "title": "450k",
+          "description": "TikTok views for a video about my Readymag portfolio."
+        }
+      },
+      "layoutOverrides": {
+        "tablet": {
+          "fr": {
+            "description": "vues sur TikTok, pour une vidéo sur mon portfolio sur Readymag."
+          }
+        }
+      }
+    },
+    {
+      "id": "behance",
+      "locales": {
+        "fr": {
+          "title": "Behance",
+          "description": "2 sélections Behance (Illustration et Packaging) pour mon projet Chocolate Mallow Lab."
+        },
+        "en": {
+          "title": "Behance",
+          "description": "2 Behance features (Illustration and Packaging) for my Chocolate Mallow Lab project."
+        }
+      },
+      "layoutOverrides": {
+        "tablet": {
+          "fr": {
+            "description": "2 sélections Behance (Illustration et Packaging) pour mon projet Chocolate Mallow Lab."
+          }
+        }
+      }
+    },
+    {
+      "id": "languages",
+      "locales": {
+        "fr": {
+          "title": "3 langues",
+          "description": "Je parle français, anglais et russe couramment."
+        },
+        "en": {
+          "title": "3 languages",
+          "description": "I speak French, English and Russian fluently."
+        }
+      },
+      "layoutOverrides": {
+        "tablet": {
+          "fr": {
+            "title": "3 langues",
+            "description": "Je parle français, anglais et russe couramment."
+          }
+        },
+        "mobile": {
+          "fr": {
+            "description": "Je parle français, anglais et russe couramment."
+          }
+        }
+      }
+    }
+  ]
+}

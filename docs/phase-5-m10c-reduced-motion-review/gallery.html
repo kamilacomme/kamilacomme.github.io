@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>M10C · Reduced-motion curtain review</title>
+<style>
+  :root{font:16px/1.5 system-ui,sans-serif;color:#222;background:#f2f3f7}body{max-width:1500px;margin:0 auto;padding:24px}h1{font-size:2rem}h2{margin:2.5rem 0 .4rem}p{max-width:78ch}.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}.shot{margin:0;background:#fff;border:1px solid #d6d8df;border-radius:8px;padding:12px}.shot img{display:block;width:100%;height:auto;background:#08080a}.shot figcaption{font-weight:650;margin:0 0 8px}.meta{font-size:.9rem;color:#555}.evidence{background:white;border-radius:8px;padding:16px;margin:24px 0}code{background:#e9eaf0;padding:2px 5px;border-radius:4px}a{color:#293f9b}@media(max-width:760px){body{padding:12px}.pair{grid-template-columns:1fr}h1{font-size:1.5rem}}
+</style>
+<body>
+<h1>M10C reduced-motion Footer curtain · browser-only comparison</h1>
+<p>Open this file locally after pulling the review-artifact commit. Each pair shows the actual site after the Footer curtain settled: the approved running curtain on the left, then the same WebGL element and canvas frozen at its current scroll-derived progress on the right. French and English are shown at 1440×900 desktop and 393×852 mobile.</p>
+<section class="evidence">
+  <strong>Session toggle evidence</strong>
+  <p>In each browser run, the preview changed the emulated preference to <code>reduce</code>, paused the existing curtain instance, waited, switched to <code>no-preference</code> and resumed its frame loop, then switched back to <code>reduce</code>. The original custom element and canvas remained in place throughout; the frame counter stayed constant while paused and advanced while resumed. The curtain texture loaded (1106px source), the canvas remained present, and the frozen frame did not snap away from its current progress (measured progress delta during the emulation handoff stayed below 0.01).</p>
+  <p>The static preview keeps the cloth at its current progress when motion is paused. Subsequent scroll updates use the same progress value and existing geometry. No application source was changed; a temporary browser-only adapter paused/resumed the live WebGL instance for this comparison.</p>
+</section>
+
+<h2>French · desktop · 1440×900</h2>
+<div class="pair">
+ <figure class="shot"><figcaption>A · Approved animated curtain, settled</figcaption><a href="fr-desktop-A-approved.png"><img src="fr-desktop-A-approved.png" alt="French desktop Footer with the approved animated curtain settled"></a><p class="meta">Viewport 1440×900 CSS px · settled scroll progress 1 · <a href="fr-desktop.json">measurements and lifecycle record</a></p></figure>
+ <figure class="shot"><figcaption>B · Static reduced-motion preview</figcaption><a href="fr-desktop-B-static-preview.png"><img src="fr-desktop-B-static-preview.png" alt="French desktop Footer with the same curtain held still at current progress"></a><p class="meta">Same Footer elements, typography, legal links, switcher, canvas and renderer.</p></figure>
+</div>
+
+<h2>English · desktop · 1440×900</h2>
+<div class="pair">
+ <figure class="shot"><figcaption>A · Approved animated curtain, settled</figcaption><a href="en-desktop-A-approved.png"><img src="en-desktop-A-approved.png" alt="English desktop Footer with the approved animated curtain settled"></a><p class="meta">Viewport 1440×900 CSS px · settled scroll progress 1 · <a href="en-desktop.json">measurements and lifecycle record</a></p></figure>
+ <figure class="shot"><figcaption>B · Static reduced-motion preview</figcaption><a href="en-desktop-B-static-preview.png"><img src="en-desktop-B-static-preview.png" alt="English desktop Footer with the same curtain held still at current progress"></a><p class="meta">Same Footer elements, typography, legal links, switcher, canvas and renderer.</p></figure>
+</div>
+
+<h2>French · mobile · 393×852</h2>
+<div class="pair">
+ <figure class="shot"><figcaption>A · Approved animated curtain, settled</figcaption><a href="fr-mobile-A-approved.png"><img src="fr-mobile-A-approved.png" alt="French mobile Footer with the approved animated curtain settled"></a><p class="meta">Viewport 393×852 CSS px · browser capture at device scale factor 2 · settled scroll progress 1 · <a href="fr-mobile.json">measurements and lifecycle record</a></p></figure>
+ <figure class="shot"><figcaption>B · Static reduced-motion preview</figcaption><a href="fr-mobile-B-static-preview.png"><img src="fr-mobile-B-static-preview.png" alt="French mobile Footer with the same curtain held still at current progress"></a><p class="meta">Same Footer elements, typography, vertical legal links, switcher and canvas.</p></figure>
+</div>
+
+<h2>English · mobile · 393×852</h2>
+<div class="pair">
+ <figure class="shot"><figcaption>A · Approved animated curtain, settled</figcaption><a href="en-mobile-A-approved.png"><img src="en-mobile-A-approved.png" alt="English mobile Footer with the approved animated curtain settled"></a><p class="meta">Viewport 393×852 CSS px · browser capture at device scale factor 2 · settled scroll progress 1 · <a href="en-mobile.json">measurements and lifecycle record</a></p></figure>
+ <figure class="shot"><figcaption>B · Static reduced-motion preview</figcaption><a href="en-mobile-B-static-preview.png"><img src="en-mobile-B-static-preview.png" alt="English mobile Footer with the same curtain held still at current progress"></a><p class="meta">Same Footer elements, typography, vertical legal links, switcher and canvas.</p></figure>
+</div>
+
+<section class="evidence"><strong>Review notes</strong><ul><li>The preview canvas was present in all four reduced-motion captures; the curtain texture was loaded and the surface was not blank.</li><li>The curtain remained in its existing geometry; only its continuous frame/physics loop was paused.</li><li>The mobile email wraps as it does in the approved layout; all contact text and legal links remain visible.</li><li>These are review captures, not screenshot baselines. No historical reference files were changed.</li></ul></section>
+</body>
+</html>

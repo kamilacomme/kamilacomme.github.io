@@ -1,0 +1,266 @@
+/* Shared layered project ticket. Desktop geometry matches the existing iframe. */
+.ticket {
+  --ticket-outer-radius: 8px;
+  --ticket-panel-radius: 4px;
+  --ticket-media-radius: 4px;
+  --ticket-panel-background: #f2eef2;
+  width: 1142px;
+  height: 393.453px;
+  flex: none;
+  position: relative;
+  border-radius: var(--ticket-outer-radius);
+  overflow: hidden;
+  background: #ddd;
+  text-decoration: none;
+  color: inherit;
+  isolation: isolate;
+}
+.ticket::before,
+.ticket::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.ticket::before { background: var(--poster) center / cover no-repeat; }
+.ticket::after { background: rgba(255, 255, 255, .08); }
+.ticket-panel {
+  position: absolute;
+  z-index: 1;
+  left: 117px;
+  top: 58.97px;
+  width: 908px;
+  height: 274px;
+  padding: 20px;
+  border-radius: var(--ticket-panel-radius);
+  background: var(--ticket-panel-background);
+  overflow: hidden;
+  display: flex;
+  gap: 23.85px;
+  align-items: stretch;
+}
+.ticket-image {
+  width: 422px;
+  flex: none;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--ticket-media-radius);
+  background: var(--poster) center / cover no-repeat;
+}
+.ticket-info {
+  width: 326px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ticket-info h2 {
+  font: 700 40px/1 Figtree, Arial, sans-serif;
+  letter-spacing: -.03em;
+  margin: 0 0 8px;
+}
+.ticket-info p {
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: -.14px;
+  color: #5c575c;
+  margin: 0;
+}
+.ticket-info .tags {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.ticket .barcode-slot {
+  width: 72px;
+  height: 234px;
+  flex: none;
+}
+.ticket .barcode {
+  width: 100%;
+  height: 100%;
+  flex: none;
+  display: block;
+  fill: #2b3b37;
+  overflow: visible;
+}
+.ticket-image .media-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .32s ease;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.ticket-image .media-layer.active { opacity: 1; }
+.ticket:focus-visible { outline: 4px solid #7c4ff6; outline-offset: -4px; }
+@media (prefers-reduced-motion: reduce) {
+  .ticket-image .media-layer { transition: none; }
+}
+
+/* Tablet adapts the same ticket structure inside its existing card and rail. */
+#kc-tablet-projets .ticket {
+  width: 100%;
+  height: 310px;
+  display: block;
+  padding: 0;
+  background: #ddd;
+}
+#kc-tablet-projets .ticket::after { background: rgba(255, 255, 255, .04); }
+#kc-tablet-projets .ticket-panel {
+  inset: 32px 48px;
+  width: auto;
+  height: auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 52px;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 20px;
+}
+#kc-tablet-projets .ticket-image {
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  height: auto;
+}
+#kc-tablet-projets .ticket-info {
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+#kc-tablet-projets .ticket-info h2 {
+  font: 700 32px/1.1 Figtree, Arial, sans-serif;
+  letter-spacing: -.03em;
+  margin: 0 0 8px;
+}
+#kc-tablet-projets .ticket-info p {
+  font: 400 14px/1.5 Inter, Arial, sans-serif;
+  letter-spacing: -.01em;
+}
+#kc-tablet-projets .ticket-info .tags {
+  gap: 6px;
+  font: 400 12px/1.35 Inter, Arial, sans-serif;
+  letter-spacing: .04em;
+}
+#kc-tablet-projets .ticket .barcode-slot {
+  width: 52px;
+  height: 100%;
+  min-width: 0;
+  max-width: none;
+}
+#kc-tablet-projets .ticket .barcode { width: 100%; height: 100%; }
+#kc-tablet-projets .ticket:focus-visible { outline: 2px solid #222; outline-offset: 2px; }
+#kc-tablet-projets .ticket.playing .motion { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  #kc-tablet-projets .ticket-image .media-layer { transition: none; }
+}
+
+/* Narrow-tablet fallback: keep the shared layered ticket, changing only its layout. */
+@media (min-width: 500px) and (max-width: 686px) {
+  #kc-tablet-projets.kc-narrow-ticket .ticket {
+    height: auto;
+    min-height: 572px;
+    padding: 64px 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket-panel {
+    position: relative;
+    inset: auto;
+    width: min(356px, calc(100% - 48px));
+    min-height: 444px;
+    height: auto;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    align-content: start;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket-image {
+    width: min(100%, 308px);
+    height: 172px;
+    aspect-ratio: 308 / 172;
+    flex: none;
+    justify-self: center;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket-info {
+    width: min(100%, 308px);
+    height: auto;
+    min-height: 0;
+    flex: none;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket-info > div:first-child {
+    flex: none;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket-info h2 {
+    font-size: 24px;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket .barcode-slot {
+    position: relative;
+    width: min(100%, 308px);
+    height: 38px;
+    container-type: inline-size;
+    justify-self: center;
+    align-self: center;
+    flex: none;
+  }
+  #kc-tablet-projets.kc-narrow-ticket .ticket .barcode {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 38px;
+    height: 100cqi;
+    transform: translate(-50%, -50%) rotate(90deg);
+    transform-origin: center;
+    max-width: none;
+    flex: none;
+  }
+}
+
+/* Desktop iframe fluid geometry: retain the 1440px design, fit its card below that width,
+   and scale visual columns proportionally while keeping ticket typography untransformed. */
+.portfolio .ticket {
+  width: var(--kc-desktop-ticket-width, 1142px);
+  height: auto;
+  aspect-ratio: 1142 / 393.453;
+}
+.portfolio .ticket-panel {
+  left: 10.2452%;
+  top: 14.9822%;
+  width: 79.5096%;
+  height: 69.643%;
+  padding: 2.203%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.293fr) minmax(0, 1fr) 8.3%;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 2.625%;
+}
+.portfolio .ticket-image,
+.portfolio .ticket-info {
+  width: auto;
+  min-width: 0;
+}
+.portfolio .ticket .barcode-slot {
+  width: auto;
+  height: auto;
+}

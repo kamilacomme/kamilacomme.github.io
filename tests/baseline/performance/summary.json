@@ -1,0 +1,2572 @@
+{
+  "schemaVersion": 1,
+  "status": "complete",
+  "diagnostic": false,
+  "referenceCommit": "d8a37314ed7d2265f3f949c9e048b5e2beadfc20",
+  "measuredCommit": "d90113757cf09d67ce81b28af19efb66093716ae",
+  "mode": "controlled-local-runtime-replay",
+  "runtimeManifestSha256": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3",
+  "serverSha256": "6a59a4f13366674425f421b9ea7f72e2d5132741caef554ab574c1eb248b22fa",
+  "servedSourceVerification": {
+    "status": "passed",
+    "files": 51,
+    "referenceCommit": "d8a37314ed7d2265f3f949c9e048b5e2beadfc20",
+    "manifestSha256": "36989cd495023598df8166cb402f76b27e2bce40dd832416dcba1f05b8f3b363"
+  },
+  "host": {
+    "platform": "linux",
+    "release": "6.18.55",
+    "architecture": "x64",
+    "cpuModel": "AMD EPYC 9V74 80-Core Processor",
+    "cpuCount": 5,
+    "memoryBytes": 35743760384,
+    "nodeVersion": "v24.19.0"
+  },
+  "origin": "http://127.0.0.1:8000",
+  "runsPerTarget": 3,
+  "chromeFlags": [
+    "--headless=new",
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--enable-unsafe-swiftshader"
+  ],
+  "launcherDefaultFlags": [
+    "--disable-features=Translate,OptimizationHints,MediaRouter,DialMediaRouteProvider,CalculateNativeWinOcclusion,InterestFeedContentSuggestions,CertificateTransparencyComponentUpdater,AutofillServerCommunication,PrivacySandboxSettings4,RenderDocument",
+    "--disable-extensions",
+    "--disable-component-extensions-with-background-pages",
+    "--disable-background-networking",
+    "--disable-component-update",
+    "--disable-client-side-phishing-detection",
+    "--disable-sync",
+    "--metrics-recording-only",
+    "--disable-default-apps",
+    "--mute-audio",
+    "--no-default-browser-check",
+    "--no-first-run",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-renderer-backgrounding",
+    "--disable-background-timer-throttling",
+    "--disable-ipc-flooding-protection",
+    "--password-store=basic",
+    "--use-mock-keychain",
+    "--force-fieldtrials=*BackgroundTracing/default/",
+    "--disable-hang-monitor",
+    "--disable-prompt-on-repost",
+    "--disable-domain-reliability",
+    "--propagate-iph-for-testing"
+  ],
+  "measurementSettings": {
+    "throttlingMethod": "simulate",
+    "maxWaitForLoad": 45000,
+    "cpuQuietThresholdMs": 0,
+    "networkQuietThresholdMs": 1000,
+    "pauseAfterFcpMs": 1000,
+    "pauseAfterLoadMs": 1000
+  },
+  "profiles": {
+    "mobile": {
+      "formFactor": "mobile",
+      "screenEmulation": {
+        "mobile": true,
+        "width": 393,
+        "height": 852,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      },
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.56,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      }
+    },
+    "desktop": {
+      "formFactor": "desktop",
+      "screenEmulation": {
+        "mobile": false,
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      },
+      "emulatedUserAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      }
+    }
+  },
+  "notes": [
+    "Local origin is the unchanged checkout served by tests/runtime/server.mjs (HTTP/1.1, uncompressed, byte ranges for video); production transfer compression and CDN behavior are not reproduced.",
+    "Playwright routing disables HTTP cache; fresh browser profiles and Lighthouse storage reset also prevent warm-cache reuse.",
+    "CPU quiet waiting is explicitly zero because animation continues indefinitely; network quiet and post-load/FCP pauses remain1000ms. Effects are not disabled.",
+    "CDN dependencies are fulfilled from integrity-verified local replay, not measured over the production network.",
+    "Analytics is blocked by the test harness.",
+    "Lighthouse uses simulated throttling; scores are lab measurements and not directly comparable with public PageSpeed Insights.",
+    "Fresh Chrome profiles and reset storage are used per run. Render preflight precedes each audit; Lighthouse then performs its own navigation.",
+    "Performance measurements use natural animation timing: no clock, randomness or screenshot stabilization is injected."
+  ],
+  "aggregate": [
+    {
+      "locale": "fr",
+      "profile": "mobile",
+      "runs": 3,
+      "score": 56.00000000000001,
+      "fcpMs": 5649.321165961504,
+      "lcpMs": 11771.061097442853,
+      "tbtMs": 208.5,
+      "cls": 0.0001210798751702327,
+      "speedIndexMs": 6463.644760170392,
+      "totalByteWeight": 3712758,
+      "scoreRange": [
+        56.00000000000001,
+        56.99999999999999
+      ]
+    },
+    {
+      "locale": "fr",
+      "profile": "desktop",
+      "runs": 3,
+      "score": 74,
+      "fcpMs": 1761.785329777033,
+      "lcpMs": 3130.7970131515713,
+      "tbtMs": 0,
+      "cls": 0.00005631435313429773,
+      "speedIndexMs": 1761.785329777033,
+      "totalByteWeight": 5086941,
+      "scoreRange": [
+        73,
+        76
+      ]
+    },
+    {
+      "locale": "en",
+      "profile": "mobile",
+      "runs": 3,
+      "score": 60,
+      "fcpMs": 3994.230398392096,
+      "lcpMs": 9147.776935047326,
+      "tbtMs": 253.5,
+      "cls": 0.000003581743200379718,
+      "speedIndexMs": 4227.4414822970175,
+      "totalByteWeight": 3286445,
+      "scoreRange": [
+        59,
+        60
+      ]
+    },
+    {
+      "locale": "en",
+      "profile": "desktop",
+      "runs": 3,
+      "score": 84,
+      "fcpMs": 1016.96123713878,
+      "lcpMs": 2528.1819367921285,
+      "tbtMs": 0,
+      "cls": 5.548373858623167e-7,
+      "speedIndexMs": 1374.0958273367987,
+      "totalByteWeight": 4457775,
+      "scoreRange": [
+        81,
+        89
+      ]
+    }
+  ],
+  "measurements": [
+    {
+      "id": "fr-mobile-1",
+      "locale": "fr",
+      "route": "/",
+      "profile": "mobile",
+      "iteration": 1,
+      "fetchTime": "2026-10-21T11:35:17.006Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.56,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 393,
+          "height": 852,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        3.17,
+        4.14,
+        3.89
+      ],
+      "loadAfter": [
+        3.16,
+        4.12,
+        3.88
+      ],
+      "readiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 1686,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 1686,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Inter",
+          "Figtree"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 393,
+          "height": 852,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Mobile Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 1,
+          "hover": false,
+          "coarsePointer": true
+        },
+        "url": "http://127.0.0.1:8000/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "stylesheet"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/about/avatar.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "stylesheet"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/pilates.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/longread.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/inside-out.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "stylesheet"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        }
+      ],
+      "score": 56.00000000000001,
+      "fcpMs": 5986.335172442357,
+      "lcpMs": 12442.23169576832,
+      "tbtMs": 208.5,
+      "cls": 0.0001210798751702327,
+      "speedIndexMs": 6816.0563503857875,
+      "totalByteWeight": 4082884,
+      "runWarnings": []
+    },
+    {
+      "id": "fr-mobile-2",
+      "locale": "fr",
+      "route": "/",
+      "profile": "mobile",
+      "iteration": 2,
+      "fetchTime": "2026-10-21T11:35:25.412Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.56,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 393,
+          "height": 852,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        3.38,
+        4.15,
+        3.9
+      ],
+      "loadAfter": [
+        3.35,
+        4.13,
+        3.89
+      ],
+      "readiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 1686,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 1686,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Inter",
+          "Figtree"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 393,
+          "height": 852,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Mobile Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 1,
+          "hover": false,
+          "coarsePointer": true
+        },
+        "url": "http://127.0.0.1:8000/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "http://127.0.0.1:8000/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/pilates.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/inside-out.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/longread.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        }
+      ],
+      "score": 56.00000000000001,
+      "fcpMs": 5649.321165961504,
+      "lcpMs": 11444.582074916863,
+      "tbtMs": 241.00000000000045,
+      "cls": 0.0001210798751702327,
+      "speedIndexMs": 6087.365512338676,
+      "totalByteWeight": 3615130,
+      "runWarnings": []
+    },
+    {
+      "id": "fr-mobile-3",
+      "locale": "fr",
+      "route": "/",
+      "profile": "mobile",
+      "iteration": 3,
+      "fetchTime": "2026-10-21T11:35:33.694Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.56,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 393,
+          "height": 852,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        3.35,
+        4.13,
+        3.89
+      ],
+      "loadAfter": [
+        3.06,
+        4.04,
+        3.87
+      ],
+      "readiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 1686,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 1686,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Inter",
+          "Figtree"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 393,
+          "height": 852,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Mobile Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 1,
+          "hover": false,
+          "coarsePointer": true
+        },
+        "url": "http://127.0.0.1:8000/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "stylesheet"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/pilates.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/longread.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/inside-out.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "stylesheet"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        }
+      ],
+      "score": 56.99999999999999,
+      "fcpMs": 5619.17310540429,
+      "lcpMs": 11771.061097442853,
+      "tbtMs": 187,
+      "cls": 0.0001210798751702327,
+      "speedIndexMs": 6463.644760170392,
+      "totalByteWeight": 3712758,
+      "runWarnings": []
+    },
+    {
+      "id": "fr-desktop-1",
+      "locale": "fr",
+      "route": "/",
+      "profile": "desktop",
+      "iteration": 1,
+      "fetchTime": "2026-10-21T11:35:41.573Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": false,
+          "width": 1440,
+          "height": 900,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        3.06,
+        4.04,
+        3.87
+      ],
+      "loadAfter": [
+        3.11,
+        4.02,
+        3.86
+      ],
+      "readiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 962,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 962,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Inter",
+          "Figtree"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 0,
+          "hover": false,
+          "coarsePointer": false
+        },
+        "url": "http://127.0.0.1:8000/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "stylesheet"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-c.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-c.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "stylesheet"
+        }
+      ],
+      "score": 76,
+      "fcpMs": 1685.0966507817266,
+      "lcpMs": 2975.883964452976,
+      "tbtMs": 0,
+      "cls": 0.00005442666119489758,
+      "speedIndexMs": 1685.0966507817266,
+      "totalByteWeight": 4577066,
+      "runWarnings": []
+    },
+    {
+      "id": "fr-desktop-2",
+      "locale": "fr",
+      "route": "/",
+      "profile": "desktop",
+      "iteration": 2,
+      "fetchTime": "2026-10-21T11:35:52.147Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": false,
+          "width": 1440,
+          "height": 900,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        3.11,
+        4.02,
+        3.86
+      ],
+      "loadAfter": [
+        2.93,
+        3.95,
+        3.84
+      ],
+      "readiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 962,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 962,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Figtree",
+          "Inter"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 0,
+          "hover": false,
+          "coarsePointer": false
+        },
+        "url": "http://127.0.0.1:8000/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-c.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-c.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        }
+      ],
+      "score": 73,
+      "fcpMs": 1763.4179136511066,
+      "lcpMs": 3196.283069598222,
+      "tbtMs": 0,
+      "cls": 0.00005631435313429773,
+      "speedIndexMs": 1763.4179136511066,
+      "totalByteWeight": 5086941,
+      "runWarnings": []
+    },
+    {
+      "id": "fr-desktop-3",
+      "locale": "fr",
+      "route": "/",
+      "profile": "desktop",
+      "iteration": 3,
+      "fetchTime": "2026-10-21T11:36:02.427Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": false,
+          "width": 1440,
+          "height": 900,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        2.93,
+        3.95,
+        3.84
+      ],
+      "loadAfter": [
+        2.94,
+        3.92,
+        3.83
+      ],
+      "readiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 962,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "fr",
+        "title": "Kamila Comme — designer Brand & Digital, Paris",
+        "textLength": 962,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Inter",
+          "Figtree"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 0,
+          "hover": false,
+          "coarsePointer": false
+        },
+        "url": "http://127.0.0.1:8000/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-c.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-c.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "stylesheet"
+        }
+      ],
+      "score": 74,
+      "fcpMs": 1761.785329777033,
+      "lcpMs": 3130.7970131515713,
+      "tbtMs": 0,
+      "cls": 0.00005631435313429773,
+      "speedIndexMs": 1761.785329777033,
+      "totalByteWeight": 5155831,
+      "runWarnings": []
+    },
+    {
+      "id": "en-mobile-1",
+      "locale": "en",
+      "route": "/en/",
+      "profile": "mobile",
+      "iteration": 1,
+      "fetchTime": "2026-10-21T11:36:12.746Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.56,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 393,
+          "height": 852,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        2.94,
+        3.92,
+        3.83
+      ],
+      "loadAfter": [
+        3.03,
+        3.92,
+        3.83
+      ],
+      "readiness": {
+        "lang": "en",
+        "title": "Kamila Comme — Brand & Digital Designer | Portfolio",
+        "textLength": 1648,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "en",
+        "title": "Kamila Comme — Brand & Digital Designer | Portfolio",
+        "textLength": 1648,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Inter",
+          "Figtree"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 393,
+          "height": 852,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Mobile Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 1,
+          "hover": false,
+          "coarsePointer": true
+        },
+        "url": "http://127.0.0.1:8000/en/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "http://127.0.0.1:8000/en/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/pilates.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/longread.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/inside-out.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/en/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        }
+      ],
+      "score": 60,
+      "fcpMs": 3994.230398392096,
+      "lcpMs": 9147.776935047326,
+      "tbtMs": 249,
+      "cls": 0.000003581743200379718,
+      "speedIndexMs": 4227.4414822970175,
+      "totalByteWeight": 3284855,
+      "runWarnings": []
+    },
+    {
+      "id": "en-mobile-2",
+      "locale": "en",
+      "route": "/en/",
+      "profile": "mobile",
+      "iteration": 2,
+      "fetchTime": "2026-10-21T11:36:20.631Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.56,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 393,
+          "height": 852,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        2.86,
+        3.88,
+        3.82
+      ],
+      "loadAfter": [
+        2.72,
+        3.83,
+        3.8
+      ],
+      "readiness": {
+        "lang": "en",
+        "title": "Kamila Comme — Brand & Digital Designer | Portfolio",
+        "textLength": 1648,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "en",
+        "title": "Kamila Comme — Brand & Digital Designer | Portfolio",
+        "textLength": 1648,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Inter",
+          "Figtree"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 393,
+          "height": 852,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Mobile Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 1,
+          "hover": false,
+          "coarsePointer": true
+        },
+        "url": "http://127.0.0.1:8000/en/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "http://127.0.0.1:8000/en/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/pilates.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/longread.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/inside-out.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        }
+      ],
+      "score": 59,
+      "fcpMs": 4301.7108491959425,
+      "lcpMs": 9697.059939066585,
+      "tbtMs": 253.5,
+      "cls": 0.000003581743200379718,
+      "speedIndexMs": 4478.784327159773,
+      "totalByteWeight": 3286445,
+      "runWarnings": []
+    },
+    {
+      "id": "en-mobile-3",
+      "locale": "en",
+      "route": "/en/",
+      "profile": "mobile",
+      "iteration": 3,
+      "fetchTime": "2026-10-21T11:36:28.081Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.56,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 393,
+          "height": 852,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        2.72,
+        3.83,
+        3.8
+      ],
+      "loadAfter": [
+        2.58,
+        3.78,
+        3.79
+      ],
+      "readiness": {
+        "lang": "en",
+        "title": "Kamila Comme — Brand & Digital Designer | Portfolio",
+        "textLength": 1648,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "en",
+        "title": "Kamila Comme — Brand & Digital Designer | Portfolio",
+        "textLength": 1648,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Inter",
+          "Figtree"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 393,
+          "height": 852,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Mobile Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 1,
+          "hover": false,
+          "coarsePointer": true
+        },
+        "url": "http://127.0.0.1:8000/en/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "http://127.0.0.1:8000/en/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/pilates.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/inside-out.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/longread.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/en/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        }
+      ],
+      "score": 60,
+      "fcpMs": 3989.9609991961324,
+      "lcpMs": 9141.37056752407,
+      "tbtMs": 260.5,
+      "cls": 0.000003581743200379718,
+      "speedIndexMs": 4162.070460611024,
+      "totalByteWeight": 3286445,
+      "runWarnings": []
+    },
+    {
+      "id": "en-desktop-1",
+      "locale": "en",
+      "route": "/en/",
+      "profile": "desktop",
+      "iteration": 1,
+      "fetchTime": "2026-10-21T11:36:35.821Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": false,
+          "width": 1440,
+          "height": 900,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        2.69,
+        3.78,
+        3.79
+      ],
+      "loadAfter": [
+        2.72,
+        3.77,
+        3.78
+      ],
+      "readiness": {
+        "lang": "en",
+        "title": "Kamila Comme — Brand & Digital Designer | Portfolio",
+        "textLength": 943,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "en",
+        "title": "Kamila Comme — Brand & Digital Designer | Portfolio",
+        "textLength": 943,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Inter",
+          "Figtree"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 0,
+          "hover": false,
+          "coarsePointer": false
+        },
+        "url": "http://127.0.0.1:8000/en/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "http://127.0.0.1:8000/en/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-c.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-c.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/en/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        }
+      ],
+      "score": 84,
+      "fcpMs": 1016.96123713878,
+      "lcpMs": 2528.1819367921285,
+      "tbtMs": 6,
+      "cls": 5.548373858623167e-7,
+      "speedIndexMs": 1374.0958273367987,
+      "totalByteWeight": 4457775,
+      "runWarnings": []
+    },
+    {
+      "id": "en-desktop-2",
+      "locale": "en",
+      "route": "/en/",
+      "profile": "desktop",
+      "iteration": 2,
+      "fetchTime": "2026-10-21T11:36:46.320Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": false,
+          "width": 1440,
+          "height": 900,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        2.74,
+        3.76,
+        3.78
+      ],
+      "loadAfter": [
+        2.84,
+        3.76,
+        3.78
+      ],
+      "readiness": {
+        "lang": "en",
+        "title": "Kamila Comme — Brand & Digital Designer | Portfolio",
+        "textLength": 943,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "en",
+        "title": "Kamila Comme — Brand & Digital Designer | Portfolio",
+        "textLength": 943,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Inter",
+          "Figtree"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 0,
+          "hover": false,
+          "coarsePointer": false
+        },
+        "url": "http://127.0.0.1:8000/en/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "http://127.0.0.1:8000/en/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/about/avatar.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/about/avatar.mp4",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-c.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-c.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/en/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        }
+      ],
+      "score": 81,
+      "fcpMs": 1012.4463922832922,
+      "lcpMs": 2843.464001930908,
+      "tbtMs": 0,
+      "cls": 5.548373858623167e-7,
+      "speedIndexMs": 1407.8752330825166,
+      "totalByteWeight": 4191515,
+      "runWarnings": []
+    },
+    {
+      "id": "en-desktop-3",
+      "locale": "en",
+      "route": "/en/",
+      "profile": "desktop",
+      "iteration": 3,
+      "fetchTime": "2026-10-21T11:36:56.278Z",
+      "browserVersion": "154.0.8037.57",
+      "lighthouseVersion": "13.5.0",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "configSettings": {
+        "output": [
+          "json",
+          "html"
+        ],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 0,
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": false,
+          "width": 1440,
+          "height": 900,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "node",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance"
+        ],
+        "skipAudits": null
+      },
+      "loadBefore": [
+        2.93,
+        3.77,
+        3.78
+      ],
+      "loadAfter": [
+        2.86,
+        3.74,
+        3.77
+      ],
+      "readiness": {
+        "lang": "en",
+        "title": "Kamila Comme — Brand & Digital Designer | Portfolio",
+        "textLength": 943,
+        "react": true,
+        "fonts": "loaded",
+        "curtainDefined": true
+      },
+      "pageErrors": [],
+      "auditedReadiness": {
+        "lang": "en",
+        "title": "Kamila Comme — Brand & Digital Designer | Portfolio",
+        "textLength": 943,
+        "react": true,
+        "curtainCanvas": true,
+        "curtainTextureLoaded": true,
+        "webglContextLive": true,
+        "fontStatus": "loaded",
+        "loadedFamilies": [
+          "Inter",
+          "Figtree"
+        ],
+        "requiredFontsLoaded": true,
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1
+        },
+        "device": {
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+          "platform": "Linux x86_64",
+          "maxTouchPoints": 0,
+          "hover": false,
+          "coarsePointer": false
+        },
+        "url": "http://127.0.0.1:8000/en/"
+      },
+      "auditPageErrors": [],
+      "auditConsoleErrors": [],
+      "auditedResourceErrors": [],
+      "abortedRequests": [
+        {
+          "url": "http://127.0.0.1:8000/en/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p5-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-a.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p4-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p1-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p3-c.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p6-c.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-b.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/assets/projets/opt/p2-bg.webp",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:8000/en/desktop-project-embedded.html",
+          "error": "net::ERR_ABORTED",
+          "resourceType": "document"
+        }
+      ],
+      "score": 89,
+      "fcpMs": 1036.6660017687614,
+      "lcpMs": 1853.9007320750447,
+      "tbtMs": 0,
+      "cls": 5.548373858623167e-7,
+      "speedIndexMs": 1336.7397095650167,
+      "totalByteWeight": 4457775,
+      "runWarnings": []
+    }
+  ]
+}

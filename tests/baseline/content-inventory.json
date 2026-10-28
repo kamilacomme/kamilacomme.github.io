@@ -1,0 +1,3404 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "d8a37314ed7d2265f3f949c9e048b5e2beadfc20",
+  "identityPolicy": "IDs are audit identifiers; the original export has titles and layout selectors, not these stable data IDs.",
+  "englishPolicy": "English project fields are derived by running the unchanged en/i18n.js against inert original card fixtures. End-to-end rendered-page checks remain required.",
+  "exactTextPolicy": "Descriptions are DOM textContent; preserve punctuation, whitespace and U+00A0. Do not normalize them for equality tests.",
+  "orders": {
+    "desktop": [
+      "pilates",
+      "longread",
+      "tour-de-parole",
+      "inside-out",
+      "celimax",
+      "napoli"
+    ],
+    "tablet-portrait": [
+      "celimax",
+      "inside-out",
+      "napoli",
+      "longread",
+      "tour-de-parole",
+      "pilates"
+    ],
+    "tablet-landscape": [
+      "celimax",
+      "inside-out",
+      "napoli",
+      "longread",
+      "tour-de-parole",
+      "pilates"
+    ],
+    "mobile": [
+      "pilates",
+      "longread",
+      "tour-de-parole",
+      "inside-out",
+      "celimax",
+      "napoli"
+    ]
+  },
+  "layouts": {
+    "desktop": {
+      "fr": [
+        {
+          "title": "Pilates",
+          "description": "Pilates pour les hommes 28-50 ans, pas la cible habituelle. Construire le corps comme un architecte.",
+          "tags": [
+            "web design",
+            "illustration"
+          ],
+          "url": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p1-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/pilates.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/pilates.webp"
+          ],
+          "id": "pilates",
+          "source": {
+            "file": "desktop-project-embedded.html",
+            "line": 6,
+            "selector": ".rail > .ticket:has(h2:text-is(\"Pilates\"))"
+          }
+        },
+        {
+          "title": "Longread",
+          "description": "Pourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ?",
+          "tags": [
+            "Web design",
+            "readymag animation"
+          ],
+          "url": "https://readymag.website/u1448912666/perfectionism/",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p4-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/longread.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/longread.webp"
+          ],
+          "id": "longread",
+          "source": {
+            "file": "desktop-project-embedded.html",
+            "line": 7,
+            "selector": ".rail > .ticket:has(h2:text-is(\"Longread\"))"
+          }
+        },
+        {
+          "title": "Tour de parole",
+          "description": "Une école en ligne enseigne aux jeunes à négocier : salaire, tarif, entretien de manière ludique.",
+          "tags": [
+            "full brand identity",
+            "app & web design"
+          ],
+          "url": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-b.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-c.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/tdp.webp"
+          ],
+          "id": "tour-de-parole",
+          "source": {
+            "file": "desktop-project-embedded.html",
+            "line": 8,
+            "selector": ".rail > .ticket:has(h2:text-is(\"Tour de parole\"))"
+          }
+        },
+        {
+          "title": "Inside out",
+          "description": "Un motion sur la santé mentale : l'anxiété sociale et le sentiment d'être submergé.",
+          "tags": [
+            "creative direction",
+            "motion design"
+          ],
+          "url": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p5-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/inside-out.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/insideout.webp"
+          ],
+          "id": "inside-out",
+          "source": {
+            "file": "desktop-project-embedded.html",
+            "line": 9,
+            "selector": ".rail > .ticket:has(h2:text-is(\"Inside out\"))"
+          }
+        },
+        {
+          "title": "Celimax",
+          "description": "Un pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j'adore.",
+          "tags": [
+            "3d modeling",
+            "landing page"
+          ],
+          "url": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-b.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-c.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/celimax.webp"
+          ],
+          "id": "celimax",
+          "source": {
+            "file": "desktop-project-embedded.html",
+            "line": 10,
+            "selector": ".rail > .ticket:has(h2:text-is(\"Celimax\"))"
+          }
+        },
+        {
+          "title": "Napoli",
+          "description": "Un vrai bout d'Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.",
+          "tags": [
+            "brand identity",
+            "Web design"
+          ],
+          "url": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-a.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-b.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/napoli.webp"
+          ],
+          "id": "napoli",
+          "source": {
+            "file": "desktop-project-embedded.html",
+            "line": 11,
+            "selector": ".rail > .ticket:has(h2:text-is(\"Napoli\"))"
+          }
+        }
+      ],
+      "en": [
+        {
+          "title": "Pilates",
+          "description": "Pilates for men aged 28–50, beyond the usual audience. Building the body like an architect.",
+          "tags": [
+            "web design",
+            "illustration"
+          ],
+          "url": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p1-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/pilates.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/pilates.webp"
+          ],
+          "id": "pilates",
+          "source": {
+            "file": "desktop-project-embedded.html",
+            "line": 6,
+            "selector": ".rail > .ticket:has(h2:text-is(\"Pilates\"))"
+          }
+        },
+        {
+          "title": "Longread",
+          "description": "Why does one slightly misaligned object in a perfect row bother us so much?",
+          "tags": [
+            "Web design",
+            "readymag animation"
+          ],
+          "url": "https://readymag.website/u1448912666/perfectionism/",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p4-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/longread.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/longread.webp"
+          ],
+          "id": "longread",
+          "source": {
+            "file": "desktop-project-embedded.html",
+            "line": 7,
+            "selector": ".rail > .ticket:has(h2:text-is(\"Longread\"))"
+          }
+        },
+        {
+          "title": "Tour de parole",
+          "description": "An online school that teaches young people to negotiate salaries, rates and interviews through play.",
+          "tags": [
+            "full brand identity",
+            "app & web design"
+          ],
+          "url": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-b.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-c.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/tdp.webp"
+          ],
+          "id": "tour-de-parole",
+          "source": {
+            "file": "desktop-project-embedded.html",
+            "line": 8,
+            "selector": ".rail > .ticket:has(h2:text-is(\"Tour de parole\"))"
+          }
+        },
+        {
+          "title": "Inside out",
+          "description": "A motion design piece about mental health: social anxiety and feeling overwhelmed.",
+          "tags": [
+            "creative direction",
+            "motion design"
+          ],
+          "url": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p5-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/inside-out.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/insideout.webp"
+          ],
+          "id": "inside-out",
+          "source": {
+            "file": "desktop-project-embedded.html",
+            "line": 9,
+            "selector": ".rail > .ticket:has(h2:text-is(\"Inside out\"))"
+          }
+        },
+        {
+          "title": "Celimax",
+          "description": "A skincare jar reimagined as a mini record player for Celimax — a Korean brand I love.",
+          "tags": [
+            "3d modeling",
+            "landing page"
+          ],
+          "url": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-bg.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-b.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-c.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/celimax.webp"
+          ],
+          "id": "celimax",
+          "source": {
+            "file": "desktop-project-embedded.html",
+            "line": 10,
+            "selector": ".rail > .ticket:has(h2:text-is(\"Celimax\"))"
+          }
+        },
+        {
+          "title": "Napoli",
+          "description": "An authentic taste of Italy in Montreuil — focaccia, Italian pastries and Neapolitan espresso.",
+          "tags": [
+            "brand identity",
+            "Web design"
+          ],
+          "url": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-a.webp",
+              "loading": "eager"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-b.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [
+            "assets/projets/bg/napoli.webp"
+          ],
+          "id": "napoli",
+          "source": {
+            "file": "desktop-project-embedded.html",
+            "line": 11,
+            "selector": ".rail > .ticket:has(h2:text-is(\"Napoli\"))"
+          }
+        }
+      ]
+    },
+    "tablet-portrait": {
+      "fr": [
+        {
+          "title": "Celimax",
+          "description": "Un pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j’adore.",
+          "tags": [
+            "branding",
+            "UX/UI"
+          ],
+          "url": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "celimax",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Celimax\"))"
+          }
+        },
+        {
+          "title": "Inside out",
+          "description": "Un motion sur la santé mentale : l’anxiété sociale et le sentiment d’être submergé par les émotions.",
+          "tags": [
+            "creative direction",
+            "motion design"
+          ],
+          "url": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p5-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/inside-out.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "inside-out",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Inside out\"))"
+          }
+        },
+        {
+          "title": "Napoli",
+          "description": "Un vrai bout d’Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.",
+          "tags": [
+            "full brand identity",
+            "Web design"
+          ],
+          "url": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-a.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "napoli",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Napoli\"))"
+          }
+        },
+        {
+          "title": "Longread",
+          "description": "Pourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ?",
+          "tags": [
+            "Web design",
+            "readymag animation"
+          ],
+          "url": "https://readymag.website/u1448912666/perfectionism/",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p4-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/longread.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "longread",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Longread\"))"
+          }
+        },
+        {
+          "title": "Tour de parole",
+          "description": "Une école en ligne enseigne aux jeunes à négocier : salaire, tarif, entretien de manière ludique.",
+          "tags": [
+            "full brand identity",
+            "app & web design"
+          ],
+          "url": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "tour-de-parole",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Tour de parole\"))"
+          }
+        },
+        {
+          "title": "Pilates",
+          "description": "Pilates pour les hommes 28-50 ans, pas la cible habituelle. Construire le corps comme un architecte.",
+          "tags": [
+            "web design",
+            "illustration"
+          ],
+          "url": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p1-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/pilates.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "pilates",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Pilates\"))"
+          }
+        }
+      ],
+      "en": [
+        {
+          "title": "Celimax",
+          "description": "A skincare jar reimagined as a mini record player for Celimax — a Korean brand I love.",
+          "tags": [
+            "branding",
+            "UX/UI"
+          ],
+          "url": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "celimax",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Celimax\"))"
+          }
+        },
+        {
+          "title": "Inside out",
+          "description": "A motion design piece on mental health: social anxiety and feeling overwhelmed by emotions.",
+          "tags": [
+            "creative direction",
+            "motion design"
+          ],
+          "url": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p5-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/inside-out.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "inside-out",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Inside out\"))"
+          }
+        },
+        {
+          "title": "Napoli",
+          "description": "An authentic taste of Italy in Montreuil — focaccia, Italian pastries and Neapolitan espresso.",
+          "tags": [
+            "full brand identity",
+            "Web design"
+          ],
+          "url": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-a.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "napoli",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Napoli\"))"
+          }
+        },
+        {
+          "title": "Longread",
+          "description": "Why does one slightly misaligned object in a perfect row bother us so much?",
+          "tags": [
+            "Web design",
+            "readymag animation"
+          ],
+          "url": "https://readymag.website/u1448912666/perfectionism/",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p4-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/longread.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "longread",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Longread\"))"
+          }
+        },
+        {
+          "title": "Tour de parole",
+          "description": "An online school that teaches young people to negotiate salaries, rates and interviews through play.",
+          "tags": [
+            "full brand identity",
+            "app & web design"
+          ],
+          "url": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "tour-de-parole",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Tour de parole\"))"
+          }
+        },
+        {
+          "title": "Pilates",
+          "description": "Pilates for men aged 28–50, beyond the usual audience. Building the body like an architect.",
+          "tags": [
+            "web design",
+            "illustration"
+          ],
+          "url": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p1-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/pilates.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "pilates",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Pilates\"))"
+          }
+        }
+      ]
+    },
+    "tablet-landscape": {
+      "fr": [
+        {
+          "title": "Celimax",
+          "description": "Un pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j’adore.",
+          "tags": [
+            "branding",
+            "UX/UI"
+          ],
+          "url": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "celimax",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Celimax\"))"
+          }
+        },
+        {
+          "title": "Inside out",
+          "description": "Un motion sur la santé mentale : l’anxiété sociale et le sentiment d’être submergé par les émotions.",
+          "tags": [
+            "creative direction",
+            "motion design"
+          ],
+          "url": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p5-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/inside-out.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "inside-out",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Inside out\"))"
+          }
+        },
+        {
+          "title": "Napoli",
+          "description": "Un vrai bout d’Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.",
+          "tags": [
+            "full brand identity",
+            "Web design"
+          ],
+          "url": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-a.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "napoli",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Napoli\"))"
+          }
+        },
+        {
+          "title": "Longread",
+          "description": "Pourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ?",
+          "tags": [
+            "Web design",
+            "readymag animation"
+          ],
+          "url": "https://readymag.website/u1448912666/perfectionism/",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p4-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/longread.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "longread",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Longread\"))"
+          }
+        },
+        {
+          "title": "Tour de parole",
+          "description": "Une école en ligne enseigne aux jeunes à négocier : salaire, tarif, entretien de manière ludique.",
+          "tags": [
+            "full brand identity",
+            "app & web design"
+          ],
+          "url": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "tour-de-parole",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Tour de parole\"))"
+          }
+        },
+        {
+          "title": "Pilates",
+          "description": "Pilates pour les hommes 28-50 ans, pas la cible habituelle. Construire le corps comme un architecte.",
+          "tags": [
+            "web design",
+            "illustration"
+          ],
+          "url": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p1-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/pilates.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "pilates",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Pilates\"))"
+          }
+        }
+      ],
+      "en": [
+        {
+          "title": "Celimax",
+          "description": "A skincare jar reimagined as a mini record player for Celimax — a Korean brand I love.",
+          "tags": [
+            "branding",
+            "UX/UI"
+          ],
+          "url": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "celimax",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Celimax\"))"
+          }
+        },
+        {
+          "title": "Inside out",
+          "description": "A motion design piece on mental health: social anxiety and feeling overwhelmed by emotions.",
+          "tags": [
+            "creative direction",
+            "motion design"
+          ],
+          "url": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p5-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/inside-out.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "inside-out",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Inside out\"))"
+          }
+        },
+        {
+          "title": "Napoli",
+          "description": "An authentic taste of Italy in Montreuil — focaccia, Italian pastries and Neapolitan espresso.",
+          "tags": [
+            "full brand identity",
+            "Web design"
+          ],
+          "url": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-a.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "napoli",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Napoli\"))"
+          }
+        },
+        {
+          "title": "Longread",
+          "description": "Why does one slightly misaligned object in a perfect row bother us so much?",
+          "tags": [
+            "Web design",
+            "readymag animation"
+          ],
+          "url": "https://readymag.website/u1448912666/perfectionism/",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p4-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/longread.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "longread",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Longread\"))"
+          }
+        },
+        {
+          "title": "Tour de parole",
+          "description": "An online school that teaches young people to negotiate salaries, rates and interviews through play.",
+          "tags": [
+            "full brand identity",
+            "app & web design"
+          ],
+          "url": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "tour-de-parole",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Tour de parole\"))"
+          }
+        },
+        {
+          "title": "Pilates",
+          "description": "Pilates for men aged 28–50, beyond the usual audience. Building the body like an architect.",
+          "tags": [
+            "web design",
+            "illustration"
+          ],
+          "url": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+          "accessibleName": null,
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p1-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/pilates.mp4",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "pilates",
+          "source": {
+            "file": "index.html",
+            "line": 295,
+            "selector": "#kc-tablet-projets .tickets > .ticket:has(h2:text-is(\"Pilates\"))"
+          }
+        }
+      ]
+    },
+    "mobile": {
+      "fr": [
+        {
+          "title": "Pilates",
+          "description": "Pilates pour les hommes 28-50 ans, pas la cible habituelle. Construire le corps comme un architecte.",
+          "tags": [
+            "web design",
+            "illustration"
+          ],
+          "url": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+          "accessibleName": "Voir le projet Pilates",
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p1-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/pilates.mp4",
+              "poster": "assets/projets/opt/p1-bg.webp",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "pilates",
+          "source": {
+            "file": "index.html",
+            "line": 332,
+            "selector": "#kc-mobile-projets .project:has(h2:text-is(\"Pilates\"))"
+          }
+        },
+        {
+          "title": "Longread",
+          "description": "Pourquoi un objet légèrement de travers dans une rangée parfaite nous dérange autant ?",
+          "tags": [
+            "web design",
+            "readymag animation"
+          ],
+          "url": "https://readymag.website/u1448912666/perfectionism/",
+          "accessibleName": "Voir le projet Longread",
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p4-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/longread.mp4",
+              "poster": "assets/projets/opt/p4-bg.webp",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "longread",
+          "source": {
+            "file": "index.html",
+            "line": 332,
+            "selector": "#kc-mobile-projets .project:has(h2:text-is(\"Longread\"))"
+          }
+        },
+        {
+          "title": "Tour de parole",
+          "description": "Une école en ligne enseigne aux jeunes à négocier : salaire, tarif, entretien de manière ludique.",
+          "tags": [
+            "full brand identity",
+            "app & web design"
+          ],
+          "url": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+          "accessibleName": "Voir le projet Tour de parole",
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "tour-de-parole",
+          "source": {
+            "file": "index.html",
+            "line": 332,
+            "selector": "#kc-mobile-projets .project:has(h2:text-is(\"Tour de parole\"))"
+          }
+        },
+        {
+          "title": "Inside out",
+          "description": "Un motion sur la santé mentale : l'anxiété sociale et le sentiment d'être submergé.",
+          "tags": [
+            "creative direction",
+            "motion design"
+          ],
+          "url": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+          "accessibleName": "Voir le projet Inside out",
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p5-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/inside-out.mp4",
+              "poster": "assets/projets/opt/p5-bg.webp",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "inside-out",
+          "source": {
+            "file": "index.html",
+            "line": 332,
+            "selector": "#kc-mobile-projets .project:has(h2:text-is(\"Inside out\"))"
+          }
+        },
+        {
+          "title": "Celimax",
+          "description": "Un pot de soin repensé en mini tourne-disque, pour Celimax — marque coréenne que j'adore.",
+          "tags": [
+            "3d modeling",
+            "landing page"
+          ],
+          "url": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+          "accessibleName": "Voir le projet Celimax",
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "celimax",
+          "source": {
+            "file": "index.html",
+            "line": 332,
+            "selector": "#kc-mobile-projets .project:has(h2:text-is(\"Celimax\"))"
+          }
+        },
+        {
+          "title": "Napoli",
+          "description": "Un vrai bout d'Italie ouvert à Montreuil — focaccias, pâtisseries italiennes, espresso napolitain.",
+          "tags": [
+            "brand identity",
+            "web design"
+          ],
+          "url": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+          "accessibleName": "Voir le projet Napoli",
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-a.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "napoli",
+          "source": {
+            "file": "index.html",
+            "line": 332,
+            "selector": "#kc-mobile-projets .project:has(h2:text-is(\"Napoli\"))"
+          }
+        }
+      ],
+      "en": [
+        {
+          "title": "Pilates",
+          "description": "Pilates for men aged 28–50, beyond the usual audience. Building the body like an architect.",
+          "tags": [
+            "web design",
+            "illustration"
+          ],
+          "url": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+          "accessibleName": "View the Pilates project",
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p1-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/pilates.mp4",
+              "poster": "assets/projets/opt/p1-bg.webp",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "pilates",
+          "source": {
+            "file": "index.html",
+            "line": 332,
+            "selector": "#kc-mobile-projets .project:has(h2:text-is(\"Pilates\"))"
+          }
+        },
+        {
+          "title": "Longread",
+          "description": "Why does one slightly misaligned object in a perfect row bother us so much?",
+          "tags": [
+            "web design",
+            "readymag animation"
+          ],
+          "url": "https://readymag.website/u1448912666/perfectionism/",
+          "accessibleName": "View the Longread project",
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p4-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/longread.mp4",
+              "poster": "assets/projets/opt/p4-bg.webp",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "longread",
+          "source": {
+            "file": "index.html",
+            "line": 332,
+            "selector": "#kc-mobile-projets .project:has(h2:text-is(\"Longread\"))"
+          }
+        },
+        {
+          "title": "Tour de parole",
+          "description": "An online school that teaches young people to negotiate salaries, rates and interviews through play.",
+          "tags": [
+            "full brand identity",
+            "app & web design"
+          ],
+          "url": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+          "accessibleName": "View the Tour de parole project",
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p3-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "tour-de-parole",
+          "source": {
+            "file": "index.html",
+            "line": 332,
+            "selector": "#kc-mobile-projets .project:has(h2:text-is(\"Tour de parole\"))"
+          }
+        },
+        {
+          "title": "Inside out",
+          "description": "A motion design piece about mental health: social anxiety and feeling overwhelmed.",
+          "tags": [
+            "creative direction",
+            "motion design"
+          ],
+          "url": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+          "accessibleName": "View the Inside out project",
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p5-bg.webp",
+              "loading": "lazy"
+            },
+            {
+              "element": "video",
+              "data-src": "assets/projets/inside-out.mp4",
+              "poster": "assets/projets/opt/p5-bg.webp",
+              "preload": "none"
+            }
+          ],
+          "styleAssets": [],
+          "id": "inside-out",
+          "source": {
+            "file": "index.html",
+            "line": 332,
+            "selector": "#kc-mobile-projets .project:has(h2:text-is(\"Inside out\"))"
+          }
+        },
+        {
+          "title": "Celimax",
+          "description": "A skincare jar reimagined as a mini record player for Celimax — a Korean brand I love.",
+          "tags": [
+            "3d modeling",
+            "landing page"
+          ],
+          "url": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+          "accessibleName": "View the Celimax project",
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p6-bg.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "celimax",
+          "source": {
+            "file": "index.html",
+            "line": 332,
+            "selector": "#kc-mobile-projets .project:has(h2:text-is(\"Celimax\"))"
+          }
+        },
+        {
+          "title": "Napoli",
+          "description": "An authentic taste of Italy in Montreuil — focaccia, Italian pastries and Neapolitan espresso.",
+          "tags": [
+            "brand identity",
+            "web design"
+          ],
+          "url": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+          "accessibleName": "View the Napoli project",
+          "media": [
+            {
+              "element": "img",
+              "src": "assets/projets/opt/p2-a.webp",
+              "loading": "lazy"
+            }
+          ],
+          "styleAssets": [],
+          "id": "napoli",
+          "source": {
+            "file": "index.html",
+            "line": 332,
+            "selector": "#kc-mobile-projets .project:has(h2:text-is(\"Napoli\"))"
+          }
+        }
+      ]
+    }
+  },
+  "legacyLinks": [
+    {
+      "index": 0,
+      "id": "pilates",
+      "url": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+      "source": "index.html:1783 ticketLinks()"
+    },
+    {
+      "index": 1,
+      "id": "tour-de-parole",
+      "url": "https://www.behance.net/gallery/254618097/Tour-de-parole-Negotiation-school-for-GenZ",
+      "source": "index.html:1783 ticketLinks()"
+    },
+    {
+      "index": 2,
+      "id": "longread",
+      "url": "https://readymag.website/u1448912666/perfectionism/",
+      "source": "index.html:1783 ticketLinks()"
+    },
+    {
+      "index": 3,
+      "id": "napoli",
+      "url": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+      "source": "index.html:1783 ticketLinks()"
+    },
+    {
+      "index": 4,
+      "id": "inside-out",
+      "url": "https://www.youtube.com/watch?v=NG0HM9ApyP8&time_continue=1&source_ve_path=MjM4NTE&embeds_referring_euri=https%3A%2F%2Freadymag.website%2F&embeds_referring_origin=https%3A%2F%2Freadymag.website",
+      "source": "index.html:1783 ticketLinks()"
+    },
+    {
+      "index": 5,
+      "id": "celimax",
+      "url": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+      "source": "index.html:1783 ticketLinks()"
+    }
+  ],
+  "discrepancies": [
+    {
+      "id": "tour-de-parole",
+      "detail": "Legacy ticketLinks() uses Behance gallery 254618097; every active layout anchor uses 256783201. Preserve active destinations and record legacy value; do not resolve this discrepancy as part of baseline work."
+    },
+    {
+      "id": "inside-out",
+      "detail": "Legacy ticketLinks() includes additional YouTube query parameters; active anchors use the shorter watch URL. These are recorded separately."
+    },
+    {
+      "detail": "Tablet order is different from desktop/mobile; tablet categories and some punctuation differ from desktop. These are intentional baseline variants until separately approved."
+    }
+  ],
+  "mobileImageSequences": {
+    "tour-de-parole": [
+      "assets/projets/opt/p3-bg.webp",
+      "assets/projets/opt/p3-b.webp",
+      "assets/projets/opt/p3-c.webp"
+    ],
+    "celimax": [
+      "assets/projets/opt/p6-bg.webp",
+      "assets/projets/opt/p6-b.webp",
+      "assets/projets/opt/p6-c.webp"
+    ],
+    "napoli": [
+      "assets/projets/opt/p2-a.webp",
+      "assets/projets/opt/p2-b.webp",
+      "assets/projets/opt/p2-bg.webp"
+    ]
+  },
+  "runtimeDependencies": {
+    "react": {
+      "url": "https://unpkg.com/react@18.3.1/umd/react.production.min.js",
+      "integrity": "sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z"
+    },
+    "reactDOM": {
+      "url": "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js",
+      "integrity": "sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1"
+    },
+    "three": {
+      "url": "https://esm.sh/three@0.160.0",
+      "consumer": "curtain-cloth.js"
+    },
+    "babel": {
+      "url": "https://unpkg.com/@babel/standalone@7.29.0/babel.min.js",
+      "condition": "Only when JSX external modules are requested; not asserted as an initial-page dependency."
+    },
+    "fonts": [
+      "https://fonts.googleapis.com",
+      "https://fonts.gstatic.com"
+    ]
+  },
+  "assetFiles": [
+    {
+      "path": "assets/about/avatar.mp4",
+      "bytes": 132880,
+      "sha256": "2a6fcf45230ccb551bca08a908593d518242b48e6e6825102b06e546ae1c1cb7",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 23,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 255,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 301,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 338,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 456,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/about/footer-curtain.webp",
+      "bytes": 60524,
+      "sha256": "5cb0809bf6b0bcbc662f78b05b88f614834e47d412177c16c05a435b7b440322",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 28,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 461,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 2292,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/about/footer-walk.mp4",
+      "bytes": 236631,
+      "sha256": "ff6c5af3115cee348613f7a8c815e9585e7472a7c6a205409d8bfd62d241b0e4",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 24,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 382,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 457,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/cursor-ticket.svg",
+      "bytes": 11253,
+      "sha256": "1bf0c39fd693733721bb7d8630bb2337bff761d40d87379dfb2127720a99825c",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 415,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/favicon.png",
+      "bytes": 7958,
+      "sha256": "efdd56b3e363fd9424ccd0517af4028cdb3a71a1390da7a007076382c30cc328",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 18,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 19,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/og.jpg",
+      "bytes": 76480,
+      "sha256": "573b5511ff644e6d11ddead52a7c48419854d7abcd1217c7e90eb8a098b94dfb",
+      "referencedBy": [
+        {
+          "file": "en/index.html",
+          "line": 12,
+          "kind": "literal"
+        },
+        {
+          "file": "en/index.html",
+          "line": 17,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 13,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 17,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/portrait.webp",
+      "bytes": 4066,
+      "sha256": "53026ae5caa3ed9d5e7bca99ca3ce550b5bf2e969f386a0588649b8983a9c6ea",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 211,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 225,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 240,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/preview-1.webp",
+      "bytes": 48622,
+      "sha256": "58999124b5bcfb1411f5285e1df6ea1ef5a1d5b2eb3c4000ad31a93973cf2cb4",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 203,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 217,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 231,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/preview-2.webp",
+      "bytes": 38164,
+      "sha256": "f83b1c86e9e4c52d4a0be33af1cacf808542726c59769493dec4f75a8d02e771",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 204,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 218,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 232,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/preview-3.webp",
+      "bytes": 55540,
+      "sha256": "90270c8ad0d417b2c54a84b9738af65e76192097e672ace445ad8bcb4a84eeee",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 205,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 219,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 233,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/preview-4.webp",
+      "bytes": 75790,
+      "sha256": "b50044781650f77ea7d1418212dafdcfac1b0498974cd5d71e43f0ffb1f7c95d",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 206,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 220,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 234,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/preview-5.webp",
+      "bytes": 24360,
+      "sha256": "d4b3894c9c8f60bae5fb210894ec67e47c55bd74334207ce3e958656a7a0fbcb",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 207,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 221,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 235,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/preview-6.webp",
+      "bytes": 19274,
+      "sha256": "050ae17efbb83dfb3e1d3892b7ffd89e2339a53722ed011e7d198696223e7c25",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 208,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 222,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 236,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/bg/celimax.webp",
+      "bytes": 75180,
+      "sha256": "ff2312bb320fc690f445f6d98e35edce3d090963cec6d95ed839b5145456ad9d",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 10,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/bg/insideout.webp",
+      "bytes": 42934,
+      "sha256": "abdda7c8cee3f897f634e4d5ced38f1007a6e685d8aef90f9b84cb5b4b32e4f9",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 9,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/bg/longread.webp",
+      "bytes": 148198,
+      "sha256": "35077dc5fe541498faaae22a776aefc4cac7d162d7a15816563a2372ee891f19",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 7,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/bg/napoli.webp",
+      "bytes": 72228,
+      "sha256": "bee5f30d7445b4deb1d40b865c264954741671a24560b18a595ea885f3785395",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 11,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/bg/pilates.webp",
+      "bytes": 231660,
+      "sha256": "6cd4ef165318ee2ccdbaf686e179a1b69669de7216d8750139400e95b354fe0e",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 6,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/bg/tdp.webp",
+      "bytes": 60554,
+      "sha256": "a7738f78e689466d0342299c409c7c4db030eb402d53252f238cbbd26b3760a8",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 8,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/inside-out.mp4",
+      "bytes": 347547,
+      "sha256": "aa9e095e17cc72cf7e95877c6bae25b61f6c204167568804d951db0a540b5778",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 9,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 27,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 295,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 332,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 460,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/longread.mp4",
+      "bytes": 425465,
+      "sha256": "40f3be8be55c3636174ea8d0b037c658717bff6a8276a3d3ea38138e700a3e63",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 7,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 26,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 295,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 332,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 459,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/opt/p1-bg.webp",
+      "bytes": 57418,
+      "sha256": "ec70ec6f3549c173ea7ca08fb4132de991c30d362ee9a0a39376158f0305f1d7",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 6,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 295,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 332,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/opt/p2-a.webp",
+      "bytes": 39180,
+      "sha256": "3cf4ff20ba6ac69dfd0e8a5748feb68d56571503fe0e5f4e0abe38d5d624fbea",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 11,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 295,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 332,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 2544,
+          "kind": "mobile-image-sequence-base-plus-filename"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/opt/p2-b.webp",
+      "bytes": 43746,
+      "sha256": "0406e118d95566817a4c8c5077e0258b96e822f92dad20f93ccf7cb55091cd7d",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 11,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 2544,
+          "kind": "mobile-image-sequence-base-plus-filename"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/opt/p2-bg.webp",
+      "bytes": 35068,
+      "sha256": "b6c72a162913d4330cc7e5cf52173edcd5b6bad8f262ddb51f289cbb016cae4d",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 11,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 2544,
+          "kind": "mobile-image-sequence-base-plus-filename"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/opt/p3-b.webp",
+      "bytes": 40534,
+      "sha256": "0d595c59eb06cdfd2ea0ccfc06a5a8ecca8a807c274f7f58baab02bef1b85eec",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 8,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 2542,
+          "kind": "mobile-image-sequence-base-plus-filename"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/opt/p3-bg.webp",
+      "bytes": 76610,
+      "sha256": "32f66752cb6e1e28031239c8b51501a6dad16dfb0f97a0f891e086dc3e2f248a",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 8,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 295,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 332,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 2542,
+          "kind": "mobile-image-sequence-base-plus-filename"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/opt/p3-c.webp",
+      "bytes": 75066,
+      "sha256": "22f417a1e05bd560dddcb912c9afef6f02fb01aea636272131df6d451f164089",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 8,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 2542,
+          "kind": "mobile-image-sequence-base-plus-filename"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/opt/p4-bg.webp",
+      "bytes": 58462,
+      "sha256": "9fe864be36af1ff8e916560b79923e458d9e4fff4711deb1000b8f17f817c0d0",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 7,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 295,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 332,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/opt/p5-bg.webp",
+      "bytes": 20530,
+      "sha256": "7836e3b54f53a8d0e09da56614c968236e30ecc3846fcfde8744ace6b63bcddb",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 9,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 295,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 332,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/opt/p6-b.webp",
+      "bytes": 153632,
+      "sha256": "e5a26de346afd3843a90f78bec4d42716ec36a2744d3da934bd9bc97c4c820ca",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 10,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 2543,
+          "kind": "mobile-image-sequence-base-plus-filename"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/opt/p6-bg.webp",
+      "bytes": 84882,
+      "sha256": "7e82511dec0aa63cb5a259c011960b8a10c30645fac0b670df151fee1738236c",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 10,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 295,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 332,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 2543,
+          "kind": "mobile-image-sequence-base-plus-filename"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/opt/p6-c.webp",
+      "bytes": 112246,
+      "sha256": "593c695ade97f283e83823cfa92ca24811ef2a7246072a476362a03249d76fb0",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 10,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 2543,
+          "kind": "mobile-image-sequence-base-plus-filename"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/projets/pilates.mp4",
+      "bytes": 432062,
+      "sha256": "ecff1027fa41a1c4668132da041766c7be1e2022ab9831c320b3f556bf261029",
+      "referencedBy": [
+        {
+          "file": "desktop-project-embedded.html",
+          "line": 6,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 25,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 295,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 332,
+          "kind": "literal"
+        },
+        {
+          "file": "index.html",
+          "line": 458,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/seats-dark.webp",
+      "bytes": 53576,
+      "sha256": "395cc76910dc6d3b3f8ede44b8ddaaf14b0277ed6ca55a70f61c694f2d2e2a65",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 155,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    },
+    {
+      "path": "assets/seats-light.webp",
+      "bytes": 139524,
+      "sha256": "34d52d86b3d3de2109401d57ae4c790b197578e34b62287ca3bd89644c2878b0",
+      "referencedBy": [
+        {
+          "file": "index.html",
+          "line": 185,
+          "kind": "literal"
+        }
+      ],
+      "staticReferenceFound": true
+    }
+  ],
+  "resourceReferences": [
+    {
+      "source": "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/fonts.css",
+      "line": 10,
+      "reference": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,600&display=swap",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "curtain-cloth.js",
+      "line": 1,
+      "reference": "https://esm.sh/three@0.160.0",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 3,
+      "reference": "https://fonts.googleapis.com",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 3,
+      "reference": "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@400;500&amp;display=swap",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 6,
+      "reference": "assets/projets/bg/pilates.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 6,
+      "reference": "assets/projets/opt/p1-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 6,
+      "reference": "assets/projets/pilates.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 6,
+      "reference": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 6,
+      "reference": "http://www.w3.org/2000/svg",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 7,
+      "reference": "assets/projets/bg/longread.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 7,
+      "reference": "assets/projets/longread.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 7,
+      "reference": "assets/projets/opt/p4-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 7,
+      "reference": "https://readymag.website/u1448912666/perfectionism/",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 7,
+      "reference": "http://www.w3.org/2000/svg",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 8,
+      "reference": "assets/projets/bg/tdp.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 8,
+      "reference": "assets/projets/opt/p3-b.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 8,
+      "reference": "assets/projets/opt/p3-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 8,
+      "reference": "assets/projets/opt/p3-c.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 8,
+      "reference": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 8,
+      "reference": "http://www.w3.org/2000/svg",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 9,
+      "reference": "assets/projets/bg/insideout.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 9,
+      "reference": "assets/projets/inside-out.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 9,
+      "reference": "assets/projets/opt/p5-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 9,
+      "reference": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 9,
+      "reference": "http://www.w3.org/2000/svg",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 10,
+      "reference": "assets/projets/bg/celimax.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 10,
+      "reference": "assets/projets/opt/p6-b.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 10,
+      "reference": "assets/projets/opt/p6-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 10,
+      "reference": "assets/projets/opt/p6-c.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 10,
+      "reference": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 10,
+      "reference": "http://www.w3.org/2000/svg",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 11,
+      "reference": "assets/projets/bg/napoli.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 11,
+      "reference": "assets/projets/opt/p2-a.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 11,
+      "reference": "assets/projets/opt/p2-b.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 11,
+      "reference": "assets/projets/opt/p2-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 11,
+      "reference": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "desktop-project-embedded.html",
+      "line": 11,
+      "reference": "http://www.w3.org/2000/svg",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "en/desktop-project-embedded.html",
+      "line": 18,
+      "reference": "en/i18n.js",
+      "kind": "local-literal"
+    },
+    {
+      "source": "en/index.html",
+      "line": 11,
+      "reference": "https://kamilacomme.github.io/en/",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "en/index.html",
+      "line": 12,
+      "reference": "assets/og.jpg",
+      "kind": "local-literal"
+    },
+    {
+      "source": "en/index.html",
+      "line": 12,
+      "reference": "https://kamilacomme.github.io/assets/og.jpg",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "en/index.html",
+      "line": 17,
+      "reference": "assets/og.jpg",
+      "kind": "local-literal"
+    },
+    {
+      "source": "en/index.html",
+      "line": 17,
+      "reference": "https://kamilacomme.github.io/assets/og.jpg",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "en/index.html",
+      "line": 18,
+      "reference": "https://kamilacomme.github.io/en/",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "en/index.html",
+      "line": 34,
+      "reference": "https://kamilacomme.github.io/",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "en/index.html",
+      "line": 34,
+      "reference": "https://kamilacomme.github.io/en/",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "en/index.html",
+      "line": 37,
+      "reference": "en/i18n.js",
+      "kind": "local-literal"
+    },
+    {
+      "source": "en/index.html",
+      "line": 37,
+      "reference": "https://kamilacomme.github.io/en/",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 12,
+      "reference": "https://kamilacomme.github.io/",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 13,
+      "reference": "assets/og.jpg",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 13,
+      "reference": "https://kamilacomme.github.io/assets/og.jpg",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 17,
+      "reference": "assets/og.jpg",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 17,
+      "reference": "https://kamilacomme.github.io/assets/og.jpg",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 18,
+      "reference": "assets/favicon.png",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 19,
+      "reference": "assets/favicon.png",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 23,
+      "reference": "assets/about/avatar.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 24,
+      "reference": "assets/about/footer-walk.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 25,
+      "reference": "assets/projets/pilates.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 26,
+      "reference": "assets/projets/longread.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 27,
+      "reference": "assets/projets/inside-out.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 28,
+      "reference": "assets/about/footer-curtain.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 29,
+      "reference": "curtain-cloth.js",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 30,
+      "reference": "support.js",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 32,
+      "reference": "http://www.w3.org/2000/svg",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 61,
+      "reference": "https://www.googletagmanager.com/gtag/js?id=G-NEB5X3SCNX",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 119,
+      "reference": "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/fonts.css",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 120,
+      "reference": "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/colors.css",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 121,
+      "reference": "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/typography.css",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 122,
+      "reference": "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/spacing.css",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 123,
+      "reference": "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/styles.css",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 124,
+      "reference": "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/_ds_bundle.js",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 125,
+      "reference": "https://fonts.googleapis.com",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 126,
+      "reference": "https://fonts.gstatic.com",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 127,
+      "reference": "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400;1,700&family=Epilogue:wght@500&display=swap",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 155,
+      "reference": "assets/seats-dark.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 185,
+      "reference": "assets/seats-light.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 203,
+      "reference": "assets/preview-1.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 204,
+      "reference": "assets/preview-2.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 205,
+      "reference": "assets/preview-3.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 206,
+      "reference": "assets/preview-4.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 207,
+      "reference": "assets/preview-5.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 208,
+      "reference": "assets/preview-6.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 211,
+      "reference": "assets/portrait.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 217,
+      "reference": "assets/preview-1.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 218,
+      "reference": "assets/preview-2.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 219,
+      "reference": "assets/preview-3.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 220,
+      "reference": "assets/preview-4.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 221,
+      "reference": "assets/preview-5.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 222,
+      "reference": "assets/preview-6.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 225,
+      "reference": "assets/portrait.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 231,
+      "reference": "assets/preview-1.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 232,
+      "reference": "assets/preview-2.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 233,
+      "reference": "assets/preview-3.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 234,
+      "reference": "assets/preview-4.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 235,
+      "reference": "assets/preview-5.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 236,
+      "reference": "assets/preview-6.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 240,
+      "reference": "assets/portrait.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 255,
+      "reference": "assets/about/avatar.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "assets/projets/inside-out.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "assets/projets/longread.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "assets/projets/opt/p1-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "assets/projets/opt/p2-a.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "assets/projets/opt/p3-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "assets/projets/opt/p4-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "assets/projets/opt/p5-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "assets/projets/opt/p6-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "assets/projets/pilates.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "https://readymag.website/u1448912666/perfectionism/",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 295,
+      "reference": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 301,
+      "reference": "assets/about/avatar.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "assets/projets/inside-out.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "assets/projets/longread.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "assets/projets/opt/p1-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "assets/projets/opt/p2-a.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "assets/projets/opt/p3-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "assets/projets/opt/p4-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "assets/projets/opt/p5-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "assets/projets/opt/p6-bg.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "assets/projets/pilates.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "https://readymag.website/u1448912666/perfectionism/",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "https://www.behance.net/gallery/256783201/Tour-de-parole-Negotiation-school-for-GenZ",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "https://www.youtube.com/watch?v=NG0HM9ApyP8",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 332,
+      "reference": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 338,
+      "reference": "assets/about/avatar.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 382,
+      "reference": "assets/about/footer-walk.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 400,
+      "reference": "https://support.github.com/contact",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 415,
+      "reference": "assets/cursor-ticket.svg",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 456,
+      "reference": "assets/about/avatar.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 457,
+      "reference": "assets/about/footer-walk.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 458,
+      "reference": "assets/projets/pilates.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 459,
+      "reference": "assets/projets/longread.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 460,
+      "reference": "assets/projets/inside-out.mp4",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 461,
+      "reference": "assets/about/footer-curtain.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 462,
+      "reference": "curtain-cloth.js",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 1785,
+      "reference": "https://www.behance.net/gallery/254535151/Reform-pilates-studio-for-men",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 1786,
+      "reference": "https://www.behance.net/gallery/254618097/Tour-de-parole-Negotiation-school-for-GenZ",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 1787,
+      "reference": "https://readymag.website/u1448912666/perfectionism/",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 1788,
+      "reference": "https://www.behance.net/gallery/257282669/Napoli-caffe-branding",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 1789,
+      "reference": "https://www.youtube.com/watch?v=NG0HM9ApyP8&time_continue=1&source_ve_path=MjM4NTE&embeds_referring_euri=https%3A%2F%2Freadymag.website%2F&embeds_referring_origin=https%3A%2F%2Freadymag.website",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 1790,
+      "reference": "https://www.behance.net/gallery/255872777/Climax-3D-product-website",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "index.html",
+      "line": 2284,
+      "reference": "curtain-cloth.js",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 2287,
+      "reference": "curtain-cloth.js",
+      "kind": "local-literal"
+    },
+    {
+      "source": "index.html",
+      "line": 2292,
+      "reference": "assets/about/footer-curtain.webp",
+      "kind": "local-literal"
+    },
+    {
+      "source": "support.js",
+      "line": 1143,
+      "reference": "https://unpkg.com/react@18.3.1/umd/react.production.min.js",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "support.js",
+      "line": 1145,
+      "reference": "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js",
+      "kind": "external-literal-not-necessarily-requested"
+    },
+    {
+      "source": "support.js",
+      "line": 1147,
+      "reference": "https://unpkg.com/@babel/standalone@7.29.0/babel.min.js",
+      "kind": "external-literal-not-necessarily-requested"
+    }
+  ],
+  "sourceIntegrity": {
+    ".nojekyll": {
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "README.md": {
+      "bytes": 1661,
+      "sha256": "75f8b32eacd186e842e195f9d69af6697682bde0d93650df2ede96537f236abd"
+    },
+    "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/_ds_bundle.js": {
+      "bytes": 14381,
+      "sha256": "aea421c53f0c0f6e8eae29b57513117a18dba2ef91b1bea4fdf0284b7591f22f"
+    },
+    "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/styles.css": {
+      "bytes": 388,
+      "sha256": "2bdd605eaa1a3c406e922bd5ff8fcd3b4fb27babdaa7db7180703e400129068f"
+    },
+    "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/colors.css": {
+      "bytes": 3598,
+      "sha256": "5b13a47e0f43b1d825e9fd4546d697710a2c6d154975fb8f20bc99b9c4ce7ecd"
+    },
+    "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/fonts.css": {
+      "bytes": 780,
+      "sha256": "8461d7854b0e214caf6601c287285ae28850fb3324dee3f3dbe4d0b7a2cf1b48"
+    },
+    "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/spacing.css": {
+      "bytes": 1379,
+      "sha256": "605c8e18b6662c6ac19c428efe7bd897e7c4909000587f60edaca5838c7c139d"
+    },
+    "_ds/dsystem-023fcb25-9065-4256-8e64-9674caa319f6/tokens/typography.css": {
+      "bytes": 2659,
+      "sha256": "bd4ec477e51be72f59079b2fc22048b85584d1836218df15d12eef5801a9aca7"
+    },
+    "assets/about/avatar.mp4": {
+      "bytes": 132880,
+      "sha256": "2a6fcf45230ccb551bca08a908593d518242b48e6e6825102b06e546ae1c1cb7"
+    },
+    "assets/about/footer-curtain.webp": {
+      "bytes": 60524,
+      "sha256": "5cb0809bf6b0bcbc662f78b05b88f614834e47d412177c16c05a435b7b440322"
+    },
+    "assets/about/footer-walk.mp4": {
+      "bytes": 236631,
+      "sha256": "ff6c5af3115cee348613f7a8c815e9585e7472a7c6a205409d8bfd62d241b0e4"
+    },
+    "assets/cursor-ticket.svg": {
+      "bytes": 11253,
+      "sha256": "1bf0c39fd693733721bb7d8630bb2337bff761d40d87379dfb2127720a99825c"
+    },
+    "assets/favicon.png": {
+      "bytes": 7958,
+      "sha256": "efdd56b3e363fd9424ccd0517af4028cdb3a71a1390da7a007076382c30cc328"
+    },
+    "assets/og.jpg": {
+      "bytes": 76480,
+      "sha256": "573b5511ff644e6d11ddead52a7c48419854d7abcd1217c7e90eb8a098b94dfb"
+    },
+    "assets/portrait.webp": {
+      "bytes": 4066,
+      "sha256": "53026ae5caa3ed9d5e7bca99ca3ce550b5bf2e969f386a0588649b8983a9c6ea"
+    },
+    "assets/preview-1.webp": {
+      "bytes": 48622,
+      "sha256": "58999124b5bcfb1411f5285e1df6ea1ef5a1d5b2eb3c4000ad31a93973cf2cb4"
+    },
+    "assets/preview-2.webp": {
+      "bytes": 38164,
+      "sha256": "f83b1c86e9e4c52d4a0be33af1cacf808542726c59769493dec4f75a8d02e771"
+    },
+    "assets/preview-3.webp": {
+      "bytes": 55540,
+      "sha256": "90270c8ad0d417b2c54a84b9738af65e76192097e672ace445ad8bcb4a84eeee"
+    },
+    "assets/preview-4.webp": {
+      "bytes": 75790,
+      "sha256": "b50044781650f77ea7d1418212dafdcfac1b0498974cd5d71e43f0ffb1f7c95d"
+    },
+    "assets/preview-5.webp": {
+      "bytes": 24360,
+      "sha256": "d4b3894c9c8f60bae5fb210894ec67e47c55bd74334207ce3e958656a7a0fbcb"
+    },
+    "assets/preview-6.webp": {
+      "bytes": 19274,
+      "sha256": "050ae17efbb83dfb3e1d3892b7ffd89e2339a53722ed011e7d198696223e7c25"
+    },
+    "assets/projets/bg/celimax.webp": {
+      "bytes": 75180,
+      "sha256": "ff2312bb320fc690f445f6d98e35edce3d090963cec6d95ed839b5145456ad9d"
+    },
+    "assets/projets/bg/insideout.webp": {
+      "bytes": 42934,
+      "sha256": "abdda7c8cee3f897f634e4d5ced38f1007a6e685d8aef90f9b84cb5b4b32e4f9"
+    },
+    "assets/projets/bg/longread.webp": {
+      "bytes": 148198,
+      "sha256": "35077dc5fe541498faaae22a776aefc4cac7d162d7a15816563a2372ee891f19"
+    },
+    "assets/projets/bg/napoli.webp": {
+      "bytes": 72228,
+      "sha256": "bee5f30d7445b4deb1d40b865c264954741671a24560b18a595ea885f3785395"
+    },
+    "assets/projets/bg/pilates.webp": {
+      "bytes": 231660,
+      "sha256": "6cd4ef165318ee2ccdbaf686e179a1b69669de7216d8750139400e95b354fe0e"
+    },
+    "assets/projets/bg/tdp.webp": {
+      "bytes": 60554,
+      "sha256": "a7738f78e689466d0342299c409c7c4db030eb402d53252f238cbbd26b3760a8"
+    },
+    "assets/projets/inside-out.mp4": {
+      "bytes": 347547,
+      "sha256": "aa9e095e17cc72cf7e95877c6bae25b61f6c204167568804d951db0a540b5778"
+    },
+    "assets/projets/longread.mp4": {
+      "bytes": 425465,
+      "sha256": "40f3be8be55c3636174ea8d0b037c658717bff6a8276a3d3ea38138e700a3e63"
+    },
+    "assets/projets/opt/p1-bg.webp": {
+      "bytes": 57418,
+      "sha256": "ec70ec6f3549c173ea7ca08fb4132de991c30d362ee9a0a39376158f0305f1d7"
+    },
+    "assets/projets/opt/p2-a.webp": {
+      "bytes": 39180,
+      "sha256": "3cf4ff20ba6ac69dfd0e8a5748feb68d56571503fe0e5f4e0abe38d5d624fbea"
+    },
+    "assets/projets/opt/p2-b.webp": {
+      "bytes": 43746,
+      "sha256": "0406e118d95566817a4c8c5077e0258b96e822f92dad20f93ccf7cb55091cd7d"
+    },
+    "assets/projets/opt/p2-bg.webp": {
+      "bytes": 35068,
+      "sha256": "b6c72a162913d4330cc7e5cf52173edcd5b6bad8f262ddb51f289cbb016cae4d"
+    },
+    "assets/projets/opt/p3-b.webp": {
+      "bytes": 40534,
+      "sha256": "0d595c59eb06cdfd2ea0ccfc06a5a8ecca8a807c274f7f58baab02bef1b85eec"
+    },
+    "assets/projets/opt/p3-bg.webp": {
+      "bytes": 76610,
+      "sha256": "32f66752cb6e1e28031239c8b51501a6dad16dfb0f97a0f891e086dc3e2f248a"
+    },
+    "assets/projets/opt/p3-c.webp": {
+      "bytes": 75066,
+      "sha256": "22f417a1e05bd560dddcb912c9afef6f02fb01aea636272131df6d451f164089"
+    },
+    "assets/projets/opt/p4-bg.webp": {
+      "bytes": 58462,
+      "sha256": "9fe864be36af1ff8e916560b79923e458d9e4fff4711deb1000b8f17f817c0d0"
+    },
+    "assets/projets/opt/p5-bg.webp": {
+      "bytes": 20530,
+      "sha256": "7836e3b54f53a8d0e09da56614c968236e30ecc3846fcfde8744ace6b63bcddb"
+    },
+    "assets/projets/opt/p6-b.webp": {
+      "bytes": 153632,
+      "sha256": "e5a26de346afd3843a90f78bec4d42716ec36a2744d3da934bd9bc97c4c820ca"
+    },
+    "assets/projets/opt/p6-bg.webp": {
+      "bytes": 84882,
+      "sha256": "7e82511dec0aa63cb5a259c011960b8a10c30645fac0b670df151fee1738236c"
+    },
+    "assets/projets/opt/p6-c.webp": {
+      "bytes": 112246,
+      "sha256": "593c695ade97f283e83823cfa92ca24811ef2a7246072a476362a03249d76fb0"
+    },
+    "assets/projets/pilates.mp4": {
+      "bytes": 432062,
+      "sha256": "ecff1027fa41a1c4668132da041766c7be1e2022ab9831c320b3f556bf261029"
+    },
+    "assets/seats-dark.webp": {
+      "bytes": 53576,
+      "sha256": "395cc76910dc6d3b3f8ede44b8ddaaf14b0277ed6ca55a70f61c694f2d2e2a65"
+    },
+    "assets/seats-light.webp": {
+      "bytes": 139524,
+      "sha256": "34d52d86b3d3de2109401d57ae4c790b197578e34b62287ca3bd89644c2878b0"
+    },
+    "curtain-cloth.js": {
+      "bytes": 12418,
+      "sha256": "a5fbda62df135ead7491c2b758d67c88a9ec386c370364dee8af76456838aaae"
+    },
+    "desktop-project-embedded.html": {
+      "bytes": 24212,
+      "sha256": "380c71b4bb757818519ebcfb536dfac3ce69ebd92cf90ddf981b0cbd82b8aa18"
+    },
+    "en/desktop-project-embedded.html": {
+      "bytes": 965,
+      "sha256": "f9d935230203dd8bb0ff384d28fe9a354c503f29ae99fa552661924c8b908593"
+    },
+    "en/i18n.js": {
+      "bytes": 19839,
+      "sha256": "c2d46b0872893c5adf4db4d9f14f1d0a4afd9e8909d5f08fd8e1c3992c4a80aa"
+    },
+    "en/index.html": {
+      "bytes": 2996,
+      "sha256": "34a121bf05a123b7061532552e0c7593dfb2b66ba0a84f6cf2b5d40400dbf604"
+    },
+    "index.html": {
+      "bytes": 222890,
+      "sha256": "9ff0fd3b4153f235af110c9acbae530a6283fac15268f7126d3ecefd674a18e9"
+    },
+    "support.js": {
+      "bytes": 69150,
+      "sha256": "8fe7df74405f3c55f49b7249c74ea1397e65d07dea2b1bd3b4a489bec2e28cbe"
+    }
+  }
+}

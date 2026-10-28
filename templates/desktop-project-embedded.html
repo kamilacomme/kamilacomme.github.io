@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Portfolio – Desktop scroll preview</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/styles/layered-ticket.css" rel="stylesheet"/><style>*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:0;background:#fff;color:#222022;font-family:Inter,Arial,sans-serif}.portfolio{position:relative;background:#fff}.sticky{height:100svh;position:sticky;top:0;overflow:hidden}.stage{position:absolute;left:0;top:0;width:100vw;height:100svh;transform:none}.heading{position:absolute;left:32px;top:117px;width:760px;font:700 56px/1 Figtree,Arial,sans-serif;letter-spacing:-1.68px;margin:0}.heading em{font-weight:400}.toolbar{position:absolute;right:32px;top:216px;display:flex;gap:20px;align-items:center}.toolbar small{font-size:12px;font-weight:400;line-height:1;letter-spacing:.04em;text-transform:uppercase;color:#777}.toolbar button{background:white;border:1px solid #ddd;border-radius:50%;width:36px;height:36px;cursor:pointer}.toolbar button:hover{background:#eee}.rail{display:flex;gap:25px;position:absolute;left:32px;top:387.547px;width:max-content;overflow:visible;will-change:transform}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}.next-section{min-height:100svh;background:#08080a;color:white;display:flex;align-items:center;justify-content:center;font:700 clamp(36px,5vw,72px)/1 Figtree,Arial,sans-serif}.next-section span{opacity:.75}</style><style>.kc-projects-heading-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important}.sticky.kc-projects-flow{position:relative;height:auto;top:auto;overflow:visible}.stage.kc-projects-flow{position:relative;left:0;top:0;transform:none}.rail.kc-projects-flow{overflow:visible}</style></head><body><main class="portfolio" id="portfolio"><div class="sticky"><div class="stage" id="stage"><h1 class="heading">Une sélection des <em>projets</em><br/>les plus récents.</h1><div class="toolbar"><small>Explorer →</small></div><div aria-label="Six projets, progression horizontale par le défilement vertical" class="rail" id="rail">{{desktopCards}}</div></div></div></main><section aria-label="Section suivante" class="next-section"><span>Section suivante ↓</span></section><script>
+(()=>{
+ const standalone=document.getElementById('portfolio'),sticky=document.querySelector('.sticky'),stage=document.getElementById('stage'),rail=document.getElementById('rail');
+ const embed=window.parent!==window;
+ let outer=null;
+ if(embed){try{outer=window.parent.document.getElementById('projets')}catch(e){outer=null}}
+ const section=outer||standalone;
+ const scrollWindow=outer?window.parent:window;
+ let maxTravel=0,scrollable=0,start=0,scheduled=false,introHold=0,introShift=0,mode='normal',hasMeasured=false,lastActiveProjectIndex=null,readableFocusX=0,railOriginX=0;
+ const margin=32,designTicketWidth=1142,bottomGutter=32,navClearance=24;
+ const heading=stage.querySelector('.heading'),toolbar=stage.querySelector('.toolbar');
+ function desktopIsActive(){return !outer||(outer.getClientRects().length>0&&outer.getBoundingClientRect().width>0)}
+ function navbar(){return outer?scrollWindow.document.querySelector('.kc-responsive-nav'):null}
+ function projectIndex(){
+   const cards=[...rail.querySelectorAll('.ticket')],frame=embed?window.frameElement:null;
+   const frameRect=frame?.getBoundingClientRect();
+   const cx=outer?readableFocusX:innerWidth/2,cy=outer?(scrollWindow.innerHeight/2):innerHeight/2;
+   let best=null;
+   cards.forEach((card,index)=>{
+     const visibleContent=card.querySelector('.ticket-panel')||card;
+     const r=visibleContent.getBoundingClientRect(),left=r.left+(frameRect?.left||0),top=r.top+(frameRect?.top||0);
+     const right=left+r.width,bottom=top+r.height;
+     const width=Math.max(0,Math.min(right,outer?scrollWindow.innerWidth:innerWidth)-Math.max(left,0));
+     const height=Math.max(0,Math.min(bottom,outer?scrollWindow.innerHeight:innerHeight)-Math.max(top,0));
+     const area=width*height,centerDistance=mode==='flow'?Math.hypot((left+right)/2-cx,(top+bottom)/2-cy):Math.abs((left+right)/2-cx);
+     if(area>0&&(!best||centerDistance<best.centerDistance-0.5||(Math.abs(centerDistance-best.centerDistance)<=0.5&&area>best.area)))best={index,area,centerDistance};
+   });
+   return best?.index??null;
+ }
+ function captureAnchor(){
+   if(!hasMeasured||!outer||!desktopIsActive())return null;
+   const about=scrollWindow.document.querySelector('#apropos');
+   const aboutRect=about?.getBoundingClientRect();
+    // The About section can enter the viewport while the Projects rail is still
+    // active. Treat it as active only after its document start has been reached.
+    if(aboutRect&&aboutRect.top<=1&&aboutRect.bottom>0)return {kind:'about',top:aboutRect.top};
+   const rect=outer.getBoundingClientRect();
+   if(rect.top<scrollWindow.innerHeight&&rect.bottom>0){const index=lastActiveProjectIndex??projectIndex();if(index!==null)return {kind:'project',index};}
+   return null;
+ }
+ function setNavbarFlow(flow){const nav=navbar();if(nav)nav.style.position=(flow||scrollWindow.__kcHeroNaturalFlow)?'absolute':'fixed'}
+ function applyMode(nextMode,values){
+   mode=nextMode;
+   stage.dataset.kcProjectsMode=mode;
+   if(outer)outer.dataset.kcProjectsMode=mode;
+   const flow=mode==='flow',compact=mode==='compact';
+   sticky.classList.toggle('kc-projects-flow',flow);
+   stage.classList.toggle('kc-projects-flow',flow);
+   rail.classList.toggle('kc-projects-flow',flow);
+   heading.classList.toggle('kc-projects-heading-hidden',compact||flow);
+   toolbar.style.display=flow?'none':'';
+   setNavbarFlow(flow&&!!outer&&desktopIsActive());
+   if(flow){
+     const contentHeight=values.railHeight+2*bottomGutter;
+     sticky.style.position='relative';sticky.style.top='auto';sticky.style.height=contentHeight+'px';sticky.style.overflow='visible';
+     stage.style.position='relative';stage.style.left='0px';stage.style.top='0px';stage.style.width=values.vw+'px';stage.style.height=contentHeight+'px';
+     rail.style.position='relative';rail.style.left=values.targetLeft+'px';rail.style.top=bottomGutter+'px';rail.style.width=values.ticketWidth+'px';rail.style.display='flex';rail.style.flexDirection='column';rail.style.gap='25px';rail.style.transform='none';rail.style.willChange='auto';
+     if(outer){const frame=window.frameElement;frame.style.position='relative';frame.style.top='auto';frame.style.height=contentHeight+'px';outer.style.height=contentHeight+'px';}
+     standalone.style.height=contentHeight+'px';
+   }else{
+     sticky.style.position='';sticky.style.top='';sticky.style.height='';sticky.style.overflow='';
+     stage.style.position='absolute';stage.style.left=values.stageLeft+'px';stage.style.top='0px';stage.style.width=values.vw+'px';stage.style.height=values.vh+'px';
+     rail.style.position='absolute';rail.style.left='32px';rail.style.top=values.rowTop+'px';rail.style.width='max-content';rail.style.display='flex';rail.style.flexDirection='row';rail.style.gap='25px';rail.style.willChange='transform';
+     if(outer){const frame=window.frameElement;frame.style.position='sticky';frame.style.top='0px';frame.style.height=values.vh+'px';outer.style.height=(values.vh+introHold+scrollable)+'px';}
+     standalone.style.height=(values.vh+introHold+scrollable)+'px';
+   }
+ }
+ function restoreAnchor(anchor){
+   if(!anchor)return;
+   if(anchor.kind==='about'&&outer){const about=scrollWindow.document.querySelector('#apropos');if(about){const r=about.getBoundingClientRect(),top=r.top+scrollWindow.scrollY;if(Number.isFinite(anchor.progress)){const travel=Math.max(0,r.height-scrollWindow.innerHeight);scrollWindow.scrollTo(0,top+travel*anchor.progress);}else scrollWindow.scrollTo(0,top-anchor.top);}return;}
+   if(anchor.kind!=='project')return;
+   if(mode==='flow'){
+     const card=rail.querySelectorAll('.ticket')[anchor.index],frame=outer?window.frameElement:null;
+     if(card){const panel=card.querySelector('.ticket-panel')||card,r=panel.getBoundingClientRect(),fr=frame?.getBoundingClientRect();const documentCenter=(fr?.top||0)+r.top+r.height/2+scrollWindow.scrollY;scrollWindow.scrollTo(0,Math.max(0,documentCenter-scrollWindow.innerHeight/2));}
+   }else{
+     const card=rail.querySelectorAll('.ticket')[anchor.index];
+     const panel=card?.querySelector('.ticket-panel');
+     const panelCenter=card?(card.offsetLeft+(panel?.offsetLeft||0)+(panel?.getBoundingClientRect().width||card.getBoundingClientRect().width)/2):0;
+     const horizontal=card?Math.max(0,Math.min(maxTravel,panelCenter-(readableFocusX-railOriginX))):0;
+     scrollWindow.scrollTo(0,start+introHold+horizontal);
+   }
+ }
+ function measure(){
+   const languageAnchor=outer&&desktopIsActive()?scrollWindow.__kcPendingLanguageAnchor:null;
+   const anchor=languageAnchor||captureAnchor();
+   const host=outer?scrollWindow:window;
+   const vw=host.innerWidth,vh=host.innerHeight;
+   // Measure the authored heading box independently of the previous mode's
+   // accessibility-only clipping, so compact→normal resizing cannot inherit 1px.
+   heading.classList.remove('kc-projects-heading-hidden');
+   // The iframe owns desktop Projects geometry; keep its text-bearing stage unscaled.
+   stage.style.width=`${vw}px`;
+   stage.style.height=`${vh}px`;
+   let targetLeft=32;
+   if(outer){const hero=scrollWindow.document.querySelector('h1');if(hero){const actual=hero.getBoundingClientRect().left;if(Number.isFinite(actual))targetLeft=actual;}}
+   const stageLeft=targetLeft-margin;
+   stage.style.left=`${stageLeft}px`;
+   heading.style.left='32px';rail.style.left='32px';
+   const rightInset=targetLeft+16;
+   readableFocusX=(targetLeft+vw-rightInset)/2;
+   railOriginX=stageLeft+32;
+   toolbar.style.right=`${stageLeft+rightInset}px`;
+   const ticketWidth=Math.min(designTicketWidth,Math.max(0,vw-targetLeft-rightInset));
+   stage.style.setProperty('--kc-desktop-ticket-width',`${ticketWidth}px`);
+   rail.style.width='max-content';rail.style.flexDirection='row';rail.style.gap='25px';
+   const firstTicket=rail.querySelector('.ticket');
+   const cardHeight=firstTicket?firstTicket.getBoundingClientRect().height:393.453;
+   const headingBottom=heading.offsetTop+heading.offsetHeight;
+   // Measure the horizontal mode against the navbar's fixed geometry. In flow
+   // mode it may have scrolled away, so its current document-relative rect is
+   // not the clearance needed when resizing back into a rail mode.
+   setNavbarFlow(false);
+   const navBottom=outer?(navbar()?.getBoundingClientRect().bottom||0):0;
+   const availableHeight=vh-navBottom-navClearance-bottomGutter;
+   const bottomRailTop=vh-bottomGutter-cardHeight;
+   const safeRailTop=headingBottom+24;
+   const nextMode=cardHeight>availableHeight?'flow':safeRailTop>bottomRailTop?'compact':'normal';
+   const rowTop=nextMode==='compact'?bottomRailTop:Math.max(bottomRailTop,safeRailTop);
+   introShift=nextMode==='normal'?Math.max(0,safeRailTop-bottomRailTop):0;
+   const railWidth=rail.getBoundingClientRect().width;
+   const railEnd=stageLeft+rail.offsetLeft+railWidth;
+   maxTravel=Math.max(0,railEnd-(vw-targetLeft));
+   scrollable=maxTravel;
+   introHold=nextMode==='normal'?Math.max(introShift,Math.min(120,Math.round(vh*0.14))):0;
+   const flowRailHeight=firstTicket?firstTicket.getBoundingClientRect().height*rail.children.length+25*Math.max(0,rail.children.length-1):0;
+   applyMode(nextMode,{vw,vh,targetLeft,stageLeft,ticketWidth,rowTop,railHeight:flowRailHeight});
+   start=section.getBoundingClientRect().top+scrollWindow.scrollY;
+   restoreAnchor(anchor);
+   if(languageAnchor&&scrollWindow.__kcPendingLanguageAnchor===languageAnchor){scrollWindow.__kcPendingLanguageAnchor=null;scrollWindow.dispatchEvent(new scrollWindow.Event('kc:language-anchor-restored'));}
+   update();
+   hasMeasured=true;
+ }
+ function update(){
+   scheduled=false;
+   if(mode==='flow'){heading.style.transform='none';rail.style.transform='none';}
+   else {
+   const sectionProgress=Math.max(0,scrollWindow.scrollY-start);
+   const introProgress=introHold?Math.min(1,sectionProgress/introHold):1;
+   const verticalShift=introShift*introProgress;
+   const progress=Math.max(0,Math.min(scrollable,sectionProgress-introHold));
+   stage.querySelector('.heading').style.transform=`translate3d(0,${-verticalShift}px,0)`;
+   rail.style.transform=`translate3d(${-progress}px,${-verticalShift}px,0)`;
+   }
+   const sectionRect=section.getBoundingClientRect();
+   if(sectionRect.top<scrollWindow.innerHeight&&sectionRect.bottom>0){
+     const visibleProject=projectIndex();
+     if(visibleProject!==null){lastActiveProjectIndex=visibleProject;if(outer)scrollWindow.__kcFocusedProjectIndex=visibleProject;}
+   }
+ }
+ function onScroll(){if(!scheduled){scheduled=true;requestAnimationFrame(update)}}
+ scrollWindow.addEventListener('scroll',onScroll,{passive:true});
+ if(outer)scrollWindow.addEventListener('kc:restore-language-anchor',measure);
+ (outer?scrollWindow:window).addEventListener('resize',measure);
+ window.addEventListener('load',measure,{once:true});
+ document.fonts?.ready.then(measure);measure();
+})();
+</script><script>(()=>{
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const interval=1900; // Same slideshow speed on Tour de parole, Celimax and Napoli.
+  document.querySelectorAll('.ticket').forEach(ticket=>{
+    const layers=[...ticket.querySelectorAll('.ticket-image .media-layer')];
+    const video=layers.find(el=>el.tagName==='VIDEO');
+    const poster=layers[0];
+    let timer=null,index=0,hovering=false;
+    function display(i){
+      index=i;
+      layers.forEach((el,j)=>el.classList.toggle('active',j===index));
+    }
+    function start(){
+      if(hovering||reduced.matches)return;
+      hovering=true;
+      if(video){
+        if(!video.getAttribute('src') && video.dataset.src){video.src=video.dataset.src;video.load();}
+        // Retain poster image until video can actually render.
+        const play=()=>{if(!hovering)return;display(layers.indexOf(video));video.play().catch(()=>display(0));};
+        if(video.readyState>=2)play();else video.addEventListener('loadeddata',play,{once:true});
+      }else if(layers.length>1){
+        display(1);
+        timer=setInterval(()=>display((index+1)%layers.length),interval);
+      }
+    }
+    function stop(){
+      hovering=false;
+      if(timer!==null){clearInterval(timer);timer=null;}
+      if(video){video.pause();video.currentTime=0;}
+      display(0);
+    }
+    ticket.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'||e.pointerType==='pen')start()});
+    ticket.addEventListener('pointerleave',stop);
+    ticket.addEventListener('focusin',start);
+    ticket.addEventListener('focusout',e=>{if(!ticket.contains(e.relatedTarget))stop()});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});
+  });
+})();</script></body></html>

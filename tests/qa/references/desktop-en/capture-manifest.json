@@ -1,0 +1,2827 @@
+{
+  "cancelledRequests": [
+    "http://127.0.0.1:8000/en/desktop-project-embedded.html"
+  ],
+  "cancellationPolicy": "net::ERR_ABORTED from original remount/pruning is recorded separately; all other request failures and HTTP errors fail. Visible images decode, required fonts and curtain texture must load.",
+  "harnessHashes": {
+    "helpers.cjs": "2955ba3a13d0df7c37dc311ef98b051c6c10f7e74df386e78771d522fd960ac3",
+    "visual.spec.cjs": "56d9dc255985763ba7646c64a7df3b418c7b7d603bd2d422ed03402687317522",
+    "playwright.config.cjs": "f8c63c4ca1ff4e5920075f30208c23277b518a78d12d5c0bafa1319ee45622bf",
+    "runtimeManifest": "df90c5da59dcd37e458c55c96de0a1c6594dc93f25e74258db733347c1d0b3e3",
+    "server": "6a59a4f13366674425f421b9ea7f72e2d5132741caef554ab574c1eb248b22fa"
+  },
+  "originalCommit": "d8a37314ed7d2265f3f949c9e048b5e2beadfc20",
+  "browserVersion": "154.0.8037.57",
+  "project": "desktop-en",
+  "emulation": {
+    "mode": "desktop",
+    "language": "en",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "isMobile": false,
+    "hasTouch": false,
+    "deviceScaleFactor": 1
+  },
+  "configuration": {
+    "playwrightVersion": "1.62.1",
+    "platform": "linux",
+    "architecture": "x64",
+    "osRelease": "6.18.55",
+    "executable": "/usr/bin/chromium",
+    "launchArgs": [
+      "--no-sandbox",
+      "--enable-unsafe-swiftshader",
+      "--use-angle=swiftshader",
+      "--autoplay-policy=no-user-gesture-required"
+    ],
+    "headless": true,
+    "locale": "en-GB",
+    "timezoneId": "Europe/Paris",
+    "colorScheme": "light",
+    "reducedMotion": "no-preference",
+    "softwareWebGL": true,
+    "randomSeed": 123456789,
+    "clockEpoch": "2026-01-01T00:00:00.000Z",
+    "videoFrameSeconds": 0,
+    "projectVideoVisualPolicy": "Original poster images shown in screenshots; project preview videos are verified under natural time in functional.spec.cjs.",
+    "cssAnimations": "disabled for screenshots only",
+    "screenshotAcquisitionTimeoutMs": 60000,
+    "footerClockAdvance": "18x500ms with50ms real yields to drain software GPU queues"
+  },
+  "states": [
+    {
+      "name": "hero-intro-600ms",
+      "scroll": {
+        "x": 0,
+        "y": 0
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "devicePixelRatio": 1
+      },
+      "url": "/en/",
+      "performanceNow": 608,
+      "language": "en",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "visibleHeadings": [
+        {
+          "text": "Hello, I'm Kamila,Brand & Digital designer.",
+          "rect": {
+            "x": 32,
+            "y": 130,
+            "width": 900,
+            "height": 123.1875
+          }
+        }
+      ],
+      "mobileImageLayers": [
+        {
+          "title": "Pilates",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p1-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Longread",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p4-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Tour de parole",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p3-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Inside out",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p5-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Celimax",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p6-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Napoli",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p2-a.webp",
+              "complete": false,
+              "naturalWidth": 800,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            }
+          ]
+        }
+      ],
+      "videoState": [
+        {
+          "src": "assets/about/avatar.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": "assets/about/footer-walk.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        }
+      ],
+      "curtainProgress": 0,
+      "projectRailTransform": "translate3d(0px, 0px, 0px)"
+    },
+    {
+      "name": "hero-settled-3000ms",
+      "scroll": {
+        "x": 0,
+        "y": 0
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "devicePixelRatio": 1
+      },
+      "url": "/en/",
+      "performanceNow": 3008,
+      "language": "en",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "visibleHeadings": [
+        {
+          "text": "Hello, I'm Kamila,Brand & Digital designer.",
+          "rect": {
+            "x": 32,
+            "y": 130,
+            "width": 900,
+            "height": 123.1875
+          }
+        }
+      ],
+      "mobileImageLayers": [
+        {
+          "title": "Pilates",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p1-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Longread",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p4-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Tour de parole",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p3-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Inside out",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p5-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Celimax",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p6-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Napoli",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p2-a.webp",
+              "complete": false,
+              "naturalWidth": 800,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            }
+          ]
+        }
+      ],
+      "videoState": [
+        {
+          "src": "assets/about/avatar.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": "assets/about/footer-walk.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        }
+      ],
+      "curtainProgress": 0,
+      "projectRailTransform": "translate3d(0px, 0px, 0px)"
+    },
+    {
+      "name": "projects-start",
+      "scroll": {
+        "x": 0,
+        "y": 900
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "devicePixelRatio": 1
+      },
+      "url": "/en/",
+      "performanceNow": 3168,
+      "language": "en",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "visibleHeadings": [
+        {
+          "text": "Hello, I'm Kamila,Brand & Digital designer.",
+          "rect": {
+            "x": 32,
+            "y": -770,
+            "width": 900,
+            "height": 123.1875
+          }
+        }
+      ],
+      "mobileImageLayers": [
+        {
+          "title": "Pilates",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p1-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Longread",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p4-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Tour de parole",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p3-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Inside out",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p5-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Celimax",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p6-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Napoli",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p2-a.webp",
+              "complete": false,
+              "naturalWidth": 800,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            }
+          ]
+        }
+      ],
+      "videoState": [
+        {
+          "src": "assets/about/avatar.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": "assets/about/footer-walk.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        }
+      ],
+      "curtainProgress": 0,
+      "projectRailTransform": "translate3d(0px, 0px, 0px)"
+    },
+    {
+      "name": "projects-middle",
+      "scroll": {
+        "x": 0,
+        "y": 3769
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "devicePixelRatio": 1
+      },
+      "url": "/en/",
+      "performanceNow": 3328,
+      "language": "en",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "visibleHeadings": [
+        {
+          "text": "Hello, I'm Kamila,Brand & Digital designer.",
+          "rect": {
+            "x": 32,
+            "y": -3639,
+            "width": 900,
+            "height": 123.1875
+          }
+        }
+      ],
+      "mobileImageLayers": [
+        {
+          "title": "Pilates",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p1-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Longread",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p4-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Tour de parole",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p3-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Inside out",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p5-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Celimax",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p6-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Napoli",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p2-a.webp",
+              "complete": false,
+              "naturalWidth": 800,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            }
+          ]
+        }
+      ],
+      "videoState": [
+        {
+          "src": "assets/about/avatar.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": "assets/about/footer-walk.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        }
+      ],
+      "curtainProgress": 0,
+      "projectRailTransform": "translate3d(-2749px, 0px, 0px)"
+    },
+    {
+      "name": "projects-end",
+      "scroll": {
+        "x": 0,
+        "y": 6637
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "devicePixelRatio": 1
+      },
+      "url": "/en/",
+      "performanceNow": 3488,
+      "language": "en",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "visibleHeadings": [
+        {
+          "text": "Hello, I'm Kamila,Brand & Digital designer.",
+          "rect": {
+            "x": 32,
+            "y": -6507,
+            "width": 900,
+            "height": 123.1875
+          }
+        }
+      ],
+      "mobileImageLayers": [
+        {
+          "title": "Pilates",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p1-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Longread",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p4-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Tour de parole",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p3-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Inside out",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p5-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Celimax",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p6-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Napoli",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p2-a.webp",
+              "complete": false,
+              "naturalWidth": 800,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            }
+          ]
+        }
+      ],
+      "videoState": [
+        {
+          "src": "assets/about/avatar.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": "assets/about/footer-walk.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        }
+      ],
+      "curtainProgress": 0,
+      "projectRailTransform": "translate3d(-5617px, 0px, 0px)"
+    },
+    {
+      "name": "about-entry",
+      "scroll": {
+        "x": 0,
+        "y": 7537
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "devicePixelRatio": 1
+      },
+      "url": "/en/",
+      "performanceNow": 3648,
+      "language": "en",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "visibleHeadings": [
+        {
+          "text": "Hello, I'm Kamila,Brand & Digital designer.",
+          "rect": {
+            "x": 32,
+            "y": -7407,
+            "width": 900,
+            "height": 123.1875
+          }
+        }
+      ],
+      "mobileImageLayers": [
+        {
+          "title": "Pilates",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p1-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Longread",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p4-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Tour de parole",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p3-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Inside out",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p5-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Celimax",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p6-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Napoli",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p2-a.webp",
+              "complete": false,
+              "naturalWidth": 800,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            }
+          ]
+        }
+      ],
+      "videoState": [
+        {
+          "src": "assets/about/avatar.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": "assets/about/footer-walk.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        }
+      ],
+      "curtainProgress": 0,
+      "projectRailTransform": "translate3d(-5617px, 0px, 0px)"
+    },
+    {
+      "name": "about-rising",
+      "scroll": {
+        "x": 0,
+        "y": 10057
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "devicePixelRatio": 1
+      },
+      "url": "/en/",
+      "performanceNow": 3808,
+      "language": "en",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "visibleHeadings": [
+        {
+          "text": "Hello, I'm Kamila,Brand & Digital designer.",
+          "rect": {
+            "x": 32,
+            "y": -9927,
+            "width": 900,
+            "height": 123.1875
+          }
+        }
+      ],
+      "mobileImageLayers": [
+        {
+          "title": "Pilates",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p1-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Longread",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p4-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Tour de parole",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p3-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Inside out",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p5-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Celimax",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p6-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Napoli",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p2-a.webp",
+              "complete": false,
+              "naturalWidth": 800,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            }
+          ]
+        }
+      ],
+      "videoState": [
+        {
+          "src": "assets/about/avatar.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": "assets/about/footer-walk.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        }
+      ],
+      "curtainProgress": 0,
+      "projectRailTransform": "translate3d(-5617px, 0px, 0px)"
+    },
+    {
+      "name": "about-settled",
+      "scroll": {
+        "x": 0,
+        "y": 13207
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "devicePixelRatio": 1
+      },
+      "url": "/en/",
+      "performanceNow": 3968,
+      "language": "en",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "visibleHeadings": [
+        {
+          "text": "Hello, I'm Kamila,Brand & Digital designer.",
+          "rect": {
+            "x": 32,
+            "y": -13077,
+            "width": 900,
+            "height": 123.1875
+          }
+        }
+      ],
+      "mobileImageLayers": [
+        {
+          "title": "Pilates",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p1-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Longread",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p4-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Tour de parole",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p3-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Inside out",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p5-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Celimax",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p6-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Napoli",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p2-a.webp",
+              "complete": false,
+              "naturalWidth": 800,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            }
+          ]
+        }
+      ],
+      "videoState": [
+        {
+          "src": "assets/about/avatar.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": "assets/about/footer-walk.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        }
+      ],
+      "curtainProgress": 0,
+      "projectRailTransform": "translate3d(-5617px, 0px, 0px)"
+    },
+    {
+      "name": "footer-entering",
+      "scroll": {
+        "x": 0,
+        "y": 14197
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "devicePixelRatio": 1
+      },
+      "url": "/en/",
+      "performanceNow": 4728,
+      "language": "en",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "visibleHeadings": [
+        {
+          "text": "Hello, I'm Kamila,Brand & Digital designer.",
+          "rect": {
+            "x": 32,
+            "y": -14067,
+            "width": 900,
+            "height": 123.1875
+          }
+        }
+      ],
+      "mobileImageLayers": [
+        {
+          "title": "Pilates",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p1-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Longread",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p4-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Tour de parole",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p3-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Inside out",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p5-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Celimax",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p6-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Napoli",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p2-a.webp",
+              "complete": false,
+              "naturalWidth": 800,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            }
+          ]
+        }
+      ],
+      "videoState": [
+        {
+          "src": "assets/about/avatar.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": "assets/about/footer-walk.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        }
+      ],
+      "curtainProgress": 0.11279999999999998,
+      "projectRailTransform": "translate3d(-5617px, 0px, 0px)"
+    },
+    {
+      "name": "footer-closed",
+      "scroll": {
+        "x": 0,
+        "y": 14737
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "devicePixelRatio": 1
+      },
+      "url": "/en/",
+      "performanceNow": 13888,
+      "language": "en",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "visibleHeadings": [
+        {
+          "text": "Hello, I'm Kamila,Brand & Digital designer.",
+          "rect": {
+            "x": 32,
+            "y": -14607,
+            "width": 900,
+            "height": 123.1875
+          }
+        }
+      ],
+      "mobileImageLayers": [
+        {
+          "title": "Pilates",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p1-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Longread",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p4-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Tour de parole",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p3-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Inside out",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p5-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Celimax",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p6-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Napoli",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p2-a.webp",
+              "complete": false,
+              "naturalWidth": 800,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            }
+          ]
+        }
+      ],
+      "videoState": [
+        {
+          "src": "assets/about/avatar.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": "assets/about/footer-walk.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        }
+      ],
+      "curtainProgress": 0.9998254304083146,
+      "projectRailTransform": "translate3d(-5617px, 0px, 0px)"
+    },
+    {
+      "name": "dialog-legal",
+      "scroll": {
+        "x": 0,
+        "y": 14737
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "devicePixelRatio": 1
+      },
+      "url": "/en/",
+      "performanceNow": 14088,
+      "language": "en",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "visibleHeadings": [
+        {
+          "text": "Hello, I'm Kamila,Brand & Digital designer.",
+          "rect": {
+            "x": 32,
+            "y": -14607,
+            "width": 900,
+            "height": 123.1875
+          }
+        }
+      ],
+      "mobileImageLayers": [
+        {
+          "title": "Pilates",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p1-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Longread",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p4-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Tour de parole",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p3-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Inside out",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p5-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Celimax",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p6-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Napoli",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p2-a.webp",
+              "complete": false,
+              "naturalWidth": 800,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            }
+          ]
+        }
+      ],
+      "videoState": [
+        {
+          "src": "assets/about/avatar.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": "assets/about/footer-walk.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        }
+      ],
+      "curtainProgress": 0.9998721160919466,
+      "projectRailTransform": "translate3d(-5617px, 0px, 0px)"
+    },
+    {
+      "name": "dialog-privacy",
+      "scroll": {
+        "x": 0,
+        "y": 14737
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "devicePixelRatio": 1
+      },
+      "url": "/en/",
+      "performanceNow": 14288,
+      "language": "en",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "visibleHeadings": [
+        {
+          "text": "Hello, I'm Kamila,Brand & Digital designer.",
+          "rect": {
+            "x": 32,
+            "y": -14607,
+            "width": 900,
+            "height": 123.1875
+          }
+        }
+      ],
+      "mobileImageLayers": [
+        {
+          "title": "Pilates",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p1-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Longread",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p4-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Tour de parole",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p3-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p3-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Inside out",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p5-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 1
+            }
+          ]
+        },
+        {
+          "title": "Celimax",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p6-bg.webp",
+              "complete": false,
+              "naturalWidth": 1000,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-b.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p6-c.webp",
+              "complete": true,
+              "naturalWidth": 1000,
+              "opacity": 0
+            }
+          ]
+        },
+        {
+          "title": "Napoli",
+          "layers": [
+            {
+              "src": "assets/projets/opt/p2-a.webp",
+              "complete": false,
+              "naturalWidth": 800,
+              "opacity": 1
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-b.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            },
+            {
+              "src": "assets/projets/opt/p2-bg.webp",
+              "complete": true,
+              "naturalWidth": 800,
+              "opacity": 0
+            }
+          ]
+        }
+      ],
+      "videoState": [
+        {
+          "src": "assets/about/avatar.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": null,
+          "readyState": 0,
+          "currentTime": 0,
+          "paused": true
+        },
+        {
+          "src": "assets/about/footer-walk.mp4",
+          "readyState": 4,
+          "currentTime": 0,
+          "paused": false
+        }
+      ],
+      "curtainProgress": 0.9999087147775261,
+      "projectRailTransform": "translate3d(-5617px, 0px, 0px)"
+    }
+  ]
+}

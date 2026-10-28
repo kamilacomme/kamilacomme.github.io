@@ -114,6 +114,12 @@ test('navigation, About animation, footer and legal dialog interactions',async({
  await page.clock.resume();
  await expect.poll(()=>page.locator('curtain-cloth').evaluate(el=>el.progress),{timeout:15000}).toBeGreaterThan(.1);
  await expect(page.locator('#contact [data-c="3"], #contact video[data-src*="footer-walk"]')).toHaveCount(0);
+ // The normal-motion curtain assertion is complete. Pause its software-WebGL loop
+ // before pointer dialog checks so SwiftShader rendering cannot starve Playwright's
+ // two-frame actionability stability check; the dedicated dialog spec covers these
+ // interactions under normal motion as well.
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await expect.poll(()=>page.locator('curtain-cloth').evaluate(el=>el.raf===null)).toBe(true);
  for(const key of ['legal','privacy']){
    await page.locator(`a[data-legal="${key}"]:visible`).first().click();
    const dialog=page.locator(`[role="dialog"][data-sheet="${key}"]`);

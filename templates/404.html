@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr" data-locale="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Page introuvable — Kamila Comme</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    // GitHub Pages serves this file for missing paths without changing the URL.
+    // Select the static copy that matches the requested language route.
+    if (/^\/en(?:\/|$)/i.test(window.location.pathname)) {
+      document.documentElement.lang = 'en';
+      document.documentElement.dataset.locale = 'en';
+    }
+  </script>
+  <link rel="stylesheet" href="/styles/base-and-accessibility.css">
+  <link rel="stylesheet" href="/styles/responsive-foundations.css">
+  <link rel="stylesheet" href="/styles/hire-cookie-overrides.css">
+  <link rel="stylesheet" href="/styles/404.css">
+</head>
+<body>
+  <header class="site-header">
+    {{navbar}}
+  </header>
+
+  <main class="not-found" id="main-content">
+    <div class="message">
+      <p class="code" aria-hidden="true">404</p>
+      <h1 class="statement fr">
+        <span><strong>Cette page</strong> <em>a disparu.</em></span>
+        <span><strong>Mais le portfolio</strong> <em>est toujours là.</em></span>
+      </h1>
+      <h1 class="statement en">
+        <span><strong>This page</strong> <em>has disappeared.</em></span>
+        <span><strong>But the portfolio</strong> <em>is still here.</em></span>
+      </h1>
+      <a class="home-button fr" href="/">Retour à l'accueil</a>
+      <a class="home-button en" href="/en/">Back to home</a>
+    </div>
+  </main>
+
+  <script>
+    const english = document.documentElement.dataset.locale === 'en';
+    const homeRoute = english ? '/en/' : '/';
+    const nav = document.querySelector('.kc-responsive-nav');
+    nav.setAttribute('aria-label', english ? 'Main navigation' : 'Navigation principale');
+    nav.querySelectorAll('[data-kc-nav-section]').forEach((link) => {
+      const section = link.dataset.kcNavSection;
+      link.href = `${homeRoute}#${section}`;
+      if (section === 'projets') link.textContent = english ? 'Projects' : 'Projets';
+      if (section === 'apropos') link.textContent = english ? 'About' : 'À propos';
+    });
+    nav.querySelector('[data-kc-nav-availability-copy]').textContent = english ? 'Open to full-time roles' : 'En recherche de CDI 2026';
+    const hire = nav.querySelector('[data-kc-nav-hire]');
+    const hireLabel = english ? 'Hire me' : 'Me recruter';
+    hire.setAttribute('aria-label', english ? 'Hire me — email comme.kamila@gmail.com' : 'Me recruter — envoyer un e-mail à comme.kamila@gmail.com');
+    hire.querySelector('[data-kc-nav-hire-copy]').textContent = hireLabel;
+    document.querySelectorAll('.fr').forEach((el) => { el.hidden = english; });
+    document.querySelectorAll('.en').forEach((el) => { el.hidden = !english; });
+    document.documentElement.lang = english ? 'en' : 'fr';
+    document.title = english ? 'Page not found — Kamila Comme' : 'Page introuvable — Kamila Comme';
+  </script>
+</body>
+</html>

@@ -222,6 +222,22 @@ function addLocaleMetadata(html, locale) {
 
 async function buildPage(templatePath, cardSlots, locale, layoutKind) {
   let html = await readFile(templatePath, 'utf8');
+  if (layoutKind === 'page' || layoutKind === '404') {
+    const partial = await readFile(path.join(root, 'templates/partials/navbar.html'), 'utf8');
+    const navLabel = locale === 'fr' ? 'Navigation principale' : 'Main navigation';
+    const navHireLabel = locale === 'fr'
+      ? 'Me recruter — m’écrire à comme.kamila@gmail.com'
+      : 'Hire me — email comme.kamila@gmail.com';
+    const navbar = partial
+      .replaceAll('{{navVariantClass}}', layoutKind === '404' ? 'kc-404-nav' : '')
+      .replaceAll('{{navRefAttr}}', layoutKind === 'page' ? 'ref="{{navRef}}"' : '')
+      .replaceAll('{{pillRefAttr}}', layoutKind === 'page' ? 'ref="{{pillRef}}"' : '')
+      .replaceAll('{{navLabel}}', escapeAttribute(navLabel))
+      .replaceAll('{{navHireLabel}}', escapeAttribute(navHireLabel));
+    if (!html.includes('{{navbar}}')) throw new Error(`Missing shared navbar slot in ${templatePath}`);
+    html = html.replace('{{navbar}}', navbar);
+  }
+  if (layoutKind === '404') return `${html.trimEnd()}\n`;
   if (layoutKind === 'page') {
     const switchFields = locale === 'fr'
       ? { languageSwitchHref: '/en/', languageSwitchLabel: 'FR — Langue actuelle : français. Passer en anglais.', languageSwitchLocale: 'fr', languageSwitchText: 'FR', navHireLabel: 'Me recruter — m’écrire à comme.kamila@gmail.com', navLabel: 'Navigation principale' }
@@ -267,11 +283,14 @@ for (const locale of requestedLocales) {
   await writeFile(path.join(folder, 'index.html'), page);
   await writeFile(path.join(folder, 'desktop-project-embedded.html'), desktop);
 }
+const notFound = await buildPage(path.join(root, 'templates/404.html'), {}, 'fr', '404');
+await writeFile(path.join(output, '404.html'), notFound);
 if (checkOnly) {
   const outputs = requestedLocales.flatMap(locale => {
     const folder = locale === 'fr' ? '' : 'en/';
     return [`${folder}index.html`, `${folder}desktop-project-embedded.html`];
   });
+  outputs.push('404.html');
   for (const relative of outputs) {
     const [generated, committed] = await Promise.all([readFile(path.join(output, relative)), readFile(path.join(root, relative))]);
     if (!generated.equals(committed)) throw new Error(`Generated output is stale: ${relative}`);

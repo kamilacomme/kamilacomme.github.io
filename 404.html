@@ -18,24 +18,26 @@
       document.documentElement.dataset.locale = 'en';
     }
   </script>
+  <link rel="stylesheet" href="/styles/base-and-accessibility.css">
+  <link rel="stylesheet" href="/styles/responsive-foundations.css">
+  <link rel="stylesheet" href="/styles/hire-cookie-overrides.css">
   <link rel="stylesheet" href="/styles/404.css">
 </head>
 <body>
   <header class="site-header">
-    <nav class="site-nav" aria-label="Navigation principale">
-      <a class="brand" href="/" aria-label="Kamila Comme — accueil">
-        Kamila Comme<span class="registered" aria-hidden="true">®</span>
-      </a>
-      <div class="nav-links" aria-label="Sections du portfolio">
-        <a href="/#projets" data-section="projets"><span class="fr">Projets</span><span class="en">Projects</span></a>
-        <a href="/#apropos" data-section="apropos"><span class="fr">À propos</span><span class="en">About</span></a>
-        <a href="/#contact" data-section="contact">Contact</a>
-      </div>
-      <div class="nav-actions">
-        <span class="availability"><i aria-hidden="true"></i><span class="fr">En recherche de CDI 2026</span><span class="en">Open to full-time roles</span></span>
-        <a class="hire" href="mailto:comme.kamila@gmail.com?subject=Portfolio"><span class="fr">Me recruter</span><span class="en">Hire me</span></a>
-      </div>
-    </nav>
+    <div class="kc-responsive-nav kc-404-nav"  role="navigation" aria-label="Navigation principale" style="position: fixed; left: 0; right: 0; top: 0; width: 100%; height: calc(72px * var(--kc-nav-scale, 1)); z-index: 500; box-sizing: border-box; padding: var(--kc-nav-block-padding, 15px) var(--kc-nav-gutter, 32px); display: flex; flex-direction: row; justify-content: space-between; align-items: center; pointer-events: none;">
+  <span style="display: inline-flex; align-items: flex-start; gap: calc(3px * var(--kc-nav-scale, 1)); font-family: 'Figtree', sans-serif; font-weight: 700; font-size: var(--kc-type-logo, 20px); white-space: nowrap; line-height: 1.2; letter-spacing: -0.02em; color: var(--kc-nav-ink, rgb(255,255,255)); pointer-events: auto;">Kamila Comme<span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 9px; line-height: 1.4; letter-spacing: 0;">®</span></span>
+  <div data-kc-navbar-links style="position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); display: flex; flex-direction: row; gap: calc(32px * var(--kc-nav-scale, 1)); align-items: center; pointer-events: auto;">
+    <a href="#projets" data-kc-nav-section="projets" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-label, 12px); white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: var(--kc-nav-ink, rgb(255,255,255)); text-transform: uppercase;">Projets</a>
+    <a href="#apropos" data-kc-nav-section="apropos" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-label, 12px); white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: var(--kc-nav-ink, rgb(255,255,255)); text-transform: uppercase;">À propos</a>
+    <a href="#contact" data-kc-nav-section="contact" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-label, 12px); white-space: nowrap; line-height: 1.2; letter-spacing: 0.04em; color: var(--kc-nav-ink, rgb(255,255,255)); text-transform: uppercase;">Contact</a>
+  </div>
+  <div data-kc-navbar-actions style="display: flex; flex-direction: row; gap: calc(16px * var(--kc-nav-scale, 1)); align-items: center; pointer-events: auto;">
+    <span  data-fixed-ink="1" data-kc-nav-availability style="display: inline-flex; flex: 0 0 auto; flex-direction: row; gap: 8px; align-items: center; min-height: 44px; height: auto; box-sizing: border-box; padding: 10px 24px; border-radius: 4px; background-color: var(--kc-nav-pill-bg, rgba(34,32,34,0.55)); border: 1px solid var(--kc-nav-pill-border, rgba(255,255,255,0.14)); backdrop-filter: blur(calc(16px * var(--kc-nav-scale, 1))) saturate(1.4); -webkit-backdrop-filter: blur(calc(16px * var(--kc-nav-scale, 1))) saturate(1.4);"><span data-fixed-ink="1" style="width: calc(6px * var(--kc-nav-scale, 1)); height: calc(6px * var(--kc-nav-scale, 1)); flex: 0 0 auto; border-radius: 50%; background-color: rgb(202,229,108); animation: kcDot 1.8s ease-in-out infinite;"></span><span data-fixed-ink="1" data-kc-nav-availability-copy style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-label, 12px); white-space: nowrap; line-height: 1.667; letter-spacing: 0.04em; text-transform: uppercase; color: var(--kc-nav-muted, rgb(189,183,189));">En recherche de CDI 2026</span></span>
+    <a href="mailto:comme.kamila@gmail.com?subject=Un%20CDI%20chez%20nous%20%3F" aria-label="Me recruter — m’écrire à comme.kamila@gmail.com" data-fixed-ink="1" data-kc-nav-hire style="display: flex; flex: 0 0 auto; flex-direction: row; align-items: center; min-height: 44px; height: 44px; box-sizing: border-box; border-radius: 4px; background-color: rgb(253,180,245); padding: 12px 24px;"><span data-fixed-ink="1" data-kc-nav-hire-copy style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--kc-type-body, 14px); white-space: nowrap; line-height: 1; color: rgb(34,32,34);">Me recruter</span></a>
+  </div>
+</div>
+
   </header>
 
   <main class="not-found" id="main-content">
@@ -57,13 +59,22 @@
   <script>
     const english = document.documentElement.dataset.locale === 'en';
     const homeRoute = english ? '/en/' : '/';
-    document.querySelector('.site-nav').setAttribute('aria-label', english ? 'Main navigation' : 'Navigation principale');
-    document.querySelector('.nav-links').setAttribute('aria-label', english ? 'Portfolio sections' : 'Sections du portfolio');
-    document.querySelector('.brand').href = homeRoute;
-    document.querySelector('.brand').setAttribute('aria-label', english ? 'Kamila Comme — home' : 'Kamila Comme — accueil');
-    document.querySelectorAll('.nav-links a').forEach((link) => { link.href = `${homeRoute}#${link.dataset.section}`; });
+    const nav = document.querySelector('.kc-responsive-nav');
+    nav.setAttribute('aria-label', english ? 'Main navigation' : 'Navigation principale');
+    nav.querySelectorAll('[data-kc-nav-section]').forEach((link) => {
+      const section = link.dataset.kcNavSection;
+      link.href = `${homeRoute}#${section}`;
+      if (section === 'projets') link.textContent = english ? 'Projects' : 'Projets';
+      if (section === 'apropos') link.textContent = english ? 'About' : 'À propos';
+    });
+    nav.querySelector('[data-kc-nav-availability-copy]').textContent = english ? 'Open to full-time roles' : 'En recherche de CDI 2026';
+    const hire = nav.querySelector('[data-kc-nav-hire]');
+    const hireLabel = english ? 'Hire me' : 'Me recruter';
+    hire.setAttribute('aria-label', english ? 'Hire me — email comme.kamila@gmail.com' : 'Me recruter — envoyer un e-mail à comme.kamila@gmail.com');
+    hire.querySelector('[data-kc-nav-hire-copy]').textContent = hireLabel;
     document.querySelectorAll('.fr').forEach((el) => { el.hidden = english; });
     document.querySelectorAll('.en').forEach((el) => { el.hidden = !english; });
+    document.documentElement.lang = english ? 'en' : 'fr';
     document.title = english ? 'Page not found — Kamila Comme' : 'Page introuvable — Kamila Comme';
   </script>
 </body>

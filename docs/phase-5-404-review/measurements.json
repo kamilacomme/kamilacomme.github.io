@@ -1,650 +1,1706 @@
 [
   {
     "locale": "fr",
-    "viewportName": "desktop-1440x900",
-    "responseStatus": 404,
-    "viewport": {
-      "width": 1440,
-      "height": 900
+    "viewport": "desktop-1440x900",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 72,
+        "right": 1440
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 596.25,
+        "y": 28.8,
+        "width": 247.5,
+        "height": 14.39,
+        "right": 843.75
+      },
+      "actions": {
+        "x": 1022.72,
+        "y": 14,
+        "width": 385.28,
+        "height": 44,
+        "right": 1408
+      },
+      "availability": {
+        "x": 1022.72,
+        "y": 14,
+        "width": 243.91,
+        "height": 44,
+        "right": 1266.63
+      },
+      "hire": {
+        "x": 1282.63,
+        "y": 14,
+        "width": 125.38,
+        "height": 44,
+        "right": 1408
+      },
+      "linksDisplay": "flex",
+      "navLabel": "Navigation principale"
     },
-    "document": {
-      "width": 1440,
-      "height": 900
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 72,
+        "right": 1440
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 596.25,
+        "y": 28.8,
+        "width": 247.5,
+        "height": 14.39,
+        "right": 843.75
+      },
+      "actions": {
+        "x": 1022.72,
+        "y": 14,
+        "width": 385.28,
+        "height": 44,
+        "right": 1408
+      },
+      "availability": {
+        "x": 1022.72,
+        "y": 14,
+        "width": 243.91,
+        "height": 44,
+        "right": 1266.63
+      },
+      "hire": {
+        "x": 1282.63,
+        "y": 14,
+        "width": 125.38,
+        "height": 44,
+        "right": 1408
+      },
+      "linksDisplay": "flex",
+      "navLabel": "Navigation principale"
     },
-    "horizontalOverflow": false,
-    "navbar": {
-      "x": 0,
-      "y": 0,
-      "width": 1440,
-      "height": 72,
-      "right": 1440,
-      "bottom": 72
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 72,
+        "right": 1440
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 174.69
+      },
+      "links": {
+        "x": 596.25,
+        "y": 28.8,
+        "width": 247.5,
+        "height": 14.39,
+        "right": 843.75
+      },
+      "actions": {
+        "x": 1022.72,
+        "y": 14,
+        "width": 385.28,
+        "height": 44,
+        "right": 1408
+      },
+      "availability": {
+        "x": 1022.72,
+        "y": 14,
+        "width": 243.91,
+        "height": 44,
+        "right": 1266.63
+      },
+      "hire": {
+        "x": 1282.63,
+        "y": 14,
+        "width": 125.38,
+        "height": 44,
+        "right": 1408
+      },
+      "linksDisplay": "flex",
+      "navLabel": "Navigation principale"
     },
-    "code": {
-      "x": 452.46875,
-      "y": 252.703125,
-      "width": 535.0625,
-      "height": 247.09375,
-      "right": 987.53125,
-      "bottom": 499.796875
+    "navText": {
+      "label": "Navigation principale",
+      "sections": [
+        {
+          "text": "Projets",
+          "href": "/#projets"
+        },
+        {
+          "text": "À propos",
+          "href": "/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/#contact"
+        }
+      ],
+      "availability": "En recherche de CDI 2026",
+      "hire": "Me recruter",
+      "hireLabel": "Me recruter — envoyer un e-mail à comme.kamila@gmail.com"
     },
-    "heading": {
-      "x": 405.390625,
-      "y": 526.796875,
-      "width": 629.21875,
-      "height": 107.5,
-      "right": 1034.609375,
-      "bottom": 634.296875
+    "typography": {
+      "message": {
+        "fontSize": "56px",
+        "rect": {
+          "x": 352.97,
+          "y": 511.61,
+          "width": 734.06,
+          "height": 125.44,
+          "right": 1087.03
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "306px",
+        "rect": {
+          "x": 461.58,
+          "y": 245.94,
+          "width": 516.84,
+          "height": 238.67,
+          "right": 978.42
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 642.11,
+          "y": 664.05,
+          "width": 155.77,
+          "height": 44
+        },
+        "text": "Retour à l'accueil",
+        "href": "http://127.0.0.1:8015/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
     },
-    "home": {
-      "x": 642.109375,
-      "y": 661.296875,
-      "width": 155.765625,
-      "height": 40,
-      "right": 797.875,
-      "bottom": 701.296875
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
     },
-    "language": "fr",
-    "resources": [
-      "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-      "http://127.0.0.1:8014/styles/404.css",
-      "http://127.0.0.1:8014/assets/favicon.png"
-    ],
-    "keyboardFocusOutline": "solid",
-    "scrollYToReachHomeInShortView": 0
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
   },
   {
     "locale": "fr",
-    "viewportName": "tablet-portrait-834x1112",
-    "responseStatus": 404,
-    "viewport": {
-      "width": 834,
-      "height": 1112
+    "viewport": "tablet-834x1112",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 72,
+        "right": 834
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 416.72,
+        "y": 14,
+        "width": 385.28,
+        "height": 44,
+        "right": 802
+      },
+      "availability": {
+        "x": 416.72,
+        "y": 14,
+        "width": 243.91,
+        "height": 44,
+        "right": 660.63
+      },
+      "hire": {
+        "x": 676.63,
+        "y": 14,
+        "width": 125.38,
+        "height": 44,
+        "right": 802
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
     },
-    "document": {
-      "width": 834,
-      "height": 1112
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 72,
+        "right": 834
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 416.72,
+        "y": 14,
+        "width": 385.28,
+        "height": 44,
+        "right": 802
+      },
+      "availability": {
+        "x": 416.72,
+        "y": 14,
+        "width": 243.91,
+        "height": 44,
+        "right": 660.63
+      },
+      "hire": {
+        "x": 676.63,
+        "y": 14,
+        "width": 125.38,
+        "height": 44,
+        "right": 802
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
     },
-    "horizontalOverflow": false,
-    "navbar": {
-      "x": 0,
-      "y": 0,
-      "width": 834,
-      "height": 72,
-      "right": 834,
-      "bottom": 72
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 72,
+        "right": 834
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 174.69
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 416.72,
+        "y": 14,
+        "width": 385.28,
+        "height": 44,
+        "right": 802
+      },
+      "availability": {
+        "x": 416.72,
+        "y": 14,
+        "width": 243.91,
+        "height": 44,
+        "right": 660.63
+      },
+      "hire": {
+        "x": 676.63,
+        "y": 14,
+        "width": 125.38,
+        "height": 44,
+        "right": 802
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
     },
-    "code": {
-      "x": 262.046875,
-      "y": 425.84375,
-      "width": 309.890625,
-      "height": 143.109375,
-      "right": 571.9375,
-      "bottom": 568.953125
+    "navText": {
+      "label": "Navigation principale",
+      "sections": [
+        {
+          "text": "Projets",
+          "href": "/#projets"
+        },
+        {
+          "text": "À propos",
+          "href": "/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/#contact"
+        }
+      ],
+      "availability": "En recherche de CDI 2026",
+      "hire": "Me recruter",
+      "hireLabel": "Me recruter — envoyer un e-mail à comme.kamila@gmail.com"
     },
-    "heading": {
-      "x": 234,
-      "y": 602.3125,
-      "width": 366,
-      "height": 62.5625,
-      "right": 600,
-      "bottom": 664.875
+    "typography": {
+      "message": {
+        "fontSize": "48px",
+        "rect": {
+          "x": 102.39,
+          "y": 577.84,
+          "width": 629.22,
+          "height": 107.5,
+          "right": 731.61
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "183.48px",
+        "rect": {
+          "x": 262.05,
+          "y": 401.38,
+          "width": 309.89,
+          "height": 143.11,
+          "right": 571.94
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 339.11,
+          "y": 717.34,
+          "width": 155.77,
+          "height": 44
+        },
+        "text": "Retour à l'accueil",
+        "href": "http://127.0.0.1:8015/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
     },
-    "home": {
-      "x": 339.109375,
-      "y": 696.875,
-      "width": 155.765625,
-      "height": 40,
-      "right": 494.875,
-      "bottom": 736.875
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
     },
-    "language": "fr",
-    "resources": [
-      "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-      "http://127.0.0.1:8014/styles/404.css",
-      "http://127.0.0.1:8014/assets/favicon.png"
-    ],
-    "keyboardFocusOutline": "solid",
-    "scrollYToReachHomeInShortView": 0
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
   },
   {
     "locale": "fr",
-    "viewportName": "tablet-landscape-1194x834",
-    "responseStatus": 404,
-    "viewport": {
-      "width": 1194,
-      "height": 834
+    "viewport": "mobile-393x852",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 72,
+        "right": 393
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 267.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 377
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 267.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 377
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
     },
-    "document": {
-      "width": 1194,
-      "height": 834
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 72,
+        "right": 393
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 267.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 377
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 267.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 377
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
     },
-    "horizontalOverflow": false,
-    "navbar": {
-      "x": 0,
-      "y": 0,
-      "width": 1194,
-      "height": 72,
-      "right": 1194,
-      "bottom": 72
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 72,
+        "right": 393
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 158.69
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 267.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 377
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 267.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 377
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
     },
-    "code": {
-      "x": 375.15625,
-      "y": 252.390625,
-      "width": 443.671875,
-      "height": 204.890625,
-      "right": 818.828125,
-      "bottom": 457.28125
+    "navText": {
+      "label": "Navigation principale",
+      "sections": [
+        {
+          "text": "Projets",
+          "href": "/#projets"
+        },
+        {
+          "text": "À propos",
+          "href": "/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/#contact"
+        }
+      ],
+      "availability": "En recherche de CDI 2026",
+      "hire": "Me recruter",
+      "hireLabel": "Me recruter — envoyer un e-mail à comme.kamila@gmail.com"
     },
-    "heading": {
-      "x": 334.9375,
-      "y": 482.296875,
-      "width": 524.109375,
-      "height": 89.59375,
-      "right": 859.046875,
-      "bottom": 571.890625
+    "typography": {
+      "message": {
+        "fontSize": "32px",
+        "rect": {
+          "x": 16,
+          "y": 421.41,
+          "width": 361,
+          "height": 107.48,
+          "right": 377
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "112px",
+        "rect": {
+          "x": 101.91,
+          "y": 308.5,
+          "width": 189.17,
+          "height": 87.36,
+          "right": 291.08
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 118.61,
+          "y": 554.44,
+          "width": 155.77,
+          "height": 44
+        },
+        "text": "Retour à l'accueil",
+        "href": "http://127.0.0.1:8015/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
     },
-    "home": {
-      "x": 519.109375,
-      "y": 596.90625,
-      "width": 155.765625,
-      "height": 40,
-      "right": 674.875,
-      "bottom": 636.90625
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
     },
-    "language": "fr",
-    "resources": [
-      "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-      "http://127.0.0.1:8014/styles/404.css",
-      "http://127.0.0.1:8014/assets/favicon.png"
-    ],
-    "keyboardFocusOutline": "solid",
-    "scrollYToReachHomeInShortView": 0
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
   },
   {
     "locale": "fr",
-    "viewportName": "mobile-393x852",
-    "responseStatus": 404,
-    "viewport": {
-      "width": 393,
-      "height": 852
+    "viewport": "mobile-320x568",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 72,
+        "right": 320
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 194.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 304
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 194.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 304
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
     },
-    "document": {
-      "width": 393,
-      "height": 852
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 72,
+        "right": 320
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 194.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 304
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 194.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 304
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
     },
-    "horizontalOverflow": false,
-    "navbar": {
-      "x": 0,
-      "y": 0,
-      "width": 393,
-      "height": 72,
-      "right": 393,
-      "bottom": 72
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 72,
+        "right": 320
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 158.69
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 194.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 304
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 194.63,
+        "y": 14,
+        "width": 109.38,
+        "height": 44,
+        "right": 304
+      },
+      "linksDisplay": "none",
+      "navLabel": "Navigation principale"
     },
-    "code": {
-      "x": 74.890625,
-      "y": 320.953125,
-      "width": 243.21875,
-      "height": 112.3125,
-      "right": 318.109375,
-      "bottom": 433.265625
+    "navText": {
+      "label": "Navigation principale",
+      "sections": [
+        {
+          "text": "Projets",
+          "href": "/#projets"
+        },
+        {
+          "text": "À propos",
+          "href": "/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/#contact"
+        }
+      ],
+      "availability": "En recherche de CDI 2026",
+      "hire": "Me recruter",
+      "hireLabel": "Me recruter — envoyer un e-mail à comme.kamila@gmail.com"
     },
-    "heading": {
-      "x": 16.25,
-      "y": 458.8125,
-      "width": 360.484375,
-      "height": 61.625,
-      "right": 376.734375,
-      "bottom": 520.4375
+    "typography": {
+      "message": {
+        "fontSize": "32px",
+        "rect": {
+          "x": 16,
+          "y": 264.34,
+          "width": 288,
+          "height": 143.31,
+          "right": 304
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "112px",
+        "rect": {
+          "x": 65.41,
+          "y": 156.98,
+          "width": 189.17,
+          "height": 87.36,
+          "right": 254.58
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 82.11,
+          "y": 427.66,
+          "width": 155.77,
+          "height": 44
+        },
+        "text": "Retour à l'accueil",
+        "href": "http://127.0.0.1:8015/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
     },
-    "home": {
-      "x": 118.609375,
-      "y": 545.984375,
-      "width": 155.765625,
-      "height": 40,
-      "right": 274.375,
-      "bottom": 585.984375
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
     },
-    "language": "fr",
-    "resources": [
-      "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-      "http://127.0.0.1:8014/styles/404.css",
-      "http://127.0.0.1:8014/assets/favicon.png"
-    ],
-    "keyboardFocusOutline": "solid",
-    "scrollYToReachHomeInShortView": 0
-  },
-  {
-    "locale": "fr",
-    "viewportName": "mobile-320x568",
-    "responseStatus": 404,
-    "viewport": {
-      "width": 320,
-      "height": 568
-    },
-    "document": {
-      "width": 320,
-      "height": 568
-    },
-    "horizontalOverflow": false,
-    "navbar": {
-      "x": 0,
-      "y": 0,
-      "width": 320,
-      "height": 72,
-      "right": 320,
-      "bottom": 72
-    },
-    "code": {
-      "x": 38.390625,
-      "y": 180.515625,
-      "width": 243.21875,
-      "height": 112.3125,
-      "right": 281.609375,
-      "bottom": 292.828125
-    },
-    "heading": {
-      "x": 16,
-      "y": 312.828125,
-      "width": 288,
-      "height": 75.28125,
-      "right": 304,
-      "bottom": 388.109375
-    },
-    "home": {
-      "x": 82.109375,
-      "y": 408.109375,
-      "width": 155.765625,
-      "height": 40,
-      "right": 237.875,
-      "bottom": 448.109375
-    },
-    "language": "fr",
-    "resources": [
-      "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-      "http://127.0.0.1:8014/styles/404.css",
-      "http://127.0.0.1:8014/assets/favicon.png"
-    ],
-    "keyboardFocusOutline": "solid",
-    "scrollYToReachHomeInShortView": 0
-  },
-  {
-    "locale": "fr",
-    "viewportName": "short-960x300",
-    "responseStatus": 404,
-    "viewport": {
-      "width": 960,
-      "height": 300
-    },
-    "document": {
-      "width": 960,
-      "height": 457
-    },
-    "horizontalOverflow": false,
-    "navbar": {
-      "x": 0,
-      "y": 0,
-      "width": 960,
-      "height": 72,
-      "right": 960,
-      "bottom": 72
-    },
-    "code": {
-      "x": 301.640625,
-      "y": 100,
-      "width": 356.703125,
-      "height": 164.734375,
-      "right": 658.34375,
-      "bottom": 264.734375
-    },
-    "heading": {
-      "x": 269.234375,
-      "y": 284.734375,
-      "width": 421.53125,
-      "height": 72,
-      "right": 690.765625,
-      "bottom": 356.734375
-    },
-    "home": {
-      "x": 402.109375,
-      "y": 376.734375,
-      "width": 155.765625,
-      "height": 40,
-      "right": 557.875,
-      "bottom": 416.734375
-    },
-    "language": "fr",
-    "resources": [
-      "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-      "http://127.0.0.1:8014/styles/404.css",
-      "http://127.0.0.1:8014/assets/favicon.png"
-    ],
-    "keyboardFocusOutline": "solid",
-    "scrollYToReachHomeInShortView": 157
-  },
-  {
-    "locale": "en",
-    "viewportName": "desktop-1440x900",
-    "responseStatus": 404,
-    "viewport": {
-      "width": 1440,
-      "height": 900
-    },
-    "document": {
-      "width": 1440,
-      "height": 900
-    },
-    "horizontalOverflow": false,
-    "navbar": {
-      "x": 0,
-      "y": 0,
-      "width": 1440,
-      "height": 72,
-      "right": 1440,
-      "bottom": 72
-    },
-    "code": {
-      "x": 452.46875,
-      "y": 252.703125,
-      "width": 535.0625,
-      "height": 247.09375,
-      "right": 987.53125,
-      "bottom": 499.796875
-    },
-    "heading": {
-      "x": 440.234375,
-      "y": 526.796875,
-      "width": 559.515625,
-      "height": 107.5,
-      "right": 999.75,
-      "bottom": 634.296875
-    },
-    "home": {
-      "x": 653.734375,
-      "y": 661.296875,
-      "width": 132.515625,
-      "height": 40,
-      "right": 786.25,
-      "bottom": 701.296875
-    },
-    "language": "en",
-    "resources": [
-      "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-      "http://127.0.0.1:8014/styles/404.css",
-      "http://127.0.0.1:8014/assets/favicon.png"
-    ],
-    "keyboardFocusOutline": "solid",
-    "scrollYToReachHomeInShortView": 0
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
   },
   {
     "locale": "en",
-    "viewportName": "tablet-portrait-834x1112",
-    "responseStatus": 404,
-    "viewport": {
-      "width": 834,
-      "height": 1112
+    "viewport": "desktop-1440x900",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 72,
+        "right": 1440
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 601.73,
+        "y": 28.8,
+        "width": 236.53,
+        "height": 14.39,
+        "right": 838.27
+      },
+      "actions": {
+        "x": 1056.58,
+        "y": 14,
+        "width": 351.42,
+        "height": 44,
+        "right": 1408
+      },
+      "availability": {
+        "x": 1056.58,
+        "y": 14,
+        "width": 236.06,
+        "height": 44,
+        "right": 1292.64
+      },
+      "hire": {
+        "x": 1308.64,
+        "y": 14,
+        "width": 99.36,
+        "height": 44,
+        "right": 1408
+      },
+      "linksDisplay": "flex",
+      "navLabel": "Main navigation"
     },
-    "document": {
-      "width": 834,
-      "height": 1112
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 72,
+        "right": 1440
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 601.73,
+        "y": 28.8,
+        "width": 236.53,
+        "height": 14.39,
+        "right": 838.27
+      },
+      "actions": {
+        "x": 1056.58,
+        "y": 14,
+        "width": 351.42,
+        "height": 44,
+        "right": 1408
+      },
+      "availability": {
+        "x": 1056.58,
+        "y": 14,
+        "width": 236.06,
+        "height": 44,
+        "right": 1292.64
+      },
+      "hire": {
+        "x": 1308.64,
+        "y": 14,
+        "width": 99.36,
+        "height": 44,
+        "right": 1408
+      },
+      "linksDisplay": "flex",
+      "navLabel": "Main navigation"
     },
-    "horizontalOverflow": false,
-    "navbar": {
-      "x": 0,
-      "y": 0,
-      "width": 834,
-      "height": 72,
-      "right": 834,
-      "bottom": 72
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 72,
+        "right": 1440
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 174.69
+      },
+      "links": {
+        "x": 601.73,
+        "y": 28.8,
+        "width": 236.53,
+        "height": 14.39,
+        "right": 838.27
+      },
+      "actions": {
+        "x": 1056.58,
+        "y": 14,
+        "width": 351.42,
+        "height": 44,
+        "right": 1408
+      },
+      "availability": {
+        "x": 1056.58,
+        "y": 14,
+        "width": 236.06,
+        "height": 44,
+        "right": 1292.64
+      },
+      "hire": {
+        "x": 1308.64,
+        "y": 14,
+        "width": 99.36,
+        "height": 44,
+        "right": 1408
+      },
+      "linksDisplay": "flex",
+      "navLabel": "Main navigation"
     },
-    "code": {
-      "x": 262.046875,
-      "y": 425.84375,
-      "width": 309.890625,
-      "height": 143.109375,
-      "right": 571.9375,
-      "bottom": 568.953125
+    "navText": {
+      "label": "Main navigation",
+      "sections": [
+        {
+          "text": "Projects",
+          "href": "/en/#projets"
+        },
+        {
+          "text": "About",
+          "href": "/en/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/en/#contact"
+        }
+      ],
+      "availability": "Open to full-time roles",
+      "hire": "Hire me",
+      "hireLabel": "Hire me — email comme.kamila@gmail.com"
     },
-    "heading": {
-      "x": 254.265625,
-      "y": 602.3125,
-      "width": 325.453125,
-      "height": 62.5625,
-      "right": 579.71875,
-      "bottom": 664.875
+    "typography": {
+      "message": {
+        "fontSize": "56px",
+        "rect": {
+          "x": 393.63,
+          "y": 511.61,
+          "width": 652.75,
+          "height": 125.44,
+          "right": 1046.38
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "306px",
+        "rect": {
+          "x": 461.58,
+          "y": 245.94,
+          "width": 516.84,
+          "height": 238.67,
+          "right": 978.42
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 653.73,
+          "y": 664.05,
+          "width": 132.52,
+          "height": 44
+        },
+        "text": "Back to home",
+        "href": "http://127.0.0.1:8015/en/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
     },
-    "home": {
-      "x": 350.734375,
-      "y": 696.875,
-      "width": 132.515625,
-      "height": 40,
-      "right": 483.25,
-      "bottom": 736.875
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
     },
-    "language": "en",
-    "resources": [
-      "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-      "http://127.0.0.1:8014/styles/404.css",
-      "http://127.0.0.1:8014/assets/favicon.png"
-    ],
-    "keyboardFocusOutline": "solid",
-    "scrollYToReachHomeInShortView": 0
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
   },
   {
     "locale": "en",
-    "viewportName": "tablet-landscape-1194x834",
-    "responseStatus": 404,
-    "viewport": {
-      "width": 1194,
-      "height": 834
+    "viewport": "tablet-834x1112",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 72,
+        "right": 834
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 450.58,
+        "y": 14,
+        "width": 351.42,
+        "height": 44,
+        "right": 802
+      },
+      "availability": {
+        "x": 450.58,
+        "y": 14,
+        "width": 236.06,
+        "height": 44,
+        "right": 686.64
+      },
+      "hire": {
+        "x": 702.64,
+        "y": 14,
+        "width": 99.36,
+        "height": 44,
+        "right": 802
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
     },
-    "document": {
-      "width": 1194,
-      "height": 834
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 72,
+        "right": 834
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 174.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 450.58,
+        "y": 14,
+        "width": 351.42,
+        "height": 44,
+        "right": 802
+      },
+      "availability": {
+        "x": 450.58,
+        "y": 14,
+        "width": 236.06,
+        "height": 44,
+        "right": 686.64
+      },
+      "hire": {
+        "x": 702.64,
+        "y": 14,
+        "width": 99.36,
+        "height": 44,
+        "right": 802
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
     },
-    "horizontalOverflow": false,
-    "navbar": {
-      "x": 0,
-      "y": 0,
-      "width": 1194,
-      "height": 72,
-      "right": 1194,
-      "bottom": 72
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 72,
+        "right": 834
+      },
+      "brand": {
+        "x": 32,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 174.69
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 450.58,
+        "y": 14,
+        "width": 351.42,
+        "height": 44,
+        "right": 802
+      },
+      "availability": {
+        "x": 450.58,
+        "y": 14,
+        "width": 236.06,
+        "height": 44,
+        "right": 686.64
+      },
+      "hire": {
+        "x": 702.64,
+        "y": 14,
+        "width": 99.36,
+        "height": 44,
+        "right": 802
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
     },
-    "code": {
-      "x": 375.15625,
-      "y": 252.390625,
-      "width": 443.671875,
-      "height": 204.890625,
-      "right": 818.828125,
-      "bottom": 457.28125
+    "navText": {
+      "label": "Main navigation",
+      "sections": [
+        {
+          "text": "Projects",
+          "href": "/en/#projets"
+        },
+        {
+          "text": "About",
+          "href": "/en/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/en/#contact"
+        }
+      ],
+      "availability": "Open to full-time roles",
+      "hire": "Hire me",
+      "hireLabel": "Hire me — email comme.kamila@gmail.com"
     },
-    "heading": {
-      "x": 363.953125,
-      "y": 482.296875,
-      "width": 466.078125,
-      "height": 89.59375,
-      "right": 830.03125,
-      "bottom": 571.890625
+    "typography": {
+      "message": {
+        "fontSize": "48px",
+        "rect": {
+          "x": 137.23,
+          "y": 577.84,
+          "width": 559.52,
+          "height": 107.5,
+          "right": 696.75
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "183.48px",
+        "rect": {
+          "x": 262.05,
+          "y": 401.38,
+          "width": 309.89,
+          "height": 143.11,
+          "right": 571.94
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 350.73,
+          "y": 717.34,
+          "width": 132.52,
+          "height": 44
+        },
+        "text": "Back to home",
+        "href": "http://127.0.0.1:8015/en/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
     },
-    "home": {
-      "x": 530.734375,
-      "y": 596.90625,
-      "width": 132.515625,
-      "height": 40,
-      "right": 663.25,
-      "bottom": 636.90625
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
     },
-    "language": "en",
-    "resources": [
-      "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-      "http://127.0.0.1:8014/styles/404.css",
-      "http://127.0.0.1:8014/assets/favicon.png"
-    ],
-    "keyboardFocusOutline": "solid",
-    "scrollYToReachHomeInShortView": 0
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
   },
   {
     "locale": "en",
-    "viewportName": "mobile-393x852",
-    "responseStatus": 404,
-    "viewport": {
-      "width": 393,
-      "height": 852
+    "viewport": "mobile-393x852",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 72,
+        "right": 393
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 293.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 377
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 293.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 377
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
     },
-    "document": {
-      "width": 393,
-      "height": 852
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 72,
+        "right": 393
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 293.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 377
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 293.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 377
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
     },
-    "horizontalOverflow": false,
-    "navbar": {
-      "x": 0,
-      "y": 0,
-      "width": 393,
-      "height": 72,
-      "right": 393,
-      "bottom": 72
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 72,
+        "right": 393
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 158.69
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 293.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 377
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 293.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 377
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
     },
-    "code": {
-      "x": 74.890625,
-      "y": 320.953125,
-      "width": 243.21875,
-      "height": 112.3125,
-      "right": 318.109375,
-      "bottom": 433.265625
+    "navText": {
+      "label": "Main navigation",
+      "sections": [
+        {
+          "text": "Projects",
+          "href": "/en/#projets"
+        },
+        {
+          "text": "About",
+          "href": "/en/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/en/#contact"
+        }
+      ],
+      "availability": "Open to full-time roles",
+      "hire": "Hire me",
+      "hireLabel": "Hire me — email comme.kamila@gmail.com"
     },
-    "heading": {
-      "x": 36.21875,
-      "y": 458.8125,
-      "width": 320.546875,
-      "height": 61.625,
-      "right": 356.765625,
-      "bottom": 520.4375
+    "typography": {
+      "message": {
+        "fontSize": "32px",
+        "rect": {
+          "x": 16,
+          "y": 403.5,
+          "width": 361,
+          "height": 143.31,
+          "right": 377
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "112px",
+        "rect": {
+          "x": 101.91,
+          "y": 290.59,
+          "width": 189.17,
+          "height": 87.36,
+          "right": 291.08
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 130.23,
+          "y": 572.36,
+          "width": 132.52,
+          "height": 44
+        },
+        "text": "Back to home",
+        "href": "http://127.0.0.1:8015/en/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
     },
-    "home": {
-      "x": 130.234375,
-      "y": 545.984375,
-      "width": 132.515625,
-      "height": 40,
-      "right": 262.75,
-      "bottom": 585.984375
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
     },
-    "language": "en",
-    "resources": [
-      "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-      "http://127.0.0.1:8014/styles/404.css",
-      "http://127.0.0.1:8014/assets/favicon.png"
-    ],
-    "keyboardFocusOutline": "solid",
-    "scrollYToReachHomeInShortView": 0
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
   },
   {
     "locale": "en",
-    "viewportName": "mobile-320x568",
-    "responseStatus": 404,
-    "viewport": {
-      "width": 320,
-      "height": 568
+    "viewport": "mobile-320x568",
+    "httpStatus": 404,
+    "oldHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 72,
+        "right": 320
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 220.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 304
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 220.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 304
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
     },
-    "document": {
-      "width": 320,
-      "height": 568
+    "sharedHomepage": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 72,
+        "right": 320
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.7,
+        "height": 24,
+        "right": 158.7
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 220.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 304
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 220.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 304
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
     },
-    "horizontalOverflow": false,
-    "navbar": {
-      "x": 0,
-      "y": 0,
-      "width": 320,
-      "height": 72,
-      "right": 320,
-      "bottom": 72
+    "notFoundNavbar": {
+      "nav": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 72,
+        "right": 320
+      },
+      "brand": {
+        "x": 16,
+        "y": 24,
+        "width": 142.69,
+        "height": 24,
+        "right": 158.69
+      },
+      "links": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "actions": {
+        "x": 220.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 304
+      },
+      "availability": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0
+      },
+      "hire": {
+        "x": 220.64,
+        "y": 14,
+        "width": 83.36,
+        "height": 44,
+        "right": 304
+      },
+      "linksDisplay": "none",
+      "navLabel": "Main navigation"
     },
-    "code": {
-      "x": 38.390625,
-      "y": 193.0625,
-      "width": 243.21875,
-      "height": 112.3125,
-      "right": 281.609375,
-      "bottom": 305.375
+    "navText": {
+      "label": "Main navigation",
+      "sections": [
+        {
+          "text": "Projects",
+          "href": "/en/#projets"
+        },
+        {
+          "text": "About",
+          "href": "/en/#apropos"
+        },
+        {
+          "text": "Contact",
+          "href": "/en/#contact"
+        }
+      ],
+      "availability": "Open to full-time roles",
+      "hire": "Hire me",
+      "hireLabel": "Hire me — email comme.kamila@gmail.com"
     },
-    "heading": {
-      "x": 29.5,
-      "y": 325.375,
-      "width": 260.984375,
-      "height": 50.1875,
-      "right": 290.484375,
-      "bottom": 375.5625
+    "typography": {
+      "message": {
+        "fontSize": "32px",
+        "rect": {
+          "x": 16,
+          "y": 264.34,
+          "width": 288,
+          "height": 143.31,
+          "right": 304
+        },
+        "visible": true
+      },
+      "numeral": {
+        "fontSize": "112px",
+        "rect": {
+          "x": 65.41,
+          "y": 156.98,
+          "width": 189.17,
+          "height": 87.36,
+          "right": 254.58
+        },
+        "visible": true
+      },
+      "button": {
+        "fontSize": "14px",
+        "padding": "0px 20px",
+        "minHeight": "44px",
+        "rect": {
+          "x": 93.73,
+          "y": 427.66,
+          "width": 132.52,
+          "height": 44
+        },
+        "text": "Back to home",
+        "href": "http://127.0.0.1:8015/en/"
+      },
+      "overflow": {
+        "x": false,
+        "y": false
+      }
     },
-    "home": {
-      "x": 93.734375,
-      "y": 395.5625,
-      "width": 132.515625,
-      "height": 40,
-      "right": 226.25,
-      "bottom": 435.5625
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "outlineWidth": "2px"
     },
-    "language": "en",
-    "resources": [
-      "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-      "http://127.0.0.1:8014/styles/404.css",
-      "http://127.0.0.1:8014/assets/favicon.png"
-    ],
-    "keyboardFocusOutline": "solid",
-    "scrollYToReachHomeInShortView": 0
-  },
-  {
-    "locale": "en",
-    "viewportName": "short-960x300",
-    "responseStatus": 404,
-    "viewport": {
-      "width": 960,
-      "height": 300
-    },
-    "document": {
-      "width": 960,
-      "height": 457
-    },
-    "horizontalOverflow": false,
-    "navbar": {
-      "x": 0,
-      "y": 0,
-      "width": 960,
-      "height": 72,
-      "right": 960,
-      "bottom": 72
-    },
-    "code": {
-      "x": 301.640625,
-      "y": 100,
-      "width": 356.703125,
-      "height": 164.734375,
-      "right": 658.34375,
-      "bottom": 264.734375
-    },
-    "heading": {
-      "x": 292.578125,
-      "y": 284.734375,
-      "width": 374.84375,
-      "height": 72,
-      "right": 667.421875,
-      "bottom": 356.734375
-    },
-    "home": {
-      "x": 413.734375,
-      "y": 376.734375,
-      "width": 132.515625,
-      "height": 40,
-      "right": 546.25,
-      "bottom": 416.734375
-    },
-    "language": "en",
-    "resources": [
-      "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap",
-      "http://127.0.0.1:8014/styles/404.css",
-      "http://127.0.0.1:8014/assets/favicon.png"
-    ],
-    "keyboardFocusOutline": "solid",
-    "scrollYToReachHomeInShortView": 157
+    "runtime": {
+      "scripts": [],
+      "controllers": false
+    }
   }
 ]

@@ -15,4 +15,12 @@ git pull --ff-only
 xdg-open docs/phase-5-404-review/gallery.html
 ```
 
-This checkpoint contains review materials only. The 404 implementation remains isolated from the pushed branch until visual approval.
+To inspect the page live on localhost, start the small GitHub Pages-style preview server:
+
+```sh
+node docs/phase-5-404-review/preview-server.mjs
+```
+
+Then open `http://127.0.0.1:8014/missing-page` for French or `http://127.0.0.1:8014/en/missing-page` for English. Both URLs intentionally return HTTP 404 and retain their path. The server is for local review only; no deployment or redirect is involved.
+
+The 404 implementation is a review checkpoint on the feature branch and remains unmerged and unpublished pending visual approval.

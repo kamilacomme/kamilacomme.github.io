@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr" data-locale="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Page introuvable — Kamila Comme</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    // GitHub Pages serves this file for missing paths without changing the URL.
+    // Select the static copy that matches the requested language route.
+    if (/^\/en(?:\/|$)/i.test(window.location.pathname)) {
+      document.documentElement.lang = 'en';
+      document.documentElement.dataset.locale = 'en';
+    }
+  </script>
+  <link rel="stylesheet" href="/styles/404.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a class="brand" href="/" aria-label="Kamila Comme — accueil">
+        Kamila Comme<span class="registered" aria-hidden="true">®</span>
+      </a>
+      <div class="nav-links" aria-label="Sections du portfolio">
+        <a href="/#projets" data-section="projets"><span class="fr">Projets</span><span class="en">Projects</span></a>
+        <a href="/#apropos" data-section="apropos"><span class="fr">À propos</span><span class="en">About</span></a>
+        <a href="/#contact" data-section="contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <span class="availability"><i aria-hidden="true"></i><span class="fr">En recherche de CDI 2026</span><span class="en">Open to full-time roles</span></span>
+        <a class="hire" href="mailto:comme.kamila@gmail.com?subject=Portfolio"><span class="fr">Me recruter</span><span class="en">Hire me</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="not-found" id="main-content">
+    <div class="message">
+      <p class="code" aria-hidden="true">404</p>
+      <h1 class="statement fr">
+        <span><strong>Cette page</strong> <em>a disparu.</em></span>
+        <span><strong>Mais le portfolio</strong> <em>est toujours là.</em></span>
+      </h1>
+      <h1 class="statement en">
+        <span><strong>This page</strong> <em>has disappeared.</em></span>
+        <span><strong>But the portfolio</strong> <em>is still here.</em></span>
+      </h1>
+      <a class="home-button fr" href="/">Retour à l'accueil</a>
+      <a class="home-button en" href="/en/">Back to home</a>
+    </div>
+  </main>
+
+  <script>
+    const english = document.documentElement.dataset.locale === 'en';
+    const homeRoute = english ? '/en/' : '/';
+    document.querySelector('.site-nav').setAttribute('aria-label', english ? 'Main navigation' : 'Navigation principale');
+    document.querySelector('.nav-links').setAttribute('aria-label', english ? 'Portfolio sections' : 'Sections du portfolio');
+    document.querySelector('.brand').href = homeRoute;
+    document.querySelector('.brand').setAttribute('aria-label', english ? 'Kamila Comme — home' : 'Kamila Comme — accueil');
+    document.querySelectorAll('.nav-links a').forEach((link) => { link.href = `${homeRoute}#${link.dataset.section}`; });
+    document.querySelectorAll('.fr').forEach((el) => { el.hidden = english; });
+    document.querySelectorAll('.en').forEach((el) => { el.hidden = !english; });
+    document.title = english ? 'Page not found — Kamila Comme' : 'Page introuvable — Kamila Comme';
+  </script>
+</body>
+</html>

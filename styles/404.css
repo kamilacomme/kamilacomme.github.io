@@ -1,0 +1,205 @@
+:root {
+  color-scheme: light;
+  --kc-ink: #222022;
+  --kc-muted: #5c575c;
+  --kc-pink: #fdb4f5;
+  --kc-page-gutter: clamp(16px, 2.22vw, 32px);
+  font-family: Inter, Arial, sans-serif;
+  color: var(--kc-ink);
+  background: #fff;
+}
+
+* { box-sizing: border-box; }
+
+html { min-width: 320px; background: #fff; }
+
+body {
+  min-width: 320px;
+  min-height: 100svh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+a { color: inherit; }
+
+.site-header {
+  flex: 0 0 72px;
+  min-height: 72px;
+  width: 100%;
+  background: #fff;
+}
+
+.site-nav {
+  width: 100%;
+  min-height: 72px;
+  padding: 14px var(--kc-page-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(12px, 2vw, 32px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 3px;
+  flex: 0 0 auto;
+  font-family: Figtree, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.registered {
+  margin-top: 1px;
+  font: 400 9px/1.4 Inter, Arial, sans-serif;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 2.2vw, 32px);
+  flex: 1 1 auto;
+}
+
+.nav-links a {
+  font: 400 12px/1.2 Inter, Arial, sans-serif;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 0 0 auto;
+}
+
+.availability {
+  min-height: 44px;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #e5e2e5;
+  border-radius: 4px;
+  background: #f8f7f8;
+  color: var(--kc-muted);
+  font: 400 11px/1.3 Inter, Arial, sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.availability i {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: #cae56c;
+}
+
+.hire {
+  min-height: 44px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: var(--kc-pink);
+  color: var(--kc-ink);
+  font: 400 14px/1 Inter, Arial, sans-serif;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.not-found {
+  flex: 1 0 auto;
+  min-height: calc(100svh - 72px);
+  padding: clamp(28px, 6vh, 72px) 16px clamp(40px, 8vh, 88px);
+  display: grid;
+  place-items: center;
+}
+
+.message {
+  width: min(100%, 1080px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.code {
+  margin: 0 0 clamp(20px, 3vh, 36px);
+  color: var(--kc-muted);
+  font-family: Figtree, Arial, sans-serif;
+  font-size: clamp(9rem, 22vw, 20rem);
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.075em;
+}
+
+.statement {
+  max-width: 100%;
+  margin: 0;
+  font-family: Figtree, Arial, sans-serif;
+  font-size: clamp(22px, 3.35vw, 48px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.statement span { display: block; }
+.statement strong { font-weight: 700; }
+.statement em { font-weight: 400; }
+
+.home-button {
+  min-height: 40px;
+  margin-top: clamp(20px, 3vh, 32px);
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--kc-ink);
+  border-radius: 4px;
+  background: var(--kc-ink);
+  color: #fff;
+  font: 400 14px/1 Inter, Arial, sans-serif;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-links a:hover, .brand:hover { color: var(--kc-muted); }
+.hire:hover { background: #f7a8ec; }
+.home-button:hover { background: #3b373b; }
+
+:where(a):focus-visible {
+  outline: 3px solid #5c575c;
+  outline-offset: 4px;
+}
+
+[hidden] { display: none !important; }
+html[data-locale="fr"] .en,
+html[data-locale="en"] .fr { display: none; }
+
+@media (max-width: 607px) {
+  .nav-links, .availability { display: none; }
+  .site-nav { gap: 12px; }
+  .hire { padding-inline: 16px; }
+  .not-found { padding-inline: 16px; }
+  .code { font-size: clamp(9rem, 34vw, 10rem); }
+  .statement { font-size: clamp(22px, 7vw, 28px); }
+}
+
+@media (max-height: 420px) {
+  .not-found { place-items: start center; }
+}

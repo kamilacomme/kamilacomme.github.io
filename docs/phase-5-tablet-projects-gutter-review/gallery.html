@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Narrow tablet Projects gutter — review</title>
+  <style>
+    :root { color-scheme: light; font: 16px/1.5 system-ui, sans-serif; color: #201e22; background: #f2f1f5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 32px; }
+    main { max-width: 1440px; margin: auto; }
+    h1 { margin: 0 0 8px; font-size: clamp(28px, 4vw, 44px); }
+    h2 { margin: 36px 0 8px; font-size: 25px; }
+    p { max-width: 900px; }
+    .note { padding: 16px 20px; background: white; border-left: 4px solid #8858a8; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0; }
+    a { color: #40304d; }
+    .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    figure { min-width: 0; margin: 0; padding: 12px; background: white; border-radius: 10px; box-shadow: 0 2px 12px #201e2212; }
+    figcaption { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; font-weight: 650; }
+    img { display: block; width: 100%; height: auto; background: white; }
+    .measurement { color: #514b55; font-variant-numeric: tabular-nums; }
+    @media (max-width: 760px) { body { padding: 16px; } .pair { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Narrow tablet Projects: right-gutter alignment</h1>
+  <p>Actual Chromium before/after captures from the French and English routes. A 15px stable scrollbar gutter reproduces the available-width difference present in desktop Chrome when a vertical scrollbar is reserved.</p>
+  <p class="note"><strong>Result:</strong> the tablet profile is active at both tested widths. Before, the first ticket extends 15px farther right than the Navbar’s “Me recruter” / “Hire me” button. After, their right edges align. The ticket markup, 32px shared tablet gutter, typography, project order and responsive profile remain unchanged.</p>
+  <nav aria-label="Review sections"><a href="#fr-500">French · 500px</a><a href="#en-500">English · 500px</a><a href="#fr-560">French · 560px</a><a href="#en-560">English · 560px</a></nav>
+
+  <section id="fr-500">
+    <h2>French · 500×800</h2>
+    <p class="measurement">Available section width: 485px. CTA right: 453px. Ticket right: 468px before (15px mismatch), 453px after (aligned).</p>
+    <div class="pair">
+      <figure><figcaption><span>Before</span><a href="assets/before/fr-500x800.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/before/fr-500x800.png" alt="French narrow-tablet Projects before: ticket edge extends 15 pixels beyond the recruit button edge"></figure>
+      <figure><figcaption><span>After</span><a href="assets/after/fr-500x800.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/after/fr-500x800.png" alt="French narrow-tablet Projects after: ticket and recruit button right edges align"></figure>
+    </div>
+  </section>
+  <section id="en-500">
+    <h2>English · 500×800</h2>
+    <p class="measurement">Available section width: 485px. CTA right: 453px. Ticket right: 468px before (15px mismatch), 453px after (aligned).</p>
+    <div class="pair">
+      <figure><figcaption><span>Before</span><a href="assets/before/en-500x800.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/before/en-500x800.png" alt="English narrow-tablet Projects before: ticket edge extends 15 pixels beyond the hire button edge"></figure>
+      <figure><figcaption><span>After</span><a href="assets/after/en-500x800.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/after/en-500x800.png" alt="English narrow-tablet Projects after: ticket and hire button right edges align"></figure>
+    </div>
+  </section>
+  <section id="fr-560">
+    <h2>French · 560×800</h2>
+    <p class="measurement">Available section width: 545px. CTA right: 513px. Ticket right: 528px before, 513px after.</p>
+    <div class="pair">
+      <figure><figcaption><span>Before</span><a href="assets/before/fr-560x800.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/before/fr-560x800.png" alt="French narrow-tablet Projects before at 560 pixels wide"></figure>
+      <figure><figcaption><span>After</span><a href="assets/after/fr-560x800.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/after/fr-560x800.png" alt="French narrow-tablet Projects after at 560 pixels wide"></figure>
+    </div>
+  </section>
+  <section id="en-560">
+    <h2>English · 560×800</h2>
+    <p class="measurement">Available section width: 545px. CTA right: 513px. Ticket right: 528px before, 513px after.</p>
+    <div class="pair">
+      <figure><figcaption><span>Before</span><a href="assets/before/en-560x800.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/before/en-560x800.png" alt="English narrow-tablet Projects before at 560 pixels wide"></figure>
+      <figure><figcaption><span>After</span><a href="assets/after/en-560x800.png" target="_blank" rel="noreferrer">Open full size</a></figcaption><img src="assets/after/en-560x800.png" alt="English narrow-tablet Projects after at 560 pixels wide"></figure>
+    </div>
+  </section>
+  <p class="measurement">Complete Chromium bounds and profile measurements are in <a href="measurements.json">measurements.json</a>. No historical screenshot references were changed.</p>
+</main>
+</body>
+</html>

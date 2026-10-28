@@ -1,0 +1,338 @@
+[
+  {
+    "phase": "before",
+    "language": "fr",
+    "width": 500,
+    "viewport": {
+      "width": 500,
+      "height": 800
+    },
+    "profile": "tablet",
+    "projectsMode": "normal",
+    "section": {
+      "left": 0,
+      "right": 485,
+      "width": 485,
+      "top": 0,
+      "bottom": 3932.06
+    },
+    "navbarCta": {
+      "left": 327.63,
+      "right": 453,
+      "width": 125.38,
+      "top": 14,
+      "bottom": 58
+    },
+    "rail": {
+      "left": 32,
+      "right": 468,
+      "width": 436,
+      "top": 269,
+      "bottom": 3900.06
+    },
+    "firstTicket": {
+      "left": 32,
+      "right": 468,
+      "width": 436,
+      "top": 269,
+      "bottom": 850.77
+    },
+    "ticketCount": 6,
+    "edgeDifference": 15,
+    "gutter": "32.000px"
+  },
+  {
+    "phase": "after",
+    "language": "fr",
+    "width": 500,
+    "viewport": {
+      "width": 500,
+      "height": 800
+    },
+    "profile": "tablet",
+    "projectsMode": "normal",
+    "section": {
+      "left": 0,
+      "right": 485,
+      "width": 485,
+      "top": 0,
+      "bottom": 3932.06
+    },
+    "navbarCta": {
+      "left": 327.63,
+      "right": 453,
+      "width": 125.38,
+      "top": 14,
+      "bottom": 58
+    },
+    "rail": {
+      "left": 32,
+      "right": 453,
+      "width": 421,
+      "top": 269,
+      "bottom": 3900.06
+    },
+    "firstTicket": {
+      "left": 32,
+      "right": 453,
+      "width": 421,
+      "top": 269,
+      "bottom": 850.77
+    },
+    "ticketCount": 6,
+    "edgeDifference": 0,
+    "gutter": "32.000px"
+  },
+  {
+    "phase": "before",
+    "language": "fr",
+    "width": 560,
+    "viewport": {
+      "width": 560,
+      "height": 800
+    },
+    "profile": "tablet",
+    "projectsMode": "normal",
+    "section": {
+      "left": 0,
+      "right": 545,
+      "width": 545,
+      "top": 0,
+      "bottom": 3932.06
+    },
+    "navbarCta": {
+      "left": 387.63,
+      "right": 513,
+      "width": 125.38,
+      "top": 14,
+      "bottom": 58
+    },
+    "rail": {
+      "left": 32,
+      "right": 528,
+      "width": 496,
+      "top": 269,
+      "bottom": 3900.06
+    },
+    "firstTicket": {
+      "left": 32,
+      "right": 528,
+      "width": 496,
+      "top": 269,
+      "bottom": 850.77
+    },
+    "ticketCount": 6,
+    "edgeDifference": 15,
+    "gutter": "32.000px"
+  },
+  {
+    "phase": "after",
+    "language": "fr",
+    "width": 560,
+    "viewport": {
+      "width": 560,
+      "height": 800
+    },
+    "profile": "tablet",
+    "projectsMode": "normal",
+    "section": {
+      "left": 0,
+      "right": 545,
+      "width": 545,
+      "top": 0,
+      "bottom": 3932.06
+    },
+    "navbarCta": {
+      "left": 387.63,
+      "right": 513,
+      "width": 125.38,
+      "top": 14,
+      "bottom": 58
+    },
+    "rail": {
+      "left": 32,
+      "right": 513,
+      "width": 481,
+      "top": 269,
+      "bottom": 3900.06
+    },
+    "firstTicket": {
+      "left": 32,
+      "right": 513,
+      "width": 481,
+      "top": 269,
+      "bottom": 850.77
+    },
+    "ticketCount": 6,
+    "edgeDifference": 0,
+    "gutter": "32.000px"
+  },
+  {
+    "phase": "before",
+    "language": "en",
+    "width": 500,
+    "viewport": {
+      "width": 500,
+      "height": 800
+    },
+    "profile": "tablet",
+    "projectsMode": "normal",
+    "section": {
+      "left": 0,
+      "right": 485,
+      "width": 485,
+      "top": 0,
+      "bottom": 3912.53
+    },
+    "navbarCta": {
+      "left": 353.64,
+      "right": 453,
+      "width": 99.36,
+      "top": 14,
+      "bottom": 58
+    },
+    "rail": {
+      "left": 32,
+      "right": 468,
+      "width": 436,
+      "top": 269,
+      "bottom": 3880.53
+    },
+    "firstTicket": {
+      "left": 32,
+      "right": 468,
+      "width": 436,
+      "top": 269,
+      "bottom": 841
+    },
+    "ticketCount": 6,
+    "edgeDifference": 15,
+    "gutter": "32.000px"
+  },
+  {
+    "phase": "after",
+    "language": "en",
+    "width": 500,
+    "viewport": {
+      "width": 500,
+      "height": 800
+    },
+    "profile": "tablet",
+    "projectsMode": "normal",
+    "section": {
+      "left": 0,
+      "right": 485,
+      "width": 485,
+      "top": 0,
+      "bottom": 3912.53
+    },
+    "navbarCta": {
+      "left": 353.64,
+      "right": 453,
+      "width": 99.36,
+      "top": 14,
+      "bottom": 58
+    },
+    "rail": {
+      "left": 32,
+      "right": 453,
+      "width": 421,
+      "top": 269,
+      "bottom": 3880.53
+    },
+    "firstTicket": {
+      "left": 32,
+      "right": 453,
+      "width": 421,
+      "top": 269,
+      "bottom": 841
+    },
+    "ticketCount": 6,
+    "edgeDifference": 0,
+    "gutter": "32.000px"
+  },
+  {
+    "phase": "before",
+    "language": "en",
+    "width": 560,
+    "viewport": {
+      "width": 560,
+      "height": 800
+    },
+    "profile": "tablet",
+    "projectsMode": "normal",
+    "section": {
+      "left": 0,
+      "right": 545,
+      "width": 545,
+      "top": 0,
+      "bottom": 3912.53
+    },
+    "navbarCta": {
+      "left": 413.64,
+      "right": 513,
+      "width": 99.36,
+      "top": 14,
+      "bottom": 58
+    },
+    "rail": {
+      "left": 32,
+      "right": 528,
+      "width": 496,
+      "top": 269,
+      "bottom": 3880.53
+    },
+    "firstTicket": {
+      "left": 32,
+      "right": 528,
+      "width": 496,
+      "top": 269,
+      "bottom": 841
+    },
+    "ticketCount": 6,
+    "edgeDifference": 15,
+    "gutter": "32.000px"
+  },
+  {
+    "phase": "after",
+    "language": "en",
+    "width": 560,
+    "viewport": {
+      "width": 560,
+      "height": 800
+    },
+    "profile": "tablet",
+    "projectsMode": "normal",
+    "section": {
+      "left": 0,
+      "right": 545,
+      "width": 545,
+      "top": 0,
+      "bottom": 3912.53
+    },
+    "navbarCta": {
+      "left": 413.64,
+      "right": 513,
+      "width": 99.36,
+      "top": 14,
+      "bottom": 58
+    },
+    "rail": {
+      "left": 32,
+      "right": 513,
+      "width": 481,
+      "top": 269,
+      "bottom": 3880.53
+    },
+    "firstTicket": {
+      "left": 32,
+      "right": 513,
+      "width": 481,
+      "top": 269,
+      "bottom": 841
+    },
+    "ticketCount": 6,
+    "edgeDifference": 0,
+    "gutter": "32.000px"
+  }
+]

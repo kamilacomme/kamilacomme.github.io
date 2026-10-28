@@ -63,14 +63,26 @@ test('Desktop About keeps independent typography and fits its five animated card
         cards: cards.map((card) => {
           const title = card.querySelector('span:first-child');
           const description = card.querySelector('span:last-child');
+          const cardBox = rect(card);
+          const textLines = (element) => {
+            const range = document.createRange();
+            range.selectNodeContents(element);
+            return [...range.getClientRects()].filter((line) => line.width && line.height)
+              .map((line) => ({ left: line.left, right: line.right, top: line.top, bottom: line.bottom }));
+          };
+          const textBoxes = [...textLines(title), ...textLines(description)];
           return {
             index: card.dataset.i,
-            box: rect(card),
+            box: cardBox,
             transform: getComputedStyle(card).transform,
             title: text(title),
             description: text(description),
             titleDescriptionGap: rect(description).top - rect(title).bottom,
             descriptionOverflows: description.scrollHeight > description.clientHeight + 1,
+            textFitsInsideCard: textBoxes.every((line) => line.left >= cardBox.left - 1
+              && line.right <= cardBox.right + 1
+              && line.top >= cardBox.top - 1
+              && line.bottom <= cardBox.bottom + 1),
           };
         }),
       };
@@ -88,10 +100,10 @@ test('Desktop About keeps independent typography and fits its five animated card
       expect(card.description.effectiveSize).toBeCloseTo(14, 2);
       expect(card.titleDescriptionGap).toBeGreaterThanOrEqual(-1);
       expect(card.descriptionOverflows).toBe(false);
+      expect(card.textFitsInsideCard).toBe(true);
       expect(card.box.left).toBeGreaterThanOrEqual(0);
       expect(card.box.right).toBeLessThanOrEqual(viewport.width + 1);
       expect(card.box.top).toBeGreaterThanOrEqual(-1);
-      expect(card.box.bottom).toBeLessThanOrEqual(viewport.height + 1);
     }
 
     if ([1440, 1100].includes(viewport.width) && (viewport.width === 1440 || viewport.height === 700)) {

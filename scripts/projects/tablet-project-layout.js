@@ -28,6 +28,22 @@
     element.style.setProperty(name, value, 'important');
   }
 
+  // Window.innerWidth includes the vertical scrollbar in browsers that reserve
+  // its gutter. The fixed Navbar and section roots use the narrower layout box,
+  // so derive Projects' horizontal geometry from that same available box.
+  function layoutWidth() {
+    const width = frame?.getBoundingClientRect().width;
+    return width > 0 ? width : window.innerWidth;
+  }
+
+  function visibleViewportBounds() {
+    const viewport = $('kc-t-viewport') || frame;
+    const rect = viewport?.getBoundingClientRect();
+    return rect && rect.width > 0
+      ? { left: rect.left, right: rect.right, width: rect.width }
+      : { left: 0, right: window.innerWidth, width: window.innerWidth };
+  }
+
   function resetLandscape() {
     if (!frame) return;
     const viewport = $('kc-t-viewport');
@@ -91,14 +107,15 @@
     const inProjectsDocumentRange = window.scrollY >= sectionDocumentTop && (!Number.isFinite(aboutTop) || window.scrollY < aboutTop);
     if ((sectionRect.top >= innerHeight || sectionRect.bottom <= 0) && !inProjectsDocumentRange) return null;
     const cards = [...( $('kc-t-stage')?.querySelectorAll('.ticket') || [] )];
-    const centerX = innerWidth / 2;
+    const visible = visibleViewportBounds();
+    const centerX = (visible.left + visible.right) / 2;
     const centerY = innerHeight / 2;
     let best = null;
     cards.forEach((card, index) => {
       // Ignore decorative ticket overhang when choosing the current project;
       // the readable panel is the meaningful visible content.
       const r = (card.querySelector('.ticket-panel') || card).getBoundingClientRect();
-      const width = Math.max(0, Math.min(r.right, innerWidth) - Math.max(r.left, 0));
+      const width = Math.max(0, Math.min(r.right, visible.right) - Math.max(r.left, visible.left));
       const height = Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0));
       const area = width * height;
       const centerDistance = activeLandscape ? Math.abs((r.left + r.right) / 2 - centerX)
@@ -141,7 +158,7 @@
     const sectionTop = frame.getBoundingClientRect().top + window.scrollY;
     const panel = card.querySelector('.ticket-panel') || card;
     const panelCenter = card.offsetLeft + panel.offsetLeft + panel.getBoundingClientRect().width / 2;
-    const horizontal = Math.max(0, Math.min(travel, panelCenter - (innerWidth / 2 - 32)));
+    const horizontal = Math.max(0, Math.min(travel, panelCenter - (visibleViewportBounds().width / 2 - 32)));
     window.scrollTo(0, sectionTop + introShift + horizontal);
     lastActiveProjectIndex = anchor.index;
     window.__kcFocusedProjectIndex = anchor.index;
@@ -200,7 +217,7 @@
     const stage = $('kc-t-stage');
     if (!frame || !viewport || !stage) return false;
 
-    setStyle(stage, 'width', window.innerWidth + 'px');
+    setStyle(stage, 'width', layoutWidth() + 'px');
     setStyle(stage, 'transform', 'none');
     setStyle(viewport, 'width', '100%');
     if (!preserveLandscapeFrame) {
@@ -223,13 +240,14 @@
 
     // Keep tablet ticket geometry in CSS pixels so Figma dimensions and type are
     // effective rendered sizes, independent of the Hero/About viewport scale.
-    setStyle(stage, 'width', window.innerWidth + 'px');
+    const availableWidth = layoutWidth();
+    setStyle(stage, 'width', availableWidth + 'px');
     setStyle(stage, 'position', 'relative');
     setStyle(stage, 'left', '0px');
     setStyle(stage, 'transform', 'none');
     // Portrait cards fill the content width between the established 32px gutters.
     // Landscape intentionally retains its separate 770px Figma composition below.
-    const cardWidth = Math.max(0, window.innerWidth - 64);
+    const cardWidth = Math.max(0, availableWidth - 64);
     const narrowTickets = window.innerWidth < 687;
     frame.classList.toggle('kc-narrow-ticket', narrowTickets);
     const cardHeight = 310;
@@ -240,7 +258,7 @@
     if (heading) {
       setStyle(heading, 'left', '32px');
       setStyle(heading, 'top', '85px');
-      setStyle(heading, 'width', (window.innerWidth - 64) + 'px');
+      setStyle(heading, 'width', (availableWidth - 64) + 'px');
     }
     if (rail) {
       setStyle(rail, 'left', '32px');
@@ -277,7 +295,7 @@
     activeLandscape = true;
     frame = section;
     section.classList.add('kc-landscape-rail');
-    const width = window.innerWidth;
+    const width = layoutWidth();
     const height = window.innerHeight;
     setImportantStyle(stage, 'height', height + 'px');
     setStyle(viewport, 'width', '100%');
@@ -364,11 +382,12 @@
       const sectionRect = frame.getBoundingClientRect();
       if (sectionRect.top >= innerHeight || sectionRect.bottom <= 0) { lastViewportAnchor = null; return; }
       const cards = [...rail.querySelectorAll('.ticket')];
-      const centerX = innerWidth / 2, centerY = innerHeight / 2;
+      const visible = visibleViewportBounds();
+      const centerX = (visible.left + visible.right) / 2, centerY = innerHeight / 2;
       let best = null;
       cards.forEach((card, index) => {
         const r = (card.querySelector('.ticket-panel') || card).getBoundingClientRect();
-        const width = Math.max(0, Math.min(r.right, innerWidth) - Math.max(r.left, 0));
+        const width = Math.max(0, Math.min(r.right, visible.right) - Math.max(r.left, visible.left));
         const height = Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0));
         const area = width * height;
         const centerDistance = activeLandscape ? Math.abs((r.left + r.right) / 2 - centerX)

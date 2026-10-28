@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const qa = require('../qa/helpers.cjs');
 
-test('Footer legal links return to a visible horizontal row after profile changes', async ({ page, context }, info) => {
+test('Footer legal-link orientation follows width through refresh and repeated profile changes', async ({ page, context }, info) => {
   const { language } = info.project.metadata;
   await qa.routes(context);
   await qa.ready(page, language);
@@ -21,7 +21,12 @@ test('Footer legal links return to a visible horizontal row after profile change
       window.scrollTo({ top: footer.getBoundingClientRect().top + scrollY, behavior: 'instant' });
     });
     await qa.waitForCurtain(page);
-    await expect.poll(() => page.locator('#contact [data-c="4"] > div').evaluate(row => getComputedStyle(row).flexDirection)).toBe('row');
+    const expectedDirection = await page.evaluate(() => {
+      const mobile = document.querySelector('#kc-mobile-root');
+      const mobileActive = mobile && getComputedStyle(mobile).display !== 'none' && mobile.getClientRects().length > 0;
+      return mobileActive || window.__kcTabletLayout?.tablet ? 'column' : 'row';
+    });
+    await expect.poll(() => page.locator('#contact [data-c="4"] > div').evaluate(row => getComputedStyle(row).flexDirection)).toBe(expectedDirection);
   }
 
   async function assertLinks(width, height) {
@@ -37,7 +42,13 @@ test('Footer legal links return to a visible horizontal row after profile change
       return {
         outerDirection: getComputedStyle(legal).flexDirection,
         innerDirection: getComputedStyle(row).flexDirection,
-        gap: parseFloat(getComputedStyle(row).columnGap),
+        profile: (() => {
+          const mobile = document.querySelector('#kc-mobile-root');
+          if (mobile && getComputedStyle(mobile).display !== 'none' && mobile.getClientRects().length > 0) return 'mobile';
+          return window.__kcTabletLayout?.tablet ? 'tablet' : 'desktop';
+        })(),
+        columnGap: parseFloat(getComputedStyle(row).columnGap),
+        rowGap: parseFloat(getComputedStyle(row).rowGap),
         links: links.map(link => ({ text: link.textContent.trim(), ...box(link) })),
         legal: box(legal),
         footer: box(document.querySelector('#contact')),
@@ -47,14 +58,21 @@ test('Footer legal links return to a visible horizontal row after profile change
     });
 
     expect(state.links).toHaveLength(2);
-    expect(state.outerDirection).toBe('row');
-    expect(state.innerDirection).toBe('row');
-    expect(Math.abs(state.links[0].top - state.links[1].top)).toBeLessThan(1);
-    expect(state.links[1].left - state.links[0].right).toBeCloseTo(state.gap, 1);
+    const expectedDirection = state.profile === 'desktop' ? 'row' : 'column';
+    expect(state.outerDirection).toBe(expectedDirection);
+    expect(state.innerDirection).toBe(expectedDirection);
+    if (expectedDirection === 'row') {
+      expect(Math.abs(state.links[0].top - state.links[1].top)).toBeLessThan(1);
+      expect(state.links[1].left - state.links[0].right).toBeCloseTo(state.columnGap, 1);
+    } else {
+      expect(Math.abs(state.links[0].left - state.links[1].left)).toBeLessThan(1);
+      expect(state.links[1].top - state.links[0].bottom).toBeCloseTo(state.rowGap, 1);
+    }
     expect(state.links[0].left).toBeGreaterThanOrEqual(state.gutterX - 1);
     expect(state.links[1].right).toBeLessThanOrEqual(width - state.gutterX + 1);
-    expect(state.links.every(link => link.top >= 0 && link.bottom <= height)).toBe(true);
-    expect(state.gap).toBeGreaterThan(0);
+    expect(state.links.every(link => link.top >= 0 && link.bottom <= height),
+      `legal links outside the ${width}×${height} viewport: ${JSON.stringify({ profile: state.profile, links: state.links, footer: state.footer })}`).toBe(true);
+    expect(expectedDirection === 'row' ? state.columnGap : state.rowGap).toBeGreaterThan(0);
     return state;
   }
 
@@ -73,6 +91,9 @@ test('Footer legal links return to a visible horizontal row after profile change
   // Exercise both profile directions repeatedly, including phone-to-desktop.
   for (const viewport of [
     { width: 1024, height: 852 },
+    { width: 716, height: 800 },
+    { width: 833, height: 1112 },
+    { width: 834, height: 1112 },
     { width: 1377, height: 852 },
     { width: 1024, height: 852 },
     { width: 500, height: 600 },

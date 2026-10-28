@@ -53,7 +53,7 @@ test('short tablet landscape keeps all ticket content clear of the Projects head
   expect(start.headingFont).toBe('48px');
   expect(start.mode).toBe('compact');
   expect(start.headingClip).toBe('inset(50%)');
-  await expect(page.getByRole('heading', { name: language === 'en' ? /A selection of my recent projects/i : /Une sélection de mes projets récents/i })).toHaveCount(1);
+  await expect(page.getByRole('heading', { name: language === 'en' ? /A selection of my projects recent work/i : /Une sélection de mes projets récents/i })).toHaveCount(1);
   expect(start.cards).toHaveLength(6);
   expect(start.cards[0].width).toBe(770);
   expect(start.cards[0].height).toBe(310);

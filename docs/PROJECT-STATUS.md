@@ -1,12 +1,16 @@
 # Project status
 
-Updated: 2026-10-26. Milestones are marked complete only after their stated checks pass.
+Updated: 2026-10-28. Milestones are marked complete only after their stated checks pass.
 
 **Current branch:** `phase-5/fluid-responsive` (implementation branch; based on `phase-4/shared-bilingual-static`)
 
 **Phase 5 branch point:** `0422402b46bb814d4202abd0e8266d95c03685d3` — completed Phase 4 branch checkpoint, including its latest reviewed documentation. Phase 4 remains preserved on its own branch.
 
-**Latest approved checkpoint:** The M10B short-height Footer correction and review gallery are visually approved at `8d0c631` on `phase-5/fluid-responsive`. At 1707×188, heading/email, contact details and legal links share a measured bottom-aligned row; at 320×188, content remains in natural vertical flow. The fixed 44×44 language-switcher overlap at exceptionally short heights remains an accepted limitation. Nothing has been merged, deployed or published.
+**Latest approved checkpoint:** The custom bilingual 404 page and shared Navbar are visually approved at `b2e8e20` on `phase-5/fluid-responsive`; the M10B short-height Footer correction remains approved at `8d0c631`. Nothing has been merged, deployed or published.
+
+**Custom 404 visual approval (2026-10-28):** The user approved the bilingual custom 404 page and its single shared Navbar source at `b2e8e20` on `phase-5/fluid-responsive`. `templates/partials/navbar.html` is generated into both homepage routes and `404.html`; the 404 page has isolated light-surface colors and does not load the homepage controller. The local Chromium comparison gallery and computed measurements are in [the 404 review](phase-5-404-review/README.md). No merge, deployment or publication was performed.
+
+**Pre-publication completeness audit (read-only, 2026-10-28):** FR/EN titles, descriptions, canonical URLs, reciprocal `hreflang`, Open Graph and Twitter image metadata are present; the 1200×630 `assets/og.jpg`, favicon and Apple-touch PNG resolve. The 404 response is `noindex` and actual missing paths return HTTP 404 in the local GitHub Pages-style preview. No broken local asset or normal internal-route URL was found; legal-dialog fragment links are intentionally handled by `data-legal`, and 404 section links are localized at runtime. `robots.txt` and `sitemap.xml` are absent; both are optional for launch here (crawling is allowed by default), though a small bilingual sitemap is a useful discovery improvement. A dedicated `.ico`, web manifest, `x-default` hreflang, and explicit Twitter title/description are optional. No application correction is currently required by this audit.
 
 **Current task:** M10C final quality assurance is in progress. The legal-dialog keyboard-accessibility fix and mobile project image-sequence deferral are accepted. The duplicate `support.js` document fetch is **DEFERRED** because the source package is absent and editor/preview behavior cannot be validated safely. Footer WebGL curtain initialization is now deferred until its existing Footer geometry owner reports the prefetch area; focused validation is complete and the change is pending review. The fixed 44×44 language-switcher overlap at exceptionally short heights remains an accepted limitation.
 

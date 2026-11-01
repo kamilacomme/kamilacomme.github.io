@@ -26,7 +26,7 @@ Updated: 2026-10-31. The Phase 5 release is published; checkpoint notes below re
 | 5 | Hybrid fluid-responsive layout, readable typography and accessibility review | Complete — Milestones 1–9 and M10A–M10C completed, reviewed, and published |
 | 6 | Review asset loading and make separately approved performance improvements | Completed within M10C scope: mobile project image loading and Footer curtain initialization were deferred; the runtime document fetch remains deferred. |
 | 7 | Cross-browser/device validation and release-candidate regression | Release gate completed in Chromium; physical Safari/iOS validation remains outside the evidence collected for this release. |
-| 8 | Final documentation, independent acceptance and release decision | Release accepted and published; retrospective and status documentation are in review. |
+| 8 | Final documentation, independent acceptance and release decision | Release accepted and published; retrospective and status documentation finalized on `main`. |
 
 Phase 5 architecture and incremental implementation are documented in [phase-5-plan.md](phase-5-plan.md), the [M9 ownership contract](#milestone-9-audit-findings-and-ownership-contract), and [the Phase 5 retrospective](PROJECT-RETROSPECTIVE.md). The approved ticket architecture is one shared layered-ticket template for desktop/tablet and a separate editorial mobile template. All Phase 5 milestones are complete; the released site is the current source of truth.
 

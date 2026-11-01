@@ -1,33 +1,32 @@
 # Kamila Comme — portfolio
 
-Site statique. Aucun build, aucune dépendance à installer : `index.html` s'ouvre tel quel.
+Portfolio statique bilingue : français sur `/` et anglais sur `/en/`. GitHub Pages sert les fichiers déjà générés et suivis par Git depuis la racine de `main` ; il ne lance pas le build du site. `.nojekyll` permet de servir les ressources du design system dans `_ds/`.
 
-## Structure
+## Sources et génération
 
-    index.html          la page (desktop / tablette / mobile dans un seul fichier)
-    support.js          runtime de rendu
-    curtain-cloth.js    animation du rideau dans le footer
-    assets/             images (webp), vidéos (mp4), curseur, favicon, og-image
-    _ds/                design system : tokens (couleurs, typo, espacements) + styles
-    .nojekyll           indispensable sur GitHub Pages (sinon le dossier _ds/ est ignoré)
+Les sources éditoriales canoniques sont dans `content/` et les modèles dans `templates/`. Le générateur `scripts/content/build.mjs` produit les routes HTML statiques suivies par Git, notamment `index.html`, `en/index.html`, les pages Projects embarquées et `404.html`. Modifiez les sources, puis vérifiez le résultat généré plutôt que d'éditer ces sorties directement.
 
-## Mise en ligne — GitHub Pages
+```sh
+npm ci                         # installer les dépendances de développement verrouillées
+npm run content:check          # valider le contenu bilingue et ses ressources
+npm run content:build:check    # vérifier que les pages générées correspondent aux sources
+npm run content:build          # régénérer les pages statiques après une modification approuvée
+```
 
-1. Créer un dépôt public, par exemple `kamilacomme.github.io`.
-2. Copier le contenu de ce dossier à la racine du dépôt (pas le dossier `site/` lui-même).
-3. `git add . && git commit -m "Portfolio" && git push`
-4. Repository → Settings → Pages → Source : `Deploy from a branch`, branche `main`, dossier `/ (root)`.
-5. La page est en ligne sur `https://<utilisateur>.github.io` après une à deux minutes.
+## Tests et aperçu local
 
-## Nom de domaine
+`npm test` lance le gate de régression Playwright et QA responsive, avec vérification de l'intégrité des références historiques. Il suppose que les dépendances sont installées et que Chromium est disponible (par défaut `/usr/bin/chromium`). Le contrôle du build déterministe reste une commande séparée : exécutez aussi `npm run content:build:check`.
 
-Ajouter un fichier `CNAME` à la racine contenant le domaine (une ligne, ex. `kamilacomme.com`),
-puis chez le registrar : un `CNAME` pour `www` vers `<utilisateur>.github.io`, et quatre
-enregistrements `A` pour le domaine nu vers `185.199.108.153`, `185.199.109.153`,
-`185.199.110.153`, `185.199.111.153`.
+Pour un serveur local de test :
 
-## À faire avant l'envoi à un concours
+```sh
+npm run test:serve
+```
 
-Cinq des six billets pointent encore vers des URL provisoires (x.com, facebook, instagram,
-t.me, threads). Les vraies adresses se changent en un seul endroit, dans `index.html`,
-méthode `ticketLinks()` — les trois mises en page les lisent au même endroit.
+Le serveur affiche l'URL locale. Les contrôles Lighthouse sont plus lourds et séparés : `npm run test:performance`. Consultez [AGENTS.md](AGENTS.md) pour les commandes détaillées, les propriétaires des composants et les règles de modification sûres. Ne mettez pas à jour les 230 références historiques pour faire passer un test.
+
+## Publication
+
+Le déploiement est déclenché par les fichiers validés et générés présents à la racine de `main`; aucun workflow GitHub Actions du dépôt ne construit le site. Avant toute publication autorisée, vérifiez la branche et le commit exacts, l'état Git, le diff, le build bilingue, le gate de régression, les références historiques et la possibilité de restaurer la version précédente. Après publication, contrôlez les routes `/` et `/en/`, les liens principaux, les ressources et les réponses 404 localisées.
+
+Le nom de domaine et le tag qui préserve l'ancienne version sont documentés dans [docs/PROJECT-STATUS.md](docs/PROJECT-STATUS.md).

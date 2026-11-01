@@ -1,6 +1,6 @@
 # Project Retrospective — Phase 5 Portfolio Redesign
 
-**Status: review draft.** This document summarizes the completed redesign and publication using the repository’s phase reports, Git history, test records, and live verification. It distinguishes recorded results from interpretation and does not replace the detailed test reports.
+**Status: approved project retrospective.** This document summarizes the completed redesign and publication using the repository’s phase reports, Git history, test records, and live verification. It distinguishes recorded results from interpretation and does not replace the detailed test reports.
 
 ## Executive overview
 

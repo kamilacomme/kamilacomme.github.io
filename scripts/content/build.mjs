@@ -175,7 +175,7 @@ function translateMarkup(html) {
   // Preserve the known responsive heading compositions while generating localized text.
   html = html.replace(/<h1 class="heading">[\s\S]*?<\/h1>/, '<h1 class="heading">A selection of my most<br/><em>recent projects.</em></h1>');
   html = html.replace(/(<main class="stage" id="kc-t-stage"><h1>)[\s\S]*?(<\/h1>)/, '$1<span class="kc-title-line">A selection of my</span><span class="kc-title-line"><em>recent projects.</em></span>$2');
-  html = html.replace(/(<main id="kc-m-canvas"><h1>)[\s\S]*?(<\/h1>)/, '$1A selection of my<br><em>recent projects.</em>$2');
+  html = html.replace(/(<div id="kc-m-canvas"><h1>)[\s\S]*?(<\/h1>)/, '$1A selection of my most<br><em>recent projects.</em>$2');
 
   let result = '', cursor = 0;
   while (cursor < html.length) {

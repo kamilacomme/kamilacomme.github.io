@@ -111,7 +111,40 @@
     }
   }
 
+  // Static pages (404, case studies) have no homepage controller. They load this
+  // script with data-kc-static-shell and get the same automatic profile, scales,
+  // page gutters and Navbar shell. Current values: KCResponsiveProfile.current;
+  // a "kc:profile" event on document follows every update.
+  const current = {};
+  function mountStatic() {
+    const nav = document.querySelector(".kc-responsive-nav");
+    // Small viewport height, as the homepage's vhNow() probe measures it.
+    const probe = document.createElement("div");
+    probe.setAttribute("aria-hidden", "true");
+    probe.style.cssText = "position: fixed; left: 0; top: 0; width: 0; height: 100svh; visibility: hidden; pointer-events: none;";
+    document.body.appendChild(probe);
+    const update = () => {
+      const width = window.innerWidth;
+      const vh = probe.offsetHeight || window.innerHeight;
+      const { touch, fineHover, iPadish } = readDevice();
+      const { mobile, tablet, profile } = resolveProfile({ width, touch, fineHover, iPadish });
+      const s = sceneScale(width, vh);
+      const st = tabletScale(width, vh);
+      const sm = mobileScale(width, 1);
+      const gutters = pageGutters({ mobile, tablet, s });
+      applyNavShell(nav, { mobile, tablet, s, sm, gutters });
+      Object.assign(current, { profile, mobile, tablet, touch, s, st, sm, gutters, vh });
+      document.dispatchEvent(new CustomEvent("kc:profile", { detail: current }));
+    };
+    let timer = 0;
+    window.addEventListener("resize", () => { clearTimeout(timer); timer = setTimeout(update, 60); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
+    update();
+  }
+
   window.KCResponsiveProfile = {
+    current,
+    mountStatic,
     readDevice,
     resolveProfile,
     sceneScale,
@@ -120,4 +153,10 @@
     pageGutters,
     applyNavShell,
   };
+
+  const script = document.currentScript;
+  if (script && script.hasAttribute("data-kc-static-shell")) {
+    if (document.body) mountStatic();
+    else document.addEventListener("DOMContentLoaded", mountStatic, { once: true });
+  }
 })();

@@ -3,23 +3,18 @@
  * (case studies). It does three small things and nothing else:
  *
  * 1. Builds a Footer host for scripts/footer/site-footer.js, which remains the only
- *    owner of Footer geometry, legal dialogs and the curtain. The host reports the
- *    active profile with the same automatic rule the homepage controller uses
- *    (width, coarse pointer, iPad identity). Static pages are not scaled scenes:
- *    desktop and tablet use scale 1, mobile uses the homepage's width/390 frame.
- * 2. Publishes --kc-nav-project-start, the Navbar "Projets" link edge that the
- *    desktop Footer legal group aligns to (the homepage controller does the same).
- * 3. Flips the static Navbar ink to the dark-surface values while the black Footer
+ *    owner of Footer geometry, legal dialogs and the curtain. Profile, scales and
+ *    page gutters come from scripts/shared/responsive-profile.js (the same source
+ *    the homepage controller uses), so the Footer follows the homepage formulas.
+ * 2. Flips the static Navbar ink to the dark-surface values while the black Footer
  *    sits under the Navbar.
- *
- * Page gutters come from styles/case.css; Navbar profile styling from
- * styles/static-nav.css.
  */
 (function () {
   "use strict";
   const F = window.KCSiteFooter;
+  const P = window.KCResponsiveProfile;
   const footer = document.querySelector("[data-kc-footer-root]");
-  if (!F || !footer) return;
+  if (!F || !P || !footer) return;
   const nav = document.querySelector(".kc-responsive-nav");
 
   // Viewport probes, as on the homepage: small (svh) and large (lvh) viewport heights.
@@ -51,33 +46,17 @@
   document.addEventListener("click", F.legalClickHandler(host), true);
   document.addEventListener("keydown", F.sheetKeyHandler(host));
 
-  // Same automatic profile rule as the homepage controller (fit(), auto layout).
-  function resolveProfile() {
-    const width = window.innerWidth;
-    const mobile = width < 500;
-    const touch = window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches;
-    const fineHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const iPadish = /iPad|iPhone|iPod|Android/i.test(navigator.userAgent)
-      || (navigator.platform === "MacIntel" && (navigator.maxTouchPoints || 0) > 1);
-    const tablet = !mobile && (width < 1080 || (width <= 1366 && ((touch && !fineHover) || iPadish)));
-    return { mobile, tablet, touch };
-  }
-
   let touch = false;
   function fit() {
-    const profile = resolveProfile();
-    host.mobile = profile.mobile;
-    host.tablet = profile.tablet;
-    touch = profile.touch;
-    host.sm = profile.mobile ? window.innerWidth / 390 : 1;
+    const c = P.current;
+    if (!c.profile) return;
+    host.mobile = c.mobile;
+    host.tablet = c.tablet;
+    host.s = c.s;
+    host.st = c.st;
+    host.sm = c.sm;
     host.vh = host.vhNow();
-    const projectsLink = nav && nav.querySelector("[data-kc-nav-section='projets']");
-    const linkBox = projectsLink && projectsLink.getBoundingClientRect();
-    if (linkBox && linkBox.width > 0) {
-      document.documentElement.style.setProperty("--kc-nav-project-start", linkBox.left.toFixed(3) + "px");
-    } else {
-      document.documentElement.style.removeProperty("--kc-nav-project-start");
-    }
+    touch = c.touch;
     F.fitFooter(host, host.tablet);
     const box = footer.getBoundingClientRect();
     host._footerTopDoc = box.top + window.scrollY;
@@ -135,12 +114,9 @@
   }
 
   window.addEventListener("scroll", render, { passive: true });
-  let resizeTimer = 0;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(fit, 60);
-  });
   F.attachCurtain(host, footer.querySelector("[data-kc-footer-cloth]"));
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  // The shared module re-publishes the profile on resize and font load; the Footer
+  // follows each update.
+  document.addEventListener("kc:profile", fit);
   fit();
 })();

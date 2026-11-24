@@ -1,22 +1,15 @@
-/* Case-study pages: page surface, shared page gutters and the editorial grid.
-   Case pages are natural-flow documents without the homepage scene scale, so
-   they use the unscaled gutter values the homepage controller publishes for its
-   profiles (mobile 16/24, tablet 32/32, desktop 32/32 at scale 1). Profile media
-   queries match styles/static-nav.css. Every value below is an existing
+/* Case-study pages: page surface and the editorial grid.
+   The profile (html[data-kc-profile]) and the page gutters (--kc-page-gutter-x,
+   --kc-page-gutter-bottom) are published by scripts/shared/responsive-profile.js,
+   the same source the homepage uses. Every value below is an existing
    design-system token or an existing homepage value. */
 :root {
-  --kc-page-gutter-x: var(--space-4);
-  --kc-page-gutter-bottom: var(--space-4);
   --kc-case-columns: var(--grid-columns);
   --kc-case-column-gap: var(--gutter-wide);
 }
-@media (max-width: 499px) {
-  :root {
-    --kc-page-gutter-x: var(--grid-margin-mobile);
-    --kc-page-gutter-bottom: var(--space-3);
-    --kc-case-columns: 4;
-    --kc-case-column-gap: var(--space-2);
-  }
+:root[data-kc-profile="mobile"] {
+  --kc-case-columns: 4;
+  --kc-case-column-gap: var(--space-2);
 }
 
 body.kc-case-page {
@@ -41,12 +34,8 @@ body.kc-case-page {
   color: var(--text-default);
   text-wrap: pretty;
 }
-@media (max-width: 1079px), (max-width: 1366px) and (any-pointer: coarse) {
-  .kc-case-title { font-size: var(--kc-type-heading-tablet); }
-}
-@media (max-width: 499px) {
-  .kc-case-title { font-size: var(--kc-type-heading-mobile); }
-}
+:root[data-kc-profile="tablet"] .kc-case-title { font-size: var(--kc-type-heading-tablet); }
+:root[data-kc-profile="mobile"] .kc-case-title { font-size: var(--kc-type-heading-mobile); }
 
 /* The editorial grid container. Case content places itself on these columns. */
 .kc-case-grid {
@@ -67,6 +56,4 @@ body.kc-case-page {
   border-radius: var(--radius);
   background: var(--surface-muted);
 }
-@media (max-width: 499px) {
-  .kc-case-grid--preview > span:nth-child(n + 5) { display: none; }
-}
+:root[data-kc-profile="mobile"] .kc-case-grid--preview > span:nth-child(n + 5) { display: none; }

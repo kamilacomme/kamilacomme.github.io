@@ -2207,27 +2207,8 @@ class Component extends DCLogic {
     });
   }
   renderFooter() {
-    // both reads below used to be getBoundingClientRect() on every single frame — the nav
-    // is position:fixed (its rect never moves with scroll, only resize, and that's already
-    // re-cached in fit()) and the footer's document position only needs an arithmetic
-    // scrollY subtraction from the value fit() already cached. Neither needs a live DOM read
-    // in the render loop.
-    const H = this.vh || this.vhNow();
-    // how much of the footer block has entered the viewport, 0 -> 1
-    let t = 0;
-    if (this._footerHeight) {
-      const top = this._footerTopDoc - window.scrollY;
-      t = (H - top) / Math.max(1, this._footerHeight);
-      t = t < 0 ? 0 : t > 1 ? 1 : t;
-    }
-    // the footer IS the end of the page, so the track can't ask for more scroll: the
-    // curtain follows the last screen in, then draws itself shut once you arrive
-    // the curtain closes with the scroll and nothing else: the old timed "auto close" part
-    // reset itself whenever t dipped back under its threshold, which made the cloth open
-    // again mid-scroll. Fully shut by the time 80% of the footer is in.
-    let p = (t - 0.02) / 0.78;
-    p = p < 0 ? 0 : p > 1 ? 1 : p;
-    if (this.clothEl) this.clothEl.progress = p * p * (3 - 2 * p);
+    // Curtain progress is owned by scripts/footer/site-footer.js.
+    window.KCSiteFooter.renderCurtain(this);
     // navbar ink follows what is actually painted under the bar, not which section we
     // are in: sample the surface at a few points along the strip and flip on luminance
     this.setNavInk(this.surfaceIsLight() ? "rgb(34,32,34)" : "rgb(255,255,255)");
@@ -2361,30 +2342,7 @@ class Component extends DCLogic {
       this.tx = 720 + Math.sin(this.time * sp) * 330 + Math.sin(this.time * sp * 0.4) * 90;
       this.ty = HHw * (470 / 813) + Math.cos(this.time * sp * 0.76) * HHw * (130 / 813);
       this.ti = 1;
-      if (this.clothEl && this.clothEl.mouse) {
-        const m = this.clothEl.mouse;
-        if (!this._gust || this.time > this._gust.until) {
-          const r = Math.random;
-          this._gust = {
-            x: (r() * 2 - 1) * 0.8, y: (r() * 2 - 1) * 0.5,
-            force: 0.22 + r() * 0.3,
-            until: this.time + 1.6 + r() * 2.6,
-            fade: 0.9 + r() * 1.2,
-          };
-          this._gustStart = this.time;
-          this._gustDrift = (Math.random() * 2 - 1) * 0.12;
-        }
-        const g = this._gust;
-        const k = Math.min(1, (this.time - this._gustStart) / (g.until - this._gustStart));
-        // a gust is born where it is: no travel, just a swell that fades out
-        // ease into the new gust's position instead of teleporting the pull point across
-        // the cloth — a jump there is what made the curtain look like it snapped
-        const gx = g.x + this._gustDrift * k;
-        m.x = m.x == null ? gx : m.x + (gx - m.x) * 0.12;
-        m.y = g.y + Math.sin(this.time * 1.7) * 0.02;
-        m.force = g.force * Math.sin(Math.PI * k) * (0.85 + 0.15 * Math.sin(this.time * 5.3));
-        m.active = k < 1;
-      }
+      window.KCSiteFooter.curtainGust(this);
     }
     // phones: the projector dust canvas and a full scroll re-layout on every frame is
     // what made the ticket scroll stutter. Dust is a desktop-only flourish, and the
@@ -2519,51 +2477,7 @@ class Component extends DCLogic {
         el.addEventListener("pause", () => { if (!document.hidden) go(); });
         if (el.readyState >= 2) go(); else el.addEventListener("loadeddata", go, { once: true });
       },
-      clothRef: (el) => {
-        if (!el || this.cloth === el) return;
-        this.cloth = el;
-        // the standalone/offline build inlines curtain-cloth.js and the curtain image as
-        // blob URLs (see the ext-resource-dependency meta tags in <head>) so both still
-        // load when this page is hosted with no assets/ folder alongside it. Defer this
-        // module chain and the WebGL mount until the Footer approaches the viewport.
-        const url = this.resolveRes("./curtain-cloth.js");
-        // a bare relative specifier fails to import from some hosting contexts, so resolve it
-        // against the document first and keep the raw path as a second try
-        let abs = url;
-        try { abs = new URL(url, document.baseURI).href; } catch (e) {}
-        let activated = false;
-        const activate = () => {
-          if (activated || this.clothEl) return;
-          activated = true;
-          if (this._clothObserver) {
-            this._clothObserver.disconnect();
-            this._clothObserver = null;
-          }
-          const mount = (m) => {
-            if (!el.isConnected || this.cloth !== el || this.clothEl) return;
-            this.clothEl = m.mountCurtain(el, this.resolveRes("assets/about/footer-curtain.webp"));
-            // renderFooter owns the scroll-derived progress; publish its current target
-            // immediately so a quick jump into the Footer does not start from stale state.
-            this.renderFooter();
-          };
-          import(abs)
-            .then(mount)
-            .catch(() => import(url).then(mount))
-            .catch((err) => console.error("curtain load failed", err && (err.message || err)));
-        };
-        if (typeof IntersectionObserver === "undefined") {
-          // Keep the existing eager behavior on browsers without IntersectionObserver.
-          activate();
-          return;
-        }
-        const prefetchDistance = Math.ceil(Math.max(window.innerHeight || 0, el.clientHeight || 0));
-        this._clothObserver = new IntersectionObserver((entries) => {
-          if (entries.some((entry) => entry.isIntersecting)) activate();
-        }, { rootMargin: `${prefetchDistance}px 0px` });
-        // Observe the whole Footer, rather than only the viewport-sized canvas slot, so
-        // a fast jump to the bottom still activates the curtain at the page end.
-        this._clothObserver.observe(this.footer || el);
-      },
+      clothRef: (el) => window.KCSiteFooter.attachCurtain(this, el),
     };
   }
 }

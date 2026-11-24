@@ -187,7 +187,117 @@
     };
   }
 
+  // ---------------------------------------------------------------------------
+  // Curtain (WebGL cloth in curtain-cloth.js)
+  // ---------------------------------------------------------------------------
+
+  // Lazily loads curtain-cloth.js and mounts the cloth into `el` once the Footer
+  // approaches the viewport. Uses host.resolveRes(), host.footer and host.renderFooter().
+  function attachCurtain(host, el) {
+    if (!el || host.cloth === el) return;
+    host.cloth = el;
+    // the standalone/offline build inlines curtain-cloth.js and the curtain image as
+    // blob URLs (see the ext-resource-dependency meta tags in <head>) so both still
+    // load when this page is hosted with no assets/ folder alongside it. Defer this
+    // module chain and the WebGL mount until the Footer approaches the viewport.
+    const url = host.resolveRes("./curtain-cloth.js");
+    // a bare relative specifier fails to import from some hosting contexts, so resolve it
+    // against the document first and keep the raw path as a second try
+    let abs = url;
+    try { abs = new URL(url, document.baseURI).href; } catch (e) {}
+    let activated = false;
+    const activate = () => {
+      if (activated || host.clothEl) return;
+      activated = true;
+      if (host._clothObserver) {
+        host._clothObserver.disconnect();
+        host._clothObserver = null;
+      }
+      const mount = (m) => {
+        if (!el.isConnected || host.cloth !== el || host.clothEl) return;
+        host.clothEl = m.mountCurtain(el, host.resolveRes("assets/about/footer-curtain.webp"));
+        // renderFooter owns the scroll-derived progress; publish its current target
+        // immediately so a quick jump into the Footer does not start from stale state.
+        host.renderFooter();
+      };
+      import(abs)
+        .then(mount)
+        .catch(() => import(url).then(mount))
+        .catch((err) => console.error("curtain load failed", err && (err.message || err)));
+    };
+    if (typeof IntersectionObserver === "undefined") {
+      // Keep the existing eager behavior on browsers without IntersectionObserver.
+      activate();
+      return;
+    }
+    const prefetchDistance = Math.ceil(Math.max(window.innerHeight || 0, el.clientHeight || 0));
+    host._clothObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) activate();
+    }, { rootMargin: `${prefetchDistance}px 0px` });
+    // Observe the whole Footer, rather than only the viewport-sized canvas slot, so
+    // a fast jump to the bottom still activates the curtain at the page end.
+    host._clothObserver.observe(host.footer || el);
+  }
+
+  // Publishes the scroll-derived curtain target. Reads the Footer document position
+  // and height cached by the geometry pass (host._footerTopDoc, host._footerHeight).
+  function renderCurtain(host) {
+    // both reads below used to be getBoundingClientRect() on every single frame — the nav
+    // is position:fixed (its rect never moves with scroll, only resize, and that's already
+    // re-cached in fit()) and the footer's document position only needs an arithmetic
+    // scrollY subtraction from the value fit() already cached. Neither needs a live DOM read
+    // in the render loop.
+    const H = host.vh || host.vhNow();
+    // how much of the footer block has entered the viewport, 0 -> 1
+    let t = 0;
+    if (host._footerHeight) {
+      const top = host._footerTopDoc - window.scrollY;
+      t = (H - top) / Math.max(1, host._footerHeight);
+      t = t < 0 ? 0 : t > 1 ? 1 : t;
+    }
+    // the footer IS the end of the page, so the track can't ask for more scroll: the
+    // curtain follows the last screen in, then draws itself shut once you arrive
+    // the curtain closes with the scroll and nothing else: the old timed "auto close" part
+    // reset itself whenever t dipped back under its threshold, which made the cloth open
+    // again mid-scroll. Fully shut by the time 80% of the footer is in.
+    let p = (t - 0.02) / 0.78;
+    p = p < 0 ? 0 : p > 1 ? 1 : p;
+    if (host.clothEl) host.clothEl.progress = p * p * (3 - 2 * p);
+  }
+
+  // Touch devices have no hover, so the cloth gets slow random "gusts" instead.
+  // Called once per frame with host.time in seconds.
+  function curtainGust(host) {
+    if (host.clothEl && host.clothEl.mouse) {
+      const m = host.clothEl.mouse;
+      if (!host._gust || host.time > host._gust.until) {
+        const r = Math.random;
+        host._gust = {
+          x: (r() * 2 - 1) * 0.8, y: (r() * 2 - 1) * 0.5,
+          force: 0.22 + r() * 0.3,
+          until: host.time + 1.6 + r() * 2.6,
+          fade: 0.9 + r() * 1.2,
+        };
+        host._gustStart = host.time;
+        host._gustDrift = (Math.random() * 2 - 1) * 0.12;
+      }
+      const g = host._gust;
+      const k = Math.min(1, (host.time - host._gustStart) / (g.until - host._gustStart));
+      // a gust is born where it is: no travel, just a swell that fades out
+      // ease into the new gust's position instead of teleporting the pull point across
+      // the cloth — a jump there is what made the curtain look like it snapped
+      const gx = g.x + host._gustDrift * k;
+      m.x = m.x == null ? gx : m.x + (gx - m.x) * 0.12;
+      m.y = g.y + Math.sin(host.time * 1.7) * 0.02;
+      m.force = g.force * Math.sin(Math.PI * k) * (0.85 + 0.15 * Math.sin(host.time * 5.3));
+      m.active = k < 1;
+    }
+  }
+
   window.KCSiteFooter = {
+    attachCurtain,
+    renderCurtain,
+    curtainGust,
     registerSheet,
     fitSheets,
     openSheet,

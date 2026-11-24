@@ -211,12 +211,8 @@ class Component extends DCLogic {
       }
     };
     document.addEventListener("click", this._onMail, true);
-    this._onLegal = (e) => {
-      const a = e.target && e.target.closest && e.target.closest("a[data-legal]");
-      if (!a) return;
-      e.preventDefault();
-      this.openSheet(a.dataset.legal, a);
-    };
+    // Legal dialogs are owned by scripts/footer/site-footer.js.
+    this._onLegal = window.KCSiteFooter.legalClickHandler(this);
     document.addEventListener("click", this._onLegal, true);
     // Keep the language control a normal static-route link. When a visitor is
     // already in a section, carry its existing profile-specific anchor to the
@@ -262,36 +258,7 @@ class Component extends DCLogic {
       a.setAttribute("href", current ? base + current : base);
     };
     document.addEventListener("click", this._onLanguageSwitch, true);
-    this._onKey = (e) => {
-      const activeSheet = this._activeSheet;
-      if (!activeSheet) return;
-      if (e.key === "Escape") {
-        e.preventDefault();
-        this.closeSheet();
-        return;
-      }
-      if (e.key !== "Tab") return;
-      const focusable = [...activeSheet.querySelectorAll(
-        'a[href], area[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])'
-      )].filter((el) => !el.hidden && el.getAttribute("aria-hidden") !== "true" && el.getClientRects().length > 0);
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      let current = document.activeElement;
-      while (current && current.shadowRoot && current.shadowRoot.activeElement) current = current.shadowRoot.activeElement;
-      if (!first) {
-        e.preventDefault();
-        activeSheet.focus();
-      } else if (!activeSheet.contains(current)) {
-        e.preventDefault();
-        (e.shiftKey ? last : first).focus();
-      } else if (e.shiftKey && current === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && current === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
+    this._onKey = window.KCSiteFooter.sheetKeyHandler(this);
     document.addEventListener("keydown", this._onKey);
     if (!this.heroSlides) this.heroSlides = [];
     if (!this.tHeroSlides) this.tHeroSlides = [];
@@ -1874,105 +1841,9 @@ class Component extends DCLogic {
   }
   // the legal dialogs live outside the footer, so they need the same frame treatment:
   // on a phone they fill the handset screen and step the type down a notch
-  fitSheets(box) {
-    Object.values(this.sheets || {}).forEach((el) => {
-      const card = el.querySelector("[data-card]");
-      const title = el.querySelector("[data-card] > div > span");
-      if (box) {
-        const k = box.sc;
-        el.style.inset = "auto";
-        el.style.boxSizing = "border-box";
-        Object.assign(el.style, { left: box.left.toFixed(1) + "px", top: box.top.toFixed(1) + "px",
-          width: box.w.toFixed(1) + "px", height: box.h.toFixed(1) + "px", padding: (16 * k).toFixed(1) + "px" });
-        // a phone sheet stays a peek, not a page: ~500 characters of scroll viewport, and
-        // the card grows only as far as the chrome around it needs
-        Object.assign(card.style, { maxWidth: "100%", maxHeight: "100%", padding: (20 * k).toFixed(1) + "px" });
-        card.style.paddingBottom = (20 * k).toFixed(1) + "px";
-        const scEl = el.querySelector("[data-scroll]");
-        if (scEl) {
-          const lh = 14 * k * 1.6, n = Math.round(Math.max(150 * k, box.h * 0.4 - 120 * k) / lh);
-          scEl.style.maxHeight = (n * lh + lh * 0.55).toFixed(1) + "px";
-        }
-        el._fadePx = 36 * k;
-        if (title) title.style.fontSize = (28 * k).toFixed(1) + "px";
-        card.querySelectorAll("[data-body] p").forEach((p) => {
-          p.style.fontSize = (14 * k).toFixed(1) + "px";
-        });
-        card.querySelector("[data-body]").style.gap = (20 * k).toFixed(1) + "px";
-        card.querySelectorAll("[data-body] > div").forEach((g) => { g.style.gap = (6 * k).toFixed(1) + "px"; });
-        const hd = card.querySelector(":scope > div");
-        if (hd) hd.style.paddingBottom = (16 * k).toFixed(1) + "px";
-      } else {
-        Object.assign(el.style, { left: "0px", top: "0px", right: "0px", bottom: "0px",
-          width: "auto", height: "auto", padding: "24px", boxSizing: "border-box" });
-        Object.assign(card.style, { maxWidth: "640px", maxHeight: "84vh", padding: "32px" });
-        card.style.paddingBottom = "32px";
-        const scEl = el.querySelector("[data-scroll]");
-        if (scEl) {
-          // land the cut on a half line: a line sliced in two is what actually reads as
-          // "there is more below" — a cut on a paragraph gap looks like the end
-          const lh = 25.6, n = Math.round(Math.max(180, Math.min(300, this.vhNow() * 0.44 - 132)) / lh);
-          scEl.style.maxHeight = (n * lh + lh * 0.55).toFixed(1) + "px";
-        }
-        el._fadePx = 48;
-        if (title) title.style.fontSize = "40px";
-        card.querySelectorAll("[data-body] p").forEach((p) => { p.style.fontSize = "16px"; });
-        card.querySelector("[data-body]").style.gap = "28px";
-        card.querySelectorAll("[data-body] > div").forEach((g) => { g.style.gap = "8px"; });
-        const hd = card.querySelector(":scope > div");
-        if (hd) hd.style.paddingBottom = "24px";
-      }
-      if (el._fade) requestAnimationFrame(el._fade);
-    });
-  }
-  openSheet(key, trigger) {
-    const el = this.sheets && this.sheets[key];
-    if (!el) return;
-    if (!this._activeSheet) {
-      this._sheetTrigger = trigger || document.activeElement;
-      this._sheetInertState = new Map();
-      // Inert every sibling branch between the dialog and the document. Walking the
-      // composed tree also covers the portfolio's shadow-root host when present.
-      let branch = el;
-      while (branch) {
-        const parent = branch.parentElement;
-        if (parent) {
-          [...parent.children].forEach((sibling) => {
-            if (sibling === branch) return;
-            if (!this._sheetInertState.has(sibling)) this._sheetInertState.set(sibling, sibling.inert);
-            sibling.inert = true;
-          });
-          branch = parent;
-        } else {
-          const root = branch.getRootNode();
-          if (!(root instanceof ShadowRoot)) break;
-          [...root.children].forEach((sibling) => {
-            if (sibling === branch) return;
-            if (!this._sheetInertState.has(sibling)) this._sheetInertState.set(sibling, sibling.inert);
-            sibling.inert = true;
-          });
-          branch = root.host;
-        }
-      }
-    }
-    const sc2 = el.querySelector("[data-scroll]");
-    if (sc2) sc2.scrollTop = 0;
-    if (el._fade) requestAnimationFrame(el._fade);
-    Object.values(this.sheets).forEach((s2) => { s2.style.display = "none"; });
-    el.style.display = "flex";
-    this._activeSheet = el;
-    const btn = el.querySelector("[data-close]");
-    (btn || el).focus();
-  }
-  closeSheet() {
-    Object.values(this.sheets || {}).forEach((el) => { el.style.display = "none"; });
-    this._activeSheet = null;
-    (this._sheetInertState || new Map()).forEach((wasInert, el) => { el.inert = wasInert; });
-    this._sheetInertState = null;
-    const trigger = this._sheetTrigger;
-    this._sheetTrigger = null;
-    if (trigger && trigger.isConnected && typeof trigger.focus === "function") trigger.focus();
-  }
+  fitSheets(box) { window.KCSiteFooter.fitSheets(this, box, this.vhNow()); }
+  openSheet(key, trigger) { window.KCSiteFooter.openSheet(this, key, trigger); }
+  closeSheet() { window.KCSiteFooter.closeSheet(this); }
   // one link per project, keyed by the ticket index. Everything except Longread is a
   // placeholder for now — swap the URL here and all three breakpoints follow.
   ticketLinks() {
@@ -2599,26 +2470,7 @@ class Component extends DCLogic {
         });
         this.showCookies();
       },
-      legalRef: (el) => {
-        if (!el || el._wired) return;
-        el._wired = true;
-        if (!this.sheets) this.sheets = {};
-        this.sheets[el.dataset.sheet] = el;
-        const sc2 = el.querySelector("[data-scroll]");
-        // the fade only shows while there is something left to scroll to
-        const fade = () => {
-          const atEnd = sc2.scrollTop + sc2.clientHeight >= sc2.scrollHeight - 2;
-          const px = Math.max(16, Math.min(el._fadePx || 32, sc2.clientHeight * 0.22));
-          const pct = sc2.clientHeight ? (100 - (px / sc2.clientHeight) * 100).toFixed(1) : 80;
-          // a percentage survives a re-render intact, so React and fade() agree on the value
-          const v = atEnd ? "none" : "linear-gradient(to bottom, #000 " + pct + "%, transparent 100%)";
-          sc2.style.maskImage = sc2.style.webkitMaskImage = v;
-        };
-        sc2.addEventListener("scroll", fade);
-        el._fade = fade;
-        el.querySelector("[data-close]").addEventListener("click", () => this.closeSheet());
-        el.addEventListener("click", (e) => { if (e.target === el) this.closeSheet(); });
-      },
+      legalRef: (el) => window.KCSiteFooter.registerSheet(this, el),
       // bare boolean attributes are dropped by the template runtime, so muted/loop are
       // set as properties here — without muted the browser refuses background playback
       vidRef: (el) => {

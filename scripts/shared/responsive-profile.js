@@ -65,11 +65,59 @@
     return (viewWidth / 390) * kFit;
   }
 
+  // Page gutters: 16/24 on mobile, 32/32 on tablet, 32 × scene scale on desktop.
+  function pageGutters({ mobile, tablet, s }) {
+    return {
+      x: mobile ? 16 : tablet ? 32 : 32 * s,
+      bottom: mobile ? 24 : (tablet ? 32 : 32 * s),
+    };
+  }
+
+  // Publishes the page gutters and applies the shared Navbar shell for a profile.
+  // The Navbar, Hero, Footer and fixed language link consume the shared values
+  // independently; the switcher never measures a component to find its inset.
+  function applyNavShell(nav, { mobile, tablet, s, sm, gutters }) {
+    const root = document.documentElement;
+    if (nav) {
+      nav.classList.toggle("kc-tablet-nav", tablet);
+      // The navigation frame fills the viewport directly. Keep its spacing in the
+      // previous effective layout units while typography remains independently sized.
+      // Tablet controls are authored as fixed CSS-pixel hit targets. Scaling the
+      // navbar frame by the tablet's height-fit factor made its 72px frame smaller
+      // than the 44px buttons at short/wide tablet sizes, pushing them against the
+      // top edge and shifting the CTA's gutter inward from the Projects rail.
+      const navScale = mobile ? sm : tablet ? 1 : s;
+      nav.style.setProperty("--kc-nav-scale", String(navScale));
+      nav.style.setProperty("--kc-nav-gutter", gutters.x.toFixed(3) + "px");
+      nav.style.setProperty("--kc-nav-block-padding", ((mobile ? 12 : 15) * navScale).toFixed(3) + "px");
+    }
+    root.style.setProperty("--kc-page-gutter-x", gutters.x.toFixed(3) + "px");
+    root.style.setProperty("--kc-page-gutter-bottom", gutters.bottom.toFixed(3) + "px");
+    root.dataset.kcProfile = mobile ? "mobile" : tablet ? "tablet" : "desktop";
+    if (!nav) return;
+    // no room for the section links on a phone: logo + Hire me only
+    const links = nav.querySelector(":scope > div");
+    if (links) links.style.display = mobile || tablet ? "none" : "flex";
+    const cdi = nav.querySelector("[data-fixed-ink] > [data-fixed-ink]");
+    const pill = cdi ? cdi.parentElement : null;
+    if (pill) pill.style.display = mobile ? "none" : "inline-flex";
+    const cta = nav.querySelector("a[href^='mailto'] > span");
+    if (cta) cta.style.fontSize = "var(--kc-type-body, 14px)";
+    // Preserve the desktop Footer legal group's approved alignment with the first
+    // section link while publishing it once for Footer to consume as shared geometry.
+    const projectsLink = nav.querySelector("a[href$='#projets']");
+    if (projectsLink) {
+      root.style.setProperty("--kc-nav-project-start", projectsLink.getBoundingClientRect().left.toFixed(3) + "px");
+    }
+  }
+
   window.KCResponsiveProfile = {
     readDevice,
     resolveProfile,
     sceneScale,
     tabletScale,
     mobileScale,
+    pageGutters,
+    applyNavShell,
   };
 })();

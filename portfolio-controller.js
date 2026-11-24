@@ -433,8 +433,7 @@ class Component extends DCLogic {
         ? this._pendingResizeFooterProgress : null;
       if (profileChanged) this._pendingResizeProjectIndex = null;
       this.tablet = tablet; this.mobile = mobile;
-      const pageGutterX = mobile ? 16 : tablet ? 32 : 32 * s;
-      const pageGutterBottom = mobile ? 24 : (tablet ? 32 : 32 * s);
+      const { x: pageGutterX, bottom: pageGutterBottom } = window.KCResponsiveProfile.pageGutters({ mobile, tablet, s });
       const big = !tablet && !mobile;
       // desktop projets is 1 screen (carousel); tablet/phone still scroll 6 panels
       this.ABOUT_TOP = big || tablet ? 2.35 : 7;
@@ -705,22 +704,6 @@ class Component extends DCLogic {
       }
       // navbar rides whichever frame is active
       if (this.nav) {
-        this.nav.classList.toggle("kc-tablet-nav", tablet);
-        // The navigation frame fills the viewport directly. Keep its spacing in the
-        // previous effective layout units while typography remains independently sized.
-        // Tablet controls are authored as fixed CSS-pixel hit targets. Scaling the
-        // navbar frame by the tablet's height-fit factor made its 72px frame smaller
-        // than the 44px buttons at short/wide tablet sizes, pushing them against the
-        // top edge and shifting the CTA's gutter inward from the Projects rail.
-        const navScale = mobile ? sm : tablet ? 1 : s;
-        this.nav.style.setProperty("--kc-nav-scale", String(navScale));
-        this.nav.style.setProperty("--kc-nav-gutter", pageGutterX.toFixed(3) + "px");
-        this.nav.style.setProperty("--kc-nav-block-padding", ((mobile ? 12 : 15) * navScale).toFixed(3) + "px");
-        // Publish both page-edge values from this existing responsive geometry owner.
-        // The Navbar, Hero, Footer and fixed language link consume the shared values
-        // independently; the switcher never measures a component to find its inset.
-        document.documentElement.style.setProperty("--kc-page-gutter-x", pageGutterX.toFixed(3) + "px");
-        document.documentElement.style.setProperty("--kc-page-gutter-bottom", pageGutterBottom.toFixed(3) + "px");
         // the phone / tablet frame is centred in the window — the navbar has to ride
         // its top edge, not the window's, otherwise it floats above the design
         const boxH = mobile ? (this.devH ? this.devH * kFit : this.vhNow())
@@ -730,20 +713,10 @@ class Component extends DCLogic {
         const suffix = mobile ? "-m" : tablet ? "-t" : "";
         if (p) p.setAttribute("href", "#projets" + suffix);
         if (a) a.setAttribute("href", "#apropos" + suffix);
-        // no room for the section links on a phone: logo + Hire me only
-        const links = this.nav.querySelector(":scope > div");
-        if (links) links.style.display = mobile || tablet ? "none" : "flex";
-        const cdi = this.nav.querySelector("[data-fixed-ink] > [data-fixed-ink]");
-        const pill = cdi ? cdi.parentElement : null;
-        if (pill) pill.style.display = mobile ? "none" : "inline-flex";
-        const cta = this.nav.querySelector("a[href^='mailto'] > span");
-        if (cta) cta.style.fontSize = "var(--kc-type-body, 14px)";
-        // Preserve the desktop Footer legal group's approved alignment with the first
-        // section link while publishing it once for Footer to consume as shared geometry.
-        const projectsLink = this.nav.querySelector("a[href$='#projets']");
-        if (projectsLink) {
-          document.documentElement.style.setProperty("--kc-nav-project-start", projectsLink.getBoundingClientRect().left.toFixed(3) + "px");
-        }
+        // Profile class, Navbar variables, page gutters, link/pill visibility and the
+        // Projects-link edge are the shared Navbar shell (scripts/shared/responsive-profile.js).
+        window.KCResponsiveProfile.applyNavShell(this.nav, { mobile, tablet, s, sm,
+          gutters: { x: pageGutterX, bottom: pageGutterBottom } });
         const mobilePreview = mobile && this.mHero && this.mHero.querySelector(".kc-mobile-hero-slideshow");
         if (mobilePreview) {
           mobilePreview.style.right = pageGutterX.toFixed(3) + "px";

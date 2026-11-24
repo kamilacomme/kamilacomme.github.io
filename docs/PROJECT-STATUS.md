@@ -14,6 +14,48 @@ Updated: 2026-10-31. The Phase 5 release is published; checkpoint notes below re
 
 **Accepted limitations and deferred work:** the 44×44 language switcher may overlap content at exceptionally short heights; this was accepted. The duplicate runtime document fetch remains deferred because its source package and editor/preview behavior could not be validated safely. Lighthouse median budgets passed in the final controlled comparison, with one English mobile LCP sample above its median ceiling; physical Safari/iOS and field performance were not covered. Do not interpret earlier dated entries in this tracker as current blockers when they are superseded by this release record.
 
+## Case-study foundation — stage 1 (branch `case-studies/foundation`, 2026-11-24)
+
+**Status: implemented and verified on macOS; not yet accepted by the owner; not pushed, merged or published.** Internal case-study pages are a planned part of the site (see `PRODUCT.md`). Stage 1 only builds the shared foundation; no case design or content was made.
+
+**What changed**
+
+- One Footer source: `templates/partials/footer.html` (Footer, curtain slot, legal dialogs). The homepage renders byte-identically.
+- One Footer runtime owner: `scripts/footer/site-footer.js` (`window.KCSiteFooter`), extracted from `portfolio-controller.js` in three verbatim steps (B1.1 legal dialogs, B1.2 curtain, B1.3 geometry). The controller delegates with its own instance as host.
+- One static-page Navbar profile: `styles/static-nav.css`, used by the 404 page (pixel-identical) and case pages.
+- One language-switch source: `templates/partials/language-switch.html`.
+- Case template `templates/case.html`, `styles/case.css`, `scripts/static-page/static-page.js`, `content/cases.json`, and the `noindex, nofollow` test route `/cases/_foundation/` and `/en/cases/_foundation/` (linked from nowhere; publicly reachable by URL once merged).
+
+**Verification on this Mac (Chrome 158, arm64)** — development evidence, not the release gate:
+
+- `test:baseline-integrity` (230 references unchanged), `content:check` and `content:build:check` after every step.
+- Before/after screenshots of the homepage (hero, About, Footer entering/closed, both legal dialogs) and 404, FR/EN, desktop 1440×900, tablet portrait 834×1112, mobile 393×852: pixel-identical after A, the 404 change, B1.1 and B1.2.
+- B1.3: one run differed from the baseline in curtain fold shading only (≤15/255). Acceptance evidence: 8 interleaved capture runs per variant on tablet EN, mobile EN and mobile FR differed from the baseline in 1/8 runs *without* B1.3 and 0/8 *with* it; settled curtain target, p, aspect and canvas size are identical; the per-frame order of controller progress updates and curtain ticks varies between runs in both variants (asynchronous curtain-module load race). B1.3 moved `fitFooter()` verbatim and kept its call sites.
+- Interaction probe (legal dialogs: open, focus, Tab/Shift+Tab trap, inert background, Escape, close button, backdrop, focus return; curtain target at four scroll positions; resize 1440×900 → 1000×800 → 1440×500 → back; language switch): identical before/after on the homepage. Focused Phase 5 specs for Footer, dialogs, Contact, language, curtain, reduced motion and resize pass.
+- Case page: Footer and dialogs pixel-identical to the homepage with the cloth hidden, FR/EN at all three sizes; probe shows identical dialog behavior and Footer geometry at the reference sizes.
+
+**Known differences and decisions for review**
+
+- Case pages are unscaled natural-flow pages (as the 404). At the reference sizes the homepage scene scale is 1, so the Footer matches. At other desktop sizes the homepage scales Footer spacing by its scene factor (for example heading top 85px and gutter 23px at 1440×500) while case pages keep 118px and 32px.
+- The case-page language link goes to the paired case route but does not restore the Footer position (the homepage controller does this for its sections).
+- The static-page profile rule in `static-page.js` repeats the controller's automatic profile formula; making the controller consume one shared function is a possible later step.
+
+**Publication checklist additions**
+
+- [ ] Full `npm test` in the recorded Linux lab (Chromium 154, `/usr/bin/chromium`, linux x64) passes before any publication. It cannot pass on macOS by design (`tests/verify-lab.cjs`).
+- [ ] Owner visual acceptance of the case foundation page and of the B1.3 evidence.
+- [ ] Decide whether `/cases/_foundation/` ships to `main` or is removed before publication.
+
+**Design-token notes (not changed)**
+
+- `--grid-margin-tablet` is 24px in `_ds/.../tokens/spacing.css`, but the implemented tablet page gutter is 32px.
+- The mobile grid gap in code is 16px (`--space-2`); the tokens define only `--gutter-wide` (24px) and `--gutter-condensed` (4px).
+- The desktop page gutter on the homepage is 32px × scene scale (23–34.6px), not a fixed 32px.
+
+**Findings left as they were**
+
+- In the former 404 Navbar rules (now `styles/static-nav.css`), `[data-kc-nav-actions]` and `> [data-kc-nav-availability]` match nothing in the shared Navbar markup (it uses `data-kc-navbar-actions`, and availability is not a direct child). They were preserved verbatim, so the 404 renders unchanged; between 500 and 607px a static page therefore keeps the availability pill.
+
 ## Roadmap
 
 | Phase | Scope | Status |

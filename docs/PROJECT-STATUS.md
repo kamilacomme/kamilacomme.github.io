@@ -52,6 +52,11 @@ Updated: 2026-10-31. The Phase 5 release is published; checkpoint notes below re
 - The mobile grid gap in code is 16px (`--space-2`); the tokens define only `--gutter-wide` (24px) and `--gutter-condensed` (4px).
 - The desktop page gutter on the homepage is 32px × scene scale (23–34.6px), not a fixed 32px.
 
+**Future tasks (owner decision required; not part of stages 1–1.5)**
+
+1. **Simplify profiles.** Decide the responsive profile from width and hover/pointer only, without User-Agent checks; decide what can move to CSS so the first paint does not flash a different layout; review the desktop composition at tablet sizes and rework what only works with hover. Only after stage 1.5, as a separate owner decision.
+2. **macOS lab.** Re-record the screenshot references on macOS from a verified `main` and update the environment check (`tests/verify-lab.cjs`). Only with the owner's explicit permission, and before publication.
+
 **Findings left as they were**
 
 - In the former 404 Navbar rules (now `styles/static-nav.css`), `[data-kc-nav-actions]` and `> [data-kc-nav-availability]` match nothing in the shared Navbar markup (it uses `data-kc-navbar-actions`, and availability is not a direct child). They were preserved verbatim, so the 404 renders unchanged; between 500 and 607px a static page therefore keeps the availability pill.

@@ -265,7 +265,7 @@ async function buildPage(templatePath, cardSlots, locale, layoutKind) {
       ? 'Me recruter — m’écrire à comme.kamila@gmail.com'
       : 'Hire me — email comme.kamila@gmail.com';
     const navbar = partial
-      .replaceAll('{{navVariantClass}}', layoutKind === '404' ? 'kc-404-nav' : '')
+      .replaceAll('{{navVariantClass}}', layoutKind === '404' ? 'kc-static-nav' : '')
       .replaceAll('{{navRefAttr}}', layoutKind === 'page' ? 'ref="{{navRef}}"' : '')
       .replaceAll('{{pillRefAttr}}', layoutKind === 'page' ? 'ref="{{pillRef}}"' : '')
       .replaceAll('{{navLabel}}', escapeAttribute(navLabel))

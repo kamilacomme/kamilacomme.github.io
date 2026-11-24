@@ -1,0 +1,34 @@
+/* Shared Navbar profile for static pages (404, case studies) that do not load
+   portfolio-controller.js. It mirrors the homepage's responsive Navbar profile
+   in CSS: tablets omit centered section links; narrow tablet and mobile keep the
+   logo + Hire action, and phone widths also hide availability. The homepage
+   Navbar is still owned by the controller and never receives this class. */
+.kc-static-nav {
+  /* Static pages sit on a light surface; homepage defaults stay untouched. */
+  --kc-nav-ink: #222022;
+  --kc-nav-muted: #5c575c;
+  --kc-nav-pill-bg: #f8f7f8;
+  --kc-nav-pill-border: #e5e2e5;
+  color: var(--kc-nav-ink);
+}
+.kc-static-nav [data-kc-nav-section] { color: var(--kc-nav-ink); text-decoration: none; }
+.kc-static-nav [data-kc-nav-hire] { text-decoration: none; }
+
+@media (max-width: 1079px), (max-width: 1366px) and (any-pointer: coarse) {
+  .kc-static-nav > [data-kc-navbar-links] { display: none !important; }
+  .kc-static-nav { --kc-nav-gutter: 32px !important; --kc-nav-block-padding: 14px !important; }
+}
+@media (min-width: 608px) and (max-width: 833px) {
+  .kc-static-nav > [data-kc-nav-actions] { gap: 16px !important; }
+}
+@media (min-width: 500px) and (max-width: 607px) {
+  .kc-static-nav > [data-kc-nav-availability] { display: none !important; }
+  .kc-static-nav > [data-kc-nav-actions] { gap: 0 !important; }
+}
+@media (max-width: 499px) {
+  .kc-static-nav { --kc-nav-scale: 1 !important; --kc-nav-gutter: 16px !important; --kc-nav-block-padding: 14px !important; }
+  .kc-static-nav > [data-kc-navbar-links],
+  .kc-static-nav > [data-kc-nav-availability] { display: none !important; }
+  .kc-static-nav > [data-kc-nav-actions] { gap: 0 !important; }
+  .kc-static-nav a[href^="mailto"] { padding-inline: 16px !important; }
+}

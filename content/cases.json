@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "_foundation",
+      "purpose": "Technical foundation route for the shared case-study template. Not linked from navigation; excluded from indexing.",
+      "robots": "noindex, nofollow",
+      "preview": true,
+      "locales": {
+        "fr": {
+          "pageTitle": "Gabarit d’étude de cas — Kamila Comme",
+          "title": "Titre de l’étude de cas"
+        },
+        "en": {
+          "pageTitle": "Case study template — Kamila Comme",
+          "title": "Case study title"
+        }
+      }
+    }
+  ]
+}

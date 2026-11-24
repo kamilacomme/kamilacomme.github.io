@@ -1,0 +1,72 @@
+/* Case-study pages: page surface, shared page gutters and the editorial grid.
+   Case pages are natural-flow documents without the homepage scene scale, so
+   they use the unscaled gutter values the homepage controller publishes for its
+   profiles (mobile 16/24, tablet 32/32, desktop 32/32 at scale 1). Profile media
+   queries match styles/static-nav.css. Every value below is an existing
+   design-system token or an existing homepage value. */
+:root {
+  --kc-page-gutter-x: var(--space-4);
+  --kc-page-gutter-bottom: var(--space-4);
+  --kc-case-columns: var(--grid-columns);
+  --kc-case-column-gap: var(--gutter-wide);
+}
+@media (max-width: 499px) {
+  :root {
+    --kc-page-gutter-x: var(--grid-margin-mobile);
+    --kc-page-gutter-bottom: var(--space-3);
+    --kc-case-columns: 4;
+    --kc-case-column-gap: var(--space-2);
+  }
+}
+
+body.kc-case-page {
+  min-width: 320px;
+  background: var(--surface-page);
+  color: var(--text-default);
+}
+
+.kc-case-header {
+  box-sizing: border-box;
+  padding: var(--space-16) var(--kc-page-gutter-x) var(--space-12);
+}
+
+.kc-case-title {
+  margin: 0;
+  max-width: 100%;
+  font-family: var(--font-display);
+  font-weight: var(--fw-display);
+  font-size: var(--kc-type-heading-desktop);
+  line-height: 1.1;
+  letter-spacing: var(--display-track);
+  color: var(--text-default);
+  text-wrap: pretty;
+}
+@media (max-width: 1079px), (max-width: 1366px) and (any-pointer: coarse) {
+  .kc-case-title { font-size: var(--kc-type-heading-tablet); }
+}
+@media (max-width: 499px) {
+  .kc-case-title { font-size: var(--kc-type-heading-mobile); }
+}
+
+/* The editorial grid container. Case content places itself on these columns. */
+.kc-case-grid {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(var(--kc-case-columns), minmax(0, 1fr));
+  column-gap: var(--kc-case-column-gap);
+  padding-inline: var(--kc-page-gutter-x);
+}
+
+/* Foundation route only: make the column tracks visible for review. */
+.kc-case-grid--preview {
+  padding-bottom: var(--space-12);
+}
+.kc-case-grid--preview > span {
+  display: block;
+  min-height: var(--space-16);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+}
+@media (max-width: 499px) {
+  .kc-case-grid--preview > span:nth-child(n + 5) { display: none; }
+}

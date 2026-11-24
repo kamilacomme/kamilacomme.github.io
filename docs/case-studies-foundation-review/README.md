@@ -26,3 +26,9 @@ The first B1.3 capture differed from the baseline in curtain fold shading only: 
 | With B1.3 | 0 / 8 |
 
 Earlier full six-profile runs: without B1.3 0/5, with B1.3 1/3. Settled curtain inputs (target, p, aspect, canvas size, simulation frame count) are identical with and without B1.3. The touch gust pointer and the cloth vertices vary between runs of the same variant as much as between variants, and the per-frame order of the controller's progress update and the curtain's own tick ("pt" or "tp") varies run to run in both variants because the curtain module loads asynchronously. B1.3 moved `fitFooter()` verbatim (`this.` → `host.`) and kept its call sites.
+
+## Stage 1.5 — shared responsive profile
+
+The foundation-page captures above were re-taken after stage 1.5 (profile, gutters and Navbar shell from `scripts/shared/responsive-profile.js`).
+
+Numeric matrix, homepage vs case page, FR and EN: widths 320–1920 px in 20px steps at heights 500, 800 and 1100, plus iPad 1024×768, 1180×820 and 1366×1024 with touch emulation. One row per point with both values side by side and an `all_match` column: [before](responsive-matrix-before.csv), [after](responsive-matrix-after.csv). After stage 1.5 all 492 paired points match; before, the desktop gutter (32 vs 32×s), Footer spacing, the Hire button at 500–580px and the availability pill at 500–600px differed.

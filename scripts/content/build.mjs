@@ -220,6 +220,42 @@ function addLocaleMetadata(html, locale) {
   return translateMarkup(html);
 }
 
+// One Footer source for every page. The homepage keeps its x-dc ref bindings; pages
+// without that runtime receive plain data hooks consumed by scripts/footer/site-footer.js.
+const footerDialogsMarker = '\n<!-- kc:footer-dialogs -->\n';
+const footerHooks = {
+  page: {
+    footerRefAttr: 'ref="{{ footerRef }}"',
+    clothRefAttr: 'ref="{{ clothRef }}"',
+    creditRefAttr: 'ref="{{ creditRef }}"',
+    legalRefAttr: 'ref="{{ legalRef }}"',
+  },
+  case: {
+    footerRefAttr: 'data-kc-footer-root',
+    clothRefAttr: 'data-kc-footer-cloth',
+    creditRefAttr: 'data-kc-footer-group',
+    legalRefAttr: 'data-kc-legal-sheet',
+  },
+};
+
+async function insertSharedFooter(html, templatePath, layoutKind) {
+  const partial = await readFile(path.join(root, 'templates/partials/footer.html'), 'utf8');
+  const split = partial.indexOf(footerDialogsMarker);
+  if (split < 0) throw new Error('Footer partial is missing its dialog marker');
+  let footer = partial.slice(0, split);
+  let dialogs = partial.slice(split + footerDialogsMarker.length).replace(/\n$/, '');
+  for (const [key, value] of Object.entries(footerHooks[layoutKind])) {
+    footer = footer.replaceAll(`{{${key}}}`, value);
+    dialogs = dialogs.replaceAll(`{{${key}}}`, value);
+  }
+  for (const slot of ['footer', 'footerDialogs']) {
+    if (!html.includes(`{{${slot}}}`)) throw new Error(`Missing shared ${slot} slot in ${templatePath}`);
+  }
+  html = html.replace('{{footer}}', () => footer).replace('{{footerDialogs}}', () => dialogs);
+  if (/\{\{\w+RefAttr\}\}/.test(html)) throw new Error(`Unfilled Footer hook in ${templatePath}`);
+  return html;
+}
+
 async function buildPage(templatePath, cardSlots, locale, layoutKind) {
   let html = await readFile(templatePath, 'utf8');
   if (layoutKind === 'page' || layoutKind === '404') {
@@ -237,6 +273,7 @@ async function buildPage(templatePath, cardSlots, locale, layoutKind) {
     if (!html.includes('{{navbar}}')) throw new Error(`Missing shared navbar slot in ${templatePath}`);
     html = html.replace('{{navbar}}', navbar);
   }
+  if (layoutKind === 'page') html = await insertSharedFooter(html, templatePath, layoutKind);
   if (layoutKind === '404') return `${html.trimEnd()}\n`;
   if (layoutKind === 'page') {
     const switchFields = locale === 'fr'

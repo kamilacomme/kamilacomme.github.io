@@ -304,9 +304,8 @@ class Component extends DCLogic {
       // one scene scale for the whole site: 1440x844 design frame fitted into the viewport.
       // width AND height are both respected, so nothing is cropped on short screens;
       // clamped so type never gets tiny on laptops or absurd on 4K.
-      const fw = window.innerWidth / 1440, fh = this.vhNow() / 844;
-      // width fit is a hard ceiling (never crop sideways); height only shrinks, down to 0.72.
-      const s = Math.min(fw, Math.min(1.08, Math.max(0.72, Math.min(fw, fh))));
+      // The scene-scale formula is shared with static pages (scripts/shared/responsive-profile.js).
+      const s = window.KCResponsiveProfile.sceneScale(window.innerWidth, this.vhNow());
       this.s = s;
       // Keep the Hero preview image-only responsive: size it in effective CSS pixels,
       // then account for its existing art-frame scale. If a very short viewport leaves
@@ -406,24 +405,11 @@ class Component extends DCLogic {
       // 500, not 640: the phone frame is 390 design px wide and scales UP to the window, so
       // a 600-wide browser window blew the handset layout up to 1.5x. Below 500 the scale
       // stays near 1 (a real handset is 390-430); 500-1080 is the tablet's range.
-      const mobile = force === "mobile" || phoneForced || (force === "auto" && window.innerWidth < 500);
-      // a landscape iPad is still a tablet: it has no hover, so the desktop carousel
-      // (cursor graphic, hover-gated video) would be dead there. Route any coarse-pointer
-      // viewport up to 1366 to the tablet layout, portrait or not.
-      const touch = window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches;
-      const fineHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-      // a coarse-pointer report alone is not enough to call something a tablet: some
-      // desktop browsers and embedded views report one while showing a full-size window,
-      // and routing those to the tablet branch left the DESKTOP dom on screen driven by
-      // tablet logic — the About cards then never moved at all.
-      const iPadish = /iPad|iPhone|iPod|Android/i.test(navigator.userAgent)
-        || (navigator.platform === "MacIntel" && (navigator.maxTouchPoints || 0) > 1);
-      // an iPad with a trackpad or Magic Keyboard attached reports (hover: hover) and
-      // (pointer: fine) — exactly like a desktop, which in landscape dropped it onto the
-      // desktop layout (overlapping About grid, hover-only deck). The device decides, not
-      // whichever pointer happens to be plugged in.
-      const tablet = !mobile && (force === "tablet" || (force === "auto" && window.innerWidth < 1080)
-        || (force === "auto" && window.innerWidth <= 1366 && ((touch && !fineHover) || iPadish)));
+      // The profile rule is shared with static pages (scripts/shared/responsive-profile.js);
+      // the editor's layout/phone overrides stay here and are passed in.
+      const { touch, fineHover, iPadish } = window.KCResponsiveProfile.readDevice();
+      const { mobile, tablet } = window.KCResponsiveProfile.resolveProfile({
+        width: window.innerWidth, force, phoneForced, touch, fineHover, iPadish });
       const responsiveProfile = mobile ? "mobile" : tablet ? "tablet" : "desktop";
       const profileChanged = !!this._layoutProfile && this._layoutProfile !== responsiveProfile;
       // Refs, font readiness, and component updates also call fit(). Only carry a
@@ -586,7 +572,7 @@ class Component extends DCLogic {
       // measured on the small viewport; projets/about/footer fill the whole screen
       const heroViewH = this.devH || stableH;
       const viewH = this.devH || fullH;
-      let sm = (viewW / 390) * kFit;
+      let sm = window.KCResponsiveProfile.mobileScale(viewW, kFit);
       const mHeroFrameH = Math.round(heroViewH * kFit);
       const mFrameH = Math.round(viewH * kFit);
       this.sm = sm; this.mFrameH = mFrameH; this.mHeroFrameH = mHeroFrameH;
@@ -665,7 +651,7 @@ class Component extends DCLogic {
       // window now lands on the tablet tier) used to keep st at 1, so the 64px hero title
       // stayed full size on a 600-tall screen and read as oversized. 900 is the reference
       // height at which the tablet type is shown at 100%.
-      let st = Math.min(ST_MAX, window.innerWidth / 834, Math.max(0.62, this.vhNow() / 900));
+      let st = window.KCResponsiveProfile.tabletScale(window.innerWidth, this.vhNow());
       if (force !== "auto" && this.devW) st = Math.min(ST_MAX, this.devW / 834, Math.max(0.62, this.devH / 900));
       this.st = st;
       // Shared tablet design-to-screen scale for the active portfolio block.

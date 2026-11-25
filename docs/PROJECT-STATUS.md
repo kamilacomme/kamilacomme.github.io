@@ -1,6 +1,6 @@
 # Project status
 
-Updated: 2026-10-31. The Phase 5 release is published; checkpoint notes below retain historical status as of their dates unless explicitly superseded here.
+Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phase 5 release is published; checkpoint notes below retain historical status as of their dates unless explicitly superseded here.
 
 **Published release:** `main` at `30ffa5179389a1173a10cc9a151099d70daf6501`, merged normally from the approved Phase 5 candidate. GitHub Pages deployment completed successfully on 2026-10-28.
 
@@ -37,7 +37,7 @@ Updated: 2026-10-31. The Phase 5 release is published; checkpoint notes below re
 **Known differences and decisions for review**
 
 - Resolved in stage 1.5: case pages used unscaled spacing (32px desktop gutter, Footer heading at 118px) and showed the availability pill at 500–607px; they now follow the homepage formulas.
-- The case-page language link goes to the paired case route but does not restore the Footer position (the homepage controller does this for its sections).
+- Resolved in site fixes (T3): the case-page language link went to the paired case route but did not restore the Footer position (the homepage controller does this for its sections).
 - Resolved in stage 1.5: `static-page.js` no longer repeats the profile rule.
 
 **Publication checklist additions**
@@ -46,21 +46,27 @@ Updated: 2026-10-31. The Phase 5 release is published; checkpoint notes below re
 - [x] Owner acceptance of stages 1 and 1.5 (2026-11-25).
 - [ ] Decide whether `/cases/_foundation/` ships to `main` or is removed before publication.
 
-**Design-token notes (not changed)**
+**Design-token notes**
 
-- `--grid-margin-tablet` is 24px in `_ds/.../tokens/spacing.css`, but the implemented tablet page gutter is 32px.
+- Resolved in site fixes (T2, `fix/site-fixes-1-6`): `--grid-margin-tablet` is now 32px, the approved tablet page gutter.
 - The mobile grid gap in code is 16px (`--space-2`); the tokens define only `--gutter-wide` (24px) and `--gutter-condensed` (4px).
 - The desktop page gutter on the homepage is 32px × scene scale (23–34.6px), not a fixed 32px.
 
-**To-do**
+**To-do** (numbering from the owner's handover; T1–T4 and T11 are handled in [site fixes 1–6](#site-fixes-16-branch-fixsite-fixes-1-6-2026-11-25))
 
-- [ ] `desktop-fluid-projects` and `tablet-projects-shared-gutter` fail on every run on this Mac, on both `main` and `case-studies/foundation`. Probably an environment difference (macOS Chrome 158 vs the Linux Chromium 154 lab); not verified. Check in the recorded Linux lab.
-- [ ] The language switch on case pages goes to the paired case route but does not keep the reader's place at the Footer (the homepage controller restores sections; case pages do not).
-
-**Future tasks (owner decision required; not part of stages 1–1.5)**
-
-1. **Simplify profiles.** Decide the responsive profile from width and hover/pointer only, without User-Agent checks; decide what can move to CSS so the first paint does not flash a different layout; review the desktop composition at tablet sizes and rework what only works with hover. Only after stage 1.5, as a separate owner decision.
-2. **macOS lab.** Re-record the screenshot references on macOS from a verified `main` and update the environment check (`tests/verify-lab.cjs`). Only with the owner's explicit permission, and before publication.
+- [x] T1 BUG-01 English mobile Projects heading — fixed (tablet had the same cause).
+- [x] T2 `--grid-margin-tablet` token — fixed.
+- [x] T3 Language switch keeps the Footer position on case pages — fixed.
+- [ ] T4 `tablet-projects-shared-gutter` is a macOS environment limitation; `desktop-fluid-projects` fails since `3db8f44` on any checkout on this Mac — owner decision needed (see site fixes).
+- [ ] T5 **Simplify profiles.** Decide the responsive profile from width and hover/pointer only, without User-Agent checks and without a first-paint flash of a different layout; review the desktop composition at tablet sizes and rework what only works with hover. Deferred until after the Jane case blocks; it touches the approved homepage design.
+- [ ] T6 **macOS lab.** Re-record the screenshot references on macOS from a verified `main` and update `tests/verify-lab.cjs`. Only with the owner's explicit permission, and before publication.
+- [ ] T7 iPad with a trackpad or Magic Keyboard (`hover: hover`, `pointer: fine`) is verified only by the rule's code path (Chromium cannot emulate it). Closes with T5.
+- [ ] T8 Decide whether the public `noindex` route `/cases/_foundation/` stays after the merge or is removed.
+- [ ] T9 Analytics is disabled on case pages; decide before publication.
+- [ ] T10 Delete the 15 old branches one at a time, each with the owner's OK. Add `claude/site-fixes-foundation-f4b58d` (no commits beyond `main`) and its worktree `.claude/worktrees/site-fixes-foundation-f4b58d` (detached at `ce0d033`).
+- [x] T11 Dead selectors in `static-nav.css` — already removed in stage 1.5; re-verified (see site fixes).
+- [ ] T12 Desktop page gutters scale with the scene, 23–35px, on the homepage; accepted. Note: since stage 1.5 case pages and the 404 use the same 32 × s formula (matrix: identical values), not a fixed 32px.
+- [ ] Found during site fixes, pre-existing: the tablet About language-switch restore lands on one of two positions (e.g. 2767 or 3433 px at 834×1112) from run to run, equally on `f9e5b92` and on the fix branch; `footer-legal-resize-direction` fails in about half of the runs on this Mac on both.
 
 **Findings left as they were**
 
@@ -87,6 +93,21 @@ Updated: 2026-10-31. The Phase 5 release is published; checkpoint notes below re
 - Full Phase 5 suite against port 8000 after R3: 213 passed, 8 failed, 227 skipped by profile filters. The 8 failing specs were rerun 3 times each on the files of `main` (temporary working-tree checkout) and on this branch with identical results: 48 passed / 12 failed on both. `desktop-fluid-projects` and `tablet-projects-shared-gutter` fail on every run on both (existing macOS failures); `language-scroll-restoration`, `responsive-resize`, `tablet-about-responsive` and `hero-short-height-fallback` passed 3/3 on both (intermittent).
 
 **Not covered by emulation.** An iPad with a trackpad or Magic Keyboard reports `hover: hover` and `pointer: fine`; the shared rule still classifies it as tablet through iPad identity, but Chromium cannot emulate that combination, so it is verified by the rule's code path only.
+
+## Site fixes 1–6 (branch `fix/site-fixes-1-6`, 2026-11-25)
+
+**Status: implemented and verified on macOS; awaiting owner review. Based on `case-studies/foundation` (`f9e5b92`) because T3 and T11 concern case pages, which exist only there. Not pushed, merged or published.** Captures and probe notes: [site-fixes-1-6-review](site-fixes-1-6-review/README.md).
+
+| Task | Cause | Verification | Status |
+| --- | --- | --- | --- |
+| T1 BUG-01 English mobile Projects heading | `translateMarkup()` matched `<main id="kc-m-canvas">` and `<main class="stage" id="kc-t-stage">`; both containers became `<div>` in `7d5a51d`, so the replacements silently missed and EN mobile and tablet showed the word-by-word fallback “A selection of / my *projects* recent work.” | Containers matched by id regardless of tag; the build now fails if a container's heading stops matching. EN mobile: “A selection of my most / *recent projects.*”; EN tablet: “A selection of my / *recent projects.*”; desktop and FR unchanged. 32px mobile / 48px tablet kept; mobile wraps naturally to 3 lines at 320px, 2 lines at 360–499px, no overflow. `content:build:check` clean; only `en/index.html` regenerated. `tablet-short-project-layout.spec.cjs` asserted the fallback text and now expects the approved heading; heading specs pass. | Fixed (`209b30d`) |
+| T2 `--grid-margin-tablet` | Token said 24px; the implemented and M8-approved tablet gutter is 32px. No stylesheet reads the token. | Token 24 → 32px. Tablet 834×1112 and 1194×834, homepage and case, FR/EN: `--kc-page-gutter-x/bottom` = 32px before and after. | Fixed (`4d82a26`) |
+| T3 Language switch at the Footer | Only `portfolio-controller.js` captured and restored the anchor; case pages do not load it. | Shared helpers in `KCSiteFooter`; homepage formulas unchanged. 72 switch probes (4 routes × 3 profiles × 6 scroll positions) against `f9e5b92`: the homepage gives the same result except two tablet About points that flip between the same two positions on both versions (pre-existing); case pages now land at `#contact` instead of the top. Footer/language specs: 70 passed, 2 failed; on 6 paired reruns `language-switch` passed on both, `footer-legal-resize-direction` failed in 3/6 runs on both versions (pre-existing). | Fixed (`871955f`) |
+| T4 `desktop-fluid-projects` | At 1422×600 the desktop rail is in COMPACT mode (heading bottom + 24 > rail top), which has no intro hold, so 10px into the section the rail has moved 10px; the spec expects ≤1px. On this Mac the spec passes at `fdca266` and fails from `3db8f44` (short-height flow modes) on, including `main`. Not an environment artifact; not part of `npm test` (the gate runs `tests/qa` and the responsive harness, not focused Phase 5 specs). | Spec not changed. Owner decision: either the 1422×600 start expectation is obsolete since COMPACT was approved (make the start assertion mode-aware), or COMPACT should hold the rail at entry. | Open |
+| T4 `tablet-projects-shared-gutter` | The spec reproduces a classic scrollbar with `scrollbar-gutter: stable` and first checks that sections are narrower than `innerWidth`. macOS Chrome uses overlay scrollbars and reserves no gutter (`clientWidth` = `innerWidth` = 500, also with feature flags tried), so the precondition cannot hold here. | Environment limitation on macOS; recorded, spec unchanged. Needs the Linux lab or a macOS “always show scroll bars” run with the owner's OK. | Known limitation |
+| T11 `static-nav.css` dead selectors | Already removed in stage 1.5 (`0d14073`); visibility comes from `applyNavShell`. | Availability pill at 500–607px in 1px steps, FR/EN, mouse and touch, homepage vs case vs 404: profile tablet, pill hidden on all three, 0 mismatches. | Closed, no change |
+
+**Shared checks.** `test:baseline-integrity`: 230 references unchanged. `content:check`, `content:build:check` clean. Matrix 492 points (homepage / case / 404, FR/EN, widths 320–1920 × heights 500/800/1100 plus three iPad sizes): before and after byte-identical, 0 homepage/case mismatches, 0 pill/profile mismatches against the 404. Commits: `209b30d` (T1), `4d82a26` (T2), `871955f` (T3), plus this documentation commit.
 
 ## Roadmap
 

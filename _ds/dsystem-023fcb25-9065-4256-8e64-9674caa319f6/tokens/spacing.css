@@ -25,7 +25,7 @@
   /* grid */
   --grid-columns: 12;          /* @kind other */
   --grid-margin: 32px;         /* desktop outer field */
-  --grid-margin-tablet: 24px;
+  --grid-margin-tablet: 32px;  /* approved tablet page gutter (M8); scripts/shared/responsive-profile.js */
   --grid-margin-mobile: 16px;
   --gutter-wide: 24px;         /* default editorial gutter */
   --gutter-condensed: 4px;     /* deliberate dense moment */

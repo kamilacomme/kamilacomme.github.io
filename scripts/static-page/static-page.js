@@ -8,6 +8,8 @@
  *    the homepage controller uses), so the Footer follows the homepage formulas.
  * 2. Flips the static Navbar ink to the dark-surface values while the black Footer
  *    sits under the Navbar.
+ * 3. Keeps the reader's place at the Footer across the language switch, through the
+ *    shared KCSiteFooter language-anchor helpers.
  */
 (function () {
   "use strict";
@@ -46,6 +48,37 @@
   document.addEventListener("click", F.legalClickHandler(host), true);
   document.addEventListener("keydown", F.sheetKeyHandler(host));
 
+  // Language switch: keep the reader's place at the Footer across the paired case
+  // route, with the same anchor, threshold and formulas the homepage uses
+  // (KCSiteFooter). Elsewhere on the page the link opens the paired route's top.
+  document.addEventListener("click", (e) => {
+    const a = F.languageSwitchLink(e);
+    if (!a) return;
+    const atFooter = footer.getBoundingClientRect().top + window.scrollY <= F.languageAnchorLine();
+    F.saveLanguageAnchor(atFooter ? F.contactAnchor(footer) : null);
+    a.setAttribute("href", atFooter ? a.dataset.kcSwitchTo + "#contact" : a.dataset.kcSwitchTo);
+  }, true);
+  // On arrival, reapply the stored Footer position after each Footer fit until fonts
+  // and the page have settled, unless the reader scrolls first.
+  let languageAnchor = F.takeLanguageAnchor(["contact"]);
+  function restoreLanguageAnchor() {
+    if (!languageAnchor) return;
+    const top = F.contactScrollTop(footer, languageAnchor.progress);
+    if (Number.isFinite(top)) window.scrollTo({ top: Math.max(0, top), behavior: "instant" });
+  }
+  if (languageAnchor) {
+    const stopIntent = F.onScrollIntent(() => { languageAnchor = null; stopIntent(); });
+    const loaded = document.readyState === "complete" ? Promise.resolve()
+      : new Promise((resolve) => window.addEventListener("load", resolve, { once: true }));
+    Promise.all([loaded, document.fonts ? document.fonts.ready : null]).then(() =>
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        restoreLanguageAnchor();
+        render();
+        languageAnchor = null;
+        stopIntent();
+      })));
+  }
+
   let touch = false;
   function fit() {
     const c = P.current;
@@ -61,6 +94,7 @@
     const box = footer.getBoundingClientRect();
     host._footerTopDoc = box.top + window.scrollY;
     host._footerHeight = box.height;
+    restoreLanguageAnchor();
     render();
   }
 

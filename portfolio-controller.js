@@ -44,32 +44,20 @@ class Component extends DCLogic {
   componentDidMount() {
     // Language routes are full static-page navigations. Carry one semantic anchor
     // through that load and let the current section geometry owner consume it.
-    try {
-      const saved = sessionStorage.getItem("kc-scroll");
-      if (saved) {
-        sessionStorage.removeItem("kc-scroll");
-        const anchor = JSON.parse(saved);
-        if (anchor?.version === 1 && anchor.hash === window.location.hash
-          && ["project", "about", "contact"].includes(anchor.kind)) {
-          window.__kcPendingLanguageAnchor = anchor;
-          this._finishLanguageAnchor = () => {
-            if (window.__kcPendingLanguageAnchor === anchor) window.__kcPendingLanguageAnchor = null;
-            ["wheel", "touchstart", "pointerdown", "keydown"].forEach((type) =>
-              document.removeEventListener(type, this._cancelLanguageAnchor, true));
-            window.removeEventListener("kc:language-anchor-restored", this._onLanguageAnchorRestored);
-          };
-          this._onLanguageAnchorRestored = () => this._finishLanguageAnchor();
-          window.addEventListener("kc:language-anchor-restored", this._onLanguageAnchorRestored);
-          this._cancelLanguageAnchor = (event) => {
-            if (event.type === "keydown"
-              && !["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) return;
-            this._finishLanguageAnchor();
-          };
-          ["wheel", "touchstart", "pointerdown", "keydown"].forEach((type) =>
-            document.addEventListener(type, this._cancelLanguageAnchor, { capture: true, passive: true }));
-        }
-      }
-    } catch (err) {}
+    // The anchor format, storage and the Footer ("contact") kind are shared with the
+    // case pages through window.KCSiteFooter.
+    const anchor = window.KCSiteFooter.takeLanguageAnchor(["project", "about", "contact"]);
+    if (anchor) {
+      window.__kcPendingLanguageAnchor = anchor;
+      this._finishLanguageAnchor = () => {
+        if (window.__kcPendingLanguageAnchor === anchor) window.__kcPendingLanguageAnchor = null;
+        this._stopLanguageAnchorIntent();
+        window.removeEventListener("kc:language-anchor-restored", this._onLanguageAnchorRestored);
+      };
+      this._onLanguageAnchorRestored = () => this._finishLanguageAnchor();
+      window.addEventListener("kc:language-anchor-restored", this._onLanguageAnchorRestored);
+      this._stopLanguageAnchorIntent = window.KCSiteFooter.onScrollIntent(() => this._finishLanguageAnchor());
+    }
     // The static route may not contain the React-rendered Footer yet when the browser
     // first processes #contact. Reapply that one initial fragment after the existing
     // responsive fit pass publishes its measured section geometry.
@@ -95,11 +83,9 @@ class Component extends DCLogic {
         }
         const footer = this.footer || document.getElementById("contact");
         if (!footer || !footer.isConnected) return;
-        const rect = footer.getBoundingClientRect();
-        const travel = Math.max(0, rect.height - window.innerHeight);
         const progress = window.__kcPendingLanguageAnchor?.kind === "contact"
           ? window.__kcPendingLanguageAnchor.progress : 0;
-        const target = rect.top + window.scrollY + travel * progress;
+        const target = window.KCSiteFooter.contactScrollTop(footer, progress);
         if (!Number.isFinite(target)) return;
         window.scrollTo({ top: Math.max(0, target), behavior: "instant" });
         // renderFooter uses the same cached geometry as its frame loop. Update the
@@ -218,21 +204,20 @@ class Component extends DCLogic {
     // already in a section, carry its existing profile-specific anchor to the
     // other locale; the browser performs the route navigation itself.
     this._onLanguageSwitch = (e) => {
-      const a = e.target && e.target.closest && e.target.closest("a[data-kc-language-switch]");
-      if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const F = window.KCSiteFooter;
+      const a = F.languageSwitchLink(e);
+      if (!a) return;
       const base = a.dataset.kcSwitchTo;
-      if (!base) return;
       const suffix = this.mobile ? "-m" : this.tablet ? "-t" : "";
       const candidates = ["#projets" + suffix, "#apropos" + suffix, "#contact"];
       const currentY = window.scrollY;
-      const threshold = window.scrollY + Math.min(window.innerHeight * 0.42, 360);
+      const threshold = F.languageAnchorLine();
       let current = "";
       for (const id of candidates) {
         const section = document.getElementById(id.slice(1));
         if (section && section.getBoundingClientRect().top + window.scrollY <= threshold) current = id;
       }
       let anchor = null;
-      try { sessionStorage.removeItem("kc-scroll"); } catch (err) {}
       if (current) {
         anchor = { version: 1, hash: current, kind: "", progress: 0 };
         if (current.startsWith("#projets")) {
@@ -248,13 +233,10 @@ class Component extends DCLogic {
           anchor.kind = "about";
           anchor.progress = Math.max(0, Math.min(1, (currentY - top) / travel));
         } else {
-          const rect = document.getElementById("contact")?.getBoundingClientRect();
-          const travel = Math.max(1, (rect?.height || 0) - window.innerHeight);
-          anchor.kind = "contact";
-          anchor.progress = Math.max(0, Math.min(1, -(rect?.top || 0) / travel));
+          anchor = F.contactAnchor(document.getElementById("contact"));
         }
-        if (anchor) try { sessionStorage.setItem("kc-scroll", JSON.stringify(anchor)); } catch (err) {}
       }
+      F.saveLanguageAnchor(anchor);
       a.setAttribute("href", current ? base + current : base);
     };
     document.addEventListener("click", this._onLanguageSwitch, true);

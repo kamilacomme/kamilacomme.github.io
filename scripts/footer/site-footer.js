@@ -545,7 +545,80 @@
     naturalFlowIfNeeded(head ? parseFloat(getComputedStyle(head).top) : 118 * sc);
   }
 
+  // Language switch. Locale routes are full static-page navigations; the reader's
+  // semantic place is carried through that load as one sessionStorage anchor
+  // ({ version: 1, hash, kind, progress }). The homepage controller adds its own
+  // section kinds (project, about); the Footer kind ("contact") is defined here so
+  // the homepage and case pages share one capture and one restore formula.
+  const LANGUAGE_ANCHOR_KEY = "kc-scroll";
+  const SCROLL_KEYS = ["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "];
+
+  // The language link targeted by a plain primary click, or null.
+  function languageSwitchLink(e) {
+    const a = e.target && e.target.closest && e.target.closest("a[data-kc-language-switch]");
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return null;
+    return a.dataset.kcSwitchTo ? a : null;
+  }
+
+  // Document line a section's top must reach to count as the reader's section.
+  function languageAnchorLine() {
+    return window.scrollY + Math.min(window.innerHeight * 0.42, 360);
+  }
+
+  // Footer anchor: how far the reader has scrolled through the Footer, 0 → 1.
+  function contactAnchor(footer) {
+    const rect = footer && footer.getBoundingClientRect();
+    const travel = Math.max(1, ((rect && rect.height) || 0) - window.innerHeight);
+    return { version: 1, hash: "#contact", kind: "contact",
+      progress: Math.max(0, Math.min(1, -((rect && rect.top) || 0) / travel)) };
+  }
+
+  // Document scroll position that shows the Footer at a stored progress.
+  function contactScrollTop(footer, progress) {
+    const rect = footer.getBoundingClientRect();
+    const travel = Math.max(0, rect.height - window.innerHeight);
+    return rect.top + window.scrollY + travel * progress;
+  }
+
+  // Store the anchor for the next route, or clear any previous one (anchor = null).
+  function saveLanguageAnchor(anchor) {
+    try { sessionStorage.removeItem(LANGUAGE_ANCHOR_KEY); } catch (err) {}
+    if (anchor) try { sessionStorage.setItem(LANGUAGE_ANCHOR_KEY, JSON.stringify(anchor)); } catch (err) {}
+  }
+
+  // Read and clear the stored anchor; returns it only when it belongs to this
+  // route's fragment and is one of the kinds this page can restore.
+  function takeLanguageAnchor(kinds) {
+    try {
+      const saved = sessionStorage.getItem(LANGUAGE_ANCHOR_KEY);
+      if (!saved) return null;
+      sessionStorage.removeItem(LANGUAGE_ANCHOR_KEY);
+      const anchor = JSON.parse(saved);
+      return anchor && anchor.version === 1 && anchor.hash === window.location.hash
+        && kinds.includes(anchor.kind) ? anchor : null;
+    } catch (err) { return null; }
+  }
+
+  // Calls onIntent once the reader scrolls on their own (wheel, touch, pointer or
+  // a scrolling key); returns a function that stops listening.
+  function onScrollIntent(onIntent) {
+    const types = ["wheel", "touchstart", "pointerdown", "keydown"];
+    const listener = (event) => {
+      if (event.type === "keydown" && !SCROLL_KEYS.includes(event.key)) return;
+      onIntent();
+    };
+    types.forEach((type) => document.addEventListener(type, listener, { capture: true, passive: true }));
+    return () => types.forEach((type) => document.removeEventListener(type, listener, true));
+  }
+
   window.KCSiteFooter = {
+    languageSwitchLink,
+    languageAnchorLine,
+    contactAnchor,
+    contactScrollTop,
+    saveLanguageAnchor,
+    takeLanguageAnchor,
+    onScrollIntent,
     fitFooter,
     attachCurtain,
     renderCurtain,

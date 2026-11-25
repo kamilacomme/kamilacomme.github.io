@@ -16,7 +16,7 @@ Updated: 2026-10-31. The Phase 5 release is published; checkpoint notes below re
 
 ## Case-study foundation — stage 1 (branch `case-studies/foundation`, 2026-11-24)
 
-**Status: implemented and verified on macOS; not yet accepted by the owner; not pushed, merged or published.** Internal case-study pages are a planned part of the site (see `PRODUCT.md`). Stage 1 only builds the shared foundation; no case design or content was made.
+**Status: implemented, verified on macOS and accepted by the owner on 2026-11-25. Pushed to `origin/case-studies/foundation`; not merged or published.** Internal case-study pages are a planned part of the site (see `PRODUCT.md`). Stage 1 only builds the shared foundation; no case design or content was made.
 
 **What changed**
 
@@ -43,7 +43,7 @@ Updated: 2026-10-31. The Phase 5 release is published; checkpoint notes below re
 **Publication checklist additions**
 
 - [ ] Full `npm test` in the recorded Linux lab (Chromium 154, `/usr/bin/chromium`, linux x64) passes before any publication. It cannot pass on macOS by design (`tests/verify-lab.cjs`).
-- [ ] Owner visual acceptance of the case foundation page and of the B1.3 evidence.
+- [x] Owner acceptance of stages 1 and 1.5 (2026-11-25).
 - [ ] Decide whether `/cases/_foundation/` ships to `main` or is removed before publication.
 
 **Design-token notes (not changed)**
@@ -51,6 +51,11 @@ Updated: 2026-10-31. The Phase 5 release is published; checkpoint notes below re
 - `--grid-margin-tablet` is 24px in `_ds/.../tokens/spacing.css`, but the implemented tablet page gutter is 32px.
 - The mobile grid gap in code is 16px (`--space-2`); the tokens define only `--gutter-wide` (24px) and `--gutter-condensed` (4px).
 - The desktop page gutter on the homepage is 32px × scene scale (23–34.6px), not a fixed 32px.
+
+**To-do**
+
+- [ ] `desktop-fluid-projects` and `tablet-projects-shared-gutter` fail on every run on this Mac, on both `main` and `case-studies/foundation`. Probably an environment difference (macOS Chrome 158 vs the Linux Chromium 154 lab); not verified. Check in the recorded Linux lab.
+- [ ] The language switch on case pages goes to the paired case route but does not keep the reader's place at the Footer (the homepage controller restores sections; case pages do not).
 
 **Future tasks (owner decision required; not part of stages 1–1.5)**
 
@@ -63,7 +68,7 @@ Updated: 2026-10-31. The Phase 5 release is published; checkpoint notes below re
 
 ## Responsive foundation — stage 1.5 (branch `case-studies/foundation`, 2026-11-25)
 
-**Status: implemented and verified on macOS; not yet accepted by the owner; not pushed, merged or published.**
+**Status: implemented, verified on macOS and accepted by the owner on 2026-11-25. Pushed to `origin/case-studies/foundation`; not merged or published.**
 
 **Root cause addressed.** The profile rule (mobile <500; tablet <1080, or ≤1366 with touch-without-fine-hover or iPad/Android identity) and the page gutters (16 / 32 / 32×s) lived only in `portfolio-controller.js`; the 404 and case pages re-implemented them with width media queries. That copy hid the availability pill rule (`.kc-tablet-nav`, set only by the controller), missed the iPad-identity part of the rule, and used 32px instead of 32×s on desktop.
 

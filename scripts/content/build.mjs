@@ -171,11 +171,28 @@ function translateAttributes(tag) {
   });
 }
 
+// The approved English Projects headings. Each responsive layout has its own line
+// composition, so they are set as whole markup rather than translated word by word.
+// The container is matched by id/class only, whatever its tag; if a document contains
+// the container but its heading no longer matches, the build fails instead of silently
+// emitting the word-by-word fallback.
+const englishProjectHeadings = [
+  { marker: 'class="heading"', pattern: /<h1 class="heading">[\s\S]*?<\/h1>/, replacement: '<h1 class="heading">A selection of my most<br/><em>recent projects.</em></h1>' },
+  { marker: 'id="kc-t-stage"', pattern: /(<[a-z]+\b[^>]*\bid="kc-t-stage"[^>]*><h1>)[\s\S]*?(<\/h1>)/, replacement: '$1<span class="kc-title-line">A selection of my</span><span class="kc-title-line"><em>recent projects.</em></span>$2' },
+  { marker: 'id="kc-m-canvas"', pattern: /(<[a-z]+\b[^>]*\bid="kc-m-canvas"[^>]*><h1>)[\s\S]*?(<\/h1>)/, replacement: '$1A selection of my most<br><em>recent projects.</em>$2' },
+];
+
+function localizeProjectHeadings(html) {
+  for (const { marker, pattern, replacement } of englishProjectHeadings) {
+    if (!html.includes(marker)) continue;
+    if (!pattern.test(html)) throw new Error(`English Projects heading not found for ${marker}; update englishProjectHeadings to the template markup`);
+    html = html.replace(pattern, replacement);
+  }
+  return html;
+}
+
 function translateMarkup(html) {
-  // Preserve the known responsive heading compositions while generating localized text.
-  html = html.replace(/<h1 class="heading">[\s\S]*?<\/h1>/, '<h1 class="heading">A selection of my most<br/><em>recent projects.</em></h1>');
-  html = html.replace(/(<main class="stage" id="kc-t-stage"><h1>)[\s\S]*?(<\/h1>)/, '$1<span class="kc-title-line">A selection of my</span><span class="kc-title-line"><em>recent projects.</em></span>$2');
-  html = html.replace(/(<main id="kc-m-canvas"><h1>)[\s\S]*?(<\/h1>)/, '$1A selection of my<br><em>recent projects.</em>$2');
+  html = localizeProjectHeadings(html);
 
   let result = '', cursor = 0;
   while (cursor < html.length) {

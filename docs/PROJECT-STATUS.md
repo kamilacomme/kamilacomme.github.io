@@ -75,8 +75,8 @@ Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phas
 - [ ] `tablet-narrow-layout` tablet-portrait-en and `responsive-resize` tablet-landscape-fr — failed once each in the 2026-11-26 full run, 0/6 on rerun both before and after `d5c4aba`. Intermittent; watch in the Linux lab.
 - [x] `tablet-projects-shared-gutter` ×2 (desktop-fr, desktop-en): fails only on macOS (overlay scrollbars); **passed in the Linux lab CI run** [#45818174171](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45818174171) (2026-11-26). Remains a macOS item for T6.
 - [ ] Before publication: Phase 5 ran in the Linux lab CI on 2026-11-26 ([ci-linux-lab](site-fixes-1-6-review/ci-linux-lab.md)): 220 passed, 1 failed. Still to run there: the full `npm test` release gate (`tests/verify-lab.cjs`, `tests/qa`, responsive QA).
-- [x] `hero-short-height-fallback` desktop-en: failed once in Linux CI run 1, passed in the rerun (attempt 2) and in run #45825649606; intermittent, not repeated. No change.
-- [ ] **Decision needed:** `tablet-narrow-layout` tablet-portrait-en failed in 2 of 3 Linux CI runs (and once in a macOS full run): at 960×555 the ticket's right edge is 802 (previous 834×555 layout) instead of 928, because the spec waits with `setViewportSize` + `clock.runFor(300)`. Same late-resize mechanism as §3/§5; candidate for the same wait-for-layout change as `504d81b`/`e06db15`, with authorization. Product and spec untouched.
+- [ ] Rare failure, no change: `hero-short-height-fallback` desktop-en failed once in 4 Linux CI runs (run 1: at 1707×188 flow the Hero plate bottom was 279 > 189); passed in the next three runs and 5/5 on macOS. Already listed as intermittent in stage 1.5. Watch; diagnose if it recurs.
+- [x] `tablet-narrow-layout` tablet-portrait-en — late resize after a fixed fake-clock wait (failed in 2 of 3 Linux runs). Spec now waits for the published layout (`ac0ddd2`, authorized): 10/10 local runs (40/40 executions) and passed in Linux CI run #45831042645.
 - [ ] Workflow gap: the JSON report was not found by the upload step (per-test summary empty; results taken from the log). Small fix to the report path in `.github/workflows/phase-5-linux-lab.yml` for a later push.
 - [ ] Check the Chrome version used for earlier evidence. Stage 1.5 results (e.g. `tablet-about-responsive` and `tablet-portrait-fluid` passing on 2026-11-25) were recorded on macOS Chrome 158 of that day and probably do not reproduce with the current Chrome 158.0.8127.38 build; record the exact browser build with every result and re-check in the recorded Linux lab (Chromium 154).
 
@@ -108,7 +108,7 @@ Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phas
 
 ## Site fixes 1–6 (branch `fix/site-fixes-1-6`, 2026-11-25)
 
-**Status: task 1 closed (2026-11-26) by Kamila's criterion: the Linux-only `hero-short-height-fallback` failure did not repeat (passed in the CI rerun and the next run). Accepted by Kamila: T1, T2, T3, T4 `desktop-fluid-projects`, T11, `8d4c130`, `ba9e60a`; implemented and verified, acceptance pending: `d5c4aba`, `504d81b`, `e06db15`, `782f5d1`. Linux lab CI, three runs on Chrome for Testing 154.0.8037.57: 220 passed / 1 failed each ([ci-linux-lab](site-fixes-1-6-review/ci-linux-lab.md)). One item stays open after closure: `tablet-narrow-layout` tablet-portrait-en failed in 2 of 3 Linux runs (late resize after a fixed fake-clock wait) — see To-do. Branch pushed for CI only (head `038d64c`); not merged, no PR, not published.** Implemented and verified on macOS. T1, T2, T3 and T11 (commits `209b30d`, `4d82a26`, `871955f`, `9a2f825`) accepted by Kamila on 2026-11-26, visually and by code; the visual acceptance covered `t1-before-mobile-en`, `t1-after-mobile-en` and `t1-after-tablet-portrait-en`. T4 continues below. Based on `case-studies/foundation` (`f9e5b92`) because T3 and T11 concern case pages, which exist only there. Not pushed, merged or published. Captures and probe notes: [site-fixes-1-6-review](site-fixes-1-6-review/README.md).
+**Status: task 1 closed (2026-11-26): the Linux lab CI run [#45831042645](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45831042645) on `ac0ddd2` (Chrome for Testing 154.0.8037.57) is fully green — Phase 5 221 passed, 0 failed, 227 skipped ([ci-linux-lab](site-fixes-1-6-review/ci-linux-lab.md)). Accepted by Kamila: T1, T2, T3, T4 `desktop-fluid-projects`, T11, `8d4c130`, `ba9e60a`; implemented and verified, acceptance pending: `d5c4aba`, `504d81b`, `e06db15`, `782f5d1`, `ac0ddd2`. Branch pushed for CI only (head `ac0ddd2`); not merged, no PR, not published.** Implemented and verified on macOS. T1, T2, T3 and T11 (commits `209b30d`, `4d82a26`, `871955f`, `9a2f825`) accepted by Kamila on 2026-11-26, visually and by code; the visual acceptance covered `t1-before-mobile-en`, `t1-after-mobile-en` and `t1-after-tablet-portrait-en`. T4 continues below. Based on `case-studies/foundation` (`f9e5b92`) because T3 and T11 concern case pages, which exist only there. Not pushed, merged or published. Captures and probe notes: [site-fixes-1-6-review](site-fixes-1-6-review/README.md).
 
 | Task | Cause | Verification | Status |
 | --- | --- | --- | --- |
@@ -147,7 +147,9 @@ Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phas
 | `e06db15` | Test: `tablet-portrait-fluid` waits for the published layout | Implemented and verified (10/10 runs); acceptance pending |
 | `782f5d1` | CI: Phase 5 Linux lab workflow (pushed head) | Ran: [#45818174171](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45818174171) |
 | `038d64c` | Docs: Linux lab CI run 1 (pushed; triggered run #45825649606) | Docs |
-| this commit | Docs: CI rerun and run 3, status closed (local, not pushed) | Docs |
+| `51bc491` | Docs: CI rerun and run 3 (pushed with `ac0ddd2`) | Docs |
+| `ac0ddd2` | Test: `tablet-narrow-layout` waits for the published layout | Implemented and verified; Linux CI green; acceptance pending |
+| this commit | Docs: Linux CI run 4 (green), task 1 closed (local, not pushed) | Docs |
 
 ## Roadmap
 

@@ -6,8 +6,6 @@
 name: Phase 5 (Linux lab)
 
 on:
-  push:
-    branches: [fix/site-fixes-1-6]
   workflow_dispatch:
 
 permissions:

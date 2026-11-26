@@ -1,0 +1,194 @@
+/* Case blocks: hero-reveal, image-pair, ai-episode (scripts/content/case-blocks.mjs).
+   Each block is laid out from the width of its own container (container queries), so
+   it works the same in a full-width column, a narrower column or a mobile page; the
+   page wrapper (styles/case-content.css) only supplies gutters and rhythm. The one
+   exception is hero-reveal, which fills the first screen.
+   Tokens only: text levels are those of docs/case-format.md. */
+
+.kc-case-block {
+  min-width: 0;
+  container-type: inline-size;
+}
+
+/* ---------- Text levels ---------- */
+.kc-case-text {
+  margin: 0;
+  max-inline-size: 40rem;
+  font-family: var(--font-body);
+  font-weight: var(--fw-body);
+  font-size: var(--body-size);
+  line-height: 1.6;
+  letter-spacing: var(--body-track);
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+.kc-case-caption {
+  margin: var(--space-1) 0 0;
+  font-family: var(--font-body);
+  font-weight: var(--fw-body);
+  font-size: var(--kc-type-body);
+  line-height: 1.5;
+  letter-spacing: var(--body-track);
+  color: var(--text-muted);
+}
+.kc-case-label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--kc-type-label);
+  line-height: var(--label-line);
+  letter-spacing: var(--label-track);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ---------- Images ---------- */
+.kc-case-cell { margin: 0; min-width: 0; }
+/* A frame crops the image to its cell. The focus point keeps faces in view:
+   --focus (default 50% 35%) and, in a narrow container, --focus-m. */
+.kc-case-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+  aspect-ratio: var(--r, 4 / 5);
+}
+.kc-case-frame img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focus, 50% 35%);
+}
+@container (max-width: 29.99rem) {
+  .kc-case-frame img { object-position: var(--focus-m, var(--focus, 50% 35%)); }
+}
+/* Art direction inside a block: horizontal frame in a wide container, vertical in a narrow one. */
+.kc-case-frame--wide { display: none; }
+@container (min-width: 30rem) {
+  .kc-case-frame--wide { display: block; }
+  .kc-case-frame--narrow { display: none; }
+}
+
+/* Placeholder skeletons (drafts only: the publication gate refuses them). */
+.kc-case-ph { background: var(--surface-muted); border-radius: var(--radius); }
+.kc-case-ph.kc-case-caption { height: 1.25rem; max-inline-size: 16rem; }
+.kc-case-ph.kc-case-text { height: 4.5rem; }
+.kc-case-ph.kc-ai-title { height: 3rem; max-inline-size: 28rem; }
+.kc-case-ph.kc-ai-prompt { height: 6rem; max-inline-size: 40rem; }
+
+/* ---------- hero-reveal (full-screen exception: sized from the screen) ---------- */
+.kc-case-hero { display: grid; row-gap: var(--space-4); }
+.kc-case-hero-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+  /* The first screen: under the Navbar (chapter padding), above the bottom gutter. */
+  height: calc(100svh - var(--space-10) - var(--space-4));
+  min-height: 20rem;
+}
+.kc-case-hero-media img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focus, 50% 35%);
+}
+@media (orientation: portrait) {
+  .kc-case-hero-media img { object-position: var(--focus-m, var(--focus, 50% 35%)); }
+}
+.kc-case-hero-text { display: grid; row-gap: var(--space-2); }
+.kc-case-title:empty { display: none; }
+.kc-case-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--space-3) var(--kc-case-column-gap);
+  margin: var(--space-2) 0 0;
+}
+.kc-case-fact { display: grid; row-gap: var(--space-half); margin: 0; }
+.kc-case-fact dd { margin: 0; }
+
+/* ---------- image-pair ---------- */
+.kc-case-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--kc-case-column-gap);
+}
+@container (min-width: 30rem) {
+  .kc-case-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Side by side the two cells are the same size. */
+  .kc-case-pair .kc-case-frame { aspect-ratio: var(--shared); }
+}
+
+/* ---------- ai-episode ---------- */
+.kc-ai { display: grid; row-gap: var(--space-8); }
+.kc-ai-title {
+  margin: 0;
+  max-inline-size: 28ch;
+  font-family: var(--font-display);
+  font-weight: var(--fw-display);
+  font-size: var(--kc-type-project-desktop);
+  line-height: var(--heading-line);
+  letter-spacing: -0.03em;
+  color: var(--text-default);
+  text-wrap: pretty;
+}
+:root[data-kc-profile="tablet"] .kc-ai-title { font-size: var(--kc-type-project-tablet); }
+:root[data-kc-profile="mobile"] .kc-ai-title { font-size: var(--kc-type-project-mobile); }
+.kc-ai-section { display: grid; row-gap: var(--space-2); align-content: start; }
+.kc-ai-prompt {
+  /* Inter 14 on a muted surface; line breaks of the prompt are kept. */
+  margin: 0;
+  box-sizing: border-box;
+  max-inline-size: 40rem;
+  padding: var(--space-2);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+  font-family: var(--font-body);
+  font-weight: var(--fw-body);
+  font-size: var(--kc-type-body);
+  line-height: 1.5;
+  letter-spacing: var(--body-track);
+  color: var(--text-default);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.kc-ai-prompt.kc-case-ph { padding: 0; }
+.kc-ai-section--method { row-gap: var(--space-3); }
+.kc-ai-section--method > .kc-case-label { margin-bottom: calc(var(--space-2) * -1); }
+
+/* Rows of frames: one column, then two, then one per frame (up to four). */
+.kc-case-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3) var(--kc-case-column-gap);
+  align-items: start;
+}
+@container (min-width: 30rem) {
+  .kc-case-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kc-case-row .kc-case-frame { aspect-ratio: var(--shared); }
+}
+@container (min-width: 50rem) {
+  .kc-case-row[data-n="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .kc-case-row[data-n="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Enlarged detail of a defect, under its frame, with its label. */
+.kc-case-crop { display: grid; row-gap: var(--space-half); margin-top: var(--space-2); }
+@container (min-width: 30rem) {
+  .kc-case-crop { max-inline-size: 60%; }
+}
+.kc-case-crop-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+  aspect-ratio: var(--r);
+}
+.kc-case-crop-frame img { position: absolute; display: block; max-width: none; }
+.kc-case-crop-label { margin: 0; }

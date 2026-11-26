@@ -374,15 +374,18 @@ async function buildCasePage({ record, data }, locale) {
   for (const [key, value] of Object.entries(fields)) html = html.replaceAll(`{{${key}}}`, escapeAttribute(value));
   // Pages built from a case file add the case tokens; the foundation route stays byte-identical.
   html = html.replace('{{caseStyles}}', () => data
-    ? '\n<link rel="stylesheet" href="/styles/case-tokens.css">\n<link rel="stylesheet" href="/styles/case-content.css">' : '');
+    ? '\n<link rel="stylesheet" href="/styles/case-tokens.css">\n<link rel="stylesheet" href="/styles/case-content.css">\n<link rel="stylesheet" href="/styles/case-blocks.css">' : '');
   const hasMenu = data?.chapters.some(c => c.blocks.some(block => block.type === 'chapter-menu'));
   html = html.replace('{{caseScripts}}', () => hasMenu ? '\n<script src="/scripts/case/chapter-menu.js"></script>' : '');
   // The grid container for case content. The foundation route shows its column tracks.
   const grid = record.preview
     ? `<div class="kc-case-grid kc-case-grid--preview" data-kc-case-grid>${'<span aria-hidden="true"></span>'.repeat(12)}</div>`
     : '<div class="kc-case-grid" data-kc-case-grid></div>';
-  const body = data ? renderCaseContent(data, locale, { escapeText, escapeAttribute }) : grid;
-  const content = `<header class="kc-case-header">\n<h1 class="kc-case-title">${escapeText(text.title)}</h1>\n</header>\n${body}`;
+  let manifest = {};
+  if (data) try { manifest = JSON.parse(await readFile(path.join(root, 'assets/cases', data.id, 'images.json'), 'utf8')).images; } catch {}
+  const rendered = data ? renderCaseContent(data, locale, { escapeText, escapeAttribute, manifest }) : null;
+  const header = rendered?.ownsTitle ? '' : `<header class="kc-case-header">\n<h1 class="kc-case-title">${escapeText(text.title)}</h1>\n</header>\n`;
+  const content = `${header}${rendered ? rendered.html : grid}`;
   html = html.replace('{{caseContent}}', () => content);
   if (/\{\{[^}]+\}\}/.test(html)) throw new Error(`Unfilled template token in case ${record.id}/${locale}`);
   // Shared copy (Navbar, Footer, dialogs) uses the same localization path as the homepage.

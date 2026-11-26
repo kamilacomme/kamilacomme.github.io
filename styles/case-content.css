@@ -4,9 +4,15 @@
    gutters come from scripts/shared/responsive-profile.js. Behavior of the menu
    (compact mode, current chapter, open/close): scripts/case/chapter-menu.js. */
 
-/* ---------- Chapters ---------- */
+/* ---------- Chapters ----------
+   The chapter section is the page wrapper of the blocks: it gives them the page
+   gutters and the vertical rhythm. Blocks size themselves from their own width. */
 .kc-case-chapter {
   box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--space-8);
+  align-content: start;
   padding: var(--space-12) var(--kc-page-gutter-x) 0;
   /* Anchors land below the Navbar and the sticky menu (published by chapter-menu.js). */
   scroll-margin-top: var(--kc-case-menu-offset, var(--space-16));
@@ -120,4 +126,17 @@
 @media (prefers-reduced-motion: reduce) {
   .kc-case-menu-link,
   .kc-case-menu-action { transition: none; }
+}
+
+/* First chapter with a hero-reveal: starts under the fixed Navbar; its title is for assistive technology only. */
+.kc-case-chapter--hero { padding-top: var(--space-10); }
+.kc-case-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

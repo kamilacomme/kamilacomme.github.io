@@ -4,6 +4,8 @@
 // The chapter menu's behavior is owned by scripts/case/chapter-menu.js; its
 // styles by styles/case-content.css.
 
+import { createBlockRenderer, pick } from './case-blocks.mjs';
+
 const UI = {
   fr: { menu: 'Chapitres', open: 'Ouvrir', close: 'Fermer' },
   en: { menu: 'Chapters', open: 'Open', close: 'Close' },
@@ -11,16 +13,14 @@ const UI = {
 
 export const chapterAnchor = id => `chapter-${id}`;
 
-/** Text for a locale. A draft may lack French: it falls back to English, marked lang="en". */
-export function pick(value, locale) {
-  if (!value) return null;
-  if (typeof value[locale] === 'string' && value[locale].trim()) return { text: value[locale], lang: null };
-  if (locale !== 'en' && typeof value.en === 'string' && value.en.trim()) return { text: value.en, lang: 'en' };
-  return null;
-}
-
-export function renderCaseContent(data, locale, { escapeText, escapeAttribute }) {
+/**
+ * Returns {html, ownsTitle}. A case with a hero-reveal block gets its page title (h1)
+ * from that block; otherwise the page builder adds the plain case header.
+ */
+export function renderCaseContent(data, locale, { escapeText, escapeAttribute, manifest }) {
   const ui = UI[locale];
+  const blocks = createBlockRenderer({ caseId: data.id, locale, manifest, escapeText, escapeAttribute });
+  const ownsTitle = data.chapters.some(c => c.blocks.some(block => block.type === 'hero-reveal'));
   const textNode = (value, tag, attrs = '') => {
     const t = pick(value, locale);
     if (!t) return '';
@@ -31,10 +31,15 @@ export function renderCaseContent(data, locale, { escapeText, escapeAttribute })
 
   const chapter = c => {
     const anchor = chapterAnchor(c.id);
-    const blocks = c.blocks.filter(block => block.type !== 'chapter-menu')
-      .map(block => `<div class="kc-case-block kc-case-block--${block.type}" data-kc-block="${block.type}"></div>`).join('\n');
-    return `<section class="kc-case-chapter" id="${anchor}" data-kc-chapter="${escapeAttribute(c.id)}" aria-labelledby="${anchor}-title">\n`
-      + `${textNode(c.title, 'h2', ` class="kc-case-chapter-title" id="${anchor}-title"`)}\n${blocks}\n</section>`;
+    const hero = c.blocks.some(block => block.type === 'hero-reveal');
+    const content = c.blocks.filter(block => block.type !== 'chapter-menu').map(block => {
+      const inner = blocks[block.type]?.(block, data.meta) ?? '';
+      return `<div class="kc-case-block kc-case-block--${block.type}" data-kc-block="${block.type}">${inner}</div>`;
+    }).join('\n');
+    // The hero chapter's title is only for assistive technology; the hero shows the case title.
+    const title = textNode(c.title, 'h2', ` class="kc-case-chapter-title${hero ? ' kc-case-visually-hidden' : ''}" id="${anchor}-title"`);
+    return `<section class="kc-case-chapter${hero ? ' kc-case-chapter--hero' : ''}" id="${anchor}" data-kc-chapter="${escapeAttribute(c.id)}" aria-labelledby="${anchor}-title">\n`
+      + `${title}\n${content}\n</section>`;
   };
 
   const menu = () => {
@@ -52,7 +57,7 @@ export function renderCaseContent(data, locale, { escapeText, escapeAttribute })
 
   // Everything after the menu sits in one container, so the sticky menu stays
   // in view through the last chapter and leaves before the Footer.
-  if (menuIndex < 0) return data.chapters.map(chapter).join('\n');
+  if (menuIndex < 0) return { html: data.chapters.map(chapter).join('\n'), ownsTitle };
   const before = data.chapters.slice(0, menuIndex + 1).map(chapter).join('\n');
-  return `${before}\n<div class="kc-case-chapters" data-kc-case-chapters>\n${menu()}\n${listed.map(chapter).join('\n')}\n</div>`;
+  return { html: `${before}\n<div class="kc-case-chapters" data-kc-case-chapters>\n${menu()}\n${listed.map(chapter).join('\n')}\n</div>`, ownsTitle };
 }

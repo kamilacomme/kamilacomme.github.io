@@ -243,3 +243,30 @@ Question: do `8d4c130` (tablet re-layout observer) or `ba9e60a` (Footer handoff)
 ## Relation to T6 (macOS lab)
 
 Cases 1 and 2 did not depend on macOS, fonts or scrollbars: they were timing races inside the product, fixed in `8d4c130` and `ba9e60a`. Cases 3–6 are not confirmed in the product: on this Mac, headless Chrome 158 delivers `resize` and `scroll` events (and keyboard default scrolling) hundreds of milliseconds to seconds late, while the specs sample after fixed short waits or fake-clock advances. Case 3 is late `resize`, case 4 a dropped default keyboard scroll, case 5 late `scroll`, case 6 a scroll ignored inside the scroll owner's 120 ms post-layout window and not re-read before the next pass (see the corrected conclusion). All four belong with T6 or a Linux lab run; none of their specs or thresholds were changed. The remaining macOS-only failure is `tablet-projects-shared-gutter` (overlay scrollbars), recorded under T4; it closes only with T6 or in the Linux lab.
+
+## 7. `hero-short-height-fallback` (desktop-en, tablet-landscape-fr) — 2026-11-26
+
+**Symptom.** In 2 of 7 Linux CI runs, a Hero element measured below a 188px-high viewport after the test scrolled it into view: desktop-en 1707×188 flow, slideshow bottom 279 > 189 (run #45818174171); tablet-landscape-fr 500×188 flow, slideshow bottom 314 > 189 (run #45867477492, attempt 1). Reproduced on this Mac (Chrome 158): 1/30, 1/50 and 1/60 runs across the two profiles.
+
+**Instrumented copy** (scratchpad only; the spec was not changed for the diagnosis): page hooks on `window.scrollTo`, `window.scrollBy`, `Element.scrollIntoView` and `Element.scrollTo` with stacks, `scroll`/`resize` listeners, and a per-frame sampler of the mode, root height, document height, viewport and the document positions of the title, slideshow, portrait and scroll cue.
+
+**Evidence (failing run, tablet-landscape-fr).** Geometry is constant through the whole check: mode `flow`, root 418px, document 5148px, viewport 500×188; title at 88, slideshow at 262 (156 high), portrait at 302 (48 high), cue at 366. Before the portrait check `scrollY` is 246 and the portrait is fully visible (top 56, bottom 104). The page makes no scroll call. The only scroll writes happen inside Playwright's `locator.scrollIntoViewIfNeeded()` (1.1–1.4 s long): `scrollY` 246 → 104 (portrait top 198, out of view), measured → failure. The other failing run showed 246 → 104 → 90.
+
+**Cause.** In Chromium, Playwright's `scrollIntoViewIfNeeded` sends CDP `DOM.scrollIntoViewIfNeeded` after its stability wait; on these pages it occasionally scrolls an element that is already fully visible to a position where it is not. A separate probe on the same page called it 150 times on the already visible portrait at `scrollY` 246: it moved the page 2 times and one call took 2.5 s; the native `element.scrollIntoView({block: 'nearest'})` moved it 0 times in 150. It is a test-tool artifact, not a site bug: no site script scrolls and no Hero geometry changes.
+
+**Rejected hypotheses.**
+
+- Late `resize` relayout (as §3): rejected, viewport, mode, root height and element positions never changed after the settle.
+- A site scroll writer (resize-anchor restoration, Projects/About handoffs, `focusMobileProject`): rejected, none of the hooked calls fired during the check.
+- Smooth scrolling: rejected, `html { scroll-behavior: auto }` and the final positions are not on a path between start and target.
+- Animated portrait (unstable box): rejected, transform `none`, 0 running animations, constant box.
+
+**Fix (authorized in task 0b).** The reachability loop scrolls with the native `element.scrollIntoView({ block: 'nearest', inline: 'nearest' })` instead of `locator.scrollIntoViewIfNeeded()`. Assertions and thresholds unchanged.
+
+## 8. `tablet-layered-ticket` (tablet-landscape-en) — `clock.pauseAt: Cannot fast-forward to the past` — 2026-11-26
+
+**Symptom.** Once in 8 Linux CI runs (run #45875616915), 0.5 s into the test, in `qa.seed()` (`tests/qa/helpers.cjs`): `clock.install({time: epoch})` followed by `clock.pauseAt(epoch + 1 ms)`.
+
+**Cause (from Playwright 1.62.1 clock source).** After `install` the fake clock runs in real time and syncs at least every 100 ms. `pauseAt(t)` throws this error when the fake time is already past `t`. So the error needs a sync of more than 1 ms between the two calls, i.e. a runner stall of up to about 100 ms between two consecutive protocol calls. It is a CI timing artifact of the shared test helper, not a site bug.
+
+**Not changed.** `qa.seed()` (epoch, `pauseAt` margin) also sets up the `tests/qa` visual references of the release gate (`clockEpoch` in every capture manifest), so it stays as it is. Watch it; a fix needs a separate decision.

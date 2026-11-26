@@ -3,3 +3,4 @@ test-results/
 playwright-report/
 tests/artifacts/
 artifacts/
+.DS_Store

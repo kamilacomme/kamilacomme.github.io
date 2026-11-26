@@ -1,4 +1,4 @@
-# Runs the Phase 5 Playwright suite in a Linux lab close to the recorded one
+# Runs the Phase 5 Playwright suite and the full release gate in a Linux lab close to the recorded one
 # (linux x64, Chromium 154.0.8037.57, Playwright 1.62.1). Test evidence only:
 # it builds nothing, publishes nothing and has read-only repository access.
 # GitHub Pages is unaffected: it deploys only from `main` (legacy build), and the
@@ -87,4 +87,54 @@ jobs:
           path: |
             phase-5-results.json
             artifacts/playwright/phase-5-results
+          retention-days: 14
+
+  # Full release gate (`npm test`, tests/gate.mjs) in the same Linux lab: frozen
+  # reference lock, lab check (tests/verify-lab.cjs), performance-comparison unit
+  # tests, the tests/qa functional/visual suite and the bounded responsive QA.
+  release-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      CHROME_VERSION: 154.0.8037.57
+      CHROME_ZIP_MD5: 0feaa732dbd1c6b075afd6cc55e0c8af
+      BASE_URL: http://127.0.0.1:8000
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Install Chromium ${{ env.CHROME_VERSION }} (Chrome for Testing)
+        run: |
+          curl -fsSL -o "$RUNNER_TEMP/chrome.zip" \
+            "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chrome-linux64.zip"
+          echo "${CHROME_ZIP_MD5}  $RUNNER_TEMP/chrome.zip" | md5sum -c -
+          unzip -q "$RUNNER_TEMP/chrome.zip" -d "$RUNNER_TEMP"
+          npx playwright install-deps chromium
+          echo "CHROMIUM_PATH=$RUNNER_TEMP/chrome-linux64/chrome" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/chrome-linux64/chrome" --version
+
+      - name: Deterministic build check
+        run: npm run content:build:check
+
+      - name: Serve the checkout
+        run: |
+          node tests/runtime/server.mjs > "$RUNNER_TEMP/server.log" 2>&1 &
+          for i in $(seq 1 30); do curl -fs -o /dev/null "$BASE_URL/" && exit 0; sleep 1; done
+          cat "$RUNNER_TEMP/server.log"; exit 1
+
+      - name: Full release gate (npm test)
+        run: npm test
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-gate-results
+          path: artifacts/playwright
           retention-days: 14

@@ -23,10 +23,10 @@ Pour un serveur local de test :
 npm run test:serve
 ```
 
-Le serveur affiche l'URL locale. Les contrôles Lighthouse sont plus lourds et séparés : `npm run test:performance`. Consultez [AGENTS.md](AGENTS.md) pour les commandes détaillées, les propriétaires des composants et les règles de modification sûres. Ne mettez pas à jour les 230 références historiques pour faire passer un test.
+Le serveur affiche l'URL locale. Les contrôles Lighthouse sont plus lourds et séparés : `npm run test:performance`. Les commandes détaillées, les propriétaires des composants, les règles de modification sûres et les règles de publication sont dans [AGENTS.md](AGENTS.md) ; les références figées sont décrites dans [docs/references.md](docs/references.md).
 
 ## Publication
 
-Le déploiement est déclenché par les fichiers validés et générés présents à la racine de `main`; aucun workflow GitHub Actions du dépôt ne construit le site. Avant toute publication autorisée, vérifiez la branche et le commit exacts, l'état Git, le diff, le build bilingue, le gate de régression, les références historiques et la possibilité de restaurer la version précédente. Après publication, contrôlez les routes `/` et `/en/`, les liens principaux, les ressources et les réponses 404 localisées.
+Le déploiement est déclenché par les fichiers validés et générés présents à la racine de `main` ; aucun workflow GitHub Actions du dépôt ne construit le site. Les conditions de publication sont dans [AGENTS.md](AGENTS.md#git-backups-and-repository-hygiene).
 
 Le nom de domaine et le tag qui préserve l'ancienne version sont documentés dans [docs/PROJECT-STATUS.md](docs/PROJECT-STATUS.md).

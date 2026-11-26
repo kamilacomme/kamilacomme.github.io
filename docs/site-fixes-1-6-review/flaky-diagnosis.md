@@ -130,6 +130,58 @@ The generated `desktop-project-embedded.html` and `en/desktop-project-embedded.h
 
 **Pre-check of the proposal** (patched controller and FR/EN iframe documents served via request routing, 5 runs per case): mobile → desktop Footer kept 5/5 FR and 5/5 EN (current: lost 5/5 and 5/5); tablet → desktop and desktop → desktop kept 5/5 in both versions. Not yet run: the spec itself, the Phase 5 suite, the 492-point matrix, the language-switch and resize-continuity specs.
 
+## 3. `tablet-about-responsive` (tablet-portrait EN and FR) — 2026-11-26
+
+**Symptom.** Fails at the first step (500×600): `expect(parseFloat(result.stage.width)).toBeCloseTo(viewport.width, 0)` — expected 500, received 834 (the About stage keeps the previous 834×1112 size).
+
+**Runs.** 10/10 failed on the current branch (EN and FR, 20 executions); 3/3 failed on `main`, `f9e5b92`, `209b30d` and `3fbb343`. It predates this branch and the case-study foundation.
+
+**Hypotheses and checks**
+
+| # | Hypothesis | Check | Result |
+| --- | --- | --- | --- |
+| H1 | The test's paused fake clock (`qa.seed`: `clock.install` + `pauseAt`) blocks a deferred About fit. | Copies of the spec (outside the repository): without `qa.seed`; with `page.clock.runFor(50)` after the resize. | Rejected. Both still fail (834 at 500×600). `fit()` runs synchronously in the `resize` listener; there is no time-based guard. |
+| H2 | The page does not receive the `resize` event within the test's fixed 100 ms real wait. | Instrumented copy: counted `resize` events and traced every write of `window.__kcTabletLayout`; measured the delay between `setViewportSize` and the page's `resize` event in the same emulation (iPad UA, `isMobile`, touch, DPR 2). | **Confirmed.** At the failing check no `resize` event had arrived (the only write was from the previous size); a manual `resize` dispatch immediately produced 500×600 and a 500px stage. Measured event delay after `setViewportSize`: 14–1758 ms with a real clock and 32–1413 ms with the paused clock. With a 1 s wait in a copy of the spec every resize arrives and the full spec passes 3/3 (EN and FR). |
+
+**Root cause: environment and test timing, not the product.** On this Mac (Chrome 158.0.8127.38, headless, mobile emulation) the emulated viewport change reaches the page later than the spec's fixed `waitForTimeout(100)`. The product's geometry owner lays out correctly as soon as the event arrives. Per the task rules the spec and its waits were not changed. The Phase 5 record of 3/3 passes on 2026-11-25 no longer reproduces on this machine.
+
+**Where it closes.** In the recorded Linux lab (T6 or a Linux run), or by an owner decision to change how the spec waits for the resize (for example, polling until `__kcTabletLayout` reports the new size, as other Phase 5 specs do) — a test change that needs separate authorization.
+
+## 4. `language-scroll-restoration` (desktop-en PageDown; tablet-portrait-fr) — 2026-11-26
+
+**Symptom.** After the About restore on `/` at 1920×1080, the spec presses PageDown and expects `scrollY` to grow by more than 80px within 5 s; in failing runs it stays at the restored 7665.
+
+**Runs.** 20 consecutive runs on the current branch: desktop-en failed 2/20; tablet-portrait-fr passed 20/20 (its single earlier failure, in a full-suite run, did not recur). Earlier comparison: 2/20 on `3fbb343` (before the race fixes), so it predates them. One more failure was caught on the 6th run of an instrumented copy.
+
+**Hypotheses and checks**
+
+| # | Hypothesis | Check | Result |
+| --- | --- | --- | --- |
+| H1 | A product key handler cancels the PageDown (legal-dialog key handler, scroll-intent cancellation). | Instrumented copy: capture-phase `keydown` log (target, active element, `document.hasFocus()`), `defaultPrevented` after dispatch, and a trace of every `preventDefault` call on `keydown`. | Rejected. In the failing run the PageDown reached `BODY` with the document focused, `defaultPrevented` was `false`, and no script called `preventDefault`. |
+| H2 | A late product scroll writer (language-anchor restore, iframe `restoreAnchor`, Footer handoff) moves the page back after the key scroll. | Trace of every `scrollTo` / `scrollBy` / `scrollIntoView` with its caller (run earlier on this branch); scroll events after the key press. | Rejected. No script wrote a scroll position after the restore; the only scroll event after the key press came 2.2 s later and still reported 7665, i.e. the browser never applied the key's default scroll. |
+
+**Conclusion: not confirmed in the product; stopped here per the task rules.** The page received an uncancelled PageDown with focus and no competing scroll writer, and headless Chrome 158 on macOS did not perform the default keyboard scroll in about 1 of 10 runs (with a 2.2 s gap before the next rendered scroll event). This points to the browser/environment rather than the site. Nothing was changed; the spec and thresholds are untouched. To be re-checked in the recorded Linux lab (T6 or a Linux run).
+
+## 5. `tablet-layered-ticket` (tablet-landscape EN) — 2026-11-26
+
+**Symptom.** After `scrollTo(projectTop + 3650)` and `page.clock.runFor(500)` the landscape rail transform is 0 instead of −3650.
+
+**Runs.** Current branch 3/5 and 3/4 (instrumented) failed; `3fbb343` (before the race fixes) 5/5 failed — it predates them.
+
+**Check.** Instrumented copy logged scroll and resize events from just before the `scrollTo`. In every failing run the page had received **0** scroll and 0 resize events at the assertion; 1.5 s of real time later both events had arrived and the rail stood exactly at −3650 (the same value the spec expects). The rail is driven by the `scroll` listener, which simply had not run yet; `runFor(500)` advances the fake clock, not the browser's event delivery.
+
+**Conclusion: environment (late event delivery in headless Chrome 158 on macOS), not the product.** Same mechanism as case 3. Not changed.
+
+## 6. `language-switch` (tablet-landscape FR, About step) — 2026-11-26
+
+**Symptom.** After the spec scrolls to About and clicks the switch, the URL is `/en/#projets-t` instead of `/en/#apropos-t`.
+
+**Runs.** Current branch 3/21 failed; `3fbb343` 1/15 — it predates the race fixes (rates within noise of each other).
+
+**Checks.** Geometry and every `scrollTo` with its caller were logged up to the click. Sequence in a failing run: on arrival from the previous switch `tablet-project-layout.js` restores the project anchor (y 555); the spec scrolls programmatically to About (y 4610, About top −80); ~460 ms later a forced tablet layout pass restores the project anchor again (y 555), so at the click the switch handler sees Projects. The second restore uses `lastViewportAnchor`, which `captureViewportAnchor()` deliberately prefers during resize and which the scroll owner clears from its `scroll` listener once Projects leaves the viewport. At the click the page had received only 3 scroll events and not the one for the spec's jump to About, so the stale project anchor was still set.
+
+**Conclusion: not confirmed in the product.** In a browser that delivers scroll events normally, the scroll steps run before the animation-frame callbacks of the same frame, so the anchor is cleared before any later layout pass; the stale anchor survives only because scroll delivery is delayed by several hundred ms in this environment (as in cases 3 and 5). A product-side hardening (ignoring `lastViewportAnchor` when Projects is not in the viewport) would change the intentional resize-time behaviour documented in `captureViewportAnchor()` and is not justified by a product defect; not changed.
+
 ## Relation to T6 (macOS lab)
 
-Neither case depends on macOS, fonts or scrollbars: both are timing races inside the product that the tests expose, so they are not environment limitations. The remaining macOS-only item is `tablet-projects-shared-gutter` (overlay scrollbars), recorded under T4.
+Cases 1 and 2 did not depend on macOS, fonts or scrollbars: they were timing races inside the product, fixed in `8d4c130` and `ba9e60a`. Cases 3–6 are not confirmed in the product: on this Mac, headless Chrome 158 delivers `resize` and `scroll` events (and keyboard default scrolling) hundreds of milliseconds to seconds late, while the specs sample after fixed short waits or fake-clock advances. Case 3 is late `resize`, case 4 a dropped default keyboard scroll, case 5 late `scroll`, case 6 a stale scroll-owner anchor caused by late `scroll`. All four belong with T6 or a Linux lab run; none of their specs or thresholds were changed. The remaining macOS-only failure is `tablet-projects-shared-gutter` (overlay scrollbars), recorded under T4; it closes only with T6 or in the Linux lab.

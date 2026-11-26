@@ -67,9 +67,11 @@ Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phas
 - [x] T11 Dead selectors in `static-nav.css` — already removed in stage 1.5; re-verified (see site fixes). Accepted by Kamila on 2026-11-26 (visually and by code).
 - [ ] T12 Desktop page gutters scale with the scene, 23–35px, on the homepage; accepted. Note: since stage 1.5 case pages and the 404 use the same 32 × s formula (matrix: identical values), not a fixed 32px.
 - [x] Found during site fixes, pre-existing product races ([flaky-diagnosis](site-fixes-1-6-review/flaky-diagnosis.md), diagnosis accepted by Kamila on 2026-11-26): (a) tablet Projects left unlaid after a late runtime re-render — fixed in `8d4c130`; (b) Footer position lost on mobile → desktop resize — fixed in `ba9e60a`. Both accepted by Kamila on 2026-11-26 after visual review.
-- [ ] **Before publication — diagnosis only (test and thresholds unchanged):** `tablet-about-responsive` tablet-portrait-en fails 10/10 on this Mac (About stage stays 834px wide after resizing to 500px), equally on `f9e5b92`, `209b30d`, `3fbb343` and the fix branch, so it predates this branch. The stage 1.5 record says it passed 3/3; that no longer reproduces (Chrome now 158.0.8127.38).
-- [ ] Long-standing intermittent: `language-scroll-restoration`. Tablet-portrait-fr failed once in the full suite (0/10 on rerun, 0/10 on `3fbb343`); desktop-en sometimes ignores the PageDown after the About restore (2/20 on `3fbb343`, 0–2/10 per batch on the fix branch; no scroll writer involved).
-- [ ] `tablet-projects-shared-gutter` ×2 (desktop-fr, desktop-en): macOS overlay-scrollbar limitation; resolved by T6 (macOS lab) or a Linux lab run.
+- [x] `tablet-about-responsive` (tablet-portrait EN/FR) — diagnosed 2026-11-26, **not a product defect**: Chrome 158 on this Mac delivers the emulated `resize` 14–1758 ms after `setViewportSize`, the spec checks after a fixed 100 ms; the product lays out correctly once the event arrives (copy with a 1 s wait: 3/3 pass). Fails 10/10 here, also on `main`. Spec and thresholds unchanged; re-check in the Linux lab (T6). [Diagnosis §3](site-fixes-1-6-review/flaky-diagnosis.md).
+- [x] `language-scroll-restoration` (desktop-en PageDown; tablet-portrait-fr) — diagnosed 2026-11-26, **not confirmed in the product**: desktop-en 2/20, tablet-portrait-fr 0/20; the uncancelled PageDown reaches the focused page, no script moves the scroll back, and the browser does not apply the default scroll. Unchanged; re-check in the Linux lab (T6). [Diagnosis §4](site-fixes-1-6-review/flaky-diagnosis.md).
+- [x] `tablet-layered-ticket` (tablet-landscape EN) and `language-switch` (tablet-landscape FR, About step) — found in the 2026-11-26 full run, both also fail on `3fbb343`; diagnosed as late `scroll` delivery in this environment (rail correct at −3650 once the event arrives; stale scroll-owner anchor before the scroll event is processed). Unchanged; re-check in the Linux lab (T6). [Diagnosis §5–6](site-fixes-1-6-review/flaky-diagnosis.md).
+- [ ] `tablet-projects-shared-gutter` ×2 (desktop-fr, desktop-en): macOS overlay-scrollbar limitation. **Closes only with T6 (macOS lab) or in the recorded Linux lab**; not touched.
+- [ ] Before publication: run the full Phase 5 suite and `npm test` in the recorded Linux lab to confirm that the timing-dependent failures above (§3–6) do not occur there.
 
 **Findings left as they were**
 
@@ -99,7 +101,7 @@ Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phas
 
 ## Site fixes 1–6 (branch `fix/site-fixes-1-6`, 2026-11-25)
 
-**Status: task 1 accepted by Kamila on 2026-11-26 with open items (accepted: T1, T2, T3, T4 `desktop-fluid-projects`, T11, and both race fixes `8d4c130` and `ba9e60a`; open: `tablet-about-responsive` tablet-portrait-en, `language-scroll-restoration` intermittent, `tablet-projects-shared-gutter` macOS limitation — see To-do). Implemented and verified on macOS. T1, T2, T3 and T11 (commits `209b30d`, `4d82a26`, `871955f`, `9a2f825`) accepted by Kamila on 2026-11-26, visually and by code; the visual acceptance covered `t1-before-mobile-en`, `t1-after-mobile-en` and `t1-after-tablet-portrait-en`. T4 continues below. Based on `case-studies/foundation` (`f9e5b92`) because T3 and T11 concern case pages, which exist only there. Not pushed, merged or published.** Captures and probe notes: [site-fixes-1-6-review](site-fixes-1-6-review/README.md).
+**Status: task 1 closed except the macOS environment items (2026-11-26). Accepted by Kamila: T1, T2, T3, T4 `desktop-fluid-projects`, T11, and the race fixes `8d4c130` and `ba9e60a`. Remaining failures on this Mac are environment timing in headless Chrome 158 (diagnosed, not product defects, specs unchanged) and `tablet-projects-shared-gutter` (overlay scrollbars); all close with T6 or a Linux lab run — see To-do.** Implemented and verified on macOS. T1, T2, T3 and T11 (commits `209b30d`, `4d82a26`, `871955f`, `9a2f825`) accepted by Kamila on 2026-11-26, visually and by code; the visual acceptance covered `t1-before-mobile-en`, `t1-after-mobile-en` and `t1-after-tablet-portrait-en`. T4 continues below. Based on `case-studies/foundation` (`f9e5b92`) because T3 and T11 concern case pages, which exist only there. Not pushed, merged or published. Captures and probe notes: [site-fixes-1-6-review](site-fixes-1-6-review/README.md).
 
 | Task | Cause | Verification | Status |
 | --- | --- | --- | --- |
@@ -115,6 +117,22 @@ Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phas
 **Shared checks.** `test:baseline-integrity`: 230 references unchanged. `content:check`, `content:build:check` clean. Matrix 492 points (homepage / case / 404, FR/EN, widths 320–1920 × heights 500/800/1100 plus three iPad sizes): before and after byte-identical, 0 homepage/case mismatches, 0 pill/profile mismatches against the 404. Commits: `209b30d` (T1), `4d82a26` (T2), `871955f` (T3), plus this documentation commit.
 
 **After the two race fixes (2026-11-26).** Full Phase 5 suite: 217 passed, 4 failed, 227 skipped — `tablet-projects-shared-gutter` ×2 (macOS limitation), `tablet-about-responsive` tablet-portrait-en (fails 10/10 also on `f9e5b92`) and `language-scroll-restoration` tablet-portrait-fr (0/10 on rerun, 0/10 on `3fbb343`). Matrix 492 points: first run had 2 transient points (EN homepage 1080×500 and 1100×500 read `tablet` 220 ms after the resize; not reproduced in 8 targeted runs with or without the fix); full rerun byte-identical to the baseline, 0 mismatches. `test:baseline-integrity` 230 unchanged; `content:build:check` clean.
+
+**Environment diagnosis and final Phase 5 run (2026-11-26).** Full Phase 5 suite on `d842cc9` (no product change since `ba9e60a`): 215 passed, 6 failed, 227 skipped. Failed: `tablet-projects-shared-gutter` desktop-fr and desktop-en (macOS overlay scrollbars), `language-scroll-restoration` tablet-portrait-fr, `language-switch` tablet-portrait-en and tablet-landscape-fr, `tablet-layered-ticket` tablet-landscape-en. Reruns: `language-switch` tablet-portrait-en 0/5, `language-scroll-restoration` tablet-portrait-fr 0/5 and 0/20; `language-switch` tablet-landscape-fr 3/21 (1/15 on `3fbb343`); `tablet-layered-ticket` tablet-landscape-en 3/5 (5/5 on `3fbb343`). `tablet-about-responsive` passed in that run but fails 10/10 in focused runs. All are diagnosed as late event delivery in headless Chrome 158 on macOS ([flaky-diagnosis §3–6](site-fixes-1-6-review/flaky-diagnosis.md)); no product cause was confirmed, so no product, spec or threshold was changed.
+
+| Commit | Change | Status |
+| --- | --- | --- |
+| `209b30d` | T1 English Projects headings | Accepted |
+| `4d82a26` | T2 `--grid-margin-tablet` 32px | Accepted |
+| `871955f` | T3 Footer position across the language switch on case pages | Accepted |
+| `9a2f825` | Docs T1–T4, T11 | Accepted |
+| `6ae1dca` | Docs: acceptance of T1, T2, T3, T11 | Docs |
+| `f09d309` | T4 mode-aware desktop rail start check | Accepted |
+| `3fbb343` | Docs: diagnosis of the two product races | Diagnosis accepted |
+| `8d4c130` | Fix: tablet Projects re-layout after late runtime re-render | Accepted |
+| `ba9e60a` | Fix: Footer kept on mobile → desktop resize | Accepted |
+| `4c6d131`, `115d320`, `d842cc9` | Docs: checks, acceptance, status with open items | Docs |
+| this commit | Docs: environment diagnosis §3–6, To-do, final status | Docs |
 
 ## Roadmap
 

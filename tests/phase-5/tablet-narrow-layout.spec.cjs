@@ -319,6 +319,13 @@ test('tablet navbar top inset shares the page gutter and aligns with the landsca
   await qa.routes(context);
   await qa.seed(page);
   await qa.ready(page, language);
+  // Wait until the page has received the resize and the responsive profile owner
+  // has published the new viewport (same signal as tablet-portrait-fluid).
+  const waitForPublishedLayout = async ({ width, height }) => {
+    await page.setViewportSize({ width, height });
+    await expect.poll(() => page.evaluate(({ width, height }) => window.__kcTabletLayout?.width === width
+      && window.__kcTabletLayout?.height === height, { width, height })).toBe(true);
+  };
 
   const cases = [
     { width: 834, height: 555, landscape: true },
@@ -328,7 +335,7 @@ test('tablet navbar top inset shares the page gutter and aligns with the landsca
   ];
   const snapshots = [];
   for (const viewport of cases) {
-    await page.setViewportSize(viewport);
+    await waitForPublishedLayout(viewport);
     await page.clock.runFor(300);
     const snapshot = await page.evaluate(async ({ landscape }) => {
       const nav = document.querySelector('.kc-responsive-nav');
@@ -390,9 +397,9 @@ test('tablet navbar top inset shares the page gutter and aligns with the landsca
 
   // Exercise the same 960×555 layout on a fresh load and after resizing away and
   // back, so the navbar/rail geometry cannot depend on stale controller state.
-  await page.setViewportSize({ width: 1440, height: 900 });
+  await waitForPublishedLayout({ width: 1440, height: 900 });
   await page.clock.runFor(200);
-  await page.setViewportSize({ width: 960, height: 555 });
+  await waitForPublishedLayout({ width: 960, height: 555 });
   await page.clock.runFor(300);
   const afterResize = await page.evaluate(() => ({
     navScale: parseFloat(getComputedStyle(document.querySelector('.kc-responsive-nav')).getPropertyValue('--kc-nav-scale')),

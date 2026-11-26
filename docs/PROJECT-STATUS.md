@@ -14,6 +14,15 @@ Updated: 2026-11-26 (merge of site fixes 1–6 and repository cleanup); earlier 
 
 **Accepted limitations and deferred work:** the 44×44 language switcher may overlap content at exceptionally short heights; this was accepted. The duplicate runtime document fetch remains deferred because its source package and editor/preview behavior could not be validated safely. Lighthouse median budgets passed in the final controlled comparison, with one English mobile LCP sample above its median ceiling; physical Safari/iOS and field performance were not covered. Do not interpret earlier dated entries in this tracker as current blockers when they are superseded by this release record.
 
+## Task 2 — case format and chapter menu (branch `case-studies/jane-format`, 2026-11-26)
+
+**Status: in progress. Plan accepted by Kamila 2026-11-26 with corrections (accepted Jane chapter order, no "Extra generations", draft/publish split, WebP only for frames assigned to chapters with a 15 MB size check before commit, step 0 token inventory). Not merged or published.**
+
+- Step 0 (text levels → tokens): [step0-text-tokens.md](case-format-review/step0-text-tokens.md). Kamila's decisions: chapter intro is a new case token, Inter 400 24/24/20, line 1.4, in `styles/case-tokens.css` (loaded only by pages built from a case file); prompt = `--kc-type-body` 14 on `--surface-muted`, line breaks kept; accent quote = Figtree 400 italic at `--kc-type-project-*` 40/32/24.
+- `f3397a7`: format ([case-format.md](case-format.md)), per-case file `content/cases/jane.json` (8 accepted chapters, texts as placeholders, frames not assigned), draft/publish gate, `npm run case:publish-check -- <id>`, `npm run test:case-format`, noindex draft routes `/cases/jane/`, `/en/cases/jane/` (title only; blocks not rendered yet).
+- Checks on `f3397a7` (macOS, Chrome): `test:baseline-integrity` 230 PASS; `content:check` passes with Jane as a draft; `content:build:check` clean, `_foundation` FR/EN and the homepage byte-identical; `test:case-format` 9/9; `shared-ticket-validation` 4/4; matrix 492 byte-identical to `site-fixes-1-6-review/matrix-after.csv`. Gate demonstration: `case:publish-check -- jane` exits 1 with 40 issues ([output](case-format-review/publish-check-jane.txt)); Jane temporarily set to `"status": "publish"` makes `content:check` fail ([output](case-format-review/content-check-status-publish.txt)), reverted.
+- Next: block rendering and `styles/case-blocks.css`, chapter menu, WebP script (`sharp` devDependency, approved) once Kamila assigns frames to chapters.
+
 ## Case-study foundation — stage 1 (branch `case-studies/foundation`, 2026-11-24)
 
 **Status: implemented, verified on macOS and accepted by the owner on 2026-11-25. Pushed to `origin/case-studies/foundation`; not merged or published.** Internal case-study pages are a planned part of the site (see `PRODUCT.md`). Stage 1 only builds the shared foundation; no case design or content was made.

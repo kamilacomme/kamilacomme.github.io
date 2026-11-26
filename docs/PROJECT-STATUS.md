@@ -1,8 +1,8 @@
 # Project status
 
-Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phase 5 release is published; checkpoint notes below retain historical status as of their dates unless explicitly superseded here.
+Updated: 2026-11-26 (merge of site fixes 1–6 and repository cleanup); earlier release record from 2026-10-31. The current release is published; checkpoint notes below retain historical status as of their dates unless explicitly superseded here.
 
-**Published release:** `main` at `30ffa5179389a1173a10cc9a151099d70daf6501`, merged normally from the approved Phase 5 candidate. GitHub Pages deployment completed successfully on 2026-10-28.
+**Published release:** `main` at `73d0f7b`, published 2026-11-26: merge commits `a9b296b` (`fix/site-fixes-1-6`: case-study foundation stages 1 and 1.5, site fixes 1–6) and `73d0f7b` (`chore/repo-cleanup`: tasks 0 and 0b). Previous published `main` is tagged `pre-merge-2026-11-26` (`ce0d033`). Before that: Phase 5 release `30ffa5179389a1173a10cc9a151099d70daf6501`, published 2026-10-28.
 
 **Approved Phase 5 candidate:** `phase-5/fluid-responsive` at `21d518c4584215db5a7d84aaf3e2f00c29c0f6bd`.
 
@@ -161,7 +161,11 @@ Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phas
 
 **Task 0b (2026-11-26).** CI now also runs the full `npm test` release gate (`ed922a9`, job `release-gate`, same Chrome for Testing 154.0.8037.57). T8: `/cases/_foundation/` stays published under `noindex, nofollow` without analytics scripts, because the 492-point matrix (`tests/responsive-matrix-492.cjs` and its reference) measures that page; nothing links to it except its own language pair. `hero-short-height-fallback` fixed with proven cause (`e8cb90b`, flaky-diagnosis §7). Runs on `chore/repo-cleanup`: [#45875616915](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45875616915) on `ed922a9` — release gate green on its first run (tests/qa 42 passed, 6 skipped; responsive QA 37 passed, 19 skipped; lab check and 230 hashes PASS), Phase 5 220 passed, 1 failed (`tablet-layered-ticket` clock error, §8); [#45880803873](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45880803873) on `e8cb90b` — release gate 42 + 37 passed, 0 failed; Phase 5 221 passed, 0 failed, 227 skipped.
 
-**Merge to `main`.** Criteria: tag `pre-merge-2026-11-26` on `main` (`ce0d033`) first; the diff contains only accepted commits (stages 1 and 1.5, task 1, the cleanup, task 0b — 46 commits); CI green; live site checked after the merge.
+**Merge to `main` (done 2026-11-26).** Criteria: tag `pre-merge-2026-11-26` on `main` (`ce0d033`) first; the diff contains only accepted commits (stages 1 and 1.5, task 1, the cleanup, task 0b — 47 commits); CI green; live site checked after the merge. Tag pushed; `--no-ff` merges `a9b296b` (`fix/site-fixes-1-6`) and `73d0f7b` (`chore/repo-cleanup`); the merged tree is identical to the CI-tested `chore/repo-cleanup` (`effe19e`, docs-only after green run #45880803873). Before push: `test:baseline-integrity` 230 PASS, `content:build:check` clean. Undo: `git revert -m 1 73d0f7b` then `git revert -m 1 a9b296b`, or restore `pre-merge-2026-11-26`.
+
+**Live check after deployment** (GitHub Pages run 45884330253 succeeded): `/`, `/en/`, both desktop Projects iframes and `/cases/_foundation/`, `/en/cases/_foundation/` return 200; `/nope-xyz` and `/en/nope-xyz` return the localized 404. Live `index.html`, `en/index.html`, `404.html`, `cases/_foundation/index.html` and `scripts/footer/site-footer.js` are byte-identical to `main`; the English Projects heading reads “recent projects” (T1). Screenshots (desktop 1440×900, mobile 393×852, FR/EN; profiles `desktop`/`mobile` as expected): [merge-2026-11-26-live](merge-2026-11-26-live/).
+
+**Branches deleted after the merge** (2026-11-26, all three are ancestors of `main`, so no archive tag): `fix/site-fixes-1-6` (`2e46dea`), `chore/repo-cleanup` (`effe19e`), `case-studies/foundation` (`f9e5b92`). Only `main` remains. The CI workflow's push trigger names the deleted `fix/site-fixes-1-6`, so it now runs only by `workflow_dispatch`; changing the trigger needs a separate decision.
 
 **Branch criteria.** A branch is deleted when all hold: (1) its commits are in `main`, or their content reached `main` through a merged PR or a later rewrite, or it holds review evidence only; (2) no workflow, open PR or code refers to it (old docs only name it as history); (3) it is not `fix/site-fixes-1-6` or `case-studies/foundation`. Not an ancestor of `main` → annotated tag `archive/<branch>` on its last commit first, pushed and checked on `origin`. Restore any branch with `git push origin <tag-sha>:refs/heads/<branch>`.
 

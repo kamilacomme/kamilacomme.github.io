@@ -99,7 +99,7 @@ Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phas
 
 ## Site fixes 1–6 (branch `fix/site-fixes-1-6`, 2026-11-25)
 
-**Status: task 1 accepted by Kamila on 2026-11-26 in full (T1, T2, T3, T4 `desktop-fluid-projects`, T11, and both race fixes `8d4c130` and `ba9e60a`). Implemented and verified on macOS. T1, T2, T3 and T11 (commits `209b30d`, `4d82a26`, `871955f`, `9a2f825`) accepted by Kamila on 2026-11-26, visually and by code; the visual acceptance covered `t1-before-mobile-en`, `t1-after-mobile-en` and `t1-after-tablet-portrait-en`. T4 continues below. Based on `case-studies/foundation` (`f9e5b92`) because T3 and T11 concern case pages, which exist only there. Not pushed, merged or published.** Captures and probe notes: [site-fixes-1-6-review](site-fixes-1-6-review/README.md).
+**Status: task 1 accepted by Kamila on 2026-11-26 with open items (accepted: T1, T2, T3, T4 `desktop-fluid-projects`, T11, and both race fixes `8d4c130` and `ba9e60a`; open: `tablet-about-responsive` tablet-portrait-en, `language-scroll-restoration` intermittent, `tablet-projects-shared-gutter` macOS limitation — see To-do). Implemented and verified on macOS. T1, T2, T3 and T11 (commits `209b30d`, `4d82a26`, `871955f`, `9a2f825`) accepted by Kamila on 2026-11-26, visually and by code; the visual acceptance covered `t1-before-mobile-en`, `t1-after-mobile-en` and `t1-after-tablet-portrait-en`. T4 continues below. Based on `case-studies/foundation` (`f9e5b92`) because T3 and T11 concern case pages, which exist only there. Not pushed, merged or published.** Captures and probe notes: [site-fixes-1-6-review](site-fixes-1-6-review/README.md).
 
 | Task | Cause | Verification | Status |
 | --- | --- | --- | --- |

@@ -6,7 +6,7 @@ Nothing in these commands deploys, pushes, publishes, or writes to `main`.
 
 ## Reproduce the lab
 
-Use the dedicated `test/portfolio-baseline-phase-0-1` branch. Install the locked
+Check out commit `ec8503a` (the former `test/portfolio-baseline-phase-0-1` branch head, part of `main` history). Install the locked
 development dependencies from the repository root:
 
 ```sh

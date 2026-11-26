@@ -63,7 +63,7 @@ Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phas
 - [ ] T7 iPad with a trackpad or Magic Keyboard (`hover: hover`, `pointer: fine`) is verified only by the rule's code path (Chromium cannot emulate it). Closes with T5.
 - [ ] T8 Decide whether the public `noindex` route `/cases/_foundation/` stays after the merge or is removed.
 - [ ] T9 Analytics is disabled on case pages; decide before publication.
-- [ ] T10 Delete the 15 old branches one at a time, each with the owner's OK. Add `claude/site-fixes-foundation-f4b58d` (no commits beyond `main`) and its worktree `.claude/worktrees/site-fixes-foundation-f4b58d` (detached at `ce0d033`).
+- [x] T10 Old branches — done by criteria in the [repository cleanup](#repository-cleanup-branch-chorerepo-cleanup-2026-11-26) (15 branches; 9 unmerged ones archived as `archive/<branch>` tags). The worktree `.claude/worktrees/site-fixes-foundation-f4b58d` (clean, detached at `ce0d033`) is kept: it is managed by the Claude desktop app and may belong to another session.
 - [x] T11 Dead selectors in `static-nav.css` — already removed in stage 1.5; re-verified (see site fixes). Accepted by Kamila on 2026-11-26 (visually and by code).
 - [ ] T12 Desktop page gutters scale with the scene, 23–35px, on the homepage; accepted. Note: since stage 1.5 case pages and the 404 use the same 32 × s formula (matrix: identical values), not a fixed 32px.
 - [x] Found during site fixes, pre-existing product races ([flaky-diagnosis](site-fixes-1-6-review/flaky-diagnosis.md), diagnosis accepted by Kamila on 2026-11-26): (a) tablet Projects left unlaid after a late runtime re-render — fixed in `8d4c130`; (b) Footer position lost on mobile → desktop resize — fixed in `ba9e60a`. Both accepted by Kamila on 2026-11-26 after visual review.
@@ -151,6 +151,44 @@ Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phas
 | `ac0ddd2` | Test: `tablet-narrow-layout` waits for the published layout | Accepted |
 | `ebabd5e` | Docs: Linux CI run 4 (green), task 1 closed (pushed; run #45835235328 green) | Docs |
 | this commit | Docs: final acceptance and run #45835235328 (local, not pushed) | Docs |
+
+## Repository cleanup (branch `chore/repo-cleanup`, 2026-11-26)
+
+**Status: branches cleaned; file cleanup committed on `chore/repo-cleanup` (based on `fix/site-fixes-1-6`); not merged.** Rules applied are in [AGENTS.md](../AGENTS.md#git-backups-and-repository-hygiene); frozen references are listed in [references.md](references.md).
+
+**Branch criteria.** A branch is deleted when all hold: (1) its commits are in `main`, or their content reached `main` through a merged PR or a later rewrite, or it holds review evidence only; (2) no workflow, open PR or code refers to it (old docs only name it as history); (3) it is not `fix/site-fixes-1-6` or `case-studies/foundation`. Not an ancestor of `main` → annotated tag `archive/<branch>` on its last commit first, pushed and checked on `origin`. Restore any branch with `git push origin <tag-sha>:refs/heads/<branch>`.
+
+| Branch | In `main`? | Last commit | Decision / criterion | Restore from |
+| --- | --- | --- | --- | --- |
+| `phase-2/css-js-extraction` | ancestor | `64cdbbe` 2026-10-21 | deleted (1, merged) | `64cdbbe` in `main` |
+| `phase-3/simplification` | ancestor | `b6ceeec` 2026-10-21 | deleted (1, merged) | `b6ceeec` in `main` |
+| `phase-4/shared-bilingual-static` | ancestor | `0422402` 2026-10-22 | deleted (1, merged) | `0422402` in `main` |
+| `phase-5/fluid-responsive` | ancestor | `21d518c` 2026-10-28 | deleted (1, merged; published release) | `21d518c` in `main` |
+| `test/portfolio-baseline-phase-0-1` | ancestor | `ec8503a` 2026-10-21 | deleted (1, merged); runbook now names the commit | `ec8503a` in `main` |
+| `fix/hero-portrait-oct2026` | PR 8 merged, same patch | `988d79a` 2026-10-18 | deleted (1) | tag `archive/fix/hero-portrait-oct2026` → `988d79ac15f2047c9d3523224f1272517eab13cb` |
+| `fix/language-neutral-mobile-slides` | PR 6 merged, same patch | `165e1ea` 2026-10-17 | deleted (1) | tag `archive/fix/language-neutral-mobile-slides` → `165e1eaeafdb5147fd77755980cde81eb85a3121` |
+| `fix/navbar-about-contact` | PR 4 merged, same patch | `e6bb7e2` 2026-10-16 | deleted (1) | tag `archive/fix/navbar-about-contact` → `e6bb7e2c9fba17cfdd05d78b77544fb149dcc83f` |
+| `fix/napoli-behance-link` | PR 7 merged | `10e5c4d` 2026-10-18 | deleted (1); hand edits of generated pages, link now comes from `content/projects.json` | tag `archive/fix/napoli-behance-link` → `10e5c4de49d9d1e0acd8931047f4f2eecfc127b4` |
+| `fix/tablet-projects-frame` | PR 3 merged | `0671815` 2026-10-16 | deleted (1); tablet geometry rewritten in Phases 3–5 | tag `archive/fix/tablet-projects-frame` → `0671815d430aacf7fd6bfc8c1d95fc2ca821be68` |
+| `release/english-portfolio` | PR 5 merged | `acc1a46` 2026-10-16 | deleted (1); English site now generated in Phase 4 | tag `archive/release/english-portfolio` → `acc1a46c29e28af865ad366e5e14f4ebfaf08d53` |
+| `test/english-portfolio` | no PR; experiments | `1a700a2` 2026-10-16 | deleted (1); precursor of `release/english-portfolio` | tag `archive/test/english-portfolio` → `1a700a247e39a5c4d8ef9788adec23576eed412f` |
+| `fix/mobile-projects-heading-en` | PR 9 closed | `43103a1` 2026-11-01 | deleted (1); superseded by T1 `209b30d` | tag `archive/fix/mobile-projects-heading-en` → `43103a168bc53e513f06cd235e1335b89adaff6d` |
+| `review/tablet-about-500x600` | unrelated history | `a4d96e5` 2026-10-23 | deleted (1, review captures only); Tablet About approved in M6 | tag `archive/review/tablet-about-500x600` → `a4d96e5c4f3d0fa94166ca67fb38c880e1931fe9` |
+| `claude/site-fixes-foundation-f4b58d` (local) | equal to `main` | `ce0d033` | deleted (1, merged) | `ce0d033` in `main` |
+| `fix/site-fixes-1-6` | no | `2e46dea` 2026-11-26 | kept: task 1, waits for merge | — |
+| `case-studies/foundation` | no (contained in `fix/site-fixes-1-6`) | `f9e5b92` 2026-11-25 | kept: excluded by the task; delete only after merge | — |
+
+**Files.** One commit per group, each undone by one `git revert`:
+
+| What | Decision / criterion | Commit |
+| --- | --- | --- |
+| `artifacts/phase-3-review/` (5 files, in a gitignored folder) | deleted: archive folder, no reference anywhere | `511ce86` |
+| `scripts/content/preview-server.mjs`, `scripts/phase-5/capture-footer-resilience-review.cjs` | deleted: no reference in code, tests, workflow, `package.json`, build or pages | `8097a3c` |
+| `.DS_Store` (untracked) | deleted, ignored in `.gitignore` | `6a398fe` |
+| Rules duplicated in `README.md` (230 references, publication checklist) and the stale branch instruction in `regression-runbook.md` | moved to/merged into `AGENTS.md`; old text deleted | docs commit |
+| Matrix generator (existed only in a temporary folder) | added as `tests/responsive-matrix-492.cjs`; inventory in `references.md` | docs commit |
+
+**Kept, with reason.** Historical review captures under `docs/phase-*` and `docs/*-review/` (approval evidence linked from this file, not duplicates). Historical phase gates `tests/phase-2`, `tests/phase-3`, `tests/phase-4` (cross-referenced: `tests/phase-4/gate.mjs` uses the Phase 3 reference lock, `validate-project-data.mjs` reads `tests/phase-4/about-content-baseline.json`). `docs/phase-5-404-review/preview-server.mjs` (reproduction step of that review). The byte-identical `matrix-before.csv`/`matrix-after.csv` pair and all other protected references. `build:content:preview` (a mode of the builder).
 
 ## Roadmap
 

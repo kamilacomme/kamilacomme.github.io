@@ -124,3 +124,13 @@ test('SVG logos, annotation over an SVG, and real proportions for pending frames
   assert.ok(errors.some(e => e.includes('.format: must be one of webp, svg')), errors.join('\n'));
   assert.ok(errors.some(e => e.includes('.textAt: must be {x, y}')), errors.join('\n'));
 });
+
+test('chapter-menu closes its chapter and has chapters after it', () => {
+  const c = clone(example);
+  c.chapters[0].blocks.reverse();
+  assert.ok(validateCaseFormat(c).some(e => e.includes('chapter-menu must be the last block of its chapter')));
+  const last = clone(example);
+  last.chapters.at(-1).blocks.push({ type: 'chapter-menu' });
+  last.chapters[0].blocks.pop();
+  assert.ok(validateCaseFormat(last).some(e => e.includes('chapter-menu needs chapters after it')));
+});

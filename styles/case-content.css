@@ -1,0 +1,123 @@
+/* Case-study content built from content/cases/<id>.json: chapter sections and the
+   sticky chapter menu. Loaded only by pages built from a case file. Values are
+   existing design-system tokens; the profile (html[data-kc-profile]) and page
+   gutters come from scripts/shared/responsive-profile.js. Behavior of the menu
+   (compact mode, current chapter, open/close): scripts/case/chapter-menu.js. */
+
+/* ---------- Chapters ---------- */
+.kc-case-chapter {
+  box-sizing: border-box;
+  padding: var(--space-12) var(--kc-page-gutter-x) 0;
+  /* Anchors land below the Navbar and the sticky menu (published by chapter-menu.js). */
+  scroll-margin-top: var(--kc-case-menu-offset, var(--space-16));
+}
+.kc-case-chapter-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--fw-display);
+  font-size: var(--kc-type-heading-desktop);
+  line-height: 1.1;
+  letter-spacing: var(--display-track);
+  color: var(--text-default);
+  text-wrap: pretty;
+}
+:root[data-kc-profile="tablet"] .kc-case-chapter-title { font-size: var(--kc-type-heading-tablet); }
+:root[data-kc-profile="mobile"] .kc-case-chapter-title { font-size: var(--kc-type-heading-mobile); }
+
+/* ---------- Chapter menu ---------- */
+.kc-case-menu {
+  position: sticky;
+  top: var(--kc-case-menu-top, 72px);
+  z-index: 400; /* under the Navbar (500) */
+  box-sizing: border-box;
+  padding: 0 var(--kc-page-gutter-x);
+  background: var(--surface-page);
+  font-family: var(--font-body);
+  font-weight: var(--fw-body);
+  font-size: var(--kc-type-label);
+  line-height: 1.2;
+  letter-spacing: var(--label-track);
+  text-transform: uppercase;
+  color: var(--text-default);
+}
+
+.kc-case-menu-list {
+  display: flex;
+  flex-wrap: wrap; /* without the script every chapter stays reachable */
+  column-gap: var(--gutter-wide);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.kc-case-menu[data-kc-measuring] .kc-case-menu-list { flex-wrap: nowrap; }
+
+.kc-case-menu-link,
+.kc-case-menu-toggle {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent; /* no system tint on tap; focus stays visible */
+}
+.kc-case-menu-link {
+  /* Inactive chapters: 64% of the default ink stays above 4.5:1 on the page surface. */
+  opacity: 0.64;
+  transition: opacity 150ms ease;
+}
+.kc-case-menu-link:hover,
+.kc-case-menu-link:focus-visible,
+.kc-case-menu-link[aria-current] { opacity: 1; }
+.kc-case-menu-link:focus-visible,
+.kc-case-menu-toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Compact: one row with the current chapter; the list opens below it. */
+.kc-case-menu-toggle {
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+.kc-case-menu-toggle[hidden] { display: none; }
+.kc-case-menu-current {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.kc-case-menu-action {
+  flex: none;
+  color: var(--text-muted);
+  transition: opacity 150ms ease;
+}
+.kc-case-menu-toggle:hover .kc-case-menu-action { opacity: 0.64; }
+
+.kc-case-menu[data-kc-compact] .kc-case-menu-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+  max-height: calc(100svh - var(--kc-case-menu-offset, 128px));
+  overflow-y: auto;
+  padding: 0 var(--kc-page-gutter-x) var(--space-2);
+  background: var(--surface-page);
+}
+.kc-case-menu[data-kc-compact]:not([data-kc-open]) .kc-case-menu-list { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .kc-case-menu-link,
+  .kc-case-menu-action { transition: none; }
+}

@@ -182,6 +182,13 @@ export function validateCaseFormat(data, { id } = {}) {
     });
   });
   if (menus > 1) report.add('chapters', 'chapter-menu may appear only once');
+  // The menu lists the chapters after it, so it closes its chapter.
+  data.chapters.forEach((chapter, c) => {
+    const blocks = Array.isArray(chapter?.blocks) ? chapter.blocks : [];
+    const at = blocks.findIndex(block => block?.type === 'chapter-menu');
+    if (at >= 0 && at !== blocks.length - 1) report.add(`chapters[${c}]`, 'chapter-menu must be the last block of its chapter');
+    if (at >= 0 && c === data.chapters.length - 1) report.add(`chapters[${c}]`, 'chapter-menu needs chapters after it');
+  });
   return report.errors;
 }
 

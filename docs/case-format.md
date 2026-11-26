@@ -75,7 +75,15 @@ Applies to every case. Readable text (titles, captions, labels, logo version nam
 | `detail-grid` | `items` [{`image` I, `text` L?}] |
 | `principles-list` | `items` [{`title` L, `text` L}] |
 | `outcome-montage` | `images` 3+ I, `text` L? |
-| `chapter-menu` | no fields; at most once per case: the place where the sticky chapter menu starts |
+| `chapter-menu` | no fields; at most once per case, the last block of its chapter: the sticky chapter menu starts there and lists the chapters after it |
+
+## Chapter menu
+
+- Markup: `scripts/content/case-render.mjs`; styles: `styles/case-content.css`; behavior: `scripts/case/chapter-menu.js` (sole owner). Loaded only by case pages that have a `chapter-menu` block.
+- Sticky right under the fixed Navbar, inside the page gutters, on the page surface; no border lines and no numbers. Text: label token (12px, uppercase, 0.04em). Inactive chapters at 64% opacity (above 4.5:1); hover, keyboard focus and the current chapter at 100%. Tap targets 44px.
+- Full row when every chapter title fits on one line (measured on the page, not a breakpoint); otherwise compact: one row with the current chapter and “Ouvrir / Open”, which opens the list below (closes on choice, Escape with focus back, click outside, focus leaving). Mobile is always compact with the Jane titles.
+- The current chapter is the last one whose top has reached the menu (`aria-current="location"`). Chapter anchors (`#chapter-<id>`) land right under the menu.
+- QA: `node tests/case/chapter-menu-check.cjs [report.json]` with `npm run test:serve` running: widths 320–1920 (step 40) at 900px height, iPhone 393×852 touch, iPad 820×1180 and 1180×820 touch, FR and EN.
 
 ## Text levels (step 0, approved by Kamila 2026-11-26)
 

@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="/styles/language-switch.css">
 <link rel="stylesheet" href="/styles/case.css">
 <link rel="stylesheet" href="/styles/case-tokens.css">
+<link rel="stylesheet" href="/styles/case-content.css">
 </head>
 <body class="kc-case-page">
 <!-- Shared navbar precedes page content in source order so keyboard navigation starts at the visible navigation. -->
@@ -44,7 +45,62 @@
 <header class="kc-case-header">
 <h1 class="kc-case-title">Trouve ta Jane</h1>
 </header>
-<div class="kc-case-grid" data-kc-case-grid></div>
+<section class="kc-case-chapter" id="chapter-reveal" data-kc-chapter="reveal" aria-labelledby="chapter-reveal-title">
+<h2 class="kc-case-chapter-title" id="chapter-reveal-title">Reveal</h2>
+<div class="kc-case-block kc-case-block--hero-reveal" data-kc-block="hero-reveal"></div>
+</section>
+<div class="kc-case-chapters" data-kc-case-chapters>
+<nav class="kc-case-menu" data-kc-case-menu aria-label="Chapters">
+<button type="button" class="kc-case-menu-toggle" aria-expanded="false" aria-controls="kc-case-menu-list" data-kc-case-menu-toggle hidden><span class="kc-case-menu-current" data-kc-case-menu-current data-default="Chapters">Chapters</span><span class="kc-case-menu-action" data-kc-case-menu-action data-open="Open" data-close="Close" aria-hidden="true">Open</span></button>
+<ul class="kc-case-menu-list" id="kc-case-menu-list" data-kc-case-menu-list><li><a class="kc-case-menu-link" href="#chapter-identity" data-kc-case-menu-link="identity">Identity</a></li><li><a class="kc-case-menu-link" href="#chapter-nature-to-form" data-kc-case-menu-link="nature-to-form">From Nature to Form</a></li><li><a class="kc-case-menu-link" href="#chapter-multiple-forms" data-kc-case-menu-link="multiple-forms">One Bag, Multiple Forms</a></li><li><a class="kc-case-menu-link" href="#chapter-designing-with-ai" data-kc-case-menu-link="designing-with-ai">Designing with AI</a></li><li><a class="kc-case-menu-link" href="#chapter-campaign" data-kc-case-menu-link="campaign">Campaign</a></li><li><a class="kc-case-menu-link" href="#chapter-beyond-the-product" data-kc-case-menu-link="beyond-the-product">Beyond the Product</a></li><li><a class="kc-case-menu-link" href="#chapter-outcome" data-kc-case-menu-link="outcome">Outcome</a></li></ul>
+</nav>
+<section class="kc-case-chapter" id="chapter-identity" data-kc-chapter="identity" aria-labelledby="chapter-identity-title">
+<h2 class="kc-case-chapter-title" id="chapter-identity-title">Identity</h2>
+<div class="kc-case-block kc-case-block--logo-showcase" data-kc-block="logo-showcase"></div>
+<div class="kc-case-block kc-case-block--annotated-image" data-kc-block="annotated-image"></div>
+<div class="kc-case-block kc-case-block--palette-swatches" data-kc-block="palette-swatches"></div>
+<div class="kc-case-block kc-case-block--detail-grid" data-kc-block="detail-grid"></div>
+</section>
+<section class="kc-case-chapter" id="chapter-nature-to-form" data-kc-chapter="nature-to-form" aria-labelledby="chapter-nature-to-form-title">
+<h2 class="kc-case-chapter-title" id="chapter-nature-to-form-title">From Nature to Form</h2>
+<div class="kc-case-block kc-case-block--image-pair" data-kc-block="image-pair"></div>
+<div class="kc-case-block kc-case-block--annotated-image" data-kc-block="annotated-image"></div>
+<div class="kc-case-block kc-case-block--image-full" data-kc-block="image-full"></div>
+</section>
+<section class="kc-case-chapter" id="chapter-multiple-forms" data-kc-chapter="multiple-forms" aria-labelledby="chapter-multiple-forms-title">
+<h2 class="kc-case-chapter-title" id="chapter-multiple-forms-title">One Bag, Multiple Forms</h2>
+<div class="kc-case-block kc-case-block--chapter-intro" data-kc-block="chapter-intro"></div>
+<div class="kc-case-block kc-case-block--annotated-image" data-kc-block="annotated-image"></div>
+<div class="kc-case-block kc-case-block--image-row-3" data-kc-block="image-row-3"></div>
+<div class="kc-case-block kc-case-block--image-full" data-kc-block="image-full"></div>
+<div class="kc-case-block kc-case-block--image-pair" data-kc-block="image-pair"></div>
+</section>
+<section class="kc-case-chapter" id="chapter-designing-with-ai" data-kc-chapter="designing-with-ai" aria-labelledby="chapter-designing-with-ai-title">
+<h2 class="kc-case-chapter-title" id="chapter-designing-with-ai-title">Designing with AI</h2>
+<div class="kc-case-block kc-case-block--ai-episode" data-kc-block="ai-episode"></div>
+<div class="kc-case-block kc-case-block--ai-episode" data-kc-block="ai-episode"></div>
+<div class="kc-case-block kc-case-block--ai-episode" data-kc-block="ai-episode"></div>
+<div class="kc-case-block kc-case-block--ai-episode" data-kc-block="ai-episode"></div>
+<div class="kc-case-block kc-case-block--principles-list" data-kc-block="principles-list"></div>
+</section>
+<section class="kc-case-chapter" id="chapter-campaign" data-kc-chapter="campaign" aria-labelledby="chapter-campaign-title">
+<h2 class="kc-case-chapter-title" id="chapter-campaign-title">Campaign</h2>
+<div class="kc-case-block kc-case-block--image-full" data-kc-block="image-full"></div>
+<div class="kc-case-block kc-case-block--text-image" data-kc-block="text-image"></div>
+<div class="kc-case-block kc-case-block--image-pair" data-kc-block="image-pair"></div>
+<div class="kc-case-block kc-case-block--image-full" data-kc-block="image-full"></div>
+</section>
+<section class="kc-case-chapter" id="chapter-beyond-the-product" data-kc-chapter="beyond-the-product" aria-labelledby="chapter-beyond-the-product-title">
+<h2 class="kc-case-chapter-title" id="chapter-beyond-the-product-title">Beyond the Product</h2>
+<div class="kc-case-block kc-case-block--sequence" data-kc-block="sequence"></div>
+<div class="kc-case-block kc-case-block--detail-grid" data-kc-block="detail-grid"></div>
+<div class="kc-case-block kc-case-block--image-pair" data-kc-block="image-pair"></div>
+</section>
+<section class="kc-case-chapter" id="chapter-outcome" data-kc-chapter="outcome" aria-labelledby="chapter-outcome-title">
+<h2 class="kc-case-chapter-title" id="chapter-outcome-title">Outcome</h2>
+<div class="kc-case-block kc-case-block--outcome-montage" data-kc-block="outcome-montage"></div>
+</section>
+</div>
 
 <!-- Footer (cinema final) — an ordinary block, next in the scroll order -->
 <div id="contact" data-kc-footer-root style="position: relative; left: 0; top: 0; width: 100%; height: 100svh; overflow: hidden; background-color: #000000; z-index: 4; will-change: transform;">
@@ -98,5 +154,6 @@
 <script src="/scripts/shared/responsive-profile.js" data-kc-static-shell></script>
 <script src="/scripts/footer/site-footer.js"></script>
 <script src="/scripts/static-page/static-page.js"></script>
+<script src="/scripts/case/chapter-menu.js"></script>
 </body>
 </html>

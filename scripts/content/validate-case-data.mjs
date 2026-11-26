@@ -37,7 +37,9 @@ export const BLOCK_TYPES = {
   'chapter-menu': {},
 };
 
-const IMAGE_FIELDS = new Set(['src', 'alt', 'caption', 'crop', 'art', 'focus', 'focusMobile', 'placeholder']);
+const IMAGE_FIELDS = new Set(['src', 'format', 'ratio', 'alt', 'caption', 'crop', 'art', 'focus', 'focusMobile', 'placeholder']);
+export const IMAGE_FORMATS = ['webp', 'svg'];
+const RATIO = /^[1-9]\d*:[1-9]\d*$/;
 
 class Report {
   constructor(label) { this.label = label; this.errors = []; }
@@ -72,6 +74,10 @@ function checkImage(image, where, report, ctx) {
     if (typeof name !== 'string' || !KEBAB.test(name)) report.add(where, `image name "${name}" must be latin kebab-case without extension`);
     else if (!name.startsWith(prefix) || name.slice(prefix.length).split('-').length < (ctx.anyChapter ? 3 : 2)) report.add(where, `image name "${name}" must be ${ctx.anyChapter ? `${prefix}<chapter>-` : prefix}<role>-<description>`);
   }
+  if (image.format !== undefined && !IMAGE_FORMATS.includes(image.format)) report.add(`${where}.format`, `must be one of ${IMAGE_FORMATS.join(', ')} (default webp)`);
+  if (image.format === 'svg' && image.art) report.add(where, 'an SVG has no art-direction pair');
+  // Real proportions for a frame not delivered yet, so the layout is final before the file exists.
+  if (image.ratio !== undefined && !(typeof image.ratio === 'string' && RATIO.test(image.ratio))) report.add(`${where}.ratio`, 'must be "width:height", e.g. "1000:148"');
   if (image.alt === undefined) report.add(where, '"alt" is required');
   else checkLocalized(image.alt, `${where}.alt`, report);
   if (image.caption !== undefined) checkLocalized(image.caption, `${where}.caption`, report);
@@ -118,6 +124,8 @@ function checkField(kind, value, where, report, ctx) {
         if (spec.kind === 'principles') { checkLocalized(item.title, `${at}.title`, report); checkLocalized(item.text, `${at}.text`, report); }
         if (spec.kind === 'notes') {
           for (const key of ['x', 'y']) if (typeof item[key] !== 'number' || item[key] < 0 || item[key] > 1) report.add(`${at}.${key}`, 'must be a fraction from 0 to 1');
+          // Optional label position; the marker line runs from the label to (x, y). Fractions of the block.
+          if (item.textAt !== undefined && (!isObject(item.textAt) || [item.textAt.x, item.textAt.y].some(v => typeof v !== 'number' || v < 0 || v > 1))) report.add(`${at}.textAt`, 'must be {x, y} with fractions from 0 to 1');
           checkLocalized(item.text, `${at}.text`, report);
         }
         if (spec.kind === 'swatches') {
@@ -188,8 +196,8 @@ export function imageNames(data) {
   const names = [];
   walk(data.chapters, 'chapters', (value, path) => {
     if (!isObject(value) || !('alt' in value)) return;
-    if (value.src) names.push([value.src, path]);
-    if (isObject(value.art)) names.push([value.art.horizontal, `${path}.art.horizontal`], [value.art.vertical, `${path}.art.vertical`]);
+    if (value.src) names.push([value.src, path, value.format ?? 'webp']);
+    if (isObject(value.art)) names.push([value.art.horizontal, `${path}.art.horizontal`, 'webp'], [value.art.vertical, `${path}.art.vertical`, 'webp']);
   });
   return names;
 }
@@ -212,7 +220,7 @@ export function validateCasePublication(data, { assetExists } = {}) {
     }
   });
   for (const chapter of data.chapters) if (!chapter.blocks.length) report.add(`chapter ${chapter.id}`, 'has no blocks');
-  if (assetExists) for (const [name, path] of imageNames(data)) if (!assetExists(data.id, name)) report.add(path, `no generated image file for "${name}"`);
+  if (assetExists) for (const [name, path, format] of imageNames(data)) if (!assetExists(data.id, name, format)) report.add(path, `no ${format === 'svg' ? 'SVG' : 'generated image'} file for "${name}"`);
   return report.errors;
 }
 

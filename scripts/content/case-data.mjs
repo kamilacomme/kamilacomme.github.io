@@ -18,7 +18,10 @@ export async function loadCases() {
   return records;
 }
 
-export async function assetExists(caseId, name) {
+export async function assetExists(caseId, name, format = 'webp') {
+  if (format === 'svg') {
+    try { await access(path.join(root, 'assets/cases', caseId, `${name}.svg`)); return true; } catch { return false; }
+  }
   // assets/cases/<id>/images.json is written by build-case-images.mjs with the widths of each image.
   let widths = IMAGE_WIDTHS;
   try { widths = JSON.parse(await readFile(path.join(root, 'assets/cases', caseId, 'images.json'), 'utf8')).images[name]?.widths ?? []; } catch {}
@@ -31,7 +34,7 @@ export async function assetExists(caseId, name) {
 // validateCasePublication is synchronous: resolve file existence up front.
 export async function publicationErrors(data) {
   const known = new Map();
-  if (Array.isArray(data?.chapters)) for (const [name] of imageNames(data)) known.set(name, await assetExists(data.id, name));
+  if (Array.isArray(data?.chapters)) for (const [name, , format] of imageNames(data)) known.set(name, await assetExists(data.id, name, format));
   return validateCasePublication(data, { assetExists: (_, name) => known.get(name) === true });
 }
 

@@ -60,7 +60,14 @@
           "type": "logo-showcase",
           "images": [
             {
+              "format": "svg",
+              "ratio": "1000:148",
               "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
                 "en": "",
                 "fr": "",
                 "placeholder": true
@@ -68,7 +75,14 @@
               "placeholder": true
             },
             {
+              "format": "svg",
+              "ratio": "918:692",
               "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
                 "en": "",
                 "fr": "",
                 "placeholder": true
@@ -76,7 +90,14 @@
               "placeholder": true
             },
             {
+              "format": "svg",
+              "ratio": "303:356",
               "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
                 "en": "",
                 "fr": "",
                 "placeholder": true
@@ -89,17 +110,23 @@
         {
           "type": "annotated-image",
           "image": {
-            "src": "jane-identity-logo-versions",
+            "format": "svg",
+            "ratio": "918:692",
             "alt": {
               "en": "",
               "fr": "",
               "placeholder": true
-            }
+            },
+            "placeholder": true
           },
           "notes": [
             {
               "x": 0.5,
               "y": 0.5,
+              "textAt": {
+                "x": 0.9,
+                "y": 0.1
+              },
               "text": {
                 "en": "",
                 "fr": "",
@@ -107,7 +134,8 @@
               },
               "placeholder": true
             }
-          ]
+          ],
+          "placeholder": true
         },
         {
           "type": "palette-swatches",

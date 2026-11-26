@@ -80,16 +80,26 @@
           "images": [
             {
               "src": "example-identity-logo-horizontal",
+              "format": "svg",
               "alt": {
-                "en": "Alt logo horizontal",
-                "fr": "Alt logo horizontal FR"
+                "en": "Horizontal logo",
+                "fr": "Logo horizontal"
+              },
+              "caption": {
+                "en": "Horizontal",
+                "fr": "Horizontal"
               }
             },
             {
               "src": "example-identity-logo-vertical",
+              "format": "svg",
               "alt": {
-                "en": "Alt logo vertical",
-                "fr": "Alt logo vertical FR"
+                "en": "Vertical logo",
+                "fr": "Logo vertical"
+              },
+              "caption": {
+                "en": "Main",
+                "fr": "Principal"
               }
             }
           ],
@@ -97,6 +107,43 @@
             "en": "Two lockups.",
             "fr": "Deux versions."
           }
+        },
+        {
+          "type": "annotated-image",
+          "image": {
+            "src": "example-identity-logo-vertical-annotated",
+            "format": "svg",
+            "alt": {
+              "en": "Main logo",
+              "fr": "Logo principal"
+            }
+          },
+          "notes": [
+            {
+              "x": 0.32,
+              "y": 0.4,
+              "textAt": {
+                "x": 0.05,
+                "y": 0.1
+              },
+              "text": {
+                "en": "The J grows like a vine",
+                "fr": "Le J pousse comme une liane"
+              }
+            },
+            {
+              "x": 0.7,
+              "y": 0.62,
+              "textAt": {
+                "x": 0.95,
+                "y": 0.9
+              },
+              "text": {
+                "en": "Rounded terminals",
+                "fr": "Terminaisons arrondies"
+              }
+            }
+          ]
         },
         {
           "type": "palette-swatches",

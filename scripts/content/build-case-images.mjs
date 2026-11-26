@@ -10,7 +10,7 @@
 // that is not wider than the source, plus the source width itself when it is
 // more than 10% wider than the largest step reached (never upscaled), and assets/cases/<id>/images.json
 // with the widths and intrinsic size of every image (used by the page builder).
-import { readFile, writeFile, mkdir, readdir, rm, stat } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, readdir, rm, stat, copyFile } from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import sharp from 'sharp';
@@ -31,7 +31,8 @@ const sources = JSON.parse(await readFile(path.join(root, 'content/cases', `${id
 const sourceRoot = sourceArg ? path.resolve(sourceArg.slice('--source='.length).replace(/^~/, os.homedir()))
   : path.join(os.homedir(), 'Downloads', id === 'jane' ? 'Jane' : id);
 
-const used = [...new Set(imageNames(data).map(([name]) => name))].sort();
+const formats = new Map(imageNames(data).map(([name, , format]) => [name, format]));
+const used = [...formats.keys()].sort();
 const missing = used.filter(name => !sources[name]);
 if (missing.length) throw new Error(`No source frame listed in ${id}.sources.json for: ${missing.join(', ')}`);
 const unused = Object.keys(sources).filter(name => !used.includes(name));
@@ -53,6 +54,15 @@ const written = new Set(['images.json']);
 let total = 0;
 for (const name of used) {
   const file = path.join(sourceRoot, sources[name]);
+  if (formats.get(name) === 'svg') {
+    // Logos and other vector art are copied unchanged; readable text stays in the case data, not in the file.
+    if (!file.toLowerCase().endsWith('.svg')) throw new Error(`${name}: format "svg" needs an .svg source, got ${sources[name]}`);
+    const out = `${name}.svg`;
+    written.add(out);
+    manifest[name] = { format: 'svg' };
+    if (!checkOnly) { await copyFile(file, path.join(outDir, out)); total += (await stat(path.join(outDir, out))).size; }
+    continue;
+  }
   const meta = await sharp(file).rotate().metadata();
   const width = meta.autoOrient?.width ?? meta.width, height = meta.autoOrient?.height ?? meta.height;
   const widths = widthsFor(width);
@@ -70,7 +80,7 @@ if (checkOnly) {
   process.exit(0);
 }
 await writeFile(path.join(outDir, 'images.json'), `${JSON.stringify({ schemaVersion: 1, quality: QUALITY, images: manifest }, null, 2)}\n`);
-// Remove WebP files of frames that are no longer assigned (only generated files in this folder).
-for (const entry of await readdir(outDir)) if (entry.endsWith('.webp') && !written.has(entry)) await rm(path.join(outDir, entry));
+// Remove generated files of frames that are no longer assigned (only generated files in this folder).
+for (const entry of await readdir(outDir)) if (/\.(webp|svg)$/.test(entry) && !written.has(entry)) await rm(path.join(outDir, entry));
 total += (await stat(path.join(outDir, 'images.json'))).size;
-console.log(`${used.length} frames → ${written.size - 1} WebP files in assets/cases/${id}/, ${(total / 1024 / 1024).toFixed(2)} MB.`);
+console.log(`${used.length} frames → ${written.size - 1} files in assets/cases/${id}/, ${(total / 1024 / 1024).toFixed(2)} MB.`);

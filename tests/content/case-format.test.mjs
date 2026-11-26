@@ -105,3 +105,22 @@ test('focus points, pending crops and montage repeats', () => {
   assert.ok(errors.some(e => e.includes('.focus: must be {x, y}')), errors.join('\n'));
   assert.ok(errors.some(e => e.includes('must be example-nature-to-form-<role>-<description>')), errors.join('\n'));
 });
+
+test('SVG logos, annotation over an SVG, and real proportions for pending frames', () => {
+  const c = clone(example);
+  const identity = c.chapters.find(chapter => chapter.id === 'identity');
+  assert.equal(identity.blocks[2].type, 'annotated-image');
+  assert.equal(identity.blocks[2].image.format, 'svg');
+  const seen = [];
+  assert.deepEqual(validateCasePublication(c, { assetExists: (_, name, format) => { seen.push([name, format]); return true; } }), []);
+  assert.ok(seen.some(([name, format]) => name === 'example-identity-logo-horizontal' && format === 'svg'));
+  identity.blocks[1].images[0] = { format: 'svg', ratio: '1000:148', alt: { en: '', fr: '', placeholder: true }, placeholder: true };
+  assert.deepEqual(validateCaseFormat(c), []);
+  identity.blocks[1].images[1].ratio = '16/9';
+  identity.blocks[1].images[1].format = 'png';
+  identity.blocks[2].notes[0].textAt = { x: 1.2, y: 0 };
+  const errors = validateCaseFormat(c);
+  assert.ok(errors.some(e => e.includes('.ratio: must be "width:height"')), errors.join('\n'));
+  assert.ok(errors.some(e => e.includes('.format: must be one of webp, svg')), errors.join('\n'));
+  assert.ok(errors.some(e => e.includes('.textAt: must be {x, y}')), errors.join('\n'));
+});

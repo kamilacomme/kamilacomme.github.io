@@ -1003,6 +1003,10 @@ class Component extends DCLogic {
       this._layoutProfile = responsiveProfile;
       if (Number.isFinite(handoffFooterProgress)) {
         this._lastScrollSection = "contact";
+        // The desktop Projects iframe can measure after this handoff (mobile → desktop)
+        // and grow the document. Publish the Footer anchor so it restores the Footer
+        // instead of capturing a transient About position.
+        window.__kcPendingFooterAnchor = { progress: handoffFooterProgress };
         const handoffLocation = window.location.href;
         // Let the existing tablet Projects owner finish its layout pass before
         // restoring the Footer's semantic scroll position.
@@ -1045,6 +1049,7 @@ class Component extends DCLogic {
       }
       if (about && about.getBoundingClientRect().top <= 1 && about.getBoundingClientRect().bottom > 1) {
         this._lastScrollSection = "about";
+        window.__kcPendingFooterAnchor = null;
         const rect = about.getBoundingClientRect();
         const travel = Math.max(1, rect.height - window.innerHeight);
         this._pendingResizeAboutProgress = Math.max(0, Math.min(1, -rect.top / travel));
@@ -1052,6 +1057,7 @@ class Component extends DCLogic {
       }
       this._pendingResizeAboutProgress = null;
       this._pendingResizeFooterProgress = null;
+      window.__kcPendingFooterAnchor = null;
       const sectionRect = projects?.getBoundingClientRect();
       if (!sectionRect || sectionRect.top >= innerHeight || sectionRect.bottom <= 0) {
         this._lastScrollSection = "other";

@@ -195,6 +195,51 @@ Question: do `8d4c130` (tablet re-layout observer) or `ba9e60a` (Footer handoff)
 
 **Result: no regression.** Every failure is present at the same or a higher rate on `3fbb343`, before either fix. `tablet-layered-ticket` failed 10/10 in this interleaved series (3/5 and 5/5 in earlier smaller series), consistent with case 5's timing dependence.
 
+## Follow-up changes authorized on 2026-11-26
+
+### Product: re-read the position when the 120 ms window closes (`d5c4aba`)
+
+`tablet-project-layout.js` now records `scrollY` after each anchored restore and, when the 120 ms `preservingResizeAnchor` window closes, re-runs the scroll owner if the position has moved. A single reader scroll inside the window is no longer lost.
+
+`language-switch` (spec unchanged), 20 consecutive runs per profile: tablet-landscape-fr 19 passed / 1 failed (before: 4/10, 2/10 and 4/10 failures in the regression series), tablet-landscape-en 20 / 0. A further interleaved series: 1/20 failed.
+
+**Remaining tablet-landscape-fr failure (about 1 in 20).** A probe of the failing run showed a second path: a late `resize` event at the unchanged size (716×555) reaches the tablet script's capture listener, which stores the still-stale project anchor as `resizeAnchor` and sets the preserving flag; `scheduleFit()` then returns early because the layout key did not change, leaving `resizeAnchor` set, and the next forced pass restores it. A candidate fix (drop `resizeAnchor` and the flag when a pass is skipped for an unchanged key) was tested by serving a patched copy: **rejected** — 4/20 failures with the patch against 1/20 without it in an interleaved series. Not applied; the residual failure stays open.
+
+```diff
+--- a/scripts/projects/tablet-project-layout.js
++++ b/scripts/projects/tablet-project-layout.js
+@@ -436,7 +436,15 @@
+       const key = policy
+         ? [policy.tablet, policy.scale, policy.width, policy.height].join(':')
+         : [window.innerWidth, window.innerHeight, window.__kcTabletScale || 1].join(':');
+-      if (!forced && key === lastLayoutKey) return;
++      if (!forced && key === lastLayoutKey) {
++        // A resize that did not change the published layout (e.g. a late or repeated
++        // event at the same size) has no geometry to carry an anchor across. Drop the
++        // anchor its capture listener took, so a later pass cannot restore it after
++        // the reader has moved.
++        resizeAnchor = null;
++        preservingResizeAnchor = false;
++        return;
++      }
+       lastLayoutKey = key;
+       if (policy && !policy.tablet) {
+         resetLandscape();
+```
+
+### Tests: wait for the published layout (`504d81b`)
+
+`tablet-about-responsive` and `tablet-layered-ticket` now wait, after each `setViewportSize`, until `window.__kcTabletLayout` reports the new width and height (as `footer-legal-resize-direction` does); `tablet-layered-ticket`'s rail jump uses `qa.scrollTo`, which dispatches the scroll event the rail owner listens to (the following `clock.runFor(500)` is kept). No expectation or tolerance changed.
+
+| Spec | Runs | Result |
+| --- | --- | --- |
+| `tablet-about-responsive` (tablet-portrait EN + FR) | 10 | 20/20 executions passed (before: 0/10) |
+| `tablet-layered-ticket` (all four tablet profiles) | 10 | 40/40 executions passed (landscape EN before: 0/10) |
+
+### Full Phase 5 after both changes
+
+215 passed, 6 failed, 227 skipped. Failed: `tablet-projects-shared-gutter` desktop-fr and desktop-en (macOS overlay scrollbars); `language-scroll-restoration` tablet-portrait-fr; `tablet-narrow-layout` tablet-portrait-en; `tablet-portrait-fluid` tablet-portrait-en; `responsive-resize` tablet-landscape-fr. Interleaved reruns against `7d0fbb4` (before `d5c4aba`): `tablet-narrow-layout` 0/6 vs 0/6, `responsive-resize` 0/6 vs 0/6, `tablet-portrait-fluid` 6/6 vs 6/6 — no regression from `d5c4aba`. `tablet-portrait-fluid` checks card widths after `setViewportSize` plus `clock.runFor(300)` (fake clock) and reads the previous size (770 instead of 836): the same late-`resize` mechanism as case 3; its spec was not part of the authorized test changes. Matrix 492 points: byte-identical to the baseline, 0 mismatches. `test:baseline-integrity`: 230 unchanged.
+
 ## Relation to T6 (macOS lab)
 
 Cases 1 and 2 did not depend on macOS, fonts or scrollbars: they were timing races inside the product, fixed in `8d4c130` and `ba9e60a`. Cases 3–6 are not confirmed in the product: on this Mac, headless Chrome 158 delivers `resize` and `scroll` events (and keyboard default scrolling) hundreds of milliseconds to seconds late, while the specs sample after fixed short waits or fake-clock advances. Case 3 is late `resize`, case 4 a dropped default keyboard scroll, case 5 late `scroll`, case 6 a scroll ignored inside the scroll owner's 120 ms post-layout window and not re-read before the next pass (see the corrected conclusion). All four belong with T6 or a Linux lab run; none of their specs or thresholds were changed. The remaining macOS-only failure is `tablet-projects-shared-gutter` (overlay scrollbars), recorded under T4; it closes only with T6 or in the Linux lab.

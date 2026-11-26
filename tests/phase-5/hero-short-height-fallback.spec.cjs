@@ -162,7 +162,10 @@ test('short-height Hero modes, reachability and normal controls', async ({ page,
     expect(state.pageScrollWidth, `${viewport.id} no page-level horizontal overflow`)
       .toBeLessThanOrEqual(state.viewport.width + 1);
     for (const selector of [selectors.title, selectors.plate, selectors.portrait, selectors.cue]) {
-      await activePage.locator(selector).scrollIntoViewIfNeeded();
+      // Native DOM scrolling, not Playwright's scrollIntoViewIfNeeded: its CDP
+      // DOM.scrollIntoViewIfNeeded occasionally scrolled an already visible Hero
+      // element out of view (flaky-diagnosis §7).
+      await activePage.locator(selector).evaluate(el => el.scrollIntoView({ block: 'nearest', inline: 'nearest' }));
       const bounds = await activePage.locator(selector).evaluate(el => {
         const r = el.getBoundingClientRect();
         return { top: r.top, bottom: r.bottom, left: r.left, right: r.right, width: r.width, height: r.height };

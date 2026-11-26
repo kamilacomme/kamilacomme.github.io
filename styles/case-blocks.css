@@ -192,3 +192,194 @@
 }
 .kc-case-crop-frame img { position: absolute; display: block; max-width: none; }
 .kc-case-crop-label { margin: 0; }
+
+/* ======================================================================
+   Remaining blocks. Neutral and unpolished on purpose: the full content in
+   place first, design refinement after. Container-based like the others.
+   ====================================================================== */
+
+.kc-case-stack { display: grid; row-gap: var(--space-3); }
+.kc-case-copy { display: grid; row-gap: var(--space-2); align-content: start; }
+
+/* chapter-intro: Inter 400, 24px (20px on mobile), line 1.4 (styles/case-tokens.css). */
+.kc-case-intro {
+  margin: 0;
+  max-inline-size: 44rem;
+  font-family: var(--font-body);
+  font-weight: var(--fw-body);
+  font-size: var(--kc-case-type-intro);
+  line-height: var(--kc-case-intro-line);
+  letter-spacing: var(--body-track);
+  color: var(--text-default);
+  text-wrap: pretty;
+}
+.kc-case-intro + .kc-case-intro { margin-top: var(--space-2); }
+.kc-case-ph.kc-case-intro { height: 7rem; }
+
+/* image-full: the grid's full width, in the image's own proportions. */
+.kc-case-full[data-orient="portrait"] .kc-case-cell {
+  max-inline-size: 40rem;
+  margin-inline: auto;
+}
+
+/* image-row-3: three equal frames from 40rem, one per row below. */
+.kc-case-trio {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3) var(--kc-case-column-gap);
+}
+@container (min-width: 40rem) {
+  .kc-case-trio { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .kc-case-trio .kc-case-frame { aspect-ratio: var(--shared); }
+}
+
+/* text-image: stacked (text, then image) below 40rem; two columns from 40rem, side from the data. */
+.kc-case-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3) var(--kc-case-column-gap);
+  align-items: start;
+}
+@container (min-width: 40rem) {
+  .kc-case-split { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kc-case-split[data-side="left"] .kc-case-cell { order: -1; }
+}
+
+/* logo-showcase: logos shown whole, centred on a quiet cell of one shared size. */
+.kc-case-logos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--space-3) var(--kc-case-column-gap);
+}
+.kc-case-logo-frame {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+}
+.kc-case-logo-art { position: absolute; inset: var(--space-6); background: none; aspect-ratio: auto; }
+.kc-case-logo-art img { object-fit: contain; }
+/* A logo not delivered yet: a skeleton in its real proportions. */
+.kc-case-logo-mark {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  inline-size: min(70cqw, calc(45cqw * var(--ar)));
+  aspect-ratio: var(--r);
+  height: auto;
+  background: var(--neutral-400);
+}
+
+/* palette-swatches */
+.kc-case-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-3) var(--kc-case-column-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.kc-case-swatch { display: grid; row-gap: var(--space-half); align-content: start; }
+.kc-case-swatch-chip {
+  display: block;
+  aspect-ratio: 1 / 1;
+  margin-bottom: var(--space-1);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+}
+.kc-case-swatch-name { margin: 0; color: var(--text-default); }
+
+/* annotated-image: markers at fractions of the image; labels over it from 40rem (with leader lines),
+   a lettered list below it when narrow. */
+.kc-case-annot { position: relative; margin: 0; }
+.kc-case-annot-stage { position: relative; }
+.kc-case-annot-lines { display: none; position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.kc-case-annot-lines line { stroke: var(--text-default); stroke-width: 1; }
+.kc-case-marker {
+  position: absolute;
+  box-sizing: border-box;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border: 2px solid var(--text-default);
+  border-radius: 50%;
+  background: var(--surface-page);
+  font: 400 var(--kc-type-label)/1 var(--font-body);
+  color: var(--text-default);
+}
+.kc-case-notes { margin: var(--space-2) 0 0; padding: 0; list-style: none; display: grid; row-gap: var(--space-1); }
+.kc-case-note {
+  display: flex;
+  gap: var(--space-1);
+  font-family: var(--font-body);
+  font-size: var(--kc-type-body);
+  line-height: 1.5;
+  letter-spacing: var(--body-track);
+  color: var(--text-default);
+}
+.kc-case-note-ph { display: block; inline-size: 12rem; height: 1.25rem; }
+@container (max-width: 39.99rem) {
+  /* Narrow: lettered markers, lettered list. */
+  .kc-case-marker { width: 20px; height: 20px; margin: -10px 0 0 -10px; display: grid; place-items: center; }
+  .kc-case-marker::after { content: attr(data-l); }
+  .kc-case-note::before { content: attr(data-l); flex: none; inline-size: 1.25rem; font-size: var(--kc-type-label); line-height: 1.5; letter-spacing: var(--label-track); color: var(--text-muted); }
+}
+@container (min-width: 40rem) {
+  .kc-case-annot-lines { display: block; }
+  .kc-case-notes { position: absolute; inset: 0; margin: 0; display: block; pointer-events: none; }
+  .kc-case-note {
+    position: absolute;
+    left: var(--tx);
+    top: var(--ty);
+    max-inline-size: 14rem;
+    padding: var(--space-1);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    transform: translate(0, -50%);
+  }
+}
+@container (min-width: 40rem) {
+  .kc-case-note[data-side="right"] { transform: translate(-100%, -50%); }
+}
+
+/* detail-grid and outcome-montage: equal cells that wrap with the container. */
+.kc-case-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--space-3) var(--kc-case-column-gap);
+}
+.kc-case-tiles .kc-case-frame { aspect-ratio: var(--shared); }
+.kc-case-montage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3) var(--kc-case-column-gap);
+}
+@container (min-width: 30rem) {
+  .kc-case-montage { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kc-case-montage .kc-case-frame { aspect-ratio: var(--shared); }
+}
+@container (min-width: 50rem) {
+  .kc-case-montage { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* principles-list: title and text side by side from 40rem. */
+.kc-case-principles { display: grid; row-gap: var(--space-6); margin: 0; padding: 0; list-style: none; }
+.kc-case-principle { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-2) var(--kc-case-column-gap); align-items: start; }
+@container (min-width: 40rem) {
+  .kc-case-principle { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+}
+.kc-case-principle-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--fw-display);
+  font-size: var(--kc-type-project-mobile);
+  line-height: var(--heading-line);
+  letter-spacing: -0.03em;
+  color: var(--text-default);
+  text-wrap: pretty;
+}
+.kc-case-ph.kc-case-principle-title { height: 2rem; max-inline-size: 14rem; }
+
+/* Vector frames (logos shown inside frames, e.g. an annotated SVG): whole, on a quiet surface. */
+.kc-case-frame--svg img { object-fit: contain; padding: var(--space-4); box-sizing: border-box; }

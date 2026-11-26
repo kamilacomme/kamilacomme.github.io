@@ -1,4 +1,6 @@
-// Markup of the case blocks that are built so far: hero-reveal, image-pair, ai-episode.
+// Markup of the case blocks: hero-reveal, image-pair, ai-episode, chapter-intro, image-full, image-row-3,
+// text-image, logo-showcase, palette-swatches, annotated-image, sequence, detail-grid, principles-list,
+// outcome-montage (chapter-menu: case-render.mjs).
 // Every block is laid out from the width of its own container (styles/case-blocks.css,
 // container queries); the one exception is hero-reveal, which fills the first screen.
 // Text never comes from here except the small fixed labels of ai-episode (LABELS).
@@ -70,6 +72,11 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
     const classes = `kc-case-frame${variant ? ` kc-case-frame--${variant}` : ''}`;
     const style = `--r:${cssRatio(dims)};${focusStyle(image)}`;
     if (!info(name) || image.placeholder) return { html: `<div class="${classes} kc-case-ph" style="${style}" aria-hidden="true" data-placeholder></div>`, dims };
+    if (info(name).format === 'svg') {
+      // Vector art (logos) is shown whole on a quiet surface, never cropped.
+      const alt = pick(image.alt, locale);
+      return { html: `<div class="${classes} kc-case-frame--svg" style="${style}"><img src="/assets/cases/${caseId}/${name}.svg" alt="${alt ? attr(alt.text) : ''}"${alt?.lang ? ` lang="${alt.lang}"` : ''} loading="lazy" decoding="async"></div>`, dims };
+    }
     return { html: `<div class="${classes}" style="${style}">${imgTag(image, name, { eager, sizes })}</div>`, dims };
   }
 
@@ -101,6 +108,25 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
     return `<div class="kc-case-crop"><div class="kc-case-crop-frame" style="--r:${ratio}">`
       + `<img src="/assets/cases/${caseId}/${image.src}-${entry.widths.at(-1)}.webp" style="${pos}" width="${entry.width}" height="${entry.height}" alt="" loading="lazy" decoding="async"></div>${label}</div>`;
   }
+
+  /** Body text: one paragraph per blank line; a skeleton while it is a placeholder. */
+  function paragraphs(value, className, skeletonClass) {
+    const t = pick(value, locale);
+    if (t) return t.text.split(/\n{2,}/).map(part => `<p class="${className}"${langAttr(t)}>${esc(part)}</p>`).join('');
+    return value?.placeholder ? skeleton(skeletonClass ?? className) : '';
+  }
+  /** A row of figures whose cells share one size (see styles/case-blocks.css, .kc-case-row). */
+  function rowOf(images, withCrops = false) {
+    // `sizes` follows the row's columns: one per frame from a 50rem container.
+    const wide = images.length >= 3 ? `(min-width: 800px) ${Math.round(100 / images.length)}vw, ` : '';
+    const sizes = `${wide}(min-width: 500px) 50vw, 100vw`;
+    const cells = images.map(image => figure(image, sizes, withCrops ? cropOf(image) : ''));
+    return `<div class="kc-case-row" data-n="${images.length}" style="--shared:${sharedRatio(cells.map(c => c.dims))}">${cells.map(c => c.html).join('')}</div>`;
+  }
+  const withText = (body, value) => {
+    const copy = paragraphs(value, 'kc-case-text', 'kc-case-text');
+    return copy ? `<div class="kc-case-stack">${body}${copy}</div>` : body;
+  };
 
   return {
     'hero-reveal'(block, meta) {
@@ -138,21 +164,98 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
       const titleHtml = text(block.title, 'h3', 'kc-ai-title');
       const level = titleHtml.startsWith('<h3') ? 4 : 3;
       const section = (key, body) => `<section class="kc-ai-section kc-ai-section--${key}"><h${level} class="kc-case-label">${esc(ui[key])}</h${level}>${body}</section>`;
-      const row = (images, withCrops) => {
-        // `sizes` follows the row's columns (see styles/case-blocks.css): one per frame from a 50rem container.
-        const wide = images.length >= 3 ? `(min-width: 800px) ${Math.round(100 / images.length)}vw, ` : '';
-        const sizes = `${wide}(min-width: 500px) 50vw, 100vw`;
-        const cells = images.map(image => figure(image, sizes, withCrops ? cropOf(image) : ''));
-        return `<div class="kc-case-row" data-n="${images.length}" style="--shared:${sharedRatio(cells.map(c => c.dims))}">${cells.map(c => c.html).join('')}</div>`;
-      };
       const prompt = block.prompt ? text(block.prompt, 'p', 'kc-ai-prompt', 'kc-ai-prompt') : '';
       return `<article class="kc-ai">`
         + titleHtml
         + section('problem', text(block.problem, 'p', 'kc-case-text'))
-        + section('before', row(block.before, true))
+        + section('before', rowOf(block.before, true))
         + section('method', text(block.method, 'p', 'kc-case-text') + prompt)
-        + section('after', row(block.after, false))
+        + section('after', rowOf(block.after))
         + `</article>`;
+    },
+
+    'chapter-intro'(block) {
+      return paragraphs(block.text, 'kc-case-intro', 'kc-case-intro');
+    },
+
+    'image-full'(block) {
+      const dims = dimsOf(block.image, block.image.src);
+      const portrait = !!dims && dims[1] > dims[0];
+      // A portrait frame is capped in width so it does not become taller than a screen.
+      const f = figure(block.image, portrait ? '(min-width: 700px) 640px, 100vw' : '100vw');
+      return `<div class="kc-case-full" data-orient="${portrait ? 'portrait' : 'landscape'}">${f.html}</div>`;
+    },
+
+    'image-row-3'(block) {
+      const cells = block.images.map(image => figure(image, '(min-width: 640px) 33vw, 100vw'));
+      return `<div class="kc-case-trio" style="--shared:${sharedRatio(cells.map(c => c.dims))}">${cells.map(c => c.html).join('')}</div>`;
+    },
+
+    'text-image'(block) {
+      const f = figure(block.image, '(min-width: 640px) 50vw, 100vw');
+      return `<div class="kc-case-split" data-side="${block.side}"><div class="kc-case-copy">${paragraphs(block.text, 'kc-case-text', 'kc-case-text')}</div>${f.html}</div>`;
+    },
+
+    'logo-showcase'(block) {
+      const cells = block.images.map(image => {
+        const dims = dimsOf(image, image.src);
+        const ar = dims ? (dims[0] / dims[1]).toFixed(4) : '1';
+        const inner = !info(image.src) || image.placeholder
+          ? `<div class="kc-case-ph kc-case-logo-mark" style="--r:${cssRatio(dims)};--ar:${ar}" aria-hidden="true" data-placeholder></div>`
+          : frame(image, image.src).html.replace('kc-case-frame ', 'kc-case-frame kc-case-logo-art ');
+        return `<figure class="kc-case-cell kc-case-logo"><div class="kc-case-logo-frame">${inner}</div>${caption(image.caption)}</figure>`;
+      });
+      return withText(`<div class="kc-case-logos">${cells.join('')}</div>`, block.text);
+    },
+
+    'palette-swatches'(block) {
+      const items = block.swatches.map(sw => {
+        const chip = sw.hex ? `<span class="kc-case-swatch-chip" style="background:${attr(sw.hex)}"></span>` : `<span class="kc-case-swatch-chip kc-case-ph" aria-hidden="true" data-placeholder></span>`;
+        return `<li class="kc-case-swatch">${chip}${text(sw.name, 'p', 'kc-case-caption kc-case-swatch-name', 'kc-case-caption')}${sw.hex ? `<span class="kc-case-label">${esc(sw.hex)}</span>` : ''}</li>`;
+      });
+      return withText(`<ul class="kc-case-swatches">${items.join('')}</ul>`, block.text);
+    },
+
+    'annotated-image'(block) {
+      const stage = frame(block.image, block.image.src, { sizes: '100vw' }).html;
+      const notes = block.notes.map((n, i) => {
+        // Label anchor: the given position, else the nearer side edge at the marker's height.
+        const at = n.textAt ?? { x: n.x < 0.5 ? 0.97 : 0.03, y: n.y };
+        return { n, at, letter: String.fromCharCode(65 + i) };
+      });
+      const pct = v => `${(v * 100).toFixed(2)}%`;
+      const lines = notes.map(({ n, at }) => `<line x1="${(n.x * 100).toFixed(2)}" y1="${(n.y * 100).toFixed(2)}" x2="${(at.x * 100).toFixed(2)}" y2="${(at.y * 100).toFixed(2)}" vector-effect="non-scaling-stroke"/>`).join('');
+      const markers = notes.map(({ n, letter }) => `<span class="kc-case-marker" style="left:${pct(n.x)};top:${pct(n.y)}" data-l="${letter}" aria-hidden="true"></span>`).join('');
+      const items = notes.map(({ n, at, letter }) => {
+        const t = pick(n.text, locale);
+        const body = t ? `<span${langAttr(t)}>${esc(t.text)}</span>` : (n.text?.placeholder || n.placeholder ? `<span class="kc-case-ph kc-case-note-ph" aria-hidden="true" data-placeholder></span>` : '');
+        return `<li class="kc-case-note" style="--tx:${pct(at.x)};--ty:${pct(at.y)}" data-side="${at.x > 0.5 ? 'right' : 'left'}" data-l="${letter}">${body}</li>`;
+      }).join('');
+      return `<figure class="kc-case-annot"><div class="kc-case-annot-stage">${stage}`
+        + `<svg class="kc-case-annot-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${markers}</div>`
+        + `<ol class="kc-case-notes">${items}</ol></figure>`;
+    },
+
+    'sequence'(block) {
+      return withText(rowOf(block.images), block.caption);
+    },
+
+    'detail-grid'(block) {
+      const cells = block.items.map(item => {
+        const f = frame(item.image, item.image.src, { sizes: '(min-width: 500px) 33vw, 100vw' });
+        return { dims: f.dims, html: `<figure class="kc-case-cell">${f.html}${text(item.text, 'figcaption', 'kc-case-caption', 'kc-case-caption')}</figure>` };
+      });
+      return `<div class="kc-case-tiles" style="--shared:${sharedRatio(cells.map(c => c.dims))}">${cells.map(c => c.html).join('')}</div>`;
+    },
+
+    'principles-list'(block) {
+      const items = block.items.map(item => `<li class="kc-case-principle">${text(item.title, 'h3', 'kc-case-principle-title')}${paragraphs(item.text, 'kc-case-text', 'kc-case-text')}</li>`);
+      return `<ul class="kc-case-principles">${items.join('')}</ul>`;
+    },
+
+    'outcome-montage'(block) {
+      const cells = block.images.map(image => figure(image, '(min-width: 800px) 33vw, (min-width: 500px) 50vw, 100vw'));
+      return withText(`<div class="kc-case-montage" style="--shared:${sharedRatio(cells.map(c => c.dims))}">${cells.map(c => c.html).join('')}</div>`, block.text);
     },
   };
 }

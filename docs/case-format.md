@@ -85,9 +85,9 @@ Applies to every case. Readable text (titles, captions, labels, logo version nam
 - The current chapter is the last one whose top has reached the menu (`aria-current="location"`). Chapter anchors (`#chapter-<id>`) land right under the menu.
 - QA: `node tests/case/chapter-menu-check.cjs [report.json]` with `npm run test:serve` running: widths 320–1920 (step 40) at 900px height, iPhone 393×852 touch, iPad 820×1180 and 1180×820 touch, FR and EN.
 
-## Blocks built so far
+## Block layouts
 
-hero-reveal, image-pair and ai-episode (`scripts/content/case-blocks.mjs`, `styles/case-blocks.css`); the other blocks render an empty container until their layout is decided. Page wrapper (replaceable without touching blocks): chapter sections and rhythm in `styles/case-content.css`, the chapter menu above, the case header in `styles/case.css`.
+All 14 content blocks are built in a neutral classic layout, without polish (`scripts/content/case-blocks.mjs`, `styles/case-blocks.css`); the design pass comes after the content is in place. Page wrapper (replaceable without touching blocks): chapter sections and rhythm in `styles/case-content.css`, the chapter menu above, the case header in `styles/case.css`.
 
 - **Container-based.** Each block is a CSS container (`container-type: inline-size`) and lays itself out from its own width, not the window's: a pair or row is one column below 30rem, two columns from 30rem, and a row of three or four frames gets one column per frame from 50rem. Proof: the same page in a 340px column on a 1440px screen stacks like a phone (`tests/case/blocks-check.cjs`). Exception: hero-reveal fills the first screen.
 - **hero-reveal.** One frame from under the Navbar to the bottom gutter of the first screen (`100svh`), the vertical art-directed frame on portrait screens and the horizontal one on landscape. The case title (h1) comes from the block (`title`, else `meta.title`) and the plain case header is not added. The chapter title of the hero chapter is only for assistive technology.
@@ -95,7 +95,18 @@ hero-reveal, image-pair and ai-episode (`scripts/content/case-blocks.mjs`, `styl
 - **ai-episode.** Title (h3, project size), then Problem, Before, Method (with the prompt, line breaks kept) and After; the fixed labels are FR/EN in the renderer. Before and After are rows with the same size cells; a `crop` shows an enlarged detail under its frame with its label (a crop still `placeholder: true` is skipped).
 - **Frames.** Cells crop their image (`object-fit: cover`) at the frame's `focus` (`focusMobile` in a narrow container), default `50% 35%`; faces must be kept in view by setting the focus. Images load lazily except the hero; `srcset`/`sizes` follow the layout.
 - **Placeholders in a draft** render as quiet grey skeletons so the final layout is visible; the publication gate refuses them. A French text missing in a draft falls back to the English one, marked `lang="en"`.
-- QA: `node tests/case/blocks-check.cjs [report.json]` (320–1920, FR and EN, container test) and `node tests/case/blocks-screenshots.cjs <dir>`.
+- **chapter-intro.** Inter 400, 24px (20px on mobile), line 1.4, `--text-default`, up to 44rem wide; blank lines in the text make paragraphs.
+- **image-full.** The grid's full width in the image's own proportions; a portrait frame is capped at 40rem wide and centred.
+- **image-row-3.** Three same-size frames from a 40rem container, one per row below.
+- **text-image.** Two columns from 40rem, image on the `side` given; stacked (text, then image) below.
+- **logo-showcase.** Logos shown whole, centred on same-size quiet cells (4:3, auto-fit columns of 14rem or more); a logo not delivered yet is a skeleton in its real `ratio`. Optional text below.
+- **palette-swatches.** Square swatches of the given hex (content, so the only coloured interface element), name and hex under each; auto-fit columns of 9rem or more.
+- **annotated-image.** Markers at the given fractions of the image. From a 40rem container the labels sit over the image (at `textAt`, or the nearer side edge) with leader lines; below it the markers carry letters and the labels are a lettered list under the image. Works for a raster image and for an SVG.
+- **sequence.** Frames in order as a row of same-size cells (the first may be art-directed), optional caption below.
+- **detail-grid.** Same-size cells with an optional text each; auto-fit columns of 14rem or more.
+- **principles-list.** Title and text side by side from 40rem, stacked below.
+- **outcome-montage.** Same-size cells: one column, two from 30rem, three from 50rem; optional text below.
+- QA: `node tests/case/blocks-check.cjs [report.json]` (320–1920, FR and EN, columns and cell sizes of every grid, annotation layout, chapter intro size, container test) and `node tests/case/blocks-screenshots.cjs <dir>` (blocks and five whole chapters).
 
 ## Text levels (step 0, approved by Kamila 2026-11-26)
 

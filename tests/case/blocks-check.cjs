@@ -1,4 +1,4 @@
-// Geometry QA for the case blocks hero-reveal, image-pair and ai-episode on /cases/jane/ and /en/cases/jane/.
+// Geometry QA for all case blocks (hero-reveal … outcome-montage) on /cases/jane/ and /en/cases/jane/.
 // Usage: start `npm run test:serve`, then `node tests/case/blocks-check.cjs [report.json]`.
 // Uses CHROME_PATH (default: macOS Google Chrome) and BASE_URL (default http://127.0.0.1:8000).
 //
@@ -45,6 +45,30 @@ const probe = () => {
     const candidates = (img.srcset || '').split(',').map(c => c.trim().split(' ')[0]).filter(Boolean);
     out.broken.push({ src, ok: img.complete && img.naturalWidth > 0, fileW, largest: !candidates.length || src.endsWith(candidates.at(-1).split('/').pop()), rendered: img.getBoundingClientRect().width });
   });
+  // Remaining blocks: grid columns, cell sizes and the annotation layout, measured on the page.
+  const blockOf = el => el.closest('.kc-case-block').clientWidth;
+  const sizes = el => [...el.querySelectorAll(':scope > .kc-case-cell, :scope > .kc-case-swatch, :scope > .kc-case-logo')].map(c => {
+    const f = c.querySelector('.kc-case-frame, .kc-case-swatch-chip, .kc-case-logo-frame');
+    return f && vis(f) ? rect(f) : null;
+  });
+  out.grids = [];
+  for (const [sel, kind] of [['.kc-case-trio', 'trio'], ['.kc-case-montage', 'montage'], ['.kc-case-tiles', 'tiles'], ['.kc-case-logos', 'logos'], ['.kc-case-swatches', 'swatches'], ['.kc-case-principle', 'principle'], ['.kc-case-split', 'split']]) {
+    document.querySelectorAll(sel).forEach(el => out.grids.push({ kind, container: blockOf(el), cols: getComputedStyle(el).gridTemplateColumns.split(' ').length, cells: kind === 'principle' || kind === 'split' ? [] : sizes(el) }));
+  }
+  out.splits = [...document.querySelectorAll('.kc-case-split')].map(el => {
+    const copy = el.querySelector('.kc-case-copy').getBoundingClientRect(), fig = el.querySelector('.kc-case-cell').getBoundingClientRect();
+    return { side: el.dataset.side, container: blockOf(el), imageLeftOfText: fig.x < copy.x - 1, stacked: Math.abs(fig.x - copy.x) < 2 };
+  });
+  out.full = [...document.querySelectorAll('.kc-case-full')].map(el => ({ orient: el.dataset.orient, w: el.querySelector('.kc-case-frame').getBoundingClientRect().width, container: blockOf(el), centered: Math.abs((el.querySelector('.kc-case-frame').getBoundingClientRect().left - el.getBoundingClientRect().left) - (el.getBoundingClientRect().right - el.querySelector('.kc-case-frame').getBoundingClientRect().right)) < 2 }));
+  out.annot = [...document.querySelectorAll('.kc-case-annot')].map(el => {
+    const stage = el.querySelector('.kc-case-annot-stage').getBoundingClientRect();
+    const notes = [...el.querySelectorAll('.kc-case-note')], markers = [...el.querySelectorAll('.kc-case-marker')];
+    const inside = r => r.left >= stage.left - 1 && r.right <= stage.right + 1 && r.top >= stage.top - 1 && r.bottom <= stage.bottom + 1;
+    return { container: blockOf(el), overlay: getComputedStyle(el.querySelector('.kc-case-notes')).position === 'absolute', notesInside: notes.every(n => inside(n.getBoundingClientRect())), markersInside: markers.every(m => inside(m.getBoundingClientRect())),
+      listBelow: el.querySelector('.kc-case-notes').getBoundingClientRect().top >= stage.bottom - 1, lines: getComputedStyle(el.querySelector('.kc-case-annot-lines')).display !== 'none', letters: getComputedStyle(markers[0], '::after').content !== 'none' && getComputedStyle(markers[0], '::after').content !== 'normal' };
+  });
+  const intro = document.querySelector('.kc-case-intro');
+  out.introPx = intro ? parseFloat(getComputedStyle(intro).fontSize) : null;
   return out;
 };
 
@@ -91,6 +115,28 @@ const probe = () => {
         if (r.cols !== want) fail(where, `row (${r.n}) in ${r.container}px has ${r.cols} columns, expected ${want}`);
         if (r.cols > 1) sameSize(where, `row (${r.n}) ${r.container}px`, r.cells);
       }
+      for (const g of m.grids) {
+        const c = g.container;
+        const want = { trio: c >= 640 ? 3 : 1, montage: c >= 800 ? 3 : c >= 480 ? 2 : 1, principle: c >= 640 ? 2 : 1 }[g.kind];
+        if (want && g.cols !== want) fail(where, `${g.kind} in ${c}px has ${g.cols} columns, expected ${want}`);
+        if (g.cells.length && g.cols > 1) sameSize(where, `${g.kind} ${c}px`, g.cells);
+        if (['tiles', 'logos', 'swatches'].includes(g.kind)) sameSize(where, `${g.kind} ${c}px`, g.cells);
+      }
+      for (const sp of m.splits) {
+        if (sp.container >= 640 ? sp.stacked : !sp.stacked) fail(where, `split in ${sp.container}px is ${sp.stacked ? 'stacked' : 'side by side'}`);
+        if (!sp.stacked && (sp.side === 'left') !== sp.imageLeftOfText) fail(where, `split image is on the wrong side (data-side ${sp.side})`);
+      }
+      for (const f of m.full) {
+        if (f.orient === 'portrait' && f.w > 641) fail(where, `portrait full frame is ${f.w}px wide (max 640)`);
+        if (f.orient === 'portrait' && !f.centered) fail(where, 'portrait full frame is not centred');
+      }
+      for (const a of m.annot) {
+        const wide = a.container >= 640;
+        if (a.overlay !== wide || a.lines !== wide) fail(where, `annotation in ${a.container}px: overlay ${a.overlay}, lines ${a.lines}`);
+        if (wide && !(a.notesInside && a.markersInside)) fail(where, 'annotation labels or markers fall outside the image');
+        if (!wide && (!a.listBelow || !a.letters)) fail(where, 'narrow annotation needs a lettered list below the image');
+      }
+      if (m.introPx !== null && m.introPx !== (m.profile === 'mobile' ? 20 : 24)) fail(where, `chapter intro is ${m.introPx}px`);
       for (const i of m.broken) {
         if (!i.ok) fail(where, `image not loaded ${i.src}`);
         // The browser picked a file too small for its cell although a larger one exists: the sizes hint is wrong.
@@ -107,7 +153,9 @@ const probe = () => {
     const where = `${lang} 1440 screen, 340px column`;
     if (!wide.pairs.every(x => x.cols === 2) || !wide.rows.some(x => x.cols >= 3)) fail(where, 'the full-width page does not show two-column pairs and 3–4 column rows');
     if (!narrow.pairs.every(x => x.cols === 1) || !narrow.rows.every(x => x.cols === 1)) fail(where, 'blocks in a 340px column did not stack');
-    rows.push({ lang, container: '340px column on 1440', pairs: narrow.pairs.map(x => x.cols), rows: narrow.rows.map(x => x.cols) });
+    if (!narrow.grids.every(g => g.cols === 1 || ['tiles', 'logos', 'swatches'].includes(g.kind)) || !narrow.splits.every(x => x.stacked) || !narrow.annot.every(a => !a.overlay)) fail(where, 'trio, montage, split or annotation did not follow the 340px column');
+    if (!wide.grids.some(g => g.kind === 'trio' && g.cols === 3) || !wide.splits.some(x => !x.stacked) || !wide.annot.some(a => a.overlay)) fail(where, 'the full-width page does not show the wide layouts');
+    rows.push({ lang, container: '340px column on 1440', pairs: narrow.pairs.map(x => x.cols), rows: narrow.rows.map(x => x.cols), grids: narrow.grids.map(g => `${g.kind}:${g.cols}`) });
     await ctx.close();
   }
   await b.close();

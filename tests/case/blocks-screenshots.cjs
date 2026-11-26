@@ -1,5 +1,6 @@
-// Evidence screenshots of the case blocks (hero-reveal, image-pair x2, ai-episode with four result frames)
-// on /cases/jane/ and /en/cases/jane/ at 320, 768, 1440 and 1920 wide. JPEG quality 75.
+// Evidence screenshots of the case blocks on /cases/jane/ and /en/cases/jane/ at 320, 768, 1440 and 1920 wide:
+// hero-reveal, image-pair x2, ai-episode with four result frames (JPEG quality 75), and five whole chapters
+// (identity, multiple-forms, campaign, beyond-the-product, outcome; quality 65, at most 6000px tall).
 // Usage: start `npm run test:serve`, then `node tests/case/blocks-screenshots.cjs <out-dir>`.
 const { chromium } = require('playwright');
 const fs = require('fs');
@@ -26,6 +27,10 @@ const SIZES = [[320, 640], [768, 1024], [1440, 900], [1920, 1080]];
     for (const [name, sel] of blocks) {
       const box = await p.locator(sel).boundingBox(); const sy = await p.evaluate(() => scrollY);
       await p.screenshot({ path: `${out}/${lang}-${w}-${name}.jpg`, type: 'jpeg', quality: 75, fullPage: true, clip: { x: 0, y: box.y + sy - 16, width: w, height: box.height + 32 } });
+    }
+    for (const id of ['identity', 'multiple-forms', 'campaign', 'beyond-the-product', 'outcome']) {
+      const box = await p.locator(`#chapter-${id}`).boundingBox(); const sy = await p.evaluate(() => scrollY);
+      await p.screenshot({ path: `${out}/${lang}-${w}-chapter-${id}.jpg`, type: 'jpeg', quality: 65, fullPage: true, clip: { x: 0, y: box.y + sy, width: w, height: Math.min(box.height, 6000) } });
     }
     await p.close();
   }

@@ -14,6 +14,7 @@
     "test:performance:compare": "node tests/performance/compare.mjs",
     "content:check": "node scripts/content/validate-project-data.mjs",
     "case:publish-check": "node scripts/content/case-publish-check.mjs",
+    "case:images": "node scripts/content/build-case-images.mjs",
     "test:case-format": "node --test tests/content/case-format.test.mjs",
     "build:content:preview": "node scripts/content/build.mjs",
     "content:build": "node scripts/content/build.mjs --site",
@@ -25,6 +26,7 @@
     "@playwright/test": "1.62.1",
     "chrome-launcher": "1.2.2",
     "lighthouse": "13.5.0",
-    "parse5": "7.3.0"
+    "parse5": "7.3.0",
+    "sharp": "0.35.5"
   }
 }

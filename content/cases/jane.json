@@ -33,12 +33,15 @@
             "placeholder": true
           },
           "image": {
+            "art": {
+              "horizontal": "jane-reveal-photo-close-face-horizontal",
+              "vertical": "jane-reveal-photo-close-face-vertical"
+            },
             "alt": {
               "en": "",
               "fr": "",
               "placeholder": true
-            },
-            "placeholder": true
+            }
           }
         },
         {
@@ -54,12 +57,149 @@
       },
       "blocks": [
         {
-          "type": "chapter-intro",
-          "text": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          }
+          "type": "logo-showcase",
+          "images": [
+            {
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            },
+            {
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            },
+            {
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            }
+          ],
+          "placeholder": true
+        },
+        {
+          "type": "annotated-image",
+          "image": {
+            "src": "jane-identity-logo-versions",
+            "alt": {
+              "en": "",
+              "fr": "",
+              "placeholder": true
+            }
+          },
+          "notes": [
+            {
+              "x": 0.5,
+              "y": 0.5,
+              "text": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            }
+          ]
+        },
+        {
+          "type": "palette-swatches",
+          "swatches": [
+            {
+              "name": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "hex": "#385531"
+            },
+            {
+              "name": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "hex": "#6C2F2B"
+            },
+            {
+              "name": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "hex": "#F8F3E6"
+            },
+            {
+              "name": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "hex": "#201E19"
+            }
+          ]
+        },
+        {
+          "type": "detail-grid",
+          "items": [
+            {
+              "image": {
+                "src": "jane-identity-detail-tag",
+                "alt": {
+                  "en": "",
+                  "fr": "",
+                  "placeholder": true
+                }
+              }
+            },
+            {
+              "image": {
+                "src": "jane-identity-detail-paper-wax-seal",
+                "alt": {
+                  "en": "",
+                  "fr": "",
+                  "placeholder": true
+                }
+              }
+            },
+            {
+              "image": {
+                "src": "jane-identity-detail-dust-bag",
+                "alt": {
+                  "en": "",
+                  "fr": "",
+                  "placeholder": true
+                }
+              }
+            },
+            {
+              "image": {
+                "src": "jane-identity-detail-charm",
+                "alt": {
+                  "en": "",
+                  "fr": "",
+                  "placeholder": true
+                }
+              }
+            },
+            {
+              "image": {
+                "src": "jane-identity-detail-inner-patch",
+                "alt": {
+                  "en": "",
+                  "fr": "",
+                  "placeholder": true
+                }
+              }
+            }
+          ]
         }
       ]
     },
@@ -71,11 +211,58 @@
       },
       "blocks": [
         {
-          "type": "chapter-intro",
-          "text": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
+          "type": "image-pair",
+          "images": [
+            {
+              "src": "jane-nature-to-form-image-vines",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-nature-to-form-image-vines-bag",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "annotated-image",
+          "image": {
+            "src": "jane-nature-to-form-sketch-vines-regular-intertwined",
+            "alt": {
+              "en": "",
+              "fr": "",
+              "placeholder": true
+            }
+          },
+          "notes": [
+            {
+              "x": 0.5,
+              "y": 0.5,
+              "text": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            }
+          ]
+        },
+        {
+          "type": "image-full",
+          "image": {
+            "src": "jane-nature-to-form-image-final-vines",
+            "alt": {
+              "en": "",
+              "fr": "",
+              "placeholder": true
+            }
           }
         }
       ]
@@ -94,6 +281,90 @@
             "fr": "",
             "placeholder": true
           }
+        },
+        {
+          "type": "annotated-image",
+          "image": {
+            "src": "jane-multiple-forms-sketch-three-configurations",
+            "alt": {
+              "en": "",
+              "fr": "",
+              "placeholder": true
+            }
+          },
+          "notes": [
+            {
+              "x": 0.5,
+              "y": 0.5,
+              "text": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            }
+          ]
+        },
+        {
+          "type": "image-row-3",
+          "images": [
+            {
+              "src": "jane-multiple-forms-sketch-basic-config",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-multiple-forms-sketch-folded-config",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-multiple-forms-sketch-backpack-config",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "image-full",
+          "image": {
+            "src": "jane-multiple-forms-sketch-ways-of-wearing",
+            "alt": {
+              "en": "",
+              "fr": "",
+              "placeholder": true
+            }
+          }
+        },
+        {
+          "type": "image-pair",
+          "images": [
+            {
+              "src": "jane-multiple-forms-photo-one-shoulder",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-multiple-forms-photo-backpack",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            }
+          ]
         }
       ]
     },
@@ -105,12 +376,385 @@
       },
       "blocks": [
         {
-          "type": "chapter-intro",
-          "text": {
+          "type": "ai-episode",
+          "title": {
             "en": "",
             "fr": "",
             "placeholder": true
-          }
+          },
+          "problem": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "before": [
+            {
+              "src": "jane-designing-with-ai-error-extra-straps",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "crop": {
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-error-bag-changed",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "crop": {
+                "placeholder": true
+              }
+            }
+          ],
+          "method": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "prompt": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "after": [
+            {
+              "src": "jane-designing-with-ai-result-bag-on-heel",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "ai-episode",
+          "title": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "problem": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "before": [
+            {
+              "src": "jane-designing-with-ai-error-moss-texture",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "crop": {
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-error-basalt-texture",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "crop": {
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-error-dress-texture",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "crop": {
+                "placeholder": true
+              }
+            }
+          ],
+          "method": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "prompt": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "after": [
+            {
+              "src": "jane-designing-with-ai-result-forest-folded",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-result-basalt-movement",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            }
+          ]
+        },
+        {
+          "type": "ai-episode",
+          "title": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "problem": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "before": [
+            {
+              "src": "jane-designing-with-ai-error-blurred-face",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "crop": {
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-error-earrings-ring",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "crop": {
+                "placeholder": true
+              }
+            }
+          ],
+          "method": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "prompt": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "after": [
+            {
+              "src": "jane-designing-with-ai-result-front-face",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-result-side-face",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-result-outfit",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-result-outfit-separately",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "ai-episode",
+          "title": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "problem": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "before": [
+            {
+              "src": "jane-designing-with-ai-error-face-hanging",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "crop": {
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-error-face-floating",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "crop": {
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-error-box-sideways",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "crop": {
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-error-box-raised",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "caption": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "crop": {
+                "placeholder": true
+              }
+            }
+          ],
+          "method": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "prompt": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "after": [
+            {
+              "src": "jane-designing-with-ai-result-forest-standing",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-result-bag-in-box",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "principles-list",
+          "items": [
+            {
+              "title": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "text": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            }
+          ]
         }
       ]
     },
@@ -122,11 +766,63 @@
       },
       "blocks": [
         {
-          "type": "chapter-intro",
+          "type": "image-full",
+          "image": {
+            "src": "jane-campaign-photo-basalt-movement",
+            "alt": {
+              "en": "",
+              "fr": "",
+              "placeholder": true
+            }
+          }
+        },
+        {
+          "type": "text-image",
           "text": {
             "en": "",
             "fr": "",
             "placeholder": true
+          },
+          "image": {
+            "src": "jane-campaign-photo-tree-roots",
+            "alt": {
+              "en": "",
+              "fr": "",
+              "placeholder": true
+            }
+          },
+          "side": "right"
+        },
+        {
+          "type": "image-pair",
+          "images": [
+            {
+              "src": "jane-campaign-photo-proportions-basalt",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-campaign-photo-bag-in-roots",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "image-full",
+          "image": {
+            "src": "jane-campaign-photo-mossbound-silk",
+            "alt": {
+              "en": "",
+              "fr": "",
+              "placeholder": true
+            }
           }
         }
       ]
@@ -139,12 +835,105 @@
       },
       "blocks": [
         {
-          "type": "chapter-intro",
-          "text": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          }
+          "type": "sequence",
+          "images": [
+            {
+              "art": {
+                "horizontal": "jane-beyond-the-product-photo-stacked-boxes-horizontal",
+                "vertical": "jane-beyond-the-product-photo-stacked-boxes-vertical"
+              },
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-beyond-the-product-photo-box-open-from-top",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-beyond-the-product-photo-dust-bag-and-box",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "detail-grid",
+          "items": [
+            {
+              "image": {
+                "src": "jane-beyond-the-product-macro-tag",
+                "alt": {
+                  "en": "",
+                  "fr": "",
+                  "placeholder": true
+                }
+              }
+            },
+            {
+              "image": {
+                "src": "jane-beyond-the-product-macro-inner-patch",
+                "alt": {
+                  "en": "",
+                  "fr": "",
+                  "placeholder": true
+                }
+              }
+            },
+            {
+              "image": {
+                "src": "jane-beyond-the-product-macro-charm",
+                "alt": {
+                  "en": "",
+                  "fr": "",
+                  "placeholder": true
+                }
+              }
+            },
+            {
+              "image": {
+                "src": "jane-beyond-the-product-macro-paper-wax-seal",
+                "alt": {
+                  "en": "",
+                  "fr": "",
+                  "placeholder": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "image-pair",
+          "images": [
+            {
+              "art": {
+                "horizontal": "jane-beyond-the-product-photo-tag-on-bag-horizontal",
+                "vertical": "jane-beyond-the-product-photo-tag-on-bag-vertical"
+              },
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            },
+            {
+              "src": "jane-beyond-the-product-photo-bag-with-dust-bag",
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              }
+            }
+          ]
         }
       ]
     },
@@ -156,12 +945,58 @@
       },
       "blocks": [
         {
-          "type": "chapter-intro",
-          "text": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          }
+          "type": "outcome-montage",
+          "images": [
+            {
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            },
+            {
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            },
+            {
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            },
+            {
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            },
+            {
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            },
+            {
+              "alt": {
+                "en": "",
+                "fr": "",
+                "placeholder": true
+              },
+              "placeholder": true
+            }
+          ],
+          "placeholder": true
         }
       ]
     }

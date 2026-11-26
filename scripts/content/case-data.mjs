@@ -19,7 +19,10 @@ export async function loadCases() {
 }
 
 export async function assetExists(caseId, name) {
-  for (const width of IMAGE_WIDTHS) {
+  // assets/cases/<id>/images.json is written by build-case-images.mjs with the widths of each image.
+  let widths = IMAGE_WIDTHS;
+  try { widths = JSON.parse(await readFile(path.join(root, 'assets/cases', caseId, 'images.json'), 'utf8')).images[name]?.widths ?? []; } catch {}
+  for (const width of widths) {
     try { await access(path.join(root, 'assets/cases', caseId, `${name}-${width}.webp`)); return true; } catch {}
   }
   return false;

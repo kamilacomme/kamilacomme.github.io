@@ -37,7 +37,7 @@ export const BLOCK_TYPES = {
   'chapter-menu': {},
 };
 
-const IMAGE_FIELDS = new Set(['src', 'alt', 'caption', 'crop', 'art', 'placeholder']);
+const IMAGE_FIELDS = new Set(['src', 'alt', 'caption', 'crop', 'art', 'focus', 'focusMobile', 'placeholder']);
 
 class Report {
   constructor(label) { this.label = label; this.errors = []; }
@@ -67,17 +67,26 @@ function checkImage(image, where, report, ctx) {
   } else if (image.src === undefined && image.placeholder !== true) report.add(where, '"src" is required (or mark the image "placeholder": true)');
   for (const name of names) {
     if (name === undefined) continue;
-    const prefix = `${ctx.caseId}-${ctx.chapterId}-`;
+    // One frame belongs to one chapter; only the outcome montage may repeat frames of any chapter.
+    const prefix = ctx.anyChapter ? `${ctx.caseId}-` : `${ctx.caseId}-${ctx.chapterId}-`;
     if (typeof name !== 'string' || !KEBAB.test(name)) report.add(where, `image name "${name}" must be latin kebab-case without extension`);
-    else if (!name.startsWith(prefix) || name.slice(prefix.length).split('-').length < 2) report.add(where, `image name "${name}" must be ${prefix}<role>-<description>`);
+    else if (!name.startsWith(prefix) || name.slice(prefix.length).split('-').length < (ctx.anyChapter ? 3 : 2)) report.add(where, `image name "${name}" must be ${ctx.anyChapter ? `${prefix}<chapter>-` : prefix}<role>-<description>`);
   }
   if (image.alt === undefined) report.add(where, '"alt" is required');
   else checkLocalized(image.alt, `${where}.alt`, report);
   if (image.caption !== undefined) checkLocalized(image.caption, `${where}.caption`, report);
+  for (const key of ['focus', 'focusMobile']) {
+    if (image[key] === undefined) continue;
+    const focus = image[key];
+    if (!isObject(focus) || [focus.x, focus.y].some(v => typeof v !== 'number' || v < 0 || v > 1)) report.add(`${where}.${key}`, 'must be {x, y} with fractions from 0 to 1 (the point kept in view when the frame is cropped)');
+  }
   if (image.crop !== undefined) {
     const crop = image.crop;
     if (!isObject(crop)) report.add(`${where}.crop`, 'must be {x, y, w, h, label}');
-    else {
+    else if (crop.placeholder === true) {
+      // A defect crop that Kamila has not marked yet.
+      if (crop.label !== undefined) checkLocalized(crop.label, `${where}.crop.label`, report);
+    } else {
       for (const key of ['x', 'y', 'w', 'h']) {
         if (typeof crop[key] !== 'number' || crop[key] < 0 || crop[key] > 1) report.add(`${where}.crop.${key}`, 'must be a fraction of the image from 0 to 1');
       }
@@ -160,7 +169,7 @@ export function validateCaseFormat(data, { id } = {}) {
         const optional = typeof rawKind === 'string' && rawKind.endsWith('?');
         const kind = optional ? rawKind.slice(0, -1) : rawKind;
         if (block[field] === undefined) { if (!optional) report.add(where, `"${field}" is required for ${block.type}`); continue; }
-        checkField(kind, block[field], `${where}.${field}`, report, { caseId: data.id, chapterId: chapter.id });
+        checkField(kind, block[field], `${where}.${field}`, report, { caseId: data.id, chapterId: chapter.id, anyChapter: block.type === 'outcome-montage' });
       }
     });
   });

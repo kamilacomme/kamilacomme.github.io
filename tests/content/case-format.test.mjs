@@ -89,3 +89,19 @@ test('index: a draft must stay noindex; content:check passes with Jane as a draf
   assert.deepEqual(errors, []);
   assert.equal(summary.draft, 1);
 });
+
+test('focus points, pending crops and montage repeats', () => {
+  const c = clone(example);
+  c.chapters[2].blocks[0].image.focus = { x: 0.5, y: 0.2 };
+  c.chapters[2].blocks[0].image.focusMobile = { x: 0.4, y: 0.25 };
+  c.chapters[4].blocks[0].before[0].crop = { placeholder: true };
+  c.chapters[6].blocks[0].images[0].src = 'example-campaign-detail-buckle';
+  assert.deepEqual(validateCaseFormat(c), []);
+  assert.ok(validateCasePublication(c, allFiles).some(e => e.includes('before[0].crop: is a placeholder')));
+  const bad = clone(example);
+  bad.chapters[2].blocks[0].image.focus = { x: 2, y: 0 };
+  bad.chapters[2].blocks[1].images[0].src = 'example-campaign-detail-buckle';
+  const errors = validateCaseFormat(bad);
+  assert.ok(errors.some(e => e.includes('.focus: must be {x, y}')), errors.join('\n'));
+  assert.ok(errors.some(e => e.includes('must be example-nature-to-form-<role>-<description>')), errors.join('\n'));
+});

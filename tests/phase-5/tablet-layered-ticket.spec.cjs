@@ -10,6 +10,13 @@ test('tablet shared layered tickets match Figma geometry and adapt the section r
   await qa.seed(page);
   await qa.ready(page, language);
   await page.clock.runFor(500);
+  // Wait until the page has received the resize and the responsive profile owner
+  // has published the new viewport (same signal as footer-legal-resize-direction).
+  const settleViewport = async ({ width, height }) => {
+    await page.setViewportSize({ width, height });
+    await expect.poll(() => page.evaluate(({ width, height }) => window.__kcTabletLayout?.width === width
+      && window.__kcTabletLayout?.height === height, { width, height })).toBe(true);
+  };
   await qa.scrollSection(page, qa.selectors(mode).projects, 0);
 
   const result = await page.locator('#kc-tablet-projets').evaluate((root) => {
@@ -121,7 +128,7 @@ test('tablet shared layered tickets match Figma geometry and adapt the section r
   }
 
   const opposite = mode === 'tablet-portrait' ? { width: 1194, height: 834 } : { width: 834, height: 1112 };
-  await page.setViewportSize(opposite);
+  await settleViewport(opposite);
   await page.clock.runFor(500);
   const rotated = await page.locator('#kc-tablet-projets').evaluate(root => ({
     landscape: root.classList.contains('kc-landscape-rail'),
@@ -134,12 +141,12 @@ test('tablet shared layered tickets match Figma geometry and adapt the section r
   expect(rotated.cardCount).toBe(6);
   expect(rotated.titleSize).toBe(32);
 
-  await page.setViewportSize(viewport);
+  await settleViewport(viewport);
   await page.clock.runFor(500);
 
   if (!portrait) {
     await qa.scrollSection(page, qa.selectors(mode).projects, 0);
-    await page.evaluate((documentTop) => window.scrollTo(0, documentTop + 3650), result.projectDocumentTop);
+    await qa.scrollTo(page, result.projectDocumentTop + 3650, true);
     await page.clock.runFor(500);
     const end = await page.locator('#kc-tablet-projets .tickets').evaluate(rail => ({
       transform: new DOMMatrixReadOnly(getComputedStyle(rail).transform).m41,

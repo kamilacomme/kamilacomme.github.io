@@ -22,11 +22,17 @@ test('Tablet About uses viewport geometry, readable five-card layouts and preser
   await qa.seed(page);
   await qa.ready(page, language);
   await page.addStyleTag({ content: 'html { scroll-behavior: auto !important; }' });
+  // Wait until the page has received the resize and the responsive profile owner
+  // has published the new viewport (same signal as footer-legal-resize-direction).
+  const settleViewport = async ({ width, height }) => {
+    await page.setViewportSize({ width, height });
+    await expect.poll(() => page.evaluate(({ width, height }) => window.__kcTabletLayout?.width === width
+      && window.__kcTabletLayout?.height === height, { width, height })).toBe(true);
+  };
 
   const measurements = [];
   for (const viewport of viewports) {
-    await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    await page.waitForTimeout(100);
+    await settleViewport({ width: viewport.width, height: viewport.height });
     const sectionTop = await page.locator('#apropos-t').evaluate(el => el.getBoundingClientRect().top + scrollY);
     await page.evaluate((top) => {
       // Stay inside the existing sticky-panel latch while allowing the slow final card
@@ -139,12 +145,9 @@ test('Tablet About uses viewport geometry, readable five-card layouts and preser
   }
 
   // Confirm the existing geometry owner recomputes after orientation-like size changes.
-  await page.setViewportSize({ width: 834, height: 1112 });
-  await page.waitForTimeout(100);
-  await page.setViewportSize({ width: 1194, height: 834 });
-  await page.waitForTimeout(100);
-  await page.setViewportSize({ width: 560, height: 800 });
-  await page.waitForTimeout(100);
+  await settleViewport({ width: 834, height: 1112 });
+  await settleViewport({ width: 1194, height: 834 });
+  await settleViewport({ width: 560, height: 800 });
   const resizedStage = await page.locator('#apropos-t > div > div').evaluate(el => {
     const matrix = new DOMMatrixReadOnly(getComputedStyle(el).transform);
     return { width: el.getBoundingClientRect().width, height: el.getBoundingClientRect().height, transform: getComputedStyle(el).transform, scale: Math.hypot(matrix.a, matrix.b) };
@@ -160,8 +163,7 @@ test('Tablet About uses viewport geometry, readable five-card layouts and preser
     { width: 500, height: 600 },
     { width: 716, height: 555 },
   ]) {
-    await page.setViewportSize(viewport);
-    await page.waitForTimeout(100);
+    await settleViewport(viewport);
     const shortSectionTop = await page.locator('#apropos-t').evaluate(el => el.getBoundingClientRect().top + scrollY);
     const excerpt = await page.locator('#apropos-t p').evaluate(p => ({
       cssSize: parseFloat(getComputedStyle(p).fontSize),

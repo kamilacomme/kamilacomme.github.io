@@ -466,7 +466,17 @@
       }
       if (usedPendingProjectAnchor) window.__kcPendingProjectAnchor = null;
       if (usedPendingAboutAnchor) window.__kcPendingAboutAnchor = null;
-      if (preservingResizeAnchor) window.setTimeout(() => { preservingResizeAnchor = false; }, 120);
+      if (preservingResizeAnchor) {
+        // The scroll owner ignores scroll events for 120 ms after a restore so that a
+        // browser clamp cannot replace the anchor. A reader scroll inside that window
+        // would otherwise be lost and the stale anchor restored by the next layout
+        // pass: when the window closes, re-read the position if it has moved.
+        const restoredY = window.scrollY;
+        window.setTimeout(() => {
+          preservingResizeAnchor = false;
+          if (Math.abs(window.scrollY - restoredY) > 1) updateLandscapeScroll();
+        }, 120);
+      }
       hasLayout = true;
     });
   }

@@ -108,7 +108,7 @@ Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phas
 
 ## Site fixes 1–6 (branch `fix/site-fixes-1-6`, 2026-11-25)
 
-**Status: task 1 closed (2026-11-26): the Linux lab CI run [#45831042645](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45831042645) on `ac0ddd2` (Chrome for Testing 154.0.8037.57) is fully green — Phase 5 221 passed, 0 failed, 227 skipped ([ci-linux-lab](site-fixes-1-6-review/ci-linux-lab.md)). Accepted by Kamila: T1, T2, T3, T4 `desktop-fluid-projects`, T11, `8d4c130`, `ba9e60a`; implemented and verified, acceptance pending: `d5c4aba`, `504d81b`, `e06db15`, `782f5d1`, `ac0ddd2`. Branch pushed for CI only (head `ac0ddd2`); not merged, no PR, not published.** Implemented and verified on macOS. T1, T2, T3 and T11 (commits `209b30d`, `4d82a26`, `871955f`, `9a2f825`) accepted by Kamila on 2026-11-26, visually and by code; the visual acceptance covered `t1-before-mobile-en`, `t1-after-mobile-en` and `t1-after-tablet-portrait-en`. T4 continues below. Based on `case-studies/foundation` (`f9e5b92`) because T3 and T11 concern case pages, which exist only there. Not pushed, merged or published. Captures and probe notes: [site-fixes-1-6-review](site-fixes-1-6-review/README.md).
+**Status: task 1 closed (2026-11-26) and accepted by Kamila in full; Linux lab CI green — [#45831042645](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45831042645) on `ac0ddd2` and [#45835235328](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45835235328) on `ebabd5e`: Phase 5 221 passed, 0 failed, 227 skipped each (Chrome for Testing 154.0.8037.57; [ci-linux-lab](site-fixes-1-6-review/ci-linux-lab.md)). Accepted: T1, T2, T3, T4 `desktop-fluid-projects`, T11, `8d4c130`, `ba9e60a`, `d5c4aba`, `504d81b`, `e06db15`, `ac0ddd2`, `782f5d1`. The live site is unchanged: `main` stays at `ce0d033` and GitHub Pages still serves it; the branch `fix/site-fixes-1-6` was pushed for CI only (head `ebabd5e`), with no PR. Merging into `main` and publishing are a separate decision for Kamila. No further changes to this branch without a separate decision.** Implemented and verified on macOS. T1, T2, T3 and T11 (commits `209b30d`, `4d82a26`, `871955f`, `9a2f825`) accepted by Kamila on 2026-11-26, visually and by code; the visual acceptance covered `t1-before-mobile-en`, `t1-after-mobile-en` and `t1-after-tablet-portrait-en`. T4 continues below. Based on `case-studies/foundation` (`f9e5b92`) because T3 and T11 concern case pages, which exist only there. Not pushed, merged or published. Captures and probe notes: [site-fixes-1-6-review](site-fixes-1-6-review/README.md).
 
 | Task | Cause | Verification | Status |
 | --- | --- | --- | --- |
@@ -141,15 +141,16 @@ Updated: 2026-11-25 (site fixes 1–6); release record from 2026-10-31. The Phas
 | `4c6d131`, `115d320`, `d842cc9` | Docs: checks, acceptance, status with open items | Docs |
 | `97ad523` | Docs: environment diagnosis §3–6, To-do, final status | Docs |
 | `7d0fbb4` | Docs: regression check across `3fbb343`, `8d4c130`, `ba9e60a` | Docs |
-| `d5c4aba` | Fix: re-read the position when the 120 ms tablet window closes | Implemented and verified; acceptance pending |
-| `504d81b` | Test: two specs wait for the published layout | Implemented and verified; acceptance pending |
+| `d5c4aba` | Fix: re-read the position when the 120 ms tablet window closes | Accepted |
+| `504d81b` | Test: two specs wait for the published layout | Accepted |
 | `f518576` | Docs: follow-up results, To-do, status | Docs |
-| `e06db15` | Test: `tablet-portrait-fluid` waits for the published layout | Implemented and verified (10/10 runs); acceptance pending |
-| `782f5d1` | CI: Phase 5 Linux lab workflow (pushed head) | Ran: [#45818174171](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45818174171) |
+| `e06db15` | Test: `tablet-portrait-fluid` waits for the published layout | Accepted |
+| `782f5d1` | CI: Phase 5 Linux lab workflow (pushed head) | Ran: [#45818174171](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45818174171); accepted |
 | `038d64c` | Docs: Linux lab CI run 1 (pushed; triggered run #45825649606) | Docs |
 | `51bc491` | Docs: CI rerun and run 3 (pushed with `ac0ddd2`) | Docs |
-| `ac0ddd2` | Test: `tablet-narrow-layout` waits for the published layout | Implemented and verified; Linux CI green; acceptance pending |
-| this commit | Docs: Linux CI run 4 (green), task 1 closed (local, not pushed) | Docs |
+| `ac0ddd2` | Test: `tablet-narrow-layout` waits for the published layout | Accepted |
+| `ebabd5e` | Docs: Linux CI run 4 (green), task 1 closed (pushed; run #45835235328 green) | Docs |
+| this commit | Docs: final acceptance and run #45835235328 (local, not pushed) | Docs |
 
 ## Roadmap
 

@@ -8,6 +8,7 @@ Three runs on Google Chrome for Testing 154.0.8037.57 (ubuntu-24.04, Playwright 
 | [#45818174171 attempt 2](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45818174171/attempts/2) (`gh run rerun`, no push) | `782f5d1` | 220 | 1 | 227 | `tablet-narrow-layout` tablet-portrait-en |
 | [#45825649606](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45825649606) (triggered by the push of `038d64c`) | `038d64c` (docs only) | 220 | 1 | 227 | `tablet-narrow-layout` tablet-portrait-en |
 | [#45831042645](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45831042645) (push of `51bc491` + `ac0ddd2`) | `ac0ddd2` | **221** | **0** | 227 | — |
+| [#45835235328](https://github.com/kamilacomme/kamilacomme.github.io/actions/runs/45835235328) (push of `ebabd5e`, docs only) | `ebabd5e` | **221** | **0** | 227 | — |
 
 Second push: `038d64c5a8d905081ae2e50605d80539713630ac` (`782f5d1..038d64c`, normal push, no force). Third push: `ac0ddd26019142a4bd52911112ad36e54ef7d990` (`038d64c..ac0ddd2`, one normal push containing the docs commit `51bc491` and the test change `ac0ddd2`). No pull request; `main` unchanged at `ce0d033`; no Pages build or deployment.
 
@@ -215,3 +216,9 @@ The test “tablet navbar top inset shares the page gutter and aligns with the l
 | `mobile-projects-responsive.spec.cjs` | 2 (mobile-fr, mobile-en) | 0 |
 
 executions passed 221 failed 0
+
+## Run 5 (#45835235328, push of `ebabd5e`) — fully green
+
+Docs-only push (`ac0ddd2..ebabd5e`, normal push). **221 passed, 0 failed, 227 skipped (25.3 min).** Second fully green Linux run in a row. Recorded locally after the run; not pushed (a push would start another run).
+
+**Live site.** `main` stays at `ce0d033`; GitHub Pages (legacy build from `main`) has had no build or deployment since 2026-11-01. Merging into `main` and publishing are a separate decision for Kamila.

@@ -8,6 +8,13 @@ test('portrait layered cards fill 32px gutters with readable bilingual type', as
   await qa.routes(context);
   await qa.seed(page);
   await qa.ready(page, language);
+  // Wait until the page has received the resize and the responsive profile owner
+  // has published the new viewport (same signal as footer-legal-resize-direction).
+  const settleViewport = async ({ width, height }) => {
+    await page.setViewportSize({ width, height });
+    await expect.poll(() => page.evaluate(({ width, height }) => window.__kcTabletLayout?.width === width
+      && window.__kcTabletLayout?.height === height, { width, height })).toBe(true);
+  };
 
   const viewports = [
     { width: 834, height: 1112, expectedCardWidth: 770 },
@@ -17,7 +24,7 @@ test('portrait layered cards fill 32px gutters with readable bilingual type', as
   const reports = [];
 
   for (const viewport of viewports) {
-    await page.setViewportSize(viewport);
+    await settleViewport(viewport);
     await page.clock.runFor(300);
     await qa.scrollSection(page, '#kc-tablet-projets', 0);
     const result = await page.evaluate(() => {

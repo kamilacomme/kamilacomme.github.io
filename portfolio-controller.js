@@ -44,32 +44,20 @@ class Component extends DCLogic {
   componentDidMount() {
     // Language routes are full static-page navigations. Carry one semantic anchor
     // through that load and let the current section geometry owner consume it.
-    try {
-      const saved = sessionStorage.getItem("kc-scroll");
-      if (saved) {
-        sessionStorage.removeItem("kc-scroll");
-        const anchor = JSON.parse(saved);
-        if (anchor?.version === 1 && anchor.hash === window.location.hash
-          && ["project", "about", "contact"].includes(anchor.kind)) {
-          window.__kcPendingLanguageAnchor = anchor;
-          this._finishLanguageAnchor = () => {
-            if (window.__kcPendingLanguageAnchor === anchor) window.__kcPendingLanguageAnchor = null;
-            ["wheel", "touchstart", "pointerdown", "keydown"].forEach((type) =>
-              document.removeEventListener(type, this._cancelLanguageAnchor, true));
-            window.removeEventListener("kc:language-anchor-restored", this._onLanguageAnchorRestored);
-          };
-          this._onLanguageAnchorRestored = () => this._finishLanguageAnchor();
-          window.addEventListener("kc:language-anchor-restored", this._onLanguageAnchorRestored);
-          this._cancelLanguageAnchor = (event) => {
-            if (event.type === "keydown"
-              && !["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) return;
-            this._finishLanguageAnchor();
-          };
-          ["wheel", "touchstart", "pointerdown", "keydown"].forEach((type) =>
-            document.addEventListener(type, this._cancelLanguageAnchor, { capture: true, passive: true }));
-        }
-      }
-    } catch (err) {}
+    // The anchor format, storage and the Footer ("contact") kind are shared with the
+    // case pages through window.KCSiteFooter.
+    const anchor = window.KCSiteFooter.takeLanguageAnchor(["project", "about", "contact"]);
+    if (anchor) {
+      window.__kcPendingLanguageAnchor = anchor;
+      this._finishLanguageAnchor = () => {
+        if (window.__kcPendingLanguageAnchor === anchor) window.__kcPendingLanguageAnchor = null;
+        this._stopLanguageAnchorIntent();
+        window.removeEventListener("kc:language-anchor-restored", this._onLanguageAnchorRestored);
+      };
+      this._onLanguageAnchorRestored = () => this._finishLanguageAnchor();
+      window.addEventListener("kc:language-anchor-restored", this._onLanguageAnchorRestored);
+      this._stopLanguageAnchorIntent = window.KCSiteFooter.onScrollIntent(() => this._finishLanguageAnchor());
+    }
     // The static route may not contain the React-rendered Footer yet when the browser
     // first processes #contact. Reapply that one initial fragment after the existing
     // responsive fit pass publishes its measured section geometry.
@@ -95,11 +83,9 @@ class Component extends DCLogic {
         }
         const footer = this.footer || document.getElementById("contact");
         if (!footer || !footer.isConnected) return;
-        const rect = footer.getBoundingClientRect();
-        const travel = Math.max(0, rect.height - window.innerHeight);
         const progress = window.__kcPendingLanguageAnchor?.kind === "contact"
           ? window.__kcPendingLanguageAnchor.progress : 0;
-        const target = rect.top + window.scrollY + travel * progress;
+        const target = window.KCSiteFooter.contactScrollTop(footer, progress);
         if (!Number.isFinite(target)) return;
         window.scrollTo({ top: Math.max(0, target), behavior: "instant" });
         // renderFooter uses the same cached geometry as its frame loop. Update the
@@ -211,32 +197,27 @@ class Component extends DCLogic {
       }
     };
     document.addEventListener("click", this._onMail, true);
-    this._onLegal = (e) => {
-      const a = e.target && e.target.closest && e.target.closest("a[data-legal]");
-      if (!a) return;
-      e.preventDefault();
-      this.openSheet(a.dataset.legal, a);
-    };
+    // Legal dialogs are owned by scripts/footer/site-footer.js.
+    this._onLegal = window.KCSiteFooter.legalClickHandler(this);
     document.addEventListener("click", this._onLegal, true);
     // Keep the language control a normal static-route link. When a visitor is
     // already in a section, carry its existing profile-specific anchor to the
     // other locale; the browser performs the route navigation itself.
     this._onLanguageSwitch = (e) => {
-      const a = e.target && e.target.closest && e.target.closest("a[data-kc-language-switch]");
-      if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const F = window.KCSiteFooter;
+      const a = F.languageSwitchLink(e);
+      if (!a) return;
       const base = a.dataset.kcSwitchTo;
-      if (!base) return;
       const suffix = this.mobile ? "-m" : this.tablet ? "-t" : "";
       const candidates = ["#projets" + suffix, "#apropos" + suffix, "#contact"];
       const currentY = window.scrollY;
-      const threshold = window.scrollY + Math.min(window.innerHeight * 0.42, 360);
+      const threshold = F.languageAnchorLine();
       let current = "";
       for (const id of candidates) {
         const section = document.getElementById(id.slice(1));
         if (section && section.getBoundingClientRect().top + window.scrollY <= threshold) current = id;
       }
       let anchor = null;
-      try { sessionStorage.removeItem("kc-scroll"); } catch (err) {}
       if (current) {
         anchor = { version: 1, hash: current, kind: "", progress: 0 };
         if (current.startsWith("#projets")) {
@@ -252,46 +233,14 @@ class Component extends DCLogic {
           anchor.kind = "about";
           anchor.progress = Math.max(0, Math.min(1, (currentY - top) / travel));
         } else {
-          const rect = document.getElementById("contact")?.getBoundingClientRect();
-          const travel = Math.max(1, (rect?.height || 0) - window.innerHeight);
-          anchor.kind = "contact";
-          anchor.progress = Math.max(0, Math.min(1, -(rect?.top || 0) / travel));
+          anchor = F.contactAnchor(document.getElementById("contact"));
         }
-        if (anchor) try { sessionStorage.setItem("kc-scroll", JSON.stringify(anchor)); } catch (err) {}
       }
+      F.saveLanguageAnchor(anchor);
       a.setAttribute("href", current ? base + current : base);
     };
     document.addEventListener("click", this._onLanguageSwitch, true);
-    this._onKey = (e) => {
-      const activeSheet = this._activeSheet;
-      if (!activeSheet) return;
-      if (e.key === "Escape") {
-        e.preventDefault();
-        this.closeSheet();
-        return;
-      }
-      if (e.key !== "Tab") return;
-      const focusable = [...activeSheet.querySelectorAll(
-        'a[href], area[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])'
-      )].filter((el) => !el.hidden && el.getAttribute("aria-hidden") !== "true" && el.getClientRects().length > 0);
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      let current = document.activeElement;
-      while (current && current.shadowRoot && current.shadowRoot.activeElement) current = current.shadowRoot.activeElement;
-      if (!first) {
-        e.preventDefault();
-        activeSheet.focus();
-      } else if (!activeSheet.contains(current)) {
-        e.preventDefault();
-        (e.shiftKey ? last : first).focus();
-      } else if (e.shiftKey && current === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && current === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
+    this._onKey = window.KCSiteFooter.sheetKeyHandler(this);
     document.addEventListener("keydown", this._onKey);
     if (!this.heroSlides) this.heroSlides = [];
     if (!this.tHeroSlides) this.tHeroSlides = [];
@@ -337,9 +286,8 @@ class Component extends DCLogic {
       // one scene scale for the whole site: 1440x844 design frame fitted into the viewport.
       // width AND height are both respected, so nothing is cropped on short screens;
       // clamped so type never gets tiny on laptops or absurd on 4K.
-      const fw = window.innerWidth / 1440, fh = this.vhNow() / 844;
-      // width fit is a hard ceiling (never crop sideways); height only shrinks, down to 0.72.
-      const s = Math.min(fw, Math.min(1.08, Math.max(0.72, Math.min(fw, fh))));
+      // The scene-scale formula is shared with static pages (scripts/shared/responsive-profile.js).
+      const s = window.KCResponsiveProfile.sceneScale(window.innerWidth, this.vhNow());
       this.s = s;
       // Keep the Hero preview image-only responsive: size it in effective CSS pixels,
       // then account for its existing art-frame scale. If a very short viewport leaves
@@ -439,24 +387,11 @@ class Component extends DCLogic {
       // 500, not 640: the phone frame is 390 design px wide and scales UP to the window, so
       // a 600-wide browser window blew the handset layout up to 1.5x. Below 500 the scale
       // stays near 1 (a real handset is 390-430); 500-1080 is the tablet's range.
-      const mobile = force === "mobile" || phoneForced || (force === "auto" && window.innerWidth < 500);
-      // a landscape iPad is still a tablet: it has no hover, so the desktop carousel
-      // (cursor graphic, hover-gated video) would be dead there. Route any coarse-pointer
-      // viewport up to 1366 to the tablet layout, portrait or not.
-      const touch = window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches;
-      const fineHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-      // a coarse-pointer report alone is not enough to call something a tablet: some
-      // desktop browsers and embedded views report one while showing a full-size window,
-      // and routing those to the tablet branch left the DESKTOP dom on screen driven by
-      // tablet logic — the About cards then never moved at all.
-      const iPadish = /iPad|iPhone|iPod|Android/i.test(navigator.userAgent)
-        || (navigator.platform === "MacIntel" && (navigator.maxTouchPoints || 0) > 1);
-      // an iPad with a trackpad or Magic Keyboard attached reports (hover: hover) and
-      // (pointer: fine) — exactly like a desktop, which in landscape dropped it onto the
-      // desktop layout (overlapping About grid, hover-only deck). The device decides, not
-      // whichever pointer happens to be plugged in.
-      const tablet = !mobile && (force === "tablet" || (force === "auto" && window.innerWidth < 1080)
-        || (force === "auto" && window.innerWidth <= 1366 && ((touch && !fineHover) || iPadish)));
+      // The profile rule is shared with static pages (scripts/shared/responsive-profile.js);
+      // the editor's layout/phone overrides stay here and are passed in.
+      const { touch, fineHover, iPadish } = window.KCResponsiveProfile.readDevice();
+      const { mobile, tablet } = window.KCResponsiveProfile.resolveProfile({
+        width: window.innerWidth, force, phoneForced, touch, fineHover, iPadish });
       const responsiveProfile = mobile ? "mobile" : tablet ? "tablet" : "desktop";
       const profileChanged = !!this._layoutProfile && this._layoutProfile !== responsiveProfile;
       // Refs, font readiness, and component updates also call fit(). Only carry a
@@ -480,8 +415,7 @@ class Component extends DCLogic {
         ? this._pendingResizeFooterProgress : null;
       if (profileChanged) this._pendingResizeProjectIndex = null;
       this.tablet = tablet; this.mobile = mobile;
-      const pageGutterX = mobile ? 16 : tablet ? 32 : 32 * s;
-      const pageGutterBottom = mobile ? 24 : (tablet ? 32 : 32 * s);
+      const { x: pageGutterX, bottom: pageGutterBottom } = window.KCResponsiveProfile.pageGutters({ mobile, tablet, s });
       const big = !tablet && !mobile;
       // desktop projets is 1 screen (carousel); tablet/phone still scroll 6 panels
       this.ABOUT_TOP = big || tablet ? 2.35 : 7;
@@ -619,7 +553,7 @@ class Component extends DCLogic {
       // measured on the small viewport; projets/about/footer fill the whole screen
       const heroViewH = this.devH || stableH;
       const viewH = this.devH || fullH;
-      let sm = (viewW / 390) * kFit;
+      let sm = window.KCResponsiveProfile.mobileScale(viewW, kFit);
       const mHeroFrameH = Math.round(heroViewH * kFit);
       const mFrameH = Math.round(viewH * kFit);
       this.sm = sm; this.mFrameH = mFrameH; this.mHeroFrameH = mHeroFrameH;
@@ -698,7 +632,7 @@ class Component extends DCLogic {
       // window now lands on the tablet tier) used to keep st at 1, so the 64px hero title
       // stayed full size on a 600-tall screen and read as oversized. 900 is the reference
       // height at which the tablet type is shown at 100%.
-      let st = Math.min(ST_MAX, window.innerWidth / 834, Math.max(0.62, this.vhNow() / 900));
+      let st = window.KCResponsiveProfile.tabletScale(window.innerWidth, this.vhNow());
       if (force !== "auto" && this.devW) st = Math.min(ST_MAX, this.devW / 834, Math.max(0.62, this.devH / 900));
       this.st = st;
       // Shared tablet design-to-screen scale for the active portfolio block.
@@ -752,22 +686,6 @@ class Component extends DCLogic {
       }
       // navbar rides whichever frame is active
       if (this.nav) {
-        this.nav.classList.toggle("kc-tablet-nav", tablet);
-        // The navigation frame fills the viewport directly. Keep its spacing in the
-        // previous effective layout units while typography remains independently sized.
-        // Tablet controls are authored as fixed CSS-pixel hit targets. Scaling the
-        // navbar frame by the tablet's height-fit factor made its 72px frame smaller
-        // than the 44px buttons at short/wide tablet sizes, pushing them against the
-        // top edge and shifting the CTA's gutter inward from the Projects rail.
-        const navScale = mobile ? sm : tablet ? 1 : s;
-        this.nav.style.setProperty("--kc-nav-scale", String(navScale));
-        this.nav.style.setProperty("--kc-nav-gutter", pageGutterX.toFixed(3) + "px");
-        this.nav.style.setProperty("--kc-nav-block-padding", ((mobile ? 12 : 15) * navScale).toFixed(3) + "px");
-        // Publish both page-edge values from this existing responsive geometry owner.
-        // The Navbar, Hero, Footer and fixed language link consume the shared values
-        // independently; the switcher never measures a component to find its inset.
-        document.documentElement.style.setProperty("--kc-page-gutter-x", pageGutterX.toFixed(3) + "px");
-        document.documentElement.style.setProperty("--kc-page-gutter-bottom", pageGutterBottom.toFixed(3) + "px");
         // the phone / tablet frame is centred in the window — the navbar has to ride
         // its top edge, not the window's, otherwise it floats above the design
         const boxH = mobile ? (this.devH ? this.devH * kFit : this.vhNow())
@@ -777,20 +695,10 @@ class Component extends DCLogic {
         const suffix = mobile ? "-m" : tablet ? "-t" : "";
         if (p) p.setAttribute("href", "#projets" + suffix);
         if (a) a.setAttribute("href", "#apropos" + suffix);
-        // no room for the section links on a phone: logo + Hire me only
-        const links = this.nav.querySelector(":scope > div");
-        if (links) links.style.display = mobile || tablet ? "none" : "flex";
-        const cdi = this.nav.querySelector("[data-fixed-ink] > [data-fixed-ink]");
-        const pill = cdi ? cdi.parentElement : null;
-        if (pill) pill.style.display = mobile ? "none" : "inline-flex";
-        const cta = this.nav.querySelector("a[href^='mailto'] > span");
-        if (cta) cta.style.fontSize = "var(--kc-type-body, 14px)";
-        // Preserve the desktop Footer legal group's approved alignment with the first
-        // section link while publishing it once for Footer to consume as shared geometry.
-        const projectsLink = this.nav.querySelector("a[href$='#projets']");
-        if (projectsLink) {
-          document.documentElement.style.setProperty("--kc-nav-project-start", projectsLink.getBoundingClientRect().left.toFixed(3) + "px");
-        }
+        // Profile class, Navbar variables, page gutters, link/pill visibility and the
+        // Projects-link edge are the shared Navbar shell (scripts/shared/responsive-profile.js).
+        window.KCResponsiveProfile.applyNavShell(this.nav, { mobile, tablet, s, sm,
+          gutters: { x: pageGutterX, bottom: pageGutterBottom } });
         const mobilePreview = mobile && this.mHero && this.mHero.querySelector(".kc-mobile-hero-slideshow");
         if (mobilePreview) {
           mobilePreview.style.right = pageGutterX.toFixed(3) + "px";
@@ -1095,6 +1003,10 @@ class Component extends DCLogic {
       this._layoutProfile = responsiveProfile;
       if (Number.isFinite(handoffFooterProgress)) {
         this._lastScrollSection = "contact";
+        // The desktop Projects iframe can measure after this handoff (mobile → desktop)
+        // and grow the document. Publish the Footer anchor so it restores the Footer
+        // instead of capturing a transient About position.
+        window.__kcPendingFooterAnchor = { progress: handoffFooterProgress };
         const handoffLocation = window.location.href;
         // Let the existing tablet Projects owner finish its layout pass before
         // restoring the Footer's semantic scroll position.
@@ -1137,6 +1049,7 @@ class Component extends DCLogic {
       }
       if (about && about.getBoundingClientRect().top <= 1 && about.getBoundingClientRect().bottom > 1) {
         this._lastScrollSection = "about";
+        window.__kcPendingFooterAnchor = null;
         const rect = about.getBoundingClientRect();
         const travel = Math.max(1, rect.height - window.innerHeight);
         this._pendingResizeAboutProgress = Math.max(0, Math.min(1, -rect.top / travel));
@@ -1144,6 +1057,7 @@ class Component extends DCLogic {
       }
       this._pendingResizeAboutProgress = null;
       this._pendingResizeFooterProgress = null;
+      window.__kcPendingFooterAnchor = null;
       const sectionRect = projects?.getBoundingClientRect();
       if (!sectionRect || sectionRect.top >= innerHeight || sectionRect.bottom <= 0) {
         this._lastScrollSection = "other";
@@ -1276,251 +1190,9 @@ class Component extends DCLogic {
     };
     window.addEventListener("scroll", this._onScroll, { passive: true });
   }
-  fitFooter(tablet) {
-    if (!this.footer) return;
-    const mob = this.mobile;
-    const sc = (mob ? this.sm : tablet ? this.st : this.s) || 1;
-    const pageGeometry = getComputedStyle(document.documentElement);
-    const edgeL = parseFloat(pageGeometry.getPropertyValue("--kc-page-gutter-x")) || (mob ? 16 : 32);
-    const pageGutterBottom = parseFloat(pageGeometry.getPropertyValue("--kc-page-gutter-bottom")) || (mob ? 24 : 32);
-    const px = (v) => (v * sc).toFixed(1) + "px";
-    const typePx = (v) => v + "px";
-    const footerGeometryKey = `${tablet ? "tablet" : mob ? "mobile" : "desktop"}:${window.innerWidth}x${window.innerHeight}:${Math.round(this.vhNow())}x${Math.round(this.lvhNow())}:${sc}:${edgeL}:${pageGutterBottom}`;
-    const q = (sel) => this.footer.querySelector(sel);
-    const head = q("[data-c='0']"), info = q("[data-c='1']"), legal = q("[data-c='4']");
-    const syncFooterClothHeight = (height) => {
-      if (!this.cloth) return;
-      const normalizedHeight = height || "100svh";
-      Object.assign(this.cloth.style, { left: "0px", top: "0px", width: "100vw",
-        height: normalizedHeight, backgroundColor: "#000000" });
-      const width = document.documentElement.clientWidth || window.innerWidth;
-      const key = `${width}:${normalizedHeight}`;
-      if (this._footerClothSizeKey !== key) {
-        this._footerClothSizeKey = key;
-        if (this.clothEl && this.clothEl.resize) this.clothEl.resize();
-      }
-    };
-    // Scroll-triggered navbar alignment can call fitFooter() without changing
-    // viewport geometry. Keep an already-expanded Footer stable so reading it
-    // cannot trigger a second absolute-to-flow reflow or browser scroll anchoring.
-    if (this._footerNaturalFlow && this._footerNaturalFlowKey === footerGeometryKey) {
-      syncFooterClothHeight(this.footer.style.height);
-      return;
-    }
-    // A prior short-height fit may have changed the same authored nodes into natural
-    // document flow. Reset only those flow-owned properties before measuring the
-    // regular composition for this viewport; the profile branch below reapplies its
-    // normal geometry and typography.
-    if (this._footerNaturalFlow) {
-      Object.assign(this.footer.style, { display: "", flexDirection: "", alignItems: "",
-        overflow: "hidden", minHeight: "", padding: "", boxSizing: "" });
-      [head, info, legal].forEach((el) => {
-        if (!el) return;
-        Object.assign(el.style, { position: "absolute", margin: "", flex: "", alignSelf: "",
-          left: "", right: "", top: "", bottom: "", width: "", maxWidth: "" });
-      });
-      this.footer.removeAttribute("data-kc-footer-mode");
-      this._footerNaturalFlow = false;
-      this._footerNaturalFlowKey = null;
-    }
-    const naturalFlowIfNeeded = (topInset) => {
-      if (!head || !info || !legal) return false;
-      const section = this.footer.getBoundingClientRect();
-      const sectionHeight = this.footer.clientHeight;
-      const boxes = [head, info, legal].map((el) => {
-        const r = el.getBoundingClientRect();
-        return { left: r.left, right: r.right, top: r.top - section.top,
-          bottom: r.bottom - section.top };
-      });
-      // A previously tall mobile viewport can leave lvh latched after the browser
-      // window shrinks. Test the authored composition against the live viewport as
-      // well as its section bounds so the short-height fallback engages on resize.
-      const availableHeight = mob ? Math.min(sectionHeight, window.innerHeight) : sectionHeight;
-      const outside = boxes.some((r) => r.top < -1 || r.bottom > availableHeight + 1);
-      const overlaps = boxes.some((a, i) => boxes.slice(i + 1).some((b) =>
-        a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top));
-      if (!outside && !overlaps) {
-        this._footerNaturalFlowHeight = null;
-        this._footerNaturalFlowKey = null;
-        syncFooterClothHeight(this.footer.style.height);
-        return false;
-      }
-
-      // The curtain is absolutely positioned and can retain the previous tall
-      // viewport's height after a mobile resize. Collapse it while measuring either
-      // short-height arrangement, then sync it to the final section below.
-      if (this.cloth) this.cloth.style.height = "0px";
-
-      // Try the Figma short-wide composition first: keep the heading at the left and
-      // bottom-align contacts and legal links in one row. It is used only when the
-      // actual rendered groups fit inside the shared gutters at their authored sizes.
-      Object.assign(this.footer.style, { display: "flex", flexDirection: "row",
-        alignItems: "flex-end", justifyContent: "flex-start", gap: "32px", height: "auto",
-        minHeight: `${Math.max(0, window.innerHeight)}px`, overflow: "visible",
-        padding: `16px ${edgeL}px ${pageGutterBottom}px`, boxSizing: "border-box" });
-      [head, info, legal].forEach((el) => Object.assign(el.style, { position: "relative", left: "auto",
-        right: "auto", top: "auto", bottom: "auto", width: "auto", maxWidth: "none",
-        margin: "0px", flex: "0 0 auto", alignSelf: "auto" }));
-      head.style.maxWidth = `calc(100vw - ${2 * edgeL}px)`;
-      const rowBoxes = [head, info, legal].map((el) => {
-        const r = el.getBoundingClientRect(), fr = this.footer.getBoundingClientRect();
-        return { left: r.left - fr.left, right: r.right - fr.left,
-          top: r.top - fr.top, bottom: r.bottom - fr.top };
-      });
-      const rowWidthFits = rowBoxes.every((r) => r.left >= edgeL - 1 && r.right <= window.innerWidth - edgeL + 1)
-        && rowBoxes.every((r, i) => i === 0 || rowBoxes[i - 1].right + 1 <= r.left);
-      const rowHeight = this.footer.scrollHeight;
-      if (rowWidthFits && rowHeight <= window.innerHeight + 1) {
-        this.footer.style.height = Math.ceil(Math.max(window.innerHeight, rowHeight)) + "px";
-        this.footer.setAttribute("data-kc-footer-mode", "natural-flow-row");
-        this._footerNaturalFlow = true;
-        this._footerNaturalFlowKey = footerGeometryKey;
-        this._footerNaturalFlowHeight = this.footer.style.height;
-        syncFooterClothHeight(this.footer.style.height);
-        return true;
-      }
-
-      // If that row cannot fit at this viewport's actual width and height, retain the
-      // natural vertical scroll fallback, preserving the existing group hierarchy.
-      Object.assign(this.footer.style, { flexDirection: "column", alignItems: "stretch", gap: "0px",
-        height: "auto", minHeight: `${Math.max(0, window.innerHeight)}px`,
-        padding: `0px 0px ${pageGutterBottom}px` });
-      Object.assign(head.style, { maxWidth: `calc(100vw - ${2 * edgeL}px)`,
-        margin: `${Math.max(0, topInset)}px ${edgeL}px 0px`, flex: "0 0 auto" });
-      Object.assign(info.style, { margin: `32px ${edgeL}px 0px`, flex: "0 0 auto" });
-      Object.assign(legal.style, { margin: `32px ${edgeL}px 0px`, flex: "0 0 auto" });
-      // Reading scrollHeight includes wrapped bilingual text and the shared bottom
-      // gutter. Use it to keep the section and existing scroll-driven curtain aligned.
-      const naturalHeight = Math.max(window.innerHeight, this.footer.scrollHeight);
-      this.footer.style.height = Math.ceil(naturalHeight) + "px";
-      this.footer.setAttribute("data-kc-footer-mode", "natural-flow");
-      this._footerNaturalFlow = true;
-      this._footerNaturalFlowKey = footerGeometryKey;
-      this._footerNaturalFlowHeight = Math.ceil(naturalHeight) + "px";
-      syncFooterClothHeight(this.footer.style.height);
-      return true;
-    };
-    if (mob) {
-      // phone: the headline/email sit below the navbar; contact details and legal links
-      // stay anchored to the frame's bottom edge
-      const kFit = this.kFit || 1;
-      const boxW = (this.devW || window.innerWidth) * kFit;
-      const boxH = (this.devH || this.lvhNow()) * kFit;
-      // the panel stays in flow at full window size — pulling it up with a negative top
-      // made it ride over the About block. The phone screen is a centred box inside it.
-      const bl = (window.innerWidth - boxW) / 2;
-      // the footer block matches the viewport, exactly like the hero and projets sections, and
-      // the curtain is stretched across the WHOLE block so no field of bare background is ever
-      // visible; the text still sits inside the phone frame box
-      // same height basis as the About section (frame box + letterbox), so the footer can
-      // never be shorter than the block above it and leave a slab of field between them
-      const scrH = Math.round(boxH + 2 * Math.max(0, (this.lvhNow() - boxH) / 2));
-      const bt = Math.max(0, (scrH - boxH) / 2);
-      const bb = Math.max(0, scrH - bt - boxH);
-      Object.assign(this.footer.style, {
-        position: "relative", left: "0px", top: "0px", width: "100vw", height: scrH + "px",
-        backgroundColor: "#000000",
-      });
-      // the panel spans the window so it can't ride over the About block, but the footer
-      // surface is only the phone screen: the black lives on the box, and the surround is the
-      // same dark field as every other section's letterbox — never white, or it reads as a
-      // slab of dead space between the last card and the curtain
-      if (this.cloth) this.cloth.style.backgroundColor = "#000000";
-      const contH = Math.min(boxH, this.vhNow() * kFit);
-      // Mobile Footer typography and its 16px inset are effective CSS pixels. The
-      // former phone-frame scale reduced the 32px contact heading to 26px at 320px
-      // and the 11px legal links to 9px; keep geometry responsive without shrinking
-      // text-bearing groups.
-      const L = (bl + edgeL).toFixed(1) + "px";
-      if (this.cloth) this.cloth.style.backgroundColor = "#000000";
-      this.showCookies();
-      this.fitSheets({ left: bl, top: bt, w: boxW, h: boxH, sc: sc });
-      // Keep the heading below the navbar and inside the Footer frame, while contacts and
-      // legal links remain pinned to the existing bottom gutter.
-      const navB = this.nav ? this.nav.getBoundingClientRect().bottom : 0;
-      const headTop = Math.max(bt + 96, navB + 24);
-      if (head) Object.assign(head.style, { left: L, right: "auto", top: headTop.toFixed(1) + "px",
-        bottom: "auto", fontSize: "32px", width: Math.max(0, boxW - 2 * edgeL).toFixed(1) + "px" });
-      if (legal) {
-        Object.assign(legal.style, { left: L, right: L, top: "auto",
-          bottom: (bb + pageGutterBottom).toFixed(1) + "px",
-          flexDirection: "column", alignItems: "flex-start", gap: "8px" });
-        // the footer sits outside the mobile root, so the phone type-scale rule there
-        // never reached it: body copy 14, labels 11
-        [legal, info].forEach((box) => {
-          if (!box) return;
-          box.querySelectorAll("span, a").forEach((el) => {
-            const w = getComputedStyle(el).fontWeight;
-            const body = w === "400" || w === "normal";
-            el.style.fontSize = (body ? 14 : 11) + "px";
-          });
-        });
-        const cr = legal.querySelector(":scope > span");
-        if (cr) cr.style.display = "none";
-        const row = legal.querySelector(":scope > div");
-        if (row) { row.style.flex = "0 1 auto"; row.style.flexDirection = "column"; row.style.flexWrap = "nowrap"; row.style.justifyContent = "flex-start"; row.style.alignItems = "flex-start"; row.style.gap = "8px"; }
-        legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = "11px"; });
-      }
-      if (info) {
-        Object.assign(info.style, { left: L, right: "auto", top: "auto",
-          // Keep a clear 32px group gap; the legal stack grows upward from its shared bottom gutter.
-          bottom: (bb + pageGutterBottom + (legal ? legal.getBoundingClientRect().height : 0) + 32).toFixed(1) + "px", alignItems: "flex-start", gap: "8px" });
-        info.querySelectorAll("span").forEach((el) => { el.style.fontSize = "14px"; el.style.textAlign = "left"; });
-      }
-      naturalFlowIfNeeded(head ? parseFloat(getComputedStyle(head).top) : bt + 96);
-      return;
-    }
-    // iPad Safari: 100svh is the SHORT viewport (address bar showing) — once the bar hides a
-    // strip of the section above shows through above the curtain. The tall viewport is used
-    // instead, and it is LATCHED: re-assigning the height mid-scroll re-inits the cloth,
-    // which is what made the curtain open again after it had closed.
-    if (tablet) this._fhT = Math.max(this._fhT || 0, this.lvhNow(), this.vhNow());
-    const fH = tablet ? this._fhT + "px" : "100svh";
-    Object.assign(this.footer.style, { position: "relative", left: "0px", top: "0px", width: "100vw", height: fH, margin: "0", backgroundColor: "#000000" });
-    if (this.cloth) Object.assign(this.cloth.style, { left: "0px", top: "0px", width: "100vw", backgroundColor: "#000000" });
-    this.fitSheets(null);
-    this.showCookies();
-    // laid out on the 1440x813 Footer frame: headline at the top, contacts bottom-left,
-    // legal links at x 583
-    const X = (v) => (edgeL + (v - 33) * sc).toFixed(1) + "px";
-    // Keep the headline/email inside the same two-sided page gutter as the navbar.
-    // At narrow tablet widths the email then wraps at its authored <wbr> instead of
-    // allowing its final glyph to sit against the viewport/scrollbar edge.
-    if (head) Object.assign(head.style, { left: edgeL.toFixed(1) + "px", right: "auto", bottom: "auto",
-      top: px(tablet ? 128 : 118), fontSize: typePx(tablet ? 48 : 56), width: "auto",
-      maxWidth: `calc(100vw - ${2 * edgeL}px)` });
-    if (info) {
-      Object.assign(info.style, { left: edgeL.toFixed(1) + "px", right: "auto", top: "auto",
-        bottom: pageGutterBottom.toFixed(1) + "px", alignItems: "flex-start", gap: px(8) });
-      info.querySelectorAll("span").forEach((el) => { el.style.fontSize = typePx(14); el.style.textAlign = "left"; });
-    }
-    if (legal) {
-      Object.assign(legal.style, { left: X(583), right: "auto", top: "auto", bottom: pageGutterBottom.toFixed(1) + "px",
-        flexDirection: "row", alignItems: "flex-start", gap: px(32) });
-      // The existing fit() pass publishes this alignment for both local and
-      // route-prefixed section links, so Footer consumes the shared value directly.
-      const projectStart = parseFloat(pageGeometry.getPropertyValue("--kc-nav-project-start"));
-      if (!tablet && !mob && Number.isFinite(projectStart) && projectStart > 0) {
-        legal.style.left = projectStart.toFixed(1) + "px";
-      }
-      const row = legal.querySelector(":scope > div");
-      if (row) { row.style.flex = "0 0 auto"; row.style.flexDirection = "row"; row.style.flexWrap = "nowrap"; row.style.gap = px(32); }
-      legal.querySelectorAll("a").forEach((el) => { el.style.fontSize = typePx(12); });
-    }
-    // Tablet legal links stay stacked, including the large authored tablet frame;
-    // the horizontal legal row is reserved for the desktop composition.
-    if (tablet) {
-      if (legal) {
-        Object.assign(legal.style, { left: edgeL.toFixed(1) + "px", right: "auto", bottom: pageGutterBottom.toFixed(1) + "px",
-          flexDirection: "column", alignItems: "flex-start", gap: px(8) });
-        const row = legal.querySelector(":scope > div");
-        if (row) { row.style.flexDirection = "column"; row.style.flexWrap = "nowrap"; row.style.alignItems = "flex-start"; row.style.gap = px(8); }
-      }
-      const lh = legal ? legal.offsetHeight : 0;
-      if (info) Object.assign(info.style, { bottom: (pageGutterBottom + lh + 32 * sc).toFixed(1) + "px", gap: px(8) });
-    }
-    naturalFlowIfNeeded(head ? parseFloat(getComputedStyle(head).top) : 118 * sc);
-  }
+  // Footer geometry is owned by scripts/footer/site-footer.js; the controller
+  // supplies the active profile, scales and viewport helpers through its instance.
+  fitFooter(tablet) { window.KCSiteFooter.fitFooter(this, tablet); }
 
   componentWillUnmount() {
     if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
@@ -1874,105 +1546,9 @@ class Component extends DCLogic {
   }
   // the legal dialogs live outside the footer, so they need the same frame treatment:
   // on a phone they fill the handset screen and step the type down a notch
-  fitSheets(box) {
-    Object.values(this.sheets || {}).forEach((el) => {
-      const card = el.querySelector("[data-card]");
-      const title = el.querySelector("[data-card] > div > span");
-      if (box) {
-        const k = box.sc;
-        el.style.inset = "auto";
-        el.style.boxSizing = "border-box";
-        Object.assign(el.style, { left: box.left.toFixed(1) + "px", top: box.top.toFixed(1) + "px",
-          width: box.w.toFixed(1) + "px", height: box.h.toFixed(1) + "px", padding: (16 * k).toFixed(1) + "px" });
-        // a phone sheet stays a peek, not a page: ~500 characters of scroll viewport, and
-        // the card grows only as far as the chrome around it needs
-        Object.assign(card.style, { maxWidth: "100%", maxHeight: "100%", padding: (20 * k).toFixed(1) + "px" });
-        card.style.paddingBottom = (20 * k).toFixed(1) + "px";
-        const scEl = el.querySelector("[data-scroll]");
-        if (scEl) {
-          const lh = 14 * k * 1.6, n = Math.round(Math.max(150 * k, box.h * 0.4 - 120 * k) / lh);
-          scEl.style.maxHeight = (n * lh + lh * 0.55).toFixed(1) + "px";
-        }
-        el._fadePx = 36 * k;
-        if (title) title.style.fontSize = (28 * k).toFixed(1) + "px";
-        card.querySelectorAll("[data-body] p").forEach((p) => {
-          p.style.fontSize = (14 * k).toFixed(1) + "px";
-        });
-        card.querySelector("[data-body]").style.gap = (20 * k).toFixed(1) + "px";
-        card.querySelectorAll("[data-body] > div").forEach((g) => { g.style.gap = (6 * k).toFixed(1) + "px"; });
-        const hd = card.querySelector(":scope > div");
-        if (hd) hd.style.paddingBottom = (16 * k).toFixed(1) + "px";
-      } else {
-        Object.assign(el.style, { left: "0px", top: "0px", right: "0px", bottom: "0px",
-          width: "auto", height: "auto", padding: "24px", boxSizing: "border-box" });
-        Object.assign(card.style, { maxWidth: "640px", maxHeight: "84vh", padding: "32px" });
-        card.style.paddingBottom = "32px";
-        const scEl = el.querySelector("[data-scroll]");
-        if (scEl) {
-          // land the cut on a half line: a line sliced in two is what actually reads as
-          // "there is more below" — a cut on a paragraph gap looks like the end
-          const lh = 25.6, n = Math.round(Math.max(180, Math.min(300, this.vhNow() * 0.44 - 132)) / lh);
-          scEl.style.maxHeight = (n * lh + lh * 0.55).toFixed(1) + "px";
-        }
-        el._fadePx = 48;
-        if (title) title.style.fontSize = "40px";
-        card.querySelectorAll("[data-body] p").forEach((p) => { p.style.fontSize = "16px"; });
-        card.querySelector("[data-body]").style.gap = "28px";
-        card.querySelectorAll("[data-body] > div").forEach((g) => { g.style.gap = "8px"; });
-        const hd = card.querySelector(":scope > div");
-        if (hd) hd.style.paddingBottom = "24px";
-      }
-      if (el._fade) requestAnimationFrame(el._fade);
-    });
-  }
-  openSheet(key, trigger) {
-    const el = this.sheets && this.sheets[key];
-    if (!el) return;
-    if (!this._activeSheet) {
-      this._sheetTrigger = trigger || document.activeElement;
-      this._sheetInertState = new Map();
-      // Inert every sibling branch between the dialog and the document. Walking the
-      // composed tree also covers the portfolio's shadow-root host when present.
-      let branch = el;
-      while (branch) {
-        const parent = branch.parentElement;
-        if (parent) {
-          [...parent.children].forEach((sibling) => {
-            if (sibling === branch) return;
-            if (!this._sheetInertState.has(sibling)) this._sheetInertState.set(sibling, sibling.inert);
-            sibling.inert = true;
-          });
-          branch = parent;
-        } else {
-          const root = branch.getRootNode();
-          if (!(root instanceof ShadowRoot)) break;
-          [...root.children].forEach((sibling) => {
-            if (sibling === branch) return;
-            if (!this._sheetInertState.has(sibling)) this._sheetInertState.set(sibling, sibling.inert);
-            sibling.inert = true;
-          });
-          branch = root.host;
-        }
-      }
-    }
-    const sc2 = el.querySelector("[data-scroll]");
-    if (sc2) sc2.scrollTop = 0;
-    if (el._fade) requestAnimationFrame(el._fade);
-    Object.values(this.sheets).forEach((s2) => { s2.style.display = "none"; });
-    el.style.display = "flex";
-    this._activeSheet = el;
-    const btn = el.querySelector("[data-close]");
-    (btn || el).focus();
-  }
-  closeSheet() {
-    Object.values(this.sheets || {}).forEach((el) => { el.style.display = "none"; });
-    this._activeSheet = null;
-    (this._sheetInertState || new Map()).forEach((wasInert, el) => { el.inert = wasInert; });
-    this._sheetInertState = null;
-    const trigger = this._sheetTrigger;
-    this._sheetTrigger = null;
-    if (trigger && trigger.isConnected && typeof trigger.focus === "function") trigger.focus();
-  }
+  fitSheets(box) { window.KCSiteFooter.fitSheets(this, box, this.vhNow()); }
+  openSheet(key, trigger) { window.KCSiteFooter.openSheet(this, key, trigger); }
+  closeSheet() { window.KCSiteFooter.closeSheet(this); }
   // one link per project, keyed by the ticket index. Everything except Longread is a
   // placeholder for now — swap the URL here and all three breakpoints follow.
   ticketLinks() {
@@ -2336,27 +1912,8 @@ class Component extends DCLogic {
     });
   }
   renderFooter() {
-    // both reads below used to be getBoundingClientRect() on every single frame — the nav
-    // is position:fixed (its rect never moves with scroll, only resize, and that's already
-    // re-cached in fit()) and the footer's document position only needs an arithmetic
-    // scrollY subtraction from the value fit() already cached. Neither needs a live DOM read
-    // in the render loop.
-    const H = this.vh || this.vhNow();
-    // how much of the footer block has entered the viewport, 0 -> 1
-    let t = 0;
-    if (this._footerHeight) {
-      const top = this._footerTopDoc - window.scrollY;
-      t = (H - top) / Math.max(1, this._footerHeight);
-      t = t < 0 ? 0 : t > 1 ? 1 : t;
-    }
-    // the footer IS the end of the page, so the track can't ask for more scroll: the
-    // curtain follows the last screen in, then draws itself shut once you arrive
-    // the curtain closes with the scroll and nothing else: the old timed "auto close" part
-    // reset itself whenever t dipped back under its threshold, which made the cloth open
-    // again mid-scroll. Fully shut by the time 80% of the footer is in.
-    let p = (t - 0.02) / 0.78;
-    p = p < 0 ? 0 : p > 1 ? 1 : p;
-    if (this.clothEl) this.clothEl.progress = p * p * (3 - 2 * p);
+    // Curtain progress is owned by scripts/footer/site-footer.js.
+    window.KCSiteFooter.renderCurtain(this);
     // navbar ink follows what is actually painted under the bar, not which section we
     // are in: sample the surface at a few points along the strip and flip on luminance
     this.setNavInk(this.surfaceIsLight() ? "rgb(34,32,34)" : "rgb(255,255,255)");
@@ -2490,30 +2047,7 @@ class Component extends DCLogic {
       this.tx = 720 + Math.sin(this.time * sp) * 330 + Math.sin(this.time * sp * 0.4) * 90;
       this.ty = HHw * (470 / 813) + Math.cos(this.time * sp * 0.76) * HHw * (130 / 813);
       this.ti = 1;
-      if (this.clothEl && this.clothEl.mouse) {
-        const m = this.clothEl.mouse;
-        if (!this._gust || this.time > this._gust.until) {
-          const r = Math.random;
-          this._gust = {
-            x: (r() * 2 - 1) * 0.8, y: (r() * 2 - 1) * 0.5,
-            force: 0.22 + r() * 0.3,
-            until: this.time + 1.6 + r() * 2.6,
-            fade: 0.9 + r() * 1.2,
-          };
-          this._gustStart = this.time;
-          this._gustDrift = (Math.random() * 2 - 1) * 0.12;
-        }
-        const g = this._gust;
-        const k = Math.min(1, (this.time - this._gustStart) / (g.until - this._gustStart));
-        // a gust is born where it is: no travel, just a swell that fades out
-        // ease into the new gust's position instead of teleporting the pull point across
-        // the cloth — a jump there is what made the curtain look like it snapped
-        const gx = g.x + this._gustDrift * k;
-        m.x = m.x == null ? gx : m.x + (gx - m.x) * 0.12;
-        m.y = g.y + Math.sin(this.time * 1.7) * 0.02;
-        m.force = g.force * Math.sin(Math.PI * k) * (0.85 + 0.15 * Math.sin(this.time * 5.3));
-        m.active = k < 1;
-      }
+      window.KCSiteFooter.curtainGust(this);
     }
     // phones: the projector dust canvas and a full scroll re-layout on every frame is
     // what made the ticket scroll stutter. Dust is a desktop-only flourish, and the
@@ -2599,26 +2133,7 @@ class Component extends DCLogic {
         });
         this.showCookies();
       },
-      legalRef: (el) => {
-        if (!el || el._wired) return;
-        el._wired = true;
-        if (!this.sheets) this.sheets = {};
-        this.sheets[el.dataset.sheet] = el;
-        const sc2 = el.querySelector("[data-scroll]");
-        // the fade only shows while there is something left to scroll to
-        const fade = () => {
-          const atEnd = sc2.scrollTop + sc2.clientHeight >= sc2.scrollHeight - 2;
-          const px = Math.max(16, Math.min(el._fadePx || 32, sc2.clientHeight * 0.22));
-          const pct = sc2.clientHeight ? (100 - (px / sc2.clientHeight) * 100).toFixed(1) : 80;
-          // a percentage survives a re-render intact, so React and fade() agree on the value
-          const v = atEnd ? "none" : "linear-gradient(to bottom, #000 " + pct + "%, transparent 100%)";
-          sc2.style.maskImage = sc2.style.webkitMaskImage = v;
-        };
-        sc2.addEventListener("scroll", fade);
-        el._fade = fade;
-        el.querySelector("[data-close]").addEventListener("click", () => this.closeSheet());
-        el.addEventListener("click", (e) => { if (e.target === el) this.closeSheet(); });
-      },
+      legalRef: (el) => window.KCSiteFooter.registerSheet(this, el),
       // bare boolean attributes are dropped by the template runtime, so muted/loop are
       // set as properties here — without muted the browser refuses background playback
       vidRef: (el) => {
@@ -2667,51 +2182,7 @@ class Component extends DCLogic {
         el.addEventListener("pause", () => { if (!document.hidden) go(); });
         if (el.readyState >= 2) go(); else el.addEventListener("loadeddata", go, { once: true });
       },
-      clothRef: (el) => {
-        if (!el || this.cloth === el) return;
-        this.cloth = el;
-        // the standalone/offline build inlines curtain-cloth.js and the curtain image as
-        // blob URLs (see the ext-resource-dependency meta tags in <head>) so both still
-        // load when this page is hosted with no assets/ folder alongside it. Defer this
-        // module chain and the WebGL mount until the Footer approaches the viewport.
-        const url = this.resolveRes("./curtain-cloth.js");
-        // a bare relative specifier fails to import from some hosting contexts, so resolve it
-        // against the document first and keep the raw path as a second try
-        let abs = url;
-        try { abs = new URL(url, document.baseURI).href; } catch (e) {}
-        let activated = false;
-        const activate = () => {
-          if (activated || this.clothEl) return;
-          activated = true;
-          if (this._clothObserver) {
-            this._clothObserver.disconnect();
-            this._clothObserver = null;
-          }
-          const mount = (m) => {
-            if (!el.isConnected || this.cloth !== el || this.clothEl) return;
-            this.clothEl = m.mountCurtain(el, this.resolveRes("assets/about/footer-curtain.webp"));
-            // renderFooter owns the scroll-derived progress; publish its current target
-            // immediately so a quick jump into the Footer does not start from stale state.
-            this.renderFooter();
-          };
-          import(abs)
-            .then(mount)
-            .catch(() => import(url).then(mount))
-            .catch((err) => console.error("curtain load failed", err && (err.message || err)));
-        };
-        if (typeof IntersectionObserver === "undefined") {
-          // Keep the existing eager behavior on browsers without IntersectionObserver.
-          activate();
-          return;
-        }
-        const prefetchDistance = Math.ceil(Math.max(window.innerHeight || 0, el.clientHeight || 0));
-        this._clothObserver = new IntersectionObserver((entries) => {
-          if (entries.some((entry) => entry.isIntersecting)) activate();
-        }, { rootMargin: `${prefetchDistance}px 0px` });
-        // Observe the whole Footer, rather than only the viewport-sized canvas slot, so
-        // a fast jump to the bottom still activates the curtain at the page end.
-        this._clothObserver.observe(this.footer || el);
-      },
+      clothRef: (el) => window.KCSiteFooter.attachCurtain(this, el),
     };
   }
 }

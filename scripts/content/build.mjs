@@ -171,11 +171,28 @@ function translateAttributes(tag) {
   });
 }
 
+// The approved English Projects headings. Each responsive layout has its own line
+// composition, so they are set as whole markup rather than translated word by word.
+// The container is matched by id/class only, whatever its tag; if a document contains
+// the container but its heading no longer matches, the build fails instead of silently
+// emitting the word-by-word fallback.
+const englishProjectHeadings = [
+  { marker: 'class="heading"', pattern: /<h1 class="heading">[\s\S]*?<\/h1>/, replacement: '<h1 class="heading">A selection of my most<br/><em>recent projects.</em></h1>' },
+  { marker: 'id="kc-t-stage"', pattern: /(<[a-z]+\b[^>]*\bid="kc-t-stage"[^>]*><h1>)[\s\S]*?(<\/h1>)/, replacement: '$1<span class="kc-title-line">A selection of my</span><span class="kc-title-line"><em>recent projects.</em></span>$2' },
+  { marker: 'id="kc-m-canvas"', pattern: /(<[a-z]+\b[^>]*\bid="kc-m-canvas"[^>]*><h1>)[\s\S]*?(<\/h1>)/, replacement: '$1A selection of my most<br><em>recent projects.</em>$2' },
+];
+
+function localizeProjectHeadings(html) {
+  for (const { marker, pattern, replacement } of englishProjectHeadings) {
+    if (!html.includes(marker)) continue;
+    if (!pattern.test(html)) throw new Error(`English Projects heading not found for ${marker}; update englishProjectHeadings to the template markup`);
+    html = html.replace(pattern, replacement);
+  }
+  return html;
+}
+
 function translateMarkup(html) {
-  // Preserve the known responsive heading compositions while generating localized text.
-  html = html.replace(/<h1 class="heading">[\s\S]*?<\/h1>/, '<h1 class="heading">A selection of my most<br/><em>recent projects.</em></h1>');
-  html = html.replace(/(<main class="stage" id="kc-t-stage"><h1>)[\s\S]*?(<\/h1>)/, '$1<span class="kc-title-line">A selection of my</span><span class="kc-title-line"><em>recent projects.</em></span>$2');
-  html = html.replace(/(<main id="kc-m-canvas"><h1>)[\s\S]*?(<\/h1>)/, '$1A selection of my<br><em>recent projects.</em>$2');
+  html = localizeProjectHeadings(html);
 
   let result = '', cursor = 0;
   while (cursor < html.length) {
@@ -220,6 +237,42 @@ function addLocaleMetadata(html, locale) {
   return translateMarkup(html);
 }
 
+// One Footer source for every page. The homepage keeps its x-dc ref bindings; pages
+// without that runtime receive plain data hooks consumed by scripts/footer/site-footer.js.
+const footerDialogsMarker = '\n<!-- kc:footer-dialogs -->\n';
+const footerHooks = {
+  page: {
+    footerRefAttr: 'ref="{{ footerRef }}"',
+    clothRefAttr: 'ref="{{ clothRef }}"',
+    creditRefAttr: 'ref="{{ creditRef }}"',
+    legalRefAttr: 'ref="{{ legalRef }}"',
+  },
+  case: {
+    footerRefAttr: 'data-kc-footer-root',
+    clothRefAttr: 'data-kc-footer-cloth',
+    creditRefAttr: 'data-kc-footer-group',
+    legalRefAttr: 'data-kc-legal-sheet',
+  },
+};
+
+async function insertSharedFooter(html, templatePath, layoutKind) {
+  const partial = await readFile(path.join(root, 'templates/partials/footer.html'), 'utf8');
+  const split = partial.indexOf(footerDialogsMarker);
+  if (split < 0) throw new Error('Footer partial is missing its dialog marker');
+  let footer = partial.slice(0, split);
+  let dialogs = partial.slice(split + footerDialogsMarker.length).replace(/\n$/, '');
+  for (const [key, value] of Object.entries(footerHooks[layoutKind])) {
+    footer = footer.replaceAll(`{{${key}}}`, value);
+    dialogs = dialogs.replaceAll(`{{${key}}}`, value);
+  }
+  for (const slot of ['footer', 'footerDialogs']) {
+    if (!html.includes(`{{${slot}}}`)) throw new Error(`Missing shared ${slot} slot in ${templatePath}`);
+  }
+  html = html.replace('{{footer}}', () => footer).replace('{{footerDialogs}}', () => dialogs);
+  if (/\{\{\w+RefAttr\}\}/.test(html)) throw new Error(`Unfilled Footer hook in ${templatePath}`);
+  return html;
+}
+
 async function buildPage(templatePath, cardSlots, locale, layoutKind) {
   let html = await readFile(templatePath, 'utf8');
   if (layoutKind === 'page' || layoutKind === '404') {
@@ -229,7 +282,7 @@ async function buildPage(templatePath, cardSlots, locale, layoutKind) {
       ? 'Me recruter — m’écrire à comme.kamila@gmail.com'
       : 'Hire me — email comme.kamila@gmail.com';
     const navbar = partial
-      .replaceAll('{{navVariantClass}}', layoutKind === '404' ? 'kc-404-nav' : '')
+      .replaceAll('{{navVariantClass}}', layoutKind === '404' ? 'kc-static-nav' : '')
       .replaceAll('{{navRefAttr}}', layoutKind === 'page' ? 'ref="{{navRef}}"' : '')
       .replaceAll('{{pillRefAttr}}', layoutKind === 'page' ? 'ref="{{pillRef}}"' : '')
       .replaceAll('{{navLabel}}', escapeAttribute(navLabel))
@@ -237,8 +290,12 @@ async function buildPage(templatePath, cardSlots, locale, layoutKind) {
     if (!html.includes('{{navbar}}')) throw new Error(`Missing shared navbar slot in ${templatePath}`);
     html = html.replace('{{navbar}}', navbar);
   }
+  if (layoutKind === 'page') html = await insertSharedFooter(html, templatePath, layoutKind);
   if (layoutKind === '404') return `${html.trimEnd()}\n`;
   if (layoutKind === 'page') {
+    const languageSwitch = (await readFile(path.join(root, 'templates/partials/language-switch.html'), 'utf8')).trimEnd();
+    if (!html.includes('{{languageSwitch}}')) throw new Error(`Missing language switch slot in ${templatePath}`);
+    html = html.replace('{{languageSwitch}}', () => languageSwitch);
     const switchFields = locale === 'fr'
       ? { languageSwitchHref: '/en/', languageSwitchLabel: 'FR — Langue actuelle : français. Passer en anglais.', languageSwitchLocale: 'fr', languageSwitchText: 'FR', navHireLabel: 'Me recruter — m’écrire à comme.kamila@gmail.com', navLabel: 'Navigation principale' }
       : { languageSwitchHref: '/', languageSwitchLabel: 'EN — Current language: English. Switch to French.', languageSwitchLocale: 'en', languageSwitchText: 'EN', navHireLabel: 'Hire me — email comme.kamila@gmail.com', navLabel: 'Main navigation' };
@@ -271,6 +328,57 @@ async function buildPage(templatePath, cardSlots, locale, layoutKind) {
   return `${html.trimEnd()}\n`;
 }
 
+// Case-study pages: shared Navbar, Footer and language link around a page-owned <main>.
+// They never load the homepage controller; see scripts/static-page/static-page.js.
+const casesData = JSON.parse(await readFile(path.join(root, 'content/cases.json'), 'utf8'));
+const caseRoute = (id, locale) => `${locale === 'fr' ? '' : '/en'}/cases/${id}/`;
+
+async function buildCasePage(record, locale) {
+  const text = record.locales[locale];
+  if (!text?.title || !text?.pageTitle) throw new Error(`Case ${record.id} is missing ${locale} text`);
+  let html = await readFile(path.join(root, 'templates/case.html'), 'utf8');
+  const homeRoute = locale === 'fr' ? '/' : '/en/';
+  const navbar = (await readFile(path.join(root, 'templates/partials/navbar.html'), 'utf8'))
+    .replaceAll('{{navVariantClass}}', 'kc-static-nav')
+    .replaceAll('{{navRefAttr}}', '')
+    .replaceAll('{{pillRefAttr}}', '')
+    .replaceAll('{{navLabel}}', escapeAttribute(locale === 'fr' ? 'Navigation principale' : 'Main navigation'))
+    .replaceAll('{{navHireLabel}}', escapeAttribute(locale === 'fr'
+      ? 'Me recruter — m’écrire à comme.kamila@gmail.com'
+      : 'Hire me — email comme.kamila@gmail.com'))
+    // Section links return to the homepage; Contact stays on this page's own Footer.
+    .replace('href="#projets"', `href="${homeRoute}#projets"`)
+    .replace('href="#apropos"', `href="${homeRoute}#apropos"`);
+  if (!html.includes('{{navbar}}')) throw new Error('Missing shared navbar slot in templates/case.html');
+  html = html.replace('{{navbar}}', () => navbar);
+  html = await insertSharedFooter(html, 'templates/case.html', 'case');
+  const languageSwitch = (await readFile(path.join(root, 'templates/partials/language-switch.html'), 'utf8')).trimEnd();
+  html = html.replace('{{languageSwitch}}', () => languageSwitch);
+  const other = locale === 'fr' ? 'en' : 'fr';
+  const fields = {
+    pageLocale: locale,
+    pageTitle: text.pageTitle,
+    robots: record.robots,
+    languageSwitchHref: caseRoute(record.id, other),
+    languageSwitchLabel: locale === 'fr'
+      ? 'FR — Langue actuelle : français. Passer en anglais.'
+      : 'EN — Current language: English. Switch to French.',
+    languageSwitchLocale: locale,
+    languageSwitchText: locale.toUpperCase(),
+  };
+  for (const [key, value] of Object.entries(fields)) html = html.replaceAll(`{{${key}}}`, escapeAttribute(value));
+  // The grid container for case content. The foundation route shows its column tracks.
+  const grid = record.preview
+    ? `<div class="kc-case-grid kc-case-grid--preview" data-kc-case-grid>${'<span aria-hidden="true"></span>'.repeat(12)}</div>`
+    : '<div class="kc-case-grid" data-kc-case-grid></div>';
+  const content = `<header class="kc-case-header">\n<h1 class="kc-case-title">${escapeText(text.title)}</h1>\n</header>\n${grid}`;
+  html = html.replace('{{caseContent}}', () => content);
+  if (/\{\{[^}]+\}\}/.test(html)) throw new Error(`Unfilled template token in case ${record.id}/${locale}`);
+  // Shared copy (Navbar, Footer, dialogs) uses the same localization path as the homepage.
+  html = locale === 'en' ? translateMarkup(html) : normalizeFrenchMarkup(html);
+  return `${html.trimEnd()}\n`;
+}
+
 for (const locale of requestedLocales) {
   const folder = path.join(output, locale === 'fr' ? '' : 'en');
   await mkdir(folder, { recursive: true });
@@ -282,13 +390,19 @@ for (const locale of requestedLocales) {
   validateGeneratedHTML({ pageHTML: page, desktopHTML: desktop, locale, canonicalOrder, css: layeredTicketCSS });
   await writeFile(path.join(folder, 'index.html'), page);
   await writeFile(path.join(folder, 'desktop-project-embedded.html'), desktop);
+  for (const record of casesData.cases) {
+    const caseFolder = path.join(folder, 'cases', record.id);
+    await mkdir(caseFolder, { recursive: true });
+    await writeFile(path.join(caseFolder, 'index.html'), await buildCasePage(record, locale));
+  }
 }
 const notFound = await buildPage(path.join(root, 'templates/404.html'), {}, 'fr', '404');
 await writeFile(path.join(output, '404.html'), notFound);
 if (checkOnly) {
   const outputs = requestedLocales.flatMap(locale => {
     const folder = locale === 'fr' ? '' : 'en/';
-    return [`${folder}index.html`, `${folder}desktop-project-embedded.html`];
+    return [`${folder}index.html`, `${folder}desktop-project-embedded.html`,
+      ...casesData.cases.map(record => `${folder}cases/${record.id}/index.html`)];
   });
   outputs.push('404.html');
   for (const relative of outputs) {

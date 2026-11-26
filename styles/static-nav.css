@@ -1,0 +1,12 @@
+/* Static pages (404, case studies) sit on a light surface. The Navbar profile,
+   class, gutters and visibility come from scripts/shared/responsive-profile.js,
+   exactly as on the homepage; this file only sets the light-surface ink. */
+.kc-static-nav {
+  --kc-nav-ink: #222022;
+  --kc-nav-muted: #5c575c;
+  --kc-nav-pill-bg: #f8f7f8;
+  --kc-nav-pill-border: #e5e2e5;
+  color: var(--kc-nav-ink);
+}
+.kc-static-nav [data-kc-nav-section] { color: var(--kc-nav-ink); text-decoration: none; }
+.kc-static-nav [data-kc-nav-hire] { text-decoration: none; }

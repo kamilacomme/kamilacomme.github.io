@@ -1,0 +1,59 @@
+/* Case-study pages: page surface and the editorial grid.
+   The profile (html[data-kc-profile]) and the page gutters (--kc-page-gutter-x,
+   --kc-page-gutter-bottom) are published by scripts/shared/responsive-profile.js,
+   the same source the homepage uses. Every value below is an existing
+   design-system token or an existing homepage value. */
+:root {
+  --kc-case-columns: var(--grid-columns);
+  --kc-case-column-gap: var(--gutter-wide);
+}
+:root[data-kc-profile="mobile"] {
+  --kc-case-columns: 4;
+  --kc-case-column-gap: var(--space-2);
+}
+
+body.kc-case-page {
+  min-width: 320px;
+  background: var(--surface-page);
+  color: var(--text-default);
+}
+
+.kc-case-header {
+  box-sizing: border-box;
+  padding: var(--space-16) var(--kc-page-gutter-x) var(--space-12);
+}
+
+.kc-case-title {
+  margin: 0;
+  max-width: 100%;
+  font-family: var(--font-display);
+  font-weight: var(--fw-display);
+  font-size: var(--kc-type-heading-desktop);
+  line-height: 1.1;
+  letter-spacing: var(--display-track);
+  color: var(--text-default);
+  text-wrap: pretty;
+}
+:root[data-kc-profile="tablet"] .kc-case-title { font-size: var(--kc-type-heading-tablet); }
+:root[data-kc-profile="mobile"] .kc-case-title { font-size: var(--kc-type-heading-mobile); }
+
+/* The editorial grid container. Case content places itself on these columns. */
+.kc-case-grid {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(var(--kc-case-columns), minmax(0, 1fr));
+  column-gap: var(--kc-case-column-gap);
+  padding-inline: var(--kc-page-gutter-x);
+}
+
+/* Foundation route only: make the column tracks visible for review. */
+.kc-case-grid--preview {
+  padding-bottom: var(--space-12);
+}
+.kc-case-grid--preview > span {
+  display: block;
+  min-height: var(--space-16);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+}
+:root[data-kc-profile="mobile"] .kc-case-grid--preview > span:nth-child(n + 5) { display: none; }

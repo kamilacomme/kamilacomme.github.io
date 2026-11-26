@@ -12,6 +12,13 @@ const viewports = [
   { width: 1100, height: 700 },
   { width: 1422, height: 600 },
 ];
+// Approved desktop Projects height modes (M10B, templates/desktop-project-embedded.html
+// measure()). NORMAL holds the rail while the heading lifts away (intro hold); COMPACT
+// is used when the heading and the rail cannot both fit (at 600px tall, heading bottom
+// + 24px lies below the rail's top), and moves the rail with the scroll from the
+// section start, without an intro hold.
+const railModes = { '1440x900': 'normal', '1280x800': 'normal', '1200x800': 'normal', '1100x700': 'normal', '1422x600': 'compact' };
+const scrollIntoSection = 10;
 
 test('desktop Projects keeps target typography and maps its fluid rail at responsive widths', async ({ page, context }, info) => {
   const { mode, language } = info.project.metadata;
@@ -186,10 +193,18 @@ test('desktop Projects keeps target typography and maps its fluid rail at respon
     });
     const hireRight = await page.locator('.kc-responsive-nav a[href^="mailto:"]').evaluate(el => el.getBoundingClientRect().right);
     const sectionHeight = result.section.height;
-    await page.evaluate((y) => { window.scrollTo({ top: y + 10, behavior: 'instant' }); window.dispatchEvent(new Event('scroll')); }, sectionTop);
+    await page.evaluate(({ y, offset }) => { window.scrollTo({ top: y + offset, behavior: 'instant' }); window.dispatchEvent(new Event('scroll')); }, { y: sectionTop, offset: scrollIntoSection });
     await page.clock.runFor(100);
     const start = await railState();
-    expect(Math.abs(start.x)).toBeLessThanOrEqual(1);
+    const railMode = await page.frameLocator('#kc-desktop-project-frame').locator('#stage').evaluate(stage => stage.dataset.kcProjectsMode);
+    expect(railMode, `${viewport.width}x${viewport.height} rail mode`).toBe(railModes[`${viewport.width}x${viewport.height}`]);
+    if (railMode === 'normal') {
+      // Inside the intro hold the rail has not started moving.
+      expect(Math.abs(start.x)).toBeLessThanOrEqual(1);
+    } else {
+      // No intro hold: the rail has already travelled exactly the scrolled distance.
+      expect(Math.abs(start.x + scrollIntoSection)).toBeLessThanOrEqual(1);
+    }
     await page.evaluate(({ y, h, vh }) => { window.scrollTo({ top: y + h - vh, behavior: 'instant' }); window.dispatchEvent(new Event('scroll')); }, { y: sectionTop, h: sectionHeight, vh: viewport.height });
     await page.clock.runFor(100);
     const end = await railState();

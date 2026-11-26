@@ -1,0 +1,90 @@
+# Runs the Phase 5 Playwright suite in a Linux lab close to the recorded one
+# (linux x64, Chromium 154.0.8037.57, Playwright 1.62.1). Test evidence only:
+# it builds nothing, publishes nothing and has read-only repository access.
+# GitHub Pages is unaffected: it deploys only from `main` (legacy build), and the
+# `github-pages` environment allows deployments from `main` only.
+name: Phase 5 (Linux lab)
+
+on:
+  push:
+    branches: [fix/site-fixes-1-6]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: phase-5-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phase-5:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      CHROME_VERSION: 154.0.8037.57
+      # MD5 published by Google for chrome-linux64.zip of this version.
+      CHROME_ZIP_MD5: 0feaa732dbd1c6b075afd6cc55e0c8af
+      BASE_URL: http://127.0.0.1:8000
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Install Chromium ${{ env.CHROME_VERSION }} (Chrome for Testing)
+        run: |
+          curl -fsSL -o "$RUNNER_TEMP/chrome.zip" \
+            "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chrome-linux64.zip"
+          echo "${CHROME_ZIP_MD5}  $RUNNER_TEMP/chrome.zip" | md5sum -c -
+          unzip -q "$RUNNER_TEMP/chrome.zip" -d "$RUNNER_TEMP"
+          npx playwright install-deps chromium
+          echo "CHROMIUM_PATH=$RUNNER_TEMP/chrome-linux64/chrome" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/chrome-linux64/chrome" --version
+
+      - name: Frozen reference integrity
+        run: npm run test:baseline-integrity
+
+      - name: Deterministic build check
+        run: npm run content:build:check
+
+      - name: Serve the checkout
+        run: |
+          node tests/runtime/server.mjs > "$RUNNER_TEMP/server.log" 2>&1 &
+          for i in $(seq 1 30); do curl -fs -o /dev/null "$BASE_URL/" && exit 0; sleep 1; done
+          cat "$RUNNER_TEMP/server.log"; exit 1
+
+      - name: Phase 5 suite
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: phase-5-results.json
+        run: npx playwright test --config tests/phase-5/playwright.config.cjs --reporter=list,json
+
+      - name: Per-test summary
+        if: always()
+        run: |
+          node -e '
+            const fs = require("fs");
+            if (!fs.existsSync("phase-5-results.json")) process.exit(0);
+            const r = JSON.parse(fs.readFileSync("phase-5-results.json", "utf8"));
+            const rows = [];
+            const walk = (s, file) => { for (const spec of s.specs || []) for (const t of spec.tests) rows.push([file || s.file, t.projectName, t.status === "expected" ? "passed" : t.status === "skipped" ? "skipped" : "failed"]); for (const c of s.suites || []) walk(c, file || s.file); };
+            for (const s of r.suites) walk(s);
+            const out = ["| Spec | Project | Result |", "| --- | --- | --- |", ...rows.filter(x => x[2] !== "skipped").map(x => `| ${x[0]} | ${x[1]} | ${x[2]} |`)];
+            const count = k => rows.filter(x => x[2] === k).length;
+            out.push("", `passed ${count("passed")}, failed ${count("failed")}, skipped ${count("skipped")}`);
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, out.join("\n") + "\n");
+          '
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase-5-results
+          path: |
+            phase-5-results.json
+            artifacts/playwright/phase-5-results
+          retention-days: 14

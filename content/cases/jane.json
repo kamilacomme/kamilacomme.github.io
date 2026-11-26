@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "id": "jane",
+  "approval": {
+    "en": false,
+    "fr": false
+  },
+  "meta": {
+    "pageTitle": {
+      "en": "Trouve ta Jane — Kamila Comme",
+      "fr": "Trouve ta Jane — Kamila Comme",
+      "placeholder": true
+    },
+    "title": {
+      "en": "Trouve ta Jane",
+      "fr": "Trouve ta Jane",
+      "placeholder": true
+    }
+  },
+  "chapters": [
+    {
+      "id": "reveal",
+      "title": {
+        "en": "Reveal",
+        "fr": ""
+      },
+      "blocks": [
+        {
+          "type": "hero-reveal",
+          "title": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          },
+          "image": {
+            "alt": {
+              "en": "",
+              "fr": "",
+              "placeholder": true
+            },
+            "placeholder": true
+          }
+        },
+        {
+          "type": "chapter-menu"
+        }
+      ]
+    },
+    {
+      "id": "identity",
+      "title": {
+        "en": "Identity",
+        "fr": ""
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "nature-to-form",
+      "title": {
+        "en": "From Nature to Form",
+        "fr": ""
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "multiple-forms",
+      "title": {
+        "en": "One Bag, Multiple Forms",
+        "fr": ""
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "designing-with-ai",
+      "title": {
+        "en": "Designing with AI",
+        "fr": ""
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "campaign",
+      "title": {
+        "en": "Campaign",
+        "fr": ""
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "beyond-the-product",
+      "title": {
+        "en": "Beyond the Product",
+        "fr": ""
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "outcome",
+      "title": {
+        "en": "Outcome",
+        "fr": ""
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "",
+            "fr": "",
+            "placeholder": true
+          }
+        }
+      ]
+    }
+  ]
+}

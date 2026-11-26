@@ -1,0 +1,408 @@
+{
+  "schemaVersion": 1,
+  "id": "example",
+  "approval": {
+    "en": true,
+    "fr": true
+  },
+  "meta": {
+    "pageTitle": {
+      "en": "Example case — Kamila Comme",
+      "fr": "Cas exemple — Kamila Comme"
+    },
+    "title": {
+      "en": "Example case",
+      "fr": "Cas exemple"
+    }
+  },
+  "chapters": [
+    {
+      "id": "reveal",
+      "title": {
+        "en": "Reveal",
+        "fr": "Révélation"
+      },
+      "blocks": [
+        {
+          "type": "hero-reveal",
+          "title": {
+            "en": "A bag that grows",
+            "fr": "Un sac qui pousse"
+          },
+          "subtitle": {
+            "en": "Brand and campaign",
+            "fr": "Marque et campagne"
+          },
+          "image": {
+            "art": {
+              "horizontal": "example-reveal-hero-face-horizontal",
+              "vertical": "example-reveal-hero-face-vertical"
+            },
+            "alt": {
+              "en": "Model, close face",
+              "fr": "Modèle, visage en gros plan"
+            }
+          },
+          "facts": [
+            {
+              "label": {
+                "en": "Role",
+                "fr": "Rôle"
+              },
+              "value": {
+                "en": "Art direction",
+                "fr": "Direction artistique"
+              }
+            }
+          ]
+        },
+        {
+          "type": "chapter-menu"
+        }
+      ]
+    },
+    {
+      "id": "identity",
+      "title": {
+        "en": "Identity",
+        "fr": "Identité"
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "Intro text.",
+            "fr": "Texte d’introduction."
+          }
+        },
+        {
+          "type": "logo-showcase",
+          "images": [
+            {
+              "src": "example-identity-logo-horizontal",
+              "alt": {
+                "en": "Alt logo horizontal",
+                "fr": "Alt logo horizontal FR"
+              }
+            },
+            {
+              "src": "example-identity-logo-vertical",
+              "alt": {
+                "en": "Alt logo vertical",
+                "fr": "Alt logo vertical FR"
+              }
+            }
+          ],
+          "text": {
+            "en": "Two lockups.",
+            "fr": "Deux versions."
+          }
+        },
+        {
+          "type": "palette-swatches",
+          "swatches": [
+            {
+              "name": {
+                "en": "Moss",
+                "fr": "Mousse"
+              },
+              "hex": "#4a5a3a"
+            },
+            {
+              "name": {
+                "en": "Ivory",
+                "fr": "Ivoire"
+              },
+              "hex": "#f2ede4"
+            }
+          ]
+        },
+        {
+          "type": "principles-list",
+          "items": [
+            {
+              "title": {
+                "en": "Grow",
+                "fr": "Pousser"
+              },
+              "text": {
+                "en": "Text.",
+                "fr": "Texte."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nature-to-form",
+      "title": {
+        "en": "From Nature to Form",
+        "fr": "De la nature à la forme"
+      },
+      "blocks": [
+        {
+          "type": "image-full",
+          "image": {
+            "src": "example-nature-to-form-sketch-vines",
+            "alt": {
+              "en": "Alt sketch vines",
+              "fr": "Alt sketch vines FR"
+            },
+            "caption": {
+              "en": "Caption.",
+              "fr": "Légende."
+            }
+          }
+        },
+        {
+          "type": "image-pair",
+          "images": [
+            {
+              "src": "example-nature-to-form-sketch-regular",
+              "alt": {
+                "en": "Alt sketch regular",
+                "fr": "Alt sketch regular FR"
+              }
+            },
+            {
+              "src": "example-nature-to-form-sketch-intertwined",
+              "alt": {
+                "en": "Alt sketch intertwined",
+                "fr": "Alt sketch intertwined FR"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text-image",
+          "text": {
+            "en": "Text.",
+            "fr": "Texte."
+          },
+          "image": {
+            "src": "example-nature-to-form-photo-vines",
+            "alt": {
+              "en": "Alt photo vines",
+              "fr": "Alt photo vines FR"
+            }
+          },
+          "side": "left"
+        },
+        {
+          "type": "annotated-image",
+          "image": {
+            "src": "example-nature-to-form-sketch-configs",
+            "alt": {
+              "en": "Alt sketch configs",
+              "fr": "Alt sketch configs FR"
+            }
+          },
+          "notes": [
+            {
+              "x": 0.2,
+              "y": 0.3,
+              "text": {
+                "en": "Strap",
+                "fr": "Bretelle"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "multiple-forms",
+      "title": {
+        "en": "One Bag, Multiple Forms",
+        "fr": "Un sac, plusieurs formes"
+      },
+      "blocks": [
+        {
+          "type": "image-row-3",
+          "images": [
+            {
+              "src": "example-multiple-forms-photo-backpack",
+              "alt": {
+                "en": "Alt photo backpack",
+                "fr": "Alt photo backpack FR"
+              }
+            },
+            {
+              "src": "example-multiple-forms-photo-shoulder",
+              "alt": {
+                "en": "Alt photo shoulder",
+                "fr": "Alt photo shoulder FR"
+              }
+            },
+            {
+              "src": "example-multiple-forms-photo-folded",
+              "alt": {
+                "en": "Alt photo folded",
+                "fr": "Alt photo folded FR"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sequence",
+          "images": [
+            {
+              "src": "example-multiple-forms-sketch-step-one",
+              "alt": {
+                "en": "Alt sketch step-one",
+                "fr": "Alt sketch step-one FR"
+              }
+            },
+            {
+              "src": "example-multiple-forms-sketch-step-two",
+              "alt": {
+                "en": "Alt sketch step-two",
+                "fr": "Alt sketch step-two FR"
+              }
+            }
+          ],
+          "caption": {
+            "en": "Caption.",
+            "fr": "Légende."
+          }
+        }
+      ]
+    },
+    {
+      "id": "designing-with-ai",
+      "title": {
+        "en": "Designing with AI",
+        "fr": "Concevoir avec l’IA"
+      },
+      "blocks": [
+        {
+          "type": "ai-episode",
+          "title": {
+            "en": "The face drifts",
+            "fr": "Le visage dérive"
+          },
+          "problem": {
+            "en": "Problem.",
+            "fr": "Problème."
+          },
+          "before": [
+            {
+              "src": "example-designing-with-ai-error-face",
+              "alt": {
+                "en": "Alt error face",
+                "fr": "Alt error face FR"
+              },
+              "caption": {
+                "en": "Before.",
+                "fr": "Avant."
+              },
+              "crop": {
+                "x": 0.4,
+                "y": 0.1,
+                "w": 0.2,
+                "h": 0.2,
+                "label": {
+                  "en": "Face",
+                  "fr": "Visage"
+                }
+              }
+            }
+          ],
+          "method": {
+            "en": "Method.",
+            "fr": "Méthode."
+          },
+          "prompt": {
+            "en": "Line one\nLine two",
+            "fr": "Ligne un\nLigne deux"
+          },
+          "after": [
+            {
+              "src": "example-designing-with-ai-fixed-face",
+              "alt": {
+                "en": "Alt fixed face",
+                "fr": "Alt fixed face FR"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "campaign",
+      "title": {
+        "en": "Campaign",
+        "fr": "Campagne"
+      },
+      "blocks": [
+        {
+          "type": "detail-grid",
+          "items": [
+            {
+              "image": {
+                "src": "example-campaign-detail-buckle",
+                "alt": {
+                  "en": "Alt detail buckle",
+                  "fr": "Alt detail buckle FR"
+                }
+              },
+              "text": {
+                "en": "Buckle",
+                "fr": "Boucle"
+              }
+            },
+            {
+              "image": {
+                "src": "example-campaign-detail-strap",
+                "alt": {
+                  "en": "Alt detail strap",
+                  "fr": "Alt detail strap FR"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outcome",
+      "title": {
+        "en": "Outcome",
+        "fr": "Résultat"
+      },
+      "blocks": [
+        {
+          "type": "outcome-montage",
+          "images": [
+            {
+              "src": "example-outcome-photo-one",
+              "alt": {
+                "en": "Alt photo one",
+                "fr": "Alt photo one FR"
+              }
+            },
+            {
+              "src": "example-outcome-photo-two",
+              "alt": {
+                "en": "Alt photo two",
+                "fr": "Alt photo two FR"
+              }
+            },
+            {
+              "src": "example-outcome-photo-three",
+              "alt": {
+                "en": "Alt photo three",
+                "fr": "Alt photo three FR"
+              }
+            }
+          ],
+          "text": {
+            "en": "Result.",
+            "fr": "Résultat."
+          }
+        }
+      ]
+    }
+  ]
+}

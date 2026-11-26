@@ -4,6 +4,7 @@ import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { validateGeneratedHTML } from './validate-generated-html.mjs';
+import { loadCases } from './case-data.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const args = process.argv.slice(2);
@@ -330,11 +331,14 @@ async function buildPage(templatePath, cardSlots, locale, layoutKind) {
 
 // Case-study pages: shared Navbar, Footer and language link around a page-owned <main>.
 // They never load the homepage controller; see scripts/static-page/static-page.js.
-const casesData = JSON.parse(await readFile(path.join(root, 'content/cases.json'), 'utf8'));
+const casesData = { cases: await loadCases() };
 const caseRoute = (id, locale) => `${locale === 'fr' ? '' : '/en'}/cases/${id}/`;
 
-async function buildCasePage(record, locale) {
-  const text = record.locales[locale];
+async function buildCasePage({ record, data }, locale) {
+  // Case files keep their page text in meta {pageTitle, title}; the foundation route keeps it in the index.
+  const text = data
+    ? { pageTitle: data.meta.pageTitle[locale] || data.meta.pageTitle.en, title: data.meta.title[locale] || data.meta.title.en }
+    : record.locales[locale];
   if (!text?.title || !text?.pageTitle) throw new Error(`Case ${record.id} is missing ${locale} text`);
   let html = await readFile(path.join(root, 'templates/case.html'), 'utf8');
   const homeRoute = locale === 'fr' ? '/' : '/en/';
@@ -367,6 +371,8 @@ async function buildCasePage(record, locale) {
     languageSwitchText: locale.toUpperCase(),
   };
   for (const [key, value] of Object.entries(fields)) html = html.replaceAll(`{{${key}}}`, escapeAttribute(value));
+  // Pages built from a case file add the case tokens; the foundation route stays byte-identical.
+  html = html.replace('{{caseStyles}}', () => data ? '\n<link rel="stylesheet" href="/styles/case-tokens.css">' : '');
   // The grid container for case content. The foundation route shows its column tracks.
   const grid = record.preview
     ? `<div class="kc-case-grid kc-case-grid--preview" data-kc-case-grid>${'<span aria-hidden="true"></span>'.repeat(12)}</div>`
@@ -390,10 +396,10 @@ for (const locale of requestedLocales) {
   validateGeneratedHTML({ pageHTML: page, desktopHTML: desktop, locale, canonicalOrder, css: layeredTicketCSS });
   await writeFile(path.join(folder, 'index.html'), page);
   await writeFile(path.join(folder, 'desktop-project-embedded.html'), desktop);
-  for (const record of casesData.cases) {
-    const caseFolder = path.join(folder, 'cases', record.id);
+  for (const entry of casesData.cases) {
+    const caseFolder = path.join(folder, 'cases', entry.record.id);
     await mkdir(caseFolder, { recursive: true });
-    await writeFile(path.join(caseFolder, 'index.html'), await buildCasePage(record, locale));
+    await writeFile(path.join(caseFolder, 'index.html'), await buildCasePage(entry, locale));
   }
 }
 const notFound = await buildPage(path.join(root, 'templates/404.html'), {}, 'fr', '404');
@@ -402,7 +408,7 @@ if (checkOnly) {
   const outputs = requestedLocales.flatMap(locale => {
     const folder = locale === 'fr' ? '' : 'en/';
     return [`${folder}index.html`, `${folder}desktop-project-embedded.html`,
-      ...casesData.cases.map(record => `${folder}cases/${record.id}/index.html`)];
+      ...casesData.cases.map(({ record }) => `${folder}cases/${record.id}/index.html`)];
   });
   outputs.push('404.html');
   for (const relative of outputs) {

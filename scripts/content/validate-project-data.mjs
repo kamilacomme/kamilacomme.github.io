@@ -1,6 +1,7 @@
 import { readFile, stat } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { checkCases } from './case-data.mjs';
 
 const data = JSON.parse(await readFile(new URL('../../content/projects.json', import.meta.url), 'utf8'));
 const about = JSON.parse(await readFile(new URL('../../content/about.json', import.meta.url), 'utf8'));
@@ -92,4 +93,7 @@ for (const project of data.projects) {
   }
 }
 
-console.log(`Content valid: ${data.projects.length} projects, ${about.cards.length} About cards, ${layouts.length} layouts, ${locales.length} locales; canonical order and all ${baseline.assetFiles.length} asset hashes verified.`);
+const cases = await checkCases();
+if (cases.errors.length) throw new Error(`Case content is invalid:\n- ${cases.errors.join('\n- ')}`);
+
+console.log(`Content valid: ${data.projects.length} projects, ${about.cards.length} About cards, ${layouts.length} layouts, ${locales.length} locales; canonical order and all ${baseline.assetFiles.length} asset hashes verified; cases: ${cases.summary.publish} to publish, ${cases.summary.draft} draft, ${cases.summary.preview} preview route.`);

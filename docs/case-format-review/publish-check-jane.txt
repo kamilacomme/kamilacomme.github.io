@@ -1,0 +1,41 @@
+Case jane is NOT ready to publish (40 issue(s)):
+- case jane (publication) approval.en: EN text is not approved
+- case jane (publication) approval.fr: FR text is not approved
+- case jane (publication) meta.pageTitle: is a placeholder
+- case jane (publication) meta.title: is a placeholder
+- case jane (publication) chapters[0].title: FR text is missing
+- case jane (publication) chapters[0].blocks[0].title: is a placeholder
+- case jane (publication) chapters[0].blocks[0].title: EN text is missing
+- case jane (publication) chapters[0].blocks[0].title: FR text is missing
+- case jane (publication) chapters[0].blocks[0].image: is a placeholder
+- case jane (publication) chapters[0].blocks[0].image.alt: is a placeholder
+- case jane (publication) chapters[0].blocks[0].image.alt: EN text is missing
+- case jane (publication) chapters[0].blocks[0].image.alt: FR text is missing
+- case jane (publication) chapters[1].title: FR text is missing
+- case jane (publication) chapters[1].blocks[0].text: is a placeholder
+- case jane (publication) chapters[1].blocks[0].text: EN text is missing
+- case jane (publication) chapters[1].blocks[0].text: FR text is missing
+- case jane (publication) chapters[2].title: FR text is missing
+- case jane (publication) chapters[2].blocks[0].text: is a placeholder
+- case jane (publication) chapters[2].blocks[0].text: EN text is missing
+- case jane (publication) chapters[2].blocks[0].text: FR text is missing
+- case jane (publication) chapters[3].title: FR text is missing
+- case jane (publication) chapters[3].blocks[0].text: is a placeholder
+- case jane (publication) chapters[3].blocks[0].text: EN text is missing
+- case jane (publication) chapters[3].blocks[0].text: FR text is missing
+- case jane (publication) chapters[4].title: FR text is missing
+- case jane (publication) chapters[4].blocks[0].text: is a placeholder
+- case jane (publication) chapters[4].blocks[0].text: EN text is missing
+- case jane (publication) chapters[4].blocks[0].text: FR text is missing
+- case jane (publication) chapters[5].title: FR text is missing
+- case jane (publication) chapters[5].blocks[0].text: is a placeholder
+- case jane (publication) chapters[5].blocks[0].text: EN text is missing
+- case jane (publication) chapters[5].blocks[0].text: FR text is missing
+- case jane (publication) chapters[6].title: FR text is missing
+- case jane (publication) chapters[6].blocks[0].text: is a placeholder
+- case jane (publication) chapters[6].blocks[0].text: EN text is missing
+- case jane (publication) chapters[6].blocks[0].text: FR text is missing
+- case jane (publication) chapters[7].title: FR text is missing
+- case jane (publication) chapters[7].blocks[0].text: is a placeholder
+- case jane (publication) chapters[7].blocks[0].text: EN text is missing
+- case jane (publication) chapters[7].blocks[0].text: FR text is missing

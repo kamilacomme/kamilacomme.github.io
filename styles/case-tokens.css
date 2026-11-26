@@ -1,0 +1,14 @@
+/* Case-study text tokens that the shared design system does not have.
+   Loaded only by case pages built from a case file (templates/case.html,
+   {{caseStyles}}); the shared token files, the homepage and the foundation
+   route do not load it. Approved by Kamila on 2026-11-26 (step 0,
+   docs/case-format-review/step0-text-tokens.md). Every other case text level
+   uses an existing token listed there. */
+:root {
+  /* Chapter intro: Inter 400, 24px desktop and tablet, 20px mobile. */
+  --kc-case-type-intro: 24px;
+  --kc-case-intro-line: 1.4;
+}
+:root[data-kc-profile="mobile"] {
+  --kc-case-type-intro: 20px;
+}

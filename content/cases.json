@@ -16,6 +16,13 @@
           "title": "Case study title"
         }
       }
+    },
+    {
+      "id": "jane",
+      "purpose": "Case study “Trouve ta Jane”. Draft: content is filled in the content chat; noindex until Kamila decides to publish.",
+      "file": "cases/jane.json",
+      "status": "draft",
+      "robots": "noindex, nofollow"
     }
   ]
 }

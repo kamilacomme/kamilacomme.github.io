@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-26T22:58:14.780Z",
+  "title": "Design System: Kamila Comme — Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Soft Orchid Pink",
+        "canonical": "#FDB4F5",
+        "tonalRamp": [
+          "#330F2F",
+          "#821C78",
+          "#E44ED5",
+          "#F589EA",
+          "#FDB4F5",
+          "#FECDF9",
+          "#FFDCFB",
+          "#FFF5FE"
+        ]
+      },
+      "primary-deep": {
+        "role": "primary",
+        "displayName": "Deep Plum",
+        "canonical": "#821C78",
+        "tonalRamp": [
+          "#330F2F",
+          "#821C78",
+          "#E44ED5",
+          "#F589EA",
+          "#FDB4F5",
+          "#FECDF9",
+          "#FFEBFD",
+          "#FFF5FE"
+        ]
+      },
+      "primary-dark": {
+        "role": "primary",
+        "displayName": "Night Plum",
+        "canonical": "#330F2F",
+        "tonalRamp": [
+          "#330F2F",
+          "#821C78",
+          "#E44ED5",
+          "#F589EA",
+          "#FDB4F5",
+          "#FECDF9",
+          "#FFEBFD",
+          "#FFF5FE"
+        ]
+      },
+      "secondary": {
+        "role": "secondary",
+        "displayName": "Clear Sky Blue",
+        "canonical": "#3ABAF3",
+        "tonalRamp": [
+          "#112731",
+          "#184559",
+          "#1C6D92",
+          "#1992C8",
+          "#3ABAF3",
+          "#80D4F9",
+          "#B0E5FD",
+          "#F5FCFF"
+        ]
+      },
+      "accent": {
+        "role": "tertiary",
+        "displayName": "Lemon Spark",
+        "canonical": "#CAE56C",
+        "tonalRamp": [
+          "#272B17",
+          "#4E5926",
+          "#687E15",
+          "#B1C832",
+          "#CAE56C",
+          "#E1F3A5",
+          "#F1FBD0",
+          "#FCFFF5"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#222022",
+        "tonalRamp": [
+          "#222022",
+          "#5C575C",
+          "#9E9A9E",
+          "#BDB7BD",
+          "#D6D1D6",
+          "#E6E0E6",
+          "#F2EEF2",
+          "#FDFCFD"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Slate",
+        "canonical": "#5C575C",
+        "tonalRamp": [
+          "#222022",
+          "#5C575C",
+          "#9E9A9E",
+          "#BDB7BD",
+          "#D6D1D6",
+          "#E6E0E6",
+          "#F2EEF2",
+          "#FDFCFD"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Largest statements; rare."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section and chapter headings (56/48/32px by profile)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project and episode titles (40/32/24px by profile)."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text, about 40rem wide."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Captions, card descriptions, prompt box."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Navigation links, tags, section labels; uppercase."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating-control",
+        "value": "0 1px 5px rgba(8, 8, 10, 0.22)",
+        "purpose": "The language switch only."
+      },
+      {
+        "name": "glass-pill",
+        "value": "backdrop-filter: blur(16px) saturate(1.4)",
+        "purpose": "Availability pill in the navigation over imagery."
+      }
+    ],
+    "motion": [
+      {
+        "name": "opacity-hover",
+        "value": "opacity 150ms ease",
+        "purpose": "Case menu links; hover lowers or raises opacity instead of changing colour."
+      },
+      {
+        "name": "media-fade",
+        "value": "opacity 0.32s ease",
+        "purpose": "Project ticket media layers."
+      },
+      {
+        "name": "availability-dot",
+        "value": "kcDot 1.8s ease-in-out infinite",
+        "purpose": "Pulsing availability dot; disabled under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "< 500px"
+      },
+      {
+        "name": "tablet",
+        "value": "< 1080px, or ≤ 1366px on touch"
+      },
+      {
+        "name": "desktop",
+        "value": "otherwise"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Hire Button",
+      "kind": "button",
+      "refersTo": "button-hire",
+      "description": "The single call to action in the navigation.",
+      "html": "<a class=\"ds-hire\" href=\"#\">Hire me</a>",
+      "css": ".ds-hire{display:inline-flex;align-items:center;box-sizing:border-box;height:44px;padding:12px 24px;border-radius:4px;background:#FDB4F5;color:#222022;font-family:'Inter',sans-serif;font-size:14px;line-height:1;text-decoration:none}.ds-hire:hover{opacity:.7}.ds-hire:focus-visible{outline:2px solid #FDB4F5;outline-offset:3px}"
+    },
+    {
+      "name": "Availability Pill",
+      "kind": "chip",
+      "refersTo": "nav-availability-pill",
+      "description": "Pale glass pill with a pulsing dot; hidden on narrow profiles.",
+      "html": "<span class=\"ds-pill\"><span class=\"ds-dot\"></span>OPEN TO FULL-TIME ROLES</span>",
+      "css": ".ds-pill{display:inline-flex;align-items:center;gap:8px;box-sizing:border-box;min-height:44px;padding:10px 24px;border-radius:4px;background:#F8F7F8;border:1px solid #E5E2E5;color:#5C575C;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.04em;text-transform:uppercase}.ds-dot{width:6px;height:6px;border-radius:50%;background:#CAE56C}"
+    },
+    {
+      "name": "Language Switch",
+      "kind": "custom",
+      "refersTo": "language-switch",
+      "description": "Fixed 44px circle at the bottom-right gutter.",
+      "html": "<a class=\"ds-lang\" href=\"#\">EN</a>",
+      "css": ".ds-lang{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;box-sizing:border-box;border:1px solid #fff;border-radius:50%;background:#fff;box-shadow:0 1px 5px rgba(8,8,10,.22);color:#222022;font-family:'Inter',sans-serif;font-size:12px;text-decoration:none}.ds-lang:hover{border-color:#5C575C;background:#5C575C;color:#fff}.ds-lang:focus-visible{outline:3px solid #FDB4F5;outline-offset:3px}"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": "label",
+      "description": "12px uppercase label; colour never changes, opacity drops on hover.",
+      "html": "<a class=\"ds-nav\" href=\"#\">Projects</a>",
+      "css": ".ds-nav{font-family:'Inter',sans-serif;font-size:12px;line-height:1.2;letter-spacing:.04em;text-transform:uppercase;color:#222022;text-decoration:none}.ds-nav:hover{opacity:.7}.ds-nav:focus-visible{outline:2px solid #FDB4F5;outline-offset:3px;border-radius:4px}"
+    },
+    {
+      "name": "Project Ticket Panel",
+      "kind": "card",
+      "refersTo": "ticket",
+      "description": "Pale panel with title, description and tags over the project poster.",
+      "html": "<div class=\"ds-ticket\"><h3>Pilates</h3><p>Building the body like an architect.</p><span class=\"ds-tag\">web design</span></div>",
+      "css": ".ds-ticket{box-sizing:border-box;width:320px;padding:20px;border-radius:4px;background:#F2EEF2;color:#222022}.ds-ticket h3{margin:0 0 8px;font:700 40px/1 'Figtree',sans-serif;letter-spacing:-.03em}.ds-ticket p{margin:0 0 16px;font:400 14px/1.5 'Inter',sans-serif;letter-spacing:-.01em;color:#5C575C}.ds-tag{font:400 12px/1.5 'Inter',sans-serif;letter-spacing:.04em;text-transform:uppercase}"
+    },
+    {
+      "name": "Case Chapter Menu",
+      "kind": "nav",
+      "refersTo": "label",
+      "description": "Sticky chapter row; inactive 64% opacity, current and hover 100%.",
+      "html": "<nav class=\"ds-menu\"><a aria-current=\"location\" href=\"#\">Identity</a><a href=\"#\">From Nature to Form</a><a href=\"#\">Campaign</a></nav>",
+      "css": ".ds-menu{display:flex;gap:24px;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#222022}.ds-menu a{min-height:44px;display:flex;align-items:center;color:inherit;text-decoration:none;opacity:.64;transition:opacity 150ms ease}.ds-menu a:hover,.ds-menu a[aria-current]{opacity:1}"
+    },
+    {
+      "name": "Case Prompt Box",
+      "kind": "custom",
+      "refersTo": "case-prompt",
+      "description": "Prompt text in Inter 14 on Mist; line breaks kept.",
+      "html": "<p class=\"ds-prompt\">Same face as reference.\nOne ring on the ring finger only.</p>",
+      "css": ".ds-prompt{margin:0;box-sizing:border-box;max-width:40rem;padding:16px;border-radius:4px;background:#F6F4F6;color:#222022;font:400 14px/1.5 'Inter',sans-serif;letter-spacing:-.01em;white-space:pre-wrap}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Frame and the Wall",
+    "overview": "The site is a frame; the work is the wall. The frame (navigation, text, panels, footer) stays neutral and quiet, with exactly one soft accent, so that the colour on the page is the colour of the projects.",
+    "keyCharacteristics": [
+      "Neutral surfaces with ink-black text; one pink accent for the single call to action and focus.",
+      "Two typefaces only: Figtree Bold for display, Inter Regular for everything else.",
+      "Almost flat: one shadow, on the floating language switch.",
+      "Small radius (4px) everywhere, 8px only on the layered project ticket.",
+      "Images are cropped, never decorated."
+    ],
+    "rules": [
+      {
+        "name": "The One Accent Rule",
+        "body": "Pink marks the single action and the focus state. If a second thing on a screen is pink, one of them is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The Real Colour Rule",
+        "body": "Interface colour never competes with project colour.",
+        "section": "colors"
+      },
+      {
+        "name": "The Text Grey Rule",
+        "body": "Text is Ink or Slate, never a lighter grey.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Figtree for structure, Inter for everything else. No third family.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Scaling Rule",
+        "body": "Text keeps its approved size per profile; layouts reflow around it.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Nothing casts a shadow at rest except the language switch.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the interface neutral and let the projects carry colour.",
+      "Do use Soft Orchid Pink only for the one call to action and for focus.",
+      "Do keep text at its approved size per profile and let layouts reflow around it.",
+      "Do keep every tap target at 44px or more and every focus state visible.",
+      "Do crop images with a focus point so faces stay in view, and keep readable text as text, never inside an image.",
+      "Do give French and English the same facts, layout and visual weight."
+    ],
+    "donts": [
+      "Don't introduce a third typeface or a new colour; extend the existing tokens or ask first.",
+      "Don't use greys lighter than Slate for text.",
+      "Don't change a link's colour on hover; weight or opacity is the signal.",
+      "Don't add shadows, thick black lines, numbering or decorative borders to the interface.",
+      "Don't scale text with the viewport to make a composition fit.",
+      "Don't fabricate facts, figures, clients or quotes in case studies; leave the gap instead."
+    ]
+  }
+}

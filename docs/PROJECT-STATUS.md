@@ -33,6 +33,13 @@ Updated: 2026-11-26 (merge of site fixes 1–6 and repository cleanup); earlier 
 - Waiting for Kamila: visual acceptance on localhost; final page layout (classic, sticky left column, "Open" everywhere); new chapter order; hero 1200px decision; three SVG logos and which logo to annotate; filling texts, crops, prompts; Epilogue removal (separate task before publication).
 - Next: after the content is filled in, `critique` and `audit` as report-only, then the design pass.
 
+### D1 — design report and grid overlay (Jane, 2026-11-27)
+
+- Report only, nothing fixed: [d1-jane-report.md](d1-jane-report.md) (critique and audit, FR and EN, 1440 / 768 / 393; audit 14/20, two P1: label overlap at 768 and the soft hero frame) and [d1-jane-frames.md](d1-jane-frames.md) (frame inventory against the originals in `~/Downloads/Jane`). A report is not acceptance.
+- `6d06544`: development tool, grid overlay. Press G; `npm run dev:grid` starts the local server with it. 12 columns / 32 / 24 on desktop and tablet, 4 / 16 / 16 on mobile, red at 15 %. Files: `scripts/dev/grid-overlay.js`, `tests/runtime/server.mjs` (injects only when `KC_GRID=1`), `package.json`. No page, template or generated file loads it; the live site is unchanged.
+- Checks on `6d06544` (macOS, Chrome 158, development evidence, not the Linux lab): `test:baseline-integrity` 230 PASS; 492-point matrix byte-identical to `matrix-after.csv` (`cmp`), 0 mismatches; `content:build:check` clean; `test:responsive` 37 passed, 0 failed, 19 skipped by design; `test:case-format` 13/13.
+- `.impeccable/design.json` was refreshed from `DESIGN.md` (narrative verbatim, 7 more colours); not committed, waiting for Kamila's OK.
+
 ## Case-study foundation — stage 1 (branch `case-studies/foundation`, 2026-11-24)
 
 **Status: implemented, verified on macOS and accepted by the owner on 2026-11-25. Pushed to `origin/case-studies/foundation`; not merged or published.** Internal case-study pages are a planned part of the site (see `PRODUCT.md`). Stage 1 only builds the shared foundation; no case design or content was made.

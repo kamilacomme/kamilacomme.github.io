@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-26T22:58:14.780Z",
+  "generatedAt": "2026-11-27T21:29:58.000Z",
   "title": "Design System: Kamila Comme — Portfolio",
   "extensions": {
     "colorMeta": {
@@ -107,6 +107,111 @@
           "#E6E0E6",
           "#F2EEF2",
           "#FDFCFD"
+        ]
+      },
+      "secondary-deep": {
+        "role": "secondary",
+        "displayName": "Harbour Blue",
+        "canonical": "#1C6D92",
+        "tonalRamp": [
+          "#071B24",
+          "#0D3142",
+          "#144C66",
+          "#1C6D92",
+          "#6099B3",
+          "#99BDCE",
+          "#C6DAE4",
+          "#E8F0F4"
+        ]
+      },
+      "accent-deep": {
+        "role": "tertiary",
+        "displayName": "Moss Lemon",
+        "canonical": "#687E15",
+        "tonalRamp": [
+          "#1A2005",
+          "#2F3909",
+          "#49580F",
+          "#687E15",
+          "#95A55B",
+          "#BBC596",
+          "#D9DFC4",
+          "#F0F2E8"
+        ]
+      },
+      "page": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "#FFFFFF",
+        "tonalRamp": [
+          "#404040",
+          "#737373",
+          "#B2B2B2",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FFFFFF"
+        ]
+      },
+      "page-warm": {
+        "role": "neutral",
+        "displayName": "Off-white Bloom",
+        "canonical": "#FFFAFE",
+        "tonalRamp": [
+          "#403E40",
+          "#737072",
+          "#B2AFB2",
+          "#FFFAFE",
+          "#FFFCFE",
+          "#FFFDFF",
+          "#FFFEFF",
+          "#FFFEFF"
+        ]
+      },
+      "surface-muted": {
+        "role": "neutral",
+        "displayName": "Mist",
+        "canonical": "#F6F4F6",
+        "tonalRamp": [
+          "#3E3D3E",
+          "#6F6E6F",
+          "#ACABAC",
+          "#F6F4F6",
+          "#F9F7F9",
+          "#FBFAFB",
+          "#FDFCFD",
+          "#FEFEFE"
+        ]
+      },
+      "surface-panel": {
+        "role": "neutral",
+        "displayName": "Pale Lilac Grey",
+        "canonical": "#F2EEF2",
+        "tonalRamp": [
+          "#3C3C3C",
+          "#6D6B6D",
+          "#A9A7A9",
+          "#F2EEF2",
+          "#F6F3F6",
+          "#F9F7F9",
+          "#FCFBFC",
+          "#FEFDFE"
+        ]
+      },
+      "border-subtle": {
+        "role": "neutral",
+        "displayName": "Hairline Grey",
+        "canonical": "#E6E0E6",
+        "tonalRamp": [
+          "#3A383A",
+          "#676567",
+          "#A19DA1",
+          "#E6E0E6",
+          "#EEE9EE",
+          "#F4F1F4",
+          "#F9F7F9",
+          "#FCFCFC"
         ]
       }
     },
@@ -240,13 +345,13 @@
   ],
   "narrative": {
     "northStar": "The Frame and the Wall",
-    "overview": "The site is a frame; the work is the wall. The frame (navigation, text, panels, footer) stays neutral and quiet, with exactly one soft accent, so that the colour on the page is the colour of the projects.",
+    "overview": "The site is a frame; the work is the wall. The frame (navigation, text, panels, footer) stays neutral and quiet, with exactly one soft accent, so that the colour on the page is the colour of the projects: the burgundy of a leather bag, the moss of a campaign, the pink of a wellness brand. This is the system's own founding principle, written into its colour tokens (\"the frame stays neutral plus one accent; the wall carries the real colour\"), and everything below follows from it.\n\nThe mood is calm, exact and a little playful. Figtree Bold gives short, tightly tracked statements; Inter keeps everything else small and plain. Space is generous and structural: a 12-column grid, a 32px page margin, large vertical gaps between chapters. The interface recedes in front of the images and never competes with them. It is bilingual by structure: French and English carry the same weight and the same layout.",
     "keyCharacteristics": [
-      "Neutral surfaces with ink-black text; one pink accent for the single call to action and focus.",
+      "Neutral surfaces (white, off-white, two pale greys) with ink-black text; one pink accent, used for the single call to action and for focus.",
       "Two typefaces only: Figtree Bold for display, Inter Regular for everything else.",
-      "Almost flat: one shadow, on the floating language switch.",
+      "Almost flat: no shadows except one on the floating language switch; depth comes from pale tonal panels laid over images.",
       "Small radius (4px) everywhere, 8px only on the layered project ticket.",
-      "Images are cropped, never decorated."
+      "Images are cropped, never decorated: no frames, borders or filters of the interface's own."
     ],
     "rules": [
       {
@@ -256,32 +361,37 @@
       },
       {
         "name": "The Real Colour Rule",
-        "body": "Interface colour never competes with project colour.",
+        "body": "Interface colour never competes with project colour. Do not tint panels, captions or menus to match an image.",
         "section": "colors"
       },
       {
         "name": "The Text Grey Rule",
-        "body": "Text is Ink or Slate, never a lighter grey.",
+        "body": "Text is Ink or Slate, never a lighter grey. Lighter greys (#D6D1D6, #BDB7BD, #9E9A9E) are for lines and fills only; a reduced-opacity Ink may stand in for Slate only where the result stays above 4.5:1.",
         "section": "colors"
       },
       {
         "name": "The Two Voices Rule",
-        "body": "Figtree for structure, Inter for everything else. No third family.",
+        "body": "Figtree for structure, Inter for everything else. No third family, and no Figtree in running text.",
+        "section": "typography"
+      },
+      {
+        "name": "The Unused Font Note",
+        "body": "The page head also requests Epilogue 500 from Google Fonts (`templates/page.html`, `templates/case.html`), but no stylesheet or page uses it. It is not part of the system; do not use it, and removing the request is a separate decision because it changes the shared head of every page.",
         "section": "typography"
       },
       {
         "name": "The No-Scaling Rule",
-        "body": "Text keeps its approved size per profile; layouts reflow around it.",
+        "body": "Text keeps its approved size per profile (desktop, tablet, mobile); layouts reflow around it instead of shrinking it.",
         "section": "typography"
       },
       {
         "name": "The Flat-By-Default Rule",
-        "body": "Nothing casts a shadow at rest except the language switch.",
+        "body": "Nothing casts a shadow at rest except the language switch. New components stay flat; they do not borrow a shadow to look important.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do keep the interface neutral and let the projects carry colour.",
+      "Do keep the interface neutral (white, Mist, Pale Lilac Grey, Ink, Slate) and let the projects carry colour.",
       "Do use Soft Orchid Pink only for the one call to action and for focus.",
       "Do keep text at its approved size per profile and let layouts reflow around it.",
       "Do keep every tap target at 44px or more and every focus state visible.",

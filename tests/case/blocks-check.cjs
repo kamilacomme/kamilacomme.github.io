@@ -35,7 +35,8 @@ const probe = () => {
     return f ? rect(f) : null;
   });
   document.querySelectorAll('.kc-case-pair').forEach(el => out.pairs.push({ container: el.parentElement.clientWidth, cols: getComputedStyle(el).gridTemplateColumns.split(' ').length, cells: cells(el) }));
-  document.querySelectorAll('.kc-case-row').forEach(el => out.rows.push({ container: el.parentElement.clientWidth, n: +el.dataset.n, cols: getComputedStyle(el).gridTemplateColumns.split(' ').length, cells: cells(el) }));
+  document.querySelectorAll('.kc-case-row').forEach(el => { const c = cells(el); out.rows.push({ container: el.parentElement.clientWidth, n: +el.dataset.n, cols: getComputedStyle(el).gridTemplateColumns.split(' ').length, cells: c, perRow: new Set(c.filter(Boolean).map(v => Math.round(v.x))).size }); });
+  out.fullFrames = [...document.querySelectorAll('.kc-case-full')].map(el => { const img = el.querySelector('img'); const c = (img?.srcset || '').split(',').pop().trim().split(' ')[0]; return { fit: el.dataset.fit, w: el.querySelector('.kc-case-frame').getBoundingClientRect().width, largestW: +((c.match(/-(\d+)\.webp$/) || [])[1] || 0), src: img?.currentSrc ?? '' }; });
   document.querySelectorAll('.kc-case-block img').forEach(img => {
     if (!vis(img) || !img.closest('.kc-case-frame, .kc-case-crop-frame, .kc-case-hero-media')) return;
     if (img.closest('.kc-case-hero-media')) return;
@@ -43,7 +44,8 @@ const probe = () => {
     const src = img.currentSrc || img.src;
     const fileW = +((src.match(/-(\d+)\.webp$/) || [])[1] || 0);
     const candidates = (img.srcset || '').split(',').map(c => c.trim().split(' ')[0]).filter(Boolean);
-    out.broken.push({ src, ok: img.complete && img.naturalWidth > 0, fileW, largest: !candidates.length || src.endsWith(candidates.at(-1).split('/').pop()), rendered: img.getBoundingClientRect().width });
+    const largestW = +((candidates.at(-1) || '').match(/-(\d+)\.webp$/) || [])[1] || fileW;
+    out.broken.push({ src, ok: img.complete && img.naturalWidth > 0, fileW, largestW, sketch: /-sketch-/.test(src), largest: !candidates.length || src.endsWith(candidates.at(-1).split('/').pop()), rendered: img.getBoundingClientRect().width });
   });
   // Remaining blocks: grid columns, cell sizes and the annotation layout, measured on the page.
   const blockOf = el => el.closest('.kc-case-block').clientWidth;
@@ -53,7 +55,7 @@ const probe = () => {
   });
   out.grids = [];
   for (const [sel, kind] of [['.kc-case-trio', 'trio'], ['.kc-case-montage', 'montage'], ['.kc-case-tiles', 'tiles'], ['.kc-case-logos', 'logos'], ['.kc-case-swatches', 'swatches'], ['.kc-case-principle', 'principle'], ['.kc-case-split', 'split']]) {
-    document.querySelectorAll(sel).forEach(el => out.grids.push({ kind, container: blockOf(el), cols: getComputedStyle(el).gridTemplateColumns.split(' ').length, cells: kind === 'principle' || kind === 'split' ? [] : sizes(el) }));
+    document.querySelectorAll(sel).forEach(el => { const cells = kind === 'principle' || kind === 'split' ? [] : sizes(el); out.grids.push({ kind, n: +el.dataset.n || cells.length, container: blockOf(el), cols: getComputedStyle(el).gridTemplateColumns.split(' ').length, cells, perRow: new Set(cells.filter(Boolean).map(c => Math.round(c.x))).size }); });
   }
   out.splits = [...document.querySelectorAll('.kc-case-split')].map(el => {
     const copy = el.querySelector('.kc-case-copy').getBoundingClientRect(), fig = el.querySelector('.kc-case-cell').getBoundingClientRect();
@@ -110,21 +112,35 @@ const probe = () => {
         if (pr.cols !== wantCols) fail(where, `pair in ${pr.container}px has ${pr.cols} columns, expected ${wantCols}`);
         if (pr.cols === 2) sameSize(where, `pair ${pr.container}px`, pr.cells);
       }
+      // One scheme for rows, detail-grid and montage: 1 column, 2 from 480px, then 3 for 3/5/6 frames, 4 for 4/7+ (never more than 4).
+      const colsFor = (n, c) => (c < 480 ? 1 : c < 800 || n <= 2 ? 2 : [3, 5, 6].includes(n) ? 3 : 4);
       for (const r of m.rows) {
-        const want = r.container >= 800 ? (r.n >= 3 ? r.n : 2) : r.container >= 480 ? 2 : 1;
+        const want = colsFor(r.n, r.container);
         if (r.cols !== want) fail(where, `row (${r.n}) in ${r.container}px has ${r.cols} columns, expected ${want}`);
+        if (r.perRow > 4 || r.cols > 4) fail(where, `row (${r.n}) has more than four frames in a line`);
         if (r.cols > 1) sameSize(where, `row (${r.n}) ${r.container}px`, r.cells);
       }
       for (const g of m.grids) {
         const c = g.container;
-        const want = { trio: c >= 640 ? 3 : 1, montage: c >= 800 ? 3 : c >= 480 ? 2 : 1, principle: c >= 640 ? 2 : 1 }[g.kind];
+        const want = { trio: c >= 640 ? 3 : 1, montage: colsFor(g.n, c), tiles: colsFor(g.n, c), principle: c >= 640 ? 2 : 1 }[g.kind];
+        if (g.perRow > 4) fail(where, `${g.kind} has more than four frames in a line`);
         if (want && g.cols !== want) fail(where, `${g.kind} in ${c}px has ${g.cols} columns, expected ${want}`);
         if (g.cells.length && g.cols > 1) sameSize(where, `${g.kind} ${c}px`, g.cells);
-        if (['tiles', 'logos', 'swatches'].includes(g.kind)) sameSize(where, `${g.kind} ${c}px`, g.cells);
+        if (['logos', 'swatches'].includes(g.kind)) sameSize(where, `${g.kind} ${c}px`, g.cells);
       }
       for (const sp of m.splits) {
         if (sp.container >= 640 ? sp.stacked : !sp.stacked) fail(where, `split in ${sp.container}px is ${sp.stacked ? 'stacked' : 'side by side'}`);
         if (!sp.stacked && (sp.side === 'left') !== sp.imageLeftOfText) fail(where, `split image is on the wrong side (data-side ${sp.side})`);
+      }
+      // Quality rules: never drawn wider than 1.15x the largest file; drawings and smaller frames inside the 64rem column;
+      // full width only for photographs whose largest file is 1600px or more.
+      for (const i of m.broken) {
+        if (i.ok && i.rendered > i.largestW * 1.15 + 1) fail(where, `${i.src.split('/').pop()} drawn ${i.rendered.toFixed(0)}px wide, over 1.15x its ${i.largestW}px file`);
+        if (i.sketch && i.rendered > 1025) fail(where, `sketch ${i.src.split('/').pop()} is ${i.rendered.toFixed(0)}px wide (column is 1024px)`);
+      }
+      for (const f of m.fullFrames) {
+        if (f.fit === 'column' && f.w > 1025) fail(where, `column image ${f.src.split('/').pop()} is ${f.w.toFixed(0)}px wide`);
+        if (f.fit === 'full' && f.largestW < 1600) fail(where, `full-width image ${f.src.split('/').pop()} has a ${f.largestW}px file (needs 1600px)`);
       }
       for (const f of m.full) {
         if (f.orient === 'portrait' && f.w > 641) fail(where, `portrait full frame is ${f.w}px wide (max 640)`);

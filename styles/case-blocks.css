@@ -43,7 +43,14 @@
 }
 
 /* ---------- Images ---------- */
-.kc-case-cell { margin: 0; min-width: 0; }
+/* A cell is never wider than 1.15x its largest file (--cap, set by the block); it narrows and centres instead. */
+.kc-case-cell {
+  margin: 0;
+  min-width: 0;
+  inline-size: min(100%, var(--cap, 100%));
+  margin-inline: auto;
+}
+.kc-case-block { --kc-case-column: 64rem; }
 /* A frame crops the image to its cell. The focus point keeps faces in view:
    --focus (default 50% 35%) and, in a narrow container, --focus-m. */
 .kc-case-frame {
@@ -162,20 +169,22 @@
 .kc-ai-section--method { row-gap: var(--space-3); }
 .kc-ai-section--method > .kc-case-label { margin-bottom: calc(var(--space-2) * -1); }
 
-/* Rows of frames: one column, then two, then one per frame (up to four). */
-.kc-case-row {
+/* Rows of frames (ai-episode, sequence), detail-grid and outcome-montage share one scheme (data-n = number of
+   frames): one column, two from 30rem, then from 50rem one column per frame up to four; five and six frames
+   make two rows of three, seven and eight two rows of four. Never more than four in a row. */
+.kc-case-multi {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--space-3) var(--kc-case-column-gap);
   align-items: start;
 }
 @container (min-width: 30rem) {
-  .kc-case-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .kc-case-row .kc-case-frame { aspect-ratio: var(--shared); }
+  .kc-case-multi { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kc-case-multi .kc-case-frame { aspect-ratio: var(--shared); }
 }
 @container (min-width: 50rem) {
-  .kc-case-row[data-n="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .kc-case-row[data-n="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .kc-case-multi[data-n="3"], .kc-case-multi[data-n="5"], .kc-case-multi[data-n="6"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .kc-case-multi[data-n="4"], .kc-case-multi[data-n="7"], .kc-case-multi[data-n="8"], .kc-case-multi[data-n="9"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 /* Enlarged detail of a defect, under its frame, with its label. */
@@ -217,12 +226,14 @@
 .kc-case-ph.kc-case-intro { height: 7rem; }
 
 /* image-full: the grid's full width, in the image's own proportions. */
+.kc-case-full[data-fit="column"] { max-inline-size: var(--kc-case-column); margin-inline: auto; }
 .kc-case-full[data-orient="portrait"] .kc-case-cell {
   max-inline-size: 40rem;
   margin-inline: auto;
 }
 
 /* image-row-3: three equal frames from 40rem, one per row below. */
+.kc-case-trio[data-fit="column"] { max-inline-size: var(--kc-case-column); margin-inline: auto; }
 .kc-case-trio {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -248,7 +259,7 @@
 /* logo-showcase: logos shown whole, centred on a quiet cell of one shared size. */
 .kc-case-logos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(max(14rem, calc((100% - 3 * var(--kc-case-column-gap)) / 4)), 1fr));
   gap: var(--space-3) var(--kc-case-column-gap);
 }
 .kc-case-logo-frame {
@@ -274,7 +285,7 @@
 /* palette-swatches */
 .kc-case-swatches {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(max(9rem, calc((100% - 3 * var(--kc-case-column-gap)) / 4)), 1fr));
   gap: var(--space-3) var(--kc-case-column-gap);
   margin: 0;
   padding: 0;
@@ -292,7 +303,7 @@
 
 /* annotated-image: markers at fractions of the image; labels over it from 40rem (with leader lines),
    a lettered list below it when narrow. */
-.kc-case-annot { position: relative; margin: 0; }
+.kc-case-annot { position: relative; margin: 0; inline-size: min(100%, var(--cap, 100%), var(--kc-case-column)); margin-inline: auto; }
 .kc-case-annot-stage { position: relative; }
 .kc-case-annot-lines { display: none; position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .kc-case-annot-lines line { stroke: var(--text-default); stroke-width: 1; }
@@ -343,25 +354,7 @@
   .kc-case-note[data-side="right"] { transform: translate(-100%, -50%); }
 }
 
-/* detail-grid and outcome-montage: equal cells that wrap with the container. */
-.kc-case-tiles {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: var(--space-3) var(--kc-case-column-gap);
-}
-.kc-case-tiles .kc-case-frame { aspect-ratio: var(--shared); }
-.kc-case-montage {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-3) var(--kc-case-column-gap);
-}
-@container (min-width: 30rem) {
-  .kc-case-montage { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .kc-case-montage .kc-case-frame { aspect-ratio: var(--shared); }
-}
-@container (min-width: 50rem) {
-  .kc-case-montage { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
+/* detail-grid and outcome-montage use .kc-case-multi above. */
 
 /* principles-list: title and text side by side from 40rem. */
 .kc-case-principles { display: grid; row-gap: var(--space-6); margin: 0; padding: 0; list-style: none; }

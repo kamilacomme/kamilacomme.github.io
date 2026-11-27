@@ -49,6 +49,16 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
     const f = ({ x, y }) => `${(x * 100).toFixed(1)}% ${(y * 100).toFixed(1)}%`;
     return (image.focus ? `--focus:${f(image.focus)};` : '') + (image.focusMobile ? `--focus-m:${f(image.focusMobile)};` : '');
   };
+  // Quality rules (docs/case-format.md): a frame is never drawn wider than 1.15x its largest file, and the
+  // block narrows and centres instead; drawings (role "sketch" in the image name) stay inside a column.
+  const MAX_STRETCH = 1.15;
+  const namesOf = image => (image.art ? [image.art.horizontal, image.art.vertical] : [image.src]);
+  const capOf = images => {
+    const widths = images.flatMap(namesOf).map(n => info(n)?.widths?.at(-1)).filter(Boolean);
+    return widths.length ? Math.round(Math.min(...widths) * MAX_STRETCH) : null;
+  };
+  const capStyle = cap => (cap ? `--cap:${cap}px;` : '');
+  const isSketch = image => namesOf(image).some(n => /-sketch-/.test(n ?? ''));
   const srcsetOf = name => info(name).widths.map(w => `/assets/cases/${caseId}/${name}-${w}.webp ${w}w`).join(', ');
   const fallbackSrc = name => {
     const { widths } = info(name);
@@ -89,14 +99,16 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
   }
 
   /** A figure for one image of a row or pair; art-directed images carry both frames. */
-  function figure(image, sizes, extra = '') {
+  function figure(image, sizes, extra = '', { cap = true } = {}) {
+    // Inside a row the container carries the shared cap (--cap); a lone figure carries its own.
+    const open = `<figure class="kc-case-cell"${cap && capOf([image]) ? ` style="${capStyle(capOf([image]))}"` : ''}>`;
     if (image.art) {
       const wide = frame(image, image.art.horizontal, { sizes, variant: 'wide' });
       const narrow = frame(image, image.art.vertical, { sizes, variant: 'narrow' });
-      return { html: `<figure class="kc-case-cell">${wide.html}${narrow.html}${caption(image.caption)}${extra}</figure>`, dims: wide.dims };
+      return { html: `${open}${wide.html}${narrow.html}${caption(image.caption)}${extra}</figure>`, dims: wide.dims };
     }
     const f = frame(image, image.src, { sizes });
-    return { html: `<figure class="kc-case-cell">${f.html}${caption(image.caption)}${extra}</figure>`, dims: f.dims };
+    return { html: `${open}${f.html}${caption(image.caption)}${extra}</figure>`, dims: f.dims };
   }
 
   function cropOf(image) {
@@ -105,7 +117,7 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
     const ratio = `${(c.w * entry.width).toFixed(2)} / ${(c.h * entry.height).toFixed(2)}`;
     const label = text(c.label, 'p', 'kc-case-caption kc-case-crop-label');
     const pos = `width:${(100 / c.w).toFixed(3)}%;height:${(100 / c.h).toFixed(3)}%;left:${(-c.x / c.w * 100).toFixed(3)}%;top:${(-c.y / c.h * 100).toFixed(3)}%`;
-    return `<div class="kc-case-crop"><div class="kc-case-crop-frame" style="--r:${ratio}">`
+    return `<div class="kc-case-crop"><div class="kc-case-crop-frame" style="--r:${ratio};max-inline-size:${Math.round(c.w * entry.widths.at(-1) * MAX_STRETCH)}px">`
       + `<img src="/assets/cases/${caseId}/${image.src}-${entry.widths.at(-1)}.webp" style="${pos}" width="${entry.width}" height="${entry.height}" alt="" loading="lazy" decoding="async"></div>${label}</div>`;
   }
 
@@ -120,8 +132,8 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
     // `sizes` follows the row's columns: one per frame from a 50rem container.
     const wide = images.length >= 3 ? `(min-width: 800px) ${Math.round(100 / images.length)}vw, ` : '';
     const sizes = `${wide}(min-width: 500px) 50vw, 100vw`;
-    const cells = images.map(image => figure(image, sizes, withCrops ? cropOf(image) : ''));
-    return `<div class="kc-case-row" data-n="${images.length}" style="--shared:${sharedRatio(cells.map(c => c.dims))}">${cells.map(c => c.html).join('')}</div>`;
+    const cells = images.map(image => figure(image, sizes, withCrops ? cropOf(image) : '', { cap: false }));
+    return `<div class="kc-case-row kc-case-multi" data-n="${images.length}" style="--shared:${sharedRatio(cells.map(c => c.dims))};${capStyle(capOf(images))}">${cells.map(c => c.html).join('')}</div>`;
   }
   const withText = (body, value) => {
     const copy = paragraphs(value, 'kc-case-text', 'kc-case-text');
@@ -155,8 +167,8 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
     },
 
     'image-pair'(block) {
-      const cells = block.images.map(image => figure(image, '(min-width: 500px) 50vw, 100vw'));
-      return `<div class="kc-case-pair" style="--shared:${sharedRatio(cells.map(c => c.dims))}">${cells.map(c => c.html).join('')}</div>`;
+      const cells = block.images.map(image => figure(image, '(min-width: 500px) 50vw, 100vw', '', { cap: false }));
+      return `<div class="kc-case-pair" style="--shared:${sharedRatio(cells.map(c => c.dims))};${capStyle(capOf(block.images))}">${cells.map(c => c.html).join('')}</div>`;
     },
 
     'ai-episode'(block) {
@@ -182,13 +194,17 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
       const dims = dimsOf(block.image, block.image.src);
       const portrait = !!dims && dims[1] > dims[0];
       // A portrait frame is capped in width so it does not become taller than a screen.
+      // Full width only for high-resolution photographs (largest file 1600px or more); drawings and smaller frames sit in a column.
+      const largest = Math.max(0, ...namesOf(block.image).map(n => info(n)?.widths?.at(-1) ?? 0));
+      const fit = isSketch(block.image) || largest < 1600 ? 'column' : 'full';
       const f = figure(block.image, portrait ? '(min-width: 700px) 640px, 100vw' : '100vw');
-      return `<div class="kc-case-full" data-orient="${portrait ? 'portrait' : 'landscape'}">${f.html}</div>`;
+      return `<div class="kc-case-full" data-orient="${portrait ? 'portrait' : 'landscape'}" data-fit="${fit}">${f.html}</div>`;
     },
 
     'image-row-3'(block) {
-      const cells = block.images.map(image => figure(image, '(min-width: 640px) 33vw, 100vw'));
-      return `<div class="kc-case-trio" style="--shared:${sharedRatio(cells.map(c => c.dims))}">${cells.map(c => c.html).join('')}</div>`;
+      const cells = block.images.map(image => figure(image, '(min-width: 640px) 33vw, 100vw', '', { cap: false }));
+      const fit = block.images.some(isSketch) ? 'column' : 'full';
+      return `<div class="kc-case-trio" data-fit="${fit}" style="--shared:${sharedRatio(cells.map(c => c.dims))};${capStyle(capOf(block.images))}">${cells.map(c => c.html).join('')}</div>`;
     },
 
     'text-image'(block) {
@@ -231,7 +247,7 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
         const body = t ? `<span${langAttr(t)}>${esc(t.text)}</span>` : (n.text?.placeholder || n.placeholder ? `<span class="kc-case-ph kc-case-note-ph" aria-hidden="true" data-placeholder></span>` : '');
         return `<li class="kc-case-note" style="--tx:${pct(at.x)};--ty:${pct(at.y)}" data-side="${at.x > 0.5 ? 'right' : 'left'}" data-l="${letter}">${body}</li>`;
       }).join('');
-      return `<figure class="kc-case-annot"><div class="kc-case-annot-stage">${stage}`
+      return `<figure class="kc-case-annot" style="${capStyle(capOf([block.image]))}"><div class="kc-case-annot-stage">${stage}`
         + `<svg class="kc-case-annot-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${markers}</div>`
         + `<ol class="kc-case-notes">${items}</ol></figure>`;
     },
@@ -245,7 +261,7 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
         const f = frame(item.image, item.image.src, { sizes: '(min-width: 500px) 33vw, 100vw' });
         return { dims: f.dims, html: `<figure class="kc-case-cell">${f.html}${text(item.text, 'figcaption', 'kc-case-caption', 'kc-case-caption')}</figure>` };
       });
-      return `<div class="kc-case-tiles" style="--shared:${sharedRatio(cells.map(c => c.dims))}">${cells.map(c => c.html).join('')}</div>`;
+      return `<div class="kc-case-tiles kc-case-multi" data-n="${cells.length}" style="--shared:${sharedRatio(cells.map(c => c.dims))};${capStyle(capOf(block.items.map(i => i.image)))}">${cells.map(c => c.html).join('')}</div>`;
     },
 
     'principles-list'(block) {
@@ -254,8 +270,8 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
     },
 
     'outcome-montage'(block) {
-      const cells = block.images.map(image => figure(image, '(min-width: 800px) 33vw, (min-width: 500px) 50vw, 100vw'));
-      return withText(`<div class="kc-case-montage" style="--shared:${sharedRatio(cells.map(c => c.dims))}">${cells.map(c => c.html).join('')}</div>`, block.text);
+      const cells = block.images.map(image => figure(image, '(min-width: 800px) 33vw, (min-width: 500px) 50vw, 100vw', '', { cap: false }));
+      return withText(`<div class="kc-case-montage kc-case-multi" data-n="${cells.length}" style="--shared:${sharedRatio(cells.map(c => c.dims))};${capStyle(capOf(block.images))}">${cells.map(c => c.html).join('')}</div>`, block.text);
     },
   };
 }

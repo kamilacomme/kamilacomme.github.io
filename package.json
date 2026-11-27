@@ -4,6 +4,7 @@
   "description": "Bilingual static portfolio build and regression tooling",
   "scripts": {
     "test:serve": "node tests/runtime/server.mjs",
+    "dev:grid": "KC_GRID=1 node tests/runtime/server.mjs",
     "test:qa": "playwright test --config tests/qa/playwright.config.cjs",
     "test:visual:historical": "RUN_HISTORICAL_VISUAL_COMPARISONS=1 playwright test --config tests/qa/playwright.config.cjs --grep \"current animation timeline|current project geometry\"",
     "test:performance": "node tests/performance/run.mjs",

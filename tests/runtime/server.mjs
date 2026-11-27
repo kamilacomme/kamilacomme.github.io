@@ -6,6 +6,8 @@ import {fileURLToPath} from 'node:url';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const port=Number(process.env.PORT||8000);
+// Development only: KC_GRID=1 (npm run dev:grid) injects the grid overlay tool into HTML responses. Off by default, so test runs stay byte-identical.
+const gridTag='<script src="/scripts/dev/grid-overlay.js"></script>';
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.mp4':'video/mp4','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.svg':'image/svg+xml','.ico':'image/x-icon','.woff2':'font/woff2'};
 
 http.createServer((request,response)=>{
@@ -17,6 +19,11 @@ http.createServer((request,response)=>{
   let stat;
   try{stat=fs.statSync(file);if(stat.isDirectory()){file=path.join(file,'index.html');stat=fs.statSync(file);}}catch{response.writeHead(404).end();return;}
   if(!stat.isFile()){response.writeHead(404).end();return;}
+  if(process.env.KC_GRID==='1'&&path.extname(file).toLowerCase()==='.html'&&!request.headers.range){
+    const html=fs.readFileSync(file,'utf8').replace(/<\/body>/i,gridTag+'</body>');
+    response.writeHead(200,{'Content-Type':types['.html'],'Cache-Control':'no-store','Content-Length':Buffer.byteLength(html)});
+    response.end(request.method==='HEAD'?undefined:html);return;
+  }
   const headers={'Content-Type':types[path.extname(file).toLowerCase()]||'application/octet-stream','Accept-Ranges':'bytes','Cache-Control':'no-store'};
   let start=0,end=stat.size-1,status=200;
   if(request.headers.range){

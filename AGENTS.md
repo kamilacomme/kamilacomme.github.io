@@ -95,6 +95,17 @@ The frozen references (the 230 hashes of `tests/baseline/artifact-lock.json`, ch
 - Each rule lives in one place: change it where it is and delete the old text. No “section N takes precedence” formulas. History lives in commit messages. Accepted decisions live in `docs/PROJECT-STATUS.md`; rejected hypotheses of the test-race diagnosis live in `docs/site-fixes-1-6-review/flaky-diagnosis.md`.
 - GitHub Pages serves committed static output from the root of `main`; no checked-in Actions workflow builds or deploys it. `.github/workflows/phase-5-linux-lab.yml` runs only the Phase 5 suite as CI evidence. Before an authorized release, ensure generated pages are up to date, the bilingual build and full release gate pass, and the frozen reference integrity check passes. The full `npm test` gate must pass in the recorded Linux lab (Chromium at `/usr/bin/chromium`, version and platform checked by `tests/verify-lab.cjs`); macOS screenshot comparisons and focused specs are development evidence only and never replace it. After publication, check `/` and `/en/`, the main links, assets and the localized 404 responses. Preserve the prior-site tag and main-only files unless explicitly directed otherwise.
 
+## Commits and repository state
+
+Work must not pile up uncommitted. On a task branch (now `case-studies/jane-format`: noindex, not merged), Kamila's decision of 2026-11-28 allows snapshot commits without the 492-point matrix.
+
+1. **Starting a task:** run `git status --short` first. If it shows uncommitted changes this task did not create, report them to Kamila and stop until she decides what happens to them.
+2. **Finishing a task:** every accepted task ends with a commit on the task branch. Required checks for that snapshot: `content:check`, `content:build:check`, the 230 frozen hashes, and `case:publish-check -- jane` when Jane content was touched. The 492-point matrix and the full CI are required only before a merge to `main` (unchanged). Push the task branch (no force) at the end of the working session.
+3. **"Do not commit" in a task** is valid only if the same task states when and by whom the commit will be made. Otherwise commit as in item 2.
+4. **Never commit without Kamila's separate decision:** `.impeccable/config.json`, the contents of `claude/`, `artifacts/`, any scratchpad, and any file containing keys.
+5. **Every session report ends with one line:** "uncommitted files N, unpushed commits N".
+6. **Source of truth** is the project files and git, not chat memory. A new session starts by reading `AGENTS.md` and `docs/PROJECT-STATUS.md`.
+
 ## Known limitations and deferred risks
 
 Current accepted/deferred items, verified at publication:

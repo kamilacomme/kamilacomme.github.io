@@ -172,10 +172,9 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
     },
 
     'ai-episode'(block) {
-      // Section labels are headings one level under the episode title (h3 → h4), or under the chapter (h2 → h3) while the title is a placeholder.
+      // Section labels (Problem / Before / Method / After) are plain text, not headings: the episode title is the only heading.
       const titleHtml = text(block.title, 'h3', 'kc-ai-title');
-      const level = titleHtml.startsWith('<h3') ? 4 : 3;
-      const section = (key, body) => `<section class="kc-ai-section kc-ai-section--${key}"><h${level} class="kc-case-label">${esc(ui[key])}</h${level}>${body}</section>`;
+      const section = (key, body) => `<section class="kc-ai-section kc-ai-section--${key}"><p class="kc-case-label">${esc(ui[key])}</p>${body}</section>`;
       const prompt = block.prompt ? text(block.prompt, 'p', 'kc-ai-prompt', 'kc-ai-prompt') : '';
       return `<article class="kc-ai">`
         + titleHtml

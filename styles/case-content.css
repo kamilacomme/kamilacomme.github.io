@@ -128,6 +128,9 @@
   .kc-case-menu-action { transition: none; }
 }
 
+/* The last chapter ends 80px above the Footer. */
+.kc-case-chapters > .kc-case-chapter:last-child { padding-bottom: var(--space-10); }
+
 /* First chapter with a hero-reveal: starts under the fixed Navbar; its title is for assistive technology only. */
 .kc-case-chapter--hero { padding-top: var(--space-10); }
 .kc-case-visually-hidden {

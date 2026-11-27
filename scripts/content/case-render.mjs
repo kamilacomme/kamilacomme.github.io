@@ -32,14 +32,17 @@ export function renderCaseContent(data, locale, { escapeText, escapeAttribute, m
   const chapter = c => {
     const anchor = chapterAnchor(c.id);
     const hero = c.blocks.some(block => block.type === 'hero-reveal');
-    const content = c.blocks.filter(block => block.type !== 'chapter-menu').map(block => {
+    const parts = c.blocks.filter(block => block.type !== 'chapter-menu').map(block => {
       const inner = blocks[block.type]?.(block, data.meta) ?? '';
       return `<div class="kc-case-block kc-case-block--${block.type}" data-kc-block="${block.type}">${inner}</div>`;
-    }).join('\n');
+    });
     // The hero chapter's title is only for assistive technology; the hero shows the case title.
     const title = textNode(c.title, 'h2', ` class="kc-case-chapter-title${hero ? ' kc-case-visually-hidden' : ''}" id="${anchor}-title"`);
+    // Heading order: the hero block carries the page h1, so the hero chapter's hidden h2 follows it.
+    if (hero) parts.splice(1, 0, title);
+    const content = parts.join('\n');
     return `<section class="kc-case-chapter${hero ? ' kc-case-chapter--hero' : ''}" id="${anchor}" data-kc-chapter="${escapeAttribute(c.id)}" aria-labelledby="${anchor}-title">\n`
-      + `${title}\n${content}\n</section>`;
+      + `${hero ? '' : `${title}\n`}${content}\n</section>`;
   };
 
   const menu = () => {

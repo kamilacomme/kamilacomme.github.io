@@ -20,7 +20,7 @@ const HEX = /^#[0-9a-f]{6}$/i;
 // Block types and their fields. L = localized text {en, fr}; I = image; I[] = images.
 // `min`/`max` bound array lengths. Optional fields end with "?".
 export const BLOCK_TYPES = {
-  'hero-reveal': { title: 'L', subtitle: 'L?', image: 'I', facts: 'facts?' },
+  'hero-reveal': { title: 'L', subtitle: 'L?', subtitleLong: 'L?', subtitleShort: 'L?', image: 'I', facts: 'facts?' },
   'chapter-intro': { text: 'L' },
   'image-full': { image: 'I' },
   'image-pair': { images: { kind: 'I[]', min: 2, max: 2 } },
@@ -29,7 +29,7 @@ export const BLOCK_TYPES = {
   'logo-showcase': { images: { kind: 'I[]', min: 1 }, text: 'L?' },
   'palette-swatches': { swatches: 'swatches', text: 'L?' },
   'annotated-image': { image: 'I', notes: 'notes' },
-  'ai-episode': { title: 'L', problem: 'L', before: { kind: 'I[]', min: 1 }, method: 'L', prompt: 'L?', after: { kind: 'I[]', min: 1 } },
+  'ai-episode': { title: 'L', problem: 'L', before: { kind: 'I[]', min: 1 }, method: 'L', prompt: 'L?', refs: 'I[]?', after: { kind: 'I[]', min: 1 } },
   'sequence': { images: { kind: 'I[]', min: 2 }, caption: 'L?' },
   'detail-grid': { items: 'details' },
   'principles-list': { items: 'principles' },

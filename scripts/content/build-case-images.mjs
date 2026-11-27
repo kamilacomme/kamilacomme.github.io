@@ -33,7 +33,10 @@ const sourceRoot = sourceArg ? path.resolve(sourceArg.slice('--source='.length).
 
 const formats = new Map(imageNames(data).map(([name, , format]) => [name, format]));
 const used = [...formats.keys()].sort();
-const missing = used.filter(name => !sources[name]);
+// A source is a path, or {file, crop: {x, y, w, h}} (fractions of the oriented frame): a cropped copy, the original stays untouched.
+const fileOf = name => (typeof sources[name] === 'string' ? sources[name] : sources[name]?.file);
+const cropOf = name => (typeof sources[name] === 'object' ? sources[name].crop : undefined);
+const missing = used.filter(name => !fileOf(name));
 if (missing.length) throw new Error(`No source frame listed in ${id}.sources.json for: ${missing.join(', ')}`);
 const unused = Object.keys(sources).filter(name => !used.includes(name));
 if (unused.length) throw new Error(`Listed in ${id}.sources.json but not used in the case (not converted): ${unused.join(', ')}`);
@@ -53,17 +56,25 @@ const manifest = {};
 const written = new Set(['images.json']);
 let total = 0;
 for (const name of used) {
-  const file = path.join(sourceRoot, sources[name]);
+  const file = path.join(sourceRoot, fileOf(name));
   if (formats.get(name) === 'svg') {
     // Logos and other vector art are copied unchanged; readable text stays in the case data, not in the file.
-    if (!file.toLowerCase().endsWith('.svg')) throw new Error(`${name}: format "svg" needs an .svg source, got ${sources[name]}`);
+    if (!file.toLowerCase().endsWith('.svg')) throw new Error(`${name}: format "svg" needs an .svg source, got ${fileOf(name)}`);
     const out = `${name}.svg`;
     written.add(out);
     manifest[name] = { format: 'svg' };
     if (!checkOnly) { await copyFile(file, path.join(outDir, out)); total += (await stat(path.join(outDir, out))).size; }
     continue;
   }
-  const meta = await sharp(file).rotate().metadata();
+  let input = file;
+  const crop = cropOf(name);
+  if (crop) {
+    const oriented = await sharp(file).rotate().toBuffer();
+    const full = await sharp(oriented).metadata();
+    const left = Math.round(crop.x * full.width), top = Math.round(crop.y * full.height);
+    input = await sharp(oriented).extract({ left, top, width: Math.min(full.width - left, Math.round(crop.w * full.width)), height: Math.min(full.height - top, Math.round(crop.h * full.height)) }).png().toBuffer();
+  }
+  const meta = await sharp(input).rotate().metadata();
   const width = meta.autoOrient?.width ?? meta.width, height = meta.autoOrient?.height ?? meta.height;
   const widths = widthsFor(width);
   manifest[name] = { width, height, widths };
@@ -71,7 +82,7 @@ for (const name of used) {
     const out = `${name}-${w}.webp`;
     written.add(out);
     if (checkOnly) continue;
-    const info = await sharp(file).rotate().resize({ width: w, withoutEnlargement: true }).webp({ quality: QUALITY, effort: 6 }).toFile(path.join(outDir, out));
+    const info = await sharp(input).rotate().resize({ width: w, withoutEnlargement: true }).webp({ quality: QUALITY, effort: 6 }).toFile(path.join(outDir, out));
     total += info.size;
   }
 }

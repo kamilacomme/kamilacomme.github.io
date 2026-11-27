@@ -74,12 +74,17 @@ test('image names follow <case>-<chapter>-<role>-<description>', () => {
   assert.ok(validateCaseFormat(wrongChapter).some(e => e.includes('must be example-nature-to-form-<role>-<description>')));
 });
 
-test('Jane (draft) passes the general check and fails the publication check', () => {
+test('Jane has its final content: it passes the general and the publication check, and stays a noindex draft in the index', () => {
   assert.deepEqual(validateCaseFormat(jane, { id: 'jane' }), []);
-  const errors = validateCasePublication(jane, allFiles);
-  assert.ok(errors.length > 0);
-  assert.ok(errors.some(e => e.includes('is a placeholder')));
-  assert.ok(errors.some(e => e.includes('EN text is not approved')));
+  assert.deepEqual(validateCasePublication(jane, allFiles), []);
+});
+
+test('ai-episode: refs is an optional list of images', () => {
+  const episode = jane.chapters.find(c => c.id === 'designing-with-ai').blocks.find(b => b.type === 'ai-episode' && b.refs);
+  assert.ok(episode.refs.length > 0);
+  const broken = structuredClone(jane);
+  broken.chapters.find(c => c.id === 'designing-with-ai').blocks.find(b => b.refs).refs = 'sketch.png';
+  assert.ok(validateCaseFormat(broken, { id: 'jane' }).some(e => e.includes('refs') && e.includes('list of images')));
 });
 
 test('index: a draft must stay noindex; content:check passes with Jane as a draft', async () => {

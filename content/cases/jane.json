@@ -2,46 +2,79 @@
   "schemaVersion": 1,
   "id": "jane",
   "approval": {
-    "en": false,
-    "fr": false
+    "en": true,
+    "fr": true
   },
   "meta": {
     "pageTitle": {
       "en": "Trouve ta Jane — Kamila Comme",
-      "fr": "Trouve ta Jane — Kamila Comme",
-      "placeholder": true
+      "fr": "Trouve ta Jane — Kamila Comme"
     },
     "title": {
       "en": "Trouve ta Jane",
-      "fr": "Trouve ta Jane",
-      "placeholder": true
+      "fr": "Trouve ta Jane"
     }
   },
   "chapters": [
     {
       "id": "reveal",
       "title": {
-        "en": "Reveal",
-        "fr": ""
+        "en": "The Reveal",
+        "fr": "Le Reveal"
       },
       "blocks": [
         {
           "type": "hero-reveal",
           "title": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
+            "en": "Trouve ta Jane",
+            "fr": "Trouve ta Jane"
           },
+          "subtitleLong": {
+            "en": "An experimental fashion identity exploring femininity beyond fixed definitions. The first chapter is a sculptural handbag concept built with creative direction, generative AI and manual image retouching.",
+            "fr": "Une identité de mode expérimentale qui explore la féminité au-delà des définitions figées. Le premier chapitre : un concept de sac à main sculptural, construit avec direction artistique, IA générative et retouche d'image manuelle."
+          },
+          "subtitleShort": {
+            "en": "An experimental fashion identity. The first chapter is a sculptural handbag concept.",
+            "fr": "Une identité de mode expérimentale. Premier chapitre : un concept de sac à main sculptural."
+          },
+          "facts": [
+            {
+              "label": {
+                "en": "Disciplines",
+                "fr": "Disciplines"
+              },
+              "value": {
+                "en": "Brand identity · Product concept · AI art direction · Packaging",
+                "fr": "Identité de marque · Concept produit · Direction artistique IA · Packaging"
+              }
+            },
+            {
+              "label": {
+                "en": "My role",
+                "fr": "Mon rôle"
+              },
+              "value": {
+                "en": "Concept, design, art direction and Photoshop retouching",
+                "fr": "Concept, design, direction artistique et retouche Photoshop"
+              }
+            }
+          ],
           "image": {
             "art": {
               "horizontal": "jane-reveal-photo-close-face-horizontal",
               "vertical": "jane-reveal-photo-close-face-vertical"
             },
             "alt": {
-              "en": "",
-              "fr": "",
-              "placeholder": true
+              "en": "Close portrait of Jane lying down, the burgundy bag resting above her face.",
+              "fr": "Portrait serré de Jane allongée, le sac bordeaux posé au-dessus de son visage."
             }
+          }
+        },
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "“The jungle doesn't follow rules. Neither does Jane.”\n\nTrouve ta Jane is an experimental fashion identity exploring femininity beyond fixed definitions. The first chapter centres on THE VINE, a sculptural handbag concept built with creative direction, generative AI and manual image editing. A concept project: no physical prototype. The page starts with the result, then goes back to the logo and the process behind it.",
+            "fr": "« La jungle ne suit pas les règles. Jane non plus. »\n\nTrouve ta Jane est une identité de mode expérimentale qui explore la féminité au-delà des définitions figées. Le premier chapitre se concentre sur THE VINE, un concept de sac à main sculptural, conçu avec direction créative, IA générative et retouche d'image manuelle. Un projet conceptuel : aucun prototype physique. La page commence par le résultat, puis remonte au logo et au processus qui se cachent derrière."
           }
         },
         {
@@ -50,776 +83,38 @@
       ]
     },
     {
-      "id": "identity",
+      "id": "campaign",
       "title": {
-        "en": "Identity",
-        "fr": ""
-      },
-      "blocks": [
-        {
-          "type": "logo-showcase",
-          "images": [
-            {
-              "format": "svg",
-              "ratio": "1000:148",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
-            },
-            {
-              "format": "svg",
-              "ratio": "918:692",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
-            },
-            {
-              "format": "svg",
-              "ratio": "303:356",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
-            }
-          ],
-          "placeholder": true
-        },
-        {
-          "type": "annotated-image",
-          "image": {
-            "format": "svg",
-            "ratio": "918:692",
-            "alt": {
-              "en": "",
-              "fr": "",
-              "placeholder": true
-            },
-            "placeholder": true
-          },
-          "notes": [
-            {
-              "x": 0.5,
-              "y": 0.5,
-              "textAt": {
-                "x": 0.9,
-                "y": 0.1
-              },
-              "text": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
-            }
-          ],
-          "placeholder": true
-        },
-        {
-          "type": "palette-swatches",
-          "swatches": [
-            {
-              "name": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "hex": "#385531"
-            },
-            {
-              "name": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "hex": "#6C2F2B"
-            },
-            {
-              "name": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "hex": "#F8F3E6"
-            },
-            {
-              "name": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "hex": "#201E19"
-            }
-          ]
-        },
-        {
-          "type": "detail-grid",
-          "items": [
-            {
-              "image": {
-                "src": "jane-identity-detail-tag",
-                "alt": {
-                  "en": "",
-                  "fr": "",
-                  "placeholder": true
-                }
-              }
-            },
-            {
-              "image": {
-                "src": "jane-identity-detail-paper-wax-seal",
-                "alt": {
-                  "en": "",
-                  "fr": "",
-                  "placeholder": true
-                }
-              }
-            },
-            {
-              "image": {
-                "src": "jane-identity-detail-dust-bag",
-                "alt": {
-                  "en": "",
-                  "fr": "",
-                  "placeholder": true
-                }
-              }
-            },
-            {
-              "image": {
-                "src": "jane-identity-detail-charm",
-                "alt": {
-                  "en": "",
-                  "fr": "",
-                  "placeholder": true
-                }
-              }
-            },
-            {
-              "image": {
-                "src": "jane-identity-detail-inner-patch",
-                "alt": {
-                  "en": "",
-                  "fr": "",
-                  "placeholder": true
-                }
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "nature-to-form",
-      "title": {
-        "en": "From Nature to Form",
-        "fr": ""
-      },
-      "blocks": [
-        {
-          "type": "image-pair",
-          "images": [
-            {
-              "src": "jane-nature-to-form-image-vines",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-nature-to-form-image-vines-bag",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            }
-          ]
-        },
-        {
-          "type": "annotated-image",
-          "image": {
-            "src": "jane-nature-to-form-sketch-vines-regular-intertwined",
-            "alt": {
-              "en": "",
-              "fr": "",
-              "placeholder": true
-            }
-          },
-          "notes": [
-            {
-              "x": 0.5,
-              "y": 0.5,
-              "text": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
-            }
-          ]
-        },
-        {
-          "type": "image-full",
-          "image": {
-            "src": "jane-nature-to-form-image-final-vines",
-            "alt": {
-              "en": "",
-              "fr": "",
-              "placeholder": true
-            }
-          }
-        }
-      ]
-    },
-    {
-      "id": "multiple-forms",
-      "title": {
-        "en": "One Bag, Multiple Forms",
-        "fr": ""
+        "en": "The Campaign",
+        "fr": "La campagne"
       },
       "blocks": [
         {
           "type": "chapter-intro",
           "text": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
+            "en": "Jane does not pose in nature, she owns it. One location, a few micro-zones: mossy roots, black basalt, a grey studio. One rule: every frame has one dominant device, and its neighbours never repeat it.",
+            "fr": "Jane ne pose pas dans la nature, elle s'en empare. Un seul lieu, quelques micro-zones : racines couvertes de mousse, basalte noir, studio gris. Une seule règle : chaque image a un seul parti pris dominant, et ses voisines ne le répètent jamais."
           }
         },
-        {
-          "type": "annotated-image",
-          "image": {
-            "src": "jane-multiple-forms-sketch-three-configurations",
-            "alt": {
-              "en": "",
-              "fr": "",
-              "placeholder": true
-            }
-          },
-          "notes": [
-            {
-              "x": 0.5,
-              "y": 0.5,
-              "text": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
-            }
-          ]
-        },
-        {
-          "type": "image-row-3",
-          "images": [
-            {
-              "src": "jane-multiple-forms-sketch-basic-config",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-multiple-forms-sketch-folded-config",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-multiple-forms-sketch-backpack-config",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            }
-          ]
-        },
-        {
-          "type": "image-full",
-          "image": {
-            "src": "jane-multiple-forms-sketch-ways-of-wearing",
-            "alt": {
-              "en": "",
-              "fr": "",
-              "placeholder": true
-            }
-          }
-        },
-        {
-          "type": "image-pair",
-          "images": [
-            {
-              "src": "jane-multiple-forms-photo-one-shoulder",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-multiple-forms-photo-backpack",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "designing-with-ai",
-      "title": {
-        "en": "Designing with AI",
-        "fr": ""
-      },
-      "blocks": [
-        {
-          "type": "ai-episode",
-          "title": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "problem": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "before": [
-            {
-              "src": "jane-designing-with-ai-error-extra-straps",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "crop": {
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-designing-with-ai-error-bag-changed",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "crop": {
-                "placeholder": true
-              }
-            }
-          ],
-          "method": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "prompt": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "after": [
-            {
-              "src": "jane-designing-with-ai-result-bag-on-heel",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            }
-          ]
-        },
-        {
-          "type": "ai-episode",
-          "title": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "problem": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "before": [
-            {
-              "src": "jane-designing-with-ai-error-moss-texture",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "crop": {
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-designing-with-ai-error-basalt-texture",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "crop": {
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-designing-with-ai-error-dress-texture",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "crop": {
-                "placeholder": true
-              }
-            }
-          ],
-          "method": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "prompt": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "after": [
-            {
-              "src": "jane-designing-with-ai-result-forest-folded",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-designing-with-ai-result-basalt-movement",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            },
-            {
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
-            }
-          ]
-        },
-        {
-          "type": "ai-episode",
-          "title": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "problem": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "before": [
-            {
-              "src": "jane-designing-with-ai-error-blurred-face",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "crop": {
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-designing-with-ai-error-earrings-ring",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "crop": {
-                "placeholder": true
-              }
-            }
-          ],
-          "method": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "prompt": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "after": [
-            {
-              "src": "jane-designing-with-ai-result-front-face",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-designing-with-ai-result-side-face",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-designing-with-ai-result-outfit",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-designing-with-ai-result-outfit-separately",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            }
-          ]
-        },
-        {
-          "type": "ai-episode",
-          "title": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "problem": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "before": [
-            {
-              "src": "jane-designing-with-ai-error-face-hanging",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "crop": {
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-designing-with-ai-error-face-floating",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "crop": {
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-designing-with-ai-error-box-sideways",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "crop": {
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-designing-with-ai-error-box-raised",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "caption": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "crop": {
-                "placeholder": true
-              }
-            }
-          ],
-          "method": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "prompt": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
-          "after": [
-            {
-              "src": "jane-designing-with-ai-result-forest-standing",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            },
-            {
-              "src": "jane-designing-with-ai-result-bag-in-box",
-              "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            }
-          ]
-        },
-        {
-          "type": "principles-list",
-          "items": [
-            {
-              "title": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "text": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "campaign",
-      "title": {
-        "en": "Campaign",
-        "fr": ""
-      },
-      "blocks": [
         {
           "type": "image-full",
           "image": {
             "src": "jane-campaign-photo-basalt-movement",
             "alt": {
-              "en": "",
-              "fr": "",
-              "placeholder": true
+              "en": "Jane in motion on black basalt, the bag swinging with her stride.",
+              "fr": "Jane en mouvement sur du basalte noir, le sac suivant son pas."
             }
           }
         },
         {
-          "type": "text-image",
-          "text": {
-            "en": "",
-            "fr": "",
-            "placeholder": true
-          },
+          "type": "image-full",
           "image": {
             "src": "jane-campaign-photo-tree-roots",
             "alt": {
-              "en": "",
-              "fr": "",
-              "placeholder": true
+              "en": "Jane lying on moss-covered tree roots, seen from above, the bag beside her.",
+              "fr": "Jane allongée sur des racines couvertes de mousse, vue de dessus, le sac à côté d'elle."
             }
-          },
-          "side": "right"
+          }
         },
         {
           "type": "image-pair",
@@ -827,17 +122,15 @@
             {
               "src": "jane-campaign-photo-proportions-basalt",
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
+                "en": "Jane with the bag on black basalt, showing its proportions.",
+                "fr": "Jane avec le sac sur du basalte noir, qui montre ses proportions."
               }
             },
             {
               "src": "jane-campaign-photo-bag-in-roots",
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
+                "en": "The bag resting on pale twisted branches with patches of moss.",
+                "fr": "Le sac posé sur des branches pâles et tordues, avec des plaques de mousse."
               }
             }
           ]
@@ -847,9 +140,8 @@
           "image": {
             "src": "jane-campaign-photo-mossbound-silk",
             "alt": {
-              "en": "",
-              "fr": "",
-              "placeholder": true
+              "en": "Jane in a long cream dress leaning on a mossy branch among moss-covered roots.",
+              "fr": "Jane en longue robe crème, appuyée contre une branche couverte de mousse parmi des racines moussues."
             }
           }
         }
@@ -859,11 +151,22 @@
       "id": "beyond-the-product",
       "title": {
         "en": "Beyond the Product",
-        "fr": ""
+        "fr": "Au-delà du produit"
       },
       "blocks": [
         {
+          "type": "chapter-intro",
+          "text": {
+            "en": "One bag, one box. A deep matte olive rigid box with a sliding tray, burgundy inside, cream tissue, a soft dust bag, a wax seal. Burgundy is the hero colour, olive the structure, cream the soft neutral.",
+            "fr": "Un sac, une boîte. Une boîte rigide vert olive mat, avec un tiroir coulissant, intérieur bordeaux, papier de soie crème, une housse en tissu doux, un sceau de cire. Le bordeaux est la couleur phare, l'olive la structure, la crème le neutre doux."
+          }
+        },
+        {
           "type": "sequence",
+          "caption": {
+            "en": "Box. Tissue and bag. Dust bag.",
+            "fr": "La boîte. Le papier de soie et le sac. La housse."
+          },
           "images": [
             {
               "art": {
@@ -871,70 +174,22 @@
                 "vertical": "jane-beyond-the-product-photo-stacked-boxes-vertical"
               },
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
+                "en": "Stacked olive packaging boxes in the studio.",
+                "fr": "Boîtes de packaging olive empilées en studio."
               }
             },
             {
-              "src": "jane-beyond-the-product-photo-box-open-from-top",
+              "src": "jane-beyond-the-product-photo-bag-in-box",
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
+                "en": "The bag lying in its open box on cream tissue.",
+                "fr": "Le sac dans sa boîte ouverte, sur du papier de soie crème."
               }
             },
             {
               "src": "jane-beyond-the-product-photo-dust-bag-and-box",
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              }
-            }
-          ]
-        },
-        {
-          "type": "detail-grid",
-          "items": [
-            {
-              "image": {
-                "src": "jane-beyond-the-product-macro-tag",
-                "alt": {
-                  "en": "",
-                  "fr": "",
-                  "placeholder": true
-                }
-              }
-            },
-            {
-              "image": {
-                "src": "jane-beyond-the-product-macro-inner-patch",
-                "alt": {
-                  "en": "",
-                  "fr": "",
-                  "placeholder": true
-                }
-              }
-            },
-            {
-              "image": {
-                "src": "jane-beyond-the-product-macro-charm",
-                "alt": {
-                  "en": "",
-                  "fr": "",
-                  "placeholder": true
-                }
-              }
-            },
-            {
-              "image": {
-                "src": "jane-beyond-the-product-macro-paper-wax-seal",
-                "alt": {
-                  "en": "",
-                  "fr": "",
-                  "placeholder": true
-                }
+                "en": "The soft dust bag beside the box.",
+                "fr": "La housse en tissu doux à côté de la boîte."
               }
             }
           ]
@@ -948,17 +203,630 @@
                 "vertical": "jane-beyond-the-product-photo-tag-on-bag-vertical"
               },
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
+                "en": "The hang tag on the bag, studio shot.",
+                "fr": "L'étiquette suspendue sur le sac, photo de studio."
+              },
+              "caption": {
+                "en": "Only one bag in the box, only the essentials: no price, no barcode.",
+                "fr": "Un seul sac dans la boîte, seulement l'essentiel : ni prix, ni code-barres."
               }
             },
             {
               "src": "jane-beyond-the-product-photo-bag-with-dust-bag",
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
+                "en": "The bag half out of its cream dust bag, the intertwined handles trailing across the surface.",
+                "fr": "Le sac à moitié sorti de sa housse crème, les anses entrelacées étalées sur la surface."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "identity",
+      "title": {
+        "en": "The Identity",
+        "fr": "L'identité"
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "Everything on this page grows from one small mark. The brand began as a logo, and every part of it carries an idea.\n\nThe name is not about a woman to be found, but a woman who finds herself. The serif is elegant, with a jungle atmosphere and a touch of romance. The handwritten “ta” is organic and adventurous, and it recalls vines. The letters sit very close together, like people drawing closer. The hand-drawn sign is a heart and a tropical leaf at once.\n\nThe handwritten letters, close to vines, became the first hint for the intertwined handles. The sign became a mark of its own, on hardware and packaging.\n\nThe full name lives inside and on the packaging, small and tone on tone: a large logo on the bag would compete with the folds and the straps.",
+            "fr": "Tout ce qui se trouve sur cette page naît d'un petit signe. La marque a commencé par un logo, et chacune de ses parties porte une idée.\n\nLe nom ne parle pas d'une femme à trouver, mais d'une femme qui se trouve. La serif est élégante, avec une atmosphère de jungle et une pointe de romantisme. Le « ta » manuscrit est organique et aventureux, et il fait penser à des lianes. Les lettres sont très rapprochées, comme des gens qui se rapprochent. Le signe dessiné à la main est à la fois un cœur et une feuille tropicale.\n\nLes lettres manuscrites, proches de lianes, ont donné le premier indice des anses entrelacées. Le signe est devenu une marque à part entière, sur la quincaillerie et le packaging.\n\nLe nom complet vit à l'intérieur et sur le packaging, en petit et ton sur ton : un grand logo sur le sac entrerait en concurrence avec les plis et les lanières."
+          }
+        },
+        {
+          "type": "logo-showcase",
+          "images": [
+            {
+              "src": "jane-identity-logo-vertical",
+              "format": "svg",
+              "alt": {
+                "en": "Trouve ta Jane logo, vertical version.",
+                "fr": "Logo Trouve ta Jane, version verticale."
+              },
+              "caption": {
+                "en": "Vertical",
+                "fr": "Vertical"
+              }
+            },
+            {
+              "src": "jane-identity-logo-horizontal",
+              "format": "svg",
+              "alt": {
+                "en": "Trouve ta Jane logo, horizontal version.",
+                "fr": "Logo Trouve ta Jane, version horizontale."
+              },
+              "caption": {
+                "en": "Horizontal",
+                "fr": "Horizontal"
+              }
+            },
+            {
+              "src": "jane-identity-logo-symbol",
+              "format": "svg",
+              "alt": {
+                "en": "The sign: a heart and a tropical leaf in one.",
+                "fr": "Le signe : un cœur et une feuille tropicale en un seul trait."
+              },
+              "caption": {
+                "en": "Symbol",
+                "fr": "Symbole"
+              }
+            }
+          ]
+        },
+        {
+          "type": "image-full",
+          "image": {
+            "src": "jane-identity-logo-construction",
+            "format": "svg",
+            "alt": {
+              "en": "The vertical logo with its construction lines.",
+              "fr": "Le logo vertical avec ses lignes de construction."
+            }
+          }
+        },
+        {
+          "type": "palette-swatches",
+          "text": {
+            "en": "Four colours for the whole project. Burgundy is the hero, olive gives structure, cream is the soft neutral, basalt is the rock of the campaign.",
+            "fr": "Quatre couleurs pour tout le projet. Le bordeaux est la couleur phare, l'olive donne la structure, la crème est le neutre doux, le basalte est la roche de la campagne."
+          },
+          "swatches": [
+            {
+              "name": {
+                "en": "Olive",
+                "fr": "Olive"
+              },
+              "hex": "#385531"
+            },
+            {
+              "name": {
+                "en": "Burgundy",
+                "fr": "Bordeaux"
+              },
+              "hex": "#6C2F2B"
+            },
+            {
+              "name": {
+                "en": "Cream",
+                "fr": "Crème"
+              },
+              "hex": "#F8F3E6"
+            },
+            {
+              "name": {
+                "en": "Basalt",
+                "fr": "Basalte"
+              },
+              "hex": "#201E19"
+            }
+          ]
+        },
+        {
+          "type": "detail-grid",
+          "items": [
+            {
+              "image": {
+                "src": "jane-identity-detail-tag",
+                "alt": {
+                  "en": "Close-up of the hang tag on a burgundy background.",
+                  "fr": "Gros plan sur l'étiquette suspendue, sur fond bordeaux."
+                }
+              },
+              "text": {
+                "en": "Hang tag",
+                "fr": "Étiquette suspendue"
+              }
+            },
+            {
+              "image": {
+                "src": "jane-identity-detail-inner-patch",
+                "alt": {
+                  "en": "Close-up of the inner leather patch with a tone-on-tone emboss.",
+                  "fr": "Gros plan sur le patch en cuir intérieur, au gaufrage ton sur ton."
+                }
+              },
+              "text": {
+                "en": "Inner leather patch with tone-on-tone emboss",
+                "fr": "Patch en cuir à l'intérieur, avec gaufrage ton sur ton"
+              }
+            },
+            {
+              "image": {
+                "src": "jane-identity-detail-charm",
+                "alt": {
+                  "en": "Close-up of the heart-shaped pendant on the strap hardware.",
+                  "fr": "Gros plan sur le pendentif en forme de cœur, sur la quincaillerie de la lanière."
+                }
+              },
+              "text": {
+                "en": "Heart-shaped pendant on the strap hardware",
+                "fr": "Pendentif en forme de cœur sur la quincaillerie de la lanière"
+              }
+            },
+            {
+              "image": {
+                "src": "jane-identity-detail-paper-wax-seal",
+                "alt": {
+                  "en": "Close-up of the wax seal on cream tissue.",
+                  "fr": "Gros plan sur le sceau de cire sur le papier de soie crème."
+                }
+              },
+              "text": {
+                "en": "Wax seal on tissue",
+                "fr": "Sceau de cire sur le papier de soie"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nature-to-form",
+      "title": {
+        "en": "From Nature to Form",
+        "fr": "De la nature à la forme"
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "Vines don't follow a plan. They twist, overlap and find their own way. That became the design language: two tubular leather handles that can be worn parallel or intertwined.",
+            "fr": "Les lianes ne suivent aucun plan. Elles se tordent, se croisent et trouvent leur propre chemin. C'est devenu le langage du design : deux anses tubulaires en cuir, qui se portent parallèles ou entrelacées."
+          }
+        },
+        {
+          "type": "image-pair",
+          "images": [
+            {
+              "src": "jane-nature-to-form-image-vines",
+              "alt": {
+                "en": "Twisting wild vines.",
+                "fr": "Lianes sauvages enroulées."
+              },
+              "caption": {
+                "en": "Rough wood vs. smooth burgundy leather.",
+                "fr": "Bois brut contre cuir bordeaux lisse."
+              }
+            },
+            {
+              "src": "jane-nature-to-form-image-vines-bag",
+              "alt": {
+                "en": "The bag with its intertwined burgundy leather handles.",
+                "fr": "Le sac et ses anses en cuir bordeaux entrelacées."
+              }
+            }
+          ]
+        },
+        {
+          "type": "image-full",
+          "image": {
+            "src": "jane-nature-to-form-sketch-vines-regular-intertwined",
+            "alt": {
+              "en": "Two sketches of the same bag: parallel handles and intertwined handles.",
+              "fr": "Deux croquis du même sac : anses parallèles et anses entrelacées."
+            }
+          }
+        },
+        {
+          "type": "image-full",
+          "image": {
+            "src": "jane-nature-to-form-image-final-vines",
+            "alt": {
+              "en": "The finished bag with its intertwined burgundy handles, resting on a gnarled branch.",
+              "fr": "Le sac abouti, aux anses bordeaux entrelacées, posé sur une branche noueuse."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "multiple-forms",
+      "title": {
+        "en": "One Bag, Multiple Forms",
+        "fr": "Un sac, plusieurs formes"
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "I wanted one stylish bag that is also comfortable. Backpacks are comfortable, but good-looking ones are hard to find, and stylish one-shoulder bags tire the shoulder under load. THE VINE is my visual answer: four straps, three ways to carry.",
+            "fr": "Je voulais un sac élégant, et confortable. Les sacs à dos sont confortables, mais les beaux sont rares, et les beaux sacs portés à l'épaule fatiguent l'épaule dès qu'ils sont chargés. THE VINE est ma réponse visuelle : quatre lanières, trois façons de le porter."
+          }
+        },
+        {
+          "type": "image-full",
+          "image": {
+            "src": "jane-multiple-forms-sketch-three-configurations",
+            "alt": {
+              "en": "Construction sketches of the bag in three configurations: basic, folded and backpack.",
+              "fr": "Croquis de construction du sac en trois configurations : de base, rangée et sac à dos."
+            }
+          }
+        },
+        {
+          "type": "image-row-3",
+          "images": [
+            {
+              "src": "jane-multiple-forms-sketch-basic-config",
+              "alt": {
+                "en": "Sketch of the basic configuration.",
+                "fr": "Croquis de la configuration de base."
+              },
+              "caption": {
+                "en": "Basic",
+                "fr": "Basique"
+              }
+            },
+            {
+              "src": "jane-multiple-forms-sketch-folded-config",
+              "alt": {
+                "en": "Sketch of the folded configuration.",
+                "fr": "Croquis de la configuration rangée."
+              },
+              "caption": {
+                "en": "Folded",
+                "fr": "Rangé"
+              }
+            },
+            {
+              "src": "jane-multiple-forms-sketch-backpack-config",
+              "alt": {
+                "en": "Sketch of the backpack configuration.",
+                "fr": "Croquis de la configuration sac à dos."
+              },
+              "caption": {
+                "en": "Backpack",
+                "fr": "Sac à dos"
+              }
+            }
+          ]
+        },
+        {
+          "type": "image-full",
+          "image": {
+            "src": "jane-multiple-forms-sketch-ways-of-wearing",
+            "alt": {
+              "en": "Sketch of the ways of wearing the bag.",
+              "fr": "Croquis des façons de porter le sac."
+            },
+            "caption": {
+              "en": "Ways of wearing",
+              "fr": "Façons de le porter"
+            }
+          }
+        },
+        {
+          "type": "image-pair",
+          "images": [
+            {
+              "src": "jane-multiple-forms-photo-one-shoulder",
+              "alt": {
+                "en": "Jane in the studio wearing the bag on one shoulder.",
+                "fr": "Jane en studio, le sac porté à l'épaule."
+              },
+              "caption": {
+                "en": "One shoulder",
+                "fr": "Porté épaule"
+              }
+            },
+            {
+              "src": "jane-multiple-forms-photo-backpack",
+              "alt": {
+                "en": "Jane in the studio wearing the bag as a backpack.",
+                "fr": "Jane en studio, le sac porté comme un sac à dos."
+              },
+              "caption": {
+                "en": "Backpack",
+                "fr": "Sac à dos"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "designing-with-ai",
+      "title": {
+        "en": "Designing with AI",
+        "fr": "Concevoir avec l'IA"
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "Generating a good image was the easy part. The hard part was keeping one bag, one woman and one world consistent. Here are four places where the generator broke the design, and what I changed.",
+            "fr": "Générer une belle image était la partie facile. Le plus dur était de garder un sac, une femme et un monde cohérents. Voici quatre endroits où le générateur a cassé le design, et ce que j'ai changé."
+          }
+        },
+        {
+          "type": "ai-episode",
+          "title": {
+            "en": "Bag and straps",
+            "fr": "Sac et lanières"
+          },
+          "problem": {
+            "en": "In one version the bag itself turned into a different bag.",
+            "fr": "Dans une version, le sac lui-même est devenu un autre sac."
+          },
+          "before": [
+            {
+              "src": "jane-designing-with-ai-error-bag-changed",
+              "alt": {
+                "en": "The generated frame where the bag became a different bag.",
+                "fr": "L'image générée où le sac est devenu un autre sac."
+              }
+            }
+          ],
+          "method": {
+            "en": "Fixed by sending the bag as three sketch views and replacing it in the approved frame.",
+            "fr": "Corrigé en fournissant le sac en trois vues dessinées et en le remplaçant dans l'image validée."
+          },
+          "prompt": {
+            "en": "Replace the bag in image 1 with the bag from images 2–4 (three-quarter, front/back and side views). Keep the scene, lighting and composition.",
+            "fr": "Replace the bag in image 1 with the bag from images 2–4 (three-quarter, front/back and side views). Keep the scene, lighting and composition."
+          },
+          "refs": [
+            {
+              "src": "jane-designing-with-ai-ref-sketch-folded-three-quarter",
+              "alt": {
+                "en": "Reference sketch, three-quarter view.",
+                "fr": "Croquis de référence, vue trois quarts."
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-ref-sketch-folded-front-back",
+              "alt": {
+                "en": "Reference sketch, front and back views.",
+                "fr": "Croquis de référence, vues de face et de dos."
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-ref-sketch-folded-side",
+              "alt": {
+                "en": "Reference sketch, side view.",
+                "fr": "Croquis de référence, vue de côté."
+              }
+            }
+          ],
+          "after": [
+            {
+              "src": "jane-designing-with-ai-result-bag-corrected",
+              "alt": {
+                "en": "The corrected frame with the right bag.",
+                "fr": "L'image corrigée avec le bon sac."
+              }
+            }
+          ]
+        },
+        {
+          "type": "ai-episode",
+          "title": {
+            "en": "Materials: moss",
+            "fr": "Matières : la mousse"
+          },
+          "problem": {
+            "en": "The moss turned into plastic clumps.",
+            "fr": "La mousse s'est transformée en touffes de plastique."
+          },
+          "before": [
+            {
+              "src": "jane-designing-with-ai-error-moss-texture",
+              "alt": {
+                "en": "The frame where the moss looks like plastic clumps.",
+                "fr": "L'image où la mousse ressemble à des touffes de plastique."
+              }
+            }
+          ],
+          "method": {
+            "en": "Fixed with a text-only prompt: the moss redescribed as one dense, matte layer.",
+            "fr": "Corrigé par un prompt texte seul : la mousse redéfinie comme une couche dense et mate."
+          },
+          "prompt": {
+            "en": "Make the moss deep, dark forest green: one dense, velvety, matte layer with a fine texture. No tufts, clumps or pom-poms; not bright or saturated.",
+            "fr": "Make the moss deep, dark forest green: one dense, velvety, matte layer with a fine texture. No tufts, clumps or pom-poms; not bright or saturated."
+          },
+          "after": [
+            {
+              "src": "jane-designing-with-ai-result-moss-texture",
+              "alt": {
+                "en": "The corrected frame with dense, velvety moss.",
+                "fr": "L'image corrigée avec une mousse dense et veloutée."
+              }
+            }
+          ]
+        },
+        {
+          "type": "ai-episode",
+          "title": {
+            "en": "Materials: basalt",
+            "fr": "Matières : le basalte"
+          },
+          "problem": {
+            "en": "The basalt got flower-like patterns instead of a natural grain.",
+            "fr": "Le basalte a pris des motifs de fleurs à la place d'un grain naturel."
+          },
+          "before": [
+            {
+              "src": "jane-designing-with-ai-error-basalt-texture",
+              "alt": {
+                "en": "The frame where the basalt shows flower-like patterns.",
+                "fr": "L'image où le basalte montre des motifs de fleurs."
+              }
+            }
+          ],
+          "method": {
+            "en": "Fixed with a text-only prompt that kept every crack and changed only the texture.",
+            "fr": "Corrigé par un prompt texte seul qui conserve chaque fissure et ne change que la texture."
+          },
+          "prompt": {
+            "en": "Change only the texture of the basalt ground: fine-grained, dark charcoal, matte. Keep every crack, edge and shape exactly. No new cracks or stones; remove the flower-like patterns.",
+            "fr": "Change only the texture of the basalt ground: fine-grained, dark charcoal, matte. Keep every crack, edge and shape exactly. No new cracks or stones; remove the flower-like patterns."
+          },
+          "after": [
+            {
+              "src": "jane-designing-with-ai-result-basalt-texture",
+              "alt": {
+                "en": "The corrected frame with a fine-grained basalt surface.",
+                "fr": "L'image corrigée avec une surface de basalte à grain fin."
+              }
+            }
+          ]
+        },
+        {
+          "type": "ai-episode",
+          "title": {
+            "en": "The heroine",
+            "fr": "L'héroïne"
+          },
+          "problem": {
+            "en": "Wrong face, wrong earring, and two ordinary rings on two fingers instead of our one ring.",
+            "fr": "Mauvais visage, mauvaise boucle d'oreille, et deux bagues ordinaires sur deux doigts au lieu de notre bague unique."
+          },
+          "before": [
+            {
+              "src": "jane-designing-with-ai-error-face-and-rings",
+              "alt": {
+                "en": "Cropped frame with the wrong face, the wrong earring and two rings.",
+                "fr": "Image recadrée avec le mauvais visage, la mauvaise boucle d'oreille et deux bagues."
+              }
+            }
+          ],
+          "method": {
+            "en": "Face and earring replaced from a reference portrait; the two rings replaced by one, from a photo of the ring.",
+            "fr": "Visage et boucle d'oreille remplacés à partir d'un portrait de référence ; les deux bagues remplacées par une seule, d'après une photo de la bague."
+          },
+          "prompt": {
+            "en": "Replace the model's face and earring in image 1 with those from image 2. Keep everything else.\nReplace the two rings in image 1 with one ring on the ring finger, as in image 2.",
+            "fr": "Replace the model's face and earring in image 1 with those from image 2. Keep everything else.\nReplace the two rings in image 1 with one ring on the ring finger, as in image 2."
+          },
+          "refs": [
+            {
+              "src": "jane-designing-with-ai-ref-model-front-face",
+              "alt": {
+                "en": "Reference portrait: the model's face and earring.",
+                "fr": "Portrait de référence : le visage et la boucle d'oreille du modèle."
+              }
+            },
+            {
+              "src": "jane-designing-with-ai-ref-hand-with-ring",
+              "alt": {
+                "en": "Reference photo: the hand with the single ring.",
+                "fr": "Photo de référence : la main avec la bague unique."
+              }
+            }
+          ],
+          "after": [
+            {
+              "src": "jane-designing-with-ai-result-face-and-ring",
+              "alt": {
+                "en": "Cropped corrected frame with the right face, earring and a single ring.",
+                "fr": "Image recadrée corrigée avec le bon visage, la bonne boucle d'oreille et une seule bague."
+              }
+            }
+          ]
+        },
+        {
+          "type": "ai-episode",
+          "title": {
+            "en": "Gravity and contact",
+            "fr": "Gravité et contact"
+          },
+          "problem": {
+            "en": "The bag floated and tilted above the box, and an extra strap appeared: two errors in one frame.",
+            "fr": "Le sac flottait et penchait au-dessus de la boîte, et une lanière en trop est apparue : deux erreurs sur une seule image."
+          },
+          "before": [
+            {
+              "src": "jane-designing-with-ai-error-bag-in-box",
+              "alt": {
+                "en": "The frame where the bag floats tilted above the box with an extra strap.",
+                "fr": "L'image où le sac flotte, penché au-dessus de la boîte, avec une lanière en trop."
+              }
+            }
+          ],
+          "method": {
+            "en": "Two separate text prompts: one placed the bag flat in the box, one fixed the strap layout.",
+            "fr": "Deux prompts texte séparés : l'un pose le sac à plat dans la boîte, l'autre corrige les lanières."
+          },
+          "prompt": {
+            "en": "Place the bag fully inside the box, flat on its back. Level and straight: no tilt, no floating. Keep the bag design unchanged.\nFix only the straps: the two upper straps lie flat under the closure tab, the two side straps stay at the sides. Four separate straps, no crossing. Do not redesign the bag.",
+            "fr": "Place the bag fully inside the box, flat on its back. Level and straight: no tilt, no floating. Keep the bag design unchanged.\nFix only the straps: the two upper straps lie flat under the closure tab, the two side straps stay at the sides. Four separate straps, no crossing. Do not redesign the bag."
+          },
+          "after": [
+            {
+              "src": "jane-designing-with-ai-result-bag-in-box",
+              "alt": {
+                "en": "The corrected frame with the bag lying flat in the box.",
+                "fr": "L'image corrigée avec le sac posé à plat dans la boîte."
+              }
+            }
+          ]
+        },
+        {
+          "type": "principles-list",
+          "items": [
+            {
+              "title": {
+                "en": "Lighting design",
+                "fr": "Concevoir la lumière"
+              },
+              "text": {
+                "en": "Before lighting adjectives.",
+                "fr": "Avant d'empiler les adjectifs de lumière."
+              }
+            },
+            {
+              "title": {
+                "en": "Product identity",
+                "fr": "Garder l'identité du produit"
+              },
+              "text": {
+                "en": "Without composition copying.",
+                "fr": "Sans copier la composition."
+              }
+            },
+            {
+              "title": {
+                "en": "One change at a time",
+                "fr": "Changer une seule chose à la fois"
+              },
+              "text": {
+                "en": "With the approved frame as master.",
+                "fr": "Avec l'image validée comme référence."
+              }
+            },
+            {
+              "title": {
+                "en": "Other errors",
+                "fr": "Autres erreurs"
+              },
+              "text": {
+                "en": "function killed the character (the bag became stock, relief and asymmetry brought it back); the backpack view (the generator saw an ordinary backpack, so the pose was placed by hand); flat lighting (the light was designed as shapes before mood); reference copying (a reference gave identity, composition came from text); bag swaps (one image gives structure, another design, a third the setting).",
+                "fr": "la fonction a tué le personnage (le sac est devenu banal, le relief et l'asymétrie l'ont ramené) ; la vue sac à dos (le générateur voyait un sac à dos ordinaire, la pose a donc été placée à la main) ; l'éclairage plat (la lumière a d'abord été dessinée en formes, avant l'ambiance) ; la copie de référence (une référence donnait l'identité, la composition venait du texte) ; les échanges de sac (une image donne la structure, une autre le design, une troisième le décor)."
               }
             }
           ]
@@ -968,63 +836,102 @@
     {
       "id": "outcome",
       "title": {
-        "en": "Outcome",
-        "fr": ""
+        "en": "Outcome and Learnings",
+        "fr": "Résultat et enseignements"
       },
       "blocks": [
         {
           "type": "outcome-montage",
           "images": [
             {
+              "src": "jane-outcome-photo-basalt-movement-vertical",
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
+                "en": "Jane in motion on black basalt, vertical frame.",
+                "fr": "Jane en mouvement sur du basalte noir, cadre vertical."
+              }
             },
             {
+              "src": "jane-outcome-photo-forest-standing",
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
+                "en": "Jane standing in the forest with the bag.",
+                "fr": "Jane debout dans la forêt avec le sac."
+              }
             },
             {
+              "src": "jane-outcome-photo-bag-on-heel",
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
+                "en": "The bag hanging by its handles from the heel of a tall boot.",
+                "fr": "Le sac suspendu par ses anses au talon d'une botte."
+              }
             },
             {
+              "src": "jane-identity-detail-paper-wax-seal",
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
+                "en": "Close-up of the wax seal on cream tissue.",
+                "fr": "Gros plan sur le sceau de cire sur le papier de soie crème."
+              }
             },
             {
+              "src": "jane-beyond-the-product-photo-stacked-boxes-horizontal",
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
+                "en": "Stacked olive packaging boxes in the studio.",
+                "fr": "Boîtes de packaging olive empilées en studio."
+              }
             },
             {
+              "src": "jane-multiple-forms-photo-backpack",
               "alt": {
-                "en": "",
-                "fr": "",
-                "placeholder": true
-              },
-              "placeholder": true
+                "en": "Jane in the studio wearing the bag as a backpack.",
+                "fr": "Jane en studio, le sac porté comme un sac à dos."
+              }
+            },
+            {
+              "src": "jane-outcome-photo-tag-on-bag-crop",
+              "alt": {
+                "en": "Tight crop of the hang tag on the bag.",
+                "fr": "Recadrage serré sur l'étiquette suspendue du sac."
+              }
+            },
+            {
+              "src": "jane-campaign-photo-proportions-basalt",
+              "alt": {
+                "en": "Jane with the bag on black basalt, showing its proportions.",
+                "fr": "Jane avec le sac sur du basalte noir, qui montre ses proportions."
+              }
             }
-          ],
-          "placeholder": true
+          ]
+        },
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "The project brings together a recognisable conceptual product, several carrying configurations, a campaign, product photography and a packaging identity. The goal was not to remove the unpredictability of generative AI but to turn experimentation into a more intentional process.",
+            "fr": "Le projet réunit un produit conceptuel reconnaissable, plusieurs façons de le porter, une campagne, de la photographie produit et une identité de packaging. L'objectif n'était pas de supprimer l'imprévisibilité de l'IA générative, mais de transformer l'expérimentation en un processus plus intentionnel."
+          }
+        },
+        {
+          "type": "principles-list",
+          "items": [
+            {
+              "title": {
+                "en": "What worked",
+                "fr": "Ce qui a fonctionné"
+              },
+              "text": {
+                "en": "A clear reference hierarchy, one change at a time, hand edits where the generator fails.",
+                "fr": "Une hiérarchie claire des références, un seul changement à la fois, des retouches manuelles là où le générateur échoue."
+              }
+            },
+            {
+              "title": {
+                "en": "What remains",
+                "fr": "Ce qui reste"
+              },
+              "text": {
+                "en": "This is a concept, with no prototype and no ergonomic tests. THE VINE is chapter 01 of a collection; Seed and Root stay concepts.",
+                "fr": "C'est un concept, sans prototype ni tests d'ergonomie. THE VINE est le chapitre 01 d'une collection ; Seed et Root restent des concepts."
+              }
+            }
+          ]
         }
       ]
     }

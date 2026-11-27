@@ -2,38 +2,14 @@
   "schemaVersion": 1,
   "quality": 80,
   "images": {
-    "jane-beyond-the-product-macro-charm": {
-      "width": 1145,
-      "height": 1374,
+    "jane-beyond-the-product-photo-bag-in-box": {
+      "width": 2400,
+      "height": 1792,
       "widths": [
         640,
         1024,
-        1145
-      ]
-    },
-    "jane-beyond-the-product-macro-inner-patch": {
-      "width": 1536,
-      "height": 1024,
-      "widths": [
-        640,
-        1024,
-        1536
-      ]
-    },
-    "jane-beyond-the-product-macro-paper-wax-seal": {
-      "width": 895,
-      "height": 1200,
-      "widths": [
-        640,
-        895
-      ]
-    },
-    "jane-beyond-the-product-macro-tag": {
-      "width": 895,
-      "height": 1200,
-      "widths": [
-        640,
-        895
+        1600,
+        2400
       ]
     },
     "jane-beyond-the-product-photo-bag-with-dust-bag": {
@@ -43,14 +19,6 @@
         640,
         1024,
         1450
-      ]
-    },
-    "jane-beyond-the-product-photo-box-open-from-top": {
-      "width": 895,
-      "height": 1200,
-      "widths": [
-        640,
-        895
       ]
     },
     "jane-beyond-the-product-photo-dust-bag-and-box": {
@@ -147,79 +115,31 @@
         928
       ]
     },
-    "jane-designing-with-ai-error-basalt-texture": {
-      "width": 1870,
-      "height": 2337,
-      "widths": [
-        640,
-        1024,
-        1600,
-        1870
-      ]
-    },
-    "jane-designing-with-ai-error-blurred-face": {
-      "width": 1614,
-      "height": 1134,
-      "widths": [
-        640,
-        1024,
-        1600
-      ]
-    },
-    "jane-designing-with-ai-error-box-raised": {
-      "width": 660,
-      "height": 471,
-      "widths": [
-        640
-      ]
-    },
-    "jane-designing-with-ai-error-box-sideways": {
-      "width": 895,
-      "height": 1200,
-      "widths": [
-        640,
-        895
-      ]
-    },
-    "jane-designing-with-ai-error-dress-texture": {
-      "width": 1122,
-      "height": 1402,
-      "widths": [
-        640,
-        1024
-      ]
-    },
-    "jane-designing-with-ai-error-earrings-ring": {
-      "width": 1654,
-      "height": 1254,
-      "widths": [
-        640,
-        1024,
-        1600
-      ]
-    },
-    "jane-designing-with-ai-error-extra-straps": {
+    "jane-designing-with-ai-error-bag-in-box": {
       "width": 896,
-      "height": 1199,
+      "height": 1200,
       "widths": [
         640,
         896
       ]
     },
-    "jane-designing-with-ai-error-face-floating": {
-      "width": 1027,
-      "height": 1531,
+    "jane-designing-with-ai-error-basalt-texture": {
+      "width": 1919,
+      "height": 2400,
       "widths": [
         640,
-        1024
+        1024,
+        1600,
+        1919
       ]
     },
-    "jane-designing-with-ai-error-face-hanging": {
-      "width": 1027,
-      "height": 1532,
+    "jane-designing-with-ai-error-face-and-rings": {
+      "width": 1379,
+      "height": 1100,
       "widths": [
         640,
-        1024
+        1024,
+        1379
       ]
     },
     "jane-designing-with-ai-error-moss-texture": {
@@ -231,71 +151,52 @@
         1535
       ]
     },
+    "jane-designing-with-ai-ref-hand-with-ring": {
+      "width": 852,
+      "height": 1065,
+      "widths": [
+        640,
+        852
+      ]
+    },
+    "jane-designing-with-ai-ref-model-front-face": {
+      "width": 1122,
+      "height": 1402,
+      "widths": [
+        640,
+        1024
+      ]
+    },
+    "jane-designing-with-ai-ref-sketch-folded-front-back": {
+      "width": 652,
+      "height": 816,
+      "widths": [
+        640
+      ]
+    },
+    "jane-designing-with-ai-ref-sketch-folded-side": {
+      "width": 652,
+      "height": 816,
+      "widths": [
+        640
+      ]
+    },
+    "jane-designing-with-ai-ref-sketch-folded-three-quarter": {
+      "width": 653,
+      "height": 816,
+      "widths": [
+        640
+      ]
+    },
+    "jane-designing-with-ai-result-bag-corrected": {
+      "width": 888,
+      "height": 1134,
+      "widths": [
+        640,
+        888
+      ]
+    },
     "jane-designing-with-ai-result-bag-in-box": {
-      "width": 2400,
-      "height": 1792,
-      "widths": [
-        640,
-        1024,
-        1600,
-        2400
-      ]
-    },
-    "jane-designing-with-ai-result-bag-on-heel": {
-      "width": 1122,
-      "height": 1402,
-      "widths": [
-        640,
-        1024
-      ]
-    },
-    "jane-designing-with-ai-result-basalt-movement": {
-      "width": 1858,
-      "height": 2350,
-      "widths": [
-        640,
-        1024,
-        1600,
-        1858
-      ]
-    },
-    "jane-designing-with-ai-result-forest-folded": {
-      "width": 1535,
-      "height": 1024,
-      "widths": [
-        640,
-        1024,
-        1535
-      ]
-    },
-    "jane-designing-with-ai-result-forest-standing": {
-      "width": 1178,
-      "height": 1556,
-      "widths": [
-        640,
-        1024,
-        1178
-      ]
-    },
-    "jane-designing-with-ai-result-front-face": {
-      "width": 1122,
-      "height": 1402,
-      "widths": [
-        640,
-        1024
-      ]
-    },
-    "jane-designing-with-ai-result-outfit": {
-      "width": 1792,
-      "height": 2400,
-      "widths": [
-        640,
-        1024,
-        1600,
-        1792
-      ]
-    },
-    "jane-designing-with-ai-result-outfit-separately": {
       "width": 896,
       "height": 1200,
       "widths": [
@@ -303,29 +204,40 @@
         896
       ]
     },
-    "jane-designing-with-ai-result-side-face": {
-      "width": 922,
-      "height": 1152,
+    "jane-designing-with-ai-result-basalt-texture": {
+      "width": 1919,
+      "height": 2400,
       "widths": [
         640,
-        922
+        1024,
+        1600,
+        1919
       ]
     },
-    "jane-identity-detail-charm": {
-      "width": 864,
-      "height": 1232,
+    "jane-designing-with-ai-result-face-and-ring": {
+      "width": 903,
+      "height": 720,
       "widths": [
         640,
-        864
+        903
       ]
     },
-    "jane-identity-detail-dust-bag": {
+    "jane-designing-with-ai-result-moss-texture": {
       "width": 1535,
       "height": 1024,
       "widths": [
         640,
         1024,
         1535
+      ]
+    },
+    "jane-identity-detail-charm": {
+      "width": 1145,
+      "height": 1374,
+      "widths": [
+        640,
+        1024,
+        1145
       ]
     },
     "jane-identity-detail-inner-patch": {
@@ -338,22 +250,32 @@
       ]
     },
     "jane-identity-detail-paper-wax-seal": {
-      "width": 1200,
-      "height": 896,
+      "width": 895,
+      "height": 1200,
       "widths": [
         640,
-        1024,
-        1200
+        895
       ]
     },
     "jane-identity-detail-tag": {
-      "width": 1200,
-      "height": 896,
+      "width": 895,
+      "height": 1200,
       "widths": [
         640,
-        1024,
-        1200
+        895
       ]
+    },
+    "jane-identity-logo-construction": {
+      "format": "svg"
+    },
+    "jane-identity-logo-horizontal": {
+      "format": "svg"
+    },
+    "jane-identity-logo-symbol": {
+      "format": "svg"
+    },
+    "jane-identity-logo-vertical": {
+      "format": "svg"
     },
     "jane-multiple-forms-photo-backpack": {
       "width": 1083,
@@ -448,6 +370,40 @@
         640,
         1024,
         1591
+      ]
+    },
+    "jane-outcome-photo-bag-on-heel": {
+      "width": 1122,
+      "height": 1402,
+      "widths": [
+        640,
+        1024
+      ]
+    },
+    "jane-outcome-photo-basalt-movement-vertical": {
+      "width": 1858,
+      "height": 2350,
+      "widths": [
+        640,
+        1024,
+        1600,
+        1858
+      ]
+    },
+    "jane-outcome-photo-forest-standing": {
+      "width": 1178,
+      "height": 1556,
+      "widths": [
+        640,
+        1024,
+        1178
+      ]
+    },
+    "jane-outcome-photo-tag-on-bag-crop": {
+      "width": 624,
+      "height": 466,
+      "widths": [
+        624
       ]
     },
     "jane-reveal-photo-close-face-horizontal": {

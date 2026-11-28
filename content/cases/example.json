@@ -1,0 +1,749 @@
+{
+  "schemaVersion": 1,
+  "id": "example",
+  "approval": {
+    "en": false,
+    "fr": false
+  },
+  "meta": {
+    "pageTitle": {
+      "en": "Example page — blocks — Kamila Comme",
+      "fr": "Page d’exemple — blocs — Kamila Comme"
+    },
+    "title": {
+      "en": "Example page: case blocks",
+      "fr": "Page d’exemple : blocs de cas"
+    }
+  },
+  "chapters": [
+    {
+      "id": "reveal",
+      "title": {
+        "en": "Reveal",
+        "fr": "Révélation"
+      },
+      "blocks": [
+        {
+          "type": "hero-reveal",
+          "title": {
+            "en": "Example page: case blocks",
+            "fr": "Page d’exemple : blocs de cas"
+          },
+          "subtitle": {
+            "en": "Placeholder text. Every block of the case format on real frames. Not published, not linked.",
+            "fr": "Texte provisoire. Tous les blocs du format de cas sur de vrais cadres. Non publiée, sans lien."
+          },
+          "image": {
+            "art": {
+              "horizontal": "example-reveal-photo-face-horizontal",
+              "vertical": "example-reveal-photo-face-vertical"
+            },
+            "alt": {
+              "en": "Example frame: hero, horizontal and vertical versions",
+              "fr": "Cadre d’exemple : hero, versions horizontale et verticale"
+            },
+            "focus": {
+              "x": 0.5,
+              "y": 0.3
+            }
+          },
+          "facts": [
+            {
+              "label": {
+                "en": "Block",
+                "fr": "Bloc"
+              },
+              "value": {
+                "en": "hero-reveal",
+                "fr": "hero-reveal"
+              }
+            },
+            {
+              "label": {
+                "en": "Status",
+                "fr": "Statut"
+              },
+              "value": {
+                "en": "Draft, noindex",
+                "fr": "Brouillon, noindex"
+              }
+            }
+          ]
+        },
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "Placeholder text. A chapter intro, 8 columns by default.",
+            "fr": "Texte provisoire. Une introduction de chapitre, 8 colonnes par défaut."
+          }
+        },
+        {
+          "type": "chapter-menu"
+        }
+      ]
+    },
+    {
+      "id": "identity",
+      "title": {
+        "en": "Identity",
+        "fr": "Identité"
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "text": {
+            "en": "Placeholder text. Logos, an annotated logo, a palette and principles.",
+            "fr": "Texte provisoire. Logos, un logo annoté, une palette et des principes."
+          }
+        },
+        {
+          "type": "logo-showcase",
+          "images": [
+            {
+              "src": "example-identity-logo-horizontal",
+              "alt": {
+                "en": "Example frame: horizontal logo",
+                "fr": "Cadre d’exemple : logo horizontal"
+              },
+              "format": "svg",
+              "caption": {
+                "en": "Placeholder caption: horizontal logo.",
+                "fr": "Légende provisoire : logo horizontal."
+              }
+            },
+            {
+              "src": "example-identity-logo-vertical",
+              "alt": {
+                "en": "Example frame: main logo",
+                "fr": "Cadre d’exemple : logo principal"
+              },
+              "format": "svg",
+              "caption": {
+                "en": "Placeholder caption: main logo.",
+                "fr": "Légende provisoire : logo principal."
+              }
+            },
+            {
+              "src": "example-identity-logo-symbol",
+              "alt": {
+                "en": "Example frame: sign",
+                "fr": "Cadre d’exemple : signe"
+              },
+              "format": "svg",
+              "caption": {
+                "en": "Placeholder caption: sign.",
+                "fr": "Légende provisoire : signe."
+              }
+            }
+          ],
+          "text": {
+            "en": "Placeholder text. Text under the logos, 6 columns by default.",
+            "fr": "Texte provisoire. Texte sous les logos, 6 colonnes par défaut."
+          }
+        },
+        {
+          "type": "annotated-image",
+          "image": {
+            "src": "example-identity-logo-construction",
+            "alt": {
+              "en": "Example frame: logo with construction lines",
+              "fr": "Cadre d’exemple : logo avec lignes de construction"
+            },
+            "format": "svg"
+          },
+          "notes": [
+            {
+              "x": 0.32,
+              "y": 0.4,
+              "textAt": {
+                "x": 0.05,
+                "y": 0.1
+              },
+              "text": {
+                "en": "Placeholder note A (deprecated block).",
+                "fr": "Note provisoire A (bloc obsolète)."
+              }
+            },
+            {
+              "x": 0.7,
+              "y": 0.62,
+              "textAt": {
+                "x": 0.95,
+                "y": 0.9
+              },
+              "text": {
+                "en": "Placeholder note B.",
+                "fr": "Note provisoire B."
+              }
+            }
+          ]
+        },
+        {
+          "type": "palette-swatches",
+          "swatches": [
+            {
+              "name": {
+                "en": "Moss",
+                "fr": "Mousse"
+              },
+              "hex": "#4a5a3a"
+            },
+            {
+              "name": {
+                "en": "Ivory",
+                "fr": "Ivoire"
+              },
+              "hex": "#f2ede4"
+            },
+            {
+              "name": {
+                "en": "Basalt",
+                "fr": "Basalte"
+              },
+              "hex": "#2f2f2f"
+            },
+            {
+              "name": {
+                "en": "Red",
+                "fr": "Rouge"
+              },
+              "hex": "#8c2a22"
+            }
+          ],
+          "text": {
+            "en": "Placeholder text. Example swatches, not the case palette.",
+            "fr": "Texte provisoire. Nuancier d’exemple, pas la palette du cas."
+          }
+        },
+        {
+          "type": "principles-list",
+          "items": [
+            {
+              "title": {
+                "en": "Principle one",
+                "fr": "Principe un"
+              },
+              "text": {
+                "en": "Placeholder text. Title and text side by side.",
+                "fr": "Texte provisoire. Titre et texte côte à côte."
+              }
+            },
+            {
+              "title": {
+                "en": "Principle two",
+                "fr": "Principe deux"
+              },
+              "text": {
+                "en": "Placeholder text. A second item.",
+                "fr": "Texte provisoire. Un deuxième élément."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nature-to-form",
+      "title": {
+        "en": "From Nature to Form",
+        "fr": "De la nature à la forme"
+      },
+      "blocks": [
+        {
+          "type": "image-full",
+          "image": {
+            "src": "example-nature-to-form-sketch-vines",
+            "alt": {
+              "en": "Example frame: sketch in an image-full (supporting frame too wide on purpose)",
+              "fr": "Cadre d’exemple : croquis en image-full (cadre d’appui trop large, exprès)"
+            },
+            "caption": {
+              "en": "Placeholder caption: a sketch in an image-full, 12 columns by default.",
+              "fr": "Légende provisoire : un croquis en image-full, 12 colonnes par défaut."
+            }
+          }
+        },
+        {
+          "type": "image-pair",
+          "images": [
+            {
+              "src": "example-nature-to-form-image-vines",
+              "alt": {
+                "en": "Example frame: vertical frame, left of a pair",
+                "fr": "Cadre d’exemple : cadre vertical, à gauche d’une paire"
+              },
+              "caption": {
+                "en": "Placeholder caption: pair 6 + 6, verticals.",
+                "fr": "Légende provisoire : paire 6 + 6, verticales."
+              }
+            },
+            {
+              "src": "example-nature-to-form-image-vines-bag",
+              "alt": {
+                "en": "Example frame: vertical frame, right of a pair",
+                "fr": "Cadre d’exemple : cadre vertical, à droite d’une paire"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text-image",
+          "side": "left",
+          "text": {
+            "en": "Placeholder text. Text 6 + image 6 by default, horizontal frame under 1600px.",
+            "fr": "Texte provisoire. Texte 6 + image 6 par défaut, cadre horizontal de moins de 1600 px."
+          },
+          "image": {
+            "src": "example-nature-to-form-image-final-vines",
+            "alt": {
+              "en": "Example frame: horizontal frame beside text",
+              "fr": "Cadre d’exemple : cadre horizontal à côté du texte"
+            }
+          }
+        },
+        {
+          "type": "annotated-image",
+          "image": {
+            "src": "example-nature-to-form-sketch-configs",
+            "alt": {
+              "en": "Example frame: raster sketch with one note",
+              "fr": "Cadre d’exemple : croquis matriciel avec une note"
+            }
+          },
+          "notes": [
+            {
+              "x": 0.2,
+              "y": 0.3,
+              "text": {
+                "en": "Placeholder note over a raster image (deprecated block).",
+                "fr": "Note provisoire sur une image matricielle (bloc obsolète)."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "multiple-forms",
+      "title": {
+        "en": "One Bag, Multiple Forms",
+        "fr": "Un sac, plusieurs formes"
+      },
+      "blocks": [
+        {
+          "type": "image-row-3",
+          "images": [
+            {
+              "src": "example-multiple-forms-sketch-basic",
+              "alt": {
+                "en": "Example frame: sketch, first of three",
+                "fr": "Cadre d’exemple : croquis, premier de trois"
+              },
+              "caption": {
+                "en": "Placeholder caption: row of three sketches, 4 + 4 + 4.",
+                "fr": "Légende provisoire : rangée de trois croquis, 4 + 4 + 4."
+              }
+            },
+            {
+              "src": "example-multiple-forms-sketch-folded",
+              "alt": {
+                "en": "Example frame: sketch, second of three",
+                "fr": "Cadre d’exemple : croquis, deuxième de trois"
+              }
+            },
+            {
+              "src": "example-multiple-forms-sketch-backpack",
+              "alt": {
+                "en": "Example frame: sketch, third of three",
+                "fr": "Cadre d’exemple : croquis, troisième de trois"
+              }
+            }
+          ]
+        },
+        {
+          "type": "image-row-3",
+          "images": [
+            {
+              "src": "example-multiple-forms-photo-backpack",
+              "alt": {
+                "en": "Example frame: vertical photo, first of three",
+                "fr": "Cadre d’exemple : photo verticale, première de trois"
+              },
+              "caption": {
+                "en": "Placeholder caption: row of three verticals, 4 + 4 + 4.",
+                "fr": "Légende provisoire : rangée de trois verticales, 4 + 4 + 4."
+              }
+            },
+            {
+              "src": "example-multiple-forms-photo-shoulder",
+              "alt": {
+                "en": "Example frame: vertical photo, second of three",
+                "fr": "Cadre d’exemple : photo verticale, deuxième de trois"
+              }
+            },
+            {
+              "src": "example-multiple-forms-photo-standing",
+              "alt": {
+                "en": "Example frame: vertical photo, third of three",
+                "fr": "Cadre d’exemple : photo verticale, troisième de trois"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sequence",
+          "images": [
+            {
+              "src": "example-multiple-forms-sketch-step-one",
+              "alt": {
+                "en": "Example frame: sequence step one",
+                "fr": "Cadre d’exemple : séquence, étape un"
+              }
+            },
+            {
+              "src": "example-multiple-forms-sketch-step-two",
+              "alt": {
+                "en": "Example frame: sequence step two",
+                "fr": "Cadre d’exemple : séquence, étape deux"
+              }
+            },
+            {
+              "src": "example-multiple-forms-sketch-step-three",
+              "alt": {
+                "en": "Example frame: sequence step three",
+                "fr": "Cadre d’exemple : séquence, étape trois"
+              }
+            }
+          ],
+          "caption": {
+            "en": "Placeholder text. A sequence of three sketches.",
+            "fr": "Texte provisoire. Une séquence de trois croquis."
+          }
+        }
+      ]
+    },
+    {
+      "id": "designing-with-ai",
+      "title": {
+        "en": "Designing with AI",
+        "fr": "Concevoir avec l’IA"
+      },
+      "blocks": [
+        {
+          "type": "ai-episode",
+          "title": {
+            "en": "Example episode",
+            "fr": "Épisode d’exemple"
+          },
+          "problem": {
+            "en": "Placeholder text. The problem in one sentence.",
+            "fr": "Texte provisoire. Le problème en une phrase."
+          },
+          "before": [
+            {
+              "src": "example-designing-with-ai-error-moss",
+              "alt": {
+                "en": "Example frame: before",
+                "fr": "Cadre d’exemple : avant"
+              },
+              "crop": {
+                "x": 0.55,
+                "y": 0.2,
+                "w": 0.25,
+                "h": 0.3,
+                "label": {
+                  "en": "Placeholder crop label",
+                  "fr": "Légende provisoire du détail"
+                }
+              }
+            }
+          ],
+          "method": {
+            "en": "Placeholder text. The method in one sentence.",
+            "fr": "Texte provisoire. La méthode en une phrase."
+          },
+          "prompt": {
+            "en": "Prompt line one\nPrompt line two",
+            "fr": "Ligne de prompt un\nLigne de prompt deux"
+          },
+          "after": [
+            {
+              "src": "example-designing-with-ai-result-moss",
+              "alt": {
+                "en": "Example frame: after",
+                "fr": "Cadre d’exemple : après"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "campaign",
+      "title": {
+        "en": "Campaign",
+        "fr": "Campagne"
+      },
+      "blocks": [
+        {
+          "type": "image-full",
+          "image": {
+            "src": "example-campaign-photo-basalt",
+            "alt": {
+              "en": "Example frame: full-bleed photograph, 2400px source",
+              "fr": "Cadre d’exemple : photographie pleine largeur, source 2400 px"
+            },
+            "caption": {
+              "en": "Placeholder caption: full-bleed by default: photograph of 1600px or more.",
+              "fr": "Légende provisoire : pleine largeur par défaut : photographie de 1600 px ou plus."
+            }
+          }
+        },
+        {
+          "type": "detail-grid",
+          "items": [
+            {
+              "image": {
+                "src": "example-campaign-detail-tag",
+                "alt": {
+                  "en": "Example frame: detail one",
+                  "fr": "Cadre d’exemple : détail un"
+                }
+              },
+              "text": {
+                "en": "Placeholder caption: four supporting frames, 3 each.",
+                "fr": "Légende provisoire : quatre cadres d’appui, 3 chacun."
+              }
+            },
+            {
+              "image": {
+                "src": "example-campaign-detail-patch",
+                "alt": {
+                  "en": "Example frame: detail two",
+                  "fr": "Cadre d’exemple : détail deux"
+                }
+              },
+              "text": {
+                "en": "Placeholder caption: detail two.",
+                "fr": "Légende provisoire : détail deux."
+              }
+            },
+            {
+              "image": {
+                "src": "example-campaign-detail-charm",
+                "alt": {
+                  "en": "Example frame: detail three",
+                  "fr": "Cadre d’exemple : détail trois"
+                }
+              },
+              "text": {
+                "en": "Placeholder caption: detail three.",
+                "fr": "Légende provisoire : détail trois."
+              }
+            },
+            {
+              "image": {
+                "src": "example-campaign-detail-seal",
+                "alt": {
+                  "en": "Example frame: detail four",
+                  "fr": "Cadre d’exemple : détail quatre"
+                }
+              },
+              "text": {
+                "en": "Placeholder caption: detail four.",
+                "fr": "Légende provisoire : détail quatre."
+              }
+            }
+          ]
+        },
+        {
+          "type": "image-full",
+          "image": {
+            "src": "example-campaign-photo-roots",
+            "alt": {
+              "en": "Example frame: vertical frame alone (reported on purpose)",
+              "fr": "Cadre d’exemple : cadre vertical seul (signalé exprès)"
+            },
+            "caption": {
+              "en": "Placeholder caption: a lone vertical in an image-full, reported by the layout check.",
+              "fr": "Légende provisoire : une verticale seule en image-full, signalée par la vérification."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "columns",
+      "title": {
+        "en": "Widths in columns",
+        "fr": "Largeurs en colonnes"
+      },
+      "blocks": [
+        {
+          "type": "chapter-intro",
+          "span": 6,
+          "text": {
+            "en": "Placeholder text. This chapter sets widths with span. Intro at 6 columns.",
+            "fr": "Texte provisoire. Ce chapitre fixe les largeurs avec span. Introduction sur 6 colonnes."
+          }
+        },
+        {
+          "type": "image-pair",
+          "images": [
+            {
+              "src": "example-columns-detail-tag",
+              "alt": {
+                "en": "Example frame: supporting frame, 4 columns",
+                "fr": "Cadre d’exemple : cadre d’appui, 4 colonnes"
+              },
+              "span": 4,
+              "caption": {
+                "en": "Placeholder caption: span 4.",
+                "fr": "Légende provisoire : span 4."
+              }
+            },
+            {
+              "src": "example-columns-photo-bag-in-box",
+              "alt": {
+                "en": "Example frame: photograph, 8 columns",
+                "fr": "Cadre d’exemple : photographie, 8 colonnes"
+              },
+              "span": 8,
+              "caption": {
+                "en": "Placeholder caption: span 8.",
+                "fr": "Légende provisoire : span 8."
+              }
+            }
+          ]
+        },
+        {
+          "type": "text-image",
+          "side": "right",
+          "span": 4,
+          "text": {
+            "en": "Placeholder text. Text column span 4 beside an image span 8.",
+            "fr": "Texte provisoire. Colonne de texte span 4 à côté d’une image span 8."
+          },
+          "image": {
+            "src": "example-columns-photo-dust-bag",
+            "alt": {
+              "en": "Example frame: photograph, 8 columns beside text",
+              "fr": "Cadre d’exemple : photographie, 8 colonnes à côté du texte"
+            },
+            "span": 8
+          }
+        },
+        {
+          "type": "text-image",
+          "side": "left",
+          "text": {
+            "en": "Placeholder text. A vertical frame at 6 beside a 6-column text.",
+            "fr": "Texte provisoire. Un cadre vertical sur 6 à côté d’un texte sur 6."
+          },
+          "image": {
+            "src": "example-columns-photo-on-heel",
+            "alt": {
+              "en": "Example frame: vertical frame beside text",
+              "fr": "Cadre d’exemple : cadre vertical à côté du texte"
+            }
+          }
+        },
+        {
+          "type": "sequence",
+          "images": [
+            {
+              "src": "example-columns-detail-charm-dark",
+              "alt": {
+                "en": "Example frame: dark detail one",
+                "fr": "Cadre d’exemple : détail sombre un"
+              },
+              "span": 3
+            },
+            {
+              "src": "example-columns-detail-seal-dark",
+              "alt": {
+                "en": "Example frame: dark detail two",
+                "fr": "Cadre d’exemple : détail sombre deux"
+              },
+              "span": 3
+            },
+            {
+              "src": "example-columns-detail-tag-dark",
+              "alt": {
+                "en": "Example frame: dark detail three",
+                "fr": "Cadre d’exemple : détail sombre trois"
+              },
+              "span": 3
+            },
+            {
+              "src": "example-columns-detail-patch-dark",
+              "alt": {
+                "en": "Example frame: dark detail four",
+                "fr": "Cadre d’exemple : détail sombre quatre"
+              },
+              "span": 3
+            }
+          ],
+          "caption": {
+            "en": "Placeholder text. Four supporting frames, span 3 each.",
+            "fr": "Texte provisoire. Quatre cadres d’appui, span 3 chacun."
+          }
+        },
+        {
+          "type": "image-full",
+          "image": {
+            "src": "example-columns-photo-forest-folded",
+            "alt": {
+              "en": "Example frame: horizontal photograph under 1600px, 8 columns",
+              "fr": "Cadre d’exemple : photographie horizontale de moins de 1600 px, 8 colonnes"
+            },
+            "span": 8,
+            "caption": {
+              "en": "Placeholder caption: span 8, frame under 1600px.",
+              "fr": "Légende provisoire : span 8, cadre de moins de 1600 px."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "outcome",
+      "title": {
+        "en": "Outcome",
+        "fr": "Résultat"
+      },
+      "blocks": [
+        {
+          "type": "outcome-montage",
+          "images": [
+            {
+              "src": "example-outcome-photo-basalt-vertical",
+              "alt": {
+                "en": "Example frame: montage one",
+                "fr": "Cadre d’exemple : montage un"
+              }
+            },
+            {
+              "src": "example-outcome-photo-proportions",
+              "alt": {
+                "en": "Example frame: montage two",
+                "fr": "Cadre d’exemple : montage deux"
+              }
+            },
+            {
+              "src": "example-outcome-photo-stacked-boxes",
+              "alt": {
+                "en": "Example frame: montage three",
+                "fr": "Cadre d’exemple : montage trois"
+              }
+            }
+          ],
+          "text": {
+            "en": "Placeholder text. Three frames, 4 + 4 + 4.",
+            "fr": "Texte provisoire. Trois cadres, 4 + 4 + 4."
+          }
+        }
+      ]
+    }
+  ]
+}

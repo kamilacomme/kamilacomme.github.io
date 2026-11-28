@@ -1,0 +1,328 @@
+{
+  "schemaVersion": 1,
+  "quality": 80,
+  "images": {
+    "example-campaign-detail-charm": {
+      "width": 1145,
+      "height": 1374,
+      "widths": [
+        640,
+        1024,
+        1145
+      ]
+    },
+    "example-campaign-detail-patch": {
+      "width": 1536,
+      "height": 1024,
+      "widths": [
+        640,
+        1024,
+        1536
+      ]
+    },
+    "example-campaign-detail-seal": {
+      "width": 895,
+      "height": 1200,
+      "widths": [
+        640,
+        895
+      ]
+    },
+    "example-campaign-detail-tag": {
+      "width": 895,
+      "height": 1200,
+      "widths": [
+        640,
+        895
+      ]
+    },
+    "example-campaign-photo-basalt": {
+      "width": 2400,
+      "height": 1792,
+      "widths": [
+        640,
+        1024,
+        1600,
+        2400
+      ]
+    },
+    "example-campaign-photo-roots": {
+      "width": 1792,
+      "height": 2400,
+      "widths": [
+        640,
+        1024,
+        1600,
+        1792
+      ]
+    },
+    "example-columns-detail-charm-dark": {
+      "width": 864,
+      "height": 1232,
+      "widths": [
+        640,
+        864
+      ]
+    },
+    "example-columns-detail-patch-dark": {
+      "width": 1536,
+      "height": 1024,
+      "widths": [
+        640,
+        1024,
+        1536
+      ]
+    },
+    "example-columns-detail-seal-dark": {
+      "width": 1200,
+      "height": 896,
+      "widths": [
+        640,
+        1024,
+        1200
+      ]
+    },
+    "example-columns-detail-tag": {
+      "width": 896,
+      "height": 1200,
+      "widths": [
+        640,
+        896
+      ]
+    },
+    "example-columns-detail-tag-dark": {
+      "width": 1200,
+      "height": 896,
+      "widths": [
+        640,
+        1024,
+        1200
+      ]
+    },
+    "example-columns-photo-bag-in-box": {
+      "width": 2400,
+      "height": 1792,
+      "widths": [
+        640,
+        1024,
+        1600,
+        2400
+      ]
+    },
+    "example-columns-photo-dust-bag": {
+      "width": 1450,
+      "height": 1085,
+      "widths": [
+        640,
+        1024,
+        1450
+      ]
+    },
+    "example-columns-photo-forest-folded": {
+      "width": 1535,
+      "height": 1024,
+      "widths": [
+        640,
+        1024,
+        1535
+      ]
+    },
+    "example-columns-photo-on-heel": {
+      "width": 1122,
+      "height": 1402,
+      "widths": [
+        640,
+        1024
+      ]
+    },
+    "example-designing-with-ai-error-moss": {
+      "width": 1535,
+      "height": 1024,
+      "widths": [
+        640,
+        1024,
+        1535
+      ]
+    },
+    "example-designing-with-ai-result-moss": {
+      "width": 1535,
+      "height": 1024,
+      "widths": [
+        640,
+        1024,
+        1535
+      ]
+    },
+    "example-identity-logo-construction": {
+      "format": "svg"
+    },
+    "example-identity-logo-horizontal": {
+      "format": "svg"
+    },
+    "example-identity-logo-symbol": {
+      "format": "svg"
+    },
+    "example-identity-logo-vertical": {
+      "format": "svg"
+    },
+    "example-multiple-forms-photo-backpack": {
+      "width": 1083,
+      "height": 1452,
+      "widths": [
+        640,
+        1024
+      ]
+    },
+    "example-multiple-forms-photo-shoulder": {
+      "width": 1087,
+      "height": 1446,
+      "widths": [
+        640,
+        1024
+      ]
+    },
+    "example-multiple-forms-photo-standing": {
+      "width": 1178,
+      "height": 1556,
+      "widths": [
+        640,
+        1024,
+        1178
+      ]
+    },
+    "example-multiple-forms-sketch-backpack": {
+      "width": 1591,
+      "height": 989,
+      "widths": [
+        640,
+        1024,
+        1591
+      ]
+    },
+    "example-multiple-forms-sketch-basic": {
+      "width": 1591,
+      "height": 989,
+      "widths": [
+        640,
+        1024,
+        1591
+      ]
+    },
+    "example-multiple-forms-sketch-folded": {
+      "width": 1591,
+      "height": 989,
+      "widths": [
+        640,
+        1024,
+        1591
+      ]
+    },
+    "example-multiple-forms-sketch-step-one": {
+      "width": 653,
+      "height": 816,
+      "widths": [
+        640
+      ]
+    },
+    "example-multiple-forms-sketch-step-three": {
+      "width": 652,
+      "height": 816,
+      "widths": [
+        640
+      ]
+    },
+    "example-multiple-forms-sketch-step-two": {
+      "width": 652,
+      "height": 816,
+      "widths": [
+        640
+      ]
+    },
+    "example-nature-to-form-image-final-vines": {
+      "width": 1210,
+      "height": 864,
+      "widths": [
+        640,
+        1024,
+        1210
+      ]
+    },
+    "example-nature-to-form-image-vines": {
+      "width": 768,
+      "height": 1152,
+      "widths": [
+        640,
+        768
+      ]
+    },
+    "example-nature-to-form-image-vines-bag": {
+      "width": 842,
+      "height": 1264,
+      "widths": [
+        640,
+        842
+      ]
+    },
+    "example-nature-to-form-sketch-configs": {
+      "width": 1591,
+      "height": 989,
+      "widths": [
+        640,
+        1024,
+        1591
+      ]
+    },
+    "example-nature-to-form-sketch-vines": {
+      "width": 1591,
+      "height": 989,
+      "widths": [
+        640,
+        1024,
+        1591
+      ]
+    },
+    "example-outcome-photo-basalt-vertical": {
+      "width": 1858,
+      "height": 2350,
+      "widths": [
+        640,
+        1024,
+        1600,
+        1858
+      ]
+    },
+    "example-outcome-photo-proportions": {
+      "width": 1122,
+      "height": 1402,
+      "widths": [
+        640,
+        1024
+      ]
+    },
+    "example-outcome-photo-stacked-boxes": {
+      "width": 896,
+      "height": 1200,
+      "widths": [
+        640,
+        896
+      ]
+    },
+    "example-reveal-photo-face-horizontal": {
+      "width": 1200,
+      "height": 896,
+      "widths": [
+        640,
+        1024,
+        1200
+      ]
+    },
+    "example-reveal-photo-face-vertical": {
+      "width": 1122,
+      "height": 1402,
+      "widths": [
+        640,
+        1024
+      ]
+    }
+  }
+}

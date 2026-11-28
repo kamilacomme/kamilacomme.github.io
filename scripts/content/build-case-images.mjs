@@ -3,7 +3,7 @@
 // frame is listed in content/cases/<id>.sources.json.
 //
 // Usage: npm run case:images -- <case-id> [--source=<folder>] [--check]
-//   --source  folder with the original frames (default ~/Downloads/Jane for jane)
+//   --source  folder with the original frames (default: "sourceFolder" in <id>.sources.json, else ~/Downloads/Jane for jane)
 //   --check   list what would be written and the expected total, write nothing
 //
 // Output: assets/cases/<id>/<name>-<width>.webp for each width in IMAGE_WIDTHS
@@ -27,8 +27,12 @@ if (!id) { console.error('Usage: npm run case:images -- <case-id> [--source=<fol
 const data = JSON.parse(await readFile(path.join(root, 'content/cases', `${id}.json`), 'utf8'));
 const structural = validateCaseFormat(data, { id });
 if (structural.length) throw new Error(`Case file is invalid:\n- ${structural.join('\n- ')}`);
-const sources = JSON.parse(await readFile(path.join(root, 'content/cases', `${id}.sources.json`), 'utf8')).images;
-const sourceRoot = sourceArg ? path.resolve(sourceArg.slice('--source='.length).replace(/^~/, os.homedir()))
+const sourcesFile = JSON.parse(await readFile(path.join(root, 'content/cases', `${id}.sources.json`), 'utf8'));
+const sources = sourcesFile.images;
+// Source folder: --source, else "sourceFolder" of the sources file (e.g. the example page reads the Jane frames), else ~/Downloads/<id>.
+const home = folder => path.resolve(folder.replace(/^~/, os.homedir()));
+const sourceRoot = sourceArg ? home(sourceArg.slice('--source='.length))
+  : sourcesFile.sourceFolder ? home(sourcesFile.sourceFolder)
   : path.join(os.homedir(), 'Downloads', id === 'jane' ? 'Jane' : id);
 
 const formats = new Map(imageNames(data).map(([name, , format]) => [name, format]));

@@ -15,6 +15,7 @@
     "test:performance:compare": "node tests/performance/compare.mjs",
     "content:check": "node scripts/content/validate-project-data.mjs",
     "case:publish-check": "node scripts/content/case-publish-check.mjs",
+    "case:layout-check": "node scripts/content/case-layout-check.mjs",
     "case:images": "node scripts/content/build-case-images.mjs",
     "test:case-format": "node --test tests/content/case-format.test.mjs",
     "build:content:preview": "node scripts/content/build.mjs",

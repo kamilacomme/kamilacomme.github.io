@@ -19,25 +19,32 @@ const HEX = /^#[0-9a-f]{6}$/i;
 
 // Block types and their fields. L = localized text {en, fr}; I = image; I[] = images.
 // `min`/`max` bound array lengths. Optional fields end with "?".
+// `span` on a block is the width of its text column in columns of the 12-column grid (TEXT_SPANS);
+// `span` on an image is the width of that frame (SPANS). Defaults and rules: scripts/content/case-layout.mjs.
 export const BLOCK_TYPES = {
   'hero-reveal': { title: 'L', subtitle: 'L?', subtitleLong: 'L?', subtitleShort: 'L?', image: 'I', facts: 'facts?' },
-  'chapter-intro': { text: 'L' },
+  'chapter-intro': { text: 'L', span: 'span?' },
   'image-full': { image: 'I' },
   'image-pair': { images: { kind: 'I[]', min: 2, max: 2 } },
   'image-row-3': { images: { kind: 'I[]', min: 3, max: 3 } },
-  'text-image': { text: 'L', image: 'I', side: 'side' },
-  'logo-showcase': { images: { kind: 'I[]', min: 1 }, text: 'L?' },
-  'palette-swatches': { swatches: 'swatches', text: 'L?' },
+  'text-image': { text: 'L', image: 'I', side: 'side', span: 'span?' },
+  'logo-showcase': { images: { kind: 'I[]', min: 1 }, text: 'L?', span: 'span?' },
+  'palette-swatches': { swatches: 'swatches', text: 'L?', span: 'span?' },
   'annotated-image': { image: 'I', notes: 'notes' },
   'ai-episode': { title: 'L', problem: 'L', before: { kind: 'I[]', min: 1 }, method: 'L', prompt: 'L?', refs: 'I[]?', after: { kind: 'I[]', min: 1 } },
-  'sequence': { images: { kind: 'I[]', min: 2 }, caption: 'L?' },
+  'sequence': { images: { kind: 'I[]', min: 2 }, caption: 'L?', span: 'span?' },
   'detail-grid': { items: 'details' },
   'principles-list': { items: 'principles' },
-  'outcome-montage': { images: { kind: 'I[]', min: 3 }, text: 'L?' },
+  'outcome-montage': { images: { kind: 'I[]', min: 3 }, text: 'L?', span: 'span?' },
   'chapter-menu': {},
 };
 
-const IMAGE_FIELDS = new Set(['src', 'format', 'ratio', 'alt', 'caption', 'crop', 'art', 'focus', 'focusMobile', 'placeholder']);
+const IMAGE_FIELDS = new Set(['src', 'format', 'ratio', 'alt', 'caption', 'crop', 'art', 'focus', 'focusMobile', 'placeholder', 'span']);
+// Widths in columns of the 12-column grid; "bleed" (full-bleed) only for the frame of an image-full.
+export const TEXT_SPANS = [3, 4, 6, 8, 12];
+export const SPANS = [...TEXT_SPANS, 'bleed'];
+// hero-reveal and ai-episode keep their own layout: their images take no span.
+const NO_SPAN_BLOCKS = new Set(['hero-reveal', 'ai-episode']);
 export const IMAGE_FORMATS = ['webp', 'svg'];
 const RATIO = /^[1-9]\d*:[1-9]\d*$/;
 
@@ -73,6 +80,11 @@ function checkImage(image, where, report, ctx) {
     const prefix = ctx.anyChapter ? `${ctx.caseId}-` : `${ctx.caseId}-${ctx.chapterId}-`;
     if (typeof name !== 'string' || !KEBAB.test(name)) report.add(where, `image name "${name}" must be latin kebab-case without extension`);
     else if (!name.startsWith(prefix) || name.slice(prefix.length).split('-').length < (ctx.anyChapter ? 3 : 2)) report.add(where, `image name "${name}" must be ${ctx.anyChapter ? `${prefix}<chapter>-` : prefix}<role>-<description>`);
+  }
+  if (image.span !== undefined) {
+    if (NO_SPAN_BLOCKS.has(ctx.blockType)) report.add(`${where}.span`, `${ctx.blockType} keeps its own layout: its images take no span`);
+    else if (!SPANS.includes(image.span)) report.add(`${where}.span`, `must be one of ${TEXT_SPANS.join(', ')} (columns of 12) or "bleed"`);
+    else if (image.span === 'bleed' && ctx.blockType !== 'image-full') report.add(`${where}.span`, '"bleed" (full-bleed) is only for the frame of an image-full');
   }
   if (image.format !== undefined && !IMAGE_FORMATS.includes(image.format)) report.add(`${where}.format`, `must be one of ${IMAGE_FORMATS.join(', ')} (default webp)`);
   if (image.format === 'svg' && image.art) report.add(where, 'an SVG has no art-direction pair');
@@ -114,6 +126,7 @@ function checkField(kind, value, where, report, ctx) {
       if (spec.max !== undefined && value.length > spec.max) report.add(where, `allows at most ${spec.max} image(s)`);
       return value.forEach((image, i) => checkImage(image, `${where}[${i}]`, report, ctx));
     }
+    case 'span': if (!TEXT_SPANS.includes(value)) report.add(where, `text column width must be one of ${TEXT_SPANS.join(', ')} (columns of 12)`); return;
     case 'side': if (!['left', 'right'].includes(value)) report.add(where, 'must be "left" or "right"'); return;
     case 'facts': case 'principles': case 'notes': case 'swatches': case 'details': {
       if (!Array.isArray(value) || !value.length) return report.add(where, 'must be a non-empty list');
@@ -177,7 +190,7 @@ export function validateCaseFormat(data, { id } = {}) {
         const optional = typeof rawKind === 'string' && rawKind.endsWith('?');
         const kind = optional ? rawKind.slice(0, -1) : rawKind;
         if (block[field] === undefined) { if (!optional) report.add(where, `"${field}" is required for ${block.type}`); continue; }
-        checkField(kind, block[field], `${where}.${field}`, report, { caseId: data.id, chapterId: chapter.id, anyChapter: block.type === 'outcome-montage' });
+        checkField(kind, block[field], `${where}.${field}`, report, { caseId: data.id, chapterId: chapter.id, anyChapter: block.type === 'outcome-montage', blockType: block.type });
       }
     });
   });

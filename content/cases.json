@@ -23,6 +23,13 @@
       "file": "cases/jane.json",
       "status": "draft",
       "robots": "noindex, nofollow"
+    },
+    {
+      "id": "example",
+      "purpose": "Example page with every case block on real frames, for block prototypes. Draft: not linked from the site, not in the project list, noindex.",
+      "file": "cases/example.json",
+      "status": "draft",
+      "robots": "noindex, nofollow"
     }
   ]
 }

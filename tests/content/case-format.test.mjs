@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { BLOCK_TYPES, validateCaseFormat, validateCaseIndexRecord, validateCasePublication } from '../../scripts/content/validate-case-data.mjs';
 import { checkCases } from '../../scripts/content/case-data.mjs';
+import { layoutIssues, roleOf, MOBILE_SPANS } from '../../scripts/content/case-layout.mjs';
 
 const read = async file => JSON.parse(await readFile(new URL(file, import.meta.url), 'utf8'));
 const example = await read('./fixtures/case-example.json');
@@ -92,7 +93,9 @@ test('index: a draft must stay noindex; content:check passes with Jane as a draf
   assert.ok(validateCaseIndexRecord({ id: 'jane', file: 'cases/jane.json', status: 'draft', robots: 'index, follow' }).some(e => e.includes('noindex')));
   const { errors, summary } = await checkCases();
   assert.deepEqual(errors, []);
-  assert.equal(summary.draft, 1);
+  // Two drafts: Jane and the example page (content/cases/example.json).
+  assert.equal(summary.draft, 2);
+  assert.equal(summary.publish, 0);
 });
 
 test('focus points, pending crops and montage repeats', () => {
@@ -138,4 +141,117 @@ test('chapter-menu closes its chapter and has chapters after it', () => {
   last.chapters.at(-1).blocks.push({ type: 'chapter-menu' });
   last.chapters[0].blocks.pop();
   assert.ok(validateCaseFormat(last).some(e => e.includes('chapter-menu needs chapters after it')));
+});
+
+// Widths in columns (span) and the layout report (scripts/content/case-layout.mjs).
+const index = await read('../../content/cases.json');
+const examplePage = await read('../../content/cases/example.json');
+const exampleManifest = (await read('../../assets/cases/example/images.json')).images;
+
+test('the example page uses all 15 blocks on real frames and stays a noindex draft', () => {
+  const used = new Set(examplePage.chapters.flatMap(chapter => chapter.blocks.map(block => block.type)));
+  assert.deepEqual([...used].sort(), Object.keys(BLOCK_TYPES).sort());
+  assert.deepEqual(validateCaseFormat(examplePage, { id: 'example' }), []);
+  const record = index.cases.find(c => c.id === 'example');
+  assert.equal(record.status, 'draft');
+  assert.match(record.robots, /noindex/);
+  assert.ok(!JSON.stringify(examplePage).includes('"placeholder":true'), 'no grey skeletons on the example page');
+});
+
+test('span: columns of 12 on frames and text columns, "bleed" only for image-full', () => {
+  const c = clone(example);
+  const nature = c.chapters.find(ch => ch.id === 'nature-to-form');
+  nature.blocks[0].image.span = 'bleed';
+  nature.blocks[1].images[0].span = 4;
+  nature.blocks[1].images[1].span = 8;
+  nature.blocks[2].span = 4;
+  nature.blocks[2].image.span = 8;
+  c.chapters.find(ch => ch.id === 'identity').blocks[0].span = 6;
+  assert.deepEqual(validateCaseFormat(c), []);
+  const bad = clone(example);
+  const badNature = bad.chapters.find(ch => ch.id === 'nature-to-form');
+  badNature.blocks[1].images[0].span = 5;
+  badNature.blocks[1].images[1].span = 'bleed';
+  badNature.blocks[2].span = 'bleed';
+  bad.chapters[0].blocks[0].image.span = 6;
+  bad.chapters.find(ch => ch.id === 'designing-with-ai').blocks[0].after[0].span = 6;
+  bad.chapters.find(ch => ch.id === 'campaign').blocks[0].span = 6;
+  const errors = validateCaseFormat(bad);
+  assert.ok(errors.some(e => e.includes('images[0].span: must be one of 3, 4, 6, 8, 12')), errors.join('\n'));
+  assert.ok(errors.some(e => e.includes('images[1].span: "bleed" (full-bleed) is only for the frame of an image-full')), errors.join('\n'));
+  assert.ok(errors.some(e => e.includes('.span: text column width must be one of')), errors.join('\n'));
+  assert.ok(errors.some(e => e.includes('hero-reveal keeps its own layout')), errors.join('\n'));
+  assert.ok(errors.some(e => e.includes('ai-episode keeps its own layout')), errors.join('\n'));
+  assert.ok(errors.some(e => e.includes('unknown field "span" for detail-grid')), errors.join('\n'));
+  assert.deepEqual(MOBILE_SPANS, { 3: 2, 4: 2, 6: 4, 8: 4, 12: 4, bleed: 'bleed' });
+});
+
+// A tiny case for the layout rules: one chapter "c", frames sized by a manifest.
+const W = { wide: [2400, 1600], small: [1200, 800], tall: [800, 1200] };
+const layoutCase = blocks => ({ id: 'x', chapters: [{ id: 'c', blocks }] });
+const frame = (role, size = 'wide', extra = {}) => ({ src: `x-c-${role}-${size}-${Math.random().toString(36).slice(2, 7)}`, alt: { en: '', fr: '' }, ...extra });
+const manifestOf = data => Object.fromEntries((JSON.stringify(data).match(/x-c-[a-z]+-[a-z]+-[a-z0-9]+/g) ?? []).map(n => [n, { width: W[n.split('-')[3]][0], height: W[n.split('-')[3]][1] }]));
+const rulesOf = blocks => { const d = layoutCase(blocks); return layoutIssues(d, manifestOf(d)).map(i => i.rule); };
+
+test('layout: role comes from the image name', () => {
+  assert.equal(roleOf('jane-nature-to-form-sketch-vines', 'jane', ['nature-to-form', 'nature']), 'sketch');
+  assert.equal(roleOf('jane-campaign-photo-basalt', 'jane', ['campaign']), 'photo');
+  assert.equal(roleOf('other-campaign-photo-basalt', 'jane', ['campaign']), null);
+});
+
+test('layout rule aux-too-wide: a supporting frame above 6 columns or full-bleed', () => {
+  assert.deepEqual(rulesOf([{ type: 'image-pair', images: [frame('sketch'), frame('photo')] }]), []);
+  assert.ok(rulesOf([{ type: 'image-full', image: frame('sketch') }]).includes('aux-too-wide'), 'default 12 for a sketch');
+  assert.ok(rulesOf([{ type: 'image-full', image: frame('detail', 'wide', { span: 'bleed' }) }]).includes('aux-too-wide'));
+  assert.ok(rulesOf([{ type: 'image-pair', images: [frame('macro', 'wide', { span: 8 }), frame('photo', 'wide', { span: 4 })] }]).includes('aux-too-wide'));
+});
+
+test('layout rule bleed-small: full-bleed under 1600px', () => {
+  assert.deepEqual(rulesOf([{ type: 'image-full', image: frame('photo', 'wide') }]), [], 'default bleed at 2400px');
+  assert.deepEqual(rulesOf([{ type: 'image-full', image: frame('photo', 'small') }]), [], 'default 12 under 1600px');
+  assert.ok(rulesOf([{ type: 'image-full', image: frame('photo', 'small', { span: 'bleed' }) }]).includes('bleed-small'));
+});
+
+test('layout rule bleed-count: at most four full-bleed frames', () => {
+  const bleeds = n => Array.from({ length: n }, () => ({ type: 'image-full', image: frame('photo', 'wide') }));
+  assert.ok(!rulesOf(bleeds(4)).includes('bleed-count'));
+  assert.deepEqual(rulesOf(bleeds(5)), ['bleed-count']);
+});
+
+test('layout rule row-sum: widths of a row add up to 12', () => {
+  assert.deepEqual(rulesOf([{ type: 'image-pair', images: [frame('photo', 'wide', { span: 4 }), frame('photo', 'wide', { span: 8 })] }]), []);
+  assert.ok(rulesOf([{ type: 'image-pair', images: [frame('photo', 'wide', { span: 4 }), frame('photo')] }]).includes('row-sum'));
+  assert.ok(rulesOf([{ type: 'text-image', side: 'left', text: { en: '', fr: '' }, span: 4, image: frame('photo') }]).includes('row-sum'));
+  assert.ok(rulesOf([{ type: 'sequence', images: [frame('detail'), frame('detail'), frame('detail'), frame('detail'), frame('detail')] }]).includes('row-sum'), 'rows of 3: the last row is 4 + 4');
+});
+
+test('layout rule row-too-many and row-four-not-aux', () => {
+  const four = role => ({ type: 'sequence', images: [frame(role), frame(role), frame(role), frame(role)] });
+  assert.deepEqual(rulesOf([four('detail')]), []);
+  assert.deepEqual(rulesOf([four('photo')]), ['row-four-not-aux']);
+  // Five frames never share a row: the scheme makes rows of 3; an image-row-3 forced to five is reported.
+  const five = layoutCase([{ type: 'image-row-3', images: [frame('detail'), frame('detail'), frame('detail'), frame('detail'), frame('detail')] }]);
+  assert.ok(layoutIssues(five, manifestOf(five)).some(i => i.rule === 'row-too-many'));
+});
+
+test('layout rule vertical-alone: a lone vertical in the centre', () => {
+  assert.deepEqual(rulesOf([{ type: 'image-full', image: frame('photo', 'tall') }]), ['vertical-alone']);
+  assert.deepEqual(rulesOf([{ type: 'image-pair', images: [frame('photo', 'tall'), frame('photo', 'tall')] }]), []);
+  assert.deepEqual(rulesOf([{ type: 'text-image', side: 'left', text: { en: '', fr: '' }, image: frame('photo', 'tall') }]), []);
+});
+
+test('layout rule text-too-wide: body text up to 6, chapter intro up to 8', () => {
+  assert.deepEqual(rulesOf([{ type: 'chapter-intro', text: { en: '', fr: '' } }]), []);
+  assert.deepEqual(rulesOf([{ type: 'chapter-intro', span: 12, text: { en: '', fr: '' } }]), ['text-too-wide']);
+  assert.ok(rulesOf([{ type: 'text-image', side: 'left', text: { en: '', fr: '' }, span: 8, image: frame('photo', 'wide', { span: 4 }) }]).includes('text-too-wide'));
+  assert.deepEqual(rulesOf([{ type: 'palette-swatches', swatches: [], text: { en: '', fr: '' }, span: 8 }]), ['text-too-wide']);
+});
+
+test('layout rule annotated-image: the block is deprecated', () => {
+  assert.deepEqual(rulesOf([{ type: 'annotated-image', image: frame('photo'), notes: [] }]), ['annotated-image']);
+});
+
+test('layout report on the example page: only the issues kept on purpose', () => {
+  const rules = layoutIssues(examplePage, exampleManifest).map(i => `${i.chapter}:${i.rule}`).sort();
+  assert.deepEqual(rules, ['campaign:vertical-alone', 'identity:annotated-image', 'nature-to-form:annotated-image', 'nature-to-form:aux-too-wide']);
 });

@@ -1,5 +1,5 @@
-// Geometry QA for all case blocks (hero-reveal … outcome-montage) on /cases/jane/ and /en/cases/jane/.
-// Usage: start `npm run test:serve`, then `node tests/case/blocks-check.cjs [report.json]`.
+// Geometry QA for all case blocks (hero-reveal … outcome-montage) on /cases/<id>/ and /en/cases/<id>/ (default jane).
+// Usage: start `npm run test:serve`, then `[CASE_ID=example] node tests/case/blocks-check.cjs [report.json]`.
 // Uses CHROME_PATH (default: macOS Google Chrome) and BASE_URL (default http://127.0.0.1:8000).
 //
 // Checks per width (320–1920, both languages): no horizontal overflow; hero between the Navbar and the
@@ -10,6 +10,7 @@
 const { chromium } = require('playwright');
 const fs = require('fs');
 const BASE = process.env.BASE_URL || 'http://127.0.0.1:8000';
+const CASE_ID = process.env.CASE_ID || 'jane';
 const settle = p => p.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
 const SIZES = [[320, 640], [360, 740], [393, 852], [500, 900], [768, 1024], [1024, 768], [1440, 900], [1920, 1080]];
 
@@ -92,7 +93,7 @@ const probe = () => {
     await settle(page);
   };
   for (const lang of ['fr', 'en']) {
-    const url = `${BASE}${lang === 'fr' ? '' : '/en'}/cases/jane/`;
+    const url = `${BASE}${lang === 'fr' ? '' : '/en'}/cases/${CASE_ID}/`;
     for (const [w, h] of SIZES) {
       const where = `${lang} ${w}x${h}`;
       const ctx = await b.newContext({ viewport: { width: w, height: h } }); const p = await ctx.newPage();
@@ -186,7 +187,7 @@ const probe = () => {
   const maxUp = Math.max(1, ...Object.values(soft));
   const summary = { viewports: SIZES.length * 2, containerTests: 2, failures, sourceLimitedFrames: soft, maxRenderedOverNatural: maxUp };
   if (process.argv[2]) fs.writeFileSync(process.argv[2], JSON.stringify({ summary, rows }, null, 2) + '\n');
-  console.log(`case blocks: ${summary.viewports} viewports + ${summary.containerTests} container tests (FR+EN), ${failures.length} failure(s); ${Object.keys(soft).length} frame(s) drawn wider than their source file at 1x density, at most ${maxUp}× (soft on a wide screen, listed in the report)`);
+  console.log(`case blocks (${CASE_ID}): ${summary.viewports} viewports + ${summary.containerTests} container tests (FR+EN), ${failures.length} failure(s); ${Object.keys(soft).length} frame(s) drawn wider than their source file at 1x density, at most ${maxUp}× (soft on a wide screen, listed in the report)`);
   failures.forEach(f => console.log('FAIL', f));
   process.exit(failures.length ? 1 : 0);
 })();

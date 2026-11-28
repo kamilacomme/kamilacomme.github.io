@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-27T21:29:58.000Z",
+  "generatedAt": "2026-11-28T02:36:40.000Z",
   "title": "Design System: Kamila Comme — Portfolio",
   "extensions": {
     "colorMeta": {
@@ -376,7 +376,7 @@
       },
       {
         "name": "The Unused Font Note",
-        "body": "The page head also requests Epilogue 500 from Google Fonts (`templates/page.html`, `templates/case.html`), but no stylesheet or page uses it. It is not part of the system; do not use it, and removing the request is a separate decision because it changes the shared head of every page.",
+        "body": "Epilogue was removed from the page head on 2026-11-28 by Kamila's decision; the system has no third family.",
         "section": "typography"
       },
       {

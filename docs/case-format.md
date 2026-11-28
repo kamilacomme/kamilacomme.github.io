@@ -86,6 +86,7 @@ The case page uses the site grid: desktop and tablet 12 columns, margins 32, gut
 
 - **`span` on an image**: `3`, `4`, `6`, `8`, `12`, or `"bleed"` (full-bleed, only for the frame of an `image-full`). Not allowed in `hero-reveal` and `ai-episode`, which keep their own layout.
 - **`span` on a block**: the width of its text column, `3`, `4`, `6`, `8` or `12`: `chapter-intro`, `text-image` (the text beside the image), and the text of `logo-showcase`, `palette-swatches`, `sequence`, `outcome-montage`.
+- **Rows with spans.** In `sequence`, `detail-grid` and `outcome-montage` the frames with a `span` are packed in order into rows of 12 columns (for example eight frames of `span: 6` make four pairs). When every frame has a `span` and there is more than one row, each row has its own size and its own 1.15× limit, so a row of verticals stays vertical next to a row of horizontals; a single row keeps the block-level scheme. Frames of unequal widths in the same row share one height only in a single-row block: use an `image-pair` (`4 + 8`) or an `image-row-3` (`3 + 3 + 6`) for them.
 - **Status:** the blocks place frames and text on the 12-column grid from `span` (task 02-A); `styles/case-blocks.css` ("Column grid") owns the geometry and the defaults, `scripts/content/case-layout.mjs` states the same defaults for `case:layout-check`. `"bleed"` is the grid's full width (all 12 columns, page margins kept) today; edge-to-edge past the margins is not decided.
 
 Defaults without `span` (what the blocks do today, `DEFAULT_SPANS` in `scripts/content/case-layout.mjs`):
@@ -94,7 +95,7 @@ Defaults without `span` (what the blocks do today, `DEFAULT_SPANS` in `scripts/c
 | --- | --- |
 | `image-full` | `6` at the left line for a supporting frame (role `sketch`, `scheme`, `error`, `detail`, `macro`; Kamila 2026-11-28); otherwise `6`, centred, for a vertical frame; `12` for a frame whose source is under 1600px; `"bleed"` for a photograph of 1600px or more |
 | `image-pair` | 6 + 6 |
-| `image-row-3` | 4 + 4 + 4 |
+| `image-row-3` | 4 + 4 + 4 (an authored row keeps one height: the frames are cropped to the first authored one) |
 | `text-image` | text 6 + image 6 |
 | `chapter-intro` | text 8 |
 | `sequence`, `detail-grid`, `outcome-montage`, `logo-showcase` | up to 4 frames in one row; 5–6 frames make rows of 3, 7 and more rows of 4; each frame 12 / frames per row |

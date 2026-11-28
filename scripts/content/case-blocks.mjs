@@ -114,9 +114,9 @@ export function createBlockRenderer({ caseId, chapterIds = [], locale, manifest 
   }
 
   /** A figure for one image of a row or pair; art-directed images carry both frames. */
-  function figure(image, sizes, extra = '', { cap = true } = {}) {
+  function figure(image, sizes, extra = '', { cap = true, style: more = '' } = {}) {
     // Inside a row the container carries the shared cap (--cap); a lone figure carries its own.
-    const style = `${cap ? capStyle(capOf([image])) : ''}${spanVars(image.span)}`;
+    const style = `${cap ? capStyle(capOf([image])) : ''}${spanVars(image.span)}${more}`;
     const open = `<figure class="kc-case-cell"${image.span !== undefined ? ' data-authored' : ''}${style ? ` style="${style}"` : ''}>`;
     if (image.art) {
       const wide = frame(image, image.art.horizontal, { sizes, variant: 'wide' });
@@ -166,6 +166,32 @@ export function createBlockRenderer({ caseId, chapterIds = [], locale, manifest 
       style = `--ref-sp:${colsOf(spans[k])};--ref-r:${d ? (d[0] / d[1]).toFixed(4) : '0.8'};`;
     }
     return { attrs, style, uneq: wide.size > 1 };
+  }
+  /**
+   * A block of several rows whose frames all carry a span (e.g. an outcome-montage of 6 + 6 pairs): the frames are
+   * packed into rows of 12 columns in order, and each row gets its own size (--shared) and its own 1.15x limit (--cap)
+   * on its cells, so a row of verticals stays vertical next to a row of horizontals. Null for a single row or when a
+   * frame has no span (then the block-level scheme applies). Frames of unequal widths in one row of a multi-row
+   * block are not balanced (use an image-pair or an image-row-3 for them).
+   */
+  function rowStyles(images, dimsList) {
+    if (images.length < 2 || images.some(image => image?.span === undefined)) return null;
+    const rows = [[]];
+    let sum = 0;
+    images.forEach((image, k) => {
+      const width = colsOf(image.span);
+      if (rows.at(-1).length && sum + width > 12) { rows.push([]); sum = 0; }
+      rows.at(-1).push(k);
+      sum += width;
+    });
+    if (rows.length < 2) return null;
+    const out = [];
+    for (const row of rows) {
+      const equal = new Set(row.map(k => colsOf(images[k].span))).size === 1;
+      const cap = capStyle(capOf(row.map(k => images[k])));
+      for (const k of row) out[k] = `${equal ? `--shared:${sharedRatio(row.map(j => dimsList[j]))};` : ''}${cap}`;
+    }
+    return out;
   }
   /** Same hint for every frame of a row of n frames without authored spans (see styles/case-blocks.css). */
   const rowSizes = n => `(min-width: 800px) ${pct(1, perRowFor(n))}, (min-width: 500px) ${n === 1 ? '100vw' : '50vw'}, 100vw`;
@@ -303,16 +329,18 @@ export function createBlockRenderer({ caseId, chapterIds = [], locale, manifest 
     'sequence'(block) {
       const probe = block.images.map(image => dimsOf(image, mainName(image)));
       const flags = rowFlags(block.images, probe);
-      const cells = block.images.map(image => figure(image, sizesOf(image, rowSizes(block.images.length)), '', { cap: flags.uneq }));
+      const rows = rowStyles(block.images, probe);
+      const cells = block.images.map((image, i) => figure(image, sizesOf(image, rowSizes(block.images.length)), '', { cap: flags.uneq, style: rows?.[i] ?? '' }));
       return withText(gridRow(block.images, cells.map(c => c.html).join(''), cells.map(c => c.dims)), block.caption, block.span);
     },
 
     'detail-grid'(block) {
       const images = block.items.map(item => item.image);
       const flags = rowFlags(images, images.map(image => dimsOf(image, image.src)));
-      const cells = block.items.map(item => {
+      const rows = rowStyles(images, images.map(image => dimsOf(image, image.src)));
+      const cells = block.items.map((item, i) => {
         const f = frame(item.image, item.image.src, { sizes: sizesOf(item.image, rowSizes(block.items.length)) });
-        const style = `${flags.uneq ? capStyle(capOf([item.image])) : ''}${spanVars(item.image.span)}`;
+        const style = `${flags.uneq ? capStyle(capOf([item.image])) : ''}${spanVars(item.image.span)}${rows?.[i] ?? ''}`;
         return { dims: f.dims, html: `<figure class="kc-case-cell"${item.image.span !== undefined ? ' data-authored' : ''}${style ? ` style="${style}"` : ''}>${f.html}${text(item.text, 'figcaption', 'kc-case-caption', 'kc-case-caption')}</figure>` };
       });
       return gridRow(images, cells.map(c => c.html).join(''), cells.map(c => c.dims));
@@ -326,7 +354,8 @@ export function createBlockRenderer({ caseId, chapterIds = [], locale, manifest 
     'outcome-montage'(block) {
       const probe = block.images.map(image => dimsOf(image, mainName(image)));
       const flags = rowFlags(block.images, probe);
-      const cells = block.images.map(image => figure(image, sizesOf(image, rowSizes(block.images.length)), '', { cap: flags.uneq }));
+      const rows = rowStyles(block.images, probe);
+      const cells = block.images.map((image, i) => figure(image, sizesOf(image, rowSizes(block.images.length)), '', { cap: flags.uneq, style: rows?.[i] ?? '' }));
       return withText(gridRow(block.images, cells.map(c => c.html).join(''), cells.map(c => c.dims)), block.text, block.span);
     },
   };

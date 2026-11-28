@@ -68,6 +68,13 @@ const probe = () => {
   for (const [sel, kind] of [['.kc-case-trio', 'trio'], ['.kc-case-rowgrid', 'rowgrid'], ['.kc-case-logos', 'logos'], ['.kc-case-swatches', 'swatches'], ['.kc-case-principle', 'principle'], ['.kc-case-split', 'split']]) {
     document.querySelectorAll(sel).forEach(el => { const cells = kind === 'principle' || kind === 'split' ? [] : sizes(el); out.grids.push({ kind, n: +el.dataset.n || cells.length, container: blockOf(el), authored: el.hasAttribute('data-authored'), uneq: el.hasAttribute('data-uneq'), cells, perLine: lineCount(cells) }); });
   }
+  // A frame must never be wider than its cell (an explicit height next to a fixed aspect ratio would push it out).
+  out.frameOverflow = [...document.querySelectorAll('.kc-case-cols .kc-case-cell')].filter(vis).flatMap(cell => {
+    const f = [...cell.querySelectorAll('.kc-case-frame')].find(vis);
+    if (!f) return [];
+    const c = cell.getBoundingClientRect().width, w = f.getBoundingClientRect().width;
+    return w > c + 1.5 ? [{ block: cell.closest('.kc-case-block').dataset.kcBlock, cell: Math.round(c), frame: Math.round(w) }] : [];
+  });
   // Every frame and text column placed on the column grid: its box edges against the grid lines.
   out.items = [...document.querySelectorAll('.kc-case-cols > :not(.kc-case-cols)')].filter(vis).map(el => {
     const b = el.getBoundingClientRect();
@@ -163,10 +170,16 @@ const probe = () => {
         }
         if (g.cells.length && g.perLine > 1) {
           if (g.uneq) { const k = g.cells.filter(Boolean); if (k.some(v => Math.abs(v.h - k[0].h) > 1.5)) fail(where, `${g.kind} ${c}px: frames of unequal widths differ in height`); }
-          else sameSize(where, `${g.kind} ${c}px`, g.cells);
+          else if (g.authored) {
+            // Authored spans: rows are packed by the spans, each row has its own size (a row of verticals next to a row of horizontals).
+            const lines = new Map();
+            for (const cell of g.cells.filter(Boolean)) { const key = [...lines.keys()].find(y => Math.abs(y - cell.y) < 2) ?? cell.y; lines.set(key, [...(lines.get(key) ?? []), cell]); }
+            for (const line of lines.values()) sameSize(where, `${g.kind} ${c}px row`, line);
+          } else sameSize(where, `${g.kind} ${c}px`, g.cells);
         }
         if (['logos', 'swatches'].includes(g.kind)) sameSize(where, `${g.kind} ${c}px`, g.cells);
       }
+      for (const o of m.frameOverflow) fail(where, `${o.block}: a frame is ${o.frame}px wide in a ${o.cell}px cell`);
       for (const sp of m.splits) {
         if (sp.container >= 640 ? sp.stacked : !sp.stacked) fail(where, `split in ${sp.container}px is ${sp.stacked ? 'stacked' : 'side by side'}`);
         if (!sp.stacked && (sp.side === 'left') !== sp.imageLeftOfText) fail(where, `split image is on the wrong side (data-side ${sp.side})`);

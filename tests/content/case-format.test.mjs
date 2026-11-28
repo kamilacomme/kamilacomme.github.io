@@ -6,6 +6,7 @@ import { readFile } from 'node:fs/promises';
 import { BLOCK_TYPES, caseWarnings, validateCaseFormat, validateCaseIndexRecord, validateCasePublication } from '../../scripts/content/validate-case-data.mjs';
 import { checkCases } from '../../scripts/content/case-data.mjs';
 import { layoutIssues, roleOf } from '../../scripts/content/case-layout.mjs';
+import { createBlockRenderer } from '../../scripts/content/case-blocks.mjs';
 
 const read = async file => JSON.parse(await readFile(new URL(file, import.meta.url), 'utf8'));
 const example = await read('./fixtures/case-example.json');
@@ -324,4 +325,42 @@ test('the example page shows both pair captions: one for the pair, and two short
   assert.ok(pairs.some(b => b.caption && b.images.every(i => !i.caption)), 'a pair with one shared caption');
   assert.ok(pairs.some(b => !b.caption && b.images.every(i => i.caption && ['en', 'fr'].every(l => i.caption[l].length <= 40))), 'a pair with two short frame captions');
   assert.deepEqual(caseWarnings(examplePage), []);
+});
+
+// Task 04: Jane's chapters on columns; rows of an outcome-montage with spans.
+const janeManifest = (await read('../../assets/cases/jane/images.json')).images;
+
+test('Jane: the five rebuilt chapters and the whole page have no layout issue; every frame and text is still there', () => {
+  assert.deepEqual(layoutIssues(jane, janeManifest), []);
+  const outcome = jane.chapters.find(c => c.id === 'outcome').blocks.find(b => b.type === 'outcome-montage');
+  assert.equal(outcome.images.length, 8);
+  assert.ok(outcome.images.every(image => image.span === 6), 'pairs of 6 + 6');
+  const campaign = jane.chapters.find(c => c.id === 'campaign').blocks.map(b => b.type);
+  assert.deepEqual(campaign, ['chapter-intro', 'image-full', 'image-pair', 'image-pair']);
+  const beyond = jane.chapters.find(c => c.id === 'beyond-the-product').blocks.find(b => b.type === 'image-pair' && b.images[0].span === 4);
+  assert.deepEqual(beyond.images.map(i => i.span), [4, 8]);
+  const nature = jane.chapters.find(c => c.id === 'nature-to-form').blocks.find(b => b.type === 'image-row-3');
+  assert.deepEqual(nature.images.map(i => i.span), [3, 3, 6]);
+  assert.ok(!jane.chapters.some(c => c.blocks.some(b => b.type === 'sequence' && c.id === 'beyond-the-product')), 'the sequence of beyond-the-product is gone');
+});
+
+test('outcome-montage with spans of 6: rows are packed in pairs, each row keeps its own size and its own 1.15x limit', () => {
+  const frames = [['tall', 800, 1200], ['tall', 800, 1200], ['wide', 2400, 1600], ['wide', 2400, 1600]];
+  const manifest = {};
+  const images = frames.map(([kind, width, height], i) => {
+    const src = `x-outcome-photo-${kind}-${i}`;
+    manifest[src] = { width, height, widths: [640, width] };
+    return { src, alt: { en: '', fr: '' }, span: 6 };
+  });
+  const render = createBlockRenderer({ caseId: 'x', chapterIds: ['outcome'], locale: 'en', manifest, escapeText: t => t, escapeAttribute: t => t });
+  const html = render['outcome-montage']({ type: 'outcome-montage', images });
+  const cells = [...html.matchAll(/<figure class="kc-case-cell"[^>]*style="([^"]*)"/g)].map(m => m[1]);
+  assert.equal(cells.length, 4);
+  const shared = cells.map(c => c.match(/--shared:([^;]*);/)?.[1]);
+  const cap = cells.map(c => c.match(/--cap:(\d+)px/)?.[1]);
+  assert.deepEqual(shared, ['800 / 1200', '800 / 1200', '2400 / 1600', '2400 / 1600'], 'a row of verticals stays vertical next to a row of horizontals');
+  assert.deepEqual(cap, ['920', '920', '2760', '2760'], 'each row is limited by its own frames');
+  // A single row keeps the block-level scheme (no per-cell sizes).
+  const single = render['outcome-montage']({ type: 'outcome-montage', images: images.slice(0, 2).concat(images[2]).map((i, k) => ({ ...i, span: 4 })) });
+  assert.ok(!/<figure class="kc-case-cell"[^>]*--shared/.test(single));
 });

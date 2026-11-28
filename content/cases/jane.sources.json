@@ -26,7 +26,15 @@
     "jane-identity-detail-paper-wax-seal": "final images/bag & packaging/bag, box and papers/macro paper wax seal.png",
     "jane-nature-to-form-image-vines": "1st part about sketches and vines explanation/Vines vs our bag intertwined/vines image.png",
     "jane-nature-to-form-image-vines-bag": "1st part about sketches and vines explanation/Vines vs our bag intertwined/vines bag image.jpg",
-    "jane-nature-to-form-sketch-vines-regular-intertwined": "1st part about sketches and vines explanation/Vines vs our bag intertwined/Sketch vines Reg vs intertwined.png",
+    "jane-nature-to-form-sketch-vines-regular-intertwined": {
+      "file": "1st part about sketches and vines explanation/Vines vs our bag intertwined/Sketch vines Reg vs intertwined.png",
+      "crop": {
+        "x": 0.05,
+        "y": 0,
+        "w": 0.87,
+        "h": 1
+      }
+    },
     "jane-nature-to-form-image-final-vines": "1st part about sketches and vines explanation/Vines vs our bag intertwined/final vines image.png",
     "jane-multiple-forms-sketch-three-configurations": "1st part about sketches and vines explanation/Sketches final/Sketch 3 configurations.png",
     "jane-multiple-forms-sketch-basic-config": "1st part about sketches and vines explanation/Sketches final/Sketch 3 configs 3 views/Sketch basic config.jpg",

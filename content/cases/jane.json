@@ -103,17 +103,8 @@
             "alt": {
               "en": "Jane in motion on black basalt, the bag swinging with her stride.",
               "fr": "Jane en mouvement sur du basalte noir, le sac suivant son pas."
-            }
-          }
-        },
-        {
-          "type": "image-full",
-          "image": {
-            "src": "jane-campaign-photo-tree-roots",
-            "alt": {
-              "en": "Jane lying on moss-covered tree roots, seen from above, the bag beside her.",
-              "fr": "Jane allongée sur des racines couvertes de mousse, vue de dessus, le sac à côté d'elle."
-            }
+            },
+            "span": "bleed"
           }
         },
         {
@@ -136,14 +127,23 @@
           ]
         },
         {
-          "type": "image-full",
-          "image": {
-            "src": "jane-campaign-photo-mossbound-silk",
-            "alt": {
-              "en": "Jane in a long cream dress leaning on a mossy branch among moss-covered roots.",
-              "fr": "Jane en longue robe crème, appuyée contre une branche couverte de mousse parmi des racines moussues."
+          "type": "image-pair",
+          "images": [
+            {
+              "src": "jane-campaign-photo-tree-roots",
+              "alt": {
+                "en": "Jane lying on moss-covered tree roots, seen from above, the bag beside her.",
+                "fr": "Jane allongée sur des racines couvertes de mousse, vue de dessus, le sac à côté d'elle."
+              }
+            },
+            {
+              "src": "jane-campaign-photo-mossbound-silk",
+              "alt": {
+                "en": "Jane in a long cream dress leaning on a mossy branch among moss-covered roots.",
+                "fr": "Jane en longue robe crème, appuyée contre une branche couverte de mousse parmi des racines moussues."
+              }
             }
-          }
+          ]
         }
       ]
     },
@@ -162,11 +162,22 @@
           }
         },
         {
-          "type": "sequence",
-          "caption": {
-            "en": "Box. Tissue and bag. Dust bag.",
-            "fr": "La boîte. Le papier de soie et le sac. La housse."
-          },
+          "type": "image-full",
+          "image": {
+            "src": "jane-beyond-the-product-photo-bag-in-box",
+            "alt": {
+              "en": "The bag lying in its open box on cream tissue.",
+              "fr": "Le sac dans sa boîte ouverte, sur du papier de soie crème."
+            },
+            "caption": {
+              "en": "Tissue and bag.",
+              "fr": "Le papier de soie et le sac."
+            },
+            "span": "bleed"
+          }
+        },
+        {
+          "type": "image-pair",
           "images": [
             {
               "art": {
@@ -176,27 +187,12 @@
               "alt": {
                 "en": "Stacked olive packaging boxes in the studio.",
                 "fr": "Boîtes de packaging olive empilées en studio."
+              },
+              "caption": {
+                "en": "Box.",
+                "fr": "La boîte."
               }
             },
-            {
-              "src": "jane-beyond-the-product-photo-bag-in-box",
-              "alt": {
-                "en": "The bag lying in its open box on cream tissue.",
-                "fr": "Le sac dans sa boîte ouverte, sur du papier de soie crème."
-              }
-            },
-            {
-              "src": "jane-beyond-the-product-photo-dust-bag-and-box",
-              "alt": {
-                "en": "The soft dust bag beside the box.",
-                "fr": "La housse en tissu doux à côté de la boîte."
-              }
-            }
-          ]
-        },
-        {
-          "type": "image-pair",
-          "images": [
             {
               "art": {
                 "horizontal": "jane-beyond-the-product-photo-tag-on-bag-horizontal",
@@ -210,13 +206,31 @@
                 "en": "Only one bag in the box, only the essentials: no price, no barcode.",
                 "fr": "Un seul sac dans la boîte, seulement l'essentiel : ni prix, ni code-barres."
               }
+            }
+          ]
+        },
+        {
+          "type": "image-pair",
+          "images": [
+            {
+              "src": "jane-beyond-the-product-photo-dust-bag-and-box",
+              "alt": {
+                "en": "The soft dust bag beside the box.",
+                "fr": "La housse en tissu doux à côté de la boîte."
+              },
+              "caption": {
+                "en": "Dust bag.",
+                "fr": "La housse."
+              },
+              "span": 4
             },
             {
               "src": "jane-beyond-the-product-photo-bag-with-dust-bag",
               "alt": {
                 "en": "The bag half out of its cream dust bag, the intertwined handles trailing across the surface.",
                 "fr": "Le sac à moitié sorti de sa housse crème, les anses entrelacées étalées sur la surface."
-              }
+              },
+              "span": 8
             }
           ]
         }
@@ -399,7 +413,7 @@
           }
         },
         {
-          "type": "image-pair",
+          "type": "image-row-3",
           "images": [
             {
               "src": "jane-nature-to-form-image-vines",
@@ -410,26 +424,26 @@
               "caption": {
                 "en": "Rough wood vs. smooth burgundy leather.",
                 "fr": "Bois brut contre cuir bordeaux lisse."
-              }
+              },
+              "span": 3
             },
             {
               "src": "jane-nature-to-form-image-vines-bag",
               "alt": {
                 "en": "The bag with its intertwined burgundy leather handles.",
                 "fr": "Le sac et ses anses en cuir bordeaux entrelacées."
-              }
+              },
+              "span": 3
+            },
+            {
+              "src": "jane-nature-to-form-sketch-vines-regular-intertwined",
+              "alt": {
+                "en": "Two sketches of the same bag: parallel handles and intertwined handles.",
+                "fr": "Deux croquis du même sac : anses parallèles et anses entrelacées."
+              },
+              "span": 6
             }
           ]
-        },
-        {
-          "type": "image-full",
-          "image": {
-            "src": "jane-nature-to-form-sketch-vines-regular-intertwined",
-            "alt": {
-              "en": "Two sketches of the same bag: parallel handles and intertwined handles.",
-              "fr": "Deux croquis du même sac : anses parallèles et anses entrelacées."
-            }
-          }
         },
         {
           "type": "image-full",
@@ -438,7 +452,8 @@
             "alt": {
               "en": "The finished bag with its intertwined burgundy handles, resting on a gnarled branch.",
               "fr": "Le sac abouti, aux anses bordeaux entrelacées, posé sur une branche noueuse."
-            }
+            },
+            "span": 12
           }
         }
       ]
@@ -458,14 +473,27 @@
           }
         },
         {
-          "type": "image-full",
-          "image": {
-            "src": "jane-multiple-forms-sketch-three-configurations",
-            "alt": {
-              "en": "Construction sketches of the bag in three configurations: basic, folded and backpack.",
-              "fr": "Croquis de construction du sac en trois configurations : de base, rangée et sac à dos."
+          "type": "image-pair",
+          "images": [
+            {
+              "src": "jane-multiple-forms-sketch-three-configurations",
+              "alt": {
+                "en": "Construction sketches of the bag in three configurations: basic, folded and backpack.",
+                "fr": "Croquis de construction du sac en trois configurations : de base, rangée et sac à dos."
+              }
+            },
+            {
+              "src": "jane-multiple-forms-sketch-ways-of-wearing",
+              "alt": {
+                "en": "Sketch of the ways of wearing the bag.",
+                "fr": "Croquis des façons de porter le sac."
+              },
+              "caption": {
+                "en": "Ways of wearing",
+                "fr": "Façons de le porter"
+              }
             }
-          }
+          ]
         },
         {
           "type": "image-row-3",
@@ -504,20 +532,6 @@
               }
             }
           ]
-        },
-        {
-          "type": "image-full",
-          "image": {
-            "src": "jane-multiple-forms-sketch-ways-of-wearing",
-            "alt": {
-              "en": "Sketch of the ways of wearing the bag.",
-              "fr": "Croquis des façons de porter le sac."
-            },
-            "caption": {
-              "en": "Ways of wearing",
-              "fr": "Façons de le porter"
-            }
-          }
         },
         {
           "type": "image-pair",
@@ -848,56 +862,64 @@
               "alt": {
                 "en": "Jane in motion on black basalt, vertical frame.",
                 "fr": "Jane en mouvement sur du basalte noir, cadre vertical."
-              }
+              },
+              "span": 6
             },
             {
               "src": "jane-outcome-photo-forest-standing",
               "alt": {
                 "en": "Jane standing in the forest with the bag.",
                 "fr": "Jane debout dans la forêt avec le sac."
-              }
+              },
+              "span": 6
             },
             {
               "src": "jane-outcome-photo-bag-on-heel",
               "alt": {
                 "en": "The bag hanging by its handles from the heel of a tall boot.",
                 "fr": "Le sac suspendu par ses anses au talon d'une botte."
-              }
-            },
-            {
-              "src": "jane-identity-detail-paper-wax-seal",
-              "alt": {
-                "en": "Close-up of the wax seal on cream tissue.",
-                "fr": "Gros plan sur le sceau de cire sur le papier de soie crème."
-              }
-            },
-            {
-              "src": "jane-beyond-the-product-photo-stacked-boxes-horizontal",
-              "alt": {
-                "en": "Stacked olive packaging boxes in the studio.",
-                "fr": "Boîtes de packaging olive empilées en studio."
-              }
+              },
+              "span": 6
             },
             {
               "src": "jane-multiple-forms-photo-backpack",
               "alt": {
                 "en": "Jane in the studio wearing the bag as a backpack.",
                 "fr": "Jane en studio, le sac porté comme un sac à dos."
-              }
-            },
-            {
-              "src": "jane-outcome-photo-tag-on-bag-crop",
-              "alt": {
-                "en": "Tight crop of the hang tag on the bag.",
-                "fr": "Recadrage serré sur l'étiquette suspendue du sac."
-              }
+              },
+              "span": 6
             },
             {
               "src": "jane-campaign-photo-proportions-basalt",
               "alt": {
                 "en": "Jane with the bag on black basalt, showing its proportions.",
                 "fr": "Jane avec le sac sur du basalte noir, qui montre ses proportions."
-              }
+              },
+              "span": 6
+            },
+            {
+              "src": "jane-identity-detail-paper-wax-seal",
+              "alt": {
+                "en": "Close-up of the wax seal on cream tissue.",
+                "fr": "Gros plan sur le sceau de cire sur le papier de soie crème."
+              },
+              "span": 6
+            },
+            {
+              "src": "jane-beyond-the-product-photo-stacked-boxes-horizontal",
+              "alt": {
+                "en": "Stacked olive packaging boxes in the studio.",
+                "fr": "Boîtes de packaging olive empilées en studio."
+              },
+              "span": 6
+            },
+            {
+              "src": "jane-outcome-photo-tag-on-bag-crop",
+              "alt": {
+                "en": "Tight crop of the hang tag on the bag.",
+                "fr": "Recadrage serré sur l'étiquette suspendue du sac."
+              },
+              "span": 6
             }
           ]
         },

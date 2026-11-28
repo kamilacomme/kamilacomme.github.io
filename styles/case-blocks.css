@@ -154,9 +154,11 @@
 .kc-case-cols .kc-case-text { max-inline-size: none; }
 .kc-case-cols .kc-case-cell { margin-inline: 0; }
 /* Frames of unequal widths in one row share one height: the reference frame (the first authored one, --ref-sp
-   columns wide, --ref-r its proportions) sets it; the others are cropped to it. */
+   columns wide, --ref-r its proportions) sets it; the others are cropped to it. The selector is deliberately more
+   specific than the per-block aspect-ratio rules below (an explicit height next to a fixed ratio would make the frame
+   wider than its cell). */
 @container (min-width: 30rem) {
-  .kc-case-cols[data-uneq] .kc-case-frame {
+  .kc-case-cols[data-uneq] .kc-case-cell .kc-case-frame {
     aspect-ratio: auto;
     height: calc((var(--ref-sp) * (100cqw - (var(--n) - 1) * var(--g)) / var(--n) + (var(--ref-sp) - 1) * var(--g)) / var(--ref-r));
   }

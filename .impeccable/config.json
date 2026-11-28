@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-27T22:50:39.337Z",
+        "reason": "DESIGN.md Two Voices Rule: Inter is the approved body face (DESIGN.md accepted by Kamila 2026-11-27, b793e64)"
+      }
+    ]
+  }
+}

@@ -254,13 +254,14 @@
           "image": {
             "src": "example-nature-to-form-sketch-vines",
             "alt": {
-              "en": "Example frame: sketch in an image-full (supporting frame too wide on purpose)",
-              "fr": "Cadre d’exemple : croquis en image-full (cadre d’appui trop large, exprès)"
+              "en": "Example frame: sketch at span 12 (supporting frame too wide on purpose)",
+              "fr": "Cadre d’exemple : croquis en span 12 (cadre d’appui trop large, exprès)"
             },
             "caption": {
-              "en": "Placeholder caption: a sketch in an image-full, 12 columns by default.",
-              "fr": "Légende provisoire : un croquis en image-full, 12 colonnes par défaut."
-            }
+              "en": "Placeholder caption: a sketch in an image-full at span 12 (the default is 6), reported by the layout check on purpose.",
+              "fr": "Légende provisoire : un croquis en image-full à span 12 (la valeur par défaut est 6), signalé exprès par la vérification."
+            },
+            "span": 12
           }
         },
         {
@@ -273,8 +274,8 @@
                 "fr": "Cadre d’exemple : cadre vertical, à gauche d’une paire"
               },
               "caption": {
-                "en": "Placeholder caption: pair 6 + 6, verticals.",
-                "fr": "Légende provisoire : paire 6 + 6, verticales."
+                "en": "Placeholder caption: pair 6 + 6 of verticals, mobile: pair (two side by side on a phone).",
+                "fr": "Légende provisoire : paire 6 + 6 de verticales, mobile: pair (deux côte à côte sur téléphone)."
               }
             },
             {
@@ -284,7 +285,8 @@
                 "fr": "Cadre d’exemple : cadre vertical, à droite d’une paire"
               }
             }
-          ]
+          ],
+          "mobile": "pair"
         },
         {
           "type": "text-image",

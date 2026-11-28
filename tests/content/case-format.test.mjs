@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { BLOCK_TYPES, validateCaseFormat, validateCaseIndexRecord, validateCasePublication } from '../../scripts/content/validate-case-data.mjs';
 import { checkCases } from '../../scripts/content/case-data.mjs';
-import { layoutIssues, roleOf, MOBILE_SPANS } from '../../scripts/content/case-layout.mjs';
+import { layoutIssues, roleOf } from '../../scripts/content/case-layout.mjs';
 
 const read = async file => JSON.parse(await readFile(new URL(file, import.meta.url), 'utf8'));
 const example = await read('./fixtures/case-example.json');
@@ -183,7 +183,6 @@ test('span: columns of 12 on frames and text columns, "bleed" only for image-ful
   assert.ok(errors.some(e => e.includes('hero-reveal keeps its own layout')), errors.join('\n'));
   assert.ok(errors.some(e => e.includes('ai-episode keeps its own layout')), errors.join('\n'));
   assert.ok(errors.some(e => e.includes('unknown field "span" for detail-grid')), errors.join('\n'));
-  assert.deepEqual(MOBILE_SPANS, { 3: 2, 4: 2, 6: 4, 8: 4, 12: 4, bleed: 'bleed' });
 });
 
 // A tiny case for the layout rules: one chapter "c", frames sized by a manifest.
@@ -201,7 +200,9 @@ test('layout: role comes from the image name', () => {
 
 test('layout rule aux-too-wide: a supporting frame above 6 columns or full-bleed', () => {
   assert.deepEqual(rulesOf([{ type: 'image-pair', images: [frame('sketch'), frame('photo')] }]), []);
-  assert.ok(rulesOf([{ type: 'image-full', image: frame('sketch') }]).includes('aux-too-wide'), 'default 12 for a sketch');
+  // A supporting frame in an image-full defaults to 6 columns (decision of Kamila, 2026-11-28): no report; 12 is reported.
+  for (const role of ['sketch', 'scheme', 'error', 'detail', 'macro']) assert.deepEqual(rulesOf([{ type: 'image-full', image: frame(role) }]), [], `${role} defaults to 6`);
+  assert.ok(rulesOf([{ type: 'image-full', image: frame('sketch', 'wide', { span: 12 }) }]).includes('aux-too-wide'), 'an authored 12 is reported');
   assert.ok(rulesOf([{ type: 'image-full', image: frame('detail', 'wide', { span: 'bleed' }) }]).includes('aux-too-wide'));
   assert.ok(rulesOf([{ type: 'image-pair', images: [frame('macro', 'wide', { span: 8 }), frame('photo', 'wide', { span: 4 })] }]).includes('aux-too-wide'));
 });
@@ -254,4 +255,30 @@ test('layout rule annotated-image: the block is deprecated', () => {
 test('layout report on the example page: only the issues kept on purpose', () => {
   const rules = layoutIssues(examplePage, exampleManifest).map(i => `${i.chapter}:${i.rule}`).sort();
   assert.deepEqual(rules, ['campaign:vertical-alone', 'identity:annotated-image', 'nature-to-form:annotated-image', 'nature-to-form:aux-too-wide']);
+});
+
+// Phone = one column (decision of Kamila, 2026-11-28); the one exception is mobile: "pair" on an image-pair.
+test('mobile: "pair" is allowed only on an image-pair and only as "pair"', () => {
+  const c = clone(example);
+  const nature = c.chapters.find(ch => ch.id === 'nature-to-form');
+  nature.blocks[1].mobile = 'pair';
+  assert.deepEqual(validateCaseFormat(c), []);
+  nature.blocks[1].mobile = 'row';
+  assert.ok(validateCaseFormat(c).some(e => e.includes('.mobile: must be "pair"')));
+  nature.blocks[1].mobile = 'pair';
+  nature.blocks[2].mobile = 'pair';
+  assert.ok(validateCaseFormat(c).some(e => e.includes('unknown field "mobile" for text-image')));
+  assert.ok(!('span' in BLOCK_TYPES['image-pair']) && 'mobile' in BLOCK_TYPES['image-pair']);
+});
+
+test('layout rule mobile-pair: exactly two frames, all vertical (art-directed counts as vertical)', () => {
+  const pair = (images, mobile = 'pair') => [{ type: 'image-pair', mobile, images }];
+  assert.deepEqual(rulesOf(pair([frame('photo', 'tall'), frame('photo', 'tall')])), []);
+  assert.deepEqual(rulesOf(pair([frame('photo', 'tall'), frame('photo', 'wide')])), ['mobile-pair'], 'one horizontal frame');
+  assert.deepEqual(rulesOf([{ type: 'image-pair', images: [frame('photo', 'wide'), frame('photo', 'wide')] }]), [], 'without the mark nothing is said');
+  const art = { art: { horizontal: 'x-c-photo-wide-aaaaa', vertical: 'x-c-photo-tall-bbbbb' }, alt: { en: '', fr: '' } };
+  const d = layoutCase(pair([frame('photo', 'tall'), art]));
+  assert.deepEqual(layoutIssues(d, { ...manifestOf(d), 'x-c-photo-wide-aaaaa': { width: 2400, height: 1600 }, 'x-c-photo-tall-bbbbb': { width: 800, height: 1200 } }).map(i => i.rule), []);
+  const three = layoutCase(pair([frame('photo', 'tall'), frame('photo', 'tall'), frame('photo', 'tall')]));
+  assert.ok(layoutIssues(three, manifestOf(three)).some(i => i.rule === 'mobile-pair'), 'three frames');
 });

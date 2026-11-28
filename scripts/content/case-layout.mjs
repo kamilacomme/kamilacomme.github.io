@@ -14,7 +14,7 @@ export const INTRO_MAX = 8;
 
 /** Widths used when the data gives no span (the layout of each block today). */
 export const DEFAULT_SPANS = {
-  'image-full': 'bleed for a photograph whose source is 1600px wide or more, 12 for a drawing (sketch) or a smaller frame, 6 for a vertical frame (centred)',
+  'image-full': '6 at the left line for a supporting frame (sketch, scheme, error, detail, macro); otherwise 6 centred for a vertical frame, 12 for a frame whose source is under 1600px, bleed for a photograph of 1600px or more',
   'image-pair': '6 + 6',
   'image-row-3': '4 + 4 + 4',
   'text-image': 'text 6 + image 6',
@@ -23,8 +23,9 @@ export const DEFAULT_SPANS = {
   'text': 'text of logo-showcase, palette-swatches, sequence, outcome-montage: 6',
 };
 
-/** Proposal (not accepted yet): widths on the 4-column mobile grid. */
-export const MOBILE_SPANS = { 3: 2, 4: 2, 6: 4, 8: 4, 12: 4, bleed: 'bleed' };
+// Phone (a container under 30rem, 4 columns): one column. Every frame and text column takes all 4 columns and
+// they stack, whatever the span (decision of Kamila, 2026-11-28). The one exception is explicit: an image-pair
+// marked `mobile: "pair"` keeps its two vertical frames side by side, 2 columns each.
 
 export const RULES = {
   'aux-too-wide': 'A supporting frame (sketch, scheme, error, detail, macro) is 3–4 columns, at most 6, never full-bleed',
@@ -33,6 +34,7 @@ export const RULES = {
   'row-sum': 'The widths of a row add up to 12',
   'row-too-many': `At most ${MAX_PER_ROW} frames in a row`,
   'row-four-not-aux': 'Four frames in a row only for supporting frames',
+  'mobile-pair': 'mobile: "pair" is for exactly two frames that are both vertical (an art-directed frame counts as vertical: a phone shows its vertical file)',
   'vertical-alone': 'A vertical frame is never alone in the centre: 3–4 columns in a row, 6 beside a 6-column text, or a 6 + 6 pair',
   'text-too-wide': `Body text is at most ${TEXT_MAX} columns, a chapter intro at most ${INTRO_MAX}`,
   'annotated-image': 'annotated-image is deprecated: no call-outs over images',
@@ -126,13 +128,22 @@ export function layoutIssues(data, manifest = {}) {
           const d = dims(image), width = sourceWidth(image);
           const role = roleOf(mainName(image), data.id, chapterIds);
           // Today: a vertical frame is capped and centred; a drawing or a frame under 1600px sits in a column; else full-bleed.
-          const fallback = d && d[1] > d[0] ? 6 : role === 'sketch' || width < BLEED_MIN_WIDTH ? 12 : 'bleed';
+          // A supporting frame is 6 columns at the left line; a vertical frame 6 centred; a small frame 12; else bleed.
+          const fallback = AUX_ROLES.includes(role) || (d && d[1] > d[0]) ? 6 : width < BLEED_MIN_WIDTH ? 12 : 'bleed';
           const f = frameOf(image, fallback);
           checkFrame(f);
-          if (f.portrait) add('vertical-alone', f.name, `vertical frame alone in an image-full (${f.span === 'bleed' ? 'full-bleed' : `${f.span} columns`}, centred)`);
+          if (f.portrait) add('vertical-alone', f.name, `vertical frame alone in an image-full (${f.span === 'bleed' ? 'full-bleed' : `${f.span} columns`})`);
           break;
         }
-        case 'image-pair': { const row = (block.images ?? []).map(image => frameOf(image, 6)); row.forEach(checkFrame); checkRow(row, 'pair'); break; }
+        case 'image-pair': {
+          const row = (block.images ?? []).map(image => frameOf(image, 6));
+          row.forEach(checkFrame); checkRow(row, 'pair');
+          // On a phone the art-directed frame shows its vertical file, so it counts as vertical there.
+          if (block.mobile === 'pair' && (row.length !== 2 || (block.images ?? []).some((image, i) => !image?.art && !row[i].portrait))) {
+            add('mobile-pair', row.filter((f, i) => !block.images[i]?.art && !f.portrait).map(f => f.name).join(', ') || null, `mobile: "pair" with ${row.length} frame(s)${row.some((f, i) => !block.images[i]?.art && !f.portrait) ? ', not all vertical' : ''}`);
+          }
+          break;
+        }
         case 'image-row-3': { const row = (block.images ?? []).map(image => frameOf(image, 4)); row.forEach(checkFrame); checkRow(row, 'row of three'); break; }
         case 'text-image': {
           const text = block.span ?? 6;

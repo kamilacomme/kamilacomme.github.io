@@ -1,11 +1,14 @@
 // Markup of the case blocks: hero-reveal, image-pair, ai-episode, chapter-intro, image-full, image-row-3,
 // text-image, logo-showcase, palette-swatches, annotated-image, sequence, detail-grid, principles-list,
 // outcome-montage (chapter-menu: case-render.mjs).
-// Every block is laid out from the width of its own container (styles/case-blocks.css,
-// container queries); the one exception is hero-reveal, which fills the first screen.
+// Every block is laid out from the width of its own container (styles/case-blocks.css, container queries);
+// all blocks except hero-reveal, ai-episode and annotated-image place their frames and text on the 12-column
+// grid (4 columns in a narrow container) from `span` or the defaults. hero-reveal fills the first screen.
 // Text never comes from here except the small fixed labels of ai-episode (LABELS).
 // Missing text or images marked as placeholders render as quiet skeletons, so a draft
 // shows its final layout; the publication gate keeps them off a published page.
+
+import { AUX_ROLES, perRowFor, roleOf } from './case-layout.mjs';
 
 const LABELS = {
   fr: { problem: 'Problème', before: 'Avant', method: 'Méthode', prompt: 'Prompt', after: 'Après' },
@@ -13,6 +16,17 @@ const LABELS = {
 };
 const DEFAULT_RATIO = [4, 5];
 const SIZES_FULL = '100vw';
+
+// Widths in columns (docs/case-format.md, "Widths in columns"). The geometry is owned by styles/case-blocks.css:
+// every block root is a 12-column grid (4 columns in a container under 30rem). Here only an authored `span` is
+// written down as custom properties (--sp on a frame, --tsp on a text column) and the defaults stay in the
+// stylesheet. "bleed" is the grid's full width. On a phone (a container under 30rem) everything is one column
+// whatever the span; the only exception is `mobile: "pair"` on an image-pair (data-mobile).
+const colsOf = span => (span === 'bleed' ? 12 : span);
+const spanVars = (span, name = 'sp') => (span === undefined ? '' : `--${name}:${colsOf(span)};`);
+const pct = (cols, of) => `${Math.round((cols / of) * 100)}vw`;
+/** `sizes` of an image with an authored span, else the given default hint. */
+const sizesOf = (image, fallback) => (image?.span === undefined ? fallback : `(min-width: 500px) ${pct(colsOf(image.span), 12)}, 100vw`);
 
 /** Text for a locale. A draft may lack French: it falls back to English, marked lang="en". */
 export function pick(value, locale) {
@@ -23,7 +37,7 @@ export function pick(value, locale) {
 }
 
 /** Block renderers for one case page. `manifest` is assets/cases/<id>/images.json → images. */
-export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText, escapeAttribute }) {
+export function createBlockRenderer({ caseId, chapterIds = [], locale, manifest = {}, escapeText, escapeAttribute }) {
   const esc = escapeText, attr = escapeAttribute;
   const ui = LABELS[locale];
   const info = name => (name ? manifest[name] : undefined);
@@ -53,6 +67,7 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
   // block narrows and centres instead; drawings (role "sketch" in the image name) stay inside a column.
   const MAX_STRETCH = 1.15;
   const namesOf = image => (image.art ? [image.art.horizontal, image.art.vertical] : [image.src]);
+  const mainName = image => (image.art ? image.art.horizontal : image.src);
   const capOf = images => {
     const widths = images.flatMap(namesOf).map(n => info(n)?.widths?.at(-1)).filter(Boolean);
     return widths.length ? Math.round(Math.min(...widths) * MAX_STRETCH) : null;
@@ -101,7 +116,8 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
   /** A figure for one image of a row or pair; art-directed images carry both frames. */
   function figure(image, sizes, extra = '', { cap = true } = {}) {
     // Inside a row the container carries the shared cap (--cap); a lone figure carries its own.
-    const open = `<figure class="kc-case-cell"${cap && capOf([image]) ? ` style="${capStyle(capOf([image]))}"` : ''}>`;
+    const style = `${cap ? capStyle(capOf([image])) : ''}${spanVars(image.span)}`;
+    const open = `<figure class="kc-case-cell"${image.span !== undefined ? ' data-authored' : ''}${style ? ` style="${style}"` : ''}>`;
     if (image.art) {
       const wide = frame(image, image.art.horizontal, { sizes, variant: 'wide' });
       const narrow = frame(image, image.art.vertical, { sizes, variant: 'narrow' });
@@ -135,10 +151,34 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
     const cells = images.map(image => figure(image, sizes, withCrops ? cropOf(image) : '', { cap: false }));
     return `<div class="kc-case-row kc-case-multi" data-n="${images.length}" style="--shared:${sharedRatio(cells.map(c => c.dims))};${capStyle(capOf(images))}">${cells.map(c => c.html).join('')}</div>`;
   }
-  const withText = (body, value) => {
+  /**
+   * Flags of a row of frames for the stylesheet. With authored spans: `data-authored`; when the widths differ the
+   * frames share one height (`data-uneq`, built from the first authored frame: --ref-sp, --ref-r).
+   */
+  function rowFlags(images, dimsList) {
+    const spans = images.map(image => image?.span);
+    if (spans.every(span => span === undefined)) return { attrs: '', style: '', uneq: false };
+    const wide = new Set(spans.map(span => (span === undefined ? 'd' : colsOf(span))));
+    let attrs = ' data-authored', style = '';
+    if (wide.size > 1) {
+      const k = spans.findIndex(span => span !== undefined), d = dimsList[k];
+      attrs += ' data-uneq';
+      style = `--ref-sp:${colsOf(spans[k])};--ref-r:${d ? (d[0] / d[1]).toFixed(4) : '0.8'};`;
+    }
+    return { attrs, style, uneq: wide.size > 1 };
+  }
+  /** Same hint for every frame of a row of n frames without authored spans (see styles/case-blocks.css). */
+  const rowSizes = n => `(min-width: 800px) ${pct(1, perRowFor(n))}, (min-width: 500px) ${n === 1 ? '100vw' : '50vw'}, 100vw`;
+  const withText = (body, value, span) => {
     const copy = paragraphs(value, 'kc-case-text', 'kc-case-text');
-    return copy ? `<div class="kc-case-stack">${body}${copy}</div>` : body;
+    return copy ? `<div class="kc-case-stack kc-case-cols"${span !== undefined ? ` style="${spanVars(span, 'tsp')}"` : ''}>${body}${copy}</div>` : body;
   };
+  /** Rows of sequence, detail-grid and outcome-montage: one grid, frames side by side from their spans. */
+  function gridRow(images, cellsHtml, dimsList, extraClass = '') {
+    const flags = rowFlags(images, dimsList);
+    return `<div class="kc-case-rowgrid kc-case-cols ${extraClass}" data-n="${images.length}"${flags.attrs}`
+      + ` style="--shared:${sharedRatio(dimsList)};${flags.uneq ? '' : capStyle(capOf(images))}${flags.style}">${cellsHtml}</div>`;
+  }
 
   return {
     'hero-reveal'(block, meta) {
@@ -167,8 +207,10 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
     },
 
     'image-pair'(block) {
-      const cells = block.images.map(image => figure(image, '(min-width: 500px) 50vw, 100vw', '', { cap: false }));
-      return `<div class="kc-case-pair" style="--shared:${sharedRatio(cells.map(c => c.dims))};${capStyle(capOf(block.images))}">${cells.map(c => c.html).join('')}</div>`;
+      const probe = block.images.map(image => dimsOf(image, mainName(image)));
+      const flags = rowFlags(block.images, probe);
+      const cells = block.images.map(image => figure(image, sizesOf(image, block.mobile === 'pair' ? '50vw' : '(min-width: 500px) 50vw, 100vw'), '', { cap: flags.uneq }));
+      return `<div class="kc-case-pair kc-case-cols"${block.mobile === 'pair' ? ' data-mobile="pair"' : ''}${flags.attrs} style="--shared:${sharedRatio(cells.map(c => c.dims))};${flags.uneq ? '' : capStyle(capOf(block.images))}${flags.style}">${cells.map(c => c.html).join('')}</div>`;
     },
 
     'ai-episode'(block) {
@@ -186,7 +228,7 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
     },
 
     'chapter-intro'(block) {
-      return paragraphs(block.text, 'kc-case-intro', 'kc-case-intro');
+      return `<div class="kc-case-cols kc-case-intro-wrap"${block.span !== undefined ? ` style="${spanVars(block.span, 'tsp')}"` : ''}>${paragraphs(block.text, 'kc-case-intro', 'kc-case-intro')}</div>`;
     },
 
     'image-full'(block) {
@@ -196,19 +238,22 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
       // Full width only for high-resolution photographs (largest file 1600px or more); drawings and smaller frames sit in a column.
       const largest = Math.max(0, ...namesOf(block.image).map(n => info(n)?.widths?.at(-1) ?? 0));
       const fit = isSketch(block.image) || largest < 1600 ? 'column' : 'full';
-      const f = figure(block.image, portrait ? '(min-width: 700px) 640px, 100vw' : '100vw');
-      return `<div class="kc-case-full" data-orient="${portrait ? 'portrait' : 'landscape'}" data-fit="${fit}">${f.html}</div>`;
+      // A supporting frame (role sketch, scheme, error, detail, macro) defaults to 6 columns at the left line.
+      const aux = AUX_ROLES.includes(roleOf(mainName(block.image), caseId, chapterIds));
+      const f = figure(block.image, sizesOf(block.image, portrait || aux ? '(min-width: 704px) 50vw, 100vw' : '100vw'));
+      return `<div class="kc-case-full kc-case-cols" data-orient="${portrait ? 'portrait' : 'landscape'}" data-fit="${fit}"${aux ? ' data-aux' : ''}>${f.html}</div>`;
     },
 
     'image-row-3'(block) {
-      const cells = block.images.map(image => figure(image, '(min-width: 640px) 33vw, 100vw', '', { cap: false }));
-      const fit = block.images.some(isSketch) ? 'column' : 'full';
-      return `<div class="kc-case-trio" data-fit="${fit}" style="--shared:${sharedRatio(cells.map(c => c.dims))};${capStyle(capOf(block.images))}">${cells.map(c => c.html).join('')}</div>`;
+      const probe = block.images.map(image => dimsOf(image, mainName(image)));
+      const flags = rowFlags(block.images, probe);
+      const cells = block.images.map(image => figure(image, sizesOf(image, '(min-width: 704px) 33vw, 100vw'), '', { cap: flags.uneq }));
+      return `<div class="kc-case-trio kc-case-cols"${flags.attrs} style="--shared:${sharedRatio(cells.map(c => c.dims))};${flags.uneq ? '' : capStyle(capOf(block.images))}${flags.style}">${cells.map(c => c.html).join('')}</div>`;
     },
 
     'text-image'(block) {
-      const f = figure(block.image, '(min-width: 640px) 50vw, 100vw');
-      return `<div class="kc-case-split" data-side="${block.side}"><div class="kc-case-copy">${paragraphs(block.text, 'kc-case-text', 'kc-case-text')}</div>${f.html}</div>`;
+      const f = figure(block.image, sizesOf(block.image, '(min-width: 704px) 50vw, 100vw'));
+      return `<div class="kc-case-split kc-case-cols" data-side="${block.side}"${block.span !== undefined ? ` style="${spanVars(block.span, 'tsp')}"` : ''}><div class="kc-case-copy">${paragraphs(block.text, 'kc-case-text', 'kc-case-text')}</div>${f.html}</div>`;
     },
 
     'logo-showcase'(block) {
@@ -218,9 +263,10 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
         const inner = !info(image.src) || image.placeholder
           ? `<div class="kc-case-ph kc-case-logo-mark" style="--r:${cssRatio(dims)};--ar:${ar}" aria-hidden="true" data-placeholder></div>`
           : frame(image, image.src).html.replace('kc-case-frame ', 'kc-case-frame kc-case-logo-art ');
-        return `<figure class="kc-case-cell kc-case-logo"><div class="kc-case-logo-frame">${inner}</div>${caption(image.caption)}</figure>`;
+        return `<figure class="kc-case-cell kc-case-logo"${image.span !== undefined ? ` data-authored style="${spanVars(image.span)}"` : ''}><div class="kc-case-logo-frame">${inner}</div>${caption(image.caption)}</figure>`;
       });
-      return withText(`<div class="kc-case-logos">${cells.join('')}</div>`, block.text);
+      const authored = block.images.some(image => image.span !== undefined);
+      return withText(`<div class="kc-case-logos kc-case-cols" data-n="${block.images.length}"${authored ? ' data-authored' : ''}>${cells.join('')}</div>`, block.text, block.span);
     },
 
     'palette-swatches'(block) {
@@ -228,7 +274,7 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
         const chip = sw.hex ? `<span class="kc-case-swatch-chip" style="background:${attr(sw.hex)}"></span>` : `<span class="kc-case-swatch-chip kc-case-ph" aria-hidden="true" data-placeholder></span>`;
         return `<li class="kc-case-swatch">${chip}${text(sw.name, 'p', 'kc-case-caption kc-case-swatch-name', 'kc-case-caption')}${sw.hex ? `<span class="kc-case-label">${esc(sw.hex)}</span>` : ''}</li>`;
       });
-      return withText(`<ul class="kc-case-swatches">${items.join('')}</ul>`, block.text);
+      return withText(`<ul class="kc-case-swatches kc-case-cols">${items.join('')}</ul>`, block.text, block.span);
     },
 
     'annotated-image'(block) {
@@ -252,25 +298,33 @@ export function createBlockRenderer({ caseId, locale, manifest = {}, escapeText,
     },
 
     'sequence'(block) {
-      return withText(rowOf(block.images), block.caption);
+      const probe = block.images.map(image => dimsOf(image, mainName(image)));
+      const flags = rowFlags(block.images, probe);
+      const cells = block.images.map(image => figure(image, sizesOf(image, rowSizes(block.images.length)), '', { cap: flags.uneq }));
+      return withText(gridRow(block.images, cells.map(c => c.html).join(''), cells.map(c => c.dims)), block.caption, block.span);
     },
 
     'detail-grid'(block) {
+      const images = block.items.map(item => item.image);
+      const flags = rowFlags(images, images.map(image => dimsOf(image, image.src)));
       const cells = block.items.map(item => {
-        const f = frame(item.image, item.image.src, { sizes: '(min-width: 500px) 33vw, 100vw' });
-        return { dims: f.dims, html: `<figure class="kc-case-cell">${f.html}${text(item.text, 'figcaption', 'kc-case-caption', 'kc-case-caption')}</figure>` };
+        const f = frame(item.image, item.image.src, { sizes: sizesOf(item.image, rowSizes(block.items.length)) });
+        const style = `${flags.uneq ? capStyle(capOf([item.image])) : ''}${spanVars(item.image.span)}`;
+        return { dims: f.dims, html: `<figure class="kc-case-cell"${item.image.span !== undefined ? ' data-authored' : ''}${style ? ` style="${style}"` : ''}>${f.html}${text(item.text, 'figcaption', 'kc-case-caption', 'kc-case-caption')}</figure>` };
       });
-      return `<div class="kc-case-tiles kc-case-multi" data-n="${cells.length}" style="--shared:${sharedRatio(cells.map(c => c.dims))};${capStyle(capOf(block.items.map(i => i.image)))}">${cells.map(c => c.html).join('')}</div>`;
+      return gridRow(images, cells.map(c => c.html).join(''), cells.map(c => c.dims));
     },
 
     'principles-list'(block) {
-      const items = block.items.map(item => `<li class="kc-case-principle">${text(item.title, 'h3', 'kc-case-principle-title')}${paragraphs(item.text, 'kc-case-text', 'kc-case-text')}</li>`);
-      return `<ul class="kc-case-principles">${items.join('')}</ul>`;
+      const items = block.items.map(item => `<li class="kc-case-principle kc-case-cols">${text(item.title, 'h3', 'kc-case-principle-title')}${paragraphs(item.text, 'kc-case-text', 'kc-case-text')}</li>`);
+      return `<ul class="kc-case-principles kc-case-cols">${items.join('')}</ul>`;
     },
 
     'outcome-montage'(block) {
-      const cells = block.images.map(image => figure(image, '(min-width: 800px) 33vw, (min-width: 500px) 50vw, 100vw', '', { cap: false }));
-      return withText(`<div class="kc-case-montage kc-case-multi" data-n="${cells.length}" style="--shared:${sharedRatio(cells.map(c => c.dims))};${capStyle(capOf(block.images))}">${cells.map(c => c.html).join('')}</div>`, block.text);
+      const probe = block.images.map(image => dimsOf(image, mainName(image)));
+      const flags = rowFlags(block.images, probe);
+      const cells = block.images.map(image => figure(image, sizesOf(image, rowSizes(block.images.length)), '', { cap: flags.uneq }));
+      return withText(gridRow(block.images, cells.map(c => c.html).join(''), cells.map(c => c.dims)), block.text, block.span);
     },
   };
 }

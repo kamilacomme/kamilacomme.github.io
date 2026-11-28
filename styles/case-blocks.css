@@ -1,8 +1,12 @@
-/* Case blocks: hero-reveal, image-pair, ai-episode (scripts/content/case-blocks.mjs).
+/* Case blocks (scripts/content/case-blocks.mjs).
    Each block is laid out from the width of its own container (container queries), so
    it works the same in a full-width column, a narrower column or a mobile page; the
    page wrapper (styles/case-content.css) only supplies gutters and rhythm. The one
    exception is hero-reveal, which fills the first screen.
+   Every block except hero-reveal, ai-episode and annotated-image places its frames and
+   text on one column grid, ".kc-case-cols" (see "Column grid" below): 12 columns, 4 in a
+   container under 30rem. Widths come from the data (`span`, docs/case-format.md) or from
+   the defaults written here, never from a fixed rem width.
    Tokens only: text levels are those of docs/case-format.md. */
 
 .kc-case-block {
@@ -43,7 +47,8 @@
 }
 
 /* ---------- Images ---------- */
-/* A cell is never wider than 1.15x its largest file (--cap, set by the block); it narrows and centres instead. */
+/* A cell is never wider than 1.15x its largest file (--cap, set by the block); it narrows instead:
+   centred in ai-episode, pinned to the left line of its column in the column blocks (.kc-case-cols). */
 .kc-case-cell {
   margin: 0;
   min-width: 0;
@@ -120,16 +125,54 @@
 .kc-case-fact { display: grid; row-gap: var(--space-half); margin: 0; }
 .kc-case-fact dd { margin: 0; }
 
-/* ---------- image-pair ---------- */
-.kc-case-pair {
+/* ---------- Column grid ----------
+   The one grid of the case blocks: 12 columns with the 24px editorial gutter (--gutter-wide), 4 columns with a
+   16px gutter in a container under 30rem (the same as the mobile grid, so a block in a narrow column behaves
+   like a phone). It spans the block, so its lines are the page grid lines: page margins, 12 columns, 24px
+   gutters (checked against the overlay of scripts/dev/grid-overlay.js by tests/case/blocks-check.cjs).
+   A frame or text column names its width with `grid-column: span N`:
+   --sp = authored frame span, --tsp = authored text span (columns of 12); without them the defaults below
+   apply (docs/case-format.md, "Widths in columns").
+   Container tiers: under 30rem (4 columns: ONE column, every frame and text column takes all 4 and they stack,
+   whatever the span; the one exception is an image-pair marked mobile: "pair", two frames of 2 columns),
+   30-40rem and 40-50rem (12 columns, text and rows kept readable), from 40rem / 50rem (the full defaults).
+   A span is honoured from 30rem. (Decision of Kamila, 2026-11-28.) */
+.kc-case-cols {
+  --n: 12;
+  --g: var(--gutter-wide);
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--kc-case-column-gap);
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  column-gap: var(--g);
+  row-gap: var(--space-3);
+  align-items: start;
 }
+.kc-case-cols > * { grid-column: 1 / -1; min-width: 0; }
+@container (max-width: 29.99rem) {
+  .kc-case-cols { --n: 4; --g: var(--space-2); }
+}
+/* The column sets the text width; a column block never caps it in rem. */
+.kc-case-cols .kc-case-text { max-inline-size: none; }
+.kc-case-cols .kc-case-cell { margin-inline: 0; }
+/* Frames of unequal widths in one row share one height: the reference frame (the first authored one, --ref-sp
+   columns wide, --ref-r its proportions) sets it; the others are cropped to it. */
 @container (min-width: 30rem) {
-  .kc-case-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  /* Side by side the two cells are the same size. */
+  .kc-case-cols[data-uneq] .kc-case-frame {
+    aspect-ratio: auto;
+    height: calc((var(--ref-sp) * (100cqw - (var(--n) - 1) * var(--g)) / var(--n) + (var(--ref-sp) - 1) * var(--g)) / var(--ref-r));
+  }
+}
+
+/* ---------- image-pair: 6 + 6 ---------- */
+.kc-case-pair > .kc-case-cell { grid-column: span var(--sp, 6); }
+@container (min-width: 30rem) {
+  /* Side by side the cells are the same size. */
   .kc-case-pair .kc-case-frame { aspect-ratio: var(--shared); }
+}
+@container (max-width: 29.99rem) {
+  .kc-case-pair > .kc-case-cell { grid-column: 1 / -1; }
+  /* The explicit exception: mobile: "pair" keeps two (vertical) frames side by side, 2 columns each. */
+  .kc-case-pair[data-mobile="pair"] > .kc-case-cell { grid-column: span 2; }
+  .kc-case-pair[data-mobile="pair"] .kc-case-frame { aspect-ratio: var(--shared); }
 }
 
 /* ---------- ai-episode ---------- */
@@ -169,9 +212,9 @@
 .kc-ai-section--method { row-gap: var(--space-3); }
 .kc-ai-section--method > .kc-case-label { margin-bottom: calc(var(--space-2) * -1); }
 
-/* Rows of frames (ai-episode, sequence), detail-grid and outcome-montage share one scheme (data-n = number of
-   frames): one column, two from 30rem, then from 50rem one column per frame up to four; five and six frames
-   make two rows of three, seven and eight two rows of four. Never more than four in a row. */
+/* Rows of frames of ai-episode (Before, After; they keep this layout): one column, two from 30rem, then from
+   50rem one column per frame up to four; five and six frames make two rows of three, seven and eight two rows
+   of four. Never more than four in a row. (sequence, detail-grid, outcome-montage: .kc-case-rowgrid below.) */
 .kc-case-multi {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -213,7 +256,6 @@
 /* chapter-intro: Inter 400, 24px (20px on mobile), line 1.4 (styles/case-tokens.css). */
 .kc-case-intro {
   margin: 0;
-  max-inline-size: 44rem;
   font-family: var(--font-body);
   font-weight: var(--fw-body);
   font-size: var(--kc-case-type-intro);
@@ -222,46 +264,76 @@
   color: var(--text-default);
   text-wrap: pretty;
 }
-.kc-case-intro + .kc-case-intro { margin-top: var(--space-2); }
+/* The text column of an intro: 8 columns from 40rem, full width below, 4 of 4 in a narrow container. */
+.kc-case-intro-wrap { row-gap: var(--space-2); }
+.kc-case-cols > .kc-case-intro { grid-column: span var(--tsp, 12); }
+@container (min-width: 40rem) { .kc-case-cols > .kc-case-intro { grid-column: span var(--tsp, 8); } }
+@container (max-width: 29.99rem) { .kc-case-cols > .kc-case-intro { grid-column: 1 / -1; } }
 .kc-case-ph.kc-case-intro { height: 7rem; }
 
-/* image-full: the grid's full width, in the image's own proportions. */
-.kc-case-full[data-fit="column"] { max-inline-size: var(--kc-case-column); margin-inline: auto; }
-.kc-case-full[data-orient="portrait"] .kc-case-cell {
-  max-inline-size: 40rem;
-  margin-inline: auto;
+/* image-full: the full 12 columns ("bleed" is the same width today), in the image's own proportions; a vertical
+   frame alone takes columns 4-9 from 40rem (6 columns, centred on the grid); a supporting frame (role sketch,
+   scheme, error, detail or macro: data-aux) takes 6 columns at the left line, whatever its orientation. */
+.kc-case-full > .kc-case-cell { grid-column: span var(--sp, 12); }
+@container (min-width: 40rem) {
+  .kc-case-full[data-orient="portrait"] > .kc-case-cell:not([data-authored]) { grid-column: 4 / span 6; }
+  .kc-case-full[data-aux] > .kc-case-cell:not([data-authored]) { grid-column: 1 / span 6; }
+}
+@container (max-width: 29.99rem) {
+  .kc-case-full > .kc-case-cell, .kc-case-full[data-aux] > .kc-case-cell:not([data-authored]) { grid-column: 1 / -1; }
 }
 
-/* image-row-3: three equal frames from 40rem, one per row below. */
-.kc-case-trio[data-fit="column"] { max-inline-size: var(--kc-case-column); margin-inline: auto; }
-.kc-case-trio {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-3) var(--kc-case-column-gap);
+/* image-row-3: 4 + 4 + 4 from a 40rem container, stacked below (one column under 30rem). */
+.kc-case-trio > .kc-case-cell { grid-column: span var(--sp, 12); }
+@container (min-width: 30rem) {
+  .kc-case-trio[data-authored] .kc-case-frame { aspect-ratio: var(--shared); }
 }
 @container (min-width: 40rem) {
-  .kc-case-trio { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .kc-case-trio > .kc-case-cell { grid-column: span var(--sp, 4); }
   .kc-case-trio .kc-case-frame { aspect-ratio: var(--shared); }
 }
-
-/* text-image: stacked (text, then image) below 40rem; two columns from 40rem, side from the data. */
-.kc-case-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-3) var(--kc-case-column-gap);
-  align-items: start;
+@container (max-width: 29.99rem) {
+  .kc-case-trio > .kc-case-cell { grid-column: 1 / -1; }
 }
+
+/* text-image: text 6 + image 6 from 40rem (the side comes from the data), stacked below. */
+.kc-case-split { align-items: start; }
+.kc-case-split > .kc-case-copy { grid-column: span var(--tsp, 12); }
+.kc-case-split > .kc-case-cell { grid-column: span var(--sp, 12); }
 @container (min-width: 40rem) {
-  .kc-case-split { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .kc-case-split[data-side="left"] .kc-case-cell { order: -1; }
+  .kc-case-split > .kc-case-copy { grid-column: span var(--tsp, 6); }
+  .kc-case-split > .kc-case-cell { grid-column: span var(--sp, 6); }
+  .kc-case-split[data-side="left"] > .kc-case-cell { order: -1; }
+}
+@container (max-width: 29.99rem) {
+  .kc-case-split > .kc-case-copy, .kc-case-split > .kc-case-cell { grid-column: 1 / -1; }
 }
 
-/* logo-showcase: logos shown whole, centred on a quiet cell of one shared size. */
-.kc-case-logos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(max(14rem, calc((100% - 3 * var(--kc-case-column-gap)) / 4)), 1fr));
-  gap: var(--space-3) var(--kc-case-column-gap);
+/* Text under a row of frames (sequence, outcome-montage, logo-showcase, palette-swatches): 6 columns from 40rem. */
+.kc-case-stack > .kc-case-text { grid-column: span var(--tsp, 12); }
+@container (min-width: 40rem) { .kc-case-stack > .kc-case-text { grid-column: span var(--tsp, 6); } }
+@container (max-width: 29.99rem) { .kc-case-stack > .kc-case-text { grid-column: 1 / -1; } }
+
+/* sequence, detail-grid, outcome-montage (.kc-case-rowgrid) and the logos of logo-showcase: one scheme, data-n =
+   number of frames. Defaults: --d from 50rem (up to four in a row; five and six make rows of three, seven and
+   more rows of four), two per row from 30rem (--dmid), one column below 30rem. */
+.kc-case-rowgrid, .kc-case-logos { --d: 3; --dmid: 6; }
+:is(.kc-case-rowgrid, .kc-case-logos)[data-n="1"] { --d: 12; --dmid: 12; }
+:is(.kc-case-rowgrid, .kc-case-logos)[data-n="2"] { --d: 6; --dmid: 6; }
+:is(.kc-case-rowgrid, .kc-case-logos):is([data-n="3"], [data-n="5"], [data-n="6"]) { --d: 4; --dmid: 6; }
+:is(.kc-case-rowgrid, .kc-case-logos) > .kc-case-cell { grid-column: span var(--sp, var(--dmid)); }
+@container (min-width: 50rem) {
+  :is(.kc-case-rowgrid, .kc-case-logos) > .kc-case-cell { grid-column: span var(--sp, var(--d)); }
 }
+@container (max-width: 29.99rem) {
+  :is(.kc-case-rowgrid, .kc-case-logos) > .kc-case-cell { grid-column: 1 / -1; }
+}
+/* Side by side the frames are the same size; stacked (under 30rem) each keeps its own proportions. */
+@container (min-width: 30rem) {
+  .kc-case-rowgrid .kc-case-frame { aspect-ratio: var(--shared); }
+}
+
+/* logo-showcase: logos shown whole, centred on a quiet cell of one shared size (widths: see rowgrid above). */
 .kc-case-logo-frame {
   position: relative;
   container-type: inline-size;
@@ -282,15 +354,15 @@
   background: var(--neutral-400);
 }
 
-/* palette-swatches */
+/* palette-swatches: 3 columns each (four in a row) from 40rem, 4 columns (three in a row) from 30rem, one column below. */
 .kc-case-swatches {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(max(9rem, calc((100% - 3 * var(--kc-case-column-gap)) / 4)), 1fr));
-  gap: var(--space-3) var(--kc-case-column-gap);
   margin: 0;
   padding: 0;
   list-style: none;
 }
+.kc-case-swatches > .kc-case-swatch { grid-column: span 4; }
+@container (min-width: 40rem) { .kc-case-swatches > .kc-case-swatch { grid-column: span 3; } }
+@container (max-width: 29.99rem) { .kc-case-swatches > .kc-case-swatch { grid-column: 1 / -1; } }
 .kc-case-swatch { display: grid; row-gap: var(--space-half); align-content: start; }
 .kc-case-swatch-chip {
   display: block;
@@ -354,13 +426,14 @@
   .kc-case-note[data-side="right"] { transform: translate(-100%, -50%); }
 }
 
-/* detail-grid and outcome-montage use .kc-case-multi above. */
+/* detail-grid and outcome-montage use .kc-case-rowgrid above. */
 
-/* principles-list: title and text side by side from 40rem. */
-.kc-case-principles { display: grid; row-gap: var(--space-6); margin: 0; padding: 0; list-style: none; }
-.kc-case-principle { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-2) var(--kc-case-column-gap); align-items: start; }
+/* principles-list: title 4 columns, text 6 (columns 5-10: body text is at most 6 columns) from 40rem; stacked below. */
+.kc-case-principles { row-gap: var(--space-6); margin: 0; padding: 0; list-style: none; }
+.kc-case-principle { row-gap: var(--space-2); }
 @container (min-width: 40rem) {
-  .kc-case-principle { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  .kc-case-principle > .kc-case-principle-title { grid-column: 1 / span 4; }
+  .kc-case-principle > .kc-case-text { grid-column: 5 / span 6; }
 }
 .kc-case-principle-title {
   margin: 0;

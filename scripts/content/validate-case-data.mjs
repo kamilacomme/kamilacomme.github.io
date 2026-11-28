@@ -25,7 +25,7 @@ export const BLOCK_TYPES = {
   'hero-reveal': { title: 'L', subtitle: 'L?', subtitleLong: 'L?', subtitleShort: 'L?', image: 'I', facts: 'facts?' },
   'chapter-intro': { text: 'L', span: 'span?' },
   'image-full': { image: 'I' },
-  'image-pair': { images: { kind: 'I[]', min: 2, max: 2 } },
+  'image-pair': { images: { kind: 'I[]', min: 2, max: 2 }, mobile: 'mobile?' },
   'image-row-3': { images: { kind: 'I[]', min: 3, max: 3 } },
   'text-image': { text: 'L', image: 'I', side: 'side', span: 'span?' },
   'logo-showcase': { images: { kind: 'I[]', min: 1 }, text: 'L?', span: 'span?' },
@@ -127,6 +127,7 @@ function checkField(kind, value, where, report, ctx) {
       return value.forEach((image, i) => checkImage(image, `${where}[${i}]`, report, ctx));
     }
     case 'span': if (!TEXT_SPANS.includes(value)) report.add(where, `text column width must be one of ${TEXT_SPANS.join(', ')} (columns of 12)`); return;
+    case 'mobile': if (value !== 'pair') report.add(where, 'must be "pair" (two frames stay side by side on a phone) or be left out'); return;
     case 'side': if (!['left', 'right'].includes(value)) report.add(where, 'must be "left" or "right"'); return;
     case 'facts': case 'principles': case 'notes': case 'swatches': case 'details': {
       if (!Array.isArray(value) || !value.length) return report.add(where, 'must be a non-empty list');

@@ -19,7 +19,7 @@ export const chapterAnchor = id => `chapter-${id}`;
  */
 export function renderCaseContent(data, locale, { escapeText, escapeAttribute, manifest }) {
   const ui = UI[locale];
-  const blocks = createBlockRenderer({ caseId: data.id, locale, manifest, escapeText, escapeAttribute });
+  const blocks = createBlockRenderer({ caseId: data.id, chapterIds: data.chapters.map(c => c.id), locale, manifest, escapeText, escapeAttribute });
   const ownsTitle = data.chapters.some(c => c.blocks.some(block => block.type === 'hero-reveal'));
   const textNode = (value, tag, attrs = '') => {
     const t = pick(value, locale);

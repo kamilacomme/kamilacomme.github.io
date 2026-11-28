@@ -3,10 +3,14 @@
 // Uses CHROME_PATH (default: macOS Google Chrome) and BASE_URL (default http://127.0.0.1:8000).
 //
 // Checks per width (320–1920, both languages): no horizontal overflow; hero between the Navbar and the
-// bottom of the first screen, with the portrait/landscape frame matching the screen; every pair and row
-// follows its container (stacked / two columns / one per frame) and its cells are the same size; every
-// rendered image has loaded. Container test: the same page in a 340px-wide column on a 1440px screen must
-// stack like a phone, which proves the blocks follow their container and not the window.
+// bottom of the first screen, with the portrait/landscape frame matching the screen; every block follows its
+// container (frames per line by container tier, see styles/case-blocks.css; a phone is ONE column, the only
+// exception is an image-pair marked mobile: "pair") and its cells are the same size
+// (same height when the widths differ); every rendered image has loaded; the left and right edge of every frame
+// and text column sit on the lines of the page grid (12 columns, margins 32, gutter 24; 4 columns, 16/16 under
+// 500px: the same lines as the overlay of scripts/dev/grid-overlay.js), ±1px; SVG logos are not measured against
+// a file width (they have none). Container test: the same page in a 340px-wide column on a 1440px screen must
+// lay out like a phone, which proves the blocks follow their container and not the window.
 const { chromium } = require('playwright');
 const fs = require('fs');
 const BASE = process.env.BASE_URL || 'http://127.0.0.1:8000';
@@ -35,7 +39,11 @@ const probe = () => {
     const f = [...c.querySelectorAll('.kc-case-frame')].find(vis);
     return f ? rect(f) : null;
   });
-  document.querySelectorAll('.kc-case-pair').forEach(el => out.pairs.push({ container: el.parentElement.clientWidth, cols: getComputedStyle(el).gridTemplateColumns.split(' ').length, cells: cells(el) }));
+  // Frames in the most crowded line of a row (cells sharing the same top).
+  const lineCount = list => { const ys = list.filter(Boolean).map(c => Math.round(c.y)); return ys.length ? Math.max(...ys.map(y => ys.filter(v => Math.abs(v - y) < 2).length)) : 0; };
+  out.clientWidth = document.documentElement.clientWidth;
+  out.margin = parseFloat(getComputedStyle(document.querySelector('.kc-case-chapter')).paddingLeft);
+  document.querySelectorAll('.kc-case-pair').forEach(el => { const c = cells(el); out.pairs.push({ container: el.parentElement.clientWidth, authored: el.hasAttribute('data-authored'), uneq: el.hasAttribute('data-uneq'), mobilePair: el.dataset.mobile === 'pair', perLine: lineCount(c), cells: c }); });
   document.querySelectorAll('.kc-case-row').forEach(el => { const c = cells(el); out.rows.push({ container: el.parentElement.clientWidth, n: +el.dataset.n, cols: getComputedStyle(el).gridTemplateColumns.split(' ').length, cells: c, perRow: new Set(c.filter(Boolean).map(v => Math.round(v.x))).size }); });
   out.fullFrames = [...document.querySelectorAll('.kc-case-full')].map(el => { const img = el.querySelector('img'); const c = (img?.srcset || '').split(',').pop().trim().split(' ')[0]; return { fit: el.dataset.fit, w: el.querySelector('.kc-case-frame').getBoundingClientRect().width, largestW: +((c.match(/-(\d+)\.webp$/) || [])[1] || 0), src: img?.currentSrc ?? '' }; });
   document.querySelectorAll('.kc-case-block img').forEach(img => {
@@ -43,6 +51,7 @@ const probe = () => {
     if (img.closest('.kc-case-hero-media')) return;
     // File width from the name (-<width>.webp); "largest" = the biggest file the page offers for this image.
     const src = img.currentSrc || img.src;
+    if (/\.svg(\?|$)/.test(src)) return; // vector art has no file width: no stretch rule applies
     const fileW = +((src.match(/-(\d+)\.webp$/) || [])[1] || 0);
     const candidates = (img.srcset || '').split(',').map(c => c.trim().split(' ')[0]).filter(Boolean);
     const largestW = +((candidates.at(-1) || '').match(/-(\d+)\.webp$/) || [])[1] || fileW;
@@ -51,13 +60,19 @@ const probe = () => {
   // Remaining blocks: grid columns, cell sizes and the annotation layout, measured on the page.
   const blockOf = el => el.closest('.kc-case-block').clientWidth;
   const sizes = el => [...el.querySelectorAll(':scope > .kc-case-cell, :scope > .kc-case-swatch, :scope > .kc-case-logo')].map(c => {
-    const f = c.querySelector('.kc-case-frame, .kc-case-swatch-chip, .kc-case-logo-frame');
-    return f && vis(f) ? rect(f) : null;
+    // An art-directed cell holds a wide and a narrow frame; only the visible one is measured.
+    const f = [...c.querySelectorAll('.kc-case-frame, .kc-case-swatch-chip, .kc-case-logo-frame')].find(vis);
+    return f ? rect(f) : null;
   });
   out.grids = [];
-  for (const [sel, kind] of [['.kc-case-trio', 'trio'], ['.kc-case-montage', 'montage'], ['.kc-case-tiles', 'tiles'], ['.kc-case-logos', 'logos'], ['.kc-case-swatches', 'swatches'], ['.kc-case-principle', 'principle'], ['.kc-case-split', 'split']]) {
-    document.querySelectorAll(sel).forEach(el => { const cells = kind === 'principle' || kind === 'split' ? [] : sizes(el); out.grids.push({ kind, n: +el.dataset.n || cells.length, container: blockOf(el), cols: getComputedStyle(el).gridTemplateColumns.split(' ').length, cells, perRow: new Set(cells.filter(Boolean).map(c => Math.round(c.x))).size }); });
+  for (const [sel, kind] of [['.kc-case-trio', 'trio'], ['.kc-case-rowgrid', 'rowgrid'], ['.kc-case-logos', 'logos'], ['.kc-case-swatches', 'swatches'], ['.kc-case-principle', 'principle'], ['.kc-case-split', 'split']]) {
+    document.querySelectorAll(sel).forEach(el => { const cells = kind === 'principle' || kind === 'split' ? [] : sizes(el); out.grids.push({ kind, n: +el.dataset.n || cells.length, container: blockOf(el), authored: el.hasAttribute('data-authored'), uneq: el.hasAttribute('data-uneq'), cells, perLine: lineCount(cells) }); });
   }
+  // Every frame and text column placed on the column grid: its box edges against the grid lines.
+  out.items = [...document.querySelectorAll('.kc-case-cols > :not(.kc-case-cols)')].filter(vis).map(el => {
+    const b = el.getBoundingClientRect();
+    return { block: el.closest('.kc-case-block').dataset.kcBlock, mobilePair: !!el.closest('.kc-case-pair[data-mobile]'), cls: String(el.className).split(' ')[0].replace('kc-case-', ''), left: b.left, right: b.right, capped: getComputedStyle(el).getPropertyValue('--cap').trim() !== '' };
+  });
   out.splits = [...document.querySelectorAll('.kc-case-split')].map(el => {
     const copy = el.querySelector('.kc-case-copy').getBoundingClientRect(), fig = el.querySelector('.kc-case-cell').getBoundingClientRect();
     return { side: el.dataset.side, container: blockOf(el), imageLeftOfText: fig.x < copy.x - 1, stacked: Math.abs(fig.x - copy.x) < 2 };
@@ -108,12 +123,29 @@ const probe = () => {
         if (m.portrait !== /vertical/.test(m.hero.src)) fail(where, `hero frame ${m.hero.src.split('/').pop()} does not match ${m.portrait ? 'portrait' : 'landscape'}`);
       }
       if (m.h1.length !== 1 || !m.h1[0]) fail(where, `h1 ${JSON.stringify(m.h1)}`);
+      // Frames per line by container tier (styles/case-blocks.css); an authored `span` sets its own widths from 480px,
+      // so only the default layouts are counted there. Under 480px (a phone, 4 columns) everything is ONE column
+      // whatever the span; the one exception is an image-pair marked mobile: "pair" (two frames, 2 columns each).
+      const perRowFor = n => (n <= 4 ? n : n <= 6 ? 3 : 4);
+      const rowLine = (n, c) => (c < 480 ? 1 : c < 800 ? (n === 1 ? 1 : 2) : perRowFor(n));
       for (const pr of m.pairs) {
-        const wantCols = pr.container >= 480 ? 2 : 1;
-        if (pr.cols !== wantCols) fail(where, `pair in ${pr.container}px has ${pr.cols} columns, expected ${wantCols}`);
-        if (pr.cols === 2) sameSize(where, `pair ${pr.container}px`, pr.cells);
+        if (pr.container < 480) {
+          const want = pr.mobilePair ? 2 : 1;
+          if (pr.perLine !== want) fail(where, `pair in ${pr.container}px has ${pr.perLine} per line, expected ${want}${pr.mobilePair ? ' (mobile: pair)' : ''}`);
+          if (pr.mobilePair) sameSize(where, `mobile pair ${pr.container}px`, pr.cells);
+          continue;
+        }
+        if (pr.authored) {
+          const k = pr.cells.filter(Boolean);
+          if (pr.perLine > 1 && (pr.uneq ? k.some(v => Math.abs(v.h - k[0].h) > 1.5) : false)) fail(where, `pair ${pr.container}px: frames of unequal widths differ in height`);
+          if (pr.perLine > 1 && !pr.uneq) sameSize(where, `pair ${pr.container}px`, pr.cells);
+          continue;
+        }
+        const want = pr.container >= 480 ? 2 : 1;
+        if (pr.perLine !== want) fail(where, `pair in ${pr.container}px has ${pr.perLine} per line, expected ${want}`);
+        if (pr.perLine === 2) sameSize(where, `pair ${pr.container}px`, pr.cells);
       }
-      // One scheme for rows, detail-grid and montage: 1 column, 2 from 480px, then 3 for 3/5/6 frames, 4 for 4/7+ (never more than 4).
+      // ai-episode rows keep their own scheme: 1 column, 2 from 480px, then 3 for 3/5/6 frames, 4 for 4/7+ (never more than 4).
       const colsFor = (n, c) => (c < 480 ? 1 : c < 800 || n <= 2 ? 2 : [3, 5, 6].includes(n) ? 3 : 4);
       for (const r of m.rows) {
         const want = colsFor(r.n, r.container);
@@ -123,29 +155,54 @@ const probe = () => {
       }
       for (const g of m.grids) {
         const c = g.container;
-        const want = { trio: c >= 640 ? 3 : 1, montage: colsFor(g.n, c), tiles: colsFor(g.n, c), principle: c >= 640 ? 2 : 1 }[g.kind];
-        if (g.perRow > 4) fail(where, `${g.kind} has more than four frames in a line`);
-        if (want && g.cols !== want) fail(where, `${g.kind} in ${c}px has ${g.cols} columns, expected ${want}`);
-        if (g.cells.length && g.cols > 1) sameSize(where, `${g.kind} ${c}px`, g.cells);
+        if (g.perLine > 4) fail(where, `${g.kind} has more than four frames in a line`);
+        if (c < 480 && g.perLine > 1) fail(where, `${g.kind} (${g.n}) in ${c}px has ${g.perLine} per line, a phone is one column`);
+        if (!g.authored || c < 480) {
+          const want = { trio: c >= 640 ? 3 : 1, rowgrid: rowLine(g.n, c), logos: rowLine(g.n, c), swatches: c >= 640 ? 4 : c >= 480 ? 3 : 1 }[g.kind];
+          if (want && g.perLine !== want) fail(where, `${g.kind} (${g.n}) in ${c}px has ${g.perLine} per line, expected ${want}`);
+        }
+        if (g.cells.length && g.perLine > 1) {
+          if (g.uneq) { const k = g.cells.filter(Boolean); if (k.some(v => Math.abs(v.h - k[0].h) > 1.5)) fail(where, `${g.kind} ${c}px: frames of unequal widths differ in height`); }
+          else sameSize(where, `${g.kind} ${c}px`, g.cells);
+        }
         if (['logos', 'swatches'].includes(g.kind)) sameSize(where, `${g.kind} ${c}px`, g.cells);
       }
       for (const sp of m.splits) {
         if (sp.container >= 640 ? sp.stacked : !sp.stacked) fail(where, `split in ${sp.container}px is ${sp.stacked ? 'stacked' : 'side by side'}`);
         if (!sp.stacked && (sp.side === 'left') !== sp.imageLeftOfText) fail(where, `split image is on the wrong side (data-side ${sp.side})`);
       }
-      // Quality rules: never drawn wider than 1.15x the largest file; drawings and smaller frames inside the 64rem column;
-      // full width only for photographs whose largest file is 1600px or more.
+      // Quality rules: never drawn wider than 1.15x the largest file (SVG excluded); full width only for photographs
+      // whose largest file is 1600px or more. (Widths of drawings and supporting frames are the layout rules of
+      // `npm run case:layout-check`, a report, not a failure here.)
       for (const i of m.broken) {
         if (i.ok && i.rendered > i.largestW * 1.15 + 1) fail(where, `${i.src.split('/').pop()} drawn ${i.rendered.toFixed(0)}px wide, over 1.15x its ${i.largestW}px file`);
-        if (i.sketch && i.rendered > 1025) fail(where, `sketch ${i.src.split('/').pop()} is ${i.rendered.toFixed(0)}px wide (column is 1024px)`);
       }
       for (const f of m.fullFrames) {
-        if (f.fit === 'column' && f.w > 1025) fail(where, `column image ${f.src.split('/').pop()} is ${f.w.toFixed(0)}px wide`);
         if (f.fit === 'full' && f.largestW < 1600) fail(where, `full-width image ${f.src.split('/').pop()} has a ${f.largestW}px file (needs 1600px)`);
       }
-      for (const f of m.full) {
-        if (f.orient === 'portrait' && f.w > 641) fail(where, `portrait full frame is ${f.w}px wide (max 640)`);
-        if (f.orient === 'portrait' && !f.centered) fail(where, 'portrait full frame is not centred');
+      // Grid edges: left edge of every frame and text column on a column start; right edge on a column end unless the
+      // frame is held back by the 1.15x rule (then it stays pinned to its left line). The lines are those of the page
+      // (its margin is the page gutter) and, up to 1440px, those of the overlay of scripts/dev/grid-overlay.js (margins
+      // 32 or 16): above 1440px the page margin grows with the scene scale (34.5px at 1920) while the overlay keeps
+      // 32. Skipped at 500px: tablet profile with a 12-column overlay but 4-column blocks (container under 480px).
+      if (w !== 500) {
+        const spec = m.clientWidth < 500 ? { n: 4, m: 16, g: 16 } : { n: 12, m: 32, g: 24 };
+        if (w <= 1440 && Math.abs(m.margin - spec.m) > 0.5) fail(where, `page margin ${m.margin}px differs from the grid overlay margin ${spec.m}px`);
+        spec.m = m.margin;
+        const col = (m.clientWidth - 2 * spec.m - (spec.n - 1) * spec.g) / spec.n;
+        const starts = Array.from({ length: spec.n }, (_, k) => spec.m + k * (col + spec.g));
+        const ends = starts.map(x => x + col);
+        const near = (v, list) => list.some(x => Math.abs(v - x) <= 1);
+        for (const it of m.items) {
+          if (!near(it.left, starts)) fail(where, `${it.block} ${it.cls}: left edge ${it.left.toFixed(1)}px is not on a grid line`);
+          if (!it.capped && !near(it.right, ends)) fail(where, `${it.block} ${it.cls}: right edge ${it.right.toFixed(1)}px is not on a grid line`);
+          // A phone: every frame and text column runs from the left page margin to the right one (16px), except the
+          // two frames of an explicit mobile: "pair" (a frame held back by the 1.15x rule stays on the left margin).
+          if (m.clientWidth < 500 && !it.mobilePair) {
+            if (Math.abs(it.left - m.margin) > 1) fail(where, `${it.block} ${it.cls}: left edge ${it.left.toFixed(1)}px is not the page margin (${m.margin}px)`);
+            if (!it.capped && Math.abs(it.right - (m.clientWidth - m.margin)) > 1) fail(where, `${it.block} ${it.cls}: right edge ${it.right.toFixed(1)}px is not the page margin (${m.clientWidth - m.margin}px)`);
+          }
+        }
       }
       for (const a of m.annot) {
         const wide = a.container >= 640;
@@ -168,11 +225,21 @@ const probe = () => {
     await p.addStyleTag({ content: '.kc-case-chapter{max-width:340px}' }); await settle(p);
     const narrow = await p.evaluate(probe);
     const where = `${lang} 1440 screen, 340px column`;
-    if (!wide.pairs.every(x => x.cols === 2) || !wide.rows.some(x => x.cols >= 3)) fail(where, 'the full-width page does not show two-column pairs and 3–4 column rows');
-    if (!narrow.pairs.every(x => x.cols === 1) || !narrow.rows.every(x => x.cols === 1)) fail(where, 'blocks in a 340px column did not stack');
-    if (!narrow.grids.every(g => g.cols === 1 || ['tiles', 'logos', 'swatches'].includes(g.kind)) || !narrow.splits.every(x => x.stacked) || !narrow.annot.every(a => !a.overlay)) fail(where, 'trio, montage, split or annotation did not follow the 340px column');
-    if (!wide.grids.some(g => g.kind === 'trio' && g.cols === 3) || !wide.splits.some(x => !x.stacked) || !wide.annot.some(a => a.overlay)) fail(where, 'the full-width page does not show the wide layouts');
-    rows.push({ lang, container: '340px column on 1440', pairs: narrow.pairs.map(x => x.cols), rows: narrow.rows.map(x => x.cols), grids: narrow.grids.map(g => `${g.kind}:${g.cols}`) });
+    // The wide page must show the wide layouts of every block kind it has; in the 340px column the same blocks must
+    // lay out as in a phone (4 columns): pairs and splits stacked, annotations lettered. Block kinds a page does not
+    // have are not required (Jane has no text-image and no annotated-image; the example page has every block).
+    if (wide.pairs.some(x => !x.authored && x.perLine !== 2)) fail(where, 'the full-width page does not show two-column pairs');
+    if (wide.grids.some(g => g.kind === 'trio' && !g.authored) && !wide.grids.some(g => g.kind === 'trio' && g.perLine === 3)) fail(where, 'the full-width page does not show a three-column row');
+    if (wide.splits.length && !wide.splits.some(x => !x.stacked)) fail(where, 'the full-width page does not show a side-by-side split');
+    if (wide.annot.length && !wide.annot.some(a => a.overlay)) fail(where, 'the full-width page does not show the annotation overlay');
+    if (!narrow.pairs.every(x => x.perLine === (x.mobilePair ? 2 : 1))) fail(where, 'pairs in a 340px column are not one column (two only for mobile: pair)');
+    if (!narrow.rows.every(x => x.cols === 1)) fail(where, 'ai-episode rows in a 340px column did not stack');
+    if (!narrow.splits.every(x => x.stacked) || !narrow.annot.every(a => !a.overlay)) fail(where, 'split or annotation did not follow the 340px column');
+    for (const g of narrow.grids) {
+      if (g.container >= 480) continue;
+      if (g.perLine > 1) fail(where, `${g.kind} (${g.n}) in the 340px column has ${g.perLine} per line, a phone is one column`);
+    }
+    rows.push({ lang, container: '340px column on 1440', pairs: narrow.pairs.map(x => x.perLine), rows: narrow.rows.map(x => x.cols), grids: narrow.grids.map(g => `${g.kind}:${g.perLine}`) });
     await ctx.close();
   }
   await b.close();

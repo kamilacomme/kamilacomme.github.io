@@ -10,7 +10,7 @@ The single list of the project's frozen references and why each exists. The rule
 | --- | ---: | --- |
 | `tests/qa/references/<profile>-<lang>/` (desktop, tablet-portrait, tablet-landscape, mobile × fr, en) | 166 | Screenshot references and capture manifests (browser, platform, emulation) for the `tests/qa` visual comparison and `tests/verify-lab.cjs`. |
 | `tests/runtime/resources/` | 32 | Recorded runtime resources (fonts, scripts, styles, media) replayed by `tests/runtime/server.mjs`, so tests do not depend on the network. |
-| `tests/runtime/manifest.json` | 1 | Maps replayed URLs to those resources. |
+| `tests/runtime/manifest.json` | 1 | Maps replayed URLs to those resources. One entry was added on 2026-11-28 with Kamila's explicit approval (`577ee66`): the Google Fonts URL without Epilogue, replaying the same recorded stylesheet; the lock record of this file was updated, the other 229 hashes were not. |
 | `tests/runtime/licenses/` | 5 | Licenses of the replayed third-party resources. |
 | `tests/baseline/performance/` | 25 | Lighthouse reports (FR/EN × desktop/mobile × 3 runs, HTML and JSON) and `summary.json`: the performance budgets compared by `tests/performance/compare.mjs`. |
 | `tests/baseline/content-inventory.json` | 1 | Canonical project order per layout, checked when references are recorded. |

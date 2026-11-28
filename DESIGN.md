@@ -161,7 +161,7 @@ A restrained neutral palette with one pink accent and two rarely used supporting
 
 ### Named Rules
 **The Two Voices Rule.** Figtree for structure, Inter for everything else. No third family, and no Figtree in running text.
-**The Unused Font Note.** The page head also requests Epilogue 500 from Google Fonts (`templates/page.html`, `templates/case.html`), but no stylesheet or page uses it. It is not part of the system; do not use it, and removing the request is a separate decision because it changes the shared head of every page.
+**The Unused Font Note.** Epilogue was removed from the page head on 2026-11-28 by Kamila's decision; the system has no third family.
 **The No-Scaling Rule.** Text keeps its approved size per profile (desktop, tablet, mobile); layouts reflow around it instead of shrinking it.
 
 ## Layout

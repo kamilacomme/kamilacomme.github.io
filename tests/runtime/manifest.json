@@ -110,6 +110,14 @@
       "contentType": "text/css",
       "source": "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400;1,700&family=Epilogue:wght@500&display=swap"
     },
+    "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400;1,700&display=swap": {
+      "file": "resources/1687a1b8dcef0943b8248745.css",
+      "sha256": "2e0a59f80e9e435d1d3601775b3eb2dec5a81ea533428603bf094b61b73f81d9",
+      "bytes": 5065,
+      "contentType": "text/css",
+      "source": "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400;1,700&family=Epilogue:wght@500&display=swap",
+      "note": "2026-11-28, replacement of a frozen reference approved by Kamila: the page head no longer requests Epilogue (task 02-B). This URL replays the same recorded stylesheet; its unused Epilogue @font-face is never fetched. The original URL above stays for the frozen original pages."
+    },
     "https://fonts.gstatic.com/s/epilogue/v20/O4ZMFGj5hxF0EhjimngomvnCCtqb30OXAjPSBJ_UugE.woff2": {
       "file": "resources/48f0cdda14f5233fc0f89f2d.bin",
       "sha256": "0ee5987ce7f883a3cd848d498b2c45ccfe3ef263b4e86e2ee9e62f753125704b",

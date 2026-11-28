@@ -11,6 +11,7 @@ export const MAX_BLEEDS = 4;
 export const MAX_PER_ROW = 4;
 export const TEXT_MAX = 6;
 export const INTRO_MAX = 8;
+export const MOBILE_PAIR_CAPTION_MAX = 40;
 
 /** Widths used when the data gives no span (the layout of each block today). */
 export const DEFAULT_SPANS = {
@@ -35,6 +36,7 @@ export const RULES = {
   'row-too-many': `At most ${MAX_PER_ROW} frames in a row`,
   'row-four-not-aux': 'Four frames in a row only for supporting frames',
   'mobile-pair': 'mobile: "pair" is for exactly two frames that are both vertical (an art-directed frame counts as vertical: a phone shows its vertical file)',
+  'mobile-pair-caption': 'Under a mobile: "pair" a frame caption is only 2 of 4 columns wide on a phone: keep it to 40 characters (either language), or use one caption for the whole pair',
   'vertical-alone': 'A vertical frame is never alone in the centre: 3–4 columns in a row, 6 beside a 6-column text, or a 6 + 6 pair',
   'text-too-wide': `Body text is at most ${TEXT_MAX} columns, a chapter intro at most ${INTRO_MAX}`,
   'annotated-image': 'annotated-image is deprecated: no call-outs over images',
@@ -141,6 +143,12 @@ export function layoutIssues(data, manifest = {}) {
           // On a phone the art-directed frame shows its vertical file, so it counts as vertical there.
           if (block.mobile === 'pair' && (row.length !== 2 || (block.images ?? []).some((image, i) => !image?.art && !row[i].portrait))) {
             add('mobile-pair', row.filter((f, i) => !block.images[i]?.art && !f.portrait).map(f => f.name).join(', ') || null, `mobile: "pair" with ${row.length} frame(s)${row.some((f, i) => !block.images[i]?.art && !f.portrait) ? ', not all vertical' : ''}`);
+          }
+          if (block.mobile === 'pair') {
+            (block.images ?? []).forEach(image => {
+              const longest = Math.max(0, ...['en', 'fr'].map(l => (typeof image?.caption?.[l] === 'string' ? image.caption[l].length : 0)));
+              if (longest > MOBILE_PAIR_CAPTION_MAX) add('mobile-pair-caption', mainName(image) ?? null, `frame caption of ${longest} characters under a mobile: "pair" (at most ${MOBILE_PAIR_CAPTION_MAX}); use one caption for the whole pair (the caption of the block)`);
+            });
           }
           break;
         }

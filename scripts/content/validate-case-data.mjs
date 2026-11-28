@@ -25,7 +25,7 @@ export const BLOCK_TYPES = {
   'hero-reveal': { title: 'L', subtitle: 'L?', subtitleLong: 'L?', subtitleShort: 'L?', image: 'I', facts: 'facts?' },
   'chapter-intro': { text: 'L', span: 'span?' },
   'image-full': { image: 'I' },
-  'image-pair': { images: { kind: 'I[]', min: 2, max: 2 }, mobile: 'mobile?' },
+  'image-pair': { images: { kind: 'I[]', min: 2, max: 2 }, caption: 'L?', mobile: 'mobile?' },
   'image-row-3': { images: { kind: 'I[]', min: 3, max: 3 } },
   'text-image': { text: 'L', image: 'I', side: 'side', span: 'span?' },
   'logo-showcase': { images: { kind: 'I[]', min: 1 }, text: 'L?', span: 'span?' },
@@ -151,6 +151,22 @@ function checkField(kind, value, where, report, ctx) {
     }
     default: report.add(where, `unknown field kind ${spec.kind}`);
   }
+}
+
+/**
+ * Warnings: things the author should look at that are not structural errors (report only, never fail a check).
+ * - an image-pair that has a caption of its own and captions on its frames.
+ */
+export function caseWarnings(data) {
+  const warnings = [];
+  if (!isObject(data) || !Array.isArray(data.chapters)) return warnings;
+  data.chapters.forEach((chapter, c) => (Array.isArray(chapter?.blocks) ? chapter.blocks : []).forEach((block, b) => {
+    if (block?.type !== 'image-pair' || block.caption === undefined) return;
+    if ((block.images ?? []).some(image => image?.caption !== undefined)) {
+      warnings.push(`case ${data.id} chapters[${c}](${chapter.id}).blocks[${b}]: image-pair has a caption of its own and captions on its frames; keep one kind (the caption of the pair, or one short caption per frame)`);
+    }
+  }));
+  return warnings;
 }
 
 /** Structural checks; drafts with placeholders and empty French text pass. */

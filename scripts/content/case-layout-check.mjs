@@ -5,6 +5,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { loadCases, root } from './case-data.mjs';
 import { RULES, layoutIssues } from './case-layout.mjs';
+import { caseWarnings } from './validate-case-data.mjs';
 
 const args = process.argv.slice(2);
 const id = args.find(arg => !arg.startsWith('--'));
@@ -16,8 +17,9 @@ if (!id || !entry?.data) {
 let manifest = {};
 try { manifest = JSON.parse(await readFile(path.join(root, 'assets/cases', id, 'images.json'), 'utf8')).images; } catch {}
 const issues = layoutIssues(entry.data, manifest);
+const warnings = caseWarnings(entry.data);
 if (args.includes('--json')) {
-  console.log(JSON.stringify({ case: id, issues }, null, 2));
+  console.log(JSON.stringify({ case: id, issues, warnings }, null, 2));
   process.exit(0);
 }
 console.log(`Layout check for case ${id} (report only): ${issues.length} issue(s).`);
@@ -31,3 +33,4 @@ for (const [rule, text] of Object.entries(RULES)) {
   }
 }
 if (!issues.length) console.log('No issues.');
+if (warnings.length) console.log(`\nWarnings from the format check (report only):\n- ${warnings.join('\n- ')}`);

@@ -3,7 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { BLOCK_TYPES, validateCaseFormat, validateCaseIndexRecord, validateCasePublication } from '../../scripts/content/validate-case-data.mjs';
+import { BLOCK_TYPES, caseWarnings, validateCaseFormat, validateCaseIndexRecord, validateCasePublication } from '../../scripts/content/validate-case-data.mjs';
 import { checkCases } from '../../scripts/content/case-data.mjs';
 import { layoutIssues, roleOf } from '../../scripts/content/case-layout.mjs';
 
@@ -281,4 +281,47 @@ test('layout rule mobile-pair: exactly two frames, all vertical (art-directed co
   assert.deepEqual(layoutIssues(d, { ...manifestOf(d), 'x-c-photo-wide-aaaaa': { width: 2400, height: 1600 }, 'x-c-photo-tall-bbbbb': { width: 800, height: 1200 } }).map(i => i.rule), []);
   const three = layoutCase(pair([frame('photo', 'tall'), frame('photo', 'tall'), frame('photo', 'tall')]));
   assert.ok(layoutIssues(three, manifestOf(three)).some(i => i.rule === 'mobile-pair'), 'three frames');
+});
+
+// One caption for a whole image-pair (task 03b).
+test('image-pair: a caption of its own is allowed; with frame captions too it is a warning, not an error', () => {
+  const c = clone(example);
+  const pair = c.chapters.find(ch => ch.id === 'nature-to-form').blocks[1];
+  assert.equal(pair.type, 'image-pair');
+  pair.caption = { en: 'One caption for the pair.', fr: 'Une légende pour la paire.' };
+  pair.images.forEach(image => delete image.caption);
+  assert.deepEqual(validateCaseFormat(c), []);
+  assert.deepEqual(caseWarnings(c), [], 'a pair caption alone is fine');
+  pair.images[0].caption = { en: 'Left.', fr: 'Gauche.' };
+  assert.deepEqual(validateCaseFormat(c), [], 'both kinds are not an error');
+  const warnings = caseWarnings(c);
+  assert.equal(warnings.length, 1);
+  assert.match(warnings[0], /image-pair has a caption of its own and captions on its frames/);
+  const bad = clone(c);
+  bad.chapters.find(ch => ch.id === 'nature-to-form').blocks[1].caption = 'plain string';
+  assert.ok(validateCaseFormat(bad).some(e => e.includes('.caption: must be an object')));
+  const other = clone(example);
+  other.chapters.find(ch => ch.id === 'nature-to-form').blocks[2].caption = { en: 'x', fr: 'x' };
+  assert.ok(validateCaseFormat(other).some(e => e.includes('unknown field "caption" for text-image')), 'only image-pair and the blocks that have one take a caption');
+});
+
+test('layout rule mobile-pair-caption: a frame caption over 40 characters under mobile: "pair"', () => {
+  const cap = n => ({ en: 'x'.repeat(n), fr: 'y'.repeat(Math.max(0, n - 5)) });
+  const pair = (c1, c2, mobile = 'pair') => [{ type: 'image-pair', mobile, images: [frame('photo', 'tall', { caption: c1 }), frame('photo', 'tall', { caption: c2 })] }];
+  assert.deepEqual(rulesOf(pair(cap(40), cap(20))), [], 'up to 40 characters is fine');
+  assert.deepEqual(rulesOf(pair(cap(41), cap(20))), ['mobile-pair-caption']);
+  assert.deepEqual(rulesOf(pair({ en: 'short', fr: 'z'.repeat(45) }, cap(5))), ['mobile-pair-caption'], 'either language counts');
+  assert.deepEqual(rulesOf(pair(cap(80), cap(80), undefined).map(b => (delete b.mobile, b))), [], 'without mobile: pair nothing is said');
+  const d = layoutCase(pair(cap(60), cap(60)));
+  const msg = layoutIssues(d, manifestOf(d)).map(i => i.message).join(' ');
+  assert.match(msg, /one caption for the whole pair/);
+  const shared = layoutCase([{ type: 'image-pair', mobile: 'pair', caption: cap(200), images: [frame('photo', 'tall'), frame('photo', 'tall')] }]);
+  assert.deepEqual(layoutIssues(shared, manifestOf(shared)), [], 'a long caption of the block itself is the intended way');
+});
+
+test('the example page shows both pair captions: one for the pair, and two short frame captions', () => {
+  const pairs = examplePage.chapters.flatMap(ch => ch.blocks).filter(b => b.type === 'image-pair' && b.mobile === 'pair');
+  assert.ok(pairs.some(b => b.caption && b.images.every(i => !i.caption)), 'a pair with one shared caption');
+  assert.ok(pairs.some(b => !b.caption && b.images.every(i => i.caption && ['en', 'fr'].every(l => i.caption[l].length <= 40))), 'a pair with two short frame captions');
+  assert.deepEqual(caseWarnings(examplePage), []);
 });

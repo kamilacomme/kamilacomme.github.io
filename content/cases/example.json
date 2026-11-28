@@ -272,10 +272,6 @@
               "alt": {
                 "en": "Example frame: vertical frame, left of a pair",
                 "fr": "Cadre d’exemple : cadre vertical, à gauche d’une paire"
-              },
-              "caption": {
-                "en": "Placeholder caption: pair 6 + 6 of verticals, mobile: pair (two side by side on a phone).",
-                "fr": "Légende provisoire : paire 6 + 6 de verticales, mobile: pair (deux côte à côte sur téléphone)."
               }
             },
             {
@@ -286,7 +282,39 @@
               }
             }
           ],
-          "mobile": "pair"
+          "mobile": "pair",
+          "caption": {
+            "en": "Placeholder caption: one caption for the whole pair, 6 columns on a tablet and desktop, the full width on a phone. The pair is mobile: pair, two verticals side by side.",
+            "fr": "Légende provisoire : une seule légende pour toute la paire, 6 colonnes sur tablette et ordinateur, toute la largeur sur téléphone. La paire est mobile: pair, deux verticales côte à côte."
+          }
+        },
+        {
+          "type": "image-pair",
+          "mobile": "pair",
+          "images": [
+            {
+              "src": "example-nature-to-form-photo-front-face",
+              "alt": {
+                "en": "Example frame: vertical frame with a short caption",
+                "fr": "Cadre d’exemple : cadre vertical avec une légende courte"
+              },
+              "caption": {
+                "en": "Short caption, left.",
+                "fr": "Légende courte, gauche."
+              }
+            },
+            {
+              "src": "example-nature-to-form-photo-in-roots",
+              "alt": {
+                "en": "Example frame: vertical frame with a short caption",
+                "fr": "Cadre d’exemple : cadre vertical avec une légende courte"
+              },
+              "caption": {
+                "en": "Short caption, right.",
+                "fr": "Légende courte, droite."
+              }
+            }
+          ]
         },
         {
           "type": "text-image",

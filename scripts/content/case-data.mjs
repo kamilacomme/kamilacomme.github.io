@@ -3,7 +3,7 @@
 import { readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { IMAGE_WIDTHS, imageNames, validateCaseFormat, validateCaseIndexRecord, validateCasePublication } from './validate-case-data.mjs';
+import { IMAGE_WIDTHS, caseWarnings, imageNames, validateCaseFormat, validateCaseIndexRecord, validateCasePublication } from './validate-case-data.mjs';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -41,6 +41,7 @@ export async function publicationErrors(data) {
 /** content:check: structure for every case; the publication gate only for status "publish". */
 export async function checkCases() {
   const errors = [];
+  const warnings = [];
   const summary = { draft: 0, publish: 0, preview: 0 };
   for (const { record, data } of await loadCases()) {
     if (!record.file) {
@@ -49,8 +50,9 @@ export async function checkCases() {
       continue;
     }
     errors.push(...validateCaseIndexRecord(record), ...validateCaseFormat(data, { id: record.id }));
+    warnings.push(...caseWarnings(data));
     if (record.status === 'publish') errors.push(...await publicationErrors(data));
     summary[record.status] = (summary[record.status] ?? 0) + 1;
   }
-  return { errors, summary };
+  return { errors, warnings, summary };
 }

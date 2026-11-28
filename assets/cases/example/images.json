@@ -263,6 +263,22 @@
         842
       ]
     },
+    "example-nature-to-form-photo-front-face": {
+      "width": 1122,
+      "height": 1402,
+      "widths": [
+        640,
+        1024
+      ]
+    },
+    "example-nature-to-form-photo-in-roots": {
+      "width": 888,
+      "height": 1134,
+      "widths": [
+        640,
+        888
+      ]
+    },
     "example-nature-to-form-sketch-configs": {
       "width": 1591,
       "height": 989,

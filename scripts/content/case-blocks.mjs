@@ -210,7 +210,10 @@ export function createBlockRenderer({ caseId, chapterIds = [], locale, manifest 
       const probe = block.images.map(image => dimsOf(image, mainName(image)));
       const flags = rowFlags(block.images, probe);
       const cells = block.images.map(image => figure(image, sizesOf(image, block.mobile === 'pair' ? '50vw' : '(min-width: 500px) 50vw, 100vw'), '', { cap: flags.uneq }));
-      return `<div class="kc-case-pair kc-case-cols"${block.mobile === 'pair' ? ' data-mobile="pair"' : ''}${flags.attrs} style="--shared:${sharedRatio(cells.map(c => c.dims))};${flags.uneq ? '' : capStyle(capOf(block.images))}${flags.style}">${cells.map(c => c.html).join('')}</div>`;
+      const pair = `<div class="kc-case-pair kc-case-cols"${block.mobile === 'pair' ? ' data-mobile="pair"' : ''}${flags.attrs} style="--shared:${sharedRatio(cells.map(c => c.dims))};${flags.uneq ? '' : capStyle(capOf(block.images))}${flags.style}">${cells.map(c => c.html).join('')}</div>`;
+      // One caption for the whole pair, drawn once under it (6 columns on a tablet and desktop, the full width on a phone).
+      const shared = text(block.caption, 'p', 'kc-case-caption kc-case-pair-caption', 'kc-case-caption');
+      return shared ? `<div class="kc-case-stack kc-case-stack--caption kc-case-cols">${pair}${shared}</div>` : pair;
     },
 
     'ai-episode'(block) {

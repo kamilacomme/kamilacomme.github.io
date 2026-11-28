@@ -309,10 +309,13 @@
   .kc-case-split > .kc-case-copy, .kc-case-split > .kc-case-cell { grid-column: 1 / -1; }
 }
 
-/* Text under a row of frames (sequence, outcome-montage, logo-showcase, palette-swatches): 6 columns from 40rem. */
-.kc-case-stack > .kc-case-text { grid-column: span var(--tsp, 12); }
-@container (min-width: 40rem) { .kc-case-stack > .kc-case-text { grid-column: span var(--tsp, 6); } }
-@container (max-width: 29.99rem) { .kc-case-stack > .kc-case-text { grid-column: 1 / -1; } }
+/* Text under a row of frames (sequence, outcome-montage, logo-showcase, palette-swatches) and the one caption of an
+   image-pair: 6 columns from 40rem, the full width below. The pair's caption sits as close as a frame's own caption:
+   no row gap, its own top margin (.kc-case-caption). */
+.kc-case-stack > :is(.kc-case-text, .kc-case-caption) { grid-column: span var(--tsp, 12); }
+@container (min-width: 40rem) { .kc-case-stack > :is(.kc-case-text, .kc-case-caption) { grid-column: span var(--tsp, 6); } }
+@container (max-width: 29.99rem) { .kc-case-stack > :is(.kc-case-text, .kc-case-caption) { grid-column: 1 / -1; } }
+.kc-case-stack--caption { row-gap: 0; }
 
 /* sequence, detail-grid, outcome-montage (.kc-case-rowgrid) and the logos of logo-showcase: one scheme, data-n =
    number of frames. Defaults: --d from 50rem (up to four in a row; five and six make rows of three, seven and

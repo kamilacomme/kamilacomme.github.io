@@ -96,4 +96,7 @@ for (const project of data.projects) {
 const cases = await checkCases();
 if (cases.errors.length) throw new Error(`Case content is invalid:\n- ${cases.errors.join('\n- ')}`);
 
+// Warnings never fail the check (e.g. an image-pair with a caption of its own and captions on its frames).
+for (const warning of cases.warnings) console.warn(`Warning: ${warning}`);
+
 console.log(`Content valid: ${data.projects.length} projects, ${about.cards.length} About cards, ${layouts.length} layouts, ${locales.length} locales; canonical order and all ${baseline.assetFiles.length} asset hashes verified; cases: ${cases.summary.publish} to publish, ${cases.summary.draft} draft, ${cases.summary.preview} preview route.`);
